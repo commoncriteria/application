@@ -1,0 +1,974 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    XML schema for CC protection profiles
+    Author: Dennis Orth
+    Version: V0.1, 14.10.2013
+-->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" version="0.1"
+    targetNamespace="http://secure.tuvit.de/schemata/" elementFormDefault="qualified"
+    attributeFormDefault="unqualified" xmlns:cc="http://secure.tuvit.de/schemata/">
+
+    <xs:include schemaLocation="ProtectionProfile_contentTypes.xsd"/>
+	<xs:include namespace="http://www.w3.org/1999/xhtml"
+      schemaLocation="http://www.w3.org/2002/08/xhtml/xhtml1-strict.xsd"/>
+
+    <xs:element name="PP">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="content">
+                    <xs:annotation>
+                        <xs:documentation>The content element basically contains all written chapters.</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="RevisionHistory">
+                                <xs:annotation>
+                                    <xs:documentation>Contains any number of entry elements which each have a version, date and subject element. It is transformed into a table with three columns.</xs:documentation>
+                                </xs:annotation>
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="entry">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element name="version" type="xs:string"/>
+                                                  <xs:element name="date" type="xs:date"/>
+                                                  <xs:element name="subject" type="cc:contentType"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element ref="cc:chapter" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="APE_INT" type="cc:APE_INTType" minOccurs="1"/>
+                            <xs:element name="APE_CCL" type="cc:APE_CCLType" minOccurs="1"/>
+                            <xs:element name="APE_SPD" type="cc:APE_SPDType" minOccurs="1"/>
+                            <xs:element name="APE_OBJ" type="cc:APE_OBJType" minOccurs="1"/>
+                            <xs:element name="APE_ECD" type="cc:APE_ECDType" minOccurs="0"/>
+                            <xs:element name="APE_REQ" type="cc:APE_REQType" minOccurs="1"/>
+                            <xs:element ref="cc:chapter" minOccurs="0" maxOccurs="unbounded"/>
+                            <xs:element name="glossary" type="cc:glossaryType" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>This element contains entries with terms and corresponding descriptions. It is transformed into a Latex table with two columns.</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element name="bibliography" type="cc:bibliographyType" minOccurs="0">
+                                <xs:annotation>
+                                    <xs:documentation>This element contains bibliography entries which have an unique ID, a tag element and a description element. In the content type you can use the cite element to refer to one of these entries.</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                            <xs:element minOccurs="0" name="abbreviations"
+                                type="cc:abbreviationsType">
+                                <xs:annotation>
+                                    <xs:documentation>This element contains abbreviation entries which have an unique ID, a tag element and a description element. In the content type you can use the **** element to refer to one of these entries.</xs:documentation>
+                                </xs:annotation>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="OSPs" type="cc:OSPType">
+                    <xs:annotation>
+                        <xs:documentation>In this element all Organizational Security Policies are defined.
+</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="threats" type="cc:threatsType">
+                    <xs:annotation>
+                        <xs:documentation>In this element all threats are defined.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="assumptions" type="cc:assumptionsType">
+                    <xs:annotation>
+                        <xs:documentation>In this element all assumptions are defined.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="SOs" minOccurs="1" type="cc:SOType">
+                    <xs:annotation>
+                        <xs:documentation>In this element all Security Objectives are defined.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="SOEs" minOccurs="1" type="cc:SOEType">
+                    <xs:annotation>
+                        <xs:documentation>In this element all Security Objectives for the operational
+environment are defined.
+An reference to a component is not provided for this kind of objectives.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="ExtSFRs" type="cc:ExtSFRsType">
+                    <xs:annotation>
+                        <xs:documentation>In this element all Extended Security Functional Requirements are defined. (Extended Components Definition)</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="ExtSARs" type="cc:ExtSARsType">
+                    <xs:annotation>
+                        <xs:documentation>In this element all Extended Security Assurance Requirements are defined.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="SFRs" type="cc:SFRsType">
+                    <xs:annotation>
+                        <xs:documentation>In this element all Security Functional Requirements are defined.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="SARs" type="cc:SARsType" minOccurs="0">
+                    <xs:annotation>
+                        <xs:documentation>In this element all Security Assurance Requirements are defined.</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+            </xs:sequence>
+            <xs:attribute name="name" type="xs:string" use="required"/>
+            <xs:attribute name="image" type="xs:string" use="required"/>
+        </xs:complexType>
+        <xs:key name="objective">
+            <xs:annotation>
+                <xs:documentation>All security objectives and security objectives for the operational environment must hold an unqiue key for references.</xs:documentation>
+            </xs:annotation>
+            <xs:selector xpath="cc:SOs/cc:SO|cc:SOEs/cc:SOE"/>
+            <xs:field xpath="@id"/>
+        </xs:key>
+        <xs:key name="component-id">
+            <xs:annotation>
+                <xs:documentation>All components of the security functional requirements must hold an unique key for references.</xs:documentation>
+            </xs:annotation>
+            <xs:selector xpath="cc:SFRs/cc:class/cc:component"/>
+            <xs:field xpath="@id"/>
+        </xs:key>
+        <xs:keyref name="T-O-refer" refer="cc:objective">
+            <xs:annotation>
+                <xs:documentation>Every threat must have an objective-refer element which contains a reference to an objective.</xs:documentation>
+            </xs:annotation>
+            <xs:selector xpath="cc:threats/cc:threat/cc:objective-refer"/>
+            <xs:field xpath="@ref"/>
+        </xs:keyref>
+        <xs:keyref name="A-O-refer" refer="cc:objective">
+            <xs:annotation>
+                <xs:documentation>Every assumption must have an objective-refer element which contains a reference to an objective (only SOE).</xs:documentation>
+            </xs:annotation>
+            <xs:selector xpath="cc:assumptions/cc:assumption/cc:objective-refer"/>
+            <xs:field xpath="@ref"/>
+        </xs:keyref>
+        <xs:keyref name="P-O-refer" refer="cc:objective">
+            <xs:annotation>
+                <xs:documentation>Every OSP must have an objective-refer element which contains a reference to an objective.</xs:documentation>
+            </xs:annotation>
+            <xs:selector xpath="cc:OSPs/cc:OSP/cc:objective-refer"/>
+            <xs:field xpath="@ref"/>
+        </xs:keyref>
+        <xs:keyref name="component-ref" refer="cc:component-id">
+            <xs:annotation>
+                <xs:documentation>Every Security Objective (but not SOE) must have an component-refer element which contains a reference to an component.</xs:documentation>
+            </xs:annotation>
+            <xs:selector xpath="cc:SOs/cc:SO/cc:component-refer"/>
+            <xs:field xpath="@ref"/>
+        </xs:keyref>
+
+
+    </xs:element>
+    <xs:complexType name="APE_INTType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">PP Introduction: 
+This is a extended chapter type which requires an PPReference element at the beginning.</xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="cc:chapterType">
+                <xs:sequence>
+                    <xs:element name="PPReference">
+                        <xs:annotation>
+                            <xs:documentation>This element must contain a reference table PP reference, which provides identification material for the PP such as "Version", "Author" ... . This should be used by the script.</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="cc:sectionType">
+                                    <xs:sequence>
+                                        <xs:element name="ReferenceTable">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                  <xs:element name="PPTitle" type="xs:string"/>
+                                                  <xs:element name="PPVersion" type="xs:string"/>
+                                                  <xs:element name="PPAuthor" type="xs:string"/>
+                                                  <xs:element name="PPPubDate" type="xs:string"/>
+                                                  <xs:element minOccurs="0" name="PPDeveloper"
+                                                  type="xs:string"/>
+                                                  <xs:element name="PPCertificationID"
+                                                  type="xs:string"/>
+                                                  <xs:element name="CCVersion" type="xs:string"/>
+                                                  <xs:element name="Keywords" type="xs:string"/>
+                                                  <xs:element maxOccurs="unbounded" minOccurs="0"
+                                                  name="entry">
+                                                  <xs:annotation>
+                                                  <xs:documentation>Here the author can insert new entries for the reference table. These should be noted by the script.</xs:documentation>
+                                                  </xs:annotation>
+                                                  <xs:complexType>
+                                                  <xs:sequence>
+                                                  <xs:element name="name" type="xs:string"/>
+                                                  <xs:element name="description" type="xs:string"/>
+                                                  </xs:sequence>
+                                                  </xs:complexType>
+                                                  </xs:element>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:choice maxOccurs="unbounded" minOccurs="0">
+                                            <xs:element ref="cc:subsection"/>
+                                            <xs:element ref="cc:para"/>
+                                        </xs:choice>
+                                    </xs:sequence>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:choice maxOccurs="unbounded" minOccurs="0">
+                        <xs:element ref="cc:section"/>
+                        <xs:element ref="cc:para"/>
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="APE_CCLType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">Conformance Claim Chapter
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="cc:chapterType">
+                <xs:sequence>
+                    <xs:element name="ConformanceStatement">
+                        <xs:annotation>
+                            <xs:documentation>The script should insert here an section with the title "Conformance statement" with the sentence "The PP requires [strict|demonstrable] conformance of any PPs/STs to this PP." whereby the choice in the XML element is inserted.
+
+The statement states how STs and/or other PPs must conform to that PP. The PP author selects whether "strict" or demonstrable" conformance is required.</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:choice>
+                                <xs:element name="strict"/>
+                                <xs:element name="demonstrable"/>
+                            </xs:choice>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="1" name="CCConformanceClaim" type="cc:sectionType">
+                        <xs:annotation>
+                            <xs:documentation>CC Conformance Claim indicates the source of the collection of requirements that is met by a PP or ST that passes its evaluation. </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:choice maxOccurs="unbounded" minOccurs="0">
+                        <xs:element ref="cc:section"/>
+                        <xs:element ref="cc:para"/>
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="APE_SPDType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">Security Problem Definition: 
+* Threats 
+* Organisational security polices 
+* Assumptions 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="cc:chapterType">
+                <xs:sequence>
+                    <xs:element minOccurs="1" name="AssumptionsSec">
+                        <xs:annotation>
+                            <xs:documentation>At the place of the insert_Assumptions element, the defined assumptions are placed in an appropriate format by the script.</xs:documentation>
+                        </xs:annotation>
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="cc:sectionType">
+                                    <xs:sequence>
+                                        <xs:element minOccurs="1" name="AssumptionsPlacement">
+                                            <xs:annotation>
+                                                <xs:documentation>Here, the assumptions should be placed by the script.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:choice maxOccurs="unbounded" minOccurs="0">
+                                            <xs:element ref="cc:subsection"/>
+                                            <xs:element ref="cc:para"/>
+                                            <xs:element ref="cc:figure"/>
+                                        </xs:choice>
+                                    </xs:sequence>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+
+                    <xs:element minOccurs="1" name="ThreatsSec">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="cc:sectionType">
+                                    <xs:sequence>
+                                        <xs:element minOccurs="1" name="ThreatsPlacement">
+                                            <xs:annotation>
+                                                <xs:documentation>Here, the threats should be placed by the script.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:choice maxOccurs="unbounded" minOccurs="0">
+                                            <xs:element ref="cc:subsection"/>
+                                            <xs:element ref="cc:para"/>
+                                            <xs:element ref="cc:figure"/>
+                                        </xs:choice>
+                                    </xs:sequence>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+
+                    <xs:element minOccurs="1" name="OSPsSec">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="cc:sectionType">
+                                    <xs:sequence>
+                                        <xs:element minOccurs="1" name="OSPsPlacement">
+                                            <xs:annotation>
+                                                <xs:documentation>Here, the OSPs should be placed by the script.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:choice maxOccurs="unbounded" minOccurs="0">
+                                            <xs:element ref="cc:subsection"/>
+                                            <xs:element ref="cc:para"/>
+                                            <xs:element ref="cc:figure"/>
+                                        </xs:choice>
+                                    </xs:sequence>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:choice maxOccurs="unbounded" minOccurs="0">
+                        <xs:element ref="cc:section"/>
+                        <xs:element ref="cc:para"/>
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="APE_OBJType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">Security Objectives: 
+* Security objectives for the operational environment 
+	-high-level, natural language solution of problem 
+	-part wise solutions 
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="cc:chapterType">
+                <xs:sequence>
+                    <xs:element minOccurs="1" name="SOSec">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="cc:sectionType">
+                                    <xs:sequence>
+                                        <xs:element minOccurs="1" name="SOsPlacement">
+                                            <xs:annotation>
+                                                <xs:documentation>Here, the SOs should be placed by the script.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:choice maxOccurs="unbounded" minOccurs="0">
+                                            <xs:element ref="cc:subsection"/>
+                                            <xs:element ref="cc:para"/>
+                                            <xs:element ref="cc:figure"/>
+                                        </xs:choice>
+                                    </xs:sequence>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="1" name="SOESec">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="cc:sectionType">
+                                    <xs:sequence>
+                                        <xs:element minOccurs="1" name="SOEsPlacement">
+                                            <xs:annotation>
+                                                <xs:documentation>Here, the SOEs should be placed by the script.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:choice maxOccurs="unbounded" minOccurs="0">
+                                            <xs:element ref="cc:subsection"/>
+                                            <xs:element ref="cc:para"/>
+                                            <xs:element ref="cc:figure"/>
+                                        </xs:choice>
+                                    </xs:sequence>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element minOccurs="1" name="SORationale">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="cc:sectionType">
+                                    <xs:sequence>
+                                        <xs:element minOccurs="1" name="SORationalePlacement">
+                                            <xs:annotation>
+                                                <xs:documentation>Here, the SO Rationale should be placed by the script.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:choice maxOccurs="unbounded" minOccurs="0">
+                                            <xs:element ref="cc:subsection"/>
+                                            <xs:element ref="cc:para"/>
+                                            <xs:element ref="cc:figure"/>
+                                        </xs:choice>
+                                    </xs:sequence>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:choice maxOccurs="unbounded" minOccurs="0">
+                        <xs:element ref="cc:section"/>
+                        <xs:element ref="cc:para"/>
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="APE_ECDType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">Extended components definition (optional)
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="cc:chapterType">
+                <xs:sequence>
+                    <xs:element minOccurs="1" name="ECDPlacement">
+                        <xs:annotation>
+                            <xs:documentation>Here, the Extended Component Definitions should be placed by the script.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:choice maxOccurs="unbounded" minOccurs="0">
+                        <xs:element ref="cc:section"/>
+                        <xs:element ref="cc:para"/>
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="APE_REQType">
+        <xs:annotation>
+            <xs:documentation xml:lang="en"> 
+                Security Requirements: 
+                *Security functional requirements 
+                *Security assurance requirements 
+                *Security requirements rationale
+            </xs:documentation>
+        </xs:annotation>
+        <xs:complexContent>
+            <xs:extension base="cc:chapterType">
+                <xs:sequence>
+                    <xs:element name="SFRSec">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="cc:sectionType">
+                                    <xs:sequence>
+                                        <xs:element name="SFR_overviewPlacement">
+                                            <xs:annotation>
+                                                <xs:documentation>Here, the SFR Table should be placed by the script.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:element name="ConventionsPlacement">
+                                            <xs:annotation>
+                                                <xs:documentation>Here, the conventions for SFR descriptions should be placed by the script.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:choice maxOccurs="unbounded" minOccurs="0">
+                                            <xs:element ref="cc:subsection"/>
+                                            <xs:element ref="cc:para"/>
+                                            <xs:element ref="cc:figure"/>
+                                        </xs:choice>
+                                        <xs:element name="SFRsPlacement">
+                                            <xs:annotation>
+                                                <xs:documentation>Here, the SFRs should be placed by the script.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:choice maxOccurs="unbounded" minOccurs="0">
+                                            <xs:element ref="cc:subsection"/>
+                                            <xs:element ref="cc:para"/>
+                                            <xs:element ref="cc:figure"/>
+                                        </xs:choice>
+                                    </xs:sequence>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="SARSec">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="cc:sectionType">
+                                    <xs:sequence>
+                                        <xs:element name="SAR_overviewPlacement"/>
+                                        <xs:choice maxOccurs="unbounded" minOccurs="0">
+                                            <xs:element ref="cc:subsection"/>
+                                            <xs:element ref="cc:para"/>
+                                            <xs:element ref="cc:figure"/>
+                                        </xs:choice>
+                                    </xs:sequence>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:element name="RationaleSec">
+                        <xs:complexType>
+                            <xs:complexContent>
+                                <xs:extension base="cc:sectionType">
+                                    <xs:sequence>
+                                        <xs:element name="SFRRationalePlacement">
+                                            <xs:annotation>
+                                                <xs:documentation>Here, the SFR rationale should be placed by the script.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:choice maxOccurs="unbounded" minOccurs="0">
+                                            <xs:element ref="cc:subsection"/>
+                                            <xs:element ref="cc:para"/>
+                                            <xs:element ref="cc:figure"/>
+                                        </xs:choice>
+                                        <xs:element name="dependency_rationalePlacement">
+                                            <xs:annotation>
+                                                <xs:documentation>Here, the dependency rationale should be placed by the script.</xs:documentation>
+                                            </xs:annotation>
+                                        </xs:element>
+                                        <xs:choice maxOccurs="unbounded" minOccurs="0">
+                                            <xs:element ref="cc:subsection"/>
+                                            <xs:element ref="cc:para"/>
+                                            <xs:element ref="cc:figure"/>
+                                        </xs:choice>
+                                    </xs:sequence>
+                                </xs:extension>
+                            </xs:complexContent>
+                        </xs:complexType>
+                    </xs:element>
+                    <xs:choice maxOccurs="unbounded" minOccurs="0">
+                        <xs:element ref="cc:section"/>
+                        <xs:element ref="cc:para"/>
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <!-- Security Requirements for the TOE -->
+
+    <!-- ****************** -->
+    <!-- Mandatory Chapters -->
+    <!-- The Security Target top-level element -->
+    <xs:complexType name="assumptionsType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="assumption">
+                <xs:annotation>
+                    <xs:documentation>An assumption elenment has an unique ID, a description and a reference to an objective (must be only SOE!).
+ID Format: "A. "</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="description" type="cc:contentType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="objective-refer">
+                            <xs:annotation>
+                                <xs:documentation>The reference must have a rationale.
+In addition, the reference ID is restricted to "OE. "</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="rationale" type="cc:contentType">
+                                        <xs:annotation>
+                                            <xs:documentation>Here the reference is reasoned.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                </xs:sequence>
+                                <xs:attribute name="ref" use="required">
+                                    <xs:simpleType>
+                                        <xs:restriction base="xs:IDREF">
+                                            <xs:pattern value="OE\..*"/>
+                                        </xs:restriction>
+                                    </xs:simpleType>
+                                </xs:attribute>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="appnote" type="cc:contentType"
+                            maxOccurs="unbounded"/>
+                    </xs:sequence>
+                    <xs:attribute name="id" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:ID">
+                                <xs:pattern value="A\..*"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="threatsType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="threat">
+                <xs:annotation>
+                    <xs:documentation>A threat element has an unqiue ID, a description and a reference to an objective.
+ID Format: "T. "</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="description" type="cc:contentType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="objective-refer">
+                            <xs:annotation>
+                                <xs:documentation>The reference must have a rationale.</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="rationale" type="cc:contentType">
+                                        <xs:annotation>
+                                            <xs:documentation>Here the reference is reasoned.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                </xs:sequence>
+                                <xs:attribute name="ref" type="xs:IDREF" use="required"/>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="appnote" type="cc:contentType"
+                            maxOccurs="unbounded"/>
+                    </xs:sequence>
+                    <xs:attribute name="id" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:ID">
+                                <xs:pattern value="T\..*"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="OSPType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="OSP">
+                <xs:annotation>
+                    <xs:documentation>An OSP element has an unique ID, a description and a reference to an objective.
+ID Format: "P. "</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="description" type="cc:contentType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="objective-refer">
+                            <xs:annotation>
+                                <xs:documentation>The reference must have a rationale.</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="rationale" type="cc:contentType">
+                                        <xs:annotation>
+                                            <xs:documentation>Here the reference is reasoned.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                </xs:sequence>
+                                <xs:attribute name="ref" type="xs:IDREF" use="required"/>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="appnote" type="cc:contentType"
+                            maxOccurs="unbounded"/>
+                    </xs:sequence>
+                    <xs:attribute name="id" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:ID">
+                                <xs:pattern value="P\..*"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SOType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="SO">
+                <xs:annotation>
+                    <xs:documentation>An SO element has an unique ID, a description and a reference to an component.
+ID Format: "O. "</xs:documentation>
+                </xs:annotation>
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="description" type="cc:contentType"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="1" name="component-refer">
+                            <xs:annotation>
+                                <xs:documentation>The reference must have a rationale.</xs:documentation>
+                            </xs:annotation>
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="rationale" type="cc:contentType">
+                                        <xs:annotation>
+                                            <xs:documentation>Here the reference is reasoned.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:element>
+                                </xs:sequence>
+                                <xs:attribute name="ref" type="xs:IDREF" use="required"/>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element minOccurs="0" name="appnote" type="cc:contentType"
+                            maxOccurs="unbounded"/>
+                    </xs:sequence>
+                    <xs:attribute name="id" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:ID">
+                                <xs:pattern value="O\..*"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SOEType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="SOE">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="description" type="cc:contentType"/>
+                        <xs:element minOccurs="0" name="appnote" type="cc:contentType"
+                            maxOccurs="unbounded"/>
+                    </xs:sequence>
+                    <xs:attribute name="id" use="required">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:ID">
+                                <xs:pattern value="OE\..*"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ExtSFRsType">
+        <xs:choice maxOccurs="unbounded" minOccurs="0">
+            <xs:element name="f-class" type="cc:fclassType"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="ExtSARsType">
+        <xs:choice maxOccurs="unbounded" minOccurs="0">
+            <xs:element name="a-class" type="cc:aclassType"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="fclassType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="f-family" type="cc:ffamilyType"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="aclassType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="a-family" type="cc:afamilyType"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="ffamilyType">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="ff-behaviour" type="cc:contentType"/>
+            <xs:element maxOccurs="unbounded" name="f-component" type="cc:newf-componentType"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="afamilyType">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="ff-behaviour" type="cc:contentType"/>
+            <xs:element maxOccurs="unbounded" name="a-component" type="cc:newa-componentType"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="fco-hierarchicalType">
+        <xs:attribute name="fcomponent" type="xs:string" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="aco-hierarchicalType">
+        <xs:attribute name="acomponent" type="xs:string" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="fco-dependenciesType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="fco-or">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0"
+                            name="fco-dependsoncomponent">
+                            <xs:complexType>
+                                <xs:attribute name="fcomponent" type="xs:string" use="required"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="fco-dependsoncomponent">
+                <xs:complexType>
+                    <xs:attribute name="fcomponent" type="xs:string" use="required"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType mixed="true" name="f-elementType">
+        <xs:choice maxOccurs="unbounded" minOccurs="0">
+            <xs:element name="fe-assignment" type="cc:fe-assignmentType"/>
+            <xs:element name="fe-selection" type="cc:fe-selectionType"/>
+            <xs:element name="fe-list">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="fe-item">
+                            <xs:complexType mixed="true">
+                                <xs:choice maxOccurs="unbounded" minOccurs="0">
+                                    <xs:element name="fe-selection" type="cc:fe-selectionType"/>
+                                    <xs:element name="fe-assignment" type="cc:fe-assignmentType"/>
+                                </xs:choice>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="f-elementCompletedType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="assignment" type="cc:contentType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="selection" type="cc:contentType"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="newf-componentType">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="fco-hierarchical" type="cc:fco-hierarchicalType"/>
+            <xs:element minOccurs="0" name="fco-dependencies" type="cc:fco-dependenciesType"/>
+            <xs:element minOccurs="0" name="fco-levelling" type="cc:contentType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="fco-management"
+                type="cc:contentType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="fco-audit">
+                <xs:complexType mixed="true">
+                    <xs:attribute name="level" type="xs:string" use="required"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" name="f-element">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="cc:f-elementType">
+                            <xs:attribute name="id" type="xs:ID" use="required"/>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="id" type="xs:NCName" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="newa-componentType">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="aco-hieararchical" type="cc:aco-hierarchicalType"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="aco-dependsoncomponent">
+                <xs:complexType>
+                    <xs:attribute name="acomponent" type="xs:string" use="required"/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" name="ae-developer">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="cc:contentType">
+                            <xs:attribute name="id" type="xs:NCName" use="required"/>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" name="ae-content">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="cc:contentType">
+                            <xs:attribute name="id" type="xs:NCName" use="required"/>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element maxOccurs="unbounded" name="ae-evaluator">
+                <xs:complexType>
+                    <xs:complexContent>
+                        <xs:extension base="cc:contentType">
+                            <xs:attribute name="id" type="xs:NCName" use="required"/>
+                        </xs:extension>
+                    </xs:complexContent>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="id" type="xs:NCName" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="fe-assignmentType">
+        <xs:sequence>
+            <xs:element name="fe-assignmentitem" type="cc:contentType"/>
+        </xs:sequence>
+        <xs:attribute name="number" type="xs:positiveInteger" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="fe-selectionType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="fe-selectionitem" type="cc:contentType"/>
+        </xs:sequence>
+        <xs:attribute name="exclusive" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:pattern value="YES"/>
+                    <xs:pattern value="NO"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="number" type="xs:positiveInteger" use="required"/>
+    </xs:complexType>
+    <xs:complexType mixed="true" name="fe-selectionCompletedType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="selectionitem">
+                <xs:complexType mixed="true">
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="assignment"
+                            type="cc:contentType"/>
+                    </xs:sequence>
+                    <xs:attribute name="isChecked">
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="true"/>
+                                <xs:enumeration value="false"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:attribute>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="fcomponentType">
+        <xs:sequence>
+            <xs:choice maxOccurs="unbounded">
+                <xs:element maxOccurs="1" name="f-element" type="cc:f-elementCompletedType"
+                    minOccurs="1"/>
+                <xs:element minOccurs="1" name="f-element_refined" type="cc:contentType"/>
+            </xs:choice>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="appnote" type="cc:contentType"/>
+            <xs:element name="dependency_rationale" type="cc:contentType"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:ID" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="SFRsType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="class">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="component" type="cc:fcomponentType"
+                        />
+                    </xs:sequence>
+                    <xs:attribute name="id" type="xs:string" use="required"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="SARsType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" name="class">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="component">
+                            <xs:complexType>
+                                <xs:attribute name="id" type="xs:string" use="required"/>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="id" type="xs:string" use="required"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

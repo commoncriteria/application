@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cc="http://secure.tuvit.de/schemata/"
+    targetNamespace="http://secure.tuvit.de/schemata/" elementFormDefault="qualified">
+
+    <xs:element name="chapter" type="cc:chapterType">
+        <xs:annotation>
+            <xs:documentation>This is for beginning a chapter. It contains further sections, paragraphs or figures.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="section" type="cc:sectionType">
+        <xs:annotation>
+            <xs:documentation>This is for beginning a "\section". It is possible that other subsections follow here. (Nested subsections). </xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="subsection" type="cc:subsectionType">
+        <xs:annotation>
+            <xs:documentation>This is for beginning a "\subsection".</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="subsubsection" type="cc:subsubsectionType">
+        <xs:annotation>
+            <xs:documentation>This is for beginning a "\subsubsection".</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="minisection" type="cc:minisectionType">
+        <xs:annotation>
+            <xs:documentation>This is for beginning a "\minisection".</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="para" type="cc:paraType">
+        <xs:annotation>
+            <xs:documentation>This element allows basically allows the same content like contentType. The reason is that we want to allow to separate our text into paragraphs.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="list" type="cc:listType">
+        <xs:annotation>
+            <xs:documentation>Used to insert a list.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="enumeration" type="cc:enumerationType">
+        <xs:annotation>
+            <xs:documentation>Used to insert a enumeration.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="item" type="cc:itemType">
+        <xs:annotation>
+            <xs:documentation>An entry of an enumeration is represented by this element. It can contain further elements for inserting more content which is rational at this place. For example, it is not possible to insert a table in the enumeration.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="figure" type="cc:figureType">
+        <xs:annotation>
+            <xs:documentation>This is for inserting a pictures into the document. There are several attributes needed such as width and height.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="ref" type="cc:refType">
+        <xs:annotation>
+            <xs:documentation>The IDREF of this element shall contain an ID of an label. Chapters, sections, figures and so on are labeled.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="cite" type="cc:citeType">
+        <xs:annotation>
+            <xs:documentation>The IDREF attribute of this element shall contain an ID of a bibliography entry.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="acronym" type="cc:acronymType">
+        <xs:annotation>
+            <xs:documentation>The IDREF attribute of this element shall contain an ID of a abbreviation entry.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="assignment" type="cc:contentType">
+        <xs:annotation>
+            <xs:documentation>Contains the text of an assignment in an SFR.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="refinement" type="cc:contentType">
+        <xs:annotation>
+            <xs:documentation>Contains the text of an refinement in an SFR.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:element name="appnote" type="cc:contentType">
+        <xs:annotation>
+            <xs:documentation>Contains the text of an application note in an SFR.</xs:documentation>
+        </xs:annotation>
+    </xs:element>
+    <xs:complexType name="refType">
+        <xs:attribute name="ref" type="xs:IDREF" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="citeType">
+        <xs:attribute name="id" type="xs:IDREF" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="acronymType">
+        <xs:attribute name="id" type="xs:IDREF" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="chapterType">
+        <xs:sequence>
+            <xs:choice maxOccurs="unbounded" minOccurs="0">
+                <xs:element ref="cc:section"/>
+                <xs:element ref="cc:para"/>
+                <xs:element ref="cc:figure"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="title" type="xs:string" use="required"/>
+        <xs:attribute name="label" type="xs:ID" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="sectionType">
+        <xs:sequence>
+            <xs:choice maxOccurs="unbounded" minOccurs="0">
+                <xs:element ref="cc:subsection"/>
+                <xs:element ref="cc:para"/>
+                <xs:element ref="cc:figure"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="title" type="xs:string" use="required"/>
+        <xs:attribute name="label" type="xs:ID" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="subsectionType">
+        <xs:sequence>
+            <xs:choice maxOccurs="unbounded" minOccurs="0">
+                <xs:element ref="cc:subsubsection"/>
+                <xs:element ref="cc:para"/>
+                <xs:element ref="cc:figure"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="title" type="xs:string" use="required"/>
+        <xs:attribute name="label" type="xs:ID" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="subsubsectionType">
+        <xs:sequence>
+            <xs:choice maxOccurs="unbounded" minOccurs="0">
+                <xs:element ref="cc:minisection"/>
+                <xs:element ref="cc:para"/>
+                <xs:element ref="cc:figure"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="title" type="xs:string" use="required"/>
+        <xs:attribute name="label" type="xs:ID" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="minisectionType">
+        <xs:sequence>
+            <xs:choice maxOccurs="unbounded" minOccurs="0">
+                <xs:element ref="cc:para"/>
+                <xs:element ref="cc:figure"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="title" type="xs:string" use="required"/>
+    </xs:complexType>
+    <xs:complexType mixed="true" name="contentType">
+        <xs:annotation>
+            <xs:documentation>In general this type is for sections with where you want to write text, insert images figures, tables and so on.
+It is a mixed type, so it can contain only plain text without any other elements or a mixture of all.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:choice maxOccurs="unbounded" minOccurs="0">
+                <xs:element ref="cc:para">
+                    <xs:annotation>
+                        <xs:documentation/>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element ref="cc:enumeration"/>
+                <xs:element ref="cc:list"/>
+                <xs:element ref="cc:deco"/>
+                <xs:element ref="cc:ref"/>
+                <xs:element ref="cc:cite"/>
+                <xs:element ref="cc:footnote"/>
+                <xs:element ref="cc:table"/>
+                <xs:element ref="cc:figure"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="listType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" ref="cc:item"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="enumerationType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" ref="cc:item"/>
+        </xs:sequence>
+        <xs:attribute name="type">
+            <xs:simpleType>                
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="alpha"/>
+                    <xs:enumeration value="roman"/>                    
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
+    <xs:complexType mixed="true" name="paraType">
+        <xs:sequence>
+            <xs:choice maxOccurs="unbounded" minOccurs="0">
+                <xs:element ref="cc:enumeration"/>
+                <xs:element ref="cc:list"/>
+                <xs:element ref="cc:deco"/>
+                <xs:element ref="cc:ref"/>
+                <xs:element ref="cc:cite"/>
+                <xs:element ref="cc:acronym"/>
+                <xs:element ref="cc:figure"/>
+                <xs:element ref="cc:footnote"/>
+                <xs:element ref="cc:table"/>
+            </xs:choice>
+        </xs:sequence>
+        <xs:attribute name="addmargin" type="xs:double"/>
+    </xs:complexType>
+    <xs:complexType mixed="true" name="itemType">
+        <xs:sequence>
+            <xs:choice maxOccurs="unbounded" minOccurs="0">
+                <xs:element ref="cc:deco"/>
+                <xs:element ref="cc:ref"/>
+                <xs:element ref="cc:cite"/>
+                <xs:element ref="cc:list"/>
+                <xs:element ref="cc:footnote"/>
+                <xs:element ref="cc:para"/>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="figureType">
+        <xs:attribute name="entity" type="xs:NCName" use="required"/>
+        <xs:attribute name="width" type="xs:positiveInteger" use="required"/>
+        <xs:attribute name="height" type="xs:positiveInteger" use="required"/>
+        <xs:attribute name="title" type="xs:string" use="required"/>
+        <xs:attribute name="label" type="xs:ID" use="required"/>
+    </xs:complexType>
+    <xs:complexType name="glossaryType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="term" type="xs:string"/>
+                        <xs:element name="description" type="cc:contentType"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="bibliographyType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="tag" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation>Is used later for the latex \cite command.</xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="description" type="cc:contentType"/>
+                    </xs:sequence>
+                    <xs:attribute name="id" type="xs:ID" use="required"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="abbreviationsType">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element name="tag" type="xs:string">
+                            <xs:annotation>
+                                <xs:documentation/>
+                            </xs:annotation>
+                        </xs:element>
+                        <xs:element name="description" type="cc:contentType"/>
+                    </xs:sequence>
+                    <xs:attribute name="id" type="xs:ID" use="required"/>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
