@@ -151,34 +151,6 @@
         The PP requires <xsl:choose><xsl:when test="cc:strict">strict</xsl:when><xsl:when test="cc:demonstrable">demonstrable</xsl:when></xsl:choose> conformance of any PPs/STs to this PP.        
     </xsl:template>
 
-  <xsl:template match="cc:CCConformanceClaim">
-    <h2 id="{@label}">
-      <xsl:value-of select="@title"/>
-    </h2>
-    <xsl:apply-templates/>
-  </xsl:template>
-
-  <xsl:template match="cc:AssumptionsSec">
-    <h1 id="{@label}">
-      <xsl:value-of select="@title"/>
-    </h1>
-    <xsl:apply-templates/>
-  </xsl:template>
-
-  <xsl:template match="cc:ThreatsSec">
-    <h2 id="{@label}">
-      <xsl:value-of select="@title"/>
-    </h2>
-    <xsl:apply-templates/>
-  </xsl:template>
-
-  <xsl:template match="cc:OSPsSec">
-    <h2 id="{@label}">
-      <xsl:value-of select="@title"/>
-    </h2>
-    <xsl:apply-templates/>
-  </xsl:template>
-
   <xsl:template match="cc:AssumptionsPlacement">
     <dl>
       <xsl:for-each select="//cc:assumptions/child::node()/cc:description">
@@ -305,7 +277,7 @@
       <xsl:value-of select="concat($chapter-num, ' ')"/>
       <xsl:value-of select="@title"/>
     </h1>
-    <xsl:apply-templates select="cc:section">
+    <xsl:apply-templates>
       <xsl:with-param name="section-prefix" select="$chapter-num"/>
     </xsl:apply-templates>
   </xsl:template>
