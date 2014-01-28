@@ -6,7 +6,7 @@
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:htm="http://www.w3.org/1999/xhtml" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:cc="http://secure.tuvit.de/schemata/" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   <!-- very important, for special characters and umlauts iso8859-1-->
-  <xsl:output method="xml" encoding="UTF-8" indent="yes"/>
+  <xsl:output method="html" encoding="UTF-8" indent="yes"/>
   <!-- Variable contains the root element of the processed document -->
   <xsl:variable name="currentfile" select="current()"/>
   <!-- An XML representation of CC part 2, which has all of its SFRs. -->
@@ -109,7 +109,7 @@
       <xsl:value-of select="$section-prefix"/>
       <xsl:value-of select="$section-num"/>
       <xsl:text>. </xsl:text>
-      <a class="toc" href="#{@label}">
+      <a class="toc" href="#{@id}">
         <xsl:value-of select="@title"/>
       </a>
     </p>
@@ -127,6 +127,27 @@
         <tr>
           <td>
             <xsl:value-of select="cc:term"/>
+          </td>
+          <td>
+            <xsl:apply-templates select="cc:description"/>
+          </td>
+        </tr>
+      </xsl:for-each>
+    </table>
+  </xsl:template>
+
+  <xsl:template match="cc:InsertBibliography">
+    <!-- info handled in content template-->
+    <table>
+      <xsl:for-each select="//cc:bibliography/cc:entry">
+        <tr>
+          <td>
+            <xsl:element name="span">
+              <xsl:attribute name="id">
+                <xsl:value-of select="@id"/>
+              </xsl:attribute>
+              <xsl:value-of select="cc:tag"/>
+            </xsl:element>
           </td>
           <td>
             <xsl:apply-templates select="cc:description"/>
@@ -200,7 +221,7 @@
           <xsl:value-of select="@id"/>
         </dt>
         <dd><xsl:apply-templates select="cc:description"/><p/>Achieved by:
-			<xsl:for-each select="cc:component-refer"><xsl:value-of select="translate(@ref,$lower,$upper)"/><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if></xsl:for-each>
+			<xsl:for-each select="cc:component-refer"><xsl:value-of select="translate(@linkend,$lower,$upper)"/><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if></xsl:for-each>
 			<xsl:apply-templates select="cc:appnote"/>
 			</dd>
       </xsl:for-each>
@@ -273,7 +294,7 @@
 
   <xsl:template match="cc:chapter">
     <xsl:variable name="chapter-num" select="concat(position(), '.')"/>
-    <h1 id="{@label}">
+    <h1 id="{@id}">
       <xsl:value-of select="concat($chapter-num, ' ')"/>
       <xsl:value-of select="@title"/>
     </h1>
@@ -287,7 +308,7 @@
     <xsl:variable name="section-num">
       <xsl:number/>
     </xsl:variable>
-    <h2 id="{@label}">
+    <h2 id="{@id}">
       <xsl:value-of select="$section-prefix"/>
       <xsl:value-of select="concat($section-num,' ')"/>
       <xsl:value-of select="@title"/>
@@ -302,7 +323,7 @@
     <xsl:variable name="subsection-num">
       <xsl:number/>
     </xsl:variable>
-    <h3 id="{@label}">
+    <h3 id="{@id}">
       <xsl:value-of select="$subsection-prefix"/>
       <xsl:value-of select="concat($subsection-num, ' ')"/>
       <xsl:value-of select="@title"/>
@@ -313,7 +334,7 @@
   </xsl:template>
 
   <xsl:template match="cc:subsubsection">
-    <h4 id="{@label}">
+    <h4 id="{@id}">
       <xsl:value-of select="@title"/>
     </h4>
     <xsl:apply-templates/>
@@ -323,7 +344,7 @@
     <div class="center">
       <img>
         <xsl:attribute name="id">
-          <xsl:value-of select="@label"/>
+          <xsl:value-of select="@id"/>
         </xsl:attribute>
         <xsl:attribute name="src">
           <xsl:value-of select="@entity"/>
@@ -348,12 +369,29 @@
     </xsl:copy>
   </xsl:template>
 
-  <xsl:template match="cc:ref">
-    <xsl:value-of select="@ref"/>
+  <!-- Assumes element with matching @id has a @title. -->
+  <xsl:template match="cc:xref">
+    <xsl:variable name="linkend" select="@linkend"/>
+    <xsl:element name="a">
+      <xsl:attribute name="href">
+        <xsl:text>#</xsl:text>
+        <xsl:value-of select="$linkend"/>
+      </xsl:attribute>
+      <xsl:value-of select="//*[@id=$linkend]/@title" />
+    </xsl:element>
   </xsl:template>
 
   <xsl:template match="cc:cite">
-    <xsl:value-of select="@id"/>
+    <xsl:variable name="linkend" select="@linkend"/>
+    <xsl:element name="a">
+      <xsl:attribute name="href">
+        <xsl:text>#</xsl:text>
+        <xsl:value-of select="$linkend"/>
+      </xsl:attribute>
+      <xsl:text>[</xsl:text>
+      <xsl:value-of select="//cc:bibliography/cc:entry[@id=$linkend]/cc:tag" />
+      <xsl:text>]</xsl:text>
+    </xsl:element>
   </xsl:template>
 
 </xsl:stylesheet>
