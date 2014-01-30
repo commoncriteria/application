@@ -224,7 +224,7 @@
 				
 				
 				<subsection title="User Data Protection (FDP)" id="fdp">
-					
+				<!--	
 					<component id="fdp_rip_ext.1" name="Does What It Wants With Residual Data">
 						<f-element id="fdp_rip_ext.1.N">
 							The application shall do
@@ -236,15 +236,15 @@
 							with residual data.
 						</f-element>
 					</component>
-					
-					<component id="fas_din_ext.1"
+				-->	
+					<component id="fdp_dec_ext.1"
 						name="Declaration of Intent to Use Platform Resources">
-						<f-element id="fas_din_ext.1.1"> Applications should include a list of
+						<f-element id="fdp_dec_ext.1.1"> Applications should include a list of
 							platform resources that the application requires. In particular,
 							applications should declare their intent to use hardware
 							resources that could provide access to sensitive information,
 							such as camera, WiFi, GPS, or Bluetooth.						</f-element>
-						<f-element id="fas_din_ext.1.2">
+						<f-element id="fdp_dec_ext.1.2">
 							Applications should declare their intent to access software
 							resources or other applications that provide access to
 							potentially sensitive information, such as address book,
@@ -258,17 +258,13 @@
 							whether or not the application can actually use the device.
 						</f-element>
 					</component>
-					<component id="fso_sad_ext.1" name="Handling Of Sensitive Application Data">
-						<f-element id="fso_sad_ext.1.1"> If an application transmits sensitive
-							data over an untrusted network, the data must be encrypted using
-							standards-based protocols that ensure confidentiality and
-							integrity of the data and authentication of the other endpoint.
-						</f-element>
-						<f-element id="fso_sad_ext.1.2"> If an application stores sensitive data
+					<component id="fdp_dar_ext.1" name="Storage Of Sensitive Application Data">
+						<f-element id="fdp_dar_ext.1.1"> If an application stores sensitive data
 							on media or [non-volatile?] memory, then all data not designated
 							to be available at screen lock must be encrypted while it is at
-							rest.						</f-element>
-						<f-element id="fso_sad_ext.1.3">
+							rest.
+						</f-element>
+						<f-element id="fdp_dar_ext.1.2">
 							Applications must not leave sensitive data unprotected in memory
 							or on media beyond the data's period of use. Such data must be
 							erased using a cryptographic wipe or a single pass overwrite with
@@ -302,6 +298,9 @@
 							operating system-provided mechanisms for storing and setting
 							configuration options.
 						</f-element>
+						<f-element id="fmt_mec_ext.1.2"> Applications must follow operating system
+							mechanisms and conventions for storing application data and
+							configuration settings.						</f-element>
 					</component>
 
 					<component id="fmt_cfg_ext.1" name="Secure by Default Configuration">
@@ -316,18 +315,7 @@
 								<li>Inappropriate default file permissions.</li>
 							</ul>
 						</f-element>
-					</component>
-
-					<component id="fab_inc_ext.1" name="Collection of Information">
-						<f-element id="fab_inc_ext.1.1"> The capability of an application to
-							collect information from the system (e,g, crash dumps) and
-							transmit it over a network must be configurable.
-						</f-element>
-						<f-element id="fab_inc_ext.1.2"> Applications must have the approval of
-							the user or system owner before such information is transmitted
-							over a network.
-						</f-element>
-						<f-element id="fab_inc_ext.1.3">
+						<f-element id="fmt_cfg_ext.1.2">
 							Applications must be configured by default to not send PII; this
 							capability must be "opt-in."							<!-- TO DO: These application notes are 
 								also component-level. -->
@@ -336,12 +324,34 @@
 							app regarding collection of information.
 						</f-element>
 					</component>
+
+					<component id="fmt_smf.1" name="Specification of Management Functions">
+						<f-element id="fmt_smf.1.1">The TSF shall be capable of performing the following
+							management functions: 
+							[
+							<ol>
+								<li>enable/disable transmission of any information from the system (e.g. crash dumps, user registration) over the network
+								</li>
+								<li>enable/disable automatic software update functionality if it exists
+								</li>
+							</ol>
+							]
+						</f-element>
+					</component>
+
+					<component id="fmt_not.1" name="Notification of Update">
+						<f-element id="fmt_not.1.1">If the update process is initiated by an
+							application, then the application should report to the user the
+							last time it checked for available updates.
+						</f-element>
+					</component>
+
 				</subsection>
 				
 				
 				<subsection title="Cryptographic Support (FCS)" id="fcs">
-				<component id="fpr_ano_ext" name="Execution Environment Mitigations">
-							<f-element id="fdu_ssa_ext.1.2"> If an application uses random numbers for
+				<component id="fcs_rbg_ext.1" name="Entropy Source for Random Bit Generation">
+							<f-element id="fcs_rbg_ext.1"> If an application uses random numbers for
 							cryptographic purposes it must get entropy from a FIPS-compliant
 							source, if such a source is available on the platform.
 						</f-element>			
@@ -350,9 +360,9 @@
 	
 				
 				<subsection title="Privacy (FPR)" id="fpr">
-				<component id="fpr_ano_ext" name="Anonymous Network Behavior">
-						<f-element id="fpr_ano_ext.1.1"> The capability of an application to
-							collect information from the system (e,g, crash dumps) and
+				<component id="fpr_ano_ext.1" name="Anonymous Network Behavior">
+						<f-element id="fpr_ano_ext.1.1">The capability of an application to
+							collect information from the system (e.g. crash dumps) and
 							transmit it over a network must be configurable.						</f-element>
 						<f-element id="fpr_ano_ext.1.2"> Applications must have the approval of
 							the user or system owner before such information is transmitted
@@ -414,8 +424,8 @@
 							documented and supported operating system API functions.
 						</f-element>
 					</component>		
-					<component id="fmi_eem_ext.1" name="Execution Environment Mitigations">
-						<f-element id="fmi_eem_ext.1.1">
+					<component id="fpt_aex_ext.1" name="Execution Environment Mitigations">
+						<f-element id="fpt_aex_ext.1.1">
 							An application must take advantage of the execution
 							environment-based vulnerability mitigation mechanisms supported
 							by the platform, including:
@@ -429,7 +439,7 @@
 								</li>
 							</ol>
 						</f-element>
-						<f-element id="fmi_eem_ext.1.2">
+						<f-element id="fpt_aex_ext.1.2">
 							An application must not require that execution environment-based
 							vulnerability mitigations or OS-provided security features be
 							disabled or weakened. All of the following are prohibited:
@@ -445,9 +455,17 @@
 								</li>
 							</ol>
 						</f-element>
+						<f-element id="fpt_aex_ext.1.3">
+							Applications must not write to directories that contain
+							executable files.
+							<h3>Application Notes</h3>
+							If an application is specifically designed to produce executable
+							files (such as a compiler), those files may be written to a
+							specified directory from which execution is permitted.
+						</f-element>
 					</component>					
-					<component id="fpt_tud_ext.1" name="Application Integrity">						<!-- TO DO: Cite references. -->
-						<f-element id="fdu_api_ext.1.1">
+					<component id="fpt_tud_ext.1" name="Integrity for Installation and Update">						<!-- TO DO: Cite references. -->
+						<f-element id="fpt_tud_ext.1.1">
 							Application installation and update packages should be signed by
 							the vendor in conformance with NIST SP 800-89, Recommendation for
 							Obtaining Assurances for Digital Signature Applications, using an
@@ -464,9 +482,7 @@
 							requirement on the operating system (and not the application), it
 							is not specified here.
 						</f-element>
-					</component>
-					<component id="fpt_dep_ext.1" name="Application Deployment">
-						<f-element id="fpt_dep_ext.1.1">
+						<f-element id="fpt_tud_ext.1.2">
 							Applications and application updates should be distributed using
 							a standard mechanism such as an operating system-supported
 							package manager.
@@ -477,26 +493,25 @@
 							administrators should not have to learn to use specialized
 							distribution mechanisms for every application.
 						</f-element>
-						<f-element id="fpt_dep_ext.1.2"> Applications and application updates
-							should be distributed in a format preferred by the operating
-							system.						</f-element>
-						<f-element id="fpt_dep_ext.1.3">
-							An application's update process should be automatic or
-							automatable.
-							<h3>Application Notes</h3>
-							It should be possible to update software without human
-							intervention. Updates should be automatic, simple, and as
-							frequent as necessary.
+						<f-element id="fpt_tud_ext.1.3">Applications must support a removal
+							operation.
 						</f-element>
-						<f-element id="fpt_dep_ext.1.4"> If the update process is initiated by an
-							application, then the application should report to the user the
-							last time it checked for available updates.						</f-element>
+						<f-element id="fpt_tud_ext.1.4">
+							Application removal must result in removal of all traces of the
+							application, except for configuration and preference settings,
+							and audit or log events.							<!-- TO DO: This is a component-level application 
+								note. Figure out how to customize markup above element level. -->
+							<h3>Application Notes</h3>
+							If the application uses an operating system or standard
+							install/uninstall mechanism, then these requirements are
+							considered met.
+						</f-element>
 					</component>
 					<component id="fpt_idv_ext.1" name="Software Identification and Versions">
 						<f-element id="fpt_idv_ext.1.1"> Applications must include software
 							identification (SWID) tags that comply with the ISO/IEC
 							19770-2:2009 standard.						</f-element>
-						<f-element id="fss_siv_ext.1.2">
+						<f-element id="fpt_idv_ext.1.2">
 							Applications must present correct product version information.							<!-- 
 								TO DO: These application notes are also component-level. -->
 							<h3>Application Notes</h3>
@@ -511,37 +526,7 @@
 							</ol>
 						</f-element>
 					</component>
-					<component id="fdu_apr_ext.1" name="Application Removal">
-						<f-element id="fdu_apr_ext.1.1"> Applications must support a removal
-							operation.						</f-element>
-						<f-element id="fdu_apr_ext.1.2">
-							Application removal must result in removal of all traces of the
-							application, except for configuration and preference settings,
-							and audit or log events.							<!-- TO DO: This is a component-level application 
-								note. Figure out how to customize markup above element level. -->
-							<h3>Application Notes</h3>
-							If the application uses an operating system or standard
-							install/uninstall mechanism, then these requirements are
-							considered met.
-						</f-element>
-					</component>
-
-					<component id="fab_ddw_ext.1"
-						name="Application Data Directories/Support for Application Whitelisting">
-						<f-element id="fab_ddw_ext.1.1">
-							Applications must not write to directories that contain
-							executable files.
-							<h3>Application Notes</h3>
-							If an application is specifically designed to produce executable
-							files (such as a compiler), those files may be written to a
-							specified directory from which execution is permitted.
-						</f-element>
-						<f-element id="fab_ddw_ext.1.2"> Applications must follow operating system
-							mechanisms and conventions for storing application data and
-							configuration settings.						</f-element>
-					</component>
 				</subsection>
-
 
 			</section>
 			
