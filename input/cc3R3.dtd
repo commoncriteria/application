@@ -1,0 +1,496 @@
+<!--
+     $Id$
+
+     Unified DTD for CC & CEM, 3 series.
+     
+     Element prefixes:
+
+	f   Funtional
+	fc  Functional Class
+	ff  Functional Family
+	fco Functional Component
+	fe  Functional Element
+
+	a   Assurance
+	ac  Assurance Class
+	af  Assurance Family
+	aco Assurance Component
+	ae  Assurance Element
+
+	m   Methodology
+	ma  Methodology Evaluation Activity
+	msa Methodology Evaluation Sub-Activity
+
+	eal Evaluation Assurance Level
+
+  -->
+
+<!ELEMENT cc		((clause|f-class|a-class|eal|cap)+,patchinfo?) >
+<!ATTLIST cc		version  CDATA	#REQUIRED
+			revision CDATA	#REQUIRED
+			lang (DE|EN|FR|NL|SP) "EN">
+
+<!ELEMENT supdoc	((foreword|legalnotice|clause|f-class|a-class|eal|cap)+,patchinfo?) >
+<!ATTLIST supdoc	version  CDATA	#REQUIRED
+			revision CDATA	#REQUIRED
+			title    CDATA	#REQUIRED
+			type     (guidance|mandatory)	"mandatory"
+			lof	 (yes|no) "yes"
+			lot	 (yes|no) "yes"
+			lang (DE|EN|FR|NL|SP) "EN">
+
+<!-- General text clauses -->
+
+<!ENTITY % parasequence	"(subclause|pagebreak|para|figure|acronym|biblioentry|glossentry|table|example)*">
+
+<!ELEMENT clause	(%parasequence;)>
+<!ATTLIST clause	title     CDATA                  #REQUIRED
+			type     (normal|annex)          "normal"
+			category (normative|informative) "normative"
+			id	ID                      #REQUIRED
+			patch	IDREF			#IMPLIED>
+
+<!ELEMENT subclause	(%parasequence;)>
+<!ATTLIST subclause	title	CDATA	#REQUIRED
+			id	ID	#REQUIRED
+			patch	IDREF	#IMPLIED>
+
+<!ELEMENT para		(#PCDATA|xref|url|list|bold|italic|equation)* >
+<!ATTLIST para		type	(normal|isonote|ccmbnote) 	"normal"
+			title	CDATA 				#IMPLIED
+			id	ID				#IMPLIED
+			patch	IDREF				#IMPLIED>
+
+<!ELEMENT pagebreak	EMPTY>
+<!ATTLIST pagebreak	patch		IDREF			#IMPLIED>
+
+<!ELEMENT xref		EMPTY>
+<!ATTLIST xref 		id 		IDREF			#IMPLIED
+	 		fakeid		CDATA			#IMPLIED
+	 		part		CDATA			#IMPLIED
+	 		show		(title|link|none|id)	"link"
+			patch		IDREF			#IMPLIED>
+
+<!ELEMENT url		EMPTY>
+<!ATTLIST url 		id 		CDATA			#REQUIRED
+			title		CDATA			#IMPLIED
+			patch		IDREF			#IMPLIED>
+
+<!ELEMENT list		(item)+>
+<!ATTLIST list		id	ID	#IMPLIED
+			type	(itemized|enumerated) 	"enumerated"
+			patch	IDREF	#IMPLIED>
+
+<!ELEMENT item		(#PCDATA|para|xref|url|list|bold|italic|equation|selection)*>
+<!ATTLIST item		id	ID	#IMPLIED
+			patch	IDREF	#IMPLIED>
+
+<!ELEMENT bold		(#PCDATA | xref | italic)*>
+<!ELEMENT italic	(#PCDATA | xref | bold)*>
+
+<!ELEMENT equation	EMPTY>
+<!ATTLIST equation	entity	CDATA	#REQUIRED
+			title	CDATA	#IMPLIED
+			width   CDATA   #IMPLIED
+			height  CDATA   #IMPLIED
+			id	ID	#IMPLIED
+			patch	IDREF	#IMPLIED>
+
+<!ELEMENT figure	EMPTY>
+<!ATTLIST figure	entity	CDATA	#REQUIRED
+			title	CDATA	#REQUIRED
+			width   CDATA   #IMPLIED
+			height  CDATA   #IMPLIED
+			id	ID	#REQUIRED
+			patch	IDREF	#IMPLIED>
+
+<!ELEMENT acronym	(acronymterm,acronymdef)>
+<!ATTLIST acronym	id	ID	#REQUIRED
+			patch	IDREF	#IMPLIED>
+
+<!ELEMENT acronymterm	(#PCDATA | xref | list | bold | italic)* >
+<!ATTLIST acronymterm	patch	IDREF	#IMPLIED>
+
+<!ELEMENT acronymdef	(#PCDATA | xref | list | bold | italic)* >
+<!ATTLIST acronymdef	patch	IDREF	#IMPLIED>
+
+<!ELEMENT biblioentry	(biblioterm,bibliodef)>
+<!ATTLIST biblioentry	id	ID	#REQUIRED
+			patch	IDREF	#IMPLIED>
+
+<!ELEMENT biblioterm	(#PCDATA | xref | list | bold | italic)* >
+<!ATTLIST biblioterm	patch	IDREF	#IMPLIED>
+
+<!ELEMENT bibliodef	(#PCDATA | xref | list | bold | italic)* >
+<!ATTLIST bibliodef	patch	IDREF	#IMPLIED>
+
+<!ELEMENT glossentry	(glossterm,glossalt?,glossdef,glosssource?,glossnote*)>
+<!ATTLIST glossentry	id	ID	#REQUIRED
+			patch	IDREF	#IMPLIED>
+
+<!ELEMENT glossterm	(#PCDATA | xref | list | bold | italic)* >
+<!ATTLIST glossterm	patch	IDREF	#IMPLIED>
+
+<!ELEMENT glossalt	(#PCDATA |bold )* >
+<!ATTLIST glossalt	patch	IDREF	#IMPLIED>
+
+<!ELEMENT glossdef	(#PCDATA | para | xref | list | bold | italic)* >
+<!ATTLIST glossdef	patch	IDREF	#IMPLIED>
+
+<!ELEMENT glosssource	(#PCDATA | para | xref | list | bold | italic)* >
+<!ATTLIST glosssource	patch	IDREF	#IMPLIED>
+
+<!ELEMENT glossnote	(#PCDATA | para | xref | list | bold | italic)* >
+<!ATTLIST glossnote	patch	IDREF	#IMPLIED>
+
+<!ELEMENT foreword	(%parasequence;)>
+<!ATTLIST foreword	patch	IDREF	#IMPLIED>
+
+<!ELEMENT legalnotice	(%parasequence;)>
+<!ATTLIST legalnotice	patch	IDREF	#IMPLIED>
+
+<!-- Simplified table model, resembles CALS -->
+
+<!ELEMENT table		((title?,tgroup*)|(tgroup*,title?))>
+<!ATTLIST table		id	ID	#REQUIRED
+			width	CDATA 	#IMPLIED
+			patch	IDREF	#IMPLIED>
+
+<!ELEMENT title         (#PCDATA)>
+
+<!ELEMENT tgroup	(thead?,tfoot?,tbody)>
+<!ATTLIST tgroup	cols CDATA #REQUIRED>
+
+<!ELEMENT thead		(row+)>
+<!ELEMENT tfoot		(row+)>
+
+<!ELEMENT tbody		(row+)>
+
+<!ELEMENT row		(entry+)>
+
+<!ELEMENT entry		(#PCDATA|xref|bold|italic|footnote)*>
+<!ATTLIST entry		rowspan 	CDATA			#IMPLIED
+			columnspan	CDATA			#IMPLIED
+			width		CDATA 			#IMPLIED
+			align	(left|right|center|justify)	"left"
+			style		CDATA 			#IMPLIED
+			patch		IDREF			#IMPLIED>
+
+
+<!ELEMENT footnote	(#PCDATA | xref | list | bold | italic)* >
+<!ATTLIST footnote	id	ID	#IMPLIED
+			patch	IDREF	#IMPLIED>
+
+<!-- Textual Part 2 examples, to follow family/component indentation -->
+
+<!ELEMENT example	(exampleterm,exampledef)>
+<!ATTLIST example	id	ID	#REQUIRED
+			patch	IDREF	#IMPLIED>
+
+<!ELEMENT exampleterm	(#PCDATA | xref | list | bold | italic)* >
+<!ATTLIST exampleterm	patch	IDREF	#IMPLIED>
+
+<!ELEMENT exampledef	(#PCDATA | xref | list | bold | italic)* >
+<!ATTLIST exampledef	patch	IDREF	#IMPLIED>
+
+<!-- 
+     Functional Paradigm.
+  -->
+
+<!ELEMENT f-class		(fc-introduction,
+				 fc-informative-notes,
+				 f-family+)>
+<!ATTLIST f-class		name	CDATA	#REQUIRED
+				id	ID	#REQUIRED
+				patch	IDREF	#IMPLIED>
+
+<!ELEMENT fc-introduction	(%parasequence;)>
+<!ELEMENT fc-informative-notes	(%parasequence;)>
+
+<!-- Functional Family -->
+
+<!ELEMENT f-family              (ff-behaviour,
+				 ff-application-notes?,
+				 ff-user-notes?,
+				 ff-evaluator-notes?,
+                                 f-component+)>
+<!ATTLIST f-family              name	CDATA	#REQUIRED
+                                id	ID	#REQUIRED
+				patch	IDREF	#IMPLIED>
+
+<!ELEMENT ff-behaviour		(%parasequence;)>
+<!ATTLIST ff-behaviour		patch	IDREF	#IMPLIED>
+
+<!ELEMENT ff-application-notes	(%parasequence;)>
+<!ATTLIST ff-application-notes	patch	IDREF	#IMPLIED>
+
+<!ELEMENT ff-user-notes		(%parasequence;)>
+<!ATTLIST ff-user-notes		patch	IDREF	#IMPLIED>
+
+<!ELEMENT ff-evaluator-notes	(%parasequence;)>
+<!ATTLIST ff-evaluator-notes	patch	IDREF	#IMPLIED>
+
+<!-- Functional Component -->
+
+<!ELEMENT f-component 	 	    	(fco-hierarchical?,
+					 fco-dependencies?,
+					 fco-rationale?,
+					 fco-user-notes?,
+					 fco-evaluator-notes?,
+					 fco-levelling,
+					 fco-management*,
+					 fco-audit*,
+					 f-element+)>
+<!ATTLIST f-component			name 	CDATA	#REQUIRED
+					id   	ID	#REQUIRED
+					patch	IDREF	#IMPLIED>
+
+<!ELEMENT fco-hierarchical		EMPTY>
+<!ATTLIST fco-hierarchical		fcomponent IDREF #REQUIRED
+					patch	IDREF	#IMPLIED>
+
+<!ELEMENT fco-dependencies		(fco-or|fco-dependsoncomponent)*>
+<!ATTLIST fco-dependencies		patch	IDREF	#IMPLIED>
+
+<!ELEMENT fco-or			(fco-dependsoncomponent)+>
+<!ATTLIST fco-or			patch	IDREF	#IMPLIED>
+
+<!ELEMENT fco-dependsoncomponent	EMPTY>
+<!ATTLIST fco-dependsoncomponent	fcomponent IDREF #REQUIRED
+					patch	IDREF	#IMPLIED>
+
+<!ELEMENT fco-rationale			(%parasequence;)>
+<!ELEMENT fco-user-notes		(%parasequence;)>
+<!ELEMENT fco-evaluator-notes		(%parasequence;)>
+<!ELEMENT fco-levelling			(%parasequence;)>
+
+<!ELEMENT fco-management		(#PCDATA | xref)*>
+<!ATTLIST fco-management		id	ID 	#IMPLIED
+					equal	IDREF	#IMPLIED
+					patch	IDREF	#IMPLIED>
+
+<!ELEMENT fco-audit			(#PCDATA | xref)*>
+<!ATTLIST fco-audit			level (minimal|basic|detailed) #REQUIRED
+					id	ID 	#IMPLIED
+					equal	IDREF	#IMPLIED
+					patch	IDREF	#IMPLIED>
+<!-- 
+     Functional Element
+
+     Text within a functional element differs from the general
+     paragraph in that it incorporates well structured the allowed
+     operations. We also exclude the xref and footnote within these
+     paragraphs. The List entity cannot be used, since it holds
+     general text, so a similar F-ElementList is defined.
+
+  -->
+
+<!ELEMENT f-element		(#PCDATA|fe-list|fe-assignment|fe-selection)*>
+<!ATTLIST f-element		id	ID	#REQUIRED
+				boldfrom IDREF	#IMPLIED
+				patch	IDREF	#IMPLIED>
+
+<!ELEMENT fe-assignment		(fe-assignmentitem,fe-assignmentnotes?)>
+<!ATTLIST fe-assignment		id	ID	#IMPLIED
+				patch	IDREF	#IMPLIED>
+
+<!ELEMENT fe-assignmentitem	(#PCDATA|fe-list|fe-assignment|fe-selection)*>
+<!ATTLIST fe-assignmentitem	patch	IDREF	#IMPLIED>
+
+<!ELEMENT fe-assignmentnotes	(%parasequence;)>
+<!ATTLIST fe-assignmentnotes	patch	IDREF	#IMPLIED>
+
+<!ELEMENT fe-selection		(fe-selectionitem+,fe-selectionnotes?)>
+<!ATTLIST fe-selection		id		ID		#IMPLIED
+                                exclusive	(YES|NO)	"NO"
+				patch		IDREF		#IMPLIED>
+
+<!ELEMENT fe-selectionitem	(#PCDATA|fe-list|fe-assignment|fe-selection)*>
+<!ATTLIST fe-selectionitem	patch	IDREF	#IMPLIED>
+
+<!ELEMENT fe-selectionnotes	(%parasequence;)>
+
+<!ELEMENT fe-list		(fe-item)+>
+<!ATTLIST fe-list		patch	IDREF	#IMPLIED>
+
+<!ELEMENT fe-item		(#PCDATA|fe-list|fe-assignment|fe-selection)* >
+<!ATTLIST fe-item		id	ID	#IMPLIED
+				patch	IDREF	#IMPLIED>
+
+<!--
+     Assurance Paradigm.
+  -->
+
+<!ELEMENT a-class		(ac-introduction,
+				ac-overview,
+				ac-application-notes?,
+				ma-introduction?,
+				ma-objectives?,
+				ma-application-notes?,
+				a-family+)>
+<!ATTLIST a-class		name	CDATA	#REQUIRED
+                                id	ID	#REQUIRED
+				patch	IDREF	#IMPLIED>
+
+<!ELEMENT ac-introduction	(%parasequence;)>
+<!ELEMENT ac-overview		(%parasequence;)>
+<!ELEMENT ac-application-notes	(%parasequence;)>
+<!ELEMENT ma-introduction	(%parasequence;)>
+<!ELEMENT ma-objectives		(%parasequence;)>
+<!ELEMENT ma-application-notes	(%parasequence;)>
+
+
+<!-- Assurance Family -->
+
+<!ELEMENT a-family		(af-objectives?,
+				af-overview?,
+				af-levelling-criteria?,
+				af-application-notes?,
+				a-component+)>
+<!ATTLIST a-family		name	CDATA	#REQUIRED
+				id	ID	#REQUIRED
+				patch	IDREF	#IMPLIED>
+
+<!ELEMENT af-objectives		(%parasequence;)>
+<!ELEMENT af-overview		(%parasequence;)>
+<!ELEMENT af-levelling-criteria	(%parasequence;)>
+<!ELEMENT af-application-notes	(%parasequence;)>
+
+<!-- Assurance Component -->
+
+<!ENTITY % a-element			"(ae-developer|ae-content|ae-evaluator)*">
+
+<!ELEMENT a-component			(aco-hierarchical?,
+					 aco-dependsoncomponent*,
+					 aco-objectives?,
+					 aco-application-notes?,
+					 msa-objectives?,
+					 msa-application-notes?,
+					 msa-input?,
+					 (%a-element;))>
+<!ATTLIST a-component			name	CDATA	#REQUIRED
+					id	ID	#REQUIRED
+					patch	IDREF	#IMPLIED>
+
+<!ELEMENT aco-hierarchical		EMPTY>
+<!ATTLIST aco-hierarchical		acomponent	IDREF #REQUIRED
+					patch		IDREF #IMPLIED>
+
+<!ELEMENT aco-dependsoncomponent	EMPTY>
+<!ATTLIST aco-dependsoncomponent	acomponent	IDREF	#REQUIRED
+					patch		IDREF	#IMPLIED>
+
+<!ELEMENT aco-objectives		(%parasequence;)>
+<!ATTLIST aco-objectives		patch	IDREF	#IMPLIED>
+
+<!ELEMENT aco-application-notes		(%parasequence;)>
+<!ATTLIST aco-application-notes		patch	IDREF	#IMPLIED>
+
+<!ELEMENT msa-objectives		(%parasequence;)>
+<!ATTLIST msa-objectives		patch	IDREF	#IMPLIED>
+
+<!ELEMENT msa-application-notes		(%parasequence;)>
+<!ATTLIST msa-application-notes		patch	IDREF	#IMPLIED>
+
+<!ELEMENT msa-input			(%parasequence;)>
+<!ATTLIST msa-input			patch	IDREF	#IMPLIED>
+
+<!-- 
+
+    Assurance Elements
+
+    Work units are assigned either to evaluator actions (explicit) or
+    directly to developer assurance elements (implied)
+
+  -->
+
+<!ELEMENT ae-developer		(#PCDATA|list|assignment|selection|xref|m-workunit)*>
+<!ATTLIST ae-developer		id	 ID	#REQUIRED
+				boldfrom IDREF	#IMPLIED
+				patch	 IDREF	#IMPLIED>
+
+<!ELEMENT ae-content		(#PCDATA|list|assignment|selection|xref)*>
+<!ATTLIST ae-content		id	 ID	#REQUIRED
+				boldfrom IDREF	#IMPLIED
+				patch	 IDREF	#IMPLIED>
+
+<!ELEMENT ae-evaluator		(#PCDATA|list|assignment|selection|xref|m-workunit)*>
+<!ATTLIST ae-evaluator		id	 ID	#REQUIRED
+				boldfrom IDREF	#IMPLIED
+				patch	 IDREF	#IMPLIED>
+
+<!ELEMENT m-workunit		(ae-dc-element*,(%parasequence;))>
+<!ATTLIST m-workunit		id	ID	#IMPLIED
+				patch	IDREF	#IMPLIED>
+
+<!ELEMENT ae-dc-element		EMPTY>
+<!ATTLIST ae-dc-element		id 	IDREF	#REQUIRED
+				patch	IDREF	#IMPLIED>
+
+<!ELEMENT assignment		(#PCDATA | xref | italic)*>
+<!ELEMENT selection		(#PCDATA | xref | italic)*>
+
+<!--
+    Evaluation Assurance Levels.
+  -->
+
+<!ELEMENT eal		(eal-objectives,
+			 eal-assurance-components,
+			 eal-component+)>
+<!ATTLIST eal		name	CDATA	#REQUIRED
+			id	ID	#REQUIRED
+			patch	IDREF	#IMPLIED>
+
+<!ELEMENT eal-objectives		(%parasequence;)>
+<!ATTLIST eal-objectives		patch IDREF	#IMPLIED>
+
+<!ELEMENT eal-assurance-components	(%parasequence;)>
+<!ATTLIST eal-assurance-components	patch IDREF	#IMPLIED>
+
+<!ELEMENT eal-component		EMPTY>
+<!ATTLIST eal-component		acomponent	IDREF #REQUIRED
+				patch		IDREF #IMPLIED>
+
+<!--
+    Composition Assurance Packages.
+  -->
+
+<!ELEMENT cap		(cap-objectives,
+			 cap-assurance-components,
+			 cap-component+)>
+<!ATTLIST cap		name	CDATA	#REQUIRED
+			id	ID	#REQUIRED
+			patch	IDREF	#IMPLIED>
+
+<!ELEMENT cap-objectives		(%parasequence;)>
+<!ATTLIST cap-objectives		patch IDREF	#IMPLIED>
+
+<!ELEMENT cap-assurance-components	(%parasequence;)>
+<!ATTLIST cap-assurance-components	patch IDREF	#IMPLIED>
+
+<!ELEMENT cap-component		EMPTY>
+<!ATTLIST cap-component		acomponent	IDREF #REQUIRED
+				patch		IDREF #IMPLIED>
+
+<!--
+    Information about incorporated RIs/Supplements.
+  -->
+
+<!ELEMENT patchinfo			(patch*)>
+
+<!ELEMENT patch				(change|ri)+>
+<!ATTLIST patch				id ID	#REQUIRED>
+
+<!ELEMENT change			(change-title,change-description?)>
+<!ATTLIST change			id  ID #REQUIRED
+					rev CDATA #REQUIRED>
+
+<!ELEMENT change-title			(#PCDATA | xref)*>
+<!ELEMENT change-description		(%parasequence;)>
+
+<!ELEMENT ri				(ri-title,ri-description?)>
+<!ATTLIST ri				id  ID #REQUIRED
+					rev CDATA #REQUIRED>
+
+<!ELEMENT ri-title			(#PCDATA | xref)*>
+<!ELEMENT ri-description		(%parasequence;)>
