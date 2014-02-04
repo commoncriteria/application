@@ -715,10 +715,10 @@
 		</bibliography>
 	</content>
 	<OSPs>
-		<OSP id="P.ERROR">
-			<description>The TOE shall meet recognised national and/or
-				international criteria for its security relevant error rates (e.g.
-				False Accept Rate (FAR) and False Rejection Rate (FRR)).
+		<OSP id="P.ENTERPRISE">
+			<description>
+				The configuration of the application software must adhere to 
+				the Enterprise security policy.
 			</description>
 			<objective-refer ref="O.BIO_VERIFICATION">
 				<rationale> The organisational security policy OSP.ERROR (the TOE
@@ -728,48 +728,14 @@
 					error rates as required by OSP.ERROR.				</rationale>
 			</objective-refer>
 		</OSP>
-		<OSP id="P.USERLIMIT">
-			<description> Impostors must be prevented from gaining access to the
-				portal by making repeated verification attempts using one or more
-				claimed user IDs. Therefore the TOE shall be able to limit the
-				maximum number of unsuccessful verification attempts.			</description>
-			<objective-refer ref="O.AUDIT_REACTION">
-				<rationale />
-			</objective-refer>
-			<appnote>
-				Reasonable requirements on error rates are highly dependent on other
-				characteristics of the biometric authentication mechanism.
-				Characteristics that shall be considered to decide on the acceptable
-				values include (but are not limited to):
-				<ul>
-					<li>The number of allowed unsuccessful authentication attempts,
-					</li>
-					<li>The time that is needed to process one authentication attempt,
-					</li>
-					<li>The concrete environment of the TOE</li>
-				</ul>
-				The ST author should consider
-				<cite linkend="bibISO19795" />
-				in order to identify the security relevant error rates and provide a
-				justification for the choice of security relevant error rates.
-			</appnote>
-		</OSP>
 	</OSPs>
 	<threats>
-		<threat id="T.BRUTEFORCE">
+		<threat id="T.NETWORK_ATTACK">
 			<description>
-				An attacker may perform a brute force attack in order to get
-				verified by the TOE using the identity of another user. In this way
-				the attacker is trying to get access to the assets residing in the
-				environment that should be protected with the support of the TOE.
-				This threat considers two different threat agents and corresponding
-				adverse actions:
-				<ul>
-					<li>A not really hostile user who just tries to get verified with a
-						wrong claimed identity a few times. The motivation of such a user
-						is usually just curiosity. He does not need specific knowledge
-						about the TOE to perform this attack.					</li>
-				</ul>
+				An attacker is positioned on a communications channel or elsewhere on the
+				network infrastructure. Attackers may engage in communications with the
+				application software or alter communications between the application software
+				and other endpoints in order to compromise it.
 			</description>
 			<objective-refer ref="O.AUDIT_REACTION">
 				<rationale> O.AUDIT_REACTION records an unusual high amount of
@@ -785,65 +751,13 @@
 					for the assurance claim of the TOE.				</rationale>
 			</objective-refer>
 		</threat>
-		<threat id="T.MODIFY_ASSETS">
+
+		<threat id="T.NETWORK_EAVESDROP">
 			<description>
-				An attacker may try to modify secondary assets like biometric
-				references or other security-relevant system configuration data.
-				Such attacks could compromise the integrity of the user security
-				attributes resulting in an incorrect result that might give
-				unauthorized access to the portal. This threat covers a number of
-				distinct types of attacks:
-				<ul>
-					<li>An attacker may attempt to modify the threshold level used by
-						the biometric system to authenticate users. If the attacker is
-						able to change the threshold (for one or more authorised users),
-						the ability to verify the user(s) will be compromised and he may
-						succeed in gaining access to the portal or an authorised user may
-						be denied entry to the portal.					</li>
-					<li>An attacker may attempt to modify the biometric authentication
-						data (the Biometric Reference Record) of an authorised user with
-						the aim of enabling an attacker to masquerade as the authorised
-						user and gain access to the portal. Alternatively, an authorised
-						user may be denied access to the portal. The attacker may be able
-						to insert a new biometric reference, containing biometric data
-						belonging to an attacker, with the aim of enabling the impostor to
-						gain access to the portal.					</li>
-				</ul>
-				This kind of attack presupposes that the attacker has further
-				knowledge about the TOE and maybe special equipment.
+				An attacker is positioned on a communications channel or elsewhere on the
+				network infrastructure. Attackers may monitor and gain access to data exchanged
+				between the application and other endpoints. 
 			</description>
-			<objective-refer ref="O.ROLES">
-				<rationale> O.ROLES is responsible to limit the access to security
-					relevant objects of the TOE to authorized administrators
-				</rationale>
-			</objective-refer>
-			<objective-refer ref="O.AUTH_ADMIN">
-				<rationale> O.AUTH_ADMIN is responsible to authenticate the
-					administrator.				</rationale>
-			</objective-refer>
-			<objective-refer ref="O.AUDIT_REACTION">
-				<rationale> O.AUDIT_REACTION is logging an impostor attempt.
-				</rationale>
-			</objective-refer>
-			<objective-refer ref="OE.ENVIRONMENT">
-				<rationale> OE.ENVIRONMENT prevents tampering with the database
-					containing the BRRs.				</rationale>
-			</objective-refer>
-		</threat>
-		<threat id="T.REPRODUCE">
-			<description> An attacker may try to record and replay, imitate, or
-				generate the biometric characteristic of an authorised user. In this
-				way the attacker is trying to get access to the assets residing in
-				the environment that should be protected with the support of the
-				TOE. The attacker will need further knowledge on biometric
-				verification systems and the used biometric modality. He may use
-				technical equipment for analysing and generation of the biometric
-				characteristics. Fingerprint and hand geometry systems are known to
-				be vulnerable to artefacts. The setup costs are often low making the
-				production of artefacts worthwhile for impostors for common use
-				biometric technologies. The attacker may also be supported by an
-				authorized user of the TOE (e.g. to imitate his biometric
-				characteristic).			</description>
 			<objective-refer ref="OE.NO_REPRODUCE">
 				<rationale> The threat T.REPRODUCE is fully countered by a security
 					objective combination of OE.NO_REPRODUCE (as directly follows from
@@ -854,37 +768,13 @@
 				<rationale> The threat T.REPRODUCE is fully countered by a security
 					objective combination of OE.NO_REPRODUCE (as directly follows from
 					the security objective definition) and O.AUDIT_REACTION because the
-					impostor attempt is logged.				</rationale>
+					impostor attempt is logged.
+				</rationale>
 			</objective-refer>
 		</threat>
-		<threat id="T.RESIDUAL">
+		<threat id="T.PHYSICAL_ACCESS">
 			<description>
-				An attacker may try to take advantage of unprotected residual
-				security relevant data (e.g. biometric data and settings) during a
-				user's session or from a previous, already authenticated user. In
-				this way the attacker tries to get access to the security relevant
-				settings of the TOE. This threat covers several scenarios including:
-				<ul>
-					<li>An attacker takes advantage of the verification memory content
-						(e.g. by reading the memory content, cache or relevant temporary
-						data) using a flaw in a user visible interface of the TOE.A
-						physical access to the components of the TOE is not possible for
-						an attacker due to the Assumption A.PHYSICAL.					</li>
-					<li>An attacker may take advantage of residual images at the
-						capture device. These are likely to be limited to cases where
-						physical contact with the biometric capture device is necessary
-						for the biometric modality (e.g. fingerprints)The author of this
-						PP is aware of the fact that the capture device is primarily part
-						of the environment. But in an unguarded environment it is
-						impossible to prevent an attacker from exploiting a residual
-						characteristic that remains on the sensor. In the scope of this
-						PP, this threat is therefore included. If the capture device of a
-						TOE is not vulnerable to this kind of attack, this part of the
-						threat may be countered implicitly be the use of a certain sensor
-						technology.					</li>
-				</ul>
-				The attacker needs further knowledge about the TOE to find and
-				exploit a vulnerability regarding residual data in memory.
+				An attacker may try to access sensitive data at rest.
 			</description>
 			<objective-refer ref="O.RESIDUAL">
 				<rationale> O.RESIDUAL directly protects against memory attacks as
@@ -899,159 +789,46 @@
 				</rationale>
 			</objective-refer>
 		</threat>
-		<threat id="T.ROLES">
-			<description>
-				An already enrolled and authenticated user may try to exceed their
-				privileges. Two types of this threat are possible within the scope
-				of this PP:
-				<ol>
-					<li>If more than one portal is secured by the TOE, an authorized
-						user may try to get access to a portal where he has no rights for.
-					</li>
-					<li>An authorized user may try to get administrator privileges in
-						order to modify the threshold settings of the system or other
-						secondary assets.					</li>
-				</ol>
-				No special knowledge is needed by the attacker to identify the
-				general possibility because each authorized user of the system knows
-				(after his own enrolment process) that an administrator account with
-				higher privileges exists.
-			</description>
-			<objective-refer ref="O.AUDIT_REACTION">
-				<rationale> O.AUDIT_REACTION logs every impostor attempt.
-				</rationale>
-			</objective-refer>
-			<objective-refer ref="O.ROLES">
-				<rationale> O.ROLES ensures that only authorized administrators are
-					allowed to perform the administration of the TOE via limiting
-					access to security relevant data of the TOE to administrators
-				</rationale>
-			</objective-refer>
-			<objective-refer ref="O.AUTH_ADMIN">
-				<rationale> O.AUTH_ADMIN ensures a secure authentication of
-					administrators.				</rationale>
-			</objective-refer>
-			<objective-refer ref="OE.ENVIRONMENT">
-				<rationale> Regarding the part of the threat that a user may try to
-					gain access to another portal as he has rights for, this threat is
-					covered by the environment via OE.ENVIRONMENT because the decision
-					whether a user gets access to a portal is done by the policy
-					management of the environment.				</rationale>
-			</objective-refer>
-		</threat>
 	</threats>
+
 	<assumptions>
-		<assumption id="A.ADMINISTRATION">
-			<description> The TOE administrator is well trained and non hostile.
-				He reads the guidance documentation carefully, completely
-				understands and applies it. The TOE administrator is responsible to
-				accompany the TOE installation and oversees the biometric system
-				requirements regarding the TOE as well as the TOE settings and
-				requirements.			</description>
-			<objective-refer ref="OE.ADMINISTRATION">
-				<rationale> The assumption A.ADMINISTRATION is covered by security
-					objective OE.ADMINISTRATION as directly follows.				</rationale>
-			</objective-refer>
-		</assumption>
-		<assumption id="A.CAPTURE">
-			<description> The capture device as user visible interface operates
-				inside its regular range and is suitable to be used with the TOE. It
-				is assumed that all environmental factors (e.g. lightning) are
-				appropriate with respect to the used capture device and biometric
-				modality. Furthermore, it is assumed that bypassing the capture
-				device in a technical manner is not possible. This assumption does
-				not prevent an attacker from presenting an imitated or recorded
-				biometric characteristic to the capture device because even in a
-				guarded environment (and the TOE is primarily unguarded) such a
-				misuse of the system would be possible. Because the capture device
-				has to be accessible for each user a moderate physical robustness is
-				presupposed.			</description>
-			<objective-refer ref="OE.CAPTURE">
-				<rationale> The assumption A.CAPTURE is covered by security
-					objective OE.CAPTURE as directly follows				</rationale>
-			</objective-refer>
-			<appnote> The author of a ST has to specify one or more capture
-				devices which are allowed to be used with the TOE and has to clearly
-				define the range of operation. Furthermore, he has to provide
-				evidences that the captures devices will work with the TOE. The TOE
-				will have to be used with one of the specified capture devices in
-				order to be in its certified configuration.			</appnote>
-		</assumption>
-		<assumption id="A.ENROLMENT">
-			<description> The enrolment is assumed to be already performed and
-				therefore, the biometric reference for each authorized user is
-				assumed to be given. The generated reference is of sufficient
-				quality and is linked to the correct user. Additionally, it is
-				assumed that all biometric references are stored in a way that
-				ensures the authenticity and integrity of this data.			</description>
-			<objective-refer ref="OE.ENROLMENT">
-				<rationale> The assumption A.ENROLMENT is covered by security
-					objective OE.ENROLMENT as directly follows.				</rationale>
-			</objective-refer>
-		</assumption>
-		<assumption id="A.ENVIRONMENT">
+		<assumption id="A.PLATFORM">
 			<description>
-				It is assumed, that necessary TOE operating equipment and adequate
-				infrastructure is available (e.g.: operating system, database, LAN,
-				public telephone, and guardian). Specifically the following things
-				are assumed:
-				<ul>
-					<li>It is assumed that the direct environment of the TOE supports
-						the functionality of the biometric system (e.g.: integration of a
-						GINA replacement, audit functionality). Regarding the request of
-						the claimed identity, which is necessary for the biometric
-						authentication, the environment offers the possibility to
-						integrate a claimed identity into the biometric verification
-						process.					</li>
-					<li>The TOE environment provides a database for the biometric
-						reference of enrolled users, whereby integrity and authenticity
-						are ensured. Also in case of user controlled references (e.g.
-						stored on SmartCard or token), measures exist to protect the
-						authenticity and integrity of the biometric reference.					</li>
-					<li>The environment ensures a secure communication of security
-						relevant data from and to the TOE.					</li>
-					<li>It is assumed that the environment provides a functionality to
-						review the audit information of the TOE and to ensures that only
-						authorized administrators have access to the audit logs.					</li>
-					<li>It is assumed that the TOE environment is free of viruses,
-						trojans, and malicious software.					</li>
-				</ul>
+				The TOE relies upon a trustworthy computing platform for its execution.  This includes 
+				the underlying operating system and the runtime environment it provides to the TOE.  
 			</description>
-			<objective-refer ref="OE.ENVIRONMENT">
-				<rationale> The assumption A.ENVIRONMENT is covered by security
-					objectives OE.ENVIRONMENT as directly follows.				</rationale>
+			<objective-refer ref="OE.PLATFORM">
+				<rationale> The assumption A.PLATFORM is covered by security
+					objectives OE.PLATFORM as directly follows.</rationale>
 			</objective-refer>
 		</assumption>
-		<assumption id="A.PHYSICAL">
-			<description> It is assumed that the TOE and its components are
-				physically protected against unauthorized access or destruction.
-				Physical access to the hardware that is used by the TOE is only
-				allowed for authorized administrators. This does not cover the
-				capture device that has to be accessible for every user.
+		<assumption id="A.PROPER_USER">
+			<description>The user of the application software is not willfully
+			negligent or hostile, and uses the software within compliance of a reasonable
+			Enterprise security policy.
 			</description>
-			<objective-refer ref="OE.PHYSICAL">
-				<rationale>The assumption A.PHYSICAL is covered by security
-					objective OE.PHYSICAL as directly follows.				</rationale>
+			<objective-refer ref="OE.PROPER_USER">
+				<rationale>The assumption A.PROPER_USER is covered by objective
+					OE.PROPER_USER as directly follows</rationale>
 			</objective-refer>
 		</assumption>
-		<assumption id="A.FALLBACK">
-			<description> It is assumed that a fall-back mechanism for the
-				biometric verification system is available that reaches at least the
-				same level of security as the biometric verification system does.
-				This fall-back system is used in cases where an authorized user is
-				rejected by the biometric verification system (False Rejection).
+		<assumption id="A.PROPER_ADMIN">
+			<description>The administrator of the application software is not careless, willfully
+			negligent or hostile, and administers the software within compliance of a reasonable
+			Enterprise security policy.
 			</description>
-			<objective-refer ref="OE.FALLBACK">
-				<rationale>The assumption A.FALLBACK is covered by objective
-					OE.FALLBACK as directly follows				</rationale>
+			<objective-refer ref="OE.PROPER_ADMIN">
+				<rationale>The assumption A.PROPER_ADMIN is covered by objective
+					OE.PROPER_ADMIN as directly follows</rationale>
 			</objective-refer>
 		</assumption>
 	</assumptions>
+
 	<SOs>
 		<SO id="O.INTEGRITY">
 			<description>Ensure the integrity of application installation and
 				update packages.
-			 History has shown that software products are seldom (if
+			 Software is seldom (if
 				ever) shipped without latent errors and vulnerabilities. The ability
 				to deploy patches and updates to fielded software is critical to
 				enterprise network security.				Exploitation of vulnerabilities in application software is currently
