@@ -285,7 +285,7 @@
     </div>
   </xsl:template>
 
-  <xsl:template match="cc:appnote">
+  <xsl:template match="cc:note[@role='application']">
     <div class="appnote">
       <b>Application Note: </b>
       <xsl:apply-templates/>

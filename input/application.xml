@@ -10,7 +10,7 @@
 				<PPTitle>Protection Profile for Application Software</PPTitle>
 				<PPVersion>.1</PPVersion>
 				<PPAuthor>National Information Assurance Partnership</PPAuthor>
-				<PPPubDate>2013-02-28</PPPubDate>
+				<PPPubDate>2014-02-28</PPPubDate>
 				<PPCertificationID>NIAP-whoknows</PPCertificationID>
 				<CCVersion>.01 Revision 0</CCVersion>
 				<Keywords>application; software</Keywords>
@@ -192,77 +192,44 @@
 				Technology Security Evaluation, Version 3.1, Revision 4, with
 				additional extended functional components.
 				
-				<subsection title="Security Audit (FAU)" id="fau">
-					<component id="fau_gen.1" name="Audit Data Generation">
-						<f-element id="fau_gen.1.1">
-							The TSF shall be able to generate an audit record of the
-							following auditable events:
-							<ol>
-								<li>Start-up and shutdown of the audit functions;</li>
-								<li>All administrative actions;</li>
-								<li>User authentication attempts and success/failure of the
-									attempt;								</li>
-								<li>Start-up and shutdown of the OS and kernel</li>
-								<li>Failures of security functions;</li>
-								<li>Integrity verification failures;</li>
-								<li>Software updates;</li>
-								<li>Insertion or removal of removable media;</li>
-								<li>Establishment of a synchronizing connection;</li>
-								<li>Establishment of a trusted channel;</li>
-								<li>[selection: Audit records reaching an
-									administrator-configurable percentage of audit capacity,
-									[assignment: other auditable events derived from this
-									profile]].								</li>
-							</ol>
-						</f-element>
-						<f-element id="fau_gen.1.2"> The TSF shall record within each audit
-							record at least the following information: Date and time of the
-							event, type of event, subject identity, and the outcome (success
-							or failure) of the event.						</f-element>
-					</component>
-				</subsection>
-				
-				
 				<subsection title="User Data Protection (FDP)" id="fdp">
-				<!--	
-					<component id="fdp_rip_ext.1" name="Does What It Wants With Residual Data">
-						<f-element id="fdp_rip_ext.1.N">
-							The application shall do
-							<selection>
-								<selectionitem>something</selectionitem>
-								<selectionitem>nothing</selectionitem>
-								<selectionitem>meh</selectionitem>
-							</selection>
-							with residual data.
-						</f-element>
-					</component>
-				-->	
 					<component id="fdp_dec_ext.1"
 						name="Declaration of Intent to Use Platform Resources">
-						<f-element id="fdp_dec_ext.1.1"> Applications should include a list of
-							platform resources that the application requires. In particular,
-							applications should declare their intent to use hardware
-							resources that could provide access to sensitive information,
-							such as camera, WiFi, GPS, or Bluetooth.						</f-element>
+						<f-element id="fdp_dec_ext.1.1">
+<!-- is this for the Operational Guidance? ... include a list of
+							platform resources that the application requires. -->
+							The application must provide user awareness of any access to
+							hardware resources that could provide access to sensitive information,
+							such as camera, WiFi, GPS, or Bluetooth.
+							<note role="application">
+								Explicitly seeking user permission for such access is one means of providing
+								user awareness.
+							</note>
+						</f-element>
 						<f-element id="fdp_dec_ext.1.2">
-							Applications should declare their intent to access software
-							resources or other applications that provide access to
-							potentially sensitive information, such as address book,
-							calendar, or caller lists. (For example, a program which does not
-							need to determine user location should not ask for permission to
-							use location data provided by GPS.)							<!-- TO DO: These application notes 
-								are also component-level. -->
-							<h3>Application Notes</h3>
+							The application must provide user awareness of any access 
+							to potentially sensitive information, such as address book,
+							calendar, or caller lists.
+							<note role="application">
 							While the application is responsible for requesting access to a
 							device, it is the operating system's responsibility to enforce
 							whether or not the application can actually use the device.
+							</note>
+						</f-element>
+						<f-element id="fdp_dec_ext.1.3">
+							The application must not seek permission from the user
+							to access resources which it does not require.
+							<note role="application">
+							While the application is responsible for requesting access to a
+							device, it is the operating system's responsibility to enforce
+							whether or not the application can actually use the device.
+							</note>
 						</f-element>
 					</component>
 					<component id="fdp_dar_ext.1" name="Storage Of Sensitive Application Data">
-						<f-element id="fdp_dar_ext.1.1"> If an application stores sensitive data
-							on media or [non-volatile?] memory, then all data not designated
-							to be available at screen lock must be encrypted while it is at
-							rest.
+						<f-element id="fdp_dar_ext.1.1">The application must leverage any
+							platform-provided functionality for the encryption of sensitive data
+							when it is stored in non-volatile memory.
 						</f-element>
 						<f-element id="fdp_dar_ext.1.2">
 							Applications must not leave sensitive data unprotected in memory
@@ -270,7 +237,7 @@
 							erased using a cryptographic wipe or a single pass overwrite with
 							arbitrary values. This includes sensitive data stored in
 							temporary files and audit logs.
-							<h3>Application Notes</h3>
+							<note role="application">
 							"Period of use" is the period of time that the application
 							actively processes the data. At the very latest, the period of
 							use ends when the application is closed, but usually it would end
@@ -286,6 +253,7 @@
 							media as well as other non-volatile or persistent locations. So,
 							the requirement applies anytime sensitive data is written
 							anywhere to be stored.
+							</note>
 						</f-element>
 					</component>
 				</subsection>
@@ -293,35 +261,33 @@
 				
 				<subsection title="Security Management (FMT)" id="fmt">
 						
-					<component id="fmt_mec_ext.1" name="Standard Configuration Mechanism">
-						<f-element id="fmt_mec_ext.1.1">Applications should use standard
-							operating system-provided mechanisms for storing and setting
-							configuration options.
+					<component id="fmt_mec_ext.1" name="Supported Configuration Mechanism">
+						<f-element id="fmt_mec_ext.1.1">The application must
+							use the mechanisms recommended by the operating system vendor for storing and
+							setting configuration options.
 						</f-element>
-						<f-element id="fmt_mec_ext.1.2"> Applications must follow operating system
-							mechanisms and conventions for storing application data and
-							configuration settings.						</f-element>
+						<f-element id="fmt_mec_ext.1.2">The application must use the mechanisms
+							recommended by the operating system vendor
+							for storing application data.
+						</f-element>
 					</component>
 
 					<component id="fmt_cfg_ext.1" name="Secure by Default Configuration">
 						<f-element id="fmt_cfg_ext.1.1">
-							Applications must be secure by default on installation.
-							<h3>Application Notes</h3>
-							Examples of non-secure configurations include:
-							<ul>
-								<li>Default passwords across all installations.</li>
-								<li>Credentials transmitted/stored in the clear.</li>
-								<li>Phone-home capability on by default.</li>
-								<li>Inappropriate default file permissions.</li>
-							</ul>
+							The application must be configured by default to not use any default password.
 						</f-element>
 						<f-element id="fmt_cfg_ext.1.2">
-							Applications must be configured by default to not send PII; this
-							capability must be "opt-in."							<!-- TO DO: These application notes are 
-								also component-level. -->
-							<h3>Application Notes</h3>
+							The application must be configured by default to not transmit any credentials in the clear.
+						</f-element>
+						<f-element id="fmt_cfg_ext.1.3">
+							The application must be configured by default to have file permissions which protect it from unprivileged processes.
+						</f-element>
+						<f-element id="fmt_cfg_ext.1.4">
+							The application must be configured by default to not transmit any personally-identifiable information (PII).
+							<note role="application">
 							In-app ad-ware is subject to the same requirements as its host
 							app regarding collection of information.
+							</note>
 						</f-element>
 					</component>
 
@@ -330,9 +296,9 @@
 							management functions: 
 							[
 							<ol>
-								<li>enable/disable transmission of any information from the system (e.g. crash dumps, user registration) over the network
+								<li>enable/disable transmission of any system or user information from the system (e.g. crash dumps, user registration) over the network
 								</li>
-								<li>enable/disable automatic software update functionality if it exists
+								<li>enable/disable automatic software update functionality
 								</li>
 							</ol>
 							]
@@ -371,9 +337,10 @@
 							Applications must be configured by default to not send PII; this
 							capability must be "opt-in."							<!-- TO DO: These application notes are 
 								also component-level. -->
-							<h3>Application Notes</h3>
+							<note role="application">
 							In-app ad-ware is subject to the same requirements as its host
 							app regarding collection of information.
+							</note>
 						</f-element>
 					</component>
 				</subsection>
@@ -382,10 +349,9 @@
 				<subsection title="Trusted Path/Channel (FTP)" id="ftp">
 					<component id="ftp_itc_ext" name="Handling Of Sensitive Application Data">
 						<f-element id="ftp_itc_ext.1.1">
-							If an application transmits sensitive
-							data over an untrusted network, the data must be encrypted using
-							standards-based protocols that ensure confidentiality and
-							integrity of the data and authentication of the other endpoint.
+							The application must employ standards-based
+							cryptography to ensure confidentiality and integrity of any sensitive data
+							transmitted over an untrusted network.
 						</f-element>
 					</component>	
 				</subsection>
@@ -393,7 +359,7 @@
 				<subsection title="Protection of the TSF (FPT)" id="fpt_api_ext">
 					<component id="fpt_api_ext.1" name="Standard Services and APIs">
 						<f-element id="fpt_api_ext.1.1">
-							Applications must use operating system-provided or standard
+							The application must use operating system-provided or standard
 							certified cryptographic libraries, if such libraries are
 							available on the platform. Custom versions of cryptographic
 							services should not be used unless providing cryptographic
@@ -404,21 +370,27 @@
 									and implementing cryptographic libraries and FIPS certification
 									is required.</li>
 							</ol>
-							<h3>Application Notes</h3>
+							<note role="application">
 							Applications that provide cryptographic services are likely
 							covered by purpose-specific protection profiles (e.g. e-mail
 							client, VPN client, VOIP client). Such applications must comply
 							with both the purpose-specific PP and this PP. Where requirements
 							are duplicated or in conflict, the purpose-specific PP shall
 							rule.
+							</note>
 						</f-element>
 										<!-- TO DO: Hyperlink URLs. -->
-						<f-element id="fpt_api_ext.1.2"> Applications must use supported operating
+						<f-element id="fpt_api_ext.1.2">
+							The application must use supported operating
 							system-provided libraries for parsing any structured files whose
 							format is included in the IANA MIME media types as listed at
 							http://www.iana.org/assignments/media-types, if such libraries
-							are available on the platform. This includes many image, audio,
-							video, and content file formats.						</f-element>
+							are available on the platform. 
+							<note role="application">
+							This includes many image, audio,
+							video, and content file formats.
+							</note>
+						</f-element>
 
 						<f-element id="fpt_api_ext.1.3"> Applications must use only officially
 							documented and supported operating system API functions.
@@ -426,7 +398,7 @@
 					</component>		
 					<component id="fpt_aex_ext.1" name="Execution Environment Mitigations">
 						<f-element id="fpt_aex_ext.1.1">
-							An application must take advantage of the execution
+							The application must take advantage of the execution
 							environment-based vulnerability mitigation mechanisms supported
 							by the platform, including:
 							<ol>
@@ -440,7 +412,7 @@
 							</ol>
 						</f-element>
 						<f-element id="fpt_aex_ext.1.2">
-							An application must not require that execution environment-based
+							The application must not require that execution environment-based
 							vulnerability mitigations or OS-provided security features be
 							disabled or weakened. All of the following are prohibited:
 							<ol>
@@ -456,17 +428,18 @@
 							</ol>
 						</f-element>
 						<f-element id="fpt_aex_ext.1.3">
-							Applications must not write to directories that contain
+							The application must not write to directories that contain
 							executable files.
-							<h3>Application Notes</h3>
-							If an application is specifically designed to produce executable
+							<note role="application">
+							If the application is specifically designed to produce executable
 							files (such as a compiler), those files may be written to a
 							specified directory from which execution is permitted.
+							</note>
 						</f-element>
 					</component>					
 					<component id="fpt_tud_ext.1" name="Integrity for Installation and Update">						<!-- TO DO: Cite references. -->
 						<f-element id="fpt_tud_ext.1.1">
-							Application installation and update packages should be signed by
+							The application installation and update packages must be signed by
 							the vendor in conformance with NIST SP 800-89, Recommendation for
 							Obtaining Assurances for Digital Signature Applications, using an
 							approved digital signature algorithm as specified in NIST FIPS
@@ -475,46 +448,33 @@
 							Transitions: Recommendation for Transitioning the Use of
 							Cryptographic Algorithms and Key Lengths.							<!-- TO DO: Convert these 
 								to <appnote>s that are converted by the stylesheet. -->
-							<h3>Application Notes</h3>
+							<note role="application">
 							Signatures of signed installation and update packages should be
 							verified by the operating system's application installation
 							mechanism. Since the existence of such a mechanism is a
 							requirement on the operating system (and not the application), it
 							is not specified here.
+							</note>
 						</f-element>
 						<f-element id="fpt_tud_ext.1.2">
-							Applications and application updates should be distributed using
-							a standard mechanism such as an operating system-supported
-							package manager.
-							<h3>Application Notes</h3>
-							The "standard mechanism" refers to a means of distribution that
-							is not custom for a particular application, but can be used by
-							different vendors to distribute products. The idea is that
-							administrators should not have to learn to use specialized
-							distribution mechanisms for every application.
+							The application update and installation packages must be distributed using
+							the format of the operating system-supported package manager.
 						</f-element>
-						<f-element id="fpt_tud_ext.1.3">Applications must support a removal
-							operation.
-						</f-element>
-						<f-element id="fpt_tud_ext.1.4">
-							Application removal must result in removal of all traces of the
+						<f-element id="fpt_tud_ext.1.3">
+							The application must be packaged such that its removal results in the removal of all traces of the
 							application, except for configuration and preference settings,
 							and audit or log events.							<!-- TO DO: This is a component-level application 
 								note. Figure out how to customize markup above element level. -->
-							<h3>Application Notes</h3>
-							If the application uses an operating system or standard
-							install/uninstall mechanism, then these requirements are
-							considered met.
 						</f-element>
 					</component>
 					<component id="fpt_idv_ext.1" name="Software Identification and Versions">
-						<f-element id="fpt_idv_ext.1.1"> Applications must include software
+						<f-element id="fpt_idv_ext.1.1">The application must include software
 							identification (SWID) tags that comply with the ISO/IEC
 							19770-2:2009 standard.						</f-element>
 						<f-element id="fpt_idv_ext.1.2">
-							Applications must present correct product version information.							<!-- 
+							The applications must present correct product version information.							<!-- 
 								TO DO: These application notes are also component-level. -->
-							<h3>Application Notes</h3>
+							<note role="application">
 							The following requirements were removed as subsumed by
 							Requirement 1:
 							<ol>
@@ -524,6 +484,7 @@
 									different binary images or configuration data) must have a
 									unique version number.</li>
 							</ol>
+							</note>
 						</f-element>
 					</component>
 				</subsection>
