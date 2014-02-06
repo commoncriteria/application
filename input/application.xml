@@ -194,10 +194,8 @@
 				
 				<subsection title="User Data Protection (FDP)" id="fdp">
 					<component id="fdp_dec_ext.1"
-						name="Declaration of Intent to Use Platform Resources">
+						name="User Awareness of Access to Platform Resources">
 						<f-element id="fdp_dec_ext.1.1">
-<!-- is this for the Operational Guidance? ... include a list of
-							platform resources that the application requires. -->
 							The application must provide user awareness of any access to
 							hardware resources that could provide access to sensitive information,
 							such as camera, WiFi, GPS, or Bluetooth.
@@ -230,6 +228,7 @@
 						<f-element id="fdp_dar_ext.1.1">The application must leverage any
 							platform-provided functionality for the encryption of sensitive data
 							when it is stored in non-volatile memory.
+							<!-- this language is intentionally different from the MDPP's FDP_DAR-->
 						</f-element>
 						<f-element id="fdp_dar_ext.1.2">
 							Applications must not leave sensitive data unprotected in memory
@@ -267,14 +266,13 @@
 							setting configuration options.
 						</f-element>
 						<f-element id="fmt_mec_ext.1.2">The application must use the mechanisms
-							recommended by the operating system vendor
-							for storing application data.
+							recommended by the operating system vendor for storing application data.
 						</f-element>
 					</component>
 
 					<component id="fmt_cfg_ext.1" name="Secure by Default Configuration">
 						<f-element id="fmt_cfg_ext.1.1">
-							The application must be configured by default to not use any default password.
+							The application must be configured by default to not use any default passwords.
 						</f-element>
 						<f-element id="fmt_cfg_ext.1.2">
 							The application must be configured by default to not transmit any credentials in the clear.
@@ -296,10 +294,10 @@
 							management functions: 
 							[
 							<ol>
-								<li>enable/disable transmission of any system or user information from the system (e.g. crash dumps, user registration) over the network
-								</li>
-								<li>enable/disable automatic software update functionality
-								</li>
+								<li>enable/disable transmission of any system identity information</li>
+								<li>enable/disable transmission of any user identity information</li>
+								<li>enable/disable transmission of any application state (e.g. crashdump) information</li>
+								<li>enable/disable automatic software update functionality</li>
 							</ol>
 							]
 						</f-element>
@@ -327,20 +325,13 @@
 				
 				<subsection title="Privacy (FPR)" id="fpr">
 				<component id="fpr_ano_ext.1" name="Anonymous Network Behavior">
-						<f-element id="fpr_ano_ext.1.1">The capability of an application to
-							collect information from the system (e.g. crash dumps) and
-							transmit it over a network must be configurable.						</f-element>
-						<f-element id="fpr_ano_ext.1.2"> Applications must have the approval of
-							the user or system owner before such information is transmitted
-							over a network.						</f-element>
-						<f-element id="fpr_ano_ext.1.3">
-							Applications must be configured by default to not send PII; this
-							capability must be "opt-in."							<!-- TO DO: These application notes are 
-								also component-level. -->
-							<note role="application">
+						<f-element id="fpr_ano_ext.1.1">The application must be capable of not
+							transmitting any user identity information to the software vendor.
+						<note role="application">
 							In-app ad-ware is subject to the same requirements as its host
 							app regarding collection of information.
-							</note>
+							<!-- this is a problem since mobile adware is often provided via OS services -->
+						</note>
 						</f-element>
 					</component>
 				</subsection>
@@ -357,79 +348,53 @@
 				</subsection>
 				
 				<subsection title="Protection of the TSF (FPT)" id="fpt_api_ext">
-					<component id="fpt_api_ext.1" name="Standard Services and APIs">
+					<component id="fpt_api_ext.1" name="Use of Supported Services and APIs">
 						<f-element id="fpt_api_ext.1.1">
-							The application must use operating system-provided or standard
-							certified cryptographic libraries, if such libraries are
-							available on the platform. Custom versions of cryptographic
-							services should not be used unless providing cryptographic
-							services is the purpose of the application.
-							<ol>
-								<li>If the core function of the application is providing
-									security services, then FIPS 140-2 must be used for designing
-									and implementing cryptographic libraries and FIPS certification
-									is required.</li>
-							</ol>
-							<note role="application">
-							Applications that provide cryptographic services are likely
-							covered by purpose-specific protection profiles (e.g. e-mail
-							client, VPN client, VOIP client). Such applications must comply
-							with both the purpose-specific PP and this PP. Where requirements
-							are duplicated or in conflict, the purpose-specific PP shall
-							rule.
-							</note>
+							The application must use platform-provided 
+							cryptographic libraries provided by the platform, unless
+							providing cryptographic services is the purpose of the application.
 						</f-element>
 										<!-- TO DO: Hyperlink URLs. -->
 						<f-element id="fpt_api_ext.1.2">
-							The application must use supported operating
-							system-provided libraries for parsing any structured files whose
+							The application must use platform-provided libraries for parsing any structured files whose
 							format is included in the IANA MIME media types as listed at
-							http://www.iana.org/assignments/media-types, if such libraries
-							are available on the platform. 
+							http://www.iana.org/assignments/media-types, unless parsing services is the purpose of
+							the application.
 							<note role="application">
 							This includes many image, audio,
 							video, and content file formats.
 							</note>
 						</f-element>
 
-						<f-element id="fpt_api_ext.1.3"> Applications must use only officially
-							documented and supported operating system API functions.
+						<f-element id="fpt_api_ext.1.3">The applications must not use any
+							unsupported platform APIs.
 						</f-element>
 					</component>		
 					<component id="fpt_aex_ext.1" name="Execution Environment Mitigations">
 						<f-element id="fpt_aex_ext.1.1">
-							The application must take advantage of the execution
-							environment-based vulnerability mitigation mechanisms supported
-							by the platform, including:
-							<ol>
-								<li>address-space layout randomization,</li>
-								<li>memory execution protection (e.g. DEP),</li>
-								<li>stack buffer overflow protection, and</li>
-								<li>heap corruption detection.</li>
-								<li>
-									<assignment>other such mechanisms</assignment>
-								</li>
-							</ol>
+							The application must not subvert address space layout randomization
+							by requesting any memory mapping at an explicit address.
 						</f-element>
 						<f-element id="fpt_aex_ext.1.2">
-							The application must not require that execution environment-based
-							vulnerability mitigations or OS-provided security features be
-							disabled or weakened. All of the following are prohibited:
-							<ol>
-								<li>The application must not require the disabling of DEP or
-									ASLR.</li>
-								<li>The application must not create a firewall exception without
-									the consent of the user.</li>
-								<li>The application must not require that OS-supported mandatory
-									access controls be disabled.</li>
-								<li>
-									<assignment>other such relaxations</assignment>
-								</li>
-							</ol>
+							The application must not subvert data execution prevention (DEP)
+							by simultaneously allowing both write and execute permissions on any memory region.
 						</f-element>
 						<f-element id="fpt_aex_ext.1.3">
-							The application must not write to directories that contain
-							executable files.
+							The application must not subvert platform-provided heap corruption detection 
+							by implementing its own dynamic memory allocation functionality, unless that
+							functionality also includes corruption detection.
+						</f-element>
+						<f-element id="fpt_aex_ext.1.4">
+							The application must not require that any operating system-supported access controls,
+							such as a mandatory access control system, be disabled in order for it to function.
+						</f-element>
+						<f-element id="fpt_aex_ext.1.5">
+							The application must not require that enforcement of any operating system-supported access controls,
+							such as a mandatory access control system, be disabled.
+						</f-element>
+						<!-- there was also a thing about firewall exceptions -->
+						<f-element id="fpt_aex_ext.1.6">
+							The application must not write to directories that contain executable files.
 							<note role="application">
 							If the application is specifically designed to produce executable
 							files (such as a compiler), those files may be written to a
@@ -570,9 +535,32 @@
 		</chapter>
 		<glossary>
 			<entry>
+				<term>Address Space Layout Randomization (ASLR)</term>
+				<description>An anti-exploitation feature which loads memory mappings into
+					unpredictable locations.  ASLR makes it more difficult for an attacker
+					to redirect control to code that they have introduced into the address
+					space of an application process.
+					</description>
+			</entry>
+			<entry>
 				<term>Application (app)</term>
 				<description>Software that runs on an operating system and performs
 					tasks on behalf of the user or owner of the platform.				</description>
+			</entry>
+			<entry>
+				<term>Application Programming Interface (API)</term>
+				<description>A specification of routines, data structures, object classes, and variables
+					that allows an application to make use of services provided by another software component,
+					such as a library.  APIs are often provided for a set of libraries included with the operating system.
+					</description>
+			</entry>
+			<entry>
+				<term>Data Execution Prevention (DEP)</term>
+				<description>An anti-exploitation feature of modern operating systems executing on modern
+					computer hardware, which enforces a non-execute permission on pages of memory.  DEP prevents
+					pages of memory from containing both data and instructions, which makes it more difficult for
+					an attacker to introduce and execute code.
+				</description>
 			</entry>
 			<entry>
 				<term>Developer</term>
