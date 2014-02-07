@@ -242,10 +242,15 @@
     </dl>
   </xsl:template>
 
-  <xsl:template match="cc:selection">
+  <xsl:template match="cc:selectables">
 		[<b>selection</b>
 		<xsl:if test="@exclusiv">, choose one of</xsl:if>:
-        <xsl:for-each select="cc:selectionitem"><i><xsl:apply-templates/></i><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if></xsl:for-each>]
+		<xsl:if test="@atleastone">, at least one of</xsl:if>:
+        <xsl:for-each select="cc:selectable">
+			<xsl:if test="../@linebreak"><p/></xsl:if>
+			<i><xsl:apply-templates/></i>
+			<xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
+		</xsl:for-each>]
 	</xsl:template>
 
   <xsl:template match="cc:assignment">
