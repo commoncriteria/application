@@ -225,12 +225,12 @@
 						</f-element>
 					</component>
 					<component id="fdp_dar_ext.1" name="Storage Of Sensitive Application Data">
-						<f-element id="fdp_dar_ext.1.1">The application must leverage any
+						<f-element id="fdp_dar_ext.1.1">The application must leverage
 							platform-provided functionality for the encryption of sensitive data
 							when it is stored in non-volatile memory.
 							<!-- this language is intentionally different from the MDPP's FDP_DAR-->
 						</f-element>
-						<f-element id="fdp_dar_ext.1.2">
+<!--						<f-element id="fdp_dar_ext.1.2">
 							Applications must not leave sensitive data unprotected in memory
 							or on media beyond the data's period of use. Such data must be
 							erased using a cryptographic wipe or a single pass overwrite with
@@ -240,20 +240,20 @@
 							"Period of use" is the period of time that the application
 							actively processes the data. At the very latest, the period of
 							use ends when the application is closed, but usually it would end
-							prior to that.							<!-- TO DO: These application notes are also component-level. -->
+							prior to that.						
 							Requirements 2 and 3 are not intended to make the application
 							responsible for how the operating system handles data with
 							respect to paging or swap files. They are intended, however, to
 							ameliorate the problems inherent in paging or swapping by
 							reducing the likelihood that plaintext sensitive data is left in
-							unused memory pages -- which are more likely to be swapped to
+							unused memory pages - which are more likely to be swapped to
 							disk. Of course, the requirements also cover explicit writes to
 							memory or media. In this sense "media" refers to traditional
 							media as well as other non-volatile or persistent locations. So,
 							the requirement applies anytime sensitive data is written
 							anywhere to be stored.
 							</note>
-						</f-element>
+						</f-element> -->
 					</component>
 				</subsection>
 				
@@ -292,33 +292,77 @@
 					<component id="fmt_smf.1" name="Specification of Management Functions">
 						<f-element id="fmt_smf.1.1">The TSF shall be capable of performing the following
 							management functions: 
-							[
 							<ol>
 								<li>enable/disable transmission of any system identity information</li>
 								<li>enable/disable transmission of any user identity information</li>
 								<li>enable/disable transmission of any application state (e.g. crashdump) information</li>
 								<li>enable/disable automatic software update functionality</li>
 							</ol>
-							]
 						</f-element>
 					</component>
-
+<!--
 					<component id="fmt_not.1" name="Notification of Update">
 						<f-element id="fmt_not.1.1">If the update process is initiated by an
 							application, then the application should report to the user the
 							last time it checked for available updates.
 						</f-element>
-					</component>
+					</component> -->
 
 				</subsection>
 				
 				
 				<subsection title="Cryptographic Support (FCS)" id="fcs">
-				<component id="fcs_rbg_ext.1" name="Entropy Source for Random Bit Generation">
-							<f-element id="fcs_rbg_ext.1"> If an application uses random numbers for
-							cryptographic purposes it must get entropy from a FIPS-compliant
-							source, if such a source is available on the platform.
+				<component id="fcs_rbg_ext.1" name="Random Bit Generation">
+							<f-element id="fcs_rbg_ext.1.1">
+							The application must use platform-provided random bit generation services.
 						</f-element>			
+				</component>
+
+<component id="fcs_tls_ext.1" name="TLS Implementation">
+<f-element id="fcs_tls_ext.1.1(1)">
+ The application shall implement one or more of the following protocols 
+<selectables>
+<selectable>TLS 1.0 (RFC 2246)</selectable>
+<selectable>TLS 1.1 (RFC 4346)</selectable>
+<selectable>TLS 1.2 (RFC 5246)</selectable>
+</selectables>
+supporting the following ciphersuites: 
+<p/>Mandatory Ciphersuites: TLS_RSA_WITH_AES_128_CBC_SHA and 
+<p/>Optional Ciphersuites: 
+<selectables linebreak="yes">
+<selectable>None</selectable>
+<selectable>TLS_RSA_WITH_AES_256_CBC_SHA</selectable>
+<selectable>TLS_RSA_WITH_AES_128_CBC_SHA256</selectable>
+<selectable>TLS_RSA_WITH_AES_256_CBC_SHA256</selectable>
+<selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256</selectable>
+<selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256</selectable>
+<selectable>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256</selectable>
+<selectable>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</selectable>
+<selectable>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256</selectable>
+<selectable>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384</selectable>
+<selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</selectable>
+<selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA</selectable>
+</selectables>. 
+</f-element>
+
+<f-element id="fc_tls_ext.1.2(1)">
+The application shall not establish a trusted 
+channel if the distinguished name (DN) contained in a certificate does not match the expected DN for 
+the peer.
+<note role="application">
+The ciphersuites to be used in the evaluated configuration are limited by this requirement; however other 
+ciphersuites may be implemented. The ST author should select the optional ciphersuites that are 
+supported; if there are no ciphersuites supported other than the mandatory suites, then “None” should 
+be selected. If administrative steps need to be taken so that the suites negotiated by the implementation 
+are limited to those in this requirement, the appropriate instructions need to be contained in the 
+guidance called for by AGD_OPE. 
+<p/>The Suite B algorithms (RFC 6460) listed above are the preferred algorithms for implementation. TLS 1.2 
+is the preferred protocol and may be required in the future. In addition, future publications of this PP will 
+require that the TOE offer a means to deny all connection attempts using specified older versions of the 
+SSL/TLS protocol. 
+</note>
+</f-element>
+
 				</component>
 				</subsection>
 	
@@ -326,7 +370,7 @@
 				<subsection title="Privacy (FPR)" id="fpr">
 				<component id="fpr_ano_ext.1" name="Anonymous Network Behavior">
 						<f-element id="fpr_ano_ext.1.1">The application must be capable of not
-							transmitting any user identity information to the software vendor.
+							transmitting any user identity information.
 						<note role="application">
 							In-app ad-ware is subject to the same requirements as its host
 							app regarding collection of information.
@@ -338,12 +382,22 @@
 
 
 				<subsection title="Trusted Path/Channel (FTP)" id="ftp">
-					<component id="ftp_itc_ext" name="Handling Of Sensitive Application Data">
-						<f-element id="ftp_itc_ext.1.1">
-							The application must employ standards-based
-							cryptography to ensure confidentiality and integrity of any sensitive data
-							transmitted over an untrusted network.
+					<component id="ftp_dit_ext.1" name="Protection of Data in Transit">
+						<f-element id="ftp_dit_ext.1.1">
+						The TSF must use 
+						<selectables atleastone="yes">
+							<selectable>TLS</selectable>
+							<selectable>DTLS</selectable>
+							<selectable>HTTPS</selectable>
+						</selectables>
+						to provide a communication channel to protect 
+						<selectables>
+							<selectable>all data</selectable>
+							<selectable>all sensitive data</selectable>
+						</selectables>
+						transmitted between itself and another trusted IT product. 
 						</f-element>
+
 					</component>	
 				</subsection>
 				
@@ -351,8 +405,9 @@
 					<component id="fpt_api_ext.1" name="Use of Supported Services and APIs">
 						<f-element id="fpt_api_ext.1.1">
 							The application must use platform-provided 
-							cryptographic libraries provided by the platform, unless
+							cryptographic libraries, unless
 							providing cryptographic services is the purpose of the application.
+							<!-- subtly different AA here; search for non-platform crypto -->
 						</f-element>
 										<!-- TO DO: Hyperlink URLs. -->
 						<f-element id="fpt_api_ext.1.2">
