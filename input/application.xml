@@ -32,7 +32,7 @@
 				Pick an attribute other than id to refer to the linked element. Transform 
 				them more intelligently. Better yet, use standard markup with tool support. -->
 			<section title="Overview" id="ppoverview">
-				The scope of this Protection Profile is to describe the
+				The scope of this Protection Profile (PP) is to describe the
 				functionality of application software in terms of
 				<cite linkend="bibCC" />
 				and to define functional and assurance requirements for such
@@ -41,8 +41,8 @@
 				the natural response to improvements in operating system security
 				and development processes. As a result, it is paramount that the
 				security of applications be improved to reduce the risk to client
-				machines and enterprise networks. The requirements in this
-				Protection Profile are intended to improve the security of
+				systems and enterprise networks. The requirements in this
+				PP are intended to improve the security of
 				applications by ensuring that they take advantage of operating
 				system security services, environmental mitigations, and underlying
 				hardware. Additionally, these requirements attempt to define
@@ -51,7 +51,7 @@
 			</section>
 			<section title="Compliant Targets of Evaluation" id="TOEdescription">
 				The requirements in this document apply to all application software
-				that runs on any operating system -- regardless of the function of
+				that runs on any operating system - regardless of the function of
 				the application, identity of the operating system, or composition of
 				the underlying platform. For purposes of this document, an
 				application is defined as software that runs on an operating system
@@ -60,21 +60,22 @@
 				manages platform resources and provides services for applications.
 				Applications that come bundled with an operating system (such as web
 				browsers, email clients and media players) fall within the scope of
-				these requirements. Naturally, third-party software (such as word
-				processors, PDF readers, and downloadable smart-phone apps) is also
+				these requirements. Naturally, third-party software such as 
+				PDF readers and downloadable smart-phone apps is also
 				in scope. Systems software that is delivered and installed with an
 				application (such as kernel drivers) is considered part of the
 				application for purposes of this document. BIOS and other firmware,
 				the operating system kernel, and other systems software (and
-				drivers) that are essential to the functioning of the system are
-				outside the scope of this document. System services -- even if they
-				run with user-level privileges -- are considered to be part of the
+				drivers) that are included with the computing platform are
+				outside the scope of this document. System services - even if they
+				run with user-level privileges - are considered to be part of the
 				operating system, and are thus also out of scope. Some application
-				types are covered by more specific protection profiles. Such
-				applications are subject to both this Protection Profile (PP) and
-				the PP that addresses their special functionality. For example, VPN
-				Client Applications are subject to the requirements in both this PP
-				and the VPN Client PP.
+				types are covered by more specific PPs which are expressed as
+				Extended Packages of this PP.  Such
+				applications are subject to both this PP and
+				the PP that addresses their special functionality. For example, web browsers
+				are subject to the requirements in both this PP
+				and the Protection Profile for Web Browsers.
 				<subsection title="TOE configuration and TOE environment"
 					id="TOEconfig">					<!-- TO DO: Specify TOE configuration and environment. -->
 				</subsection>
@@ -783,6 +784,24 @@ evaluative activities required to meet the objectives identified in Section 4 of
 				</rationale>
 			</objective-refer>
 		</threat>
+		<threat id="T.LOCAL_ATTACK">
+			<description>
+			An attacker can act through unprivileged software on the same computing platform on which the application executes.
+			Attackers may provide maliciously formatted input to the application in the form of files or other local communications.
+			</description>
+			<objective-refer ref="O.RESIDUAL">
+				<rationale> O.RESIDUAL directly protects against memory attacks as
+					described in T.RESIDUAL				</rationale>
+			</objective-refer>
+			<objective-refer ref="OE.RESIDUAL_CAPTURE">
+				<rationale> OE.RESIDUAL_CAPTURE counters the possibility to use
+					residual data from the capture device				</rationale>
+			</objective-refer>
+			<objective-refer ref="O.AUDIT_REACTION">
+				<rationale> O.AUDIT_REACTION audits a potential impostor attempt.
+				</rationale>
+			</objective-refer>
+		</threat>
 		<threat id="T.PHYSICAL_ACCESS">
 			<description>
 				An attacker may try to access sensitive data at rest.
@@ -837,49 +856,18 @@ evaluative activities required to meet the objectives identified in Section 4 of
 
 	<SOs>
 		<SO id="O.INTEGRITY">
-			<description>Ensure the integrity of application installation and
-				update packages.
-			 Software is seldom (if
-				ever) shipped without latent errors and vulnerabilities. The ability
-				to deploy patches and updates to fielded software is critical to
-				enterprise network security.				Exploitation of vulnerabilities in application software is currently
-				one of the chief paths by which attackers gain control of target
-				computers. In recent years, processor manufacturers, compiler
+			<description>To maintain their own integrity, conformant TOEs
+				ensure the integrity of their installation and
+				update packages, and also leverage execution environment-based mitigations.
+				Software is seldom if ever shipped without errors, and the ability
+				to deploy patches and updates to fielded software with integrity is critical to
+				enterprise network security.  Processor manufacturers, compiler
 				developers, and operating system vendors have developed execution
-				environment-based mitigations that increase the cost to the
-				adversary by adding complexity to the task of gaining execution.
-				Often, developers can easily take advantage of these mechanisms by
-				using an API provided by the operating system, or by enabling the
-				mechanism through compiler or linker options. The following are
-				examples of execution environment mitigations:
-				<ul>
-					<li>Address-space layout randomization provides a mechanism that
-						randomizes the addresses at which binary images as well as any
-						runtime storage (such as heaps and stacks), are loaded in memory.
-						Varying the locations of all memory mappings adds complexity to
-						the job of an attacker by reducing the predictability of memory
-						layout. The effectiveness of address-space randomization is
-						significantly reduced by the existence of any constant mappings.
-					</li>
-					<li>Memory execution protection (a.k.a. Data Execution Prevention
-						(DEP)) provides a mechanism for terminating an application when
-						code is executed from writable memory -- that is, memory intended
-						for data only. This can severely limit the places where an
-						attacker can load arbitrary code into memory and attempt to run
-						it.
-					</li>
-					<li>Stack buffer overflow protection provides a mechanism that
-						terminates an application when a stack overflow is detected. The
-						benefit of this mechanism is that the target application
-						terminates before malicious code is able to execute.					</li>
-					<li>Heap corruption protection provides a mechanism that terminates
-						an application when heap structures or metadata corruption is
-						detected.					</li>
-				</ul>
-				Other execution environment mitigations might include numeric
-				overflow protections, automatic runtime bounds checking, supervisor
-				mode execution protection, and strict type-checking for numeric
-				comparisons.
+				environment-based mitigations that increase the cost to attackers
+				by adding complexity to the task of compromising systems.
+				Application software can often take advantage of these mechanisms by
+				using APIs provided by the operating system or by enabling the
+				mechanism through compiler or linker options. 
 			</description>
 			<component-refer ref="fia_atd.1" />
 			<component-refer ref="fmt_mof.1" />
@@ -887,12 +875,12 @@ evaluative activities required to meet the objectives identified in Section 4 of
 			<component-refer ref="fmt_smr.1" />
 		</SO>
 		<SO id="O.QUALITY">
-			<description> Applications should leverage
+			<description>To ensure quality of implementation, conformant TOEs leverage
 				services and APIs provided by the operating system rather than
-				implement their own versions of these services and APIs. This is
+				implementing their own versions of these services and APIs. This is
 				especially important for cryptographic services and other complex
-				operations such as file and media parsing. 
-			Maintain compatibility with future operating system
+				operations such as file and media parsing.  Quality of implementation includes
+				maintaining compatibility with future operating system
 				versions and updates by using only documented and supported APIs.
 			</description>
 			<component-refer ref="fia_atd.1" />
@@ -901,37 +889,22 @@ evaluative activities required to meet the objectives identified in Section 4 of
 			<component-refer ref="fmt_smr.1" />
 		</SO>
 		<SO id="O.MANAGEMENT">
-			<description> An unmanageable network is much more difficult to
-				secure than a manageable network. Identifying the software on a
-				network is a major challenge to network management. This challenge
-				can be addressed using software identification (SWID) tags. SWID
-				tags are XML files embedded within software that provide a standard
-				method for IT departments to track and manage software. The presence
-				of SWIDs can greatly simplify the software management process and
-				improve security by enhancing the ability of IT departments to
-				manage updates.			
-
-			Simplify the deployment of applications and application
-				updates through the use of standard supported deployment mechanisms
-				and formats.
-			Ensure that applications use a standard mechanism for
-				storing and setting configuration options.
-			Ensure that all traces of applications are removed
-				during the application removal operation. Exceptions to this are
-				configuration and preference settings that would be useful in the
-				event of reinstallation, and audit or log events produced by the
-				application.
-			Ensure that applications are configured in the most
-				secure manner consistent with the intended use of the product in the
-				target environment.
+			<description>To facilitate management by users and the enterprise, conformant TOEs
+provide consistent and supported interfaces for their security-relevant configuration and maintenance.
+			This includes the deployment of applications and application
+				updates through the use of platform-supported deployment mechanisms
+				and formats, as well as the use of platform-supported mechanisms
+				for storing and setting configuration options.
 			</description>
 			
 		</SO>
 		<SO id="O.PROTECTED_STORAGE">
-			<description> Applications must properly protect sensitive data.
-				Sensitive data includes cryptographic keys, passwords, and any other
-				data specific to the application that should not be exposed outside
-				of the application.			</description>
+			<description>
+To address the issue of loss of confidentiality of user data in the event of loss of physical control of the storage medium,
+conformant TOEs provide data-at-rest protection. This involves 
+encrypting data and keys stored by the TOE in order to prevent unauthorized 
+access to this encrypted data. 
+			</description>
 			<component-refer ref="fia_atd.1" />
 			<component-refer ref="fia_uau.2a" />
 			<component-refer ref="fia_uau.5" />
@@ -941,7 +914,7 @@ evaluative activities required to meet the objectives identified in Section 4 of
 			<component-refer ref="fmt_mtd.1" />
 		</SO>
 		<SO id="O.PROTECTED_COMMS">
-			<description> Applications must properly protect sensitive data.
+			<description>Applications must properly protect sensitive data.
 				Sensitive data includes cryptographic keys, passwords, and any other
 				data specific to the application that should not be exposed outside
 				of the application.	
