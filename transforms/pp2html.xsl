@@ -259,7 +259,7 @@
 
   <xsl:template match="cc:selectables">
 		[<b>selection</b>
-		<xsl:if test="@exclusiv">, choose one of</xsl:if>:
+		<xsl:if test="@exclusiv">, choose one of</xsl:if>
 		<xsl:if test="@atleastone">, at least one of</xsl:if>:
         <xsl:for-each select="cc:selectable">
 			<xsl:if test="../@linebreak"><p/></xsl:if>
