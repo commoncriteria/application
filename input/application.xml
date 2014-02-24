@@ -47,11 +47,11 @@
 				The requirements in this document apply to all application software
 				that runs on any operating system - regardless of the function of
 				the application, identity of the operating system, or composition of
-				the underlying platform. For purposes of this document, an
+				the underlying hardware platform. For purposes of this document, an
 				application is defined as software that runs on an operating system
-				and performs tasks on behalf of the user or owner of the platform.
+				and performs tasks on behalf of the user or owner of the system.
 				As distinguished from applications, operating system software
-				manages platform resources and provides services for applications.
+				manages hardware resources and provides a runtime environment for applications.
 				Applications that come bundled with an operating system (such as web
 				browsers, email clients and media players) fall within the scope of
 				these requirements. Naturally, third-party software such as 
@@ -61,15 +61,12 @@
 				application for purposes of this document. BIOS and other firmware,
 				the operating system kernel, and other systems software (and
 				drivers) that are included with the computing platform are
-				outside the scope of this document. System services - even if they
-				run with user-level privileges - are considered to be part of the
-				operating system, and are thus also out of scope. Some application
+				outside the scope of this document.  Some application
 				types are covered by more specific PPs which are expressed as
 				Extended Packages of this PP.  Such
-				applications are subject to both this PP and
+				applications are subject to the requirements of both this PP and
 				the PP that addresses their special functionality. For example, web browsers
-				are subject to the requirements in both this PP
-				and the Protection Profile for Web Browsers.
+				are subject to the requirements in this PP and the Protection Profile for Web Browsers.
 				<subsection title="TOE configuration and TOE environment"
 					id="TOEconfig">					<!-- TO DO: Specify TOE configuration and environment. -->
 				</subsection>
@@ -309,7 +306,7 @@
 				<subsection title="Cryptographic Support (FCS)" id="fcs">
 				<component id="fcs_rbg_ext.1" name="Random Bit Generation">
 							<f-element id="fcs_rbg_ext.1.1">
-							The application must use platform-provided random bit generation services.
+							The application must use random bit generation services provided by the TOE platform.
 						</f-element>			
 				</component>
 
@@ -538,10 +535,17 @@ evaluative activities required to meet the objectives identified in Section 4 of
 
 <!-- Generate a table here, based on the next sections -->
 
-		<class title="Security Target" id="ase">
+		<subsection title="Class ASE: Security Target" id="ase">
 				As per ASE activities defined in CEM. 
-		</class>
-		<class id="adv">
+		</subsection>
+
+		<subsection title="Class ADV: Development" id="adv">
+The information about the TOE is contained in the guidance documentation available to the end user as 
+well as the TOE Summary Specification (TSS) portion of the ST. The TOE developer must concur with the 
+description of the product that is contained in the TSS as it relates to the functional requirements. The 
+Assurance Activities contained in Section 4 should provide the ST authors with sufficient 
+information to determine the appropriate content for the TSS section. 
+
 			<component id="adv_upd_ext.1" name="Support for Updates">
 						<f-element id="fdu_sup_ext.1.1">Application developers must support
 							update of their products for purposes of fixing security
@@ -553,28 +557,224 @@ evaluative activities required to meet the objectives identified in Section 4 of
 							supporting their applications with updates for a publicly
 							documented period of time.						</f-element>
 			</component>
-			<component id="adv_fsp.1" />
-		</class>
+			<component id="adv_fsp" name="Basic Functional Specification (ADV_FSP)">
+The functional specification describes the Target Security Functions Interfaces
+(TSFIs). It is not necessary to have a formal or complete specification of
+these interfaces. Additionally, because TOEs conforming to this PP will
+necessarily have interfaces to the Operational Environment that are not
+directly invokable by TOE users, there is little point specifying that such
+interfaces be described in and of themselves since only indirect testing of
+such interfaces may be possible. For this PP, the activities for this family
+should focus on understanding the interfaces presented in the TSS in response
+to the functional requirements and the interfaces presented in the AGD
+documentation. No additional “functional specification” documentation is
+necessary to satisfy the assurance activities specified.  The interfaces that
+need to be evaluated are characterized through the information needed to
+perform the assurance activities listed, rather than as an independent,
+abstract list. 
 
-		<class id="agd">
-			<component id="agd_ope.1" />
-			<component id="agd_pre.1" />
-		</class>
 
-		<class id="alc">
+<h4>Developer action elements:</h4>
+<f-element id="ADV_FSP.1.1D">
+The developer shall provide a functional specification.
+</f-element>
+<f-element id="ADV_FSP.1.2D">
+The developer shall provide a tracing from the functional specification to the SFRs.
+<note role="application">
+As indicated in the introduction to this section, the functional specification
+is comprised of the information contained in the AGD_OPE and AGD_PRE
+documentation.  The developer may reference a website accessible to application
+developers and the evaluator.  The assurance activities in the functional
+requirements point to evidence that should exist in the documentation and TSS
+section; since these are directly associated with the SFRs, the tracing in
+element ADV_FSP.1.2D is implicitly already done and no additional documentation
+is necessary.
+</note>
+</f-element>
+
+<h4>Content and presentation elements:</h4>
+<f-element id="ADV_FSP.1.1C">
+The functional specification shall describe the purpose and method of use for each SFR-enforcing and SFR-supporting TSFI.
+</f-element>
+
+<f-element id="ADV_FSP.1.2C">
+The functional specification shall identify all parameters associated with each SFR-enforcing and SFR-supporting TSFI.
+</f-element>
+
+<f-element id="ADV_FSP.1.3C">
+The functional specification shall provide rationale for the implicit categorization of interfaces as SFR-non-interfering.
+</f-element>
+
+<f-element id="ADV_FSP.1.4C">
+The tracing shall demonstrate that the SFRs trace to TSFIs in the functional specification.
+</f-element>
+
+<h4>Evaluator action elements:</h4>
+<f-element id="ADV_FSP.1.1E">
+The evaluator shall confirm that the information provided meets all requirements for content and presentation of evidence.
+</f-element>
+
+<f-element id="ADV_FSP.1.2E">
+The evaluator shall determine that the functional specification is an accurate and complete instantiation of the SFRs.
+</f-element>
+
+<aactivity>
+There are no specific assurance activities associated with these SARs, except
+ensuring the information is provided. The functional specification
+documentation is provided to support the evaluation activities described in
+Section 4, and other activities described for AGD, ATE, and
+AVA SARs. The requirements on the content of the functional specification
+information is implicitly assessed by virtue of the other assurance activities
+being performed; if the evaluator is unable to perform an activity because the
+there is insufficient interface information, then an adequate functional
+specification has not been provided.
+</aactivity>
+			</component>
+
+		</subsection>
+
+		<subsection id="agd" title="Class AGD: Guidance Documentation">
+The guidance documents will be provided with the ST. Guidance must include a
+description of how the IT personnel verifies that the Operational Environment
+can fulfill its role for the security functionality. The documentation should
+be in an informal style and readable by the IT personnel.  Guidance must be
+provided for every operational environment that the product supports as claimed
+in the ST. This guidance includes Instructions to successfully install the TSF
+in that environment; and Instructions to manage the security of the TSF as a
+product and as a component of the larger operational environment.  Guidance
+pertaining to particular security functionality is also provided; requirements
+on such guidance are contained in the assurance activities specified with each
+requirement.
+
+<component id="agd_ope" name="Operational User Guidance (AGD_OPE)">
+
+<h4>Developer action elements:</h4>
+<f-element id="AGD_OPE.1.1D">
+The developer shall provide operational user guidance.
+<note role="application">
+The operation user guidance does not have to be contained in a single document. Guidance to users, administrators and application developers can be spread among documents or web pages. Where appropriate, the guidance documentation is expressed in the eXtensible Configuration Checklist Description Format (XCCDF) to support security automation.
+Rather than repeat information here, the developer should review the assurance activities for this component to ascertain the specifics of the guidance that the evaluator will be checking for. This will provide the necessary information for the preparation of acceptable guidance. 
+</note>
+</f-element>
+
+<h4>Content and presentation elements:</h4>
+<f-element id="AGD_OPE.1.1C">
+The operational user guidance shall describe, for each user role, the user-accessible functions and privileges that should be controlled in a secure processing environment, including appropriate warnings.
+<note role="application">
+User and administrator are to be considered in the definition of user role. 
+</note>
+</f-element>
+<f-element id="AGD_OPE.1.2C">
+The operational user guidance shall describe, for each user role, how to use the available interfaces provided by the TOE in a secure manner.
+</f-element>
+
+<f-element id="AGD_OPE.1.3C">
+The operational user guidance shall describe, for each user role, the available functions and interfaces, in particular all security parameters under the control of the user, indicating secure values as appropriate.
+</f-element>
+
+<f-element id="ADV_OPE.1.4C">
+The operational user guidance shall, for each user role, clearly present each type of security-relevant event relative to the user-accessible functions that need to be performed, including changing the security characteristics of entities under the control of the TSF.
+</f-element>
+
+<f-element id="AGD_OPE.1.5C">
+The operational user guidance shall identify all possible modes of operation of the TOE (including operation following failure or operational error), their consequences, and implications for maintaining secure operation.
+</f-element>
+
+<f-element id="AGD_OPE.1.6C">
+The operational user guidance shall, for each user role, describe the security measures to be followed in order to fulfill the security objectives for the operational environment as described in the ST.
+</f-element>
+
+<f-element id="AGD_OPE.1.7C">
+The operational user guidance shall be clear and reasonable.
+</f-element>
+<h4>Evaluator action elements:</h4>
+
+<f-element id="AGD_OPE.1.1E">
+The evaluator shall confirm that the information provided meets all requirements for content and presentation of evidence.
+</f-element>
+
+<aactivity>
+Some of the contents of the operational guidance will be verified by the
+assurance activities in Section 4 and evaluation of the TOE
+according to the CEM. The following additional information is also required.
+If cryptographic functions are provided by the TOE, the operational guidance
+shall contain instructions for configuring the cryptographic engine associated
+with the evaluated configuration of the TOE. It shall provide a warning to the
+administrator that use of other cryptographic engines was not evaluated nor
+tested during the CC evaluation of the TOE.  The documentation must describe
+the process for verifying updates to the TOE by verifying a digital signature –
+this may be done by the TOE or the underlying platform. The evaluator shall
+verify that this process includes the following steps: Instructions for
+obtaining the update itself. This should include instructions for making the
+update accessible to the TOE (e.g., placement in a specific directory).
+Instructions for initiating the update process, as well as discerning whether
+the process was successful or unsuccessful. This includes generation of the
+hash/digital signature.  The TOE will likely contain security functionality
+that does not fall in the scope of evaluation under this PP. The operational
+guidance shall make it clear to an administrator which security functionality
+is covered by the evaluation activities.
+</aactivity>
+</component>
+
+<component id="agd_pre" name="Preparative Procedures (AGD_PRE)">
+
+<h4>Developer action elements:</h4>
+<f-element id="AGD_PRE.1.1D">
+The developer shall provide the TOE, including its preparative procedures.
+
+<note role="application">
+As with the operational guidance, the developer should look to the assurance
+activities to determine the required content with respect to preparative
+procedures.
+</note>
+</f-element>
+<h4>Content and presentation elements:</h4>
+
+<f-element id="AGD_PRE.1.1C">
+The preparative procedures shall describe all the steps necessary for secure
+acceptance of the delivered TOE in accordance with the developer's delivery
+procedures.
+</f-element>
+
+<f-element id="AGD_PRE.1.2C">
+The preparative procedures shall describe all the steps necessary for secure
+installation of the TOE and for the secure preparation of the operational
+environment in accordance with the security objectives for the operational
+environment as described in the ST.
+</f-element>
+
+<h4>Evaluator action elements:</h4>
+<f-element id="AGD_PRE.1.1E">
+The evaluator shall confirm that the information provided meets all requirements for content and presentation of evidence.
+</f-element>
+
+<f-element id="AGD_PRE.1.2E">
+The evaluator shall apply the preparative procedures to confirm that the TOE can be prepared securely for operation.
+</f-element>
+
+<aactivity>
+As indicated in the introduction above, there are significant expectations with respect to the documentation—especially when configuring the operational environment to support TOE functional requirements. The evaluator shall check to ensure that the guidance provided for the TOE adequately addresses all platforms claimed for the TOE in the ST.
+</aactivity>
+
+</component>
+
+		</subsection>
+
+		<subsection id="alc" title="Class ALC: Life-cycle Support">
 			<component id="alc_cmc.1" />
 			<component id="alc_cms.1" />
-		</class>
+		</subsection>
 
-		<class id="ate">
+		<subsection id="ate" title="Class ATE: Tests">
 			<component id="ate_ind.1" />
-		</class>
+		</subsection>
 
-		<class id="ava">
+		<subsection id="ava" title="Class AVA: Vulnerability Assessment">
 			<component id="ava_van.1" />
-		</class>
+		</subsection>
 
 		</section>
+
 		</chapter>
 
 		<chapter title="Rationale" id="secSRR">
@@ -780,8 +980,10 @@ evaluative activities required to meet the objectives identified in Section 4 of
 		</threat>
 		<threat id="T.LOCAL_ATTACK">
 			<description>
-			An attacker can act through unprivileged software on the same computing platform on which the application executes.
-			Attackers may provide maliciously formatted input to the application in the form of files or other local communications.
+			An attacker can act through unprivileged software on the same
+			computing platform on which the application executes.  Attackers may provide
+			maliciously formatted input to the application in the form of files or other
+			local communications.
 			</description>
 			<objective-refer ref="O.RESIDUAL">
 				<rationale> O.RESIDUAL directly protects against memory attacks as

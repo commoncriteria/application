@@ -312,6 +312,13 @@
     </div>
   </xsl:template>
 
+  <xsl:template match="cc:aactivity">
+    <div class="appnote">
+    <b id="{@id}">Assurance Activity: </b>
+    <i><xsl:apply-templates/></i>
+    </div>
+  </xsl:template>
+
   <xsl:template match="cc:chapter">
     <xsl:variable name="chapter-num" select="concat(position(), '.')"/>
     <h1 id="{@id}">
