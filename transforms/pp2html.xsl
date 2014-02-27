@@ -45,7 +45,7 @@
              font-family: verdana, arial, helvetica, sans-serif; }
       h3   { font-size: 110%; margin-bottom: 0.25em;
              font-family: verdana, arial, helvetica, sans-serif; }
-      h4   { margin-left: 6%; font-size: 100%; margin-bottom: 0.75em;
+      h4   { margin-left: 0%; font-size: 100%; margin-bottom: 0.75em;
              font-family: verdana, arial, helvetica, sans-serif; }
       h5,h6 { margin-left: 6%; font-size: 90%; margin-bottom: 0.5em;
               font-family: verdana, arial, helvetica, sans-serif; }
@@ -64,11 +64,13 @@
       *.toc2         { background: #FFFFFF; }
       div            { margin-top: 1em; margin-bottom: 1em; }
       div.req        { margin-left: 6%; margin-top: 1em; margin-bottom: 1em; }
+      div.comp        { margin-left: 6%; margin-top: 1em; margin-bottom: 1em; }
       div.appnote    { margin-left: 0%; margin-top: 1em; margin-bottom: 1em; }
       div.aact       { margin-left: 6%; margin-top: 1em; margin-bottom: 1em; }
       div.toc        { margin-left: 6%; margin-bottom: 4em;
                        padding-bottom: 0.75em; padding-top: 1em;
                        padding-left: 2em; padding-right: 2em; }
+      span.SOlist   {   font-family: verdana, arial, helvetica, sans-serif; }
       h2.toc         { border-bottom: none; margin-left: 0%; margin-top: 0em; }
       p.toc          { margin-left: 2em; margin-bottom: 0.2em; margin-top: 0.5em; }
       p.toc2         { margin-left: 5em; margin-bottom: 0.1em; margin-top: 0.1em; }
@@ -235,8 +237,13 @@
         <dt>
           <xsl:value-of select="@id"/>
         </dt>
-        <dd><xsl:apply-templates select="cc:description"/><p/>Achieved by:
-			<xsl:for-each select="cc:component-refer"><xsl:value-of select="translate(@linkend,$lower,$upper)"/><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if></xsl:for-each>
+        <dd><xsl:apply-templates select="cc:description"/><p/>
+			Achieved by: <span class="SOlist">
+			<xsl:for-each select="cc:component-refer">
+				<xsl:value-of select="translate(@ref,$lower,$upper)"/>
+				<xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:for-each>
+			</span>
 			<xsl:apply-templates select="cc:appnote"/>
 			</dd>
       </xsl:for-each>
@@ -276,6 +283,7 @@
     <xsl:variable name="family" select="substring(@id,1,7)"/>
     <xsl:variable name="component" select="substring(@id,1,9)"/>
     <xsl:variable name="SFRID" select="@id"/>
+	<div class="comp">
     <xsl:choose>
       <xsl:when test="count(document('../input/cc.xml')//f-component[@id=$component]/@name)&gt;0">
         <!-- Component from CC standard -->
@@ -295,6 +303,7 @@
       </xsl:otherwise>
     </xsl:choose>
     <xsl:apply-templates/>
+	</div>
   </xsl:template>
 
   <xsl:template match="cc:f-element">
@@ -313,7 +322,7 @@
   </xsl:template>
 
   <xsl:template match="cc:aactivity">
-    <div class="appnote">
+    <div class="aact">
     <b id="{@id}">Assurance Activity: </b>
     <i><xsl:apply-templates/></i>
     </div>
