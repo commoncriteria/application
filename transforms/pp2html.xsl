@@ -11,6 +11,7 @@
 	xmlns:cc="http://secure.tuvit.de/schemata/" 
 	xmlns:exsl="http://exslt.org/common"
 	xmlns:dyn="http://exslt.org/dynamic"
+ xmlns:my="my:my"
 	xmlns="http://www.w3.org/1999/xhtml"
 	version="1.0">
   <!-- very important, for special characters and umlauts iso8859-1-->
@@ -27,11 +28,27 @@
   </xsl:variable>
 
 
-
   <xsl:template match="/cc:PP">
 
     <html xmlns="http://www.w3.org/1999/xhtml">
       <head>
+
+
+ <script type="text/javascript">
+	function toggle(divID, imgID) {
+		var item = document.getElementById(divID);
+		var img = document.getElementById(imgID);
+		if (item) {
+			item.className = (item.className=='aacthidden') ? 'aact':'aacthidden';
+		}
+		if (img) {
+			var currimage = img.src.substring(img.src.lastIndexOf('/')+1);
+			img.src=(currimage=='collapsed.png')?'images/expanded.png':'images/collapsed.png';
+			}
+	}
+  </script>
+
+
         <style type="text/css">
       /*       { background-color: #FFFFFF; } */
       body { margin-left: 8%; margin-right: 8%; foreground: black; }
@@ -62,12 +79,25 @@
       *.propertyText { margin-left: 10%; margin-top: 0.2em; margin-bottom: 0.2em }
       *.toc      { background: #FFFFFF; }
       *.toc2         { background: #FFFFFF; }
-      div            { margin-top: 1em; margin-bottom: 1em; }
-      div.req        { margin-left: 6%; margin-top: 1em; margin-bottom: 1em; }
-      div.comp        { margin-left: 6%; margin-top: 1em; margin-bottom: 1em; }
-      div.appnote    { margin-left: 0%; margin-top: 1em; margin-bottom: 1em; }
-      div.aact       { margin-left: 6%; margin-top: 1em; margin-bottom: 1em; }
-      div.toc        { margin-left: 6%; margin-bottom: 4em;
+      /*div            { margin-top: 1em; margin-bottom: 1em; } */
+      div.comp        { margin-left: 8%; margin-top: 1em; margin-bottom: 1em; }
+      *.req        { margin-left: 0%; margin-top: 1em; margin-bottom: 1em; }
+      *.reqid   { position:absolute; font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif; }
+      *.reqdesc        { display:inline-block; margin-left: 20%; }
+      div.appnote    { margin-left: 0%; margin-top: 1em; }
+      div.aacthidden       { margin-left: 0%; margin-top: 1em; margin-bottom: 1em; 
+						padding: 1em;	
+						border:2px solid  #888888; border-radius:5px; 
+						box-shadow: 6px 6px 5px #888888;
+						display: none; }
+      div.aact       { margin-left: 0%; margin-top: 1em; margin-bottom: 1em; 
+						padding: 1em;	
+						border:2px solid  #888888; border-radius:5px; 
+						box-shadow: 6px 6px 5px #888888;
+						display: block; }
+      div.subaact       { margin-left: 0%; margin-top: 1em;  
+						}
+      div.toc        { margin-left: 8%; margin-bottom: 4em;
                        padding-bottom: 0.75em; padding-top: 1em;
                        padding-left: 2em; padding-right: 2em; }
       span.SOlist   {   font-family: verdana, arial, helvetica, sans-serif; }
@@ -78,7 +108,15 @@
       table,th,td   { text-align: left; padding: 8px 8px; }
       table tr:nth-child(2n+2) { background-color: #F4F4F4; }
       th            { border-bottom: 3px solid gray; }
-      div.center	{ display: block; margin-left: auto; margin-right: auto; text-align:center; }	
+      div.center	{ display: block; margin-left: auto; margin-right: auto; text-align:center; }
+      div.expandstyle  { display:table-cell; vertical-align:middle; padding-top:10px }
+      span.expandstyle  { vertical-align:middle;  color:black; text-decoration: none; font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif; }
+      .expandstyle a         { color: black; text-decoration: none;  font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif;  }
+      .expandstyle a:link    { color: black; text-decoration: none;  font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif;  }
+      .expandstyle a:visited { color: black; text-decoration: none;  font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif;  }
+      .expandstyle a:hover   { color: black; text-decoration: none;  font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif;  }
+      .expandstyle a:active  { color: black; text-decoration: none;  font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif;  } 
+
   </style>
       </head>
       <body>
@@ -108,12 +146,12 @@
         </tr>
       </xsl:for-each>
     </table>
-    <!-- need table of contents generation -->
-    <br/>
     <h2>Contents</h2>
     <div class="toc">
+	  <!-- generate table of contents -->
       <xsl:apply-templates mode="toc" select="./cc:chapter"/>
     </div>
+
     <!-- process each toplevel chapter -->
     <xsl:apply-templates select="//cc:content/cc:chapter"/>
   </xsl:template>
@@ -137,10 +175,22 @@
     </xsl:if>
   </xsl:template>
 
-  <xsl:template match="cc:InsertGlossary">
-    <!-- info handled in content template-->
+  <xsl:template match="cc:usecases">
+  <dl>
+      <xsl:for-each select="cc:usecase">
+        <dt>
+          [USE CASE <xsl:value-of select="position()" />] <xsl:value-of select="@title"/>
+        </dt>
+        <dd>
+          <xsl:apply-templates select="cc:description"/>
+        </dd>
+      </xsl:for-each>
+    </dl>
+  </xsl:template>
+
+  <xsl:template match="cc:glossary">
     <table>
-      <xsl:for-each select="//cc:glossary/cc:entry">
+      <xsl:for-each select="cc:entry">
         <tr>
           <td>
             <xsl:value-of select="cc:term"/>
@@ -153,8 +203,18 @@
     </table>
   </xsl:template>
 
+  <xsl:template match="cc:testlist">
+  <ul>
+      <xsl:for-each select="cc:test">
+        <li>
+          <b>Test <xsl:value-of select="position()" />: </b>
+            <xsl:apply-templates />
+        </li>
+      </xsl:for-each>
+    </ul>
+  </xsl:template>
+
   <xsl:template match="cc:InsertBibliography">
-    <!-- info handled in content template-->
     <table>
       <xsl:for-each select="//cc:bibliography/cc:entry">
         <tr>
@@ -267,11 +327,21 @@
   <xsl:template match="cc:selectables">
 		[<b>selection</b>
 		<xsl:if test="@exclusiv">, choose one of</xsl:if>
-		<xsl:if test="@atleastone">, at least one of</xsl:if>:
+		<xsl:if test="@atleastone">, at least one of</xsl:if>
+		:
         <xsl:for-each select="cc:selectable">
-			<xsl:if test="../@linebreak"><p/></xsl:if>
-			<i><xsl:apply-templates/></i>
-			<xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
+			<xsl:choose>
+  			<xsl:when test="../@linebreak">
+				<p style="margin-left: 40px;">
+				<i><xsl:apply-templates/></i>
+				<xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
+				</p>
+			</xsl:when>
+			<xsl:otherwise>
+				<i><xsl:apply-templates/></i>
+				<xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
+			</xsl:otherwise>
+			</xsl:choose>
 		</xsl:for-each>]
 	</xsl:template>
 
@@ -307,10 +377,10 @@
   </xsl:template>
 
   <xsl:template match="cc:f-element">
+
     <div class="req">
-      <xsl:value-of select="translate(@id, $lower, $upper)"/>
-      <xsl:text> </xsl:text>
-      <xsl:apply-templates/>
+		<div class="reqid"><xsl:value-of select="translate(@id, $lower, $upper)"/></div>
+    	<div class="reqdesc"><xsl:apply-templates/> </div>
     </div>
   </xsl:template>
 
@@ -322,11 +392,42 @@
   </xsl:template>
 
   <xsl:template match="cc:aactivity">
-    <div class="aact">
-    <b id="{@id}">Assurance Activity: </b>
+  <xsl:variable name="aactID" select="concat('aactID-', generate-id())"/>
+    <div class="expandstyle">
+      	<a href="javascript:toggle('{$aactID}', 'link-{$aactID}');">
+		<span class="expandstyle"> Assurance Activity </span>
+      	<img style="vertical-align:middle" id="link-{$aactID}" src="images/collapsed.png" height="15" width="15"/>
+      	</a>
+	</div>
+    <div class="aacthidden" id="{$aactID}">
     <i><xsl:apply-templates/></i>
     </div>
   </xsl:template>
+
+  <xsl:template match="cc:subaactivity">
+    <div class="subaact">
+      <i><b>For <xsl:call-template name="OSabbrev2name"><xsl:with-param name="osname" select="@platform"/> </xsl:call-template>:
+	  </b></i>
+      <xsl:apply-templates/>
+    </div>
+  </xsl:template>
+
+
+<xsl:template name="OSabbrev2name">
+<xsl:param name="osname"/>
+<xsl:choose>
+  <xsl:when test="$osname='windows'">Windows 8</xsl:when>
+  <xsl:when test="$osname='blackberry'">BlackBerry</xsl:when>
+  <xsl:when test="$osname='ios'">Apple iOS</xsl:when>
+  <xsl:when test="$osname='android'">Android</xsl:when>
+  <xsl:otherwise>
+    Undefined operating system platform
+  </xsl:otherwise>
+</xsl:choose>
+
+</xsl:template>
+
+
 
   <xsl:template match="cc:chapter">
     <xsl:variable name="chapter-num" select="concat(position(), '.')"/>
