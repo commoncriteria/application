@@ -27,12 +27,10 @@
 		<xsl:copy-of select="document('../input/cc3R4.xml')" />
   </xsl:variable>
 
-
   <xsl:template match="/cc:PP">
 
     <html xmlns="http://www.w3.org/1999/xhtml">
       <head>
-
 
  <script type="text/javascript">
 	function toggle(divID, imgID) {
@@ -47,7 +45,6 @@
 			}
 	}
   </script>
-
 
         <style type="text/css">
       /*       { background-color: #FFFFFF; } */
@@ -82,7 +79,7 @@
       /*div            { margin-top: 1em; margin-bottom: 1em; } */
       div.comp        { margin-left: 8%; margin-top: 1em; margin-bottom: 1em; }
       *.req        { margin-left: 0%; margin-top: 1em; margin-bottom: 1em; }
-      *.reqid   { position:absolute; font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif; }
+      *.reqid   { position:absolute; font-size: 90%; font-family: verdana, arial, helvetica, sans-serif; }
       *.reqdesc        { display:inline-block; margin-left: 20%; }
       div.appnote    { margin-left: 0%; margin-top: 1em; }
       div.aacthidden       { margin-left: 0%; margin-top: 1em; margin-bottom: 1em; 
@@ -104,11 +101,12 @@
       h2.toc         { border-bottom: none; margin-left: 0%; margin-top: 0em; }
       p.toc          { margin-left: 2em; margin-bottom: 0.2em; margin-top: 0.5em; }
       p.toc2         { margin-left: 5em; margin-bottom: 0.1em; margin-top: 0.1em; }
-      table          { border-collapse:collapse; /*border: 1px solid black;*/ }
+      table          { margin-top: 1em; border-collapse:collapse; /*border: 1px solid black;*/ }
       table,th,td   { text-align: left; padding: 8px 8px; }
       table tr:nth-child(2n+2) { background-color: #F4F4F4; }
       th            { border-bottom: 3px solid gray; }
       div.center	{ display: block; margin-left: auto; margin-right: auto; text-align:center; }
+      div.figure	{ display: block; margin-left: auto; margin-right: auto; text-align:center; margin-top: 1em; }
       div.expandstyle  { display:table-cell; vertical-align:middle; padding-top:10px }
       span.expandstyle  { vertical-align:middle;  color:black; text-decoration: none; font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif; }
       .expandstyle a         { color: black; text-decoration: none;  font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif;  }
@@ -116,20 +114,20 @@
       .expandstyle a:visited { color: black; text-decoration: none;  font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif;  }
       .expandstyle a:hover   { color: black; text-decoration: none;  font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif;  }
       .expandstyle a:active  { color: black; text-decoration: none;  font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif;  } 
-
   </style>
       </head>
-      <body>
-        <xsl:apply-templates select="cc:content"/>
-      </body>
-    </html>
-  </xsl:template>
 
-  <xsl:template match="cc:content">
+      <body>
+
     <h1 class="title">
       <xsl:value-of select="//cc:ReferenceTable/cc:PPTitle"/>
     </h1>
-    <div class="center"><img src="images/niaplogodraft.png"/><p/>Version: <xsl:value-of select="//cc:ReferenceTable/cc:PPVersion"/><p/><xsl:value-of select="//cc:ReferenceTable/cc:PPPubDate"/><p/><xsl:value-of select="//cc:PPAuthor"/><!-- need image --></div>
+    <div class="center">
+	<img src="images/niaplogodraft.png"/>
+	<p/>Version: <xsl:value-of select="//cc:ReferenceTable/cc:PPVersion"/>
+	<p/><xsl:value-of select="//cc:ReferenceTable/cc:PPPubDate"/><p/><xsl:value-of select="//cc:PPAuthor"/>
+	</div>
+
     <h2>Revision History</h2>
     <table>
       <xsl:for-each select="cc:RevisionHistory/cc:entry">
@@ -150,11 +148,17 @@
     <div class="toc">
 	  <!-- generate table of contents -->
       <xsl:apply-templates mode="toc" select="./cc:chapter"/>
+      <xsl:apply-templates mode="toc" select="./cc:appendix"/>
     </div>
 
     <!-- process each toplevel chapter -->
-    <xsl:apply-templates select="//cc:content/cc:chapter"/>
+    <xsl:apply-templates select="//cc:chapter"/>
+    <xsl:apply-templates select="//cc:appendix"/>
+
+      </body>
+    </html>
   </xsl:template>
+
 
   <!-- Template for toc entries, for top 3 levels -->
   <xsl:template match="cc:chapter | cc:section | cc:class | cc:subsection" mode="toc">
@@ -174,6 +178,19 @@
       </xsl:apply-templates>
     </xsl:if>
   </xsl:template>
+
+  <!-- Template for toc entries, for top 3 levels -->
+  <xsl:template match="cc:appendix" mode="toc">
+    <xsl:variable name="appendix-num"><xsl:number format="A"/></xsl:variable>
+    <p xmlns="http://www.w3.org/1999/xhtml" class="toc2">
+      Appendix <xsl:value-of select="$appendix-num"/>
+      <xsl:text>: </xsl:text>
+      <a class="toc" href="#{@id}">
+        <xsl:value-of select="@title"/>
+      </a>
+    </p>
+  </xsl:template>
+
 
   <xsl:template match="cc:usecases">
   <dl>
@@ -214,16 +231,16 @@
     </ul>
   </xsl:template>
 
-  <xsl:template match="cc:InsertBibliography">
+  <xsl:template match="cc:bibliography">
     <table>
-      <xsl:for-each select="//cc:bibliography/cc:entry">
+      <xsl:for-each select="cc:entry">
         <tr>
           <td>
             <xsl:element name="span">
               <xsl:attribute name="id">
                 <xsl:value-of select="@id"/>
               </xsl:attribute>
-              <xsl:value-of select="cc:tag"/>
+              [<xsl:value-of select="cc:tag"/>]
             </xsl:element>
           </td>
           <td>
@@ -245,60 +262,57 @@
         <xsl:for-each select="cc:entry"><xsl:value-of select="cc:name"/>:<![CDATA[&]]><xsl:value-of select="cc:description"/></xsl:for-each>
     </xsl:template>
 
-  <xsl:template match="cc:ConformanceStatement"><h2>Conformance statement</h2>
-        The PP requires <xsl:choose><xsl:when test="cc:strict">strict</xsl:when><xsl:when test="cc:demonstrable">demonstrable</xsl:when></xsl:choose> conformance of any PPs/STs to this PP.        
-    </xsl:template>
 
-  <xsl:template match="cc:AssumptionsPlacement">
+  <xsl:template match="cc:assumptions">
     <dl>
-      <xsl:for-each select="//cc:assumptions/child::node()/cc:description">
+      <xsl:for-each select="cc:assumption">
         <dt>
-          <xsl:value-of select="../@id"/>
+          <xsl:value-of select="@id"/>
         </dt>
         <dd>
-          <xsl:apply-templates/>
-          <xsl:apply-templates select="../cc:appnote"/>
+		  <xsl:apply-templates select="cc:description" />
+          <xsl:apply-templates select="cc:appnote"/>
         </dd>
       </xsl:for-each>
     </dl>
   </xsl:template>
 
-  <xsl:template match="cc:ThreatsPlacement">
+  <xsl:template match="cc:threats">
     <dl>
-      <xsl:for-each select="//cc:threats/cc:threat/cc:description">
+      <xsl:for-each select="cc:threat">
         <dt>
-          <xsl:value-of select="../@id"/>
+          <xsl:value-of select="@id"/>
         </dt>
         <dd>
-          <xsl:apply-templates/>
-          <xsl:apply-templates select="../cc:appnote"/>
+		  <xsl:apply-templates select="cc:description" />
+          <xsl:apply-templates select="cc:appnote"/>
         </dd>
       </xsl:for-each>
     </dl>
   </xsl:template>
 
-  <xsl:template match="cc:OSPsPlacement">
+  <xsl:template match="cc:OSPs">
     <dl>
-      <xsl:for-each select="//cc:OSPs/cc:OSP/cc:description">
+      <xsl:for-each select="cc:OSP">
         <dt>
-          <xsl:value-of select="../@id"/>
+          <xsl:value-of select="@id"/>
         </dt>
         <dd>
-          <xsl:apply-templates/>
-          <xsl:apply-templates select="../cc:appnote"/>
+		  <xsl:apply-templates select="cc:description" />
+          <xsl:apply-templates select="cc:appnote"/>
         </dd>
       </xsl:for-each>
     </dl>
   </xsl:template>
 
-  <xsl:template match="cc:SOsPlacement">
+  <xsl:template match="cc:SOs">
     <dl>
-      <xsl:for-each select="//cc:SOs/cc:SO">
+      <xsl:for-each select="cc:SO">
         <dt>
           <xsl:value-of select="@id"/>
         </dt>
         <dd><xsl:apply-templates select="cc:description"/><p/>
-			Achieved by: <span class="SOlist">
+			Addressed by: <span class="SOlist">
 			<xsl:for-each select="cc:component-refer">
 				<xsl:value-of select="translate(@ref,$lower,$upper)"/>
 				<xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
@@ -310,15 +324,15 @@
     </dl>
   </xsl:template>
 
-  <xsl:template match="cc:SOEsPlacement">
+  <xsl:template match="cc:SOEs">
     <dl>
-      <xsl:for-each select="//cc:SOEs/cc:SOE/cc:description">
+      <xsl:for-each select="cc:SOE">
         <dt>
-          <xsl:value-of select="../@id"/>
+          <xsl:value-of select="@id"/>
         </dt>
         <dd>
-          <xsl:apply-templates/>
-          <xsl:apply-templates select="../cc:appnote"/>
+          <xsl:apply-templates select="cc:description" />
+          <xsl:apply-templates select="cc:appnote"/>
         </dd>
       </xsl:for-each>
     </dl>
@@ -377,9 +391,9 @@
   </xsl:template>
 
   <xsl:template match="cc:f-element">
-
+	<xsl:variable name="reqid" select="translate(@id, $lower, $upper)"/>
     <div class="req">
-		<div class="reqid"><xsl:value-of select="translate(@id, $lower, $upper)"/></div>
+		<div class="reqid" id="{$reqid}"><xsl:value-of select="$reqid"/></div>
     	<div class="reqdesc"><xsl:apply-templates/> </div>
     </div>
   </xsl:template>
@@ -424,10 +438,19 @@
     Undefined operating system platform
   </xsl:otherwise>
 </xsl:choose>
-
 </xsl:template>
 
 
+  <xsl:template match="cc:appendix">
+    <xsl:variable name="appendix-num"><xsl:number format="A"/>.</xsl:variable>
+    <h1 id="{@id}">
+      <xsl:value-of select="concat($appendix-num, ' ')"/>
+      <xsl:value-of select="@title"/>
+    </h1>
+    <xsl:apply-templates>
+      <xsl:with-param name="section-prefix" select="$appendix-num"/>
+    </xsl:apply-templates>
+  </xsl:template>
 
   <xsl:template match="cc:chapter">
     <xsl:variable name="chapter-num" select="concat(position(), '.')"/>
@@ -455,6 +478,7 @@
     </xsl:apply-templates>
   </xsl:template>
 
+
   <xsl:template match="cc:subsection">
     <xsl:param name="subsection-prefix"/>
     <xsl:variable name="subsection-num">
@@ -478,7 +502,7 @@
   </xsl:template>
 
   <xsl:template match="cc:figure">
-    <div class="center">
+    <div class="figure">
       <img>
         <xsl:attribute name="id">
           <xsl:value-of select="@id"/>
@@ -494,9 +518,7 @@
         </xsl:attribute>
       </img>
       <p/>
-      <b>
-        <xsl:value-of select="@title"/>
-      </b>
+      <b> <xsl:value-of select="@title"/> </b>
     </div>
   </xsl:template>
 
@@ -505,6 +527,9 @@
       <xsl:apply-templates select="@*|node()"/>
     </xsl:copy>
   </xsl:template>
+
+
+  <!-- templates for creating references -->
 
   <!-- Assumes element with matching @id has a @title. -->
   <xsl:template match="cc:xref">
@@ -516,6 +541,35 @@
       </xsl:attribute>
       <xsl:value-of select="//*[@id=$linkend]/@title" />
     </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="cc:secref">
+    <xsl:variable name="linkend" select="@linkend"/>
+    <xsl:element name="a">
+      <xsl:attribute name="href">
+        <xsl:text>#</xsl:text>
+        <xsl:value-of select="$linkend"/>
+      </xsl:attribute>
+      Section 
+		<xsl:apply-templates select="//cc:chapter" mode="secreflookup">
+        	<xsl:with-param name="linkend" select="$linkend"/>
+		</xsl:apply-templates>
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="cc:chapter | cc:section | cc:subsection" mode="secreflookup">
+    <xsl:param name="linkend"/>
+    <xsl:param name="prefix"/>
+    <xsl:variable name="pos" select="position()"/>
+	  <xsl:if test="@id=$linkend">	
+      <xsl:value-of select="concat($prefix,$pos)"/>
+	  </xsl:if> 
+    <xsl:if test="./cc:chapter | ./cc:section | ./cc:subsection">
+      <xsl:apply-templates mode="secreflookup" select="./cc:chapter | ./cc:section | ./cc:subsection">
+    	<xsl:with-param name="linkend" select="$linkend"/>
+        <xsl:with-param name="prefix" select="concat($prefix,$pos,'.')"/>
+      </xsl:apply-templates>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="cc:cite">
