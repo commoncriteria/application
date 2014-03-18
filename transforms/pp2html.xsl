@@ -76,24 +76,19 @@
       *.propertyText { margin-left: 10%; margin-top: 0.2em; margin-bottom: 0.2em }
       *.toc      { background: #FFFFFF; }
       *.toc2         { background: #FFFFFF; }
-      /*div            { margin-top: 1em; margin-bottom: 1em; } */
       div.comp        { margin-left: 8%; margin-top: 1em; margin-bottom: 1em; }
       *.req        { margin-left: 0%; margin-top: 1em; margin-bottom: 1em; }
       *.reqid   { position:absolute; font-size: 90%; font-family: verdana, arial, helvetica, sans-serif; }
       *.reqdesc        { display:inline-block; margin-left: 20%; }
       div.appnote    { margin-left: 0%; margin-top: 1em; }
       div.aacthidden       { margin-left: 0%; margin-top: 1em; margin-bottom: 1em; 
-						padding: 1em;	
-						border:2px solid  #888888; border-radius:5px; 
-						box-shadow: 6px 6px 5px #888888;
 						display: none; }
       div.aact       { margin-left: 0%; margin-top: 1em; margin-bottom: 1em; 
-						padding: 1em;	
-						border:2px solid  #888888; border-radius:5px; 
-						box-shadow: 6px 6px 5px #888888;
+						padding: 1em;
+						border:2px solid  #888888; border-radius:3px; 
+						box-shadow: 4px 4px 3px #888888;
 						display: block; }
-      div.subaact       { margin-left: 0%; margin-top: 1em;  
-						}
+      div.subaact       { margin-left: 0%; margin-top: 1em;  }
       div.toc        { margin-left: 8%; margin-bottom: 4em;
                        padding-bottom: 0.75em; padding-top: 1em;
                        padding-left: 2em; padding-right: 2em; }
@@ -101,10 +96,10 @@
       h2.toc         { border-bottom: none; margin-left: 0%; margin-top: 0em; }
       p.toc          { margin-left: 2em; margin-bottom: 0.2em; margin-top: 0.5em; }
       p.toc2         { margin-left: 5em; margin-bottom: 0.1em; margin-top: 0.1em; }
-      table          { margin-top: 1em; border-collapse:collapse; /*border: 1px solid black;*/ }
-      table,th,td   { text-align: left; padding: 8px 8px; }
+      table          { margin: auto; margin-top: 1em; border-collapse:collapse; /*border: 1px solid black;*/ }
+      td   { text-align: left; padding: 8px 8px; }
+      tr.header            { border-bottom: 3px solid gray;  font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif; }
       table tr:nth-child(2n+2) { background-color: #F4F4F4; }
-      th            { border-bottom: 3px solid gray; }
       div.center	{ display: block; margin-left: auto; margin-right: auto; text-align:center; }
       div.figure	{ display: block; margin-left: auto; margin-right: auto; text-align:center; margin-top: 1em; }
       div.expandstyle  { display:table-cell; vertical-align:middle; padding-top:10px }
@@ -337,6 +332,32 @@
       </xsl:for-each>
     </dl>
   </xsl:template>
+
+
+<xsl:template match="cc:InsertSPDCorrespondence">
+
+  <table>
+		<tr class="header">
+          <td class="header">Threat or Assumption</td>
+          <td>Security Objectives</td>
+		</tr>
+      <xsl:for-each select="//cc:threat">
+		<tr>
+          <td>
+            <xsl:value-of select="@id"/>
+          </td>
+          <td>
+      		<xsl:for-each select="cc:objective-refer">
+            	<xsl:value-of select="@ref"/>
+				<xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
+      		</xsl:for-each>
+          </td>
+        </tr>
+      </xsl:for-each>
+    </table>
+
+</xsl:template>
+
 
   <xsl:template match="cc:selectables">
 		[<b>selection</b>
