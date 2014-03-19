@@ -98,7 +98,8 @@
       p.toc2         { margin-left: 5em; margin-bottom: 0.1em; margin-top: 0.1em; }
       table          { margin: auto; margin-top: 1em; border-collapse:collapse; /*border: 1px solid black;*/ }
       td   { text-align: left; padding: 8px 8px; }
-      tr.header            { border-bottom: 3px solid gray;  font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif; }
+      th   { padding: 8px 8px; }
+      tr.header            { border-bottom: 3px solid gray; padding: 8px 8px; text-align:left; font-weight: bold; /*font-size: 90%; font-family: verdana, arial, helvetica, sans-serif; */ }
       table tr:nth-child(2n+2) { background-color: #F4F4F4; }
       div.center	{ display: block; margin-left: auto; margin-right: auto; text-align:center; }
       div.figure	{ display: block; margin-left: auto; margin-right: auto; text-align:center; margin-top: 1em; }
@@ -125,6 +126,11 @@
 
     <h2>Revision History</h2>
     <table>
+		<tr class="header">
+		  <th>Version</th>
+		  <th>Date</th>
+		  <th>Comment</th>
+		</tr>
       <xsl:for-each select="cc:RevisionHistory/cc:entry">
         <tr>
           <td>
@@ -228,6 +234,10 @@
 
   <xsl:template match="cc:bibliography">
     <table>
+		<tr class="header">
+		  <th>Identifier</th>
+		  <th>Title</th>
+		</tr>
       <xsl:for-each select="cc:entry">
         <tr>
           <td>
@@ -338,10 +348,10 @@
 
   <table>
 		<tr class="header">
-          <td class="header">Threat or Assumption</td>
+          <td>Threat, Assumption, or OSP</td>
           <td>Security Objectives</td>
 		</tr>
-      <xsl:for-each select="//cc:threat">
+      <xsl:for-each select="(//cc:threat | //cc:OSP | //cc:assumption)">
 		<tr>
           <td>
             <xsl:value-of select="@id"/>
