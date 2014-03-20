@@ -104,12 +104,12 @@
       div.center	{ display: block; margin-left: auto; margin-right: auto; text-align:center; }
       div.figure	{ display: block; margin-left: auto; margin-right: auto; text-align:center; margin-top: 1em; }
       div.expandstyle  { display:table-cell; vertical-align:middle; padding-top:10px }
-      span.expandstyle  { vertical-align:middle;  color:black; text-decoration: none; font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif; }
-      .expandstyle a         { color: black; text-decoration: none;  font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif;  }
-      .expandstyle a:link    { color: black; text-decoration: none;  font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif;  }
-      .expandstyle a:visited { color: black; text-decoration: none;  font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif;  }
-      .expandstyle a:hover   { color: black; text-decoration: none;  font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif;  }
-      .expandstyle a:active  { color: black; text-decoration: none;  font-size: 90%; font-weight: bold; font-family: verdana, arial, helvetica, sans-serif;  } 
+      span.expandstyle  { vertical-align:middle;  color:black; text-decoration: none; font-size: 100%; font-weight: bold; /*font-family: verdana, arial, helvetica, sans-serif; */ }
+      .expandstyle a         { color: black; text-decoration: none;  }
+      .expandstyle a:link    { color: black; text-decoration: none;  }
+      .expandstyle a:visited { color: black; text-decoration: none;  }
+      .expandstyle a:hover   { color: black; text-decoration: none;  }
+      .expandstyle a:active  { color: black; text-decoration: none;  } 
   </style>
       </head>
 
@@ -282,6 +282,20 @@
     </dl>
   </xsl:template>
 
+  <xsl:template match="cc:cclaims">
+    <dl>
+      <xsl:for-each select="cc:cclaim">
+        <dt>
+          <xsl:value-of select="@id"/>
+        </dt>
+        <dd>
+		  <xsl:apply-templates select="cc:description" />
+          <xsl:apply-templates select="cc:appnote"/>
+        </dd>
+      </xsl:for-each>
+    </dl>
+  </xsl:template>
+
   <xsl:template match="cc:threats">
     <dl>
       <xsl:for-each select="cc:threat">
@@ -345,7 +359,6 @@
 
 
 <xsl:template match="cc:InsertSPDCorrespondence">
-
   <table>
 		<tr class="header">
           <td>Threat, Assumption, or OSP</td>
@@ -365,7 +378,6 @@
         </tr>
       </xsl:for-each>
     </table>
-
 </xsl:template>
 
 
