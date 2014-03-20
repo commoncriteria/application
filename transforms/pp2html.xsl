@@ -92,7 +92,7 @@
       div.toc        { margin-left: 8%; margin-bottom: 4em;
                        padding-bottom: 0.75em; padding-top: 1em;
                        padding-left: 2em; padding-right: 2em; }
-      span.SOlist   {   font-family: verdana, arial, helvetica, sans-serif; }
+      span.SOlist   {   font-size: 90%; font-family: verdana, arial, helvetica, sans-serif; }
       h2.toc         { border-bottom: none; margin-left: 0%; margin-top: 0em; }
       p.toc          { margin-left: 2em; margin-bottom: 0.2em; margin-top: 0.5em; }
       p.toc2         { margin-left: 5em; margin-bottom: 0.1em; margin-top: 0.1em; }
