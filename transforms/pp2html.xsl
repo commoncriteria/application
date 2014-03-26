@@ -63,12 +63,7 @@
       *.toc      { background: #FFFFFF; }
       *.toc2         { background: #FFFFFF; }
       div.comp        { margin-left: 8%; margin-top: 1em; margin-bottom: 1em; }
-      *.req        { margin-left: 0%; margin-top: 1em; margin-bottom: 1em; }
-      *.reqid   { position:absolute; font-size: 90%; font-family: verdana, arial, helvetica, sans-serif; }
-      *.reqdesc        { display:inline-block; margin-left: 20%; }
       div.appnote    { margin-left: 0%; margin-top: 1em; }
-      div.aacthidden       { margin-left: 0%; margin-top: 1em; margin-bottom: 1em; 
-						display: none; }
       div.aact       { margin-left: 0%; margin-top: 1em; margin-bottom: 1em; 
 						padding: 1em;
 						border:2px solid  #888888; border-radius:3px; 
@@ -96,6 +91,35 @@
       .expandstyle a:visited { color: black; text-decoration: none;  }
       .expandstyle a:hover   { color: black; text-decoration: none;  }
       .expandstyle a:active  { color: black; text-decoration: none;  } 
+      
+      @media screen {
+        *.reqid { position:absolute; font-size: 90%; 
+                  font-family:   verdana, arial, helvetica, sans-serif; }
+        *.req { margin-left: 0%; margin-top: 1em; margin-bottom: 1em; }
+        *.reqdesc { display:inline-block; margin-left: 20%; }
+          div.aacthidden{ margin-left: 0%; margin-top: 1em;
+                          margin-bottom: 1em;
+                          display: none; }
+      }
+
+      @media print {
+          *.reqid   { font-size: 90%; font-family: verdana, arial,
+                helvetica,
+                sans-serif; }
+           *.req    { margin-left: 0%; margin-top: 1em; margin-bottom: 1em; }
+           *.reqdesc  { margin-left: 20%; }
+           div.aacthidden{
+                   margin-left: 0%;
+                   margin-top:
+                   1em; margin-bottom: 1em;
+                   padding: 1em;
+                   border:2px solid  #888888; border-radius:3px;
+                   box-shadow: 4px 4px 3px #888888;
+                   display: block;
+           }
+       }
+      
+      
   </style>
       </head>
       <body>
