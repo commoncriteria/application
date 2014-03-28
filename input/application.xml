@@ -538,12 +538,12 @@
 								application
 								displays all platform resources
 								it would like to access.
-							</subaactivity><subaactivity platform="android">The evaluator shall install
+							</subaactivity><subaactivity platform="android">
+								The evaluator shall install
 								the application
 								and verify that the application displays the
-								sensitive information
-								repositories it will attempt to
-								access.
+								permissions used to access sensitive information
+								repositories.
 							</subaactivity><subaactivity platform="windows">
 								For Windows Store Apps the
 								tester must check the AppManifest.xml
@@ -606,7 +606,7 @@
 								approved/denied and can be changed.
 							</subaactivity><subaactivity platform="android">
 								Android apps are required to
-								declare permissions in their manifest
+								declare permissions in their AndroidManifest.xml
 								file. Users
 								must accept all
 								requested permissions upon installation and cannot
@@ -653,20 +653,21 @@
 							is leveraged.
 							The method of doing so
 							varies per platform.
-
-							<subaactivity platform="android">
-								Android provides filesystem
-								encryption, but not per-application encryption
-								capabilities.
-								(Need to fact-check this.)
-							</subaactivity><subaactivity platform="blackberry">
+							<subaactivity platform="blackberry">
 								The evaluator shall
 								determine
 								whether the application properly uses
 								the Content
 								Protection API.
 								(Need to fact-check this.)
-							</subaactivity><subaactivity platform="windows">The evaluator shall determine and verify that Windows Applications use the Data Protection API (DPAPI) to store and retrieve senstive information. Windows Store Apps for desktop or mobile shall utiliize the DPAPI via the ProtectedData class.</subaactivity><subaactivity platform="ios">
+							</subaactivity>
+							<subaactivity platform="android">
+								The evaluator shall verify that the application uses the Android
+								<code>KeyStore</code>, <code>SecretKeyFactory</code> and <code>Cipher</code>
+								classes to encrypt sensitive data.
+							</subaactivity>
+							<subaactivity platform="windows">
+								The evaluator shall determine and verify that Windows Applications use the Data Protection API (DPAPI) to store and retrieve senstive information. Windows Store Apps for desktop or mobile shall utiliize the DPAPI via the ProtectedData class.</subaactivity><subaactivity platform="ios">
 								The evaluator shall
 								determine
 								whether the application leverages the
@@ -711,12 +712,21 @@
 								BAR are stored in the app folder of the
 								Application working
 								directory.
-							</subaactivity><subaactivity platform="android">The evaluator shall determine that the application stores all settings in /data/data/&lt;application name&gt; or in /sdcard/ if the application has the WRITE_EXTERNAL_STORAGE permission.</subaactivity><subaactivity platform="windows">The evaluator shall determine and verify that Windows Store App applications use either the Windows.UI.ApplicationSettings namespace or the IsolatedStorageSettings namespace for storing application specific settings. Classic Desktop application shall use the Windows Registry or a structured file in the users profile. Locations used to store application settings must not be used for storing executable content.
-							</subaactivity><subaactivity platform="ios">
+							</subaactivity><subaactivity platform="android">
+								The evaluator shall determine and verify that the application stores all settings on internal storage.
+								The application should make use of the <code>SharedPreferences</code> and/or <code>PreferenceActivity</code> classes for storing configuration data.
+							</subaactivity>
+							<subaactivity platform="windows">
+								The evaluator shall determine and verify that Windows Store App applications use either the Windows.UI.ApplicationSettings namespace or the IsolatedStorageSettings namespace for storing application specific settings. Classic Desktop application shall use the Windows Registry or a structured file in the users profile. Locations used to store application settings must not be used for storing executable content.
+							</subaactivity>
+							<subaactivity platform="ios">
 								Something about the
 								<code>defaults</code>
 								system.
-							</subaactivity></aactivity></f-element><f-element id="fmt_mec_ext.1.2">
+							</subaactivity>
+						</aactivity>
+						</f-element>
+						<f-element id="fmt_mec_ext.1.2">
 						The application must use the mechanisms
 						recommended by the
 						operating system vendor for storing
@@ -732,11 +742,16 @@
 								BAR are stored in the app folder of the
 								Application working
 								directory.
-							</subaactivity><subaactivity platform="android">
-								Probably something about using the
-								<code>SharedPreferences</code>
-								class.
-							</subaactivity><subaactivity platform="windows">The evaluator shall determine and verify that Windows Store App applications use the IsolatedStorage namespace for storing application data. Classic Desktop application shall use a structed file in the users profile or the ProgramData directory, but not the applications executable directory. Locations used to store application data must not be used for storing executable content.</subaactivity><subaactivity platform="ios">
+							</subaactivity>
+							<subaactivity platform="android">
+								The evaluator shall verify the follow:
+								<ul>
+									<li>The application stores all sensitive data on internal storage using either <code>Context.MODE_PRIVATE</code> or <code>SharedPreferences</code></li>
+									<li>All keys shall be stored within a keystore using Android's <code>KeyStore</code> class</li>
+									<li>Files that are to be accessible by the user or other applications should be stored in an appropriate folder on external storage.  The application should also be requesting the <code>WRITE_EXTERNAL_STORAGE</code> permission within the <code>AndroidManifest.xml</code> file.</li>
+								</ul>   
+							</subaactivity>
+							<subaactivity platform="windows">The evaluator shall determine and verify that Windows Store App applications use the IsolatedStorage namespace for storing application data. Classic Desktop application shall use a structed file in the users profile or the ProgramData directory, but not the applications executable directory. Locations used to store application data must not be used for storing executable content.</subaactivity><subaactivity platform="ios">
 								Probably something about the
 								<code>defaults</code>
 								system.
@@ -791,11 +806,14 @@
 								Some
 								<code>find</code>
 								command, TBD.
-							</subaactivity><subaactivity platform="android">
-								Some
-								<code>find</code>
-								command, TBD.
-							</subaactivity><subaactivity platform="windows">For Classis Desktop applications the evaluator shall run the SysInternals tools, Process Monitor and Access Check, to verify that files writen to disk during an applications installation have the correct file permissions. Windows Store Apps will pass this by default because of the AppContainer sandbox.				</subaactivity><subaactivity platform="ios">
+							</subaactivity>
+							<subaactivity platform="android">
+								The evaluator shall verify using <code>ls -l</code> that files writen to disk during installation have the correct file permissions.
+							</subaactivity>
+							<subaactivity platform="windows">
+								For Classis Desktop applications the evaluator shall run the SysInternals tools, Process Monitor and Access Check, to verify that files writen to disk during an applications installation have the correct file permissions. Windows Store Apps will pass this by default because of the AppContainer sandbox.
+							</subaactivity>
+							<subaactivity platform="ios">
 								Some
 								<code>find</code>
 								command -- or the platform may simply pass if the Sandbox
@@ -846,8 +864,7 @@
 								used?
 							</subaactivity><subaactivity platform="android">
 								Static analysis to determine
-								if /dev/random and /dev/urandom are
-								used?
+								if /dev/random and /dev/urandom are used.
 							</subaactivity><subaactivity platform="windows">
 								Static analysis to determine
 								if CryptGenRandom is used?
@@ -1009,15 +1026,15 @@
 						</note><aactivity>
 							The evaluator will carry out one of the following tests, depending
 							on the platform.
+							<subaactivity platform="blackberry">
+								Is there anything?
+							</subaactivity>
 							<subaactivity platform="android">
 								Ensure that the application can run with SE for Android
-								enabled.
-								(Do any applications demand disabling SE for Android?)
+								enabled and in enforcing mode.
 							</subaactivity><subaactivity platform="windows">
 								Ensure that the application is compatible with EMET.
 							</subaactivity><subaactivity platform="ios">
-								Is there anything?
-							</subaactivity><subaactivity platform="blackberry">
 								Is there anything?
 							</subaactivity></aactivity></f-element><f-element id="fpt_aex_ext.1.5">
 						The application must not write to directories that contain
@@ -1042,19 +1059,8 @@
 								this platform pass.
 							</subaactivity><subaactivity platform="android">
 								The evaluator shall run the program and note where all files
-								are
-								written.
-								The evaluator shall ensure that it is not possible
-								to
-								also store
-								and execute files
-								from these locations.
-								Applications
-								typically store all application
-								in /data/data/
-								<i>application_name</i>
-								and possibly in /sdcard/ if the application has the
-								WRITE_EXTERNAL_STORAGE permission.
+								are written. The evaluator shall ensure that there are no executable files stored
+								within the applications data directory.
 							</subaactivity><subaactivity platform="windows">
 								The evaluator shall run the
 								program and note where all files are
@@ -1109,7 +1115,7 @@
 							storefront, BlackBerry World for Work storefront, BlackBerry
 							Administration Service, Standard Windows Installer (.msi)
 							format,
-							Windows App Store package (.appx), Google Play Store or
+							Windows App Store package (.appx), Google Play Store (.apk) or
 							OEM App
 							Store, Enterprise-run Android App store, The Apple App
 							Store,
