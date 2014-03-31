@@ -5,7 +5,7 @@
       <PPTitle>Protection Profile for Application Software</PPTitle>
       <PPVersion>.6</PPVersion>
       <PPAuthor>National Information Assurance Partnership</PPAuthor>
-      <PPPubDate>2014-03-24</PPPubDate>
+      <PPPubDate>2014-03-31</PPPubDate>
       <PPCertificationID>NIAP-whoknows</PPCertificationID>
       <CCVersion>.01 Revision 0</CCVersion>
       <Keywords>application; software</Keywords>
@@ -483,11 +483,10 @@
 								or deny.
 							</subaactivity><subaactivity platform="windows">
 								For Windows Store Apps the
-								tester must check the AppManifest.xml
+								evaluator shall check the AppManifest.xml
 								file for a list of
 								required
-								capabilities. The tester must then
-								run the application
+								capabilities. The evaluator shall run the application
 								and verify
 								that the application only uses
 								the capabilities
@@ -495,7 +494,7 @@
 								AppManifest.xml file. For Win32
 								Desktop
 								Application the evaluator
-								must inspect the documentation
+								shall inspect the documentation
 								provided with the application
 								and
 								ensure that it includes a list
@@ -546,10 +545,10 @@
 								repositories.
 							</subaactivity><subaactivity platform="windows">
 								For Windows Store Apps the
-								tester must check the AppManifest.xml
+								evaluator shall check the AppManifest.xml
 								file for a list of
 								required
-								capabilities. The tester must then
+								capabilities. The evaluator shall
 								run the application
 								and verify
 								that the application only uses
@@ -558,7 +557,7 @@
 								AppManifest.xml file. For Win32
 								Desktop
 								Application the evaluator
-								must inspect the documentation
+								shall inspect the documentation
 								provided with the application
 								and
 								ensure that it includes a list
@@ -614,10 +613,10 @@
 								individual permissions to allow or deny.
 							</subaactivity><subaactivity platform="windows">
 								For Windows Store Apps the
-								tester must check the AppManifest.xml
+								evaluator shall check the AppManifest.xml
 								file for a
 								list of required
-								capabilities. The tester must then run the
+								capabilities. The evaluator shall run the
 								application and
 								verify
 								that the application only uses the capabilities listed in
@@ -626,12 +625,12 @@
 								developer must provide
 								a written list of capabilities needed by
 								the application. The
-								tester must then
+								evaluator shall
 								run the desktop application
 								and verify that the application only
-								uses the
+								uses
 								capabilities
-								listed.
+								decalred by the developer.
 							</subaactivity><subaactivity platform="ios">
 								The evaluator shall do
 								something.
@@ -660,13 +659,11 @@
 								the Content
 								Protection API.
 								(Need to fact-check this.)
-							</subaactivity>
-							<subaactivity platform="android">
+							</subaactivity><subaactivity platform="android">
 								The evaluator shall verify that the application uses the Android
 								<code>KeyStore</code>, <code>SecretKeyFactory</code> and <code>Cipher</code>
 								classes to encrypt sensitive data.
-							</subaactivity>
-							<subaactivity platform="windows">
+							</subaactivity><subaactivity platform="windows">
 								The evaluator shall determine and verify that Windows Applications use the Data Protection API (DPAPI) to store and retrieve senstive information. Windows Store Apps for desktop or mobile shall utiliize the DPAPI via the ProtectedData class.</subaactivity><subaactivity platform="ios">
 								The evaluator shall
 								determine
@@ -715,18 +712,13 @@
 							</subaactivity><subaactivity platform="android">
 								The evaluator shall determine and verify that the application stores all settings on internal storage.
 								The application should make use of the <code>SharedPreferences</code> and/or <code>PreferenceActivity</code> classes for storing configuration data.
-							</subaactivity>
-							<subaactivity platform="windows">
+							</subaactivity><subaactivity platform="windows">
 								The evaluator shall determine and verify that Windows Store App applications use either the Windows.UI.ApplicationSettings namespace or the IsolatedStorageSettings namespace for storing application specific settings. Classic Desktop application shall use the Windows Registry or a structured file in the users profile. Locations used to store application settings must not be used for storing executable content.
-							</subaactivity>
-							<subaactivity platform="ios">
+							</subaactivity><subaactivity platform="ios">
 								Something about the
 								<code>defaults</code>
 								system.
-							</subaactivity>
-						</aactivity>
-						</f-element>
-						<f-element id="fmt_mec_ext.1.2">
+							</subaactivity></aactivity></f-element><f-element id="fmt_mec_ext.1.2">
 						The application must use the mechanisms
 						recommended by the
 						operating system vendor for storing
@@ -742,16 +734,9 @@
 								BAR are stored in the app folder of the
 								Application working
 								directory.
-							</subaactivity>
-							<subaactivity platform="android">
+							</subaactivity><subaactivity platform="android">
 								The evaluator shall verify the follow:
-								<ul>
-									<li>The application stores all sensitive data on internal storage using either <code>Context.MODE_PRIVATE</code> or <code>SharedPreferences</code></li>
-									<li>All keys shall be stored within a keystore using Android's <code>KeyStore</code> class</li>
-									<li>Files that are to be accessible by the user or other applications should be stored in an appropriate folder on external storage.  The application should also be requesting the <code>WRITE_EXTERNAL_STORAGE</code> permission within the <code>AndroidManifest.xml</code> file.</li>
-								</ul>   
-							</subaactivity>
-							<subaactivity platform="windows">The evaluator shall determine and verify that Windows Store App applications use the IsolatedStorage namespace for storing application data. Classic Desktop application shall use a structed file in the users profile or the ProgramData directory, but not the applications executable directory. Locations used to store application data must not be used for storing executable content.</subaactivity><subaactivity platform="ios">
+								<ul><li>The application stores all sensitive data on internal storage using either <code>Context.MODE_PRIVATE</code> or <code>SharedPreferences</code></li><li>All keys shall be stored within a keystore using Android's <code>KeyStore</code> class</li><li>Files that are to be accessible by the user or other applications should be stored in an appropriate folder on external storage.  The application should also be requesting the <code>WRITE_EXTERNAL_STORAGE</code> permission within the <code>AndroidManifest.xml</code> file.</li></ul></subaactivity><subaactivity platform="windows">The evaluator shall determine and verify that Windows Store App applications use the IsolatedStorage namespace for storing application data. The evaluator shall determine and verify that classic Desktop application use a structed file in the users profile or the ProgramData directory, but not the applications executable directory. Locations used to store application data must not be used for storing executable content.</subaactivity><subaactivity platform="ios">
 								Probably something about the
 								<code>defaults</code>
 								system.
@@ -806,14 +791,10 @@
 								Some
 								<code>find</code>
 								command, TBD.
-							</subaactivity>
-							<subaactivity platform="android">
+							</subaactivity><subaactivity platform="android">
 								The evaluator shall verify using <code>ls -l</code> that files writen to disk during installation have the correct file permissions.
-							</subaactivity>
-							<subaactivity platform="windows">
-								For Classis Desktop applications the evaluator shall run the SysInternals tools, Process Monitor and Access Check, to verify that files writen to disk during an applications installation have the correct file permissions. Windows Store Apps will pass this by default because of the AppContainer sandbox.
-							</subaactivity>
-							<subaactivity platform="ios">
+							</subaactivity><subaactivity platform="windows">
+								The evaluator shall run the SysInternals tools, Process Monitor and Access Check, for Classis Desktop applications to verify that files writen to disk during an applications installation have the correct file permissions. Windows Store Apps will pass this by default because of the AppContainer sandbox.				</subaactivity><subaactivity platform="ios">
 								Some
 								<code>find</code>
 								command -- or the platform may simply pass if the Sandbox
@@ -865,9 +846,7 @@
 							</subaactivity><subaactivity platform="android">
 								Static analysis to determine
 								if /dev/random and /dev/urandom are used.
-							</subaactivity><subaactivity platform="windows">
-								Static analysis to determine
-								if CryptGenRandom is used?
+							</subaactivity><subaactivity platform="windows">The evaluator shall use static analysis to verify that the CryptGenRandom API is used for classic desktop applications. The evaluator shall use static analysis to verify that the System.Random API is used for Windows Store Applications.
 							</subaactivity><subaactivity platform="ios">
 								Static analysis to determine
 								if /dev/random is used?
@@ -941,7 +920,7 @@
 							video, and
 							content
 							file formats.
-						</note><aactivity>The evaluator must ensure that the developer
+						</note><aactivity>The evaluator shall ensure that the developer
 							documentation
 							specifies which structured file
 							formats are parsed
@@ -961,7 +940,7 @@
 							API functions used by the application. (Ideally, this list
 							should
 							be generated by the linker for the current build.)
-							Testers must
+							Evaluator shall
 							then compare the developer-supplied list with the
 							operating system
 							documentation.
@@ -986,10 +965,9 @@
 								Ensure these share no mapping
 								locations.
 							</subaactivity><subaactivity platform="windows">
-								Run the same program on two
-								different systems. Run ProcDump on
-								each and ensure no mappings
-								are at the same address?
+								The evaluator shall run the same application on two
+								different systems and run the Sysinternals tool VMMap on
+								each system and verify the application is mapped into memory at different addresses for classis desktop application. TODO: Store Apps?
 							</subaactivity><subaactivity platform="ios">
 								Perform a static analysis to
 								search for any mmap calls (or API calls
@@ -1003,7 +981,7 @@
 						The application must not subvert data execution prevention (DEP)
 						by simultaneously allowing both write and execute permissions on
 						any memory region.
-						<aactivity>Testers must examine executable file headers to verify
+						<aactivity>The evaluator shall examine executable file headers to verify
 							that platform supported DEP protections are enabled for the
 							application.
 						</aactivity></f-element><f-element id="fpt_aex_ext.1.3">
@@ -1028,12 +1006,11 @@
 							on the platform.
 							<subaactivity platform="blackberry">
 								Is there anything?
-							</subaactivity>
-							<subaactivity platform="android">
+							</subaactivity><subaactivity platform="android">
 								Ensure that the application can run with SE for Android
 								enabled and in enforcing mode.
 							</subaactivity><subaactivity platform="windows">
-								Ensure that the application is compatible with EMET.
+The evaluator shall ensure that classis desktop applications and Windows Store applications are compatible with EMET.
 							</subaactivity><subaactivity platform="ios">
 								Is there anything?
 							</subaactivity></aactivity></f-element><f-element id="fpt_aex_ext.1.5">
@@ -1076,7 +1053,7 @@
 								application working
 								directory (sandbox), and so applications on
 								this platform pass.
-							</subaactivity></aactivity></f-element></component><component id="fpt_tud_ext.1" name="Integrity for Installation and Update"><!-- TO DO: Cite references. --><f-element id="fpt_tud_ext.1.1">
+							</subaactivity></aactivity></f-element><f-element p7:id="fpt_aex_ext.1.6" xmlns:p7="http://secure.tuvit.de/schemata/">The application must not subvert stack cookie protections by disabling default compiler options.<aactivity>The evaluator shall ensure that the application was compiled with the stack cookie security feature not disabled.</aactivity></f-element></component><component id="fpt_tud_ext.1" name="Integrity for Installation and Update"><!-- TO DO: Cite references. --><f-element id="fpt_tud_ext.1.1">
 						The application installation and update packages must be signed
 						by
 						the vendor in conformance with NIST SP 800-89, Recommendation
@@ -1102,14 +1079,14 @@
 							is not specified here.
 						</note><aactivity>Developers must document their process for
 							cryptographically signing updates and installation packages.
-							Testers must verify that the documentation conforms with the
+							The evaluator shall verify that the documentation conforms with the
 							above requirement.
 						</aactivity></f-element><f-element id="fpt_tud_ext.1.2">
 						The application update and installation packages must be
 						distributed using
 						the format of the operating system-supported
 						package manager.
-						<aactivity>The tester must verify that application updates are
+						<aactivity>The evaluator shall verify that application updates are
 							distributed in a format supported by a standard mechanism.
 							Examples of standard mechanisms include: The BlackBerry World
 							storefront, BlackBerry World for Work storefront, BlackBerry
@@ -1127,12 +1104,12 @@
 						configuration and preference settings,
 						and audit or log events.							<!-- 
 							TO DO: This is a component-level application note. Figure out how to customize 
-							markup above element level. --><aactivity>The tester must uninstall the application and search
+							markup above element level. --><aactivity>The evaluator shall uninstall the application and search
 							for evidence of the uninstalled application on the platform.
 						</aactivity></f-element></component><component id="fpt_idv_ext.1" name="Software Identification and Versions"><f-element id="fpt_idv_ext.1.1">
 						The application must include software identification (SWID) tags
 						that comply with the ISO/IEC 19770-2:2009 standard.
-						<aactivity>Testers must install the application, then check for
+						<aactivity>The evaluator shall install the application, then check for
 							the existence of SWID tags that comply with the ISO/IEC
 							19770-2:2009 standard.
 						</aactivity></f-element><f-element id="fpt_idv_ext.1.2">
