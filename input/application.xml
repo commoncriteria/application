@@ -583,7 +583,7 @@
 							not the application can
 							actually use the device.
 						</note><aactivity>
-							The evaluator must compare the list of resources required by the
+							The evaluator shall compare the list of resources required by the
 							application with the list of resources indicated by the
 							application itself.
 							The method of doing so varies per platform.
@@ -632,9 +632,7 @@
 								capabilities
 								decalred by the developer.
 							</subaactivity><subaactivity platform="ios">
-								The evaluator shall do
-								something.
-							</subaactivity></aactivity></f-element></component><component id="fdp_dar_ext.1" name="Storage Of Sensitive Application Data"><f-element id="fdp_dar_ext.1.1">
+								TBD							</subaactivity></aactivity></f-element></component><component id="fdp_dar_ext.1" name="Storage Of Sensitive Application Data"><f-element id="fdp_dar_ext.1.1">
 						The application must leverage platform-provided functionality for
 						the encryption of sensitive data when it is stored in
 						non-volatile
@@ -658,7 +656,6 @@
 								whether the application properly uses
 								the Content
 								Protection API.
-								(Need to fact-check this.)
 							</subaactivity><subaactivity platform="android">
 								The evaluator shall verify that the application uses the Android
 								<code>KeyStore</code>, <code>SecretKeyFactory</code> and <code>Cipher</code>
@@ -703,7 +700,7 @@
 							The method of doing so
 							varies per platform.
 							<subaactivity platform="blackberry">
-								Tester should verify that
+								The evaluator shall verify
 								when the application is installed that all
 								files included in the
 								BAR are stored in the app folder of the
@@ -714,11 +711,8 @@
 								The application should make use of the <code>SharedPreferences</code> and/or <code>PreferenceActivity</code> classes for storing configuration data.
 							</subaactivity><subaactivity platform="windows">
 								The evaluator shall determine and verify that Windows Store App applications use either the Windows.UI.ApplicationSettings namespace or the IsolatedStorageSettings namespace for storing application specific settings. Classic Desktop application shall use the Windows Registry or a structured file in the users profile. Locations used to store application settings must not be used for storing executable content.
-							</subaactivity><subaactivity platform="ios">
-								Something about the
-								<code>defaults</code>
-								system.
-							</subaactivity></aactivity></f-element><f-element id="fmt_mec_ext.1.2">
+							</subaactivity><subaactivity platform="ios">The evaluator shall verify the application uses the defaults system
+								</subaactivity></aactivity></f-element><f-element id="fmt_mec_ext.1.2">
 						The application must use the mechanisms
 						recommended by the
 						operating system vendor for storing
@@ -728,22 +722,18 @@
 							and ensure it is stored in a location supported by the platform.
 							The method of doing so varies per platform.
 							<subaactivity platform="blackberry">
-								Tester should verify that
-								when the application is installed that all
+								The evaluator shall verify when the application is installed that all
 								files included in the
 								BAR are stored in the app folder of the
 								Application working
 								directory.
 							</subaactivity><subaactivity platform="android">
-								The evaluator shall verify the follow:
-								<ul><li>The application stores all sensitive data on internal storage using either <code>Context.MODE_PRIVATE</code> or <code>SharedPreferences</code></li><li>All keys shall be stored within a keystore using Android's <code>KeyStore</code> class</li><li>Files that are to be accessible by the user or other applications should be stored in an appropriate folder on external storage.  The application should also be requesting the <code>WRITE_EXTERNAL_STORAGE</code> permission within the <code>AndroidManifest.xml</code> file.</li></ul></subaactivity><subaactivity platform="windows">The evaluator shall determine and verify that Windows Store App applications use the IsolatedStorage namespace for storing application data. The evaluator shall determine and verify that classic Desktop application use a structed file in the users profile or the ProgramData directory, but not the applications executable directory. Locations used to store application data must not be used for storing executable content.</subaactivity><subaactivity platform="ios">
-								Probably something about the
-								<code>defaults</code>
-								system.
-							</subaactivity></aactivity></f-element></component><component id="fmt_cfg_ext.1" name="Secure by Default Configuration"><f-element id="fmt_cfg_ext.1.1">
+								The evaluator shall verify the following:
+								<ul><li>The application stores all sensitive data on internal storage using either <code>Context.MODE_PRIVATE</code> or <code>SharedPreferences</code></li><li>All keys shall be stored within a keystore using Android's <code>KeyStore</code> class</li><li>Files that are to be accessible by the user or other applications should be stored in an appropriate folder on external storage.  The application should also be requesting the <code>WRITE_EXTERNAL_STORAGE</code> permission within the <code>AndroidManifest.xml</code> file.</li></ul></subaactivity><subaactivity platform="windows">The evaluator shall determine and verify that Windows Store App applications use the IsolatedStorage namespace for storing application data. The evaluator shall determine and verify that classic Desktop application use a structed file in the users profile or the ProgramData directory, but not the applications executable directory. Locations used to store application data must not be used for storing executable content.</subaactivity><subaactivity platform="ios">The evaluator shall verify the application uses the defaults system
+								</subaactivity></aactivity></f-element></component><component id="fmt_cfg_ext.1" name="Secure by Default Configuration"><f-element id="fmt_cfg_ext.1.1">
 						The application must be configured by default to not use any
 						default credentials.
-						<aactivity>The evaluator must install and run the application and
+						<aactivity>The evaluator shall install and run the application and
 							inspect its documentation.
 							If the application uses any
 							credentials
@@ -755,9 +745,9 @@
 						</aactivity></f-element><f-element id="fmt_cfg_ext.1.2">
 						The application must be configured by default to not transmit any
 						credentials in the clear.
-						<aactivity>The evaluator must install and run the application and
+						<aactivity>The evaluator shall install and run the application and
 							inspect its documentation.
-							The evaluator must determine if the
+							The evaluator shall determine if the
 							application uses any
 							credentials such as passwords
 							or private
@@ -774,9 +764,9 @@
 						The application must be configured by default to have file
 						permissions which protect it from unprivileged processes.
 						<aactivity>
-							The evaluator must install and run the application. The
+							The evaluator shall install and run the application. The
 							evaluator
-							must inspect the filesystem of the platform for any
+							shall inspect the filesystem of the platform for any
 							files created
 							by
 							the application
@@ -787,27 +777,19 @@
 							processes. The
 							method of doing so
 							varies per platform.
-							<subaactivity platform="blackberry">
-								Some
-								<code>find</code>
-								command, TBD.
-							</subaactivity><subaactivity platform="android">
+							<subaactivity platform="blackberry">TBD
+								</subaactivity><subaactivity platform="android">
 								The evaluator shall verify using <code>ls -l</code> that files writen to disk during installation have the correct file permissions.
 							</subaactivity><subaactivity platform="windows">
-								The evaluator shall run the SysInternals tools, Process Monitor and Access Check, for Classis Desktop applications to verify that files writen to disk during an applications installation have the correct file permissions. Windows Store Apps will pass this by default because of the AppContainer sandbox.				</subaactivity><subaactivity platform="ios">
-								Some
-								<code>find</code>
-								command -- or the platform may simply pass if the Sandbox
-								prevents other processes from reading where one application is
-								permitted to write.
-							</subaactivity></aactivity></f-element><f-element id="fmt_cfg_ext.1.4">
+								The evaluator shall run the SysInternals tools, Process Monitor and Access Check, for Classis Desktop applications to verify that files writen to disk during an applications installation have the correct file permissions. Windows Store Apps will pass this by default because of the AppContainer sandbox.				</subaactivity><subaactivity platform="ios">TBD
+								</subaactivity></aactivity></f-element><f-element id="fmt_cfg_ext.1.4">
 						The application must be configured by default to not transmit any
 						personally-identifiable information (PII).
 						<note role="application">PII is concerned with user identity and does not
 							include crashdumps or other information about system state.
-						</note><aactivity>The evaluator must install and run the application and
+						</note><aactivity>The evaluator shall install and run the application and
 							inspect its documentation.
-							The evaluator must survey the list of
+							The evaluator shall survey the list of
 							settings for the application.
 							If any setting controls
 							the
@@ -840,16 +822,12 @@
 							per-platform
 							basis:
 							<subaactivity platform="blackberry">
-								Static analysis to determine
-								if /dev/random and /dev/urandom are
-								used?
-							</subaactivity><subaactivity platform="android">
-								Static analysis to determine
-								if /dev/random and /dev/urandom are used.
+								The evaluator shall use static analysis to verify /dev/random or /dev/urandom is
+								used.
+							</subaactivity><subaactivity platform="android">The evaluator shall use static analysis to verify /dev/random or /dev/urandom is
+								used.
 							</subaactivity><subaactivity platform="windows">The evaluator shall use static analysis to verify that the CryptGenRandom API is used for classic desktop applications. The evaluator shall use static analysis to verify that the System.Random API is used for Windows Store Applications.
-							</subaactivity><subaactivity platform="ios">
-								Static analysis to determine
-								if /dev/random is used?
+							</subaactivity><subaactivity platform="ios">The evaluator shall use static analysis to verify /dev/random is used.
 							</subaactivity></aactivity></f-element></component></subsection><subsection title="Privacy (FPR)" id="fpr"><component id="fpr_ano_ext.1" name="Anonymous Network Behavior"><f-element id="fpr_ano_ext.1.1">
 						The application must be capable of not transmitting any user
 						identity information.
@@ -872,7 +850,6 @@
 							application, and ensure that no PII is
 							transmitted from the
 							system.
-							TBD: how/practical to MITM app traffic?
 						</aactivity></f-element></component></subsection><subsection title="Trusted Path/Channel (FTP)" id="ftp"><component id="ftp_dit_ext.1" name="Protection of Data in Transit"><f-element id="ftp_dit_ext.1.1">
 						The TSF must use
 						<selectables atleastone="yes"><selectable>TLS</selectable><selectable>DTLS</selectable><selectable>HTTPS</selectable></selectables>
@@ -906,7 +883,7 @@
 						<!-- subtly different AA here; search for non-platform crypto --><aactivity>The developer must report the name and version of the
 							cryptographic libraries used by the application. If a
 							developer-designed cryptographic library is implemented, the
-							tester must verify that the library is FIPS certified.
+							evaluator shall verify that the library is FIPS certified.
 						</aactivity></f-element><!-- TO DO: Hyperlink URLs. --><f-element id="fpt_api_ext.1.2">
 						The application must use platform-provided libraries for parsing
 						any structured files whose
@@ -929,7 +906,7 @@
 							which libraries are
 							used to parse them.
 							The
-							tester must verify
+							evaluator shall verify
 							that the libraries
 							documented are provided
 							by the
@@ -940,7 +917,7 @@
 							API functions used by the application. (Ideally, this list
 							should
 							be generated by the linker for the current build.)
-							Evaluator shall
+							The evaluator shall
 							then compare the developer-supplied list with the
 							operating system
 							documentation.
@@ -956,27 +933,25 @@
 							consistent
 							address. The method of doing so varies per
 							platform.
-							<subaactivity platform="blackberry">
-								Lauren, help please?
+							<subaactivity platform="blackberry">TBD
 							</subaactivity><subaactivity platform="android">
-								Run the same program on two
-								different systems. Connect via ADB and
+								The evaluator shall run the same program on two
+								different andriod systems. Connect via ADB and
 								inspect /proc/PID/maps.
-								Ensure these share no mapping
+								Ensure the two different instances share no mapping
 								locations.
 							</subaactivity><subaactivity platform="windows">
 								The evaluator shall run the same application on two
-								different systems and run the Sysinternals tool VMMap on
-								each system and verify the application is mapped into memory at different addresses for classis desktop application. TODO: Store Apps?
+								different windows systems and run the Sysinternals tool VMMap on
+								each system and verify the two different instances share no mapping
+								locations.
 							</subaactivity><subaactivity platform="ios">
-								Perform a static analysis to
+								The evaluator shall perform a static analysis to
 								search for any mmap calls (or API calls
-								which in turn call
-								mmap),
+								that call mmap),
 								and ensure that no arguments
-								are provided that request
-								mapping at
-								a set address?
+								are provided that request a
+								mapping at a fixed address
 							</subaactivity></aactivity></f-element><f-element id="fpt_aex_ext.1.2">
 						The application must not subvert data execution prevention (DEP)
 						by simultaneously allowing both write and execute permissions on
@@ -1002,17 +977,15 @@
 							features, or security enhancements provided by the operating system vendor,
 							do not need to be disabled in order for the application to run.
 						</note><aactivity>
-							The evaluator will carry out one of the following tests, depending
+							The evaluator shall carry out one of the following tests, depending
 							on the platform.
-							<subaactivity platform="blackberry">
-								Is there anything?
+							<subaactivity platform="blackberry">TBD
 							</subaactivity><subaactivity platform="android">
-								Ensure that the application can run with SE for Android
-								enabled and in enforcing mode.
+								The evaluator shall ensure that the application can run with SE for Android
+								enabled and in enforcement mode.
 							</subaactivity><subaactivity platform="windows">
-The evaluator shall ensure that classis desktop applications and Windows Store applications are compatible with EMET.
-							</subaactivity><subaactivity platform="ios">
-								Is there anything?
+The evaluator shall ensure that classis desktop applications and Windows Store applications are compatible with Microsoft's Enhanced Mitigation Experince Toolkit (EMET).
+							</subaactivity><subaactivity platform="ios">TBD
 							</subaactivity></aactivity></f-element><f-element id="fpt_aex_ext.1.5">
 						The application must not write to directories that contain
 						executable files.
