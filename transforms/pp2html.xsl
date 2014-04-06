@@ -4,18 +4,13 @@
     Authors: Dennis Orth, Jeff Blank
     Version: 9 Jan 2014
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:htm="http://www.w3.org/1999/xhtml" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:fo="http://www.w3.org/1999/XSL/Format" xmlns:cc="http://secure.tuvit.de/schemata/" xmlns:exsl="http://exslt.org/common" xmlns:dyn="http://exslt.org/dynamic" xmlns:my="my:my" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cc="http://common-criteria.rhcloud.com/ns/cc" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
   <!-- very important, for special characters and umlauts iso8859-1-->
   <xsl:output method="html" encoding="UTF-8" indent="yes" />
-  <!-- Variable contains the root element of the processed document -->
-  <xsl:variable name="currentfile" select="current()" />
-  <!-- An XML representation of CC part 2, which has all of its SFRs. -->
-  <xsl:variable name="ccfile" select="document('../input/cc.xml')" />
+  
   <xsl:variable name="lower" select="'abcdefghijklmnopqrstuvwxyz'" />
   <xsl:variable name="upper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
-  <xsl:variable name="ccXML">
-    <xsl:copy-of select="document('../input/cc3R4.xml')" />
-  </xsl:variable>
+  
   <xsl:template match="/cc:PP">
     <html xmlns="http://www.w3.org/1999/xhtml">
       <head>
