@@ -375,8 +375,7 @@
         <xsl:otherwise>
           <!-- Is an extended Component -->
           <h4>
-            <xsl:value-of select="translate(@id, $lower, $upper)" />
-            <xsl:text></xsl:text>
+			<xsl:value-of select="concat(translate(@id, $lower, $upper), ' ')" />
             <xsl:value-of select="@name" />
           </h4>
         </xsl:otherwise>
