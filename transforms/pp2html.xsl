@@ -383,7 +383,7 @@
       <xsl:apply-templates />
     </div>
   </xsl:template>
-  <xsl:template match="cc:f-element">
+  <xsl:template match="cc:f-element | cc:a-element">
     <xsl:variable name="reqid" select="translate(@id, $lower, $upper)" />
     <div class="req">
       <div class="reqid" id="{$reqid}">

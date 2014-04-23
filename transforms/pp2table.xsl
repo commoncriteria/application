@@ -40,45 +40,65 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
             font-weight: bold;
             background-color: #dedede;
         }
+		div.title
+		{ 
+			text-align: center; font-size: xx-large; font-weight:bold;
+            font-family: verdana,arial,sans-serif;
+<!--border-bottom: solid 1px gray; -->
+ margin-left: 8%; margin-right: 8%; 
+		}
+		div.tabletitle
+		{ 
+			text-align: left; font-size: x-large; font-weight:bold;
+            font-family: verdana,arial,sans-serif;
+			margin-top: 2em;
+border-top: solid 2px gray; 
+border-bottom: solid 2px gray; 
+ padding-bottom: 0.25em; padding-top: 0.25em;
+}
+
+		}
+
+		
     	</style>
 
 		<head>
-			<title>Tabular Presentation of Requirements from the <xsl:value-of select="/cc:PP/cc:PPReference/cc:ReferenceTable/cc:PPTitle" /></title>
+			<title>Tabular Presentation of the <xsl:value-of select="/cc:PP/cc:PPReference/cc:ReferenceTable/cc:PPTitle" /></title>
 		</head>
 		<body>
 			<br/>
 			<br/>
-			<div style="text-align: center; font-size: x-large; font-weight:bold">
-			Tabular Presentation of the <i><xsl:value-of select="/cc:PP/cc:PPReference/cc:ReferenceTable/cc:PPTitle" /></i>
+			<div class="title">
+			Tabular Presentation of the <br/><i><xsl:value-of select="/cc:PP/cc:PPReference/cc:ReferenceTable/cc:PPTitle" /></i>
 			</div>
 			<br/>
 			<br/>
 
+			<div class="tabletitle">
+			Security Functional Requirements
+			</div>
 			<table>
 				<thead>
 					<td>ID</td>
-					<td>Security Requirement</td>
+					<td>Requirement</td>
 					<td>Assurance Activity</td>
 				</thead>
 	
 				<xsl:apply-templates select="//cc:f-element"/>
 			</table>
-<!--
-			<div style="text-align: center; font-size: x-large; font-weight:bold">
+
+			<div class="tabletitle">
 			Security Assurance Requirements
 			</div>
 
 			<table>
 				<thead>
 					<td>ID</td>
-					<td>Security Functional Requirement</td>
-					<td>Description</td>
-					<td>Assurance Activity</td>
+					<td>Requirement</td>
 				</thead>
 	
-				<xsl:apply-templates select="//cc:f-"/>
+				<xsl:apply-templates select="//cc:a-element"/>
 			</table>
--->
 		</body>
 		</html>
 	</xsl:template>
@@ -94,6 +114,19 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			</xsl:if>
 			</td>
 			<td><xsl:apply-templates select="cc:aactivity"/> </td>
+		</tr>
+	</xsl:template>
+
+	<xsl:template match="cc:a-element">
+		<tr>
+			<td><xsl:value-of select="translate(@id,$lower,$upper)"/></td> 
+			<td><xsl:apply-templates select="./text()" />
+			<xsl:if test="cc:note[@role='application']">
+				<br/><b>Application Note: </b>
+	      		<xsl:apply-templates select="cc:note[@role='application']" />
+			</xsl:if>
+			</td>
+			<!--<td><xsl:apply-templates select="cc:aactivity"/> </td>-->
 		</tr>
 	</xsl:template>
 
