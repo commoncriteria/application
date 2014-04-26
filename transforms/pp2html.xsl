@@ -350,6 +350,7 @@
       </xsl:for-each>
     </table>
   </xsl:template>
+
   <xsl:template match="cc:selectables">
 		[<b>selection</b><xsl:if test="@exclusiv">, choose one of</xsl:if><xsl:if test="@atleastone">, at least one of</xsl:if>
 		:
@@ -363,26 +364,16 @@
     <xsl:variable name="component" select="substring(@id,1,9)" />
     <xsl:variable name="SFRID" select="@id" />
     <div class="comp">
-      <xsl:choose>
-        <xsl:when test="count(document('../input/cc.xml')//f-component[@id=$component]/@name)&gt;0">
-          <!-- Component from CC standard -->
-          <h4>
-            <xsl:value-of select="translate(@id, $lower, $upper)" />
-            <xsl:text></xsl:text>
-            <xsl:value-of select="document('../input/cc.xml')/cc/f-class/f-family/f-component[@id=$component]/@name" />
-          </h4>
-        </xsl:when>
-        <xsl:otherwise>
-          <!-- Is an extended Component -->
           <h4>
 			<xsl:value-of select="concat(translate(@id, $lower, $upper), ' ')" />
             <xsl:value-of select="@name" />
           </h4>
-        </xsl:otherwise>
-      </xsl:choose>
       <xsl:apply-templates />
     </div>
   </xsl:template>
+
+
+
   <xsl:template match="cc:f-element | cc:a-element">
     <xsl:variable name="reqid" select="translate(@id, $lower, $upper)" />
     <div class="req">
@@ -394,6 +385,11 @@
       </div>
     </div>
   </xsl:template>
+
+  <xsl:template match="cc:title">
+      <xsl:apply-templates />
+  </xsl:template>
+
   <xsl:template match="cc:note[@role='application']">
     <div class="appnote">
       <b>Application Note: </b>
