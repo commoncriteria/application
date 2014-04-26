@@ -44,22 +44,20 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 		{ 
 			text-align: center; font-size: xx-large; font-weight:bold;
             font-family: verdana,arial,sans-serif;
-<!--border-bottom: solid 1px gray; -->
- margin-left: 8%; margin-right: 8%; 
+			<!--border-bottom: solid 1px gray; -->
+			margin-left: 8%; margin-right: 8%; 
 		}
 		div.tabletitle
 		{ 
 			text-align: left; font-size: x-large; font-weight:bold;
             font-family: verdana,arial,sans-serif;
 			margin-top: 2em;
-border-top: solid 2px gray; 
-border-bottom: solid 2px gray; 
- padding-bottom: 0.25em; padding-top: 0.25em;
-}
-
+			border-top: solid 2px gray; 
+			border-bottom: solid 2px gray; 
+			padding-bottom: 0.25em; padding-top: 0.25em;
 		}
 
-		
+		}
     	</style>
 
 		<head>
@@ -95,6 +93,7 @@ border-bottom: solid 2px gray;
 				<thead>
 					<td>ID</td>
 					<td>Requirement</td>
+					<td>Assurance Activity</td>
 				</thead>
 	
 				<xsl:apply-templates select="//cc:a-element"/>
@@ -104,31 +103,77 @@ border-bottom: solid 2px gray;
 	</xsl:template>
 
 
-	<xsl:template match="cc:f-element">
+	<xsl:template match="cc:f-element | cc:a-element">
 		<tr>
 			<td><xsl:value-of select="translate(@id,$lower,$upper)"/></td> 
-			<td><xsl:apply-templates select="./text()" />
-			<xsl:if test="cc:note[@role='application']">
-				<br/><b>Application Note: </b>
-	      		<xsl:apply-templates select="cc:note[@role='application']" />
-			</xsl:if>
+			<td><xsl:apply-templates select="cc:title"/><br/>
+				<xsl:apply-templates select="cc:note[@role='application']"/>
 			</td>
 			<td><xsl:apply-templates select="cc:aactivity"/> </td>
 		</tr>
 	</xsl:template>
 
-	<xsl:template match="cc:a-element">
-		<tr>
-			<td><xsl:value-of select="translate(@id,$lower,$upper)"/></td> 
-			<td><xsl:apply-templates select="./text()" />
-			<xsl:if test="cc:note[@role='application']">
-				<br/><b>Application Note: </b>
-	      		<xsl:apply-templates select="cc:note[@role='application']" />
-			</xsl:if>
-			</td>
-			<!--<td><xsl:apply-templates select="cc:aactivity"/> </td>-->
-		</tr>
+	<xsl:template match="cc:title">
+	      		<xsl:apply-templates />
 	</xsl:template>
+
+
+	<xsl:template match="cc:note[@role='application']">
+				<br/>
+				<b>Application Note: </b>
+	      		<xsl:apply-templates />
+	</xsl:template>
+
+ <xsl:template match="cc:assignment">
+		[<b>assignment:</b><xsl:value-of select="text()" />]
+	</xsl:template>
+  <xsl:template match="cc:component">
+    <xsl:variable name="family" select="substring(@id,1,7)" />
+    <xsl:variable name="component" select="substring(@id,1,9)" />
+    <xsl:variable name="SFRID" select="@id" />
+    <div class="comp">
+          <h4>
+			<xsl:value-of select="concat(translate(@id, $lower, $upper), ' ')" />
+            <xsl:value-of select="@name" />
+          </h4>
+      <xsl:apply-templates />
+    </div>
+  </xsl:template>
+
+
+  <xsl:template match="cc:selectables">
+		[<b>selection</b><xsl:if test="@exclusiv">, choose one of</xsl:if><xsl:if test="@atleastone">, at least one of</xsl:if>
+		:
+        <xsl:for-each select="cc:selectable"><xsl:choose><xsl:when test="../@linebreak"><p style="margin-left: 40px;"><i><xsl:apply-templates /></i><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if></p></xsl:when><xsl:otherwise><i><xsl:apply-templates /></i><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if></xsl:otherwise></xsl:choose></xsl:for-each>]
+	</xsl:template>
+
+  <xsl:template match="cc:assignment">
+		[<b>assignment:</b><xsl:value-of select="text()" />]
+	</xsl:template>
+  <xsl:template match="cc:component">
+    <xsl:variable name="family" select="substring(@id,1,7)" />
+    <xsl:variable name="component" select="substring(@id,1,9)" />
+    <xsl:variable name="SFRID" select="@id" />
+    <div class="comp">
+      <h4>
+		 <xsl:value-of select="concat(translate(@id, $lower, $upper), ' ')" />
+         <xsl:value-of select="@name" />
+      </h4>
+      <xsl:apply-templates />
+    </div>
+  </xsl:template>
+
+  <xsl:template match="cc:testlist">
+    <ul>
+      <xsl:for-each select="cc:test">
+        <li>
+          <b>Test <xsl:value-of select="position()" />: </b>
+          <xsl:apply-templates />
+        </li>
+      </xsl:for-each>
+    </ul>
+  </xsl:template>
+
 
   <xsl:template match="cc:aactivity">
     <xsl:variable name="aactID" select="concat('aactID-', generate-id())" />
