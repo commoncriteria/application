@@ -47,6 +47,13 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			<!--border-bottom: solid 1px gray; -->
 			margin-left: 8%; margin-right: 8%; 
 		}
+		div.intro
+		{ 
+			text-align: left; font-size: normal; 
+            font-family: verdana,arial,sans-serif;
+			margin-left: 12%; margin-right: 12%; 
+			padding-top: 1em;
+		}
 		div.tabletitle
 		{ 
 			text-align: left; font-size: x-large; font-weight:bold;
@@ -69,7 +76,15 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			<div class="title">
 			Tabular Presentation of the <br/><i><xsl:value-of select="/cc:PP/cc:PPReference/cc:ReferenceTable/cc:PPTitle" /></i>
 			</div>
-			<br/>
+			<div class="intro">
+			This document presents the Security Functional Requirements and 
+			Security Assurance Requirements from the  
+			<i><xsl:value-of select="/cc:PP/cc:PPReference/cc:ReferenceTable/cc:PPTitle"/></i>.
+			This tabular representation is provided for those audiences whose interest primarily 
+			lies in those portions of that document.  The Protection Profile itself remains the
+			only complete and authoritative representation, and includes 
+			discussion of assumptions, threats, and objectives.
+			</div>
 			<br/>
 
 			<div class="tabletitle">
