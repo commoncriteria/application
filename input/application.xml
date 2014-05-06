@@ -737,6 +737,215 @@ name="Application Software">
         verify /dev/random is used.</subaactivity></aactivity>
       </f-element>
     </component>
+  <component id="fcs_tls_ext.1" name="TLS Implementation">
+      <f-element id="fcs_tls_ext.1.1" status="sel-based">
+		<selection-depends req="ftp_dit_ext.1.1"/>
+        <title>The application shall implement one or more of the following
+        protocols 
+        <selectables linebreak="yes">
+          <selectable>TLS 1.0 (RFC 2246)</selectable>
+          <selectable>TLS 1.1 (RFC 4346)</selectable>
+          <selectable>TLS 1.2 (RFC 5246)</selectable>
+        </selectables>supporting the following ciphersuites: 
+        <p />Mandatory Ciphersuites: TLS_RSA_WITH_AES_128_CBC_SHA and 
+        <p />Optional Ciphersuites: 
+        <selectables linebreak="yes">
+          <selectable>None</selectable>
+          <selectable>TLS_RSA_WITH_AES_256_CBC_SHA</selectable>
+          <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256</selectable>
+          <selectable>TLS_RSA_WITH_AES_256_CBC_SHA256</selectable>
+          <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256</selectable>
+          <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256</selectable>
+          <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256</selectable>
+          <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</selectable>
+          <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256</selectable>
+          <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384</selectable>
+          <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</selectable>
+          <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA</selectable>
+        </selectables>.</title>
+        <note role="application">The ciphersuites to be tested in the evaluated
+        configuration are limited by this requirement. The ST author should
+        select the optional ciphersuites that are supported; if there are no
+        ciphersuites supported other than the mandatory suites, then None
+        should be selected. It is necessary to limit the ciphersuites that can
+        be used in an evaluated configuration administratively on the server in
+        the test environment. The Suite B algorithms listed above (RFC 6460)
+        are the preferred algorithms for implementation.</note>
+        <aactivity>The evaluator shall check the description of the
+        implementation of this protocol in the TSS to ensure that the
+        ciphersuites supported are specified. The evaluator shall check the TSS
+        to ensure that the ciphersuites specified include those listed for this
+        component. The evaluator shall also check the operational guidance to
+        ensure that it contains instructions on configuring the TOE so that TLS
+        conforms to the description in the TSS. The evaluator shall check that
+        the AGD guidance contains instructions for the administrator to
+        configure the list of Certificate Authorities that are allowed to sign
+        certificates or to configure the FQDN of the authentication server
+        certificate that will be accepted by the TOE in the EAP-TLS exchange.
+        Additional tests may be added in the future to test compliance with RFC
+        5246. The evaluator shall also perform the following tests: 
+        <testlist>
+          <test>The evaluator shall establish a TLS connection using each of
+          the ciphersuites specified by the requirement. This connection may be
+          established as part of the establishment of a higher-level protocol,
+          e.g., as part of an EAP session. It is sufficient to observe the
+          successful negotiation of a ciphersuite to satisfy the intent of the
+          test; it is not necessary to examine the characteristics of the
+          encrypted traffic in an attempt to discern the ciphersuite being used
+          (for example, that the cryptographic algorithm is 128-bit AES and not
+          256-bit AES).</test>
+          <test>The following test is repeated for each supported certificate
+          signing algorithm supported. The evaluator shall attempt to establish
+          the connection using a server with a authentication server
+          certificate that contains the Server Authentication purpose in the
+          extendedKeyUsage field and verify that a connection is established.
+          The evaluator will then verify that the client rejects an otherwise
+          valid server certificate that lacks the Server Authentication purpose
+          in the extendedKeyUsage field and a connection is not established.
+          Ideally, the two certificates should be identical except for the
+          extendedKeyUsage field.</test>
+          <test>Following the guidance provided by the AGD guidance, a CA or an
+          FQDN will be configured as ―acceptable‖ for authentication server
+          certificates and then the evaluator will start a wireless connection
+          and verify that the wireless client is able to successfully connect.
+          The evaluator will then configure the system such that an otherwise
+          valid certificate is signed by a CA that is not allowed by the TOE or
+          presents a FQDN that is not allowed by the TOE. Attempts to
+          authenticate to an authentication server presenting such a
+          certificate should result in the connection being refused. If the TOE
+          supports both methods of limiting the acceptable authentication
+          servers, the evaluator shall repeat this test twice, once with each
+          method.</test>
+          <test>The evaluator shall configure the authentication server to send
+          a certificate in the TLS connection that the does not match the
+          server-selected ciphersuite (for example, send a ECDSA certificate
+          while using the TLS_RSA_WITH_AES_128_CBC_SHA ciphersuite or send a
+          RSA certificate while using one of the ECDSA ciphersuites.) The
+          evaluator shall verify that the TOE disconnects after receiving the
+          server‘s Certificate handshake message.</test>
+          <test>The evaluator shall setup a man-in-the-middle tool between the
+          TOE and the authentication server and shall perform the following
+          modifications to the traffic: 
+          <ul>
+            <li>Modify at least one byte in the server‘s nonce in the Server
+            Hello handshake message, and verify that the server denies the
+            client‘s Finished handshake message.</li>
+            <li>Modify the server‘s selected ciphersuite in the Server Hello
+            handshake message to be a ciphersuite not presented in the Client
+            Hello handshake message. The evaluator shall verify that the client
+            rejects the connection after receiving the Server Hello.</li>
+            <li>(conditional) If a DHE or ECDHE ciphersuite is supported,
+            modify the signature block in the Server‘s KeyExchange handshake
+            message, and verify that the client rejects the connection after
+            receiving the Server KeyExchange.</li>
+            <li>Modify a byte in a CA field in the Server‘s Certificate Request
+            handshake message. The modified CA field must not be the CA used to
+            sign the client‘s certificate. The evaluator shall verify that the
+            server rejects the connection after receiving the Client Finished
+            handshake message.</li>
+            <li>Modify a byte in the Server Finished handshake message, and
+            verify that the client sends a fatal alert upon receipt and does
+            not send any application data.</li>
+          </ul></test>
+        </testlist></aactivity>
+      </f-element>
+      <f-element id="fc_tls_ext.1.2" status="sel-based">
+		<selection-depends req="ftp_dit_ext.1.1"/>
+        <title>The application shall not establish a trusted channel if the
+        distinguished name (DN) contained in a certificate does not match the
+        expected DN for the peer.</title>
+        <note role="application">The ciphersuites to be used in the evaluated
+        configuration are limited by this requirement; however other
+        ciphersuites may be implemented. The ST author should select the
+        optional ciphersuites that are supported; if there are no ciphersuites
+        supported other than the mandatory suites, then “None” should be
+        selected. If administrative steps need to be taken so that the suites
+        negotiated by the implementation are limited to those in this
+        requirement, the appropriate instructions need to be contained in the
+        guidance called for by AGD_OPE. 
+        <p />The Suite B algorithms (RFC 6460) listed above are the preferred
+        algorithms for implementation. TLS 1.2 is the preferred protocol and
+        may be required in the future. In addition, future publications of this
+        PP will require that the TOE offer a means to deny all connection
+        attempts using specified older versions of the SSL/TLS protocol.</note>
+        <aactivity>The evaluator shall check the description of the
+        implementation of this protocol in the TSS to ensure that the
+        ciphersuites supported are specified. The evaluator shall check the TSS
+        to ensure that the ciphersuites specified include those listed for this
+        component. The evaluator shall also check the operational guidance to
+        ensure that it contains instructions on configuring the TOE so that TLS
+        conforms to the description in the TSS. The evaluator shall verify that
+        the TSS describes how the DN in the certificate is compared to the
+        expected DN. If the DN is not compared automatically to the Domain Name
+        or IP address, the evaluator shall ensure that the AGD guidance
+        includes configuration of the expected DN for the connection.
+        Additional tests may be added in the future to test compliance with RFC
+        5246. The evaluator shall also perform the following tests: 
+        <testlist>
+          <test>The evaluator shall establish a TLS connection using each of
+          the ciphersuites specified by the requirement. This connection may be
+          established as part of the establishment of a higher-level protocol,
+          e.g., as part of an EAP session. It is sufficient to observe the
+          successful negotiation of a ciphersuite to satisfy the intent of the
+          test; it is not necessary to examine the characteristics of the
+          encrypted traffic in an attempt to discern the ciphersuite being used
+          (for example, that the cryptographic algorithm is 128-bit AES and not
+          256-bit AES).</test>
+          <test>The following test is repeated for each supported certificate
+          signing algorithm supported. The evaluator shall attempt to establish
+          the connection using a server with a server certificate that contains
+          the Server Authentication purpose in the extendedKeyUsage field and
+          verify that a connection is established. The evaluator will then
+          verify that the client rejects an otherwise valid server certificate
+          that lacks the Server Authentication purpose in the extendedKeyUsage
+          field and a connection is not established. Ideally, the two
+          certificates should be identical except for the extendedKeyUsage
+          field.</test>
+          <test>The evaluator shall attempt a connection with a certificate
+          where the DN matches either the configured expected DN or the Domain
+          Name/IP address of the peer. The evaluator shall verify that the TSF
+          is able to successfully connect. The evaluator shall attempt a
+          connection with a certificate where the DN does not match either the
+          configured expected DN or the Domain Name/IP address of the peer. The
+          evaluator shall verify that the TSF is not able to successfully
+          connect.</test>
+          <test>The evaluator shall configure the server to send a certificate
+          in the TLS connection that the does not match the server-selected
+          ciphersuite (for example, send a ECDSA certificate while using the
+          TLS_RSA_WITH_AES_128_CBC_SHA ciphersuite or send a RSA certificate
+          while using one of the ECDSA ciphersuites.) The evaluator shall
+          verify that the TOE disconnects after receiving the server‘s
+          Certificate handshake message.</test>
+          <test>The evaluator shall setup a man-in-the-middle tool between the
+          TOE and the server and shall perform the following modifications to
+          the traffic: 
+          <ul>
+            <li>Modify at least one byte in the server‘s nonce in the Server
+            Hello handshake message, and verify that the server denies the
+            client‘s Finished handshake message.</li>
+            <li>Modify the server‘s selected ciphersuite in the Server Hello
+            handshake message to be a ciphersuite not presented in the Client
+            Hello handshake ￼message. The evaluator shall verify that the
+            client rejects the connection after receiving the Server
+            Hello.</li>
+            <li>(conditional) If a DHE or ECDHE ciphersuite is supported,
+            modify the signature block in the Server‘s KeyExchange handshake
+            message, and verify that the client rejects the connection after
+            receiving the Server KeyExchange.</li>
+            <li>Modify a byte in a CA field in the Server‘s Certificate Request
+            handshake message. The modified CA field must not be the CA used to
+            sign the client‘s certificate. The evaluator shall verify that the
+            server rejects the connection after receiving the Client Finished
+            handshake message.</li>
+            <li>Modify a byte in the Server Finished handshake message, and
+            verify that the client sends a fatal alert upon receipt and does
+            not send any application data.</li>
+          </ul></test>
+        </testlist></aactivity>
+      </f-element>
+    </component>
+
+
   </subsection>
   <subsection title="Privacy (FPR)" id="fpr">
     <component id="fpr_ano_ext.1" name="Anonymous Network Behavior">
@@ -928,7 +1137,7 @@ name="Application Software">
         Service, Standard Windows Installer (.msi) format, Windows App Store
         package (.appx), Google Play Store (.apk) or OEM App Store,
         Enterprise-run Android App store, The Apple App Store, Enterprise-run
-        iOS App repositorie.</aactivity>
+        iOS App repositories.</aactivity>
       </f-element>
       <f-element id="fpt_tud_ext.1.3">
         <title>The application must be packaged such that its removal results
@@ -939,7 +1148,7 @@ name="Application Software">
       </f-element>
     </component>
     <component id="fpt_idv_ext.1" name="Software Identification and Versions">
-      <f-element id="fpt_idv_ext.1.1">
+      <f-element id="fpt_idv_ext.1.1" status="objective" targetdate="January 1, 2015">
         <title>The application must include software identification (SWID) tags
         that comply with the ISO/IEC 19770-2:2009 standard.</title>
         <aactivity>The evaluator shall install the application, then check for
@@ -1424,225 +1633,7 @@ name="Application Software">
       formulated.</aactivity>
     </a-element>
   </component></subsection></section></chapter>
-  <appendix title="Selection-Based Requirements" id="selreqs">As indicated in
-  the introduction to this PP, the baseline requirements (those that must be
-  performed by the TOE or its underlying platform) are contained in the body of
-  this PP. There are additional requirements based on selections in the body of
-  the PP: if certain selections are made, then additional requirements below
-  will need to be included. 
-  <section title="Selection-Based Security Functional Requirements"
-  id="selectionbasedSFRs">
-  <subsection title="Cryptographic Support (FCS)" id="fcs-selectionbased">
-    <component id="fcs_tls_ext.1" name="TLS Implementation">
-      <f-element id="fcs_tls_ext.1.1">
-        <title>The application shall implement one or more of the following
-        protocols 
-        <selectables linebreak="yes">
-          <selectable>TLS 1.0 (RFC 2246)</selectable>
-          <selectable>TLS 1.1 (RFC 4346)</selectable>
-          <selectable>TLS 1.2 (RFC 5246)</selectable>
-        </selectables>supporting the following ciphersuites: 
-        <p />Mandatory Ciphersuites: TLS_RSA_WITH_AES_128_CBC_SHA and 
-        <p />Optional Ciphersuites: 
-        <selectables linebreak="yes">
-          <selectable>None</selectable>
-          <selectable>TLS_RSA_WITH_AES_256_CBC_SHA</selectable>
-          <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256</selectable>
-          <selectable>TLS_RSA_WITH_AES_256_CBC_SHA256</selectable>
-          <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256</selectable>
-          <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256</selectable>
-          <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256</selectable>
-          <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384</selectable>
-          <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256</selectable>
-          <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384</selectable>
-          <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA</selectable>
-          <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA</selectable>
-        </selectables>.</title>
-        <note role="application">The ciphersuites to be tested in the evaluated
-        configuration are limited by this requirement. The ST author should
-        select the optional ciphersuites that are supported; if there are no
-        ciphersuites supported other than the mandatory suites, then None
-        should be selected. It is necessary to limit the ciphersuites that can
-        be used in an evaluated configuration administratively on the server in
-        the test environment. The Suite B algorithms listed above (RFC 6460)
-        are the preferred algorithms for implementation.</note>
-        <aactivity>The evaluator shall check the description of the
-        implementation of this protocol in the TSS to ensure that the
-        ciphersuites supported are specified. The evaluator shall check the TSS
-        to ensure that the ciphersuites specified include those listed for this
-        component. The evaluator shall also check the operational guidance to
-        ensure that it contains instructions on configuring the TOE so that TLS
-        conforms to the description in the TSS. The evaluator shall check that
-        the AGD guidance contains instructions for the administrator to
-        configure the list of Certificate Authorities that are allowed to sign
-        certificates or to configure the FQDN of the authentication server
-        certificate that will be accepted by the TOE in the EAP-TLS exchange.
-        Additional tests may be added in the future to test compliance with RFC
-        5246. The evaluator shall also perform the following tests: 
-        <testlist>
-          <test>The evaluator shall establish a TLS connection using each of
-          the ciphersuites specified by the requirement. This connection may be
-          established as part of the establishment of a higher-level protocol,
-          e.g., as part of an EAP session. It is sufficient to observe the
-          successful negotiation of a ciphersuite to satisfy the intent of the
-          test; it is not necessary to examine the characteristics of the
-          encrypted traffic in an attempt to discern the ciphersuite being used
-          (for example, that the cryptographic algorithm is 128-bit AES and not
-          256-bit AES).</test>
-          <test>The following test is repeated for each supported certificate
-          signing algorithm supported. The evaluator shall attempt to establish
-          the connection using a server with a authentication server
-          certificate that contains the Server Authentication purpose in the
-          extendedKeyUsage field and verify that a connection is established.
-          The evaluator will then verify that the client rejects an otherwise
-          valid server certificate that lacks the Server Authentication purpose
-          in the extendedKeyUsage field and a connection is not established.
-          Ideally, the two certificates should be identical except for the
-          extendedKeyUsage field.</test>
-          <test>Following the guidance provided by the AGD guidance, a CA or an
-          FQDN will be configured as ―acceptable‖ for authentication server
-          certificates and then the evaluator will start a wireless connection
-          and verify that the wireless client is able to successfully connect.
-          The evaluator will then configure the system such that an otherwise
-          valid certificate is signed by a CA that is not allowed by the TOE or
-          presents a FQDN that is not allowed by the TOE. Attempts to
-          authenticate to an authentication server presenting such a
-          certificate should result in the connection being refused. If the TOE
-          supports both methods of limiting the acceptable authentication
-          servers, the evaluator shall repeat this test twice, once with each
-          method.</test>
-          <test>The evaluator shall configure the authentication server to send
-          a certificate in the TLS connection that the does not match the
-          server-selected ciphersuite (for example, send a ECDSA certificate
-          while using the TLS_RSA_WITH_AES_128_CBC_SHA ciphersuite or send a
-          RSA certificate while using one of the ECDSA ciphersuites.) The
-          evaluator shall verify that the TOE disconnects after receiving the
-          server‘s Certificate handshake message.</test>
-          <test>The evaluator shall setup a man-in-the-middle tool between the
-          TOE and the authentication server and shall perform the following
-          modifications to the traffic: 
-          <ul>
-            <li>Modify at least one byte in the server‘s nonce in the Server
-            Hello handshake message, and verify that the server denies the
-            client‘s Finished handshake message.</li>
-            <li>Modify the server‘s selected ciphersuite in the Server Hello
-            handshake message to be a ciphersuite not presented in the Client
-            Hello handshake message. The evaluator shall verify that the client
-            rejects the connection after receiving the Server Hello.</li>
-            <li>(conditional) If a DHE or ECDHE ciphersuite is supported,
-            modify the signature block in the Server‘s KeyExchange handshake
-            message, and verify that the client rejects the connection after
-            receiving the Server KeyExchange.</li>
-            <li>Modify a byte in a CA field in the Server‘s Certificate Request
-            handshake message. The modified CA field must not be the CA used to
-            sign the client‘s certificate. The evaluator shall verify that the
-            server rejects the connection after receiving the Client Finished
-            handshake message.</li>
-            <li>Modify a byte in the Server Finished handshake message, and
-            verify that the client sends a fatal alert upon receipt and does
-            not send any application data.</li>
-          </ul></test>
-        </testlist></aactivity>
-      </f-element>
-      <f-element id="fc_tls_ext.1.2">
-        <title>The application shall not establish a trusted channel if the
-        distinguished name (DN) contained in a certificate does not match the
-        expected DN for the peer.</title>
-        <note role="application">The ciphersuites to be used in the evaluated
-        configuration are limited by this requirement; however other
-        ciphersuites may be implemented. The ST author should select the
-        optional ciphersuites that are supported; if there are no ciphersuites
-        supported other than the mandatory suites, then “None” should be
-        selected. If administrative steps need to be taken so that the suites
-        negotiated by the implementation are limited to those in this
-        requirement, the appropriate instructions need to be contained in the
-        guidance called for by AGD_OPE. 
-        <p />The Suite B algorithms (RFC 6460) listed above are the preferred
-        algorithms for implementation. TLS 1.2 is the preferred protocol and
-        may be required in the future. In addition, future publications of this
-        PP will require that the TOE offer a means to deny all connection
-        attempts using specified older versions of the SSL/TLS protocol.</note>
-        <aactivity>The evaluator shall check the description of the
-        implementation of this protocol in the TSS to ensure that the
-        ciphersuites supported are specified. The evaluator shall check the TSS
-        to ensure that the ciphersuites specified include those listed for this
-        component. The evaluator shall also check the operational guidance to
-        ensure that it contains instructions on configuring the TOE so that TLS
-        conforms to the description in the TSS. The evaluator shall verify that
-        the TSS describes how the DN in the certificate is compared to the
-        expected DN. If the DN is not compared automatically to the Domain Name
-        or IP address, the evaluator shall ensure that the AGD guidance
-        includes configuration of the expected DN for the connection.
-        Additional tests may be added in the future to test compliance with RFC
-        5246. The evaluator shall also perform the following tests: 
-        <testlist>
-          <test>The evaluator shall establish a TLS connection using each of
-          the ciphersuites specified by the requirement. This connection may be
-          established as part of the establishment of a higher-level protocol,
-          e.g., as part of an EAP session. It is sufficient to observe the
-          successful negotiation of a ciphersuite to satisfy the intent of the
-          test; it is not necessary to examine the characteristics of the
-          encrypted traffic in an attempt to discern the ciphersuite being used
-          (for example, that the cryptographic algorithm is 128-bit AES and not
-          256-bit AES).</test>
-          <test>The following test is repeated for each supported certificate
-          signing algorithm supported. The evaluator shall attempt to establish
-          the connection using a server with a server certificate that contains
-          the Server Authentication purpose in the extendedKeyUsage field and
-          verify that a connection is established. The evaluator will then
-          verify that the client rejects an otherwise valid server certificate
-          that lacks the Server Authentication purpose in the extendedKeyUsage
-          field and a connection is not established. Ideally, the two
-          certificates should be identical except for the extendedKeyUsage
-          field.</test>
-          <test>The evaluator shall attempt a connection with a certificate
-          where the DN matches either the configured expected DN or the Domain
-          Name/IP address of the peer. The evaluator shall verify that the TSF
-          is able to successfully connect. The evaluator shall attempt a
-          connection with a certificate where the DN does not match either the
-          configured expected DN or the Domain Name/IP address of the peer. The
-          evaluator shall verify that the TSF is not able to successfully
-          connect.</test>
-          <test>The evaluator shall configure the server to send a certificate
-          in the TLS connection that the does not match the server-selected
-          ciphersuite (for example, send a ECDSA certificate while using the
-          TLS_RSA_WITH_AES_128_CBC_SHA ciphersuite or send a RSA certificate
-          while using one of the ECDSA ciphersuites.) The evaluator shall
-          verify that the TOE disconnects after receiving the server‘s
-          Certificate handshake message.</test>
-          <test>The evaluator shall setup a man-in-the-middle tool between the
-          TOE and the server and shall perform the following modifications to
-          the traffic: 
-          <ul>
-            <li>Modify at least one byte in the server‘s nonce in the Server
-            Hello handshake message, and verify that the server denies the
-            client‘s Finished handshake message.</li>
-            <li>Modify the server‘s selected ciphersuite in the Server Hello
-            handshake message to be a ciphersuite not presented in the Client
-            Hello handshake ￼message. The evaluator shall verify that the
-            client rejects the connection after receiving the Server
-            Hello.</li>
-            <li>(conditional) If a DHE or ECDHE ciphersuite is supported,
-            modify the signature block in the Server‘s KeyExchange handshake
-            message, and verify that the client rejects the connection after
-            receiving the Server KeyExchange.</li>
-            <li>Modify a byte in a CA field in the Server‘s Certificate Request
-            handshake message. The modified CA field must not be the CA used to
-            sign the client‘s certificate. The evaluator shall verify that the
-            server rejects the connection after receiving the Client Finished
-            handshake message.</li>
-            <li>Modify a byte in the Server Finished handshake message, and
-            verify that the client sends a fatal alert upon receipt and does
-            not send any application data.</li>
-          </ul></test>
-        </testlist></aactivity>
-      </f-element>
-    </component>
-  </subsection></section></appendix>
-  <appendix title="Optional Requirements" id="optreqs">No optional requirements
-  have yet been defined for this PP.</appendix>
-  <appendix title="Objective Requirements" id="objreqs">No optional
-  requirements have yet been defined for this PP.</appendix>
+
   <appendix title="NIST SP 800-53/CNSS 1253 Mapping" id="nistmapping">Here is a
   placeholder for a table with references to NIST controls. This would indicate
   which controls are implemented (and thus have been tested) in products that
