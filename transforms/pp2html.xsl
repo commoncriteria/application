@@ -65,6 +65,9 @@
 						box-shadow: 4px 4px 3px #888888;
 						display: block; }
       div.subaact       { margin-left: 0%; margin-top: 1em;  }
+      div.statustag { margin-left: 0%; margin-top: 1em; margin-bottom: 1em;	padding: 1em;
+				border:2px solid  #888888; border-radius:3px; 
+				box-shadow: 4px 4px 3px #888888; }
       div.toc        { margin-left: 8%; margin-bottom: 4em;
                        padding-bottom: 0.75em; padding-top: 1em;
                        padding-left: 2em; padding-right: 2em; }
@@ -373,7 +376,6 @@
   </xsl:template>
 
 
-
   <xsl:template match="cc:f-element | cc:a-element">
     <xsl:variable name="reqid" select="translate(@id, $lower, $upper)" />
     <div class="req">
@@ -388,6 +390,25 @@
 
   <xsl:template match="cc:title">
       <xsl:apply-templates />
+        <xsl:choose>
+          <xsl:when test="../@status='objective'">
+			<div class="statustag">
+             <p/><i><b>This is currently an objective requirement.
+			<xsl:if test="../@targetdate">It is targeted for <xsl:value-of select="../@targetdate"/>.</xsl:if></b></i>
+			</div>
+          </xsl:when>
+          <xsl:when test="../@status='sel-based'">
+			 <div class="statustag">
+             <b><i>This is a selection-based requirement.
+			 Its inclusion depends upon selection in 
+				<xsl:for-each select="../cc:selection-depends">
+        			<xsl:value-of select="translate(@req, $lower, $upper)" />
+					<xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
+				</xsl:for-each>.
+			 </i></b>
+			</div>
+          </xsl:when>
+        </xsl:choose>
   </xsl:template>
 
   <xsl:template match="cc:note[@role='application']">
