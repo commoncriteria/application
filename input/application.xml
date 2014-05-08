@@ -479,11 +479,11 @@ name="Application Software">
         permissions to allow or deny.</subaactivity>
         <subaactivity platform="windows">For Windows Store Apps the evaluator
         shall check the AppManifest.xml file for a list of required
-        capabilities. The evaluator shall run the application and verify that
-        the application only uses the capabilities listed in the
-        AppManifest.xml file. For Win32 Desktop Application the evaluator shall
-        inspect the documentation provided with the application and ensure that
-        it includes a list of the hardware resources needed.</subaactivity>
+        hardware capabilities. The evaluator shall verify that the user is made aware 
+        of the required hardware when the application is first executed after being installed.
+        For Windows Desktop Application the evaluator shall verify that either the application
+        or the documentation provide the user with with a list of the required hardware 
+        resources.</subaactivity>
         <subaactivity platform="ios">The evaluator shall install and run the
         application. The evaluator shall attempt to exercise Location Services
         functionality and verify that the application prompts the user for
@@ -514,11 +514,11 @@ name="Application Software">
         used to access sensitive information repositories.</subaactivity>
         <subaactivity platform="windows">For Windows Store Apps the evaluator
         shall check the AppManifest.xml file for a list of required
-        capabilities. The evaluator shall run the application and verify that
-        the application only uses the capabilities listed in the
-        AppManifest.xml file. For Win32 Desktop Application the evaluator shall
-        inspect the documentation provided with the application and ensure that
-        it includes a list of the hardware resources needed.</subaactivity>
+        capabilities. The evaluator shall verify that the user is made aware 
+        of the required information repositories when the application is first executed after being installed.
+        For Windows Desktop Application the evaluator shall verify that either the application
+        or the documentation provide the user with with a list of the required information repositories.
+        </subaactivity>
         <subaactivity platform="ios">The evaluator shall install and run the
         application. The evaluator shall attempt to exercise functionality in
         the application that would cause it to access sensitive information
@@ -1036,9 +1036,10 @@ name="Application Software">
         <title>The application must not subvert address space layout
         randomization by requesting any memory mapping at an explicit
         address.</title>
-        <aactivity>The evaluator must perform either a static or dynamic
-        analysis to determine that no memory mappings are placed at an explicit
-        and consistent address. The method of doing so varies per platform. 
+        <aactivity> The evaluator shall ensure that the TSS section of the ST describes 
+        the compiler flag used to enable ASLR in the application. The evaluator shall perform 
+        either a static or dynamic analysis to determine that no memory mappings are placed 
+        at an explicit and consistent address. The method of doing so varies per platform. 
         <subaactivity platform="blackberry">TBD</subaactivity>
         <subaactivity platform="android">The evaluator shall run the same
         program on two different andriod systems. Connect via ADB and inspect
