@@ -8,6 +8,8 @@
   <!-- very important, for special characters and umlauts iso8859-1-->
   <xsl:output method="html" encoding="UTF-8" indent="yes" />
   
+  <xsl:key name="abbr" match="cc:glossary/cc:entry/cc:term/cc:abbr" use="text()" />
+  
   <xsl:variable name="lower" select="'abcdefghijklmnopqrstuvwxyz'" />
   <xsl:variable name="upper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
   
@@ -52,7 +54,13 @@
       dl   { margin-bottom: 0.5em; margin-top: 0.25em; }
       dt   { margin-top: 0.7em; font-weight: bold; 
              font-family: verdana, arial, helvetica, sans-serif; }
-
+      
+      a.abbr:link {color:black; text-decoration:none;}
+      a.abbr:visited {color:black; text-decoration:none;}
+      a.abbr:hover {color:blue; text-decoration:none;}
+      a.abbr:hover:visited {color:purple; text-decoration:none;}
+      a.abbr:active {color:red; text-decoration:none;}
+      
       *.simpleText   { margin-left: 10%; }
       *.propertyText { margin-left: 10%; margin-top: 0.2em; margin-bottom: 0.2em }
       *.toc      { background: #FFFFFF; }
@@ -202,7 +210,7 @@
       <xsl:for-each select="cc:entry">
         <tr>
           <td>
-            <xsl:value-of select="cc:term" />
+            <xsl:apply-templates select="cc:term" />
           </td>
           <td>
             <xsl:apply-templates select="cc:description" />
@@ -210,6 +218,15 @@
         </tr>
       </xsl:for-each>
     </table>
+  </xsl:template>
+  <xsl:template match="cc:glossary/cc:entry/cc:term/cc:abbr">
+      <span id="{text()}"><xsl:value-of select="@title" /> (<abbr><xsl:value-of select="text()" /></abbr>)</span>
+  </xsl:template>
+  <xsl:template match="cc:abbr[@linkend]">
+    <xsl:variable name="target" select="key('abbr', @linkend)" />
+    <xsl:variable name="abbr" select="$target/text()" />
+    
+    <a class="abbr" href="#{$abbr}"><abbr title="{$target/@title}"><xsl:value-of select="$abbr" /></abbr></a>
   </xsl:template>
   <xsl:template match="cc:testlist">
     <ul>
