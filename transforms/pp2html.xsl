@@ -220,13 +220,13 @@
     </table>
   </xsl:template>
   <xsl:template match="cc:glossary/cc:entry/cc:term/cc:abbr">
-      <span id="{text()}"><xsl:value-of select="@title" /> (<abbr><xsl:value-of select="text()" /></abbr>)</span>
+      <span id="abbr_{text()}"><xsl:value-of select="@title" /> (<abbr><xsl:value-of select="text()" /></abbr>)</span>
   </xsl:template>
   <xsl:template match="cc:abbr[@linkend]">
     <xsl:variable name="target" select="key('abbr', @linkend)" />
     <xsl:variable name="abbr" select="$target/text()" />
     
-    <a class="abbr" href="#{$abbr}"><abbr title="{$target/@title}"><xsl:value-of select="$abbr" /></abbr></a>
+    <a class="abbr" href="#abbr_{$abbr}"><abbr title="{$target/@title}"><xsl:value-of select="$abbr" /></abbr></a>
   </xsl:template>
   <xsl:template match="cc:testlist">
     <ul>
