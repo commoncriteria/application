@@ -222,7 +222,7 @@
   <xsl:template match="cc:glossary/cc:entry/cc:term/cc:abbr">
       <span id="abbr_{text()}"><xsl:value-of select="@title" /> (<abbr><xsl:value-of select="text()" /></abbr>)</span>
   </xsl:template>
-  <xsl:template match="cc:abbr[@class='expanded']">
+  <xsl:template match="cc:abbr[contains(concat('|', translate(@class, ' ', '|'), '|'), '|expanded|')]">
       <xsl:value-of select="@title" /> (<xsl:copy><xsl:apply-templates select="@*|node()" /></xsl:copy>)
   </xsl:template>
   <xsl:template match="cc:abbr[@linkend]">
