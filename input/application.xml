@@ -541,7 +541,17 @@
         evaluator shall run the desktop application and verify that the
         application only uses capabilities declared by the
         developer.</subaactivity>
-        <subaactivity platform="ios">TBD</subaactivity></aactivity>
+        <subaactivity platform="ios">iOS apps are required to declare entitlements 
+          (required device resource identifiers) in the Provisioning Profile (Codesiged App Metadata).
+          The evaluator shall install the application and make note of the corresponding privacy
+          settings on the device resources  [Settings->Privacy->].  The evaluator will  run the 
+          application and attempt to exercise functionality in the application that would cause it
+          to access sensitive information repositories. The evaluator shall verify that the application
+          prompts the user for permission or notifies the user that the service is unavailable.  Privacy 
+          settings can be set on a system-wide basis or on a Per-App basis.  For example, 
+          Settings->Privacy->Location Services->Contacts->&lt;App&gt; can be disabled to prevent the App from
+            accessing the service. </subaactivity>
+        </aactivity>
       </f-element>
     </component>
     <component id="fdp_dar_ext.1" name="Storage Of Sensitive Application Data">
@@ -570,8 +580,9 @@
         store and retrieve senstive information. Windows Store Apps for desktop
         or mobile shall utilize the DPAPI via the ProtectedData
         class.</subaactivity>
-        <subaactivity platform="ios">The evaluator shall determine whether the
-        application leverages the <abbr title="Data Protection API">DPAPI</abbr>.</subaactivity></aactivity>
+          <subaactivity platform="ios">The evaluator shall determine whether the application leverages the appropriate 
+            Data Protection Class for each data file stored locally.
+          </subaactivity></aactivity>
       </f-element>
     </component>
   </subsection>
@@ -635,8 +646,9 @@
         users profile or the ProgramData directory, but not the applications
         executable directory. Locations used to store application data must not
         be used for storing executable content.</subaactivity>
-        <subaactivity platform="ios">The evaluator shall verify the application
-        uses the defaults system</subaactivity></aactivity>
+          <subaactivity platform="ios">The evaluator shall verify iOS has enforced 
+            its mandatory sandboxing of all resources on the App.
+          </subaactivity></aactivity>
       </f-element>
     </component>
     <component id="fmt_cfg_ext.1" name="Secure by Default Configuration">
@@ -676,7 +688,9 @@
         applications installation have the correct file permissions. Windows
         Store Apps will pass this by default because of the AppContainer
         sandbox.</subaactivity>
-        <subaactivity platform="ios">TBD</subaactivity></aactivity>
+          <subaactivity platform="ios">The evaluator shall determine whether 
+            the application leverages the appropriate Data Protection Class 
+            for each data file stored locally.</subaactivity></aactivity>
       </f-element>
       <f-element id="fmt_cfg_ext.1.4">
         <title>The application must be configured by default to not transmit
@@ -727,8 +741,8 @@
         desktop applications. The evaluator shall use static analysis to verify
         that the System.Random API is used for Windows Store
         Applications.</subaactivity>
-        <subaactivity platform="ios">The evaluator shall use static analysis to
-        verify /dev/random is used.</subaactivity></aactivity>
+          <subaactivity platform="ios">The evaluator will use static analysis of strings on the 
+            binary to confirm its use of the RNG (DRBG) API.</subaactivity></aactivity>
       </f-element>
     </component>
   <component id="fcs_tls_ext.1" name="TLS Implementation">
@@ -1070,7 +1084,8 @@
         classis desktop applications and Windows Store applications are
         compatible with Microsoft's Enhanced Mitigation Experince Toolkit
         (EMET).</subaactivity>
-        <subaactivity platform="ios">TBD</subaactivity></aactivity>
+          <subaactivity platform="ios">The evaluator shall ensure that the application 
+            can successfully run on the iOS version loaded.</subaactivity></aactivity>
       </f-element>
       <f-element id="fpt_aex_ext.1.5">The application must not write to
       directories that contain executable files. 
