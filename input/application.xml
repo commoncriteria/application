@@ -512,7 +512,13 @@
         application. The evaluator shall attempt to exercise functionality in
         the application that would cause it to access sensitive information
         repositories. The evaluator shall verify that the application prompts
-        the user for permission.</subaactivity></aactivity>
+        the user for permission.</subaactivity>
+	<subaactivity platform="selinux">
+	  The evaluator shall inspect the application's SELinux Type Enforcement (*.te) file to
+	  ensure that the application is granted permissions to only those hardware resources 
+	  for which it is approved to access.
+	</subaactivity>
+	</aactivity>
       </f-element>
       <f-element id="fdp_dec_ext.1.3">
         <title>The application must not seek permission from the user to access
@@ -556,6 +562,11 @@
           settings can be set on a system-wide basis or on a Per-App basis.  For example, 
           Settings->Privacy->Location Services->Contacts->&lt;App&gt; can be disabled to prevent the App from
             accessing the service. </subaactivity>
+	<subaactivity platform="selinux">
+	  The evaluator shall inspect the application's SELinux Type Enforcement (*.te) file to
+	  ensure that the application is granted permissions to only those sensitive resources 
+	  for which it is approved to access.
+	</subaactivity>
         </aactivity>
       </f-element>
     </component>
@@ -587,7 +598,13 @@
         class.</subaactivity>
           <subaactivity platform="ios">The evaluator shall determine whether the application leverages the appropriate 
             Data Protection Class for each data file stored locally.
-          </subaactivity></aactivity>
+          </subaactivity>
+	  <subaactivity platform="selinux">
+	    The evaluator shall determine whether
+	    the application properly uses KDE's KWallet or
+	    Gnome's GnomeKeyring
+          </subaactivity>
+	</aactivity>
       </f-element>
     </component>
   </subsection>
@@ -618,7 +635,16 @@
         users profile. Locations used to store application settings must not be
         used for storing executable content.</subaactivity>
         <subaactivity platform="ios">The evaluator shall verify the application
-        uses the defaults system</subaactivity></aactivity>
+        uses the defaults system</subaactivity>
+	<subaactivity platform="selinux">
+	  The evaluator shall inspect the application's SELinux Type Enforcement (*.te) file to
+	  ensure that the application is granted permissions to save configuration data to a unique
+	  file in /etc (for system specific configuration) or in the users' home directory 
+	  (for user specific configuration). The evaluator shall inspect the Type Enforcement file
+	  to ensure that the application is not granted both write access and execute privilege 
+	  to any configuration file.
+	</subaactivity>
+</aactivity>
       </f-element>
       <f-element id="fmt_mec_ext.1.2">
         <title>The application must use the mechanisms recommended by the
@@ -653,7 +679,13 @@
         be used for storing executable content.</subaactivity>
           <subaactivity platform="ios">The evaluator shall verify iOS has enforced 
             its mandatory sandboxing of all resources on the App.
-          </subaactivity></aactivity>
+          </subaactivity>
+	  <subaactivity platform="selinux">
+	    The evaluator shall ensure that the application is not granted both 
+	    write access and execute privilege to any application data file as 
+	    specified in the Type Enforcement (*.te) file.
+	  </subaactivity>
+	</aactivity>
       </f-element>
     </component>
     <component id="fmt_cfg_ext.1" name="Secure by Default Configuration">
@@ -695,7 +727,18 @@
         sandbox.</subaactivity>
           <subaactivity platform="ios">The evaluator shall determine whether 
             the application leverages the appropriate Data Protection Class 
-            for each data file stored locally.</subaactivity></aactivity>
+            for each data file stored locally.</subaactivity>
+	<subaactivity platform="selinux">
+	  The evaluator shall ensure that application's Type Enforcement (*.te) 
+	  file declares a unique file label for its processes files and that 
+	  the application's File Context file (*.fc) appropriate labels the 
+	  respective files correctly. Also the evaluator must ensure that the 
+	  Type Enforcement file defines the necessary transition rules so that
+	  the process file transitions to a unique process label when the 
+	  file is executed.
+	</subaactivity>
+
+	</aactivity>
       </f-element>
       <f-element id="fmt_cfg_ext.1.4">
         <title>The application must be configured by default to not transmit
@@ -747,7 +790,12 @@
         that the System.Random API is used for Windows Store
         Applications.</subaactivity>
           <subaactivity platform="ios">The evaluator will use static analysis of strings on the 
-            binary to confirm its use of the RNG (DRBG) API.</subaactivity></aactivity>
+            binary to confirm its use of the RNG (DRBG) API.</subaactivity>
+
+	  <subaactivity platform="selinux">
+	    The evaluator shall use static analysis to verify /dev/random or /dev/urandom is used.
+	  </subaactivity>
+	</aactivity>
       </f-element>
     </component>
   <component id="fcs_tls_ext.1" name="TLS Implementation">
@@ -1091,7 +1139,14 @@
         compatible with Microsoft's Enhanced Mitigation Experince Toolkit
         (EMET).</subaactivity>
           <subaactivity platform="ios">The evaluator shall ensure that the application 
-            can successfully run on the iOS version loaded.</subaactivity></aactivity>
+            can successfully run on the iOS version loaded.</subaactivity>
+	  <subaactivity platform="selinux">
+	    The evaluator shall inspect the application's SELinux Type Enforcement (*.te)
+	    file to ensure that the application's process labels defined are unique. 
+	    The evaluator shall also ensure that the domains defined are not declared 
+	    permissive.
+	</subaactivity>
+	</aactivity>
       </f-element>
       <f-element id="fpt_aex_ext.1.5">The application must not write to
       directories that contain executable files. 
@@ -1114,7 +1169,13 @@
       <subaactivity platform="ios">The platform forces applications to write
       all data within the application working directory (sandbox), and so
       applications on this platform
-      pass.</subaactivity></aactivity></f-element>
+      pass.</subaactivity>
+      <subaactivity platform="selinux">
+	The evaluator shall inspect the application's SELinux Type Enforcement 
+	(*.te) file to ensure that the application is granted both write access 
+	and execute privilege to only those file locations it explicitly requires.
+      </subaactivity>
+      </aactivity></f-element>
       <f-element id="fpt_aex_ext.1.6">
         <title>The TOE must be compiled with the stack cookie security feature enabled.</title>
         <aactivity> The evaluator shall ensure that the <abbr linkend="TSS" /> section of the ST describes 
