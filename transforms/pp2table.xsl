@@ -240,7 +240,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
       <xsl:when test="$osname='blackberry'">BlackBerry</xsl:when>
       <xsl:when test="$osname='ios'">Apple iOS</xsl:when>
       <xsl:when test="$osname='android'">Android</xsl:when>
-      <xsl:when test="$osname='linux'">Linux</xsl:when>
+      <xsl:when test="$osname='selinux'">SELinux</xsl:when>
       <xsl:otherwise>
     Undefined operating system platform
   </xsl:otherwise>
