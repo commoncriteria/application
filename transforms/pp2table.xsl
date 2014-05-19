@@ -7,6 +7,8 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
 <!-- This style sheet takes as input a Protection Profile expressed in XML and
 	outputs a table of the SFRs and SARs. -->
+	
+  <xsl:key name="abbr" match="cc:glossary/cc:entry/cc:term/cc:abbr" use="text()" />
 
   <xsl:variable name="lower" select="'abcdefghijklmnopqrstuvwxyz'" />
   <xsl:variable name="upper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
@@ -63,8 +65,12 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			border-bottom: solid 2px gray; 
 			padding-bottom: 0.25em; padding-top: 0.25em;
 		}
+		a.abbr:link {color:black; text-decoration:none;}
+		a.abbr:visited {color:black; text-decoration:none;}
+		a.abbr:hover {color:blue; text-decoration:none;}
+		a.abbr:hover:visited {color:purple; text-decoration:none;}
+		a.abbr:active {color:red; text-decoration:none;}
 
-		}
     	</style>
 
 		<head>
@@ -262,6 +268,13 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
 	<xsl:template match="cc:aactivity">
 		<xsl:apply-templates select="@*|node()" />
+	</xsl:template>
+	
+	<xsl:template match="cc:abbr[@linkend]">
+		<xsl:variable name="target" select="key('abbr', @linkend)" />
+		<xsl:variable name="abbr" select="$target/text()" />
+		
+		<a class="abbr" href="#abbr_{$abbr}"><abbr title="{$target/@title}"><xsl:value-of select="$abbr" /></abbr></a>
 	</xsl:template>
 
 </xsl:stylesheet>
