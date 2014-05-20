@@ -274,7 +274,6 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 		<xsl:variable name="target" select="key('abbr', @linkend)" />
 		<xsl:variable name="abbr" select="$target/text()" />
 		
-		<a class="abbr" href="#abbr_{$abbr}"><abbr title="{$target/@title}"><xsl:value-of select="$abbr" /></abbr></a>
+		<a class="abbr" href="application.html#abbr_{$abbr}"><abbr title="{$target/@title}"><xsl:value-of select="$abbr" /></abbr></a>
 	</xsl:template>
-
 </xsl:stylesheet>
