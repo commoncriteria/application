@@ -71,7 +71,10 @@
 						padding: 1em;
 						border:2px solid  #888888; border-radius:3px; 
 						box-shadow: 4px 4px 3px #888888;
-						display: block; }
+						display: block; 
+                                                 
+      
+      }
       div.subaact       { margin-left: 0%; margin-top: 1em;  }
       div.statustag { margin-left: 0%; margin-top: 1em; margin-bottom: 1em;	padding: 1em;
 				border:2px solid  #888888; border-radius:3px; 
@@ -120,7 +123,6 @@
                    1em; margin-bottom: 1em;
                    padding: 1em;
                    border:2px solid  #888888; border-radius:3px;
-                   box-shadow: 4px 4px 3px #888888;
                    display: block;
            }
        }
