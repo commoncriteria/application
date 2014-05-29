@@ -439,8 +439,9 @@
         hardware resources that could provide access to sensitive information,
         such as camera, <abbr title="Wireless Local Area Network">WiFi</abbr>, Ethernet, <abbr title="Global Positioning System">GPS</abbr>, <abbr title="Near-Field Communication">NFC</abbr>, <abbr title="Universal Serial Bus">USB</abbr>, or Bluetooth.</title>
         
-        <note role="application">Explicitly seeking user acknoweldgement for such
-        access is one means of providing user awareness, but acknoweldgement is not a requirement for awareness.</note>
+        <note role="application">Explicitly seeking user acknowledgement for such
+        access is one means of providing user awareness, but acknowledgement is not
+        the only means of providing awareness.</note>
         <aactivity>The evaluator shall install the application and inspect its
         user documentation, and determine that the user is informed of any need
         to access hardware resources which provide access to sensitive
@@ -545,14 +546,14 @@
         application only uses capabilities declared by the
         developer.</subaactivity>
         <subaactivity platform="ios">iOS apps are required to declare entitlements 
-          (required device resource identifiers) in the Provisioning Profile (Codesiged App Metadata).
+          (required device resource identifiers) in the Provisioning Profile (which is codesigned app metadata).
           The evaluator shall install the application and make note of the corresponding privacy
-          settings on the device resources  [Settings->Privacy->].  The evaluator will  run the 
+          settings on the device resources  [Settings->Privacy->].  The evaluator will run the 
           application and attempt to exercise functionality in the application that would cause it
           to access sensitive information repositories. The evaluator shall verify that the application
           prompts the user for permission or notifies the user that the service is unavailable.  Privacy 
-          settings can be set on a system-wide basis or on a Per-App basis.  For example, 
-          Settings->Privacy->Location Services->Contacts->&lt;App&gt; can be disabled to prevent the App from
+          settings can be set on a system-wide basis or on a per-app basis.  For example, 
+          Settings->Privacy->Location Services->Contacts-><i>App</i> can be disabled to prevent the App from
             accessing the service. </subaactivity>
 	<subaactivity platform="selinux">
 	  The evaluator shall inspect the application's SELinux Type Enforcement (*.te) file to
@@ -604,7 +605,7 @@
     <component id="fmt_mec_ext.1" name="Supported Configuration Mechanism">
       <f-element id="fmt_mec_ext.1.1">
         <title>The application must use the mechanisms recommended by the
-        operating system vendor for storing and setting TSF related configuration
+        operating system vendor for storing and setting <abbr linkend="TSF"/>-related configuration
         options.</title>
         <aactivity>The evaluator must identify the application's configuration
         data (e.g. settings) and determine whether it is stored and set using
@@ -746,15 +747,21 @@
     <component id="fmt_smf.1" name="Specification of Management Functions">
       <f-element id="fmt_smf.1.1">
         <title>The <abbr linkend="TSF" /> shall be capable of performing the following management
-        functions: 
-        <ol>
-          <li>enable/disable transmission of any system identity
-          information</li>
-          <li>enable/disable transmission of any user identity information</li>
-          <li>enable/disable transmission of any application state (e.g.
-          crashdump) information</li>
-          <li>enable/disable automatic software update functionality</li>
-        </ol></title>
+        functions:
+ 
+        <selectables linebreak="yes">
+		  <selectable>enable/disable transmission of any system identity
+              information <i>if such functionality exists in the application</i></selectable>
+          <selectable>enable/disable transmission of any user identity information <i>if
+              such functionality exists in the application</i></selectable>
+          <selectable>enable/disable transmission of any application state (e.g.
+              crashdump) information <i>if such functionality exists in the
+              application</i></selectable>
+          <selectable>enable/disable automatic software
+          update functionality <i>if such functionality exists in the
+          application</i></selectable>
+        </selectables>
+</title>
       </f-element>
     </component>
     <!-- <component id="fmt_not.1" name="Notification of Update"> 
@@ -766,7 +773,7 @@
     <component id="fcs_rbg_ext.1" name="Random Bit Generation">
       <f-element id="fcs_rbg_ext.1.1">
         <title>The application must use random bit generation services provided
-        by the platforms operating system.</title>
+        by the platform's operating system.</title>
         <aactivity>The evaluator shall inspect the application and its
         developer documentation to determine if the application needs random
         bit generation services. If so, the evaluator shall determine how the
