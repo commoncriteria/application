@@ -335,7 +335,20 @@
         <dd>
           <xsl:apply-templates select="cc:description" />
           <p />
-			Addressed by: <span class="SOlist"><xsl:for-each select="cc:component-refer"><xsl:value-of select="translate(@ref,$lower,$upper)" /><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if></xsl:for-each></span><xsl:apply-templates select="cc:appnote" /></dd>
+	  Addressed by: 
+	  <span class="SOlist"> 
+	    <xsl:for-each select="cc:component-refer">
+	      <xsl:element name="a"> <!-- Add a link to the actual section -->
+		<xsl:attribute name="href">
+		  <xsl:text>#</xsl:text>
+		  <xsl:value-of select="@ref" />
+		</xsl:attribute>
+		<xsl:value-of select="translate(@ref,$lower,$upper)" />
+	      </xsl:element>
+	      <xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if> <!-- If it's not the last, put a comma-->
+	    </xsl:for-each> 
+	  </span>
+	  <xsl:apply-templates select="cc:appnote" /></dd>
       </xsl:for-each>
     </dl>
   </xsl:template>
@@ -389,6 +402,12 @@
     <xsl:variable name="component" select="substring(@id,1,9)" />
     <xsl:variable name="SFRID" select="@id" />
     <div class="comp">
+      <!-- Make an anchor here -->
+      <xsl:element name="a">
+	<xsl:attribute name="name">
+          <xsl:value-of select="@id" />
+	</xsl:attribute>
+      </xsl:element>
           <h4>
 			<xsl:value-of select="concat(translate(@id, $lower, $upper), ' ')" />
             <xsl:value-of select="@name" />
