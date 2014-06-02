@@ -151,7 +151,13 @@
     PP. Such applications are subject to the requirements of both this PP and
     the PP that addresses their special functionality. For example, web
     browsers are subject to the requirements in this PP and the Protection
-    Profile for Web Browsers. 
+    Profile for Web Browsers.  Although the requirements in this document apply
+    to all application software that runs on any operating system, some assurance
+    activities are necessarily specific to particular operating systems in order
+    to provide precision and repeatability.  Additional test activities are
+    sought from operating system vendors so that coverage across platforms
+    is as complete as possible.
+
     <subsection title="TOE Boundary" id="TOEboundary">An application is defined
     as software that runs on an operating system and performs tasks on behalf
     of the user or owner of the system. As distinguished from applications,
@@ -159,10 +165,12 @@
     environment for applications. Applications that come bundled with an
     operating system (such as web browsers, email clients and media players)
     fall within the scope of these requirements. Naturally, third-party
-    software such as <abbr title="Portable Document Format">PDF</abbr> readers and downloadable smartphone apps is also in
+	software such as <abbr title="Portable Document Format">PDF</abbr> readers
+	and downloadable smartphone apps is also in
     scope. Systems software that is delivered and installed with an application
     (such as kernel drivers) is considered part of the application for purposes
-    of this document. <abbr title="Basic Input/Output System">BIOS</abbr> and other firmware, the operating system kernel, and
+	of this document. <abbr title="Basic Input/Output System">BIOS</abbr> and
+	other firmware, the operating system kernel, and
     other systems software (and drivers) that are included with the computing
     platform are outside the scope of this document. 
     <figure entity="images/appdiagram.png"
@@ -645,47 +653,6 @@
 	</subaactivity>
 </aactivity>
       </f-element>
-      <f-element id="fmt_mec_ext.1.2">
-        <title>The application must use the mechanisms recommended by the
-        operating system vendor for storing application data.</title>
-        <aactivity>The evaluator must identify the application's source of data
-        input and output and ensure it is stored in a location supported by the
-        platform. The method of doing so varies per platform. 
-        <subaactivity platform="blackberry">The evaluator shall verify when the
-        application is installed that all files included in the BAR are stored
-        in the app folder of the Application working directory.</subaactivity>
-        <subaactivity platform="android">The evaluator shall verify the
-        following: 
-        <ul>
-          <li>The application stores all sensitive data on internal storage
-          using either 
-          <code>Context.MODE_PRIVATE</code> or 
-          <code>SharedPreferences</code></li>
-          <li>All keys shall be stored within a keystore using Android's 
-          <code>KeyStore</code> class</li>
-          <li>Files that are to be accessible by the user or other applications
-          should be stored in an appropriate folder on external storage. The
-          application should also be requesting the 
-          <code>WRITE_EXTERNAL_STORAGE</code> permission within the 
-          <code>AndroidManifest.xml</code> file.</li>
-        </ul></subaactivity>
-        <subaactivity platform="windows">The evaluator shall determine and
-        verify that Windows Store App applications use the IsolatedStorage
-        namespace for storing application data. The evaluator shall determine
-        and verify that classic Desktop application use a structed file in the
-        users profile or the ProgramData directory, but not the applications
-        executable directory. Locations used to store application data must not
-        be used for storing executable content.</subaactivity>
-          <subaactivity platform="ios">The evaluator shall verify iOS has enforced 
-            its mandatory sandboxing of all resources on the App.
-          </subaactivity>
-	  <subaactivity platform="selinux">
-	    The evaluator shall ensure that the application is not granted both 
-	    write access and execute privilege to any application data file as 
-	    specified in the Type Enforcement (*.te) file.
-	  </subaactivity>
-	</aactivity>
-      </f-element>
     </component>
     <component id="fmt_cfg_ext.1" name="Secure by Default Configuration">
       <f-element id="fmt_cfg_ext.1.1">
@@ -796,13 +763,37 @@
         Applications.</subaactivity>
           <subaactivity platform="ios">The evaluator will use static analysis of strings on the 
             binary to confirm its use of the RNG (DRBG) API.</subaactivity>
-
 	  <subaactivity platform="selinux">
 	    The evaluator shall use static analysis to verify /dev/random or /dev/urandom is used.
 	  </subaactivity>
 	</aactivity>
       </f-element>
     </component>
+
+    <component id="fcs_sto_ext.1" name="Storage of Secrets">
+      <f-element id="fcs_sto_ext.1.1">
+        <title>The application must use the mechanisms provided by the
+        operating system vendor for storing credentials.</title>
+        <aactivity>The evaluator must identify any credentials used by the application
+        and then verify that these are stored using the mechanisms
+        recommended by the operating system vendor.
+        The method of doing so varies per platform. 
+        <subaactivity platform="blackberry">TBD.</subaactivity>
+        <subaactivity platform="android">The evaluator shall verify that all
+        keys are stored within a keystore using Android's <code>KeyStore</code> class.
+        </subaactivity>
+        <subaactivity platform="windows">TBD.
+        </subaactivity>
+        <subaactivity platform="ios">The evaluator shall verify that all
+        keys are stored within a <code>KeyChain</code>.
+        </subaactivity>
+	  <subaactivity platform="selinux">
+	    TBD.
+	  </subaactivity>
+	</aactivity>
+      </f-element>
+  </component>
+
   <component id="fcs_tls_ext.1" name="TLS Implementation">
       <f-element id="fcs_tls_ext.1.1" status="sel-based">
 		<selection-depends req="ftp_dit_ext.1.1"/>
