@@ -163,22 +163,6 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 	      		<xsl:apply-templates />
 	</xsl:template>
 
- <xsl:template match="cc:assignment">
-		[<b>assignment:</b><xsl:value-of select="text()" />]
-	</xsl:template>
-  <xsl:template match="cc:component">
-    <xsl:variable name="family" select="substring(@id,1,7)" />
-    <xsl:variable name="component" select="substring(@id,1,9)" />
-    <xsl:variable name="SFRID" select="@id" />
-    <div class="comp">
-          <h4>
-			<xsl:value-of select="concat(translate(@id, $lower, $upper), ' ')" />
-            <xsl:value-of select="@name" />
-          </h4>
-      <xsl:apply-templates />
-    </div>
-  </xsl:template>
-
 
   <xsl:template match="cc:selectables">
 		[<b>selection</b><xsl:if test="@exclusiv">, choose one of</xsl:if><xsl:if test="@atleastone">, at least one of</xsl:if>
@@ -189,7 +173,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <xsl:template match="cc:assignment">
 		[<b>assignment:</b><xsl:value-of select="text()" />]
 	</xsl:template>
-  <xsl:template match="cc:component">
+  <xsl:template match="cc:f-component | cc:a-component">
     <xsl:variable name="family" select="substring(@id,1,7)" />
     <xsl:variable name="component" select="substring(@id,1,9)" />
     <xsl:variable name="SFRID" select="@id" />

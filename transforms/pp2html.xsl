@@ -397,7 +397,7 @@
   <xsl:template match="cc:assignment">
 		[<b>assignment:</b><xsl:value-of select="text()" />]
 	</xsl:template>
-  <xsl:template match="cc:component">
+  <xsl:template match="cc:f-component | cc:a-component">
     <xsl:variable name="family" select="substring(@id,1,7)" />
     <xsl:variable name="component" select="substring(@id,1,9)" />
     <xsl:variable name="SFRID" select="@id" />
