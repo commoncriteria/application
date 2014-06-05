@@ -585,6 +585,14 @@
 	</subaactivity>
         </aactivity>
       </f-element>
+      <f-element id="fdp_dec_ext.1.4">
+        <title>The application must not must not listen for or initiated any
+        network connections that it does not require
+        </title>
+        <aactivity>The evaluator shall run a port scanning utility to verify that any 
+          ports opened by the application have been documented by the TSS.
+        </aactivity>
+      </f-element>
     </f-component>
     <f-component id="fdp_dar_ext.1" name="Storage Of Sensitive Application Data">
       <f-element id="fdp_dar_ext.1.1">
@@ -696,8 +704,9 @@
         doing so varies per platform. 
         <subaactivity platform="blackberry">TBD</subaactivity>
         <subaactivity platform="android">The evaluator shall verify using 
-        <code>ls -l</code> that files writen to disk during installation have
-        the correct file permissions.</subaactivity>
+        <code>ls -l</code> that files written within the applications data directory are not world-readable or world-writable.  
+        The evaluator shall also verify that no sensitive data is written to external storage as this data can be read/modified 
+        by any application containing the READ_EXTERNAL_STORAGE and/or WRITE_EXTERNAL_STORAGE permissions.</subaactivity>
         <subaactivity platform="windows">The evaluator shall run the
         SysInternals tools, Process Monitor and Access Check 
         (or tools of equivalent capability) for Classic
@@ -1058,6 +1067,17 @@
         selections.</aactivity>
       </f-element>
     </f-component>
+  </subsection>
+  <subsection title="Fualt Tolerance (FTU)" id="ftu">
+    <f-component id="ftu_osp_ext.1" name="Application Avialability">
+        <f-element id="ftu_osp_ext.1.1">
+          <title>The application must be able to execute for 20 minutes while receiving user 
+            input without crashing</title>
+          <aactivity>The evaluator shallThe evaluator shall run the application for 20 minutes 
+            while exercising as much GUI functionality as possible and verify that the application 
+            does not crash</aactivity>
+        </f-element>
+      </f-component>
   </subsection>
   <subsection title="Protection of the TSF (FPT)" id="fpt_api_ext">
     <f-component id="fpt_api_ext.1" name="Use of Supported Services and APIs">
