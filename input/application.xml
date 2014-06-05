@@ -759,8 +759,6 @@
       <f-element id="fmt_cfg_ext.1.4">
         <title>The application must be configured by default to not transmit
         any <abbr linkend="PII" />.</title>
-        <note role="application">PII is concerned with user identity and does
-        not include crashdumps or other information about system state.</note>
         <aactivity>The evaluator shall install and run the application and
         inspect its documentation. The evaluator shall survey the list of
         settings for the application. If any setting controls the transmission
@@ -803,9 +801,9 @@
         application acquires random bits and ensure that these are acquired
         properly from the platform. This varies on a per-platform basis: 
         <subaactivity platform="blackberry">The evaluator shall use static
-        analysis to verify /dev/random or /dev/urandom is used.</subaactivity>
+        analysis to verify /dev/random is used.</subaactivity>
         <subaactivity platform="android">The evaluator shall use static
-        analysis to verify /dev/random or /dev/urandom is used.</subaactivity>
+        analysis to verify /dev/random is used.</subaactivity>
         <subaactivity platform="windows">The evaluator shall use static
         analysis to verify that the CryptGenRandom <abbr linkend="API" /> is used for classic
         desktop applications. The evaluator shall use static analysis to verify
@@ -814,7 +812,7 @@
   <subaactivity platform="ios">The evaluator will use static analysis of strings on the 
             binary to confirm its use of the RNG (DRBG) API.</subaactivity>
 	  <subaactivity platform="selinux">
-	    The evaluator shall use static analysis to verify /dev/random or /dev/urandom is used.
+	    The evaluator shall use static analysis to verify /dev/random is used.
 	  </subaactivity>
         <subaactivity platform="z/OS"></subaactivity>
         <subaactivity platform="Solaris"></subaactivity>
@@ -1154,7 +1152,7 @@ We may handle this in a different way
           randomization (<abbr linkend="ASLR" />) by requesting any memory mapping at an explicit
         address.</title>
         <aactivity> The evaluator shall ensure that the <abbr linkend="TSS" /> section of the ST describes 
-        the compiler flag used to enable <addr linkend="ASLR" /> in the application. The evaluator shall perform 
+        the compiler flaused to enable <addr linkend="ASLR" /> in the application. The evaluator shall perform 
         either a static or dynamic analysis to determine that no memory mappings are placed 
         at an explicit and consistent address. The method of doing so varies per platform. 
         <subaactivity platform="blackberry">TBD</subaactivity>
@@ -1179,9 +1177,20 @@ We may handle this in a different way
         <title>The application must not subvert <abbr linkend="DEP" />
         by simultaneously allowing both write and execute permissions on any
         memory region.</title>
-        <aactivity>The evaluator shall examine executable file headers to
-        verify that platform supported DEP protections are enabled for the
-        application.</aactivity>
+        <aactivity>
+	  <subaactivity platform="blackberry">TBD</subaactivity>
+	  <subaactivity platform="android">passes</subaactivity>
+	  <subaactivity platform="windows">
+	    The evaluator shall examine executable file headers to
+	    verify that platform supported DEP protections are enabled for the
+	    application.
+	  </subaactivity>
+	  <subaactivity platform="ios">passes</subaactivity>
+	  <subaactivity platform="selinux">passes</subaactivity>
+	  <subaactivity platform="z/OS">passes</subaactivity>
+	  <subaactivity platform="Solaris">passes</subaactivity>
+	  <subaactivity platform="OS X">passes</subaactivity>
+	</aactivity>
       </f-element>
       <f-element id="fpt_aex_ext.1.3">
         <title>The application must not subvert platform-provided heap
@@ -1231,21 +1240,24 @@ We may handle this in a different way
       <subaactivity platform="blackberry">The platform forces applications to
       write all data within the application working directory (sandbox), and so
       applications on this platform pass.</subaactivity>
-      <subaactivity platform="android">The evaluator shall run the program and
-      note where all files are written. The evaluator shall ensure that there
-      are no executable files stored within the applications data
-      directory.</subaactivity>
-      <subaactivity platform="windows">The evaluator shall run the program and
-      note where all files are written. The evaluator shall ensure that it is
-      not possible to also execute files from these locations.</subaactivity>
+      <subaactivity platform="android">
+	The evaluator shall run the program for no less than 20 minutes ( or to completion) exercising as much functionality as possible and 
+	note where all files are written. 
+	The evaluator shall ensure that there are no executable files stored within the applications data directory.
+      </subaactivity>
+      <subaactivity platform="windows">
+	The evaluator shall run the program for no less than 20 minutes ( or to completion) exercising as much functionality as possible and 
+	note where all files are written. 
+	The evaluator shall ensure that there are no executable files stored within the applications data directory.
+      </subaactivity>
       <subaactivity platform="ios">The platform forces applications to write
       all data within the application working directory (sandbox), and so
       applications on this platform
       pass.</subaactivity>
       <subaactivity platform="selinux">
-	The evaluator shall inspect the application's SELinux Type Enforcement 
-	(*.te) file to ensure that the application is granted both write access 
-	and execute privilege to only those file locations it explicitly requires.
+	The evaluator shall run the program for no less than 20 minutes ( or to completion) exercising as much functionality as possible and 
+	note where all files are written. 
+	The evaluator shall ensure that there are no executable files stored within the applications data directory.
       </subaactivity>
       <subaactivity platform="z/OS"></subaactivity>
       <subaactivity platform="Solaris"></subaactivity>
