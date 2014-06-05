@@ -489,6 +489,9 @@
       <xsl:when test="$osname='ios'">Apple iOS</xsl:when>
       <xsl:when test="$osname='android'">Android</xsl:when>
       <xsl:when test="$osname='selinux'">Linux</xsl:when>
+      <xsl:when test="$osname='OS X'">Apple OS X</xsl:when>
+      <xsl:when test="$osname='z/OS'">z/OS</xsl:when>
+      <xsl:when test="$osname='Solaris'">Solaris</xsl:when>
       <xsl:otherwise>
     Undefined operating system platform
   </xsl:otherwise>
