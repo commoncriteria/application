@@ -1278,14 +1278,35 @@ We may handle this in a different way
         <title>The application update and installation packages must be
         distributed using the format of the operating system-supported package
         manager.</title>
-        <aactivity>The evaluator shall verify that application updates are
-        distributed in a format supported by a standard mechanism. Examples of
-        standard mechanisms include: The BlackBerry World storefront,
-        BlackBerry World for Work storefront, BlackBerry Administration
-        Service, Standard Windows Installer (.msi) format, Windows App Store
-        package (.appx), Google Play Store (.apk) or OEM App Store,
-        Enterprise-run Android App store, The Apple App Store, Enterprise-run
-        iOS App repositories.</aactivity>
+        <aactivity>
+	  The evaluator shall verify that application updates are distributed in a format supported by a standard mechanism. 
+	  This varies per platform:
+	  <subaactivity platform="blackberry">
+	    The evaluator shall ensure that applications are installed from the BlackBerry World storefront,
+	    BlackBerry World for Work storefront, or BlackBerry Administration Service.
+	  </subaactivity>
+	  <subaactivity platform="android">
+	    The evaluator shall ensure that applications are installed from the Google Play Store (.apk), the OEM App Store, or the enterprise-run Android App store.
+	  </subaactivity>
+	  <subaactivity platform="windows">
+	    The evaluator shall ensure that applications are installed using the Standard Windows Installer (.msi) format or the Windows App Store package (.appx).
+	  </subaactivity>
+	  <subaactivity platform="ios">
+	    The evaluator shall ensure that applications are installed from the Apple App Store or the enterprise-run iOS App repositories.
+	  </subaactivity>
+	  <subaactivity platform="selinux">
+	    The evaluator shall ensure that applications are installed from a distribution-approved repository or using the software package as delivered by the OEMs.
+	  </subaactivity>
+	  <subaactivity platform="z/OS">
+	    The evaluator shall ensure that applications are installed TODO!!!
+	  </subaactivity>
+	  <subaactivity platform="Solaris">
+	    The evaluator shall ensure that applications are installed TODO!!!
+	  </subaactivity>
+	  <subaactivity platform="OS X">
+	    The evaluator shall ensure that applications are installed TODO!!!
+	  </subaactivity>
+	</aactivity>
       </f-element>
       <f-element id="fpt_tud_ext.1.3">
         <title>The application must be packaged such that its removal results
@@ -1644,8 +1665,9 @@ We may handle this in a different way
       a developer’s practices play in contributing to the overall
       trustworthiness of a product; rather, it’s a reflection on the
       information to be made available for evaluation. 
-      <br />The evaluator shall ensure that the developer has identified (in
-      public-facing development documentation for their platform) one or more
+      <br />
+      The evaluator shall ensure that the developer has identified (in
+      guidance documentation for application developers concerning the targeted platform) one or more
       development environments appropriate for use in developing applications
       for the developer’s platform. For each of these development environments,
       the developer shall provide information on how to configure the
