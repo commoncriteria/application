@@ -153,9 +153,10 @@
     software on desktop or server platforms. Some application types are covered
     by more specific PPs which may be expressed as Extended Packages of this
     PP. Such applications are subject to the requirements of both this PP and
-    the PP that addresses their special functionality. For example, web
-    browsers are subject to the requirements in this PP and the Protection
-    Profile for Web Browsers.  Although the requirements in this document apply
+    the Extended Package that addresses their special functionality. 
+    For example, web browsers are subject to the requirements in this PP and the Extended Package for Web Browsers 
+    (Note: version 1.0 for web browsers is formally categorized as a Protection Profile and not an Extended Package).
+    Although the requirements in this document apply
     to all application software that runs on any operating system, some assurance
     activities are necessarily specific to particular operating systems in order
     to provide precision and repeatability.  Additional test activities are
@@ -294,8 +295,7 @@
       </assumption>
       <assumption id="A.PROPER_USER">
         <description>The user of the application software is not willfully
-        negligent or hostile, and uses the software within compliance of a
-        reasonable enterprise security policy.</description>
+        negligent or hostile, and uses the software within compliance of the applied enterprise security policy.</description>
         <objective-refer ref="OE.PROPER_USER">
           <rationale>The assumption A.PROPER_USER is covered by objective
           OE.PROPER_USER as directly follows</rationale>
@@ -304,7 +304,7 @@
       <assumption id="A.PROPER_ADMIN">
         <description>The administrator of the application software is not
         careless, willfully negligent or hostile, and administers the software
-        within compliance of a reasonable enterprise security
+        within compliance of the applied enterprise security
         policy.</description>
         <objective-refer ref="OE.PROPER_ADMIN">
           <rationale>The assumption A.PROPER_ADMIN is covered by objective
@@ -381,11 +381,11 @@
           <component-refer ref="fcs_rbg_ext.1" />
         </SO>
         <SO id="O.PROTECTED_COMMS">
-          <description>To address network eavesdropping and network attack
-          threats, conformant <abbr linkend="TOE" />s will use a trusted communication path
-          for sensitive data. Sensitive data includes cryptographic keys,
-          passwords, and any other data specific to the application that should
-          not be exposed outside of the application.</description>
+          <description>
+	    To address both passive (eavesdropping) and active (packet modification) network attack threats, 
+	    conformant <abbr linkend="TOE" />s will use a trusted communication path for sensitive data.
+	    Sensitive data includes cryptographic keys, passwords, and any other data specific to the application that should not be exposed outside of the application.
+	  </description>
           <component-refer ref="fcs_rbg_ext.1" />
           <component-refer ref="fcs_tls_ext.1" />
           <!-- <component-refer ref="fpr_ano_ext.1" /> -->
@@ -407,13 +407,13 @@
       </SOE>
       <SOE id="OE.PROPER_USER">
         <description>The user of the application software is not willfully
-        negligent or hostile, and uses the software within compliance of a
-        reasonable enterprise security policy.</description>
+        negligent or hostile, and uses the software within compliance of the applied
+	enterprise security policy.</description>
       </SOE>
       <SOE id="OE.PROPER_ADMIN">
         <description>The administrator of the application software is not
         careless, willfully negligent or hostile, and administers the software
-        within compliance of a reasonable enterprise security
+        within compliance of the applied enterprise security
         policy.</description>
       </SOE>
     </SOEs></section>
@@ -494,10 +494,10 @@
         Bluetooth, and camera.
         The evaluator shall verify that the application prompts the user for
         permission.</subaactivity>
-	<subaactivity platform="selinux">If installed on SELinux, the evaluator 
-	shall inspect the application's SELinux Type Enforcement (*.te) file to ensure that 
-	the application is granted permissions to only those hardware 
-	resources for which it is approved to access. </subaactivity>
+	<subaactivity platform="selinux">
+	  The evaluator shall verify that either the application or 
+	  the documentation provide the user with with a list of the required hardware resources.
+	</subaactivity>
         <subaactivity platform="z/OS"></subaactivity>
         <subaactivity platform="Solaris"></subaactivity>
         <subaactivity platform="OS X"></subaactivity>
@@ -538,9 +538,8 @@
         repositories. The evaluator shall verify that the application prompts
         the user for permission.</subaactivity>
 	<subaactivity platform="selinux">
-	  The evaluator shall inspect the application's SELinux Type Enforcement (*.te) file to
-	  ensure that the application is granted permissions to only those hardware resources 
-	  for which it is approved to access.
+	  The evaluator shall install the application and verify that the application displays the permissions
+	  used to access sensitive information repositories.
 	</subaactivity>
         <subaactivity platform="z/OS"></subaactivity>
         <subaactivity platform="Solaris"></subaactivity>
@@ -565,10 +564,10 @@
         Permissions → Select application in question, it will list which
         platform resource are approved/denied and can be
         changed.</subaactivity>
-        <subaactivity platform="android">The evaluator shall install the 
-          application and confirm that it does not request more permissions than
-          are necessary for the application to perform its described function. If 
-          provided the evaluator shall look at the AndroidManifest.xml file to 
+        <subaactivity platform="android">
+	  The evaluator shall install the application and confirm that it does not request more permissions than
+          are necessary for the application to perform its described function. 
+	  If provided the evaluator shall look at the AndroidManifest.xml file to 
           confirm that the application does not request more permissions than are necessary.
         </subaactivity>
         <subaactivity platform="windows">For Windows Store Apps the evaluator
@@ -580,7 +579,7 @@
         evaluator shall inspect this list and verify that these are in line with
         the capabilities needed by the application.
         </subaactivity>
-<subaactivity platform="ios">iOS apps are required to declare entitlements 
+	<subaactivity platform="ios">iOS apps are required to declare entitlements 
           (required device resource identifiers) in the Provisioning Profile (which is codesigned app metadata).
           The evaluator shall install the application and make note of the corresponding privacy
           settings on the device resources  [Settings->Privacy->].  The evaluator will run the 
@@ -591,9 +590,8 @@
           Settings->Privacy->Location Services->Contacts-><i>App</i> can be disabled to prevent the App from
             accessing the service. </subaactivity>
 	<subaactivity platform="selinux">
-	  The evaluator shall inspect the application's SELinux Type Enforcement (*.te) file to
-	  ensure that the application is granted permissions to only those sensitive resources 
-	  for which it is approved to access.
+	  The developer must provide a written list of capabilities needed by the application. 
+	  The evaluator shall inspect this list and verify that these are in line with the capabilities needed by the application.
 	</subaactivity>
         <subaactivity platform="z/OS"></subaactivity>
         <subaactivity platform="Solaris"></subaactivity>
@@ -633,16 +631,15 @@
         <code>Cipher</code> classes to encrypt sensitive data.</subaactivity>
         <subaactivity platform="windows">The evaluator shall determine and
         verify that Windows Applications use the <abbr title="Data Protection API">DPAPI</abbr> to
-        store and retrieve senstive information. Windows Store Apps for desktop
-        or mobile shall utilize the DPAPI via the ProtectedData
+        store and retrieve senstive information. 
+	Windows Store Apps for desktop
+        or mobile shall use the DPAPI via the ProtectedData
         class.</subaactivity>
-  <subaactivity platform="ios">The evaluator shall determine whether the application leverages the appropriate 
+	<subaactivity platform="ios">The evaluator shall determine whether the application uses the appropriate 
             Data Protection Class for each data file stored locally.
           </subaactivity>
 	  <subaactivity platform="selinux">
-	    The evaluator shall determine whether
-	    the application properly uses KDE's KWallet or
-	    Gnome's GnomeKeyring
+	    The evaluator shall determine whether the application properly uses KDE's KWallet or Gnome's GnomeKeyring
           </subaactivity>
         <subaactivity platform="z/OS"></subaactivity>
         <subaactivity platform="Solaris"></subaactivity>
@@ -680,12 +677,8 @@
         used for storing executable content.</subaactivity>
           <subaactivity platform="ios">The evaluator shall verify that the app uses the <code>user defaults system</code> or <code>key-value store</code> for storing all settings.</subaactivity>
 	<subaactivity platform="selinux">
-	  The evaluator shall inspect the application's SELinux Type Enforcement (*.te) file to
-	  ensure that the application is granted permissions to save configuration data to a unique
-	  file in /etc (for system specific configuration) or in the users' home directory 
-	  (for user specific configuration). The evaluator shall inspect the Type Enforcement file
-	  to ensure that the application is not granted both write access and execute privilege 
-	  to any configuration file.
+	  The evaluator shall install the application and verify that the application saves its configuration in structured files that reside in /etc (for system specific configuration) or in the users' home directory (for user specific configuration). 
+	  The evaluator shall inspect the file permissions on these files to ensure they do not have any execute permissions.
 	</subaactivity>
         <subaactivity platform="z/OS"></subaactivity>
         <subaactivity platform="Solaris"></subaactivity>
@@ -740,19 +733,12 @@
             the application leverages the appropriate Data Protection Class 
             for each data file stored locally.</subaactivity>
 	<subaactivity platform="selinux">
-	  The evaluator shall ensure that application's Type Enforcement (*.te) 
-	  file declares a unique file label for its processes files and that 
-	  the application's File Context file (*.fc) appropriate labels the 
-	  respective files correctly. Also the evaluator must ensure that the 
-	  Type Enforcement file defines the necessary transition rules so that
-	  the process file transitions to a unique process label when the 
-	  file is executed.
+	  The evaluator shall verify using <code>ls -l</code> that files written within the 
+	  applications data directory are not world-readable or world-writable. 
 	</subaactivity>
         <subaactivity platform="z/OS"></subaactivity>
         <subaactivity platform="Solaris"></subaactivity>
         <subaactivity platform="OS X"></subaactivity>
-          
-
 	</aactivity>
       </f-element>
       <f-element id="fmt_cfg_ext.1.4">
@@ -773,9 +759,9 @@
         functions:
  
         <selectables linebreak="yes">
-		  <selectable>enable/disable transmission of any system identity
+	  <selectable>enable/disable transmission of any system identity
               information <i>if such functionality exists in the application</i></selectable>
-          <selectable>enable/disable transmission of any user identity information <i>if
+          <selectable>enable/disable transmission of any PII <i>if
               such functionality exists in the application</i></selectable>
           <selectable>enable/disable transmission of any application state (e.g.
               crashdump) information <i>if such functionality exists in the
@@ -1041,6 +1027,34 @@
         </aactivity>
       </f-element>
     </f-component>
+  <f-component id="fcs_dtls_ext.1" name="DTLS Implementation" status="sel-based">
+    <f-element id="fcs_dtls_ext.1.1" status="sel-based">
+      <selection-depends req="ftp_dit_ext.1.1"/>
+      <title>The TSF shall implement the DTLS protocol in accordance with one or more of
+        <selectables atleastone="yes">
+          <selectable>DTLS 1.0 (RFC 4347)</selectable>
+          <selectable>DTLS 1.2 (RFC 6347)</selectable>
+        </selectables>
+      </title>
+    </f-element>
+    <f-element id="fcs_dtls_ext.1.2" status="sel-based">
+      <selection-depends req="ftp_dit_ext.1.1"/>
+      <title>The TSF shall implement the requirements in TLS (FCS_TLS_EXT.2) for the DTLS implementation,
+        except where variations are allowed according to
+        <selectables atleastone="yes">
+          <selectable>DTLS 1.0 (RFC 4347)</selectable>
+          <selectable>DTLS 1.2 (RFC 6347)</selectable>
+        </selectables>
+      </title>
+      <note role="application">Differences between DTLS and TLS are outlined in RFC 4347 and RFC
+        6347; otherwise the protocols are the same. In particular, for the applicable security
+        characteristics defined for the TSF, the two protocols do not differ. Therefore, all application
+        notes and assurance activities that are listed for TLS apply to the DTLS implementation.
+      </note>
+      <aactivity>The evaluator shall perform the assurance activities listed for TLS to verify
+        this component</aactivity>
+    </f-element>
+  </f-component>
   </subsection>
 <!--  
 We may handle this in a different way
@@ -1194,21 +1208,21 @@ We may handle this in a different way
         <aactivity>The evaluator shall carry out one of the following tests,
         depending on the platform. 
         <subaactivity platform="blackberry">TBD</subaactivity>
-        <subaactivity platform="android">The evaluator shall ensure that the
-        application can run with SE for Android enabled and in enforcement
-        mode.</subaactivity>
+        <subaactivity platform="android">
+	  The evaluator shall ensure that the application can run with SE for Android enabled and enforcing and 
+	  that it can be run in a confined, non-permissive domain.
+	</subaactivity>
         <subaactivity platform="windows">The evaluator shall ensure that
         classis desktop applications and Windows Store applications are
-        compatible with Microsoft's Enhanced Mitigation Experince Toolkit
+        compatible with the latest version of Microsoft's Enhanced Mitigation Experince Toolkit
         (EMET).</subaactivity>
-          <subaactivity platform="ios">The evaluator shall ensure that the application 
-            can successfully run on the latest version of iOS.</subaactivity>
+          <subaactivity platform="ios">
+	    The evaluator shall ensure that the application can successfully run on the latest version of iOS.
+	  </subaactivity>
 	  <subaactivity platform="selinux">
-	    The evaluator shall inspect the application's SELinux Type Enforcement (*.te)
-	    file to ensure that the application's process labels defined are unique. 
-	    The evaluator shall also ensure that the domains defined are not declared 
-	    permissive.
-	</subaactivity>
+	    The evaluator shall ensure that the application can run with SE for Android enabled and enforcing and 
+	    that it can be run in a confined, non-permissive domain.
+	  </subaactivity>
         <subaactivity platform="z/OS"></subaactivity>
         <subaactivity platform="Solaris"></subaactivity>
         <subaactivity platform="OS X"></subaactivity>
@@ -1250,10 +1264,12 @@ We may handle this in a different way
       <subaactivity platform="OS X"></subaactivity>
       </aactivity></f-element>
       <f-element id="fpt_aex_ext.1.6">
-        <title>The application must be compiled with the stack cookie security feature enabled.</title>
+        <title>The application must be compiled with a stack-based buffer overflow protection feature enabled.</title>
+        <note role="application">Applications compiled with the -fstack or the /GS flag represent examples 
+          of such a stack-based buffer overflow protection mechanism.</note>
         <aactivity> The evaluator shall ensure that the <abbr linkend="TSS" /> section of the ST describes 
-          the compiler flag used to enable stack cookies in the application. The evaluator shall perform 
-          either a static or dynamic analysis to verify that stack cookies are enabled</aactivity>
+          the compiler flag used to enable stack-based buffer overflow protection in the application. The evaluator shall perform 
+          either a static or dynamic analysis to verify that stack-based buffer overflow protection is enabled</aactivity>
       </f-element>
     </f-component>
     <f-component id="fpt_tud_ext.1" name="Integrity for Installation and Update">
@@ -1280,18 +1296,40 @@ We may handle this in a different way
         <title>The application update and installation packages must be
         distributed using the format of the operating system-supported package
         manager.</title>
-        <aactivity>The evaluator shall verify that application updates are
-        distributed in a format supported by a standard mechanism. Examples of
-        standard mechanisms include: The BlackBerry World storefront,
-        BlackBerry World for Work storefront, BlackBerry Administration
-        Service, Standard Windows Installer (.msi) format, Windows App Store
-        package (.appx), Google Play Store (.apk) or OEM App Store,
-        Enterprise-run Android App store, The Apple App Store, Enterprise-run
-        iOS App repositories.</aactivity>
+        <aactivity>
+	  The evaluator shall verify that application updates are distributed in a format supported by a standard mechanism. 
+	  This varies per platform:
+	  <subaactivity platform="blackberry">
+	    The evaluator shall ensure that applications are installed from the BlackBerry World storefront,
+	    BlackBerry World for Work storefront, or BlackBerry Administration Service.
+	  </subaactivity>
+	  <subaactivity platform="android">
+	    The evaluator shall ensure that applications are installed from the Google Play Store (.apk), the OEM App Store, or the enterprise-run Android App store.
+	  </subaactivity>
+	  <subaactivity platform="windows">
+	    The evaluator shall ensure that applications are installed using the Standard Windows Installer (.msi) format or the Windows App Store package (.appx).
+	  </subaactivity>
+	  <subaactivity platform="ios">
+	    The evaluator shall ensure that applications are installed from the Apple App Store or the enterprise-run iOS App repositories.
+	  </subaactivity>
+	  <subaactivity platform="selinux">
+	    The evaluator shall ensure that applications are installed from a distribution-approved repository or using the software package as delivered by the OEMs.
+	  </subaactivity>
+	  <subaactivity platform="z/OS">
+	    The evaluator shall ensure that applications are installed TODO!!!
+	  </subaactivity>
+	  <subaactivity platform="Solaris">
+	    The evaluator shall ensure that applications are installed TODO!!!
+	  </subaactivity>
+	  <subaactivity platform="OS X">
+	    The evaluator shall ensure that applications are installed TODO!!!
+	  </subaactivity>
+	</aactivity>
       </f-element>
       <f-element id="fpt_tud_ext.1.3">
         <title>The application must be packaged such that its removal results
-        in the removal of all traces of the application.  Configuration, preference settings, and audit or log events may remain.</title>
+        in the removal of all traces of the application, 
+	with the exception of configuration settings, output files, and audit/log events.</title>
         <note role="application">Applications bundled with the system/firmware image are not subject to this requirement if the user is 
           unable to remove the application through means provided by the OS.</note>
         <aactivity>The evaluator shall uninstall the application and search for
@@ -1646,8 +1684,9 @@ We may handle this in a different way
       a developer’s practices play in contributing to the overall
       trustworthiness of a product; rather, it’s a reflection on the
       information to be made available for evaluation. 
-      <br />The evaluator shall ensure that the developer has identified (in
-      public-facing development documentation for their platform) one or more
+      <br />
+      The evaluator shall ensure that the developer has identified (in
+      guidance documentation for application developers concerning the targeted platform) one or more
       development environments appropriate for use in developing applications
       for the developer’s platform. For each of these development environments,
       the developer shall provide information on how to configure the
