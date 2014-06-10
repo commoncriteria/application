@@ -376,8 +376,8 @@
         <SO id="O.PROTECTED_STORAGE">
           <description>To address the issue of loss of confidentiality of user
           data in the event of loss of physical control of the storage medium,
-          conformant <abbr linkend="TOE" />s provide data-at-rest protection. This involves
-          encrypting data and keys stored by the TOE in order to prevent
+          conformant <abbr linkend="TOE" />s will use data-at-rest protection. 
+	  This involves encrypting data and keys stored by the TOE in order to prevent
           unauthorized access to this encrypted data.</description>
           <component-refer ref="fdp_dar_ext.1" />
           <component-refer ref="fcs_rbg_ext.1" />
@@ -1167,10 +1167,14 @@ We may handle this in a different way
         application on two different windows systems and run the Sysinternals
         tool VMMap on each system and verify the two different instances share
         no mapping locations.</subaactivity>
-<subaactivity platform="ios">The evaluator shall perform a static
+	<subaactivity platform="ios">The evaluator shall perform a static
         analysis to search for any mmap calls (or <abbr linkend="API" /> calls that call mmap),
         and ensure that no arguments are provided that request a mapping at a
         fixed address</subaactivity>
+	<subaactivity platform="selinux">
+	  The evaluator shall run the same program on two different Linux systems.
+	  The evaluator shall then compare their /proc/PID/maps to ensure the two different instances share no mapping locations.
+	</subaactivity>
         <subaactivity platform="z/OS"></subaactivity>
         <subaactivity platform="Solaris"></subaactivity>
         <subaactivity platform="OS X"></subaactivity>
