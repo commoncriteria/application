@@ -341,7 +341,7 @@
 	      <xsl:element name="a"> <!-- Add a link to the actual section -->
 		<xsl:attribute name="href">
 		  <xsl:text>#</xsl:text>
-		  <xsl:value-of select="@ref" />
+		  <xsl:value-of select="translate(@ref,$lower,$upper)" />
 		</xsl:attribute>
 		<xsl:value-of select="translate(@ref,$lower,$upper)" />
 	      </xsl:element>
@@ -401,19 +401,19 @@
     <xsl:variable name="family" select="substring(@id,1,7)" />
     <xsl:variable name="component" select="substring(@id,1,9)" />
     <xsl:variable name="SFRID" select="@id" />
-    <div class="comp">
+    
+
       <!-- Make an anchor here -->
-      <xsl:element name="a">
-	<xsl:attribute name="name">
-          <xsl:value-of select="@id" />
-	</xsl:attribute>
+      <xsl:element name="div">
+	<xsl:attribute name="class">comp</xsl:attribute>
+	<xsl:attribute name="id"><xsl:value-of select="translate(@id, $lower, $upper)" /></xsl:attribute>
+	
+	<h4>
+	  <xsl:value-of select="concat(translate(@id, $lower, $upper), ' ')" />
+	  <xsl:value-of select="@name" />
+	</h4>
+	<xsl:apply-templates />
       </xsl:element>
-          <h4>
-			<xsl:value-of select="concat(translate(@id, $lower, $upper), ' ')" />
-            <xsl:value-of select="@name" />
-          </h4>
-      <xsl:apply-templates />
-    </div>
   </xsl:template>
 
 
