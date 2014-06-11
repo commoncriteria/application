@@ -176,8 +176,7 @@
     (such as kernel drivers) is considered part of the application for purposes
 	of this document. <abbr title="Basic Input/Output System">BIOS</abbr> and
 	other firmware, the operating system kernel, and
-    other systems software (and drivers) that are included with the computing
-    platform are outside the scope of this document. 
+    other systems software (and drivers) are outside the scope of this document. 
     <figure entity="images/appdiagram.png"
     title="Figure 1: Protection Profile Overview"
     id="generictoedesign" /></subsection></section>
@@ -1062,22 +1061,27 @@
        We may handle this in a different way
   -->
   <subsection title="Privacy (FPR)" id="fpr">
-    <f-component id="fpr_ano_ext.1" name="Anonymous Network Behavior">
+    <f-component id="fpr_ano_ext.1" name="Use of Advertising Networks">
       <f-element id="fpr_ano_ext.1.1">
         <title>
-	  The application shall 
+	  The application shall use 
 	  <selectables linebreaks="yes">
-	    <selectable> not use any ad-ware libraries </selectable>
-	    <selectable> disclose to the user which ad-ware libraries and networks it uses </selectable>
+	    <selectable>no ad networks</selectable>
+	    <selectable>[assignment: reputable adware networks]</selectable>
 	  </selectables>
 	  .
 	</title>
         <note role="application">
-	  In-app ad-ware is subject to the same requirements as its host app regarding collection of information, and
-	  its behavior is evaluated as part of this requirement. 
+	  The intention of this requirement is for the evaluator to discover whether the
+	  application is including in-app adware that could present a threat to the user's
+	  privacy (or worse).
         </note>
         <aactivity>
-	  The evaluator 
+		The evaluator shall run the application, inspect the TSS (if
+		available), perform static analysis, and also conduct network traffic
+		analysis to determine if any adware networks are used by the
+		application.  If any ad networks are used, the evaluator shall search public
+		sources to confirm that these are considered reputable.
 	</aactivity>
       </f-element>
     </f-component>
