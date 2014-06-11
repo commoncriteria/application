@@ -799,11 +799,11 @@
         desktop applications. The evaluator shall use static analysis to verify
         that the System.Random API is used for Windows Store
         Applications.</subaactivity>
-  <subaactivity platform="ios">The evaluator will use static analysis of strings on the 
-            binary to confirm its use of the RNG (DRBG) API.</subaactivity>
-	  <subaactivity platform="selinux">
-	    The evaluator shall use static analysis to verify /dev/random is used.
-	  </subaactivity>
+	<subaactivity platform="ios">The evaluator will use static analysis of strings on the 
+	binary to confirm its use of the RNG (DRBG) API.</subaactivity>
+	<subaactivity platform="selinux">
+	  The evaluator shall use static analysis to verify /dev/random is used.
+	</subaactivity>
         <subaactivity platform="z/OS"></subaactivity>
         <subaactivity platform="Solaris"></subaactivity>
         <subaactivity platform="OS X"></subaactivity>
@@ -1058,26 +1058,31 @@
     </f-element>
   </f-component>
   </subsection>
-<!--  
-We may handle this in a different way
-
-<subsection title="Privacy (FPR)" id="fpr">
+  <!--  
+       We may handle this in a different way
+  -->
+  <subsection title="Privacy (FPR)" id="fpr">
     <f-component id="fpr_ano_ext.1" name="Anonymous Network Behavior">
       <f-element id="fpr_ano_ext.1.1">
-        <title>The application must be capable of not transmitting any user
-        identity information.</title>
-        <note role="application">In-app ad-ware is subject to the same
-        requirements as its host app regarding collection of information, and
-        its behavior is evaluated as part of this requirement. 
+        <title>
+	  The application shall 
+	  <selectables linebreaks="yes">
+	    <selectable> not use any ad-ware libraries </selectable>
+	    <selectable> disclose to the user which ad-ware libraries and networks it uses </selectable>
+	  </selectables>
+	  .
+	</title>
+        <note role="application">
+	  In-app ad-ware is subject to the same requirements as its host app regarding collection of information, and
+	  its behavior is evaluated as part of this requirement. 
         </note>
-        <aactivity>The evaluator shall prepare a test environment which makes
-        it possible to sniff network traffic between the platform and any
-        remote systems. The evaluator shall install and run the application,
-        and ensure that no <abbr linkend="PII" /> is transmitted from the system.</aactivity>
+        <aactivity>
+	  The evaluator 
+	</aactivity>
       </f-element>
     </f-component>
   </subsection>
-  -->
+
   <subsection title="Trusted Path/Channel (FTP)" id="ftp">
     <f-component id="ftp_dit_ext.1" name="Protection of Data in Transit">
       <f-element id="ftp_dit_ext.1.1">
