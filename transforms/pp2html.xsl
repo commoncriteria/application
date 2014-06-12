@@ -70,15 +70,20 @@
       div.aact       { margin-left: 0%; margin-top: 1em; margin-bottom: 1em; 
 						padding: 1em;
 						border:2px solid  #888888; border-radius:3px; 
-						box-shadow: 4px 4px 3px #888888;
 						display: block; 
-                                                 
-      
       }
       div.subaact       { margin-left: 0%; margin-top: 1em;  }
+      div.aacthidden{ 
+          margin-left: 0%; 
+          margin-top: 1em;
+          margin-bottom: 1em;
+      }    
+
+
+
       div.statustag { margin-left: 0%; margin-top: 1em; margin-bottom: 1em;	padding: 1em;
-				border:2px solid  #888888; border-radius:3px; 
-				box-shadow: 4px 4px 3px #888888; }
+				border:2px solid  #888888; border-radius:3px; }
+				
       div.toc        { margin-left: 8%; margin-bottom: 4em;
                        padding-bottom: 0.75em; padding-top: 1em;
                        padding-left: 2em; padding-right: 2em; }
@@ -106,9 +111,9 @@
                   font-family:   verdana, arial, helvetica, sans-serif; }
         *.req { margin-left: 0%; margin-top: 1em; margin-bottom: 1em; }
         *.reqdesc { display:inline-block; margin-left: 20%; }
-          div.aacthidden{ margin-left: 0%; margin-top: 1em;
-                          margin-bottom: 1em;
-                          display: none; }
+          div.aacthidden{ display: none; }
+        div.statustag {box-shadow: 4px 4px 3px #888888; }
+        div.aact      {box-shadow: 4px 4px 3px #888888; }
       }
 
       @media print {
@@ -118,9 +123,6 @@
            *.req    { margin-left: 0%; margin-top: 1em; margin-bottom: 1em; }
            *.reqdesc  { margin-left: 20%; }
            div.aacthidden{
-                   margin-left: 0%;
-                   margin-top:
-                   1em; margin-bottom: 1em;
                    padding: 1em;
                    border:2px solid  #888888; border-radius:3px;
                    display: block;
