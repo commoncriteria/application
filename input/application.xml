@@ -551,9 +551,9 @@
         <title>The application must not seek permission from the user to access
         resources which it does not require.</title>
         <note role="application">While the application is responsible for
-        requesting access to a device, it is the operating system's
+        requesting access to a resource, it is the operating system's
         responsibility to enforce whether or not the application can actually
-        use the device.</note>
+        use the resource.</note>
         <aactivity>The evaluator shall compare the list of resources required
         by the application with the list of resources indicated by the
         application itself. The method of doing so varies per platform. 
@@ -798,9 +798,10 @@
         application acquires random bits and ensure that these are acquired
         properly from the platform. This varies on a per-platform basis: 
         <subaactivity platform="blackberry">The evaluator shall use static
-        analysis to verify /dev/random is used.</subaactivity>
-        <subaactivity platform="android">The evaluator shall use static
-        analysis to verify /dev/random is used.</subaactivity>
+        analysis to verify /dev/random or /dev/urandom is used.</subaactivity>
+        <subaactivity platform="android">
+	  The evaluator shall use static analysis to verify that the application uses the <code>javax.crypto.KeyGenerator</code> class or the <code>java.security.SecureRandom</code> class.
+	</subaactivity>
         <subaactivity platform="windows">The evaluator shall use static
         analysis to verify that the CryptGenRandom <abbr linkend="API" /> is used for classic
         desktop applications. The evaluator shall use static analysis to verify
@@ -809,7 +810,7 @@
 	<subaactivity platform="ios">The evaluator will use static analysis of strings on the 
 	binary to confirm its use of the RNG (DRBG) API.</subaactivity>
 	<subaactivity platform="selinux">
-	  The evaluator shall use static analysis to verify /dev/random is used.
+	  The evaluator shall use static analysis to verify /dev/random or /dev/urandom is used.
 	</subaactivity>
         <subaactivity platform="z/OS"></subaactivity>
         <subaactivity platform="Solaris"></subaactivity>
