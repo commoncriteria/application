@@ -598,6 +598,9 @@
         <subaactivity platform="OS X"></subaactivity>
         
         </aactivity>
+        <refs>
+		  <ref sect="SA-17 (7)" source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf" />
+        </refs>
       </f-element>
       <f-element id="fdp_dec_ext.1.4">
         <title>The application must not must not listen on any ports or initiate any
@@ -606,6 +609,9 @@
         <aactivity>The evaluator shall run a port scanning utility to verify that any 
           ports opened by the application have been documented by the TSS.
         </aactivity>
+	<refs>
+		<ref sect="CM-7b." source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf" />
+	</refs>
       </f-element>
     </f-component>
     <f-component id="fdp_dar_ext.1" name="Storage Of Sensitive Application Data">
@@ -697,6 +703,9 @@
         inspect its documentation. If the application uses any credentials such
         as passwords or private keys, these must not be pre-programmed and the
         user must instead be prompted to provide the credential.</aactivity>
+        <refs>
+		  <ref sect="IA-5 (5)" source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf" />
+        </refs>
       </f-element>
       <f-element id="fmt_cfg_ext.1.2">
         <title>The application must be configured by default to not transmit
@@ -857,6 +866,9 @@
         <subaactivity platform="Solaris"></subaactivity>
         <subaactivity platform="OS X"></subaactivity>
 	</aactivity>
+	<refs>
+		<ref sect="SC-12" source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf" />
+	</refs>
       </f-element>
   </f-component>
 
@@ -957,6 +969,10 @@
               the connection.</li>
           </ul></test>
         </testlist></aactivity>
+	<refs>
+		<ref sect="SC-13" source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf" />
+	</refs>
+
       </f-element>
       <f-element id="fcs_tls_ext.1.2" status="sel-based">
         <selection-depends req="ftp_dit_ext.1.1"/>
@@ -1089,9 +1105,8 @@
 	  The application shall use 
 	  <selectables linebreaks="yes">
 	    <selectable>no ad networks</selectable>
-	    <selectable>[assignment: reputable adware networks]</selectable>
-	  </selectables>
-	  .
+	    <selectable>[assignment: reputable ad networks]</selectable>
+	  </selectables>.
 	</title>
         <note role="application">
 	  The intention of this requirement is for the evaluator to discover whether the
@@ -1128,9 +1143,8 @@
         and exercise its functionality. The evaluator shall ensure that
         transmitted data is protected as indicated in the
         selections.</aactivity>
-
 	<refs>
-		<ref sect="SC-11" source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf" />
+		<ref sect="SC-8" source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf" />
 	</refs>
       </f-element>
     </f-component>
@@ -1312,6 +1326,9 @@
           the compiler flag used to enable stack-based buffer overflow protection in the application. The evaluator shall perform 
           either a static or dynamic analysis to verify that stack-based buffer overflow protection is enabled</aactivity>
       </f-element>
+	<refs>
+		<ref sect="SI-3 (7)" source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf" />
+	</refs>
     </f-component>
     <f-component id="fpt_tud_ext.1" name="Integrity for Installation and Update">
       <!-- TO DO: Cite references. -->
@@ -1889,18 +1906,29 @@
   </section>
   </chapter>
 
-  <appendix title="NIST SP 800-53/CNSS 1253 Mapping" id="nistmapping">Here is a
-  placeholder for a table with references to <abbr title="National Institute of Standards and Technology">NIST</abbr> controls. This would indicate
-  which controls are implemented (and thus have been tested) in products that
-  are successfully evaluated. This is in keeping with Appendix H of NIST SP
-  800-53 "International Information Security Standards," which states 
-  <i>organizations can obtain significant benefit from the acquisition and
+  <appendix title="NIST SP 800-53/CNSS 1253 Mapping" id="nistmapping">
+  The following table provides references to security controls from
+<abbr title="National Institute of Standards and Technology">NIST</abbr> Special Publication
+  800-53, <i>Security and Privacy Controls for Federal Information Systems and Organizations</i>.
+   NIST 800-53 is a "catalog of security and privacy controls for federal information systems
+  and organizations and a process for selecting controls."  The following table represents
+  <i>all controls</i> selected as <i>applicable</i> to all types of applications.
+  Additional controls which are
+  applicable only to more-specialized types of applications are found in the appendices of the
+  Protection Profiles for those particular types of applications.
+<br/>
+  Appendix H of NIST SP 800-53 states 
+  "organizations can obtain significant benefit from the acquisition and
   employment of information technology products evaluated against the
   requirements of ISO/IEC 15408. The use of such products can provide evidence
   that certain security controls are implemented correctly, operating as
   intended, and producing the desired effect in satisfying stated security
-  requirements.</i> Its Table H.3 provides a mapping between Common Criteria
-  (ISO/IEC 15408) controls and the controls in 800-53.</appendix>
+  requirements."  The Protection Profile thus captures the applicable set
+  of NIST controls and provides precise requirements for evaluation activites
+  which provide assurance about their implementation.
+  <InsertRefMapping/>
+  </appendix>
+
   <appendix title="References" id="biblio">
     <bibliography>
       <entry id="bibCC">
@@ -1923,14 +1951,12 @@ CCMB-2012-09-003, Version 3.1 Revision 4, September 2012.</li>
           CCMB-2012-09-004, Version 3.1, Revision 4, September 2012.
         </description>
       </entry>
-<!--
       <entry id="bibCESG">
         <tag>CESG</tag>
         <description>CESG - 
         <a href="https://www.gov.uk/government/collections/end-user-devices-security-guidance">
         End User Devices Security and Configuration Guidance</a></description>
       </entry>
--->
       <entry id="bibCSA">
         <tag>CSA</tag>
         <description>
