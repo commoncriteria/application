@@ -391,6 +391,30 @@
     </table>
   </xsl:template>
 
+  <xsl:template match="cc:InsertRefMapping">
+    <table>
+      <tr class="header">
+        <td>SFR ID</td>
+        <td>NIST SP 800-53 Controls</td>
+      </tr>
+      <xsl:for-each select="(//cc:f-element)">
+        <tr>
+          <td>
+			<xsl:value-of select="translate(@id,$lower,$upper)" />
+          </td>
+          <td>
+              <xsl:if test="not(cc:refs/cc:ref)">
+                <xsl:text>None</xsl:text>
+              </xsl:if>
+            <xsl:for-each select="cc:refs/cc:ref">
+              <p/><a href="http://common-criteria.rhcloud.com/references/output/nist800-53controls.html#{@sect}"><xsl:value-of select="@sect" /></a>
+            </xsl:for-each>
+          </td>
+        </tr>
+      </xsl:for-each>
+    </table>
+  </xsl:template>
+
   <xsl:template match="cc:selectables">
 		[<b>selection</b><xsl:if test="@exclusiv">, choose one of</xsl:if><xsl:if test="@atleastone">, at least one of</xsl:if>
 		:
