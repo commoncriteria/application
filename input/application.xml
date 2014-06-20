@@ -1234,17 +1234,42 @@
         memory region.</title>
         <aactivity>
 	  <subaactivity platform="blackberry">TBD</subaactivity>
-	  <subaactivity platform="android">passes</subaactivity>
+	  <subaactivity platform="android">
+	    The evaluator shall perform static analysis on the application to verify that both 
+	    <ul>
+	      <li> mmap can never be invoked with both the PROT_WRITE and PROT_EXEC permissions, and </li>
+	      <li> mprotect is never invoked</li>
+	    </ul>
+	    .
+	  </subaactivity>
 	  <subaactivity platform="windows">
 	    The evaluator shall examine executable file headers to
 	    verify that platform supported DEP protections are enabled for the
 	    application.
 	  </subaactivity>
-	  <subaactivity platform="ios">passes</subaactivity>
-	  <subaactivity platform="selinux">passes</subaactivity>
-	  <subaactivity platform="z/OS">passes</subaactivity>
-	  <subaactivity platform="Solaris">passes</subaactivity>
-	  <subaactivity platform="OS X">passes</subaactivity>
+	  <subaactivity platform="ios">
+	    The evaluator shall perform static analysis on the application to verify that mprotect is never invoked with the PROT_EXEC permission.
+	  </subaactivity>
+	  <subaactivity platform="selinux">
+	    The evaluator shall perform static analysis on the application to verify that both 
+	    <ul>
+	      <li> mmap can never be invoked with both the PROT_WRITE and PROT_EXEC permissions, and </li>
+	      <li> mprotect is never invoked with the PROT_EXEC permission</li>
+	    </ul>
+	    .
+	  </subaactivity>
+	  <subaactivity platform="z/OS">&lt;TBD></subaactivity>
+	  <subaactivity platform="Solaris">
+	    The evaluator shall perform static analysis on the application to verify that both 
+	    <ul>
+	      <li> mmap can never be invoked with both the PROT_WRITE and PROT_EXEC permissions, and </li>
+	      <li> mprotect is never invoked with the PROT_EXEC permission</li>
+	    </ul>
+	    .
+	  </subaactivity>
+	  <subaactivity platform="OS X">
+	    The evaluator shall perform static analysis on the application to verify that mprotect is never invoked with the PROT_EXEC permission.
+	  </subaactivity>
 	</aactivity>
       </f-element>
       <f-element id="fpt_aex_ext.1.3">
