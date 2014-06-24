@@ -771,22 +771,34 @@
     <f-component id="fmt_smf.1" name="Specification of Management Functions">
       <f-element id="fmt_smf.1.1">
         <title>
-	  The <abbr linkend="TSF" /> shall be capable of performing the following management functions:
+	  The <abbr linkend="TSF" /> shall:
 	  <ul>
 	    <li>
-	      disable the transmission of any information describing the system's hardware, software, or configuration
+	      have the capability to disable the transmission of any information describing the system's hardware, software, or configuration
 	    </li>
             <li>
-	      disable the transmission of any PII
+	      <selectables>
+		<selectable>not transmit any PII</selectable>
+		<selectable>have the capability to disable the transmission of any PII</selectable>
+	      </selectables>
 	    </li>
             <li>
-	      disable the transmission of any application state (e.g. crashdump) information 
+	      <selectables>
+		<selectable>not transmit any application state (e.g. crashdump) information</selectable>
+		<selectable>have the capability to disable the transmission of any application state (e.g. crashdump) information</selectable>
+	      </selectables>
             </li>
             <li>
-	      disable automatic software update functionality 
+	      <selectables>
+		<selectable>not automatically update software</selectable>
+		<selectable>have the capability to disable automatic software update functionality</selectable>
+	      </selectables>
             </li>
             <li>
-	      disable network backup functionality
+	      <selectables>
+		<selectable>not have any network backup functionality</selectable>
+		<selectable>have the capability to disable network backup functionality</selectable>
+	      </selectables>
 	    </li>
             <li>
               [assignment: list of other management functions to be provided by the TSF]
@@ -1199,9 +1211,13 @@
     </f-component>
     <f-component id="fpt_aex_ext.1" name="Anti-Exploitation Capabilities">
       <f-element id="fpt_aex_ext.1.1">
-        <title>The application must not subvert address space layout
-          randomization (<abbr linkend="ASLR" />) by requesting any memory mapping at an explicit
-        address.</title>
+        <title>
+	  The application must not request any memory mapping at an explicit  address.
+	  <note role="application">
+	    Requesting a memory mapping at an explicit address may subvert address space layout
+          randomization (<abbr linkend="ASLR" />).
+	  </note>
+	</title>
         <aactivity> The evaluator shall ensure that the <abbr linkend="TSS" /> section of the ST describes 
         the compiler flaused to enable <addr linkend="ASLR" /> in the application. The evaluator shall perform 
         either a static or dynamic analysis to determine that no memory mappings are placed 
@@ -1273,10 +1289,12 @@
 	</aactivity>
       </f-element>
       <f-element id="fpt_aex_ext.1.3">
-        <title>The application must not subvert platform-provided heap
-        corruption detection by implementing its own dynamic memory allocation
+        <title>The application must not implement its own dynamic memory allocation
         functionality, unless that functionality also includes corruption
         detection.</title>
+	<note role="application"> 
+	  Implementing its own platform-provided heap corruption detection may break the OS provided heap corruption detection.
+	</note>
       </f-element>
       <f-element id="fpt_aex_ext.1.4">
         <title>The application must be compatible with security features
