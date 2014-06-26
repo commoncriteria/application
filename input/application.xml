@@ -130,6 +130,11 @@
           <description>The physical or virtual environment in which software runs. From an operating system's perspective, the platform is the physical or virtual hardware. From an application's perspective, the platform is the operating system and the operating system's platform.</description>
         </entry>
         <entry>
+          <term>Robustness</term>
+          <description>The ability of a program to continue operating gracefully despite abnormalities in input.
+		  </description>	
+        </entry>
+        <entry>
           <term>Sensitive Data</term>
             <description>
                 Any information, the loss, misuse, or unauthorized access to or modification of which could adversely affect the privacy of the application user <cite linkend="bibCSA" />.  The data can be stored, processed, or transmitted by the application.  It may include all user or enterprise data, or may be specific application data such as e-mails, messaging, documents, calendar items, and contacts.
@@ -616,7 +621,7 @@
     </f-component>
     <f-component id="fdp_dar_ext.1" name="Storage Of Sensitive Application Data">
       <f-element id="fdp_dar_ext.1.1">
-        <title>The application must leverage platform-provided functionality
+        <title>The application must invoke platform-provided functionality
         for the encryption of sensitive data when it is stored in non-volatile
         memory.</title>
         <!-- this language is intentionally different from the MDPP's FDP_DAR -->
@@ -659,8 +664,10 @@
     <f-component id="fmt_mec_ext.1" name="Supported Configuration Mechanism">
       <f-element id="fmt_mec_ext.1.1">
         <title>
-	  The application must use the mechanisms recommended by the operating system vendor for storing and setting for all <abbr linkend="TSF"/>-related configuration options that are stored on the platform.
-	</title>
+		The application must use the mechanisms recommended by the operating
+		system vendor for storing and setting for all <abbr linkend="TSF"/>-related
+		configuration options that are stored on the platform.
+		</title>
         <note role="application">
 	  Configuration options that are stored remotely are not subject to this requirement.
         </note>
@@ -697,8 +704,12 @@
     </f-component>
     <f-component id="fmt_cfg_ext.1" name="Secure by Default Configuration">
       <f-element id="fmt_cfg_ext.1.1">
-        <title>The application must be configured by default to not use any
+        <title>The application must be initially configured to not use any
         default credentials.</title>
+        <note role="application">Default credentials are credentials which
+		would be identical across examples of a product, such as an identical
+		login username and password.
+        </note>
         <aactivity>The evaluator shall install and run the application and
         inspect its documentation. If the application uses any credentials such
         as passwords or private keys, these must not be pre-programmed and the
@@ -708,7 +719,7 @@
         </refs>
       </f-element>
       <f-element id="fmt_cfg_ext.1.2">
-        <title>The application must be configured by default to not transmit
+        <title>The application must be initially be configured to not transmit
         any credentials in the clear.</title>
         <aactivity>The evaluator shall install and run the application and
         inspect its documentation. The evaluator shall determine if the
@@ -718,7 +729,7 @@
         transmitted in the clear.</aactivity>
       </f-element>
       <f-element id="fmt_cfg_ext.1.3">
-        <title>The application must be configured by default to have file
+        <title>The application must be initially configured with file
         permissions which protect it and its data from other processes.</title>
         <note role="application">The precise expectations for file permissions
         vary per platform but the general intention is that a trust
@@ -757,7 +768,7 @@
 	</refs>
       </f-element>
       <f-element id="fmt_cfg_ext.1.4">
-        <title>The application must be configured by default to not transmit
+        <title>The application must be initially configured to not transmit
         any <abbr linkend="PII" /> over a network.</title>
         <note role="application">A selection dialog box presented to the user at
           the time the application is started is sufficient to meet this requirement. 
@@ -765,44 +776,32 @@
         <aactivity>The evaluator shall install and run the application and
         inspect its documentation. The evaluator shall survey the list of
         settings for the application. If any setting controls the transmission
-        of PII, it must be disabled by default.</aactivity>
+        of PII, they must be initially default.</aactivity>
       </f-element>
     </f-component>
     <f-component id="fmt_smf.1" name="Specification of Management Functions">
       <f-element id="fmt_smf.1.1">
         <title>
-	  The <abbr linkend="TSF" /> shall:
+	  The <abbr linkend="TSF" /> shall be capable of performing the following management functions: [
 	  <ul>
 	    <li>
-	      have the capability to disable the transmission of any information describing the system's hardware, software, or configuration
+			enable/disable the transmission of any information describing the system's hardware, software, or configuration
+			if this functionality exists
 	    </li>
-            <li>
-	      <selectables>
-		<selectable>not transmit any PII</selectable>
-		<selectable>have the capability to disable the transmission of any PII</selectable>
-	      </selectables>
+        <li>
+			enable/disable the transmission of any PII if this functionality exists
 	    </li>
-            <li>
-	      <selectables>
-		<selectable>not transmit any application state (e.g. crashdump) information</selectable>
-		<selectable>have the capability to disable the transmission of any application state (e.g. crashdump) information</selectable>
-	      </selectables>
-            </li>
-            <li>
-	      <selectables>
-		<selectable>not automatically update software</selectable>
-		<selectable>have the capability to disable automatic software update functionality</selectable>
-	      </selectables>
-            </li>
-            <li>
-	      <selectables>
-		<selectable>not have any network backup functionality</selectable>
-		<selectable>have the capability to disable network backup functionality</selectable>
-	      </selectables>
+        <li>
+			enable/disable transmission of any application state (e.g. crashdump) information 
+			if this functionality exists
+		</li>
+		<li>enable/disable network backup functionality to [assignment: list of enterprise 
+			or commercial cloud backup systems] if this functionality exists
 	    </li>
-            <li>
+        <li>
               [assignment: list of other management functions to be provided by the TSF]
 	    </li>
+		]
 	  </ul>
 	</title>
       </f-element>
@@ -856,7 +855,7 @@
       <f-element id="fcs_sto_ext.1.1">
         <title>The application must use the mechanisms provided by the
         operating system vendor for storing credentials.</title>
-        <note role="application">This includes items like PKI certificates and passwords.
+        <note role="application">This includes items like PKI private keys and passwords.
         </note>
         <aactivity>The evaluator must identify any credentials used by the application
         and then verify that these are stored using the mechanisms
@@ -1117,18 +1116,18 @@
 	  The application shall use 
 	  <selectables linebreaks="yes">
 	    <selectable>no ad networks</selectable>
-	    <selectable>[assignment: reputable ad networks]</selectable>
+	    <selectable>[assignment: list of ad networks]</selectable>
 	  </selectables>.
 	</title>
         <note role="application">
-	  The intention of this requirement is for the evaluator to discover whether the
+	  The intention of this requirement is for the evaluator to discover and document whether the
 	  application is including in-app adware that could present a threat to the user's
 	  privacy (or worse).
         </note>
         <aactivity>
 		The evaluator shall run the application, inspect the TSS (if
 		available), perform static analysis, and also conduct network traffic
-		analysis to determine if any adware networks are used by the
+		analysis to determine if any ad networks are used by the
 		application.  If any ad networks are used, the evaluator shall search public
 		sources to confirm that these are considered reputable.
 	</aactivity>
@@ -1161,17 +1160,16 @@
       </f-element>
     </f-component>
   </subsection>
-  <subsection title="Fault Tolerance (FTU)" id="ftu">
-    <f-component id="ftu_osp_ext.1" name="Application Availability">
-        <f-element id="ftu_osp_ext.1.1">
+
+  <subsection title="Protection of the TSF (FPT)" id="fpt_api_ext">
+    <f-component id="fpt_rob_ext.1" name="Robustness">
+        <f-element id="fpt_rob_ext.1.1">
           <title>The application must exhibit robustness under normal usage.</title>
           <aactivity>The evaluator shall run the application and mimic normal usage, 
-            exercising as much GUI functionality as possible and verify that the application 
+            exercising as much functionality as possible and verify that the application 
             does not crash.</aactivity>
         </f-element>
       </f-component>
-  </subsection>
-  <subsection title="Protection of the TSF (FPT)" id="fpt_api_ext">
     <f-component id="fpt_api_ext.1" name="Use of Supported Services and APIs">
       <f-element id="fpt_api_ext.1.1">
         <title>The application shall
@@ -1212,7 +1210,7 @@
     <f-component id="fpt_aex_ext.1" name="Anti-Exploitation Capabilities">
       <f-element id="fpt_aex_ext.1.1">
         <title>
-	  The application must not request any memory mapping at an explicit  address.
+	  The application must not request any memory mapping at an explicit address.
 	  <note role="application">
 	    Requesting a memory mapping at an explicit address may subvert address space layout
           randomization (<abbr linkend="ASLR" />).
@@ -1245,9 +1243,15 @@
         </aactivity>
       </f-element>
       <f-element id="fpt_aex_ext.1.2">
-        <title>The application must not subvert <abbr linkend="DEP" />
-        by simultaneously allowing both write and execute permissions on any
-        memory region.</title>
+        <title>The application must not allocate any memory region with both 
+		write and execute permissions.
+		</title>
+		<note role="application">
+	    Requesting a memory mapping with both write and execute permissions
+		subverts the platform protection provided by <abbr linkend="DEP" />.  The
+		only exception for this requirement is applications which perform
+		just-in-time compilation.
+	  </note>
         <aactivity>
 	  <subaactivity platform="blackberry">TBD</subaactivity>
 	  <subaactivity platform="android">
