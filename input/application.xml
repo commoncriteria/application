@@ -457,19 +457,25 @@
   <subsection title="User Data Protection (FDP)" id="fdp">
     <f-component id="fdp_dec_ext.1" name="Access to Platform Resources">
       <f-element id="fdp_dec_ext.1.1">
-        <title>The application must provide user awareness of any access to
-        [assignment: list of hardware resources that provide access to sensitive information].
+        <title>
+	  The application shall explicitly declare its intention to access 
+	  <ul>
+	    <li>network functionality</li>
+	    <li>cameras</li>
+	    <li><abbr title="Global Positioning System">GPS</abbr></li>
+	    <li><abbr title="Near-Field Communication">NFC</abbr></li>
+	    <li><abbr title="Universal Serial Bus">USB</abbr></li>
+	    <li>Bluetooth</li>
+	    <li>[assignment: list of additional hardware resources that provide access to sensitive information]</li>
+	  </ul>
+	  in 
+	  <selectables>
+	    <selectable>an installation dialog box</selectable>
+	    <selectable>a runtime dialog box</selectable>
+	    <selectable>documentation </selectable>
+	  </selectables>
+	  .
         </title>
-        <note role="application">
-        This list is expected to include items such as camera, 
-        <abbr title="Wireless Local Area Network">WiFi</abbr>, Ethernet,
-        <abbr title="Global Positioning System">GPS</abbr>, 
-        <abbr title="Near-Field Communication">NFC</abbr>, 
-        <abbr title="Universal Serial Bus">USB</abbr>, and Bluetooth if
-        the application accesses these.
-        Explicitly seeking user acknowledgment for such
-        access is one means of providing user awareness, but acknowledgment is not
-        the only means of providing awareness.</note>
         <aactivity>The evaluator shall install the application and inspect its
         user documentation, and determine that the user is informed of any need
         to access hardware resources which provide access to sensitive
@@ -1190,8 +1196,9 @@
         any structured files whose format is included in the IANA MIME media
         types as listed at http://www.iana.org/assignments/media-types, unless
         parsing services is the purpose of the application.</title>
-        <note role="application">This includes many image, audio, video, and
-        content file formats.</note>
+        <note role="application">
+	  This includes many image, audio, video, and content file formats.
+	</note>
         <aactivity>The evaluator shall ensure that the developer documentation
         specifies which structured file formats are parsed by the application,
         and which libraries are used to parse them. The evaluator shall verify
