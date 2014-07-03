@@ -820,11 +820,23 @@
         <title>
 	  The application shall 
 	  <selectables linebreak="yes">
-	    <selectable>not generate cryptographic keys to include certificates, one-time pads, and session keys</selectable>
-            <selectable>use random bit generation services provided by the platform's operating system</selectable>
+	    <selectable>consume no random</selectable>
+	    <selectable>utilize platform-provided DRBG services</selectable>
+	    <selectable>perform DRBG services</selectable>
 	  </selectables>
-	  .
-	</title>
+     for all TOE cryptographic functionality.
+        </title>
+        <note role="application">
+          The ST author shall select "consume no random" in cases where the application does not need any cryptographic
+          random values (such as cryptographic keys, certificates, nonces, and session keys) to perform its security functionality.
+          The ST author shall select "utilize platform-provided DRBG services" in cases where the application directly uses random values
+          obtained from calls to platform DRBG APIs.  The ST author shall select "perform DRBG services" in cases where the application
+          uses random values obtained from calls to platform DRBG APIs to seed a DRBG implemented by the application itself.  If the ST
+          does not choose the first selection, additional FCS_RBG_EXT.1 elements shall be included in the ST.
+          
+          In this requirement, cryptographic functionality includes all cryptographic key generation/derivation/agreement, IVs (for certain modes),
+          as well as protocol-specific random values.
+        </note>
         <aactivity>The evaluator shall inspect the application and its
         developer documentation to determine if the application needs random
         bit generation services. If so, the evaluator shall determine how the
@@ -849,11 +861,47 @@
         <subaactivity platform="z/OS"></subaactivity>
         <subaactivity platform="Solaris"></subaactivity>
         <subaactivity platform="OS X"></subaactivity>
-        
 	</aactivity>
       </f-element>
+      <f-element id="fcs_rbg_ext.1.2">
+        <title>
+          The application shall invoke the platform's DRBG using
+          <selectables linebreak="yes">
+            <selectable>Hash_DRBG (any)</selectable>
+            <selectable>HMAC_DRBG (any)</selectable>
+            <selectable>CTR_DRBG (AES)</selectable>
+            <selectable>X9.31 Appendix 2.4 (AES)</selectable>
+            <selectable>unknown</selectable>
+        </selectables>
+          API.
+        </title>
+        <note role="application">
+          This requirement shall be included in STs in which "utilize platform-provided DRBG services" or "perform DRBG services"
+          is chosen in FCS_RBG_EXT.1.1.
+          
+          NIST SP 800-90A and FIPS Pub 140-2 Annex C contain the specifications for the above DRBG selections.
+          
+          The ST author shall only select “unknown” if the platform’s DRBG implementation is not publicly available, or not available
+          to the application developer.  It is possible that the application cannot configure which DRBG is used; however, the ST author
+          is still expected to select the appropriate platform DRBG.  The selection of "unknown" shall be used only in rare cases.
+        </note>
+        <aactivity>The evaluator shall 
+          <subaactivity platform="blackberry">
+          </subaactivity>
+          <subaactivity platform="android">
+          </subaactivity>
+          <subaactivity platform="windows">
+          </subaactivity>
+          <subaactivity platform="ios">
+          </subaactivity>
+          <subaactivity platform="selinux">
+          </subaactivity>
+          <subaactivity platform="z/OS"></subaactivity>
+          <subaactivity platform="Solaris"></subaactivity>
+          <subaactivity platform="OS X"></subaactivity>
+        </aactivity>
+      </f-element>
     </f-component>
-
     <f-component id="fcs_sto_ext.1" name="Storage of Secrets">
       <f-element id="fcs_sto_ext.1.1">
         <title>The application must use the mechanisms provided by the
