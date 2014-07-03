@@ -864,6 +864,7 @@
 	</aactivity>
       </f-element>
       <f-element id="fcs_rbg_ext.1.2">
+        <selection-depends req="fcs_rbg_ext.1.1"/>
         <title>
           The application shall invoke the platform's DRBG using
           <selectables linebreak="yes">
@@ -884,6 +885,93 @@
           The ST author shall only select “unknown” if the platform’s DRBG implementation is not publicly available, or not available
           to the application developer.  It is possible that the application cannot configure which DRBG is used; however, the ST author
           is still expected to select the appropriate platform DRBG.  The selection of "unknown" shall be used only in rare cases.
+        </note>
+        <aactivity>The evaluator shall 
+          <subaactivity platform="blackberry">
+          </subaactivity>
+          <subaactivity platform="android">
+          </subaactivity>
+          <subaactivity platform="windows">
+          </subaactivity>
+          <subaactivity platform="ios">
+          </subaactivity>
+          <subaactivity platform="selinux">
+          </subaactivity>
+          <subaactivity platform="z/OS"></subaactivity>
+          <subaactivity platform="Solaris"></subaactivity>
+          <subaactivity platform="OS X"></subaactivity>
+        </aactivity>
+      </f-element>
+      <f-element id="fcs_rbg_ext.1.3">
+        <selection-depends req="fcs_rbg_ext.1.1"/>
+        <title>
+          The application shall perform all deterministic random bit generation (DRBG) services in accordance with
+          <selectables linebreak="yes">
+            <selectable>NIST Special Publication 800-90A using</selectable>
+            <selectable>FIPS Pub 140-2 Annex C: X9.31 Appendix 2.4 using AES</selectable>
+          </selectables>
+        </title>
+        <note role="application">
+          This requirement shall be included in STs in which “perform DRBG services” is chosen in FCS_RBG_EXT.1.1.  In this type of
+          implementation, the developer has chained RBGs as described in NIST SP800-90C.
+          
+          The ST author shall select the standard to which the RBG services comply (either 800-90A or 140-2 Annex C).
+          The ST author will select the function used (if 800-90A is selected), and include the specific underlying cryptographic
+          primitives used in the requirement or in the TSS. While any of the identified hash functions (SHA-1, SHA-224, SHA-256, SHA-384,
+          and SHA-512) are allowed for Hash_DRBG or HMAC_DRBG, only AES-based implementations for CTR_DRBG are allowed. If the key length
+          for the AES implementation used here is different than that used to encrypt the user data, then FCS_COP.1 may have to be adjusted
+          or iterated to reflect the different key length.  The ST author also ensures that any underlying functions are included in the
+          baseline requirements in the ST (if these are implemented by the platform, then the appropriate selections are made as well).
+          
+          Note that for FIPS Pub 140-2 Annex C, currently only the method described in NIST-Recommended Random Number Generator Based on ANSI
+          X9.31 Appendix A.2.4 “Using the 3-Key Triple DES and AES Algorithms”, Section 3 is valid. Use of the ANSI X9.31 DRBG
+          (defined in FIPS 140-2) is disallowed after 2015 per NIST SP 800-131A.  The PP will be updated to reflect this; however,
+          developers should begin transitioning from this DRBG as soon as possible.
+        </note>
+        <aactivity>The evaluator shall 
+          <subaactivity platform="blackberry">
+          </subaactivity>
+          <subaactivity platform="android">
+          </subaactivity>
+          <subaactivity platform="windows">
+          </subaactivity>
+          <subaactivity platform="ios">
+          </subaactivity>
+          <subaactivity platform="selinux">
+          </subaactivity>
+          <subaactivity platform="z/OS"></subaactivity>
+          <subaactivity platform="Solaris"></subaactivity>
+          <subaactivity platform="OS X"></subaactivity>
+        </aactivity>
+      </f-element>
+      <f-element id="fcs_rbg_ext.1.4">
+        <selection-depends req="fcs_rbg_ext.1.1"/>
+        <title>
+          The deterministic RBG shall be seeded by an entropy source that accumulates entropy from a platform-based DRBG and
+          <selectables linebreak="yes">
+            <selectable>a software-based noise source</selectable>
+            <selectable>no other noise source</selectable>
+          </selectables>
+          with a minimum of
+          <selectables linebreak="yes">
+            <selectable>128 bits</selectable>
+            <selectable>256 bits</selectable>
+          </selectables>
+          of entropy at least equal to the greatest security strength (according to NIST SP 800-57) of the keys and hashes that it will generate.
+        </title>
+        <note role="application">
+          This requirement shall be included in STs in which “perform DRBG services” is chosen in FCS_RBG_EXT.1.1. The application must
+          use a platform-based DRBG to seed its DRBG; for the first selection, the ST author indicates whether the additional sources of
+          entropy are used as seed for the DRBG. If there are multiple sources of entropy, the ST will describe each entropy source. The
+          platform-based DRBG is the output of a DRBG provided by the platform, which is used as an entropy source for a TSF-provided DRBG
+          defined in FCS_RBG_EXT.1.3.
+          
+          For the second selection in FCS_RBG_EXT.1.4, the ST author selects the appropriate number of bits of entropy used to seed the
+          DRBG and that corresponds to the greatest security strength of the algorithms included in the ST. Security strength is defined
+          in Tables 2 and 3 of NIST SP 800-57A.
+          
+          NIST Special Pub 800-90B, Appendix C describes the minimum entropy measurement that should be used immediately and will be
+          required in future versions of this PP.
         </note>
         <aactivity>The evaluator shall 
           <subaactivity platform="blackberry">
