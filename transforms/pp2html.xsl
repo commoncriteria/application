@@ -447,7 +447,7 @@
     <xsl:variable name="reqid" select="translate(@id, $lower, $upper)" />
     <div class="req">
       <div class="reqid" id="{$reqid}">
-        <xsl:value-of select="$reqid" />
+        <a href="#{$reqid}" class="abbr"><xsl:value-of select="$reqid" /></a>
       </div>
       <div class="reqdesc">
         <xsl:apply-templates />
@@ -512,10 +512,10 @@
     <xsl:choose>
       <xsl:when test="$osname='windows'">Windows</xsl:when>
       <xsl:when test="$osname='blackberry'">BlackBerry</xsl:when>
-      <xsl:when test="$osname='ios'">Apple iOS</xsl:when>
+      <xsl:when test="$osname='ios'">iOS</xsl:when>
       <xsl:when test="$osname='android'">Android</xsl:when>
       <xsl:when test="$osname='selinux'">Linux</xsl:when>
-      <xsl:when test="$osname='OS X'">Apple OS X</xsl:when>
+      <xsl:when test="$osname='OS X'">Mac OS X</xsl:when>
       <xsl:when test="$osname='z/OS'">z/OS</xsl:when>
       <xsl:when test="$osname='Solaris'">Solaris</xsl:when>
       <xsl:otherwise>
@@ -616,6 +616,16 @@
       </xsl:attribute>
       <xsl:value-of select="//*[@id=$linkend]/@title" />
     </xsl:element>
+  </xsl:template>
+  <xsl:template match="cc:reqref">
+    <xsl:variable name="linkend" select="translate(@linkend,$lower,$upper)" />
+    <xsl:element name="a">
+      <xsl:attribute name="href">
+        <xsl:text>#</xsl:text>
+        <xsl:value-of select="$linkend" />
+      </xsl:attribute>
+	  <xsl:value-of select="$linkend" />
+	  </xsl:element>
   </xsl:template>
   <xsl:template match="cc:secref">
     <xsl:variable name="linkend" select="@linkend" />

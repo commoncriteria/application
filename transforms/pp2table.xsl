@@ -125,8 +125,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
 
 	<xsl:template match="cc:f-element | cc:a-element">
-		<tr>
-			<td><xsl:value-of select="translate(@id,$lower,$upper)"/></td> 
+		<xsl:variable name="reqid" select="translate(@id,$lower,$upper)"/>
+		<tr id="{$reqid}">
+			<td><a class="abbr" href="#{$reqid}"><xsl:value-of select="$reqid"/></a></td> 
 			<td><xsl:apply-templates select="cc:title"/><br/>
 				 <xsl:choose>
 				 <xsl:when test="@status='objective'">
@@ -263,4 +264,20 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 		
 		<a class="abbr" href="application.html#abbr_{$abbr}"><abbr title="{$target/@title}"><xsl:value-of select="$abbr" /></abbr></a>
 	</xsl:template>
+
+
+ <xsl:template match="cc:reqref">
+    <xsl:variable name="linkend" select="translate(@linkend,$lower,$upper)" />
+    <xsl:element name="a">
+      <xsl:attribute name="href">
+        <xsl:text>#</xsl:text>
+        <xsl:value-of select="$linkend" />
+      </xsl:attribute>
+	  <xsl:value-of select="$linkend" />
+	  </xsl:element>
+  </xsl:template>
+
+
+
+
 </xsl:stylesheet>
