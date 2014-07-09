@@ -8,10 +8,10 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 <!-- This style sheet takes as input a Protection Profile expressed in XML and
 	outputs a table of the SFRs and SARs. -->
 	
-  <xsl:key name="abbr" match="cc:glossary/cc:entry/cc:term/cc:abbr" use="text()" />
 
-  <xsl:variable name="lower" select="'abcdefghijklmnopqrstuvwxyz'" />
-  <xsl:variable name="upper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
+  <!-- Put all common templates into ProtectionProfileCommons -->
+  <!-- They can be redefined/overridden  -->
+  <xsl:include href="ProtectionProfileCommons.xsl"/>
 
 	<xsl:template match="/">
 		<html>
@@ -158,22 +158,6 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 	</xsl:template>
 
 
-	<xsl:template match="cc:note[@role='application']">
-				<br/>
-				<b>Application Note: </b>
-	      		<xsl:apply-templates />
-	</xsl:template>
-
-
-  <xsl:template match="cc:selectables">
-		[<b>selection</b><xsl:if test="@exclusiv">, choose one of</xsl:if><xsl:if test="@atleastone">, at least one of</xsl:if>
-		:
-        <xsl:for-each select="cc:selectable"><xsl:choose><xsl:when test="../@linebreak"><p style="margin-left: 40px;"><i><xsl:apply-templates /></i><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if></p></xsl:when><xsl:otherwise><i><xsl:apply-templates /></i><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if></xsl:otherwise></xsl:choose></xsl:for-each>]
-	</xsl:template>
-
-  <xsl:template match="cc:assignment">
-		[<b>assignment:</b><xsl:value-of select="text()" />]
-	</xsl:template>
   <xsl:template match="cc:f-component | cc:a-component">
     <xsl:variable name="family" select="substring(@id,1,7)" />
     <xsl:variable name="component" select="substring(@id,1,9)" />
@@ -187,32 +171,8 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
     </div>
   </xsl:template>
 
-  <xsl:template match="cc:testlist">
-    <ul>
-      <xsl:for-each select="cc:test">
-        <li>
-          <b>Test <xsl:value-of select="position()" />: </b>
-          <xsl:apply-templates />
-        </li>
-      </xsl:for-each>
-    </ul>
-  </xsl:template>
 
 
-  <xsl:template match="cc:aactivity">
-    <xsl:variable name="aactID" select="concat('aactID-', generate-id())" />
-    <div class="expandstyle">
-      <a href="javascript:toggle('{$aactID}', 'link-{$aactID}');">
-        <span class="expandstyle"> Assurance Activity </span>
-        <img style="vertical-align:middle" id="link-{$aactID}" src="images/collapsed.png" height="15" width="15" />
-      </a>
-    </div>
-    <div class="aacthidden" id="{$aactID}">
-      <i>
-        <xsl:apply-templates />
-      </i>
-    </div>
-  </xsl:template>
 
   <xsl:template match="cc:subaactivity">
     <div class="subaact">
@@ -224,22 +184,6 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
     </div>
   </xsl:template>
 
-  <xsl:template name="OSabbrev2name">
-    <xsl:param name="osname" />
-    <xsl:choose>
-      <xsl:when test="$osname='windows'">Windows</xsl:when>
-      <xsl:when test="$osname='blackberry'">BlackBerry</xsl:when>
-      <xsl:when test="$osname='ios'">Apple iOS</xsl:when>
-      <xsl:when test="$osname='android'">Android</xsl:when>
-      <xsl:when test="$osname='selinux'">Linux</xsl:when>
-      <xsl:when test="$osname='OS X'">Apple OS X</xsl:when>
-      <xsl:when test="$osname='z/OS'">z/OS</xsl:when>
-      <xsl:when test="$osname='Solaris'">Solaris</xsl:when>
-      <xsl:otherwise>
-    Undefined operating system platform
-  </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
 
 	<!-- getting rid of XHTML namespace -->
 	<xsl:template match="xhtml:*">
@@ -248,36 +192,10 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 		</xsl:element>
 	</xsl:template>
 
-	<xsl:template match="@*|node()">
-		<xsl:copy>
-			<xsl:apply-templates select="@*|node()"/>
-		</xsl:copy>
-	</xsl:template>
 
 	<xsl:template match="cc:aactivity">
 		<xsl:apply-templates select="@*|node()" />
 	</xsl:template>
 	
-	<xsl:template match="cc:abbr[@linkend]">
-		<xsl:variable name="target" select="key('abbr', @linkend)" />
-		<xsl:variable name="abbr" select="$target/text()" />
-		
-		<a class="abbr" href="application.html#abbr_{$abbr}"><abbr title="{$target/@title}"><xsl:value-of select="$abbr" /></abbr></a>
-	</xsl:template>
-
-
- <xsl:template match="cc:reqref">
-    <xsl:variable name="linkend" select="translate(@linkend,$lower,$upper)" />
-    <xsl:element name="a">
-      <xsl:attribute name="href">
-        <xsl:text>#</xsl:text>
-        <xsl:value-of select="$linkend" />
-      </xsl:attribute>
-	  <xsl:value-of select="$linkend" />
-	  </xsl:element>
-  </xsl:template>
-
-
-
 
 </xsl:stylesheet>

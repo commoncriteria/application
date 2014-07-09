@@ -8,10 +8,10 @@
   <!-- very important, for special characters and umlauts iso8859-1-->
   <xsl:output method="html" encoding="UTF-8" indent="yes" />
   
-  <xsl:key name="abbr" match="cc:glossary/cc:entry/cc:term/cc:abbr" use="text()" />
-  
-  <xsl:variable name="lower" select="'abcdefghijklmnopqrstuvwxyz'" />
-  <xsl:variable name="upper" select="'ABCDEFGHIJKLMNOPQRSTUVWXYZ'" />
+
+  <!-- Put all common templates into ProtectionProfileCommons -->
+  <!-- They can be redefined/overridden  -->
+  <xsl:include href="ProtectionProfileCommons.xsl"/>
   
   <xsl:template match="/cc:PP">
     <html xmlns="http://www.w3.org/1999/xhtml">
@@ -229,22 +229,7 @@
   <xsl:template match="cc:abbr[contains(concat('|', translate(@class, ' ', '|'), '|'), '|expanded|')]">
       <xsl:value-of select="@title" /> (<xsl:copy><xsl:apply-templates select="@*|node()" /></xsl:copy>)
   </xsl:template>
-  <xsl:template match="cc:abbr[@linkend]">
-    <xsl:variable name="target" select="key('abbr', @linkend)" />
-    <xsl:variable name="abbr" select="$target/text()" />
-    
-    <a class="abbr" href="#abbr_{$abbr}"><abbr title="{$target/@title}"><xsl:value-of select="$abbr" /></abbr></a>
-  </xsl:template>
-  <xsl:template match="cc:testlist">
-    <ul>
-      <xsl:for-each select="cc:test">
-        <li>
-          <b>Test <xsl:value-of select="position()" />: </b>
-          <xsl:apply-templates />
-        </li>
-      </xsl:for-each>
-    </ul>
-  </xsl:template>
+
   <xsl:template match="cc:bibliography">
     <table>
       <tr class="header">
@@ -415,14 +400,6 @@
     </table>
   </xsl:template>
 
-  <xsl:template match="cc:selectables">
-		[<b>selection</b><xsl:if test="@exclusiv">, choose one of</xsl:if><xsl:if test="@atleastone">, at least one of</xsl:if>
-		:
-        <xsl:for-each select="cc:selectable"><xsl:choose><xsl:when test="../@linebreak"><p style="margin-left: 40px;"><i><xsl:apply-templates /></i><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if></p></xsl:when><xsl:otherwise><i><xsl:apply-templates /></i><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if></xsl:otherwise></xsl:choose></xsl:for-each>]
-	</xsl:template>
-  <xsl:template match="cc:assignment">
-		[<b>assignment:</b><xsl:value-of select="text()" />]
-	</xsl:template>
   <xsl:template match="cc:f-component | cc:a-component">
     <xsl:variable name="family" select="substring(@id,1,7)" />
     <xsl:variable name="component" select="substring(@id,1,9)" />
@@ -478,12 +455,6 @@
         </xsl:choose>
   </xsl:template>
 
-  <xsl:template match="cc:note[@role='application']">
-    <div class="appnote">
-      <b>Application Note: </b>
-      <xsl:apply-templates />
-    </div>
-  </xsl:template>
   <xsl:template match="cc:aactivity">
     <xsl:variable name="aactID" select="concat('aactID-', generate-id())" />
     <div class="expandstyle">
@@ -507,22 +478,7 @@
       <xsl:apply-templates />
     </div>
   </xsl:template>
-  <xsl:template name="OSabbrev2name">
-    <xsl:param name="osname" />
-    <xsl:choose>
-      <xsl:when test="$osname='windows'">Windows</xsl:when>
-      <xsl:when test="$osname='blackberry'">BlackBerry</xsl:when>
-      <xsl:when test="$osname='ios'">iOS</xsl:when>
-      <xsl:when test="$osname='android'">Android</xsl:when>
-      <xsl:when test="$osname='selinux'">Linux</xsl:when>
-      <xsl:when test="$osname='OS X'">Mac OS X</xsl:when>
-      <xsl:when test="$osname='z/OS'">z/OS</xsl:when>
-      <xsl:when test="$osname='Solaris'">Solaris</xsl:when>
-      <xsl:otherwise>
-    Undefined operating system platform
-  </xsl:otherwise>
-    </xsl:choose>
-  </xsl:template>
+
   <xsl:template match="cc:appendix">
     <xsl:variable name="appendix-num">
       <xsl:number format="A" />.</xsl:variable>
@@ -600,11 +556,7 @@
       </b>
     </div>
   </xsl:template>
-  <xsl:template match="@*|node()">
-    <xsl:copy>
-      <xsl:apply-templates select="@*|node()" />
-    </xsl:copy>
-  </xsl:template>
+
   <!-- templates for creating references -->
   <!-- Assumes element with matching @id has a @title. -->
   <xsl:template match="cc:xref">
@@ -617,16 +569,7 @@
       <xsl:value-of select="//*[@id=$linkend]/@title" />
     </xsl:element>
   </xsl:template>
-  <xsl:template match="cc:reqref">
-    <xsl:variable name="linkend" select="translate(@linkend,$lower,$upper)" />
-    <xsl:element name="a">
-      <xsl:attribute name="href">
-        <xsl:text>#</xsl:text>
-        <xsl:value-of select="$linkend" />
-      </xsl:attribute>
-	  <xsl:value-of select="$linkend" />
-	  </xsl:element>
-  </xsl:template>
+
   <xsl:template match="cc:secref">
     <xsl:variable name="linkend" select="@linkend" />
     <xsl:element name="a">
