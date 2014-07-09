@@ -127,7 +127,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 	<xsl:template match="cc:f-element | cc:a-element">
 		<xsl:variable name="reqid" select="translate(@id,$lower,$upper)"/>
 		<tr id="{$reqid}">
-			<td><xsl:value-of select="$reqid"/></td> 
+			<td><a class="abbr" href="#{$reqid}"><xsl:value-of select="$reqid"/></a></td> 
 			<td><xsl:apply-templates select="cc:title"/><br/>
 				 <xsl:choose>
 				 <xsl:when test="@status='objective'">

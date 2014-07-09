@@ -447,7 +447,7 @@
     <xsl:variable name="reqid" select="translate(@id, $lower, $upper)" />
     <div class="req">
       <div class="reqid" id="{$reqid}">
-        <xsl:value-of select="$reqid" />
+        <a href="#{$reqid}" class="abbr"><xsl:value-of select="$reqid" /></a>
       </div>
       <div class="reqdesc">
         <xsl:apply-templates />
