@@ -26,6 +26,11 @@
       <date>2013-03-14</date>
       <subject>Attractive presentation achieved</subject>
     </entry>
+    <entry>
+      <version>v .7</version>
+      <date>2013-08-08</date>
+      <subject>First round of Technical Community feedback incorporated</subject>
+    </entry>
   </RevisionHistory>
   <chapter title="Introduction" id="int">
     <!-- TO DO: Distinguish citations from cross-references. Mark up each appropriately. 
@@ -55,11 +60,11 @@
         </entry>
           <entry>
           <term><abbr title="Protection Profile">PP</abbr></term>
-          <description>An implementation-independent set of security requirements for a category of TOEs that meet specific customer needs.</description>
+          <description>An implementation-independent set of security requirements for a category of products.</description>
         </entry>
         <entry>
           <term><abbr title="Security Target">ST</abbr></term>
-          <description>A set of implementation-dependent security requirements for a specific TOE.</description>
+          <description>A set of implementation-dependent security requirements for a specific product.</description>
         </entry>
         <entry>
           <term><abbr title="Target of Evaluation">TOE</abbr></term>
@@ -458,10 +463,11 @@
     <f-component id="fdp_dec_ext.1" name="Access to Platform Resources">
       <f-element id="fdp_dec_ext.1.1">
         <title>
-	  The application shall explicitly declare its intention to access 
-	  <selectables>
+	  The application shall provide user awareness of its intention to access 
+	  <selectables linebreak="yes">
 	    <selectable>network connectivity</selectable>
-	    <selectable>cameras</selectable>
+	    <selectable>camera</selectable>
+	    <selectable>microphone</selectable>
 	    <selectable><abbr title="Global Positioning System">GPS</abbr></selectable>
 	    <selectable><abbr title="Near-Field Communication">NFC</abbr></selectable>
 	    <selectable><abbr title="Universal Serial Bus">USB</abbr></selectable>
@@ -471,7 +477,10 @@
 	  .
         </title>
 	<note role="application">
-	  The selection should capture all platform hardware resources which are intended to be accessed.
+	  The evaluator should ensure that the selection captures all platform hardware resources which the
+	  application is intended to access.  
+	  The requirement is worded in this way due to the diversity of methods by which user awareness
+	  can be achieved, which varies per platform.
 	</note>
         <aactivity>The evaluator shall install the application and inspect its
         user documentation, and determine that the user is informed of any need
@@ -513,15 +522,20 @@
 	</aactivity>
       </f-element>
       <f-element id="fdp_dec_ext.1.2">
-        <title>The application must provide user awareness of any access to
-        [assignment: list of sensitive system-wide information repositories].
+        <title>The application shall provide user awareness of its intention to access 
+	  <selectables linebreak="yes">
+	    <selectable>address book</selectable>
+	    <selectable>calendar</selectable>
+	    <selectable>call lists</selectable>
+	    <selectable>[assignment: list of additional sensitive information repositories]</selectable>
+	  </selectables>
 		</title>
-        <note role="application">This list is typically expected to include items 
-        such as the address book, calendar, and caller lists.  The Assurance Activity
-        provides further specificity. While the application is responsible for requesting 
-        access to sensitive information repositories, it is the operating system's responsibility
-        to enforce whether or not the application can actually access those repositories.
-        </note>
+		<note role="application">
+			The evaluator should ensure that the selection captures all sensitive information 
+			repositories which the application is intended to access.  
+			The requirement is worded in this way due to the diversity of methods by which 
+			user awareness can be achieved, which varies per platform. 
+		</note>
         <aactivity>The evaluator shall install the application and inspect its
         user documentation, and determine that the user is informed of any need
         to access sensitive information which provide access to sensitive
@@ -556,12 +570,13 @@
 	</aactivity>
       </f-element>
       <f-element id="fdp_dec_ext.1.3">
-        <title>The application must not seek permission from the user to access
+        <title>The application shall not seek permission from the user to access
         resources which it does not require.</title>
-        <note role="application">While the application is responsible for
-        requesting access to a resource, it is the operating system's
-        responsibility to enforce whether or not the application can actually
-        use the resource.</note>
+        <note role="application">This requirement is intended to prompt judgment
+		about whether the resources identified for access in 
+		<reqref linkend="fdp_dec_ext.1.1"/> and <reqref linkend="fdp_dec_ext.1.2"/> are 
+		necessary for the operation of the application.  
+        </note>
         <aactivity>The evaluator shall compare the list of resources required
         by the application with the list of resources indicated by the
         application itself. The method of doing so varies per platform. 
@@ -611,7 +626,7 @@
         </refs>
       </f-element>
       <f-element id="fdp_dec_ext.1.4">
-        <title>The application must not must not listen on any ports or initiate any
+        <title>The application shall not listen on any ports or initiate any
         network connections that it does not require.
         </title>
         <aactivity>The evaluator shall run a port scanning utility to verify that any 
@@ -624,7 +639,7 @@
     </f-component>
     <f-component id="fdp_dar_ext.1" name="Storage Of Sensitive Application Data">
       <f-element id="fdp_dar_ext.1.1">
-        <title>The application must invoke platform-provided functionality
+        <title>The application shall invoke platform-provided functionality
         for the encryption of sensitive data when it is stored in non-volatile
         memory.</title>
         <!-- this language is intentionally different from the MDPP's FDP_DAR -->
@@ -667,8 +682,8 @@
     <f-component id="fmt_mec_ext.1" name="Supported Configuration Mechanism">
       <f-element id="fmt_mec_ext.1.1">
         <title>
-		The application must use the mechanisms recommended by the operating
-		system vendor for storing and setting for all <abbr linkend="TSF"/>-related
+		The application shall invoke the mechanisms recommended by the operating
+		system vendor for storing and setting all security-related
 		configuration options that are stored on the platform.
 		</title>
         <note role="application">
@@ -707,7 +722,7 @@
     </f-component>
     <f-component id="fmt_cfg_ext.1" name="Secure by Default Configuration">
       <f-element id="fmt_cfg_ext.1.1">
-        <title>The application must be initially configured to not use any
+        <title>The application shall be initially configured to not use any
         default credentials.</title>
         <note role="application">Default credentials are credentials which
 		would be identical across examples of a product, such as an identical
@@ -722,7 +737,7 @@
         </refs>
       </f-element>
       <f-element id="fmt_cfg_ext.1.2">
-        <title>The application must be initially configured to not transmit
+        <title>The application shall be initially configured to not transmit
         any credentials in the clear.</title>
         <aactivity>The evaluator shall install and run the application and
         inspect its documentation. The evaluator shall determine if the
@@ -732,7 +747,7 @@
         transmitted in the clear.</aactivity>
       </f-element>
       <f-element id="fmt_cfg_ext.1.3">
-        <title>The application must be initially configured with file
+        <title>The application shall be initially configured with file
         permissions which protect it and its data from other processes.</title>
         <note role="application">The precise expectations for file permissions
         vary per platform but the general intention is that a trust
@@ -771,7 +786,7 @@
 	</refs>
       </f-element>
       <f-element id="fmt_cfg_ext.1.4">
-        <title>The application must be initially configured to not transmit
+        <title>The application shall be initially configured to not transmit
         any <abbr linkend="PII" /> over a network.</title>
         <note role="application">A selection dialog box presented to the user at
           the time the application is started is sufficient to meet this requirement. 
@@ -809,11 +824,8 @@
 	</title>
       </f-element>
     </f-component>
-    <!-- <component id="fmt_not.1" name="Notification of Update"> 
-                                        <f-element id="fmt_not.1.1">If the update process is initiated by an application, 
-                                        then the application should report to the user the last time it checked for 
-                                        available updates. </f-element> </component> -->
   </subsection>
+
   <subsection title="Cryptographic Support (FCS)" id="fcs">
     <f-component id="fcs_rbg_ext.1" name="Random Bit Generation">
       <f-element id="fcs_rbg_ext.1.1">
@@ -821,19 +833,18 @@
 	  The application shall 
     <selectables atleastone="yes" linebreak="yes">
 	    <selectable>consume no random</selectable>
-	    <selectable>utilize platform-provided DRBG services</selectable>
+	    <selectable>invoke platform-provided DRBG services</selectable>
 	    <selectable>perform DRBG services</selectable>
 	  </selectables>
-     for all TOE cryptographic functionality.
+     for its cryptographic functionality.
         </title>
         <note role="application">
-          The ST author shall select "consume no random" in cases where the application does not need any cryptographic
-          random values (such as cryptographic keys, certificates, nonces, and session keys) to perform its security functionality.
-          The ST author shall select "utilize platform-provided DRBG services" in cases where the application directly uses random values
-          obtained from calls to platform DRBG APIs.  The ST author shall select "perform DRBG services" in cases where the application
-          uses random values obtained from calls to platform DRBG APIs to seed a DRBG implemented by the application itself.  If the ST
-          does not choose the first selection, additional FCS_RBG_EXT.1 elements shall be included in the ST.
-          
+          The evaluator should ensure "consume no random" is selected in cases where the application does not need any cryptographic
+          random values (such as generating cryptographic keys, certificates, nonces, and session keys) to perform its security functionality.
+          The evaluator should ensure "invoke platform-provided DRBG services" is selected in cases where the application directly uses random values
+          obtained from calls to platform DRBG APIs.  The evaluator should ensure "perform DRBG services" is selected in cases where the application
+          uses random values obtained from calls to platform DRBG APIs to seed a DRBG implemented by the application itself.  
+		  If the first selection is not chosen, then additional FCS_RBG_EXT.1 elements shall be included in the ST.
           In this requirement, cryptographic functionality includes all cryptographic key generation/derivation/agreement, IVs (for certain modes),
           as well as protocol-specific random values.
         </note>
@@ -934,20 +945,7 @@
           (defined in FIPS 140-2) is disallowed after 2015 per NIST SP 800-131A.  The PP will be updated to reflect this; however,
           developers should begin transitioning from this DRBG as soon as possible.
         </note>
-        <aactivity>The evaluator shall 
-          <subaactivity platform="blackberry">
-          </subaactivity>
-          <subaactivity platform="android">
-          </subaactivity>
-          <subaactivity platform="windows">
-          </subaactivity>
-          <subaactivity platform="ios">
-          </subaactivity>
-          <subaactivity platform="selinux">
-          </subaactivity>
-          <subaactivity platform="z/OS"></subaactivity>
-          <subaactivity platform="Solaris"></subaactivity>
-          <subaactivity platform="OS X"></subaactivity>
+        <aactivity>The evaluator shall: TBD.
         </aactivity>
       </f-element>
       <f-element id="fcs_rbg_ext.1.4" status="sel-based">
@@ -998,9 +996,9 @@
     </f-component>
     <f-component id="fcs_sto_ext.1" name="Storage of Secrets">
       <f-element id="fcs_sto_ext.1.1">
-        <title>The application must use the mechanisms provided by the
-        operating system vendor for storing credentials.</title>
-        <note role="application">This includes items like PKI private keys and passwords.
+        <title>The application shall invoke the mechanisms provided by the
+        platform for any storage of credentials.</title>
+        <note role="application">This includes items such as PKI private keys and passwords.
         </note>
         <aactivity>The evaluator must identify any credentials used by the application
         and then verify that these are stored using the mechanisms
@@ -1270,8 +1268,8 @@
 	  privacy (or worse).
         </note>
         <aactivity>
-		The evaluator shall run the application, inspect the TSS (if
-		available), perform static analysis, and also conduct network traffic
+		The evaluator shall run the application, inspect any documentation, 
+		perform static analysis, and also conduct network traffic
 		analysis to determine if any ad networks are used by the
 		application.  If any ad networks are used, the evaluator shall search public
 		sources to confirm that these are considered reputable.
@@ -1309,7 +1307,7 @@
   <subsection title="Protection of the TSF (FPT)" id="fpt_api_ext">
     <f-component id="fpt_rob_ext.1" name="Robustness">
         <f-element id="fpt_rob_ext.1.1">
-          <title>The application must exhibit robustness under normal usage.</title>
+          <title>The application shall exhibit robustness under normal usage.</title>
           <aactivity>The evaluator shall run the application and mimic normal usage, 
             exercising as much functionality as possible and verify that the application 
             does not crash.</aactivity>
@@ -1359,7 +1357,7 @@
         <title>
 	  The application must not request any memory mapping at an explicit address.
 	  <note role="application">
-	    Requesting a memory mapping at an explicit address may subvert address space layout
+	  Requesting a memory mapping at an explicit address subverts address space layout
           randomization (<abbr linkend="ASLR" />).
 	  </note>
 	</title>
@@ -1443,9 +1441,6 @@
         <title>The application must not implement its own dynamic memory allocation
         functionality, unless that functionality also includes corruption
         detection.</title>
-	<note role="application"> 
-	  Implementing its own platform-provided heap corruption detection may break the OS provided heap corruption detection.
-	</note>
       </f-element>
       <f-element id="fpt_aex_ext.1.4">
         <title>The application must be compatible with security features
@@ -1513,7 +1508,7 @@
       <subaactivity platform="OS X"></subaactivity>
       </aactivity></f-element>
       <f-element id="fpt_aex_ext.1.6">
-        <title>The application must be compiled with a stack-based buffer overflow protection feature enabled.</title>
+        <title>The application must be compiled with stack-based buffer overflow protection enabled.</title>
         <note role="application">Applications compiled with the -fstack or the /GS flag represent examples 
           of such a stack-based buffer overflow protection mechanism.</note>
         <aactivity> The evaluator shall ensure that the <abbr linkend="TSS" /> section of the ST describes 
@@ -1589,10 +1584,16 @@
       </f-element>
       <f-element id="fpt_tud_ext.1.4">
         <title>
-          The application must not download, modify, replace or update its own binary code using a method other than platform provided mechanisms.
+          The application must not download, modify, replace or update its own binary code.
         </title>
+		<note role="application">This requirement applies to the code of the
+		application; it does not apply to mobile code technologies that are designed
+		for download and execution.
+		</note>
         <aactivity>
-          The evaluator shall run the application and use a network monitoring tool to verify that no additional code is being delivered to the application from any network connections made by the application.
+		The evaluator shall run the application and use a network monitoring
+		tool to verify that no additional code is being delivered to the application
+		from any network connections made by the application.
         </aactivity>
 	<refs>
 		<ref sect="SC-18 (3)" source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf" />
