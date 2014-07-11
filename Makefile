@@ -1,17 +1,23 @@
 IN = input
 OUT = output
 TRANS = transforms
+APP_XML=$(IN)/application.xml
+TABLE=$(OUT)/application-table.html
+CRITERIA=$(OUT)/application-table-criteria.html
+APP_HTML=$(OUT)/application.html
+all: $(TABLE) $(CRITERIA) $(APP_HTML)
 
-all: pp table simplified
+pp:$(APP_HTML)
+$(APP_HTML):  $(TRANS)/pp2html.xsl $(APP_XML)
+	xsltproc -o $(APP_HTML) $(TRANS)/pp2html.xsl $(APP_XML)
 
-pp:
-	xsltproc -o $(OUT)/application.html $(TRANS)/pp2html.xsl $(IN)/application.xml
+table: $(TABLE)
+$(TABLE): $(TRANS)/pp2table.xsl $(APP_XML)
+	xsltproc -o $(TABLE) $(TRANS)/pp2table.xsl $(APP_XML)
 
-table:
-	xsltproc -o $(OUT)/application-table.html $(TRANS)/pp2table.xsl $(IN)/application.xml
-
-simplified:
-	xsltproc -o $(OUT)/application-table-criteria.html $(TRANS)/pp2simplified.xsl $(IN)/application.xml
+simplified: $(CRITERIA)
+$(CRITERIA): $(TRANS)/pp2simplified.xsl $(APP_XML)
+	xsltproc -o $(CRITERIA) $(TRANS)/pp2simplified.xsl $(APP_XML)
 
 clean:
 	rm $(OUT)/application.html
