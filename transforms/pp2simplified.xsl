@@ -11,7 +11,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <!-- Put all common templates into ProtectionProfileCommons -->
   <!-- They can be redefined/overridden  -->
-  <xsl:include href="ProtectionProfileCommons.xsl"/>
+  <xsl:include href="ppcommons.xsl"/>
 
   <xsl:template match="/">
     <html>
