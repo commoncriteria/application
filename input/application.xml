@@ -847,18 +847,29 @@
         <aactivity>The evaluator shall inspect the application and its
         developer documentation to determine if the application needs random
         bit generation services. If so, the evaluator shall determine how the
-        application acquires random bits and ensure that these are acquired
-        properly from the platform. This varies on a per-platform basis: 
-        <subaactivity platform="blackberry">The evaluator shall use static
-        analysis to verify /dev/random or /dev/urandom is used.</subaactivity>
+        application acquires random bits.
+	</aactivity>
+      </f-element>
+      <f-element id="fcs_rbg_ext.1.2" status="sel-based">
+        <selection-depends req="fcs_rbg_ext.1.1"/>
+        <title>
+          The application shall invoke the mechanisms recommended by the operating system vendor for requesting data from the platform's DRBG.
+        </title>
+        <note role="application">
+        </note>
+        <aactivity>
+	  The evaluator shall ensure that random bits are acquired properly from the platform.
+	  This varies on a per-platform basis: 
+        <subaactivity platform="blackberry">
+	  The evaluator shall use static analysis to verify /dev/random or /dev/urandom is used.
+	</subaactivity>
         <subaactivity platform="android">
 	  The evaluator shall use static analysis to verify that the application uses the <code>javax.crypto.KeyGenerator</code> class or the <code>java.security.SecureRandom</code> class.
 	</subaactivity>
-        <subaactivity platform="windows">The evaluator shall use static
-        analysis to verify that the CryptGenRandom <abbr linkend="API" /> is used for classic
-        desktop applications. The evaluator shall use static analysis to verify
-        that the System.Random API is used for Windows Store
-        Applications.</subaactivity>
+        <subaactivity platform="windows">
+	  The evaluator shall use static analysis to verify that the CryptGenRandom <abbr linkend="API" /> is used for classic desktop applications.
+	  The evaluator shall use static analysis to verify that the System.Random API is used for Windows Store Applications.
+	</subaactivity>
 	<subaactivity platform="ios">
 	  The evaluator shall use static analysis to verify that the iOS Randomization Services <abbr linked="API"/> is used.
 	</subaactivity>
@@ -868,45 +879,6 @@
         <subaactivity platform="z/OS"></subaactivity>
         <subaactivity platform="Solaris"></subaactivity>
         <subaactivity platform="OS X"></subaactivity>
-	</aactivity>
-      </f-element>
-      <f-element id="fcs_rbg_ext.1.2" status="sel-based">
-        <selection-depends req="fcs_rbg_ext.1.1"/>
-        <title>
-          The application shall invoke the platform's DRBG using
-          <selectables linebreak="yes">
-            <selectable>Hash_DRBG (any)</selectable>
-            <selectable>HMAC_DRBG (any)</selectable>
-            <selectable>CTR_DRBG (AES)</selectable>
-            <selectable>X9.31 Appendix 2.4 (AES)</selectable>
-            <selectable>unknown</selectable>
-        </selectables>
-          API.
-        </title>
-        <note role="application">
-          This requirement shall be included in STs in which "utilize platform-provided DRBG services" or "perform DRBG services"
-          is chosen in FCS_RBG_EXT.1.1.
-          
-          NIST SP 800-90A and FIPS Pub 140-2 Annex C contain the specifications for the above DRBG selections.
-          
-          The ST author shall only select “unknown” if the platform’s DRBG implementation is not publicly available, or not available
-          to the application developer.  It is possible that the application cannot configure which DRBG is used; however, the ST author
-          is still expected to select the appropriate platform DRBG.  The selection of "unknown" shall be used only in rare cases.
-        </note>
-        <aactivity>The evaluator shall 
-          <subaactivity platform="blackberry">
-          </subaactivity>
-          <subaactivity platform="android">
-          </subaactivity>
-          <subaactivity platform="windows">
-          </subaactivity>
-          <subaactivity platform="ios">
-          </subaactivity>
-          <subaactivity platform="selinux">
-          </subaactivity>
-          <subaactivity platform="z/OS"></subaactivity>
-          <subaactivity platform="Solaris"></subaactivity>
-          <subaactivity platform="OS X"></subaactivity>
         </aactivity>
       </f-element>
       <f-element id="fcs_rbg_ext.1.3" status="sel-based">
