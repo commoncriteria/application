@@ -566,56 +566,17 @@
 	</aactivity>
       </f-element>
       <f-element id="fdp_dec_ext.1.3">
-        <title>The application shall not seek permission from the user to access
+        <title>The application shall not access or seek access to
         resources which it does not require.</title>
         <note role="application">This requirement is intended to prompt judgment
 		about whether the resources identified for access in 
 		<reqref linkend="fdp_dec_ext.1.1"/> and <reqref linkend="fdp_dec_ext.1.2"/> are 
 		necessary for the operation of the application.  
         </note>
-        <aactivity>The evaluator shall compare the list of resources required
-        by the application with the list of resources indicated by the
-        application itself. The method of doing so varies per platform. 
-        <subaactivity platform="blackberry">The first time the application is
-        started it displays all platform resources it would like to access.
-        They can individually be approved or denied. Also if the user goes to:
-        App permissions – Settings → Security and Privacy → Application
-        Permissions → Select application in question, it will list which
-        platform resource are approved/denied and can be
-        changed.</subaactivity>
-        <subaactivity platform="android">
-	  The evaluator shall install the application and confirm that it does not request more permissions than
-          are necessary for the application to perform its described function. 
-	  If provided the evaluator shall look at the AndroidManifest.xml file to 
-          confirm that the application does not request more permissions than are necessary.
-        </subaactivity>
-        <subaactivity platform="windows">For Windows Store Apps the evaluator
-        shall check the AppManifest.xml file for a list of required
-        capabilities. The evaluator shall run the application and verify that
-        the application only uses the capabilities listed in the
-        AppManifest.xml file. For Win32 Desktop Application the developer must
-        provide a written list of capabilities needed by the application. The
-        evaluator shall inspect this list and verify that these are in line with
-        the capabilities needed by the application.
-        </subaactivity>
-	<subaactivity platform="ios">iOS apps are required to declare entitlements 
-          (required device resource identifiers) in the Provisioning Profile (which is codesigned app metadata).
-          The evaluator shall install the application and make note of the corresponding privacy
-          settings on the device resources  [Settings->Privacy->].  The evaluator will run the 
-          application and attempt to exercise functionality in the application that would cause it
-          to access sensitive information repositories. The evaluator shall verify that the application
-          prompts the user for permission or notifies the user that the service is unavailable.  Privacy 
-          settings can be set on a system-wide basis or on a per-app basis.  For example, 
-          Settings->Privacy->Location Services->Contacts-><i>App</i> can be disabled to prevent the App from
-            accessing the service. </subaactivity>
-	<subaactivity platform="selinux">
-	  The developer must provide a written list of capabilities needed by the application. 
-	  The evaluator shall inspect this list and verify that these are in line with the capabilities needed by the application.
-	</subaactivity>
-        <subaactivity platform="z/OS"></subaactivity>
-        <subaactivity platform="Solaris"></subaactivity>
-        <subaactivity platform="OS X"></subaactivity>
-        
+        <aactivity>
+		The evaluator shall consider the resources that the application intends to access 
+		and compare these to the resources expected for normal operation of the application.
+		The evaluator shall make a judgement about whether the application needs these resources. 
         </aactivity>
         <refs>
 		  <ref sect="SA-17 (7)" source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf" />
