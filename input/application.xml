@@ -5,7 +5,7 @@
       <PPTitle>Protection Profile for Application Software</PPTitle>
       <PPVersion>.6</PPVersion>
       <PPAuthor>National Information Assurance Partnership</PPAuthor>
-      <PPPubDate>2014-06-26</PPPubDate>
+      <PPPubDate>2014-07-17</PPPubDate>
       <PPCertificationID>NIAP-whoknows</PPCertificationID>
       <CCVersion>.01 Revision 0</CCVersion>
       <Keywords>application; software</Keywords>
@@ -511,9 +511,18 @@
 	  The evaluator shall verify that either the application or 
 	  the documentation provide the user with a list of the required hardware resources.
 	</subaactivity>
-        <subaactivity platform="z/OS"></subaactivity>
-        <subaactivity platform="Solaris"></subaactivity>
-        <subaactivity platform="OS X"></subaactivity>
+        <subaactivity platform="z/OS">
+          The evaluator shall verify that either the application or 
+          the documentation provide the user with a list of the required hardware resources.
+        </subaactivity>
+        <subaactivity platform="Solaris">
+          The evaluator shall verify that either the application or 
+          the documentation provide the user with a list of the required hardware resources.
+        </subaactivity>
+        <subaactivity platform="OS X">
+          The evaluator shall verify that either the application or 
+          the documentation provide the user with a list of the required hardware resources.
+        </subaactivity>
 
 	</aactivity>
       </f-element>
@@ -559,9 +568,21 @@
 	  The evaluator shall install the application and verify that the application displays the permissions
 	  used to access sensitive information repositories.
 	</subaactivity>
-        <subaactivity platform="z/OS"></subaactivity>
-        <subaactivity platform="Solaris"></subaactivity>
-        <subaactivity platform="OS X"></subaactivity>
+        <subaactivity platform="z/OS">
+          The evaluator shall verify that either the application or 
+          the documentation provide the user with a list of permissions
+          used to access sensitive information repositories.
+        </subaactivity>
+          <subaactivity platform="Solaris">
+            The evaluator shall verify that either the application or 
+            the documentation provide the user with a list of permissions
+            used to access sensitive information repositories.
+          </subaactivity>
+        <subaactivity platform="OS X">
+          The evaluator shall verify that either the application or 
+          the documentation provide the user with a list of permissions
+          used to access sensitive information repositories.
+        </subaactivity>
 
 	</aactivity>
       </f-element>
@@ -583,11 +604,18 @@
         </refs>
       </f-element>
       <f-element id="fdp_dec_ext.1.4">
-        <title>The application shall not listen on any ports or initiate any
-        network connections that it does not require.
+        <title>The application shall
+          <selectables linebreaks="yes">
+            <selectable>create no network connections</selectable>
+            <selectable>[assignment: list all network connections]</selectable>
+          </selectables>
+          that are not user initiated connections.
         </title>
-        <aactivity>The evaluator shall run a port scanning utility to verify that any 
-          ports opened by the application have been documented by the TSS.
+        <note role="application">This requirement is intended to restrict application network connections and ports to only those
+            required, or to network connections that are user initiated.
+        </note>
+        <aactivity>The evaluator shall run the application and run a network port scan to verify that any 
+          local or remote ports opened by the application have been documented.
         </aactivity>
 	<refs>
 		<ref sect="CM-7b." source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf" />
