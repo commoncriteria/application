@@ -605,7 +605,7 @@
       </f-element>
       <f-element id="fdp_dec_ext.1.4">
         <title>The application shall
-          <selectables linebreaks="yes">
+          <selectables linebreak="yes">
             <selectable>create no network connections</selectable>
             <selectable>[assignment: list all network connections]</selectable>
           </selectables>
@@ -749,7 +749,7 @@
         created by the application and ensure that their permissions are
         adequate to protect them from unprivileged processes. The method of
         doing so varies per platform. 
-        <subaactivity platform="blackberry">TBD</subaactivity>
+        <subaactivity platform="blackberry"></subaactivity>
         <subaactivity platform="android">The evaluator shall verify using 
         <code>ls -l</code> that files written within the applications data directory are not world-readable or world-writable.  
         The evaluator shall also verify that no sensitive data is written to external storage as this data can be read/modified 
@@ -881,7 +881,7 @@
           The application shall perform all deterministic random bit generation (DRBG) services in accordance with
           <selectables atleastone="yes" linebreak="yes">
             <selectable>NIST Special Publication 800-90A using
-                <selectables>
+              <selectables linebreak="yes">
                   <selectable>Hash_DRBG (any)</selectable>
                   <selectable>HMAC_DRBG (any)</selectable>
                   <selectable>CTR_DRBG (AES)</selectable>
@@ -907,7 +907,7 @@
           (defined in FIPS 140-2) is disallowed after 2015 per NIST SP 800-131A.  The PP will be updated to reflect this; however,
           developers should begin transitioning from this DRBG as soon as possible.
         </note>
-        <aactivity>The evaluator shall: TBD.
+        <aactivity>The evaluator shall review docuementation provided by the application developer explaining how the application gathers random.
         </aactivity>
       </f-element>
       <f-element id="fcs_rbg_ext.1.4" status="sel-based">
@@ -939,7 +939,7 @@
           NIST Special Pub 800-90B, Appendix C describes the minimum entropy measurement that should be used immediately and will be
           required in future versions of this PP.
         </note>
-        <aactivity>The evaluator shall TBD.
+        <aactivity>he evaluator shall review docuementation provided by the application developer explaining how the application gathers random.
         </aactivity>
       </f-element>
     </f-component>
@@ -953,11 +953,13 @@
         and then verify that these are stored using the mechanisms
         recommended by the operating system vendor.
         The method of doing so varies per platform. 
-        <subaactivity platform="blackberry">TBD.</subaactivity>
+        <subaactivity platform="blackberry"></subaactivity>
         <subaactivity platform="android">The evaluator shall verify that all
         keys are stored within a keystore using Android's <code>KeyStore</code> class.
         </subaactivity>
-        <subaactivity platform="windows">TBD.
+        <subaactivity platform="windows">The evaluator shall verify that all certificates are stored in the Windows Certificate Store. 
+          The evaluator shall verify that other secrets, like passwords, are stored in the Windows Credential Manager also referred to as
+          the Windows Vault.
         </subaactivity>
         <subaactivity platform="ios">The evaluator shall verify that all
         keys are stored within a <code>KeyChain</code>.
@@ -1178,6 +1180,13 @@
           <selectable>DTLS 1.2 (RFC 6347)</selectable>
         </selectables>
       </title>
+      <note role="application">Differences between DTLS and TLS are outlined in RFC 4347 and RFC
+        6347; otherwise the protocols are the same. In particular, for the applicable security
+        characteristics defined for the TSF, the two protocols do not differ. Therefore, all application
+        notes and assurance activities that are listed for TLS apply to the DTLS implementation.
+      </note>
+      <aactivity>The evaluator shall perform the assurance activities listed for TLS to verify
+        this component</aactivity>
     </f-element>
     <f-element id="fcs_dtls_ext.1.2" status="sel-based">
       <selection-depends req="ftp_dit_ext.1.1"/>
@@ -1188,11 +1197,6 @@
           <selectable>DTLS 1.2 (RFC 6347)</selectable>
         </selectables>
       </title>
-      <note role="application">Differences between DTLS and TLS are outlined in RFC 4347 and RFC
-        6347; otherwise the protocols are the same. In particular, for the applicable security
-        characteristics defined for the TSF, the two protocols do not differ. Therefore, all application
-        notes and assurance activities that are listed for TLS apply to the DTLS implementation.
-      </note>
       <aactivity>The evaluator shall perform the assurance activities listed for TLS to verify
         this component</aactivity>
     </f-element>
@@ -1302,7 +1306,7 @@
         the compiler flags used to enable <addr linkend="ASLR" /> in the application. The evaluator shall perform 
         either a static or dynamic analysis to determine that no memory mappings are placed 
         at an explicit and consistent address. The method of doing so varies per platform. 
-        <subaactivity platform="blackberry">TBD</subaactivity>
+        <subaactivity platform="blackberry"></subaactivity>
         <subaactivity platform="android">The evaluator shall run the same
         program on two different Android systems. Connect via ADB and inspect
         /proc/PID/maps. Ensure the two different instances share no mapping
@@ -1335,7 +1339,7 @@
 		just-in-time compilation.
 	  </note>
         <aactivity>
-	  <subaactivity platform="blackberry">TBD</subaactivity>
+	  <subaactivity platform="blackberry"></subaactivity>
 	  <subaactivity platform="android">
 	    The evaluator shall perform static analysis on the application to verify that both 
 	    <ul>
@@ -1360,7 +1364,7 @@
 	    </ul>
 	    .
 	  </subaactivity>
-	  <subaactivity platform="z/OS">&lt;TBD></subaactivity>
+	  <subaactivity platform="z/OS"></subaactivity>
 	  <subaactivity platform="Solaris">
 	    The evaluator shall perform static analysis on the application to verify that both 
 	    <ul>
@@ -1391,7 +1395,7 @@
         application to run.</note>
         <aactivity>The evaluator shall carry out one of the following tests,
         depending on the platform. 
-        <subaactivity platform="blackberry">TBD</subaactivity>
+        <subaactivity platform="blackberry"></subaactivity>
         <subaactivity platform="android">
 	  The evaluator shall ensure that the application can run with SE for Android enabled and enforcing and 
 	  that it can be run in a confined, non-permissive domain.
