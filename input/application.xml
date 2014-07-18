@@ -532,6 +532,8 @@
 	    <selectable>address book</selectable>
 	    <selectable>calendar</selectable>
 	    <selectable>call lists</selectable>
+	    <selectable>system logs</selectable>
+	    <selectable>world-readable storage</selectable>
 	    <selectable>[assignment: list of additional sensitive information repositories]</selectable>
 	  </selectables>
 		</title>
@@ -1486,6 +1488,35 @@
     <f-component id="fpt_tud_ext.1" name="Integrity for Installation and Update">
       <!-- TO DO: Cite references. -->
       <f-element id="fpt_tud_ext.1.1">
+        <title>The 
+          <selectables atleastone="yes">
+            <selectable>application</selectable>
+            <selectable>application platform</selectable>
+          </selectables>
+         shall provide the ability to query the current version of the
+         application software.
+        </title>
+        <aactivity>The evaluator shall install the application and identify its
+          version.</aactivity>
+      </f-element>
+      <f-element id="fpt_tud_ext.1.2">
+        <title>The 
+          <selectables atleastone="yes">
+            <selectable>application</selectable>
+            <selectable>application platform</selectable>
+          </selectables>
+          shall provide the ability to initiate updates and patches to the
+          application software
+        </title>
+        <note role="application">
+          It is expected that mobile device applications will always initiate
+          updates through the platform, however, desktop application may contain
+          a capability to initiate a check for updates.
+        </note>
+        <aactivity>The evaluator shall verify that the application is updateable
+        </aactivity>
+      </f-element>
+      <f-element id="fpt_tud_ext.1.3">
         <title>The application installation and update packages shall be signed
         by the vendor in conformance with NIST SP 800-89, Recommendation for
         Obtaining Assurances for Digital Signature Applications, using an
@@ -1503,7 +1534,7 @@
         signing updates and installation packages. The evaluator shall verify
         that the documentation conforms with the above requirement.</aactivity>
       </f-element>
-      <f-element id="fpt_tud_ext.1.2">
+      <f-element id="fpt_tud_ext.1.4">
 		<title>The application shall be distributed using the format of the
         platform-supported package manager.
         </title>
@@ -1540,7 +1571,7 @@
 	  </subaactivity>
 	</aactivity>
       </f-element>
-      <f-element id="fpt_tud_ext.1.3">
+      <f-element id="fpt_tud_ext.1.5">
         <title>The application shall be packaged such that its removal results
         in the removal of all traces of the application, 
 	with the exception of configuration settings, output files, and audit/log events.</title>
@@ -1549,7 +1580,7 @@
         <aactivity>The evaluator shall uninstall the application and search for
         evidence of the uninstalled application on the platform.</aactivity>
       </f-element>
-      <f-element id="fpt_tud_ext.1.4">
+      <f-element id="fpt_tud_ext.1.6">
         <title>
           The application shall not download, modify, replace or update its own binary code.
         </title>
@@ -1574,12 +1605,6 @@
         <aactivity>The evaluator shall install the application, then check for
         the existence of SWID tags that comply with the ISO/IEC 19770-2:2009
         standard.</aactivity>
-      </f-element>
-      <f-element id="fpt_idv_ext.1.2">
-        <title>The applications shall present correct product version
-        information.</title>
-        <aactivity>The evaluator shall install the application and identify its
-        version.</aactivity>
       </f-element>
     </f-component>
   </subsection>
@@ -2030,6 +2055,10 @@
     <h4>Content and presentation elements:</h4>
     <a-element id="AVA_VAN.1.1C">
       <title>The <abbr linkend="TOE" /> shall be suitable for testing.</title>
+      <note role="application">
+        The application to be evaluated should not be obfuscated or packed in such
+        a way as to disrupt analysis
+      </note>
     </a-element>
     <h4>Evaluator action elements:</h4>
     <a-element id="AVA_VAN.1.1E">
