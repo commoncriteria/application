@@ -491,9 +491,11 @@
         can be changed.</subaactivity>
         <subaactivity platform="android">The evaluator shall install the
         application and verify that the application displays the platform
-        resources it would like to access. This includes permissions such as BROADCAST_SMS, CALL_PHONE, CALL_PRIVILEGED, MESSAGES, PHONE_CALLS, PROCESS_OUTGOING_CALLS, READ_CALL_LOG, READ_SMS, RECEIVE_SMS, SEND_SMS, WRITE_CALL_LOG and WRITE_SMS. Note: Users must accept all
-        requested permissions upon installation and cannot choose individual
-        permissions to allow or deny.</subaactivity>
+        resources it would like to access. This includes permissions such as BROADCAST_SMS,
+        CALL_PHONE, CALL_PRIVILEGED, MESSAGES, PHONE_CALLS, PROCESS_OUTGOING_CALLS,
+        READ_CALL_LOG, READ_SMS, RECEIVE_SMS, SEND_SMS, WRITE_CALL_LOG and WRITE_SMS.
+        Note: Users must accept all requested permissions upon installation and cannot
+        choose individual permissions to allow or deny.</subaactivity>
         <subaactivity platform="windows">For Windows Store Apps the evaluator
         shall check the AppManifest.xml file for a list of required
         hardware capabilities. The evaluator shall verify that the user is made aware 
@@ -643,9 +645,10 @@
         File Encryptor Protection Profile for evaluation.
         Otherwise, the the evaluator shall test how the application invokes
         platform-provided functionality, which varies per platform:
-        <subaactivity platform="blackberry">The evaluator shall determine
-        whether the application properly uses the Content Protection
-        <abbr linkend="API" />.</subaactivity>
+          <subaactivity platform="blackberry">The evaluator shall determine whether the
+            application properly uses the Advanced Data at Rest Protection
+            <abbr linkend="API" /> and the application uses the appropriate domain to
+            store and protect each data file.</subaactivity>
         <subaactivity platform="android">The evaluator shall verify that the
         application uses the Android 
         <code>KeyStore</code>, 
@@ -856,9 +859,10 @@
         <aactivity>
 	  The evaluator shall ensure that random bits are acquired properly from the platform.
 	  This varies on a per-platform basis: 
-        <subaactivity platform="blackberry">
-	  The evaluator shall use static analysis to verify /dev/random or /dev/urandom is used.
-	</subaactivity>
+     <subaactivity platform="blackberry">
+          The evaluator shall use static analysis to verify that Security
+          Builder Crypto GSE library is used.
+	   </subaactivity>
         <subaactivity platform="android">
 	  The evaluator shall use static analysis to verify that the application uses the <code>javax.crypto.KeyGenerator</code> class or the <code>java.security.SecureRandom</code> class.
 	</subaactivity>
@@ -1308,21 +1312,28 @@
         the compiler flags used to enable <addr linkend="ASLR" /> in the application. The evaluator shall perform 
         either a static or dynamic analysis to determine that no memory mappings are placed 
         at an explicit and consistent address. The method of doing so varies per platform. 
-        <subaactivity platform="blackberry"></subaactivity>
+        <subaactivity platform="blackberry">
+          The evaluator shall run the same application on two different BlackBerry systems
+          and run a tool that will list all memory mapped addresses for the application.
+          The evaluator shall then verify the two different instances share no mapping locations.
+        </subaactivity>
         <subaactivity platform="android">The evaluator shall run the same
-        program on two different Android systems. Connect via ADB and inspect
+        application on two different Android systems. Connect via ADB and inspect
         /proc/PID/maps. Ensure the two different instances share no mapping
         locations.</subaactivity>
-        <subaactivity platform="windows">The evaluator shall run the same
-        application on two different windows systems and run the Sysinternals
-        tool VMMap on each system and verify the two different instances share
-        no mapping locations.</subaactivity>
+        <subaactivity platform="windows">
+        The evaluator shall run the same application on two different Windows systems
+        and run a tool that will list all memory mapped addresses for the application.
+        The evaluator shall then verify the two different instances share no mapping locations.
+        The Microsoft sysinternals tool, VMMap, could be used to view memory addresses of a
+        running application.
+        </subaactivity>
 	<subaactivity platform="ios">The evaluator shall perform a static
         analysis to search for any mmap calls (or <abbr linkend="API" /> calls that call mmap),
         and ensure that no arguments are provided that request a mapping at a
         fixed address</subaactivity>
 	<subaactivity platform="selinux">
-	  The evaluator shall run the same program on two different Linux systems.
+	  The evaluator shall run the same application on two different Linux systems.
 	  The evaluator shall then compare their /proc/<i>PID</i>/maps to ensure the two different instances share no mapping locations.
 	</subaactivity>
         <subaactivity platform="z/OS"></subaactivity>
@@ -1397,7 +1408,12 @@
         application to run.</note>
         <aactivity>The evaluator shall carry out one of the following tests,
         depending on the platform. 
-        <subaactivity platform="blackberry"></subaactivity>
+        <subaactivity platform="blackberry">
+          The evaluator shall ensure that the application can successfully run on the latest
+          version of the BlackBerry OS using a restrictive IT policy pushed from a BlackBerry 
+          Enterprise Server (BES). The restrictive IT policy should be the settings from a DISA STIG
+          if one exists, otherwise the policy should contain the most restrict settings possible.
+        </subaactivity>
         <subaactivity platform="android">
 	  The evaluator shall ensure that the application can run with SE for Android enabled and enforcing and 
 	  that it can be run in a confined, non-permissive domain.
@@ -1462,6 +1478,9 @@
           The evaluator shall perform a static analysis to verify that 
           stack-based buffer overflow protection is present.  The method of doing so varies per platform:
           <subaactivity platform="blackberry">
+            The evaluator shall ensure that the -fstack-protector-strong or -fstack-protector-all
+            flags are used. The -fstack-protector-all flag is preferred but -fstack-protector-strong
+            is acceptable. 
           </subaactivity>
           <subaactivity platform="android">
           </subaactivity>
