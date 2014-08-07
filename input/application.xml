@@ -606,12 +606,17 @@
 	</aactivity>
       </f-element>
       <f-element id="fdp_dec_ext.1.3">
-        <title>The application shall not access or seek access to
-        resources which it does not require.</title>
-        <note role="application">This requirement is intended to prompt judgment
-		about whether the resources identified for access in 
-		<reqref linkend="fdp_dec_ext.1.1"/> and <reqref linkend="fdp_dec_ext.1.2"/> are 
-		necessary for the operation of the application.  
+        <title>
+
+
+	  The application shall not access or seek access to
+        resources which it does not require.
+	</title>
+        <note role="application">
+	  This requirement is intended to prompt judgment
+	  about whether the resources identified for access in 
+	  <reqref linkend="fdp_dec_ext.1.1"/> and <reqref linkend="fdp_dec_ext.1.2"/> are 
+	  necessary for the operation of the application.  
         </note>
         <aactivity>
 		The evaluator shall consider the resources that the application intends to access 
@@ -633,7 +638,7 @@
         <note role="application">This requirement is intended to restrict application network connections and ports to only those
             required, or to network connections that are user initiated.
         </note>
-        <aactivity>On a computer running no other networked applications, the evaluator shall run the application and run a network port scan to verify that any 
+        <aactivity>On a platform running no other networked applications, the evaluator shall run the application and run a network port scan to verify that any 
           local or remote ports opened by the application have been documented.
         </aactivity>
 	<refs>
@@ -777,7 +782,7 @@
         doing so varies per platform. 
         <subaactivity platform="blackberry"></subaactivity>
         <subaactivity platform="android">The evaluator shall verify using 
-        <code>ls -l</code> that files written within the applications data directory are not world-readable or world-writable.  
+        <code>ls -alR</code> that files written within the applications data directory are not world-readable or world-writable.  
         The evaluator shall also verify that no sensitive data is written to external storage as this data can be read/modified 
         by any application containing the READ_EXTERNAL_STORAGE and/or WRITE_EXTERNAL_STORAGE permissions.</subaactivity>
         <subaactivity platform="windows">The evaluator shall run the
@@ -791,7 +796,7 @@
             the application leverages the appropriate Data Protection Class 
             for each data file stored locally.</subaactivity>
 	<subaactivity platform="selinux">
-	  The evaluator shall verify using <code>ls -l</code> that files written within the 
+	  The evaluator shall verify using <code>ls -alR</code> that files written within the 
 	  applications data directory are not world-readable or world-writable. 
 	</subaactivity>
         <subaactivity platform="z/OS"></subaactivity>
@@ -805,7 +810,7 @@
       <f-element id="fmt_cfg_ext.1.4">
         <title>The application shall be initially configured to not transmit
         any <abbr linkend="PII" /> over a network.</title>
-        <note role="application">A selection dialog box presented to the user at
+        <note role="application">A dialog box presented to the user at
           the time the application is started is sufficient to meet this requirement. 
         </note>
         <aactivity>The evaluator shall install and run the application and
@@ -849,14 +854,14 @@
         <title>
 	  The application shall 
     <selectables atleastone="yes" linebreak="yes">
-	    <selectable>consume no random</selectable>
+	    <selectable>require no random</selectable>
 	    <selectable>invoke platform-provided DRBG services</selectable>
 	    <selectable>perform DRBG services</selectable>
 	  </selectables>
      for its cryptographic functionality.
         </title>
         <note role="application">
-          The evaluator should ensure "consume no random" is selected in cases where the application does not need any cryptographic
+          The evaluator should ensure "require no random" is selected in cases where the application does not need any cryptographic
           random values (such as generating cryptographic keys, certificates, nonces, and session keys) to perform its security functionality.
           The evaluator should ensure "invoke platform-provided DRBG services" is selected in cases where the application directly uses random values
           obtained from calls to platform DRBG APIs.  The evaluator should ensure "perform DRBG services" is selected in cases where the application
@@ -1217,7 +1222,7 @@
     </f-element>
     <f-element id="fcs_dtls_ext.1.2" status="sel-based">
       <selection-depends req="ftp_dit_ext.1.1"/>
-      <title>The application shall implement the requirements in TLS (FCS_TLS_EXT.2) for the DTLS implementation,
+      <title>The application shall implement the requirements in TLS (FCS_TLS_EXT.1.2) for the DTLS implementation,
         except where variations are allowed according to
         <selectables atleastone="yes" linebreak="yes">
           <selectable>DTLS 1.0 (RFC 4347)</selectable>
