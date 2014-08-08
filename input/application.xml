@@ -853,20 +853,15 @@
       <f-element id="fcs_rbg_ext.1.1">
         <title>
 	  The application shall 
-    <selectables atleastone="yes" linebreak="yes">
-	    <selectable>require no random</selectable>
-	    <selectable>invoke platform-provided DRBG services</selectable>
-	    <selectable>perform DRBG services</selectable>
+	  <selectables atleastone="yes" linebreak="yes">
+	    <selectable>perform no cryptographic operations</selectable>
+	    <selectable>invoke platform-provided DRBG services for its cryptographic functionality</selectable>
+	    <selectable>invoke application-implemented DRBG services for its cryptographic functionality</selectable>
 	  </selectables>
-     for its cryptographic functionality.
+     .
         </title>
         <note role="application">
-          The evaluator should ensure "require no random" is selected in cases where the application does not need any cryptographic
-          random values (such as generating cryptographic keys, certificates, nonces, and session keys) to perform its security functionality.
-          The evaluator should ensure "invoke platform-provided DRBG services" is selected in cases where the application directly uses random values
-          obtained from calls to platform DRBG APIs.  The evaluator should ensure "perform DRBG services" is selected in cases where the application
-          uses random values obtained from calls to platform DRBG APIs to seed a DRBG implemented by the application itself.  
-		  If the first selection is not chosen, then additional FCS_RBG_EXT.1 elements shall be included in the ST.
+	  If the first selection is not chosen, then additional FCS_RBG_EXT.1 elements shall be included in the ST.
           In this requirement, cryptographic functionality includes all cryptographic key generation/derivation/agreement, IVs (for certain modes),
           as well as protocol-specific random values.
         </note>
@@ -879,7 +874,7 @@
       <f-element id="fcs_rbg_ext.1.2" status="sel-based">
         <selection-depends req="fcs_rbg_ext.1.1"/>
         <title>
-          The application shall invoke the mechanisms recommended by the operating
+          The application shall invoke a mechanism recommended by the operating
           system vendor for requesting data from the platform's DRBG.
         </title>
         <aactivity>
@@ -1183,7 +1178,7 @@
       </f-element>
       <f-element id="fcs_tls_ext.1.3" status="sel-based">
       <selection-depends req="ftp_dit_ext.1.1"/>
-        <title>The application shall not establish a trusted channel if the peer certificate is invalid.</title>
+        <title>The application shall only establish trusted channels with peers that present valid certificates.</title>
         <note role="application">Validity is determined by the identifier verification, certificate path,
           the expiration date, and the revocation status in accordance with RFC 5280. Certificate validity
           shall be tested in accordance with testing performed for FIA_X509_EXT.1.
@@ -1445,14 +1440,14 @@
 	  that it can be run in a confined, non-permissive domain.
 	</subaactivity>
         <subaactivity platform="windows">The evaluator shall ensure that
-        classis desktop applications and Windows Store applications are
+        classic desktop applications and Windows Store applications are
         compatible with the latest version of Microsoft's Enhanced Mitigation Experince Toolkit
         (EMET).</subaactivity>
           <subaactivity platform="ios">
 	    The evaluator shall ensure that the application can successfully run on the latest version of iOS.
 	  </subaactivity>
 	  <subaactivity platform="selinux">
-	    The evaluator shall ensure that the application can run with SE for Android enabled and enforcing and 
+	    The evaluator shall ensure that the application can run with SELinux enabled and enforcing and 
 	    that it can be run in a confined, non-permissive domain.
 	  </subaactivity>
         <subaactivity platform="z/OS"></subaactivity>
@@ -1515,11 +1510,13 @@
           </subaactivity>
           <subaactivity platform="ios">
           </subaactivity>
-          <subaactivity platform="selinux">The evaluator shall ensure that the 
+          <subaactivity platform="selinux">If the application is compiled using GCC, the evaluator shall ensure that the 
           <code>-fstack-protector-strong</code> or <code>-fstack-protector-all</code>
           flags are used.  The
           <code>-fstack-protector-all</code> flag is preferred but 
           <code>-fstack-protector-strong</code> is acceptable.
+
+	  
           </subaactivity>
           <subaactivity platform="z/OS"></subaactivity>
           <subaactivity platform="Solaris"></subaactivity>
