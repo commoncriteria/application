@@ -507,7 +507,12 @@
         hardware capabilities. The evaluator shall verify that the user is made aware 
         of the required hardware capabilities when the application is first installed. This includes
         permissions such as ID_CAP_ISV_CAMERA,ID_CAP_LOCATION,ID_CAP_NETWORKING,ID_CAP_MICROPHONE,
-        ID_CAP_PROXIMITY and so on. For Windows Desktop Applications the evaluator shall verify 
+        ID_CAP_PROXIMITY and so on. A complete list of Windows App
+        permissions can be found at:
+          <ul><li><a href="http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx">
+            http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx</a></li>
+           </ul>
+        For Windows Desktop Applications the evaluator shall verify 
         that either the application or the documentation provide the user with a list of the
         required hardware resources.</subaactivity>
         <subaactivity platform="ios">The evaluator shall install and run the
@@ -575,6 +580,10 @@
         capabilities. The evaluator shall verify that the user is made aware 
         of the required information repositories when the application is first installed.
         This includes permissions such as ID_CAP_CONTACTS,ID_CAP_APPOINTMENTS,ID_CAP_MEDIALIB and so on.
+        A complete list of Windows App permissions can be found at:
+          <ul><li><a href="http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx">
+          http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx</a></li>
+          </ul>
         For Windows Desktop Application the evaluator shall verify that either the application
         or the documentation provide the user with a list of the required information repositories.
         </subaactivity>
@@ -635,7 +644,7 @@
           </selectables>
           that are not user initiated connections.
         </title>
-        <note role="application">This requirement is intended to restrict application network connections and ports to only those
+        <note role="application">This requirement is intended to restrict both inbound and outbound network connections and ports to only those
             required, or to network connections that are user initiated.
         </note>
         <aactivity>On a platform running no other networked applications, the evaluator shall run the application and run a network port scan to verify that any 
@@ -723,12 +732,13 @@
         Windows.UI.ApplicationSettings namespace or the IsolatedStorageSettings
         namespace for storing application specific settings. Classic Desktop
         application shall use the Windows Registry or a structured file in the
-        users profile. Locations used to store application settings must not be
-        used for storing executable content.</subaactivity>
-	<subaactivity platform="ios">The evaluator shall verify that the app uses the <code>user defaults system</code> or <code>key-value store</code> for storing all settings.</subaactivity>
+        users profile.</subaactivity>
+	<subaactivity platform="ios">The evaluator shall verify that the app uses the <code>user
+	  defaults system</code> or <code>key-value store</code> for storing all settings.</subaactivity>
 	<subaactivity platform="selinux">
-	  The evaluator shall install and run the application and verify that the application saves its configuration in structured files that reside in /etc (for system specific configuration) or in the users' home directory (for user specific configuration). 
-	  The evaluator shall inspect the file permissions on these files to ensure they do not have any execute permissions.
+	  The evaluator shall install and run the application and verify that the application
+	  saves its configuration in structured files that reside in /etc (for system specific
+	  configuration) or in the users' home directory (for user specific configuration).
 	</subaactivity>
         <subaactivity platform="z/OS"></subaactivity>
         <subaactivity platform="Solaris"></subaactivity>
@@ -844,6 +854,21 @@
 		]
 	  </ul>
 	</title>
+        <aactivity>The evaluator shall consult the AGD guidance to perform each of the following tests,
+          iterating each test as necessary if both the user and administrator may perform the function.
+          <testlist>
+            <test>The evaluator shall exercise the applications configuration as the user and the administrator.
+              The evaluator shall perform positive and negative tests, with at least two assignments for
+              each variable setting, for each of the following:
+              <ul>
+                <li>enable/disable the transmission of any information describing the system's hardware,
+                  software, or configuration</li>
+                <li>enable/disable the transmission of any PII</li>
+                <li>enable/disable transmission of any application state</li>
+                <li>enable/disable network backup functionality</li>
+              </ul></test>
+          </testlist>
+        </aactivity>
       </f-element>
     </f-component>
   </subsection>
@@ -1265,6 +1290,7 @@
         <selectables atleastone="yes">
           <selectable><abbr title="Transport Layer Security">TLS</abbr></selectable>
           <selectable><abbr title="Datagram Transport Layer Security">DTLS</abbr></selectable>
+          <selectable>Protocal from an Extended Package</selectable>
         </selectables>to provide a communication channel to protect 
         <selectables>
           <selectable>all data</selectable>
@@ -1639,8 +1665,12 @@
 	with the exception of configuration settings, output files, and audit/log events.</title>
         <note role="application">Applications bundled with the system/firmware image are not subject to this requirement if the user is 
           unable to remove the application through means provided by the OS.</note>
-        <aactivity>The evaluator shall uninstall the application and search for
-        evidence of the uninstalled application on the platform.</aactivity>
+        <aactivity>The evaluator shall take a snap shot of the entire file system prior to installation
+          of the application. Then install and run the application. The evaluator shall then uninstall
+          the application and take another snap shot of the entire file system. The evaluator shall compare
+          the two snap shots to verify that the only file system differences are configuration files,
+          output files, or audit/log files.
+        </aactivity>
       </f-element>
       <f-element id="fpt_tud_ext.1.6">
         <title>
@@ -2060,6 +2090,8 @@
     <title>The evaluator 
     <i>shall test</i> a subset of the <abbr linkend="TSF" /> to confirm that the <abbr linkend="TSF" /> operates as
     specified.</title>
+    <note role="application">The evaluator shall test the application
+      on the most current fully patched version of the platform.</note>
     <aactivity>The evaluator shall prepare a test plan and report documenting
     the testing aspects of the system. The test plan covers all of the testing
     actions contained in the <cite linkend="bibCEM" /> and the body of this PP’s Assurance
