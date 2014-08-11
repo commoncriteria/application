@@ -1526,6 +1526,12 @@
             is acceptable. 
           </subaactivity>
           <subaactivity platform="android">
+	    Applications that are entirely Java run in the Java machine and do not need tradition stack protection.
+	    For applications using Java Native Interface (JNI), the evaluator shall ensure that 
+	    the <code>-fstack-protector-strong</code> or <code>-fstack-protector-all</code>
+          flags are used.
+	  The <code>-fstack-protector-all</code> flag is preferred but 
+          <code>-fstack-protector-strong</code> is acceptable.
           </subaactivity>
           <subaactivity platform="windows">The evaluator shall ensure that the 
           <code>/GS</code> flag was used during compilation.
@@ -1537,7 +1543,7 @@
           flags are used.  The
           <code>-fstack-protector-all</code> flag is preferred but 
           <code>-fstack-protector-strong</code> is acceptable.
-
+	  If the application is compiled using clang
 	  
           </subaactivity>
           <subaactivity platform="z/OS"></subaactivity>
@@ -1577,7 +1583,7 @@
           updates through the platform, however, desktop application may contain
           a capability to initiate a check for updates.
         </note>
-        <aactivity>The evaluator shall verify that the application is updateable
+        <aactivity>The evaluator shall verify that the application is updateable.
         </aactivity>
       </f-element>
       <f-element id="fpt_tud_ext.1.3">
@@ -1640,9 +1646,11 @@
 	  <subaactivity platform="ios">
 	    The evaluator shall ensure that the application is packaged in the IPA format.
 	  </subaactivity>
-	  <subaactivity platform="linux">
-	    The evaluator shall ensure that the application is packaged in the RPM Package Manager (RPM)
-        format.
+	  <subaactivity platform="selinux">
+	    The evaluator shall ensure that the application is packaged in the format of the package management infrastructure of the chosen distribution. 
+	    For example, applications running on Red Hat and Red Hat derivatives should be packaged in rpm format.
+	    Applications running on Debian and Debian derivatives should be packaged in deb format.
+
 	  </subaactivity>
 	  <subaactivity platform="z/OS">
 	    The evaluator shall ensure that the application is packaged in the [?] format.
