@@ -640,11 +640,14 @@
           </selectables>
           that are not user initiated connections.
         </title>
-        <note role="application">This requirement is intended to restrict both inbound and outbound network connections and ports to only those
-            required, or to network connections that are user initiated.
+        <note role="application">
+This requirement is intended to restrict both inbound and outbound network connections and ports to only those required, or to network connections that are user initiated.
         </note>
-        <aactivity>On a platform running no other networked applications, the evaluator shall run the application and run a network port scan to verify that any 
-          local or remote ports opened by the application have been documented.
+        <aactivity>
+The evaluator shall run the application on a platform running no other networked applications. 
+For the duration of the lifetime of the application, the evaluator shall sniff network traffic and make sure that any network connections witnessed are documented or is user-initiated.
+After the application initializes, the evaluator shall run a network port scan to verify that any local or remote ports opened by the application have been documented.
+
         </aactivity>
 	<refs>
 		<ref sect="CM-7b." source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf" />
@@ -784,8 +787,8 @@
         <aactivity>The evaluator shall install and run the application. The
         evaluator shall inspect the filesystem of the platform (to the extent possible) for any files
         created by the application and ensure that their permissions are
-        adequate to protect them from unprivileged processes. The method of
-        doing so varies per platform. 
+        adequate to protected them.
+	The method of doing so varies per platform. 
         <subaactivity platform="blackberry"></subaactivity>
         <subaactivity platform="android">The evaluator shall verify using 
         <code>ls -alR</code> that files written within the applications data directory are not world-readable or world-writable.  
