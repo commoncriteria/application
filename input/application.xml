@@ -991,6 +991,149 @@
         </aactivity>
       </f-element>
     </f-component>
+    <f-component id="fcs_cop_ext.1" name="Cryptographic Hashing and Signing">
+      <f-element id="fcs_cop_ext.1.1">
+        <title>The application shall 
+          <selectables linebreak="yes">
+            <selectable>perform no cryptographic hashing and signing</selectable>
+            <selectable>invoke platform-provided cryptographic hashing and signing</selectable>
+            <selectable>invoke application-implemented cryptographic hashing and signing</selectable>
+          </selectables>
+          for cryptographic hashing and signing.
+        </title>
+        <note role="application">The evaluator should ensure "invoke platform-provided" is selected in cases
+          where the application uses platform APIs to perform cryptographic hashing and signing.
+          If the "invoke application-implemented" selection is chosen, then additional requirements from 
+          FCS_COP_EXT.1.2 and FCS_COP.1.3 elements shall be included in the ST. 
+        </note>
+        <aactivity>Requirement met by the platform: 
+          The evaluator shall examine the TSS of the application to verify that it describes how the platforms digital
+          signature functionality is invoked for each operation they are used for in the application. The evaluator
+          shall also examine the TSS of the application product’s ST to verify that it describes how the platforms hash
+          functionality is invoked for each digest size selected in the application product’s ST.
+        </aactivity>
+      </f-element>
+      <f-element id="fcs_cop_ext.1.2" status="sel-based">
+        <selection-depends req="fcs_cop_ext.1.1"/>
+        <title>The application shall perform cryptographic signature services (generation and verification)
+          in accordance with a specified cryptographic algorithm 
+          <selectables linebreak="yes">
+            <selectable>FIPS PUB 186-4, "Digital Signature Standard (DSS)", Section 4 for RSA schemes</selectable>
+            <selectable>FIPS PUB 186-4, "Digital Signature Standard (DSS)", Section 5 for ECDSA schemes and implementing "NIST curves" 
+              <selectables linebreak="yes">
+                <selectable>P-256</selectable>
+                <selectable>P-384</selectable>
+                <selectable>P-521</selectable>
+              </selectables>
+            </selectable>
+          </selectables>
+          and cryptographic key sizes equivalent to, or greater than, a symmetric key strength of 112 bits
+        </title>
+        <aactivity>The evaluator shall perform the following activities based on the selections in the ST.
+          <testlist>
+            <test>ECDSA Algorithm Tests
+              CDSA FIPS 186-4 Signature Generation Test
+              For each supported NIST curve (i.e., P-256, P-384 and P-521) and SHA function pair, the evaluator shall
+              generate 10 1024-bit long messages and obtain for each message a public key and the resulting signature
+              values R and S. To determine correctness, the evaluator SHALL use the signature verification function
+              of a known good implementation.
+              
+              ECDSA FIPS 186-4 Signature Verification Test
+              For each supported NIST curve (i.e., P-256, P-384 and P-521) and SHA function pair, the evaluator shall
+              generate a set of 10 1024-bit message, public key and signature tuples and modify one of the values
+              (message, public key or signature) in five of the 10 tuples. The evaluator shall obtain in response a
+              set of 10 PASS/FAIL values.
+            </test>
+            <test>RSA Signature Algorithm Tests
+              Signature Generation Test
+              The evaluator shall verify the implementation of RSA Signature Generation by the TOE using the Signature
+              Generation Test. To conduct this test the evaluator must generate or obtain 10 messages from a trusted
+              reference implementation for each modulus size/SHA combination supported by the TSF. The evaluator shall
+              have the TOE use their private key and modulus value to sign these messages.
+              
+              The evaluator shall verify the correctness of the TSF’s signature using a known good implementation
+              and the associated public keys to verify the signatures.
+              
+              Signature Verification Test
+              The evaluator shall perform the Signature Verification test to verify the ability of the TOE to recognize
+              another party’s valid and invalid signatures. The evaluator shall inject errors into the test vectors
+              produced during the Signature Verification Test by introducing errors in some of the public keys e, messages,
+              IR format, and/or signatures. The TOE attempts to verify the signatures and returns success or failure.
+            </test>
+          </testlist>
+        </aactivity>
+      </f-element>
+      <f-element id="fcs_cop_ext.1.3" status="sel-based">
+        <selection-depends req="fcs_cop_ext.1.1"/>
+        <title>The application shall perform cryptographic hashing services in accordance with a specified 
+          cryptographic algorithm 
+          <selectables linebreak="yes">
+            <selectable>SHA-1</selectable>
+            <selectable>SHA-256</selectable>
+            <selectable>SHA-384</selectable>
+            <selectable>SHA-512</selectable>
+          </selectables>
+          and message digest sizes
+          <selectables linebreak="yes">
+            <selectable>160</selectable>
+            <selectable>256</selectable>
+            <selectable>384</selectable>
+            <selectable>512</selectable>
+          </selectables>
+          bits that meet the following: FIPS Pub 180-4, “Secure Hash Standard.”
+        </title>
+        <note role="application">In future versions of this document, SHA-1 may be removed as an option. SHA-1
+          for generating digital signatures will no longer be allowed after December 2013, and SHA-1 for
+          verification of digital signatures is strongly discouraged as there may be risk in accepting these signatures.
+          The selection of the hashing algorithm must correspond to the selection of the message digest size;
+          for example, if SHA-1 is chosen, then the only valid message digest size selection would be 160 bits.
+        </note>
+        <aactivity>The TSF hashing functions can be implemented in one of two modes. The first mode is the
+          byte¬oriented mode. In this mode the TSF only hashes messages that are an integral number of bytes in
+          length; i.e., the length (in bits) of the message to be hashed is divisible by 8. The second mode is
+          the bit¬oriented mode. In this mode the TSF hashes messages of arbitrary length. As there are different
+          tests for each mode, an indication is given in the following sections for the bit¬oriented vs. the
+          byte¬oriented testmacs.The evaluator shall perform all of the following tests for each hash algorithm implemented by the
+          TSF and used to satisfy the requirements of this PP.
+          <testlist>
+            <test>Short Messages Test - Bit oriented Mode
+              The evaluators devise an input set consisting of m+1 messages, where m is the block length of the
+              hash algorithm. The length of the messages range sequentially from 0 to m bits. The message text
+              shall be pseudorandomly generated. The evaluators compute the message digest for each of the messages
+              and ensure that the correct result is produced when the messages are provided to the TSF. 
+            </test>
+            <test>Short Messages Test - Byte oriented Mode
+              The evaluators devise an input set consisting of m/8+1 messages, where m is the block length of
+              the hash algorithm. The length of the messages range sequentially from 0 to m/8 bytes, with each
+              message being an integral number of bytes. The message text shall be pseudorandomly generated. The
+              evaluators compute the message digest for each of the messages and ensure that the correct result
+              is produced when the messages are provided to the TSF.
+            </test>
+            <test>Selected Long Messages Test - Bit oriented Mode
+              The evaluators devise an input set consisting of m messages, where m is the block length of the
+              hash algorithm. The length of the ith message is 512 + 99*i, where 1 ≤ i ≤ m. The message text
+              shall be pseudorandomly generated. The evaluators compute the message digest for each of the
+              messages and ensure that the correct result is produced when the messages are provided to the TSF.
+            </test>
+            <test>Selected Long Messages Test - Byte oriented Mode
+              The evaluators devise an input set consisting of m/8 messages, where m is the block length of
+              the hash algorithm. The length of the ith message is 512 + 8*99*i, where 1 ≤ i ≤ m/8. The
+              message text shall be pseudorandomly generated. The evaluators compute the message digest for
+              each of the messages and ensure that the correct result is produced when the messages are
+              provided to the TSF.
+            </test>
+            <test>Pseudorandomly Generated Messages Test
+              This test is for byte¬oriented implementations only. The evaluators randomly generate a seed
+              that is n bits long, where n is the length of the message digest produced by the hash function
+              to be tested. The evaluators then formulate a set of 100 messages and associated digests by
+              following the algorithm provided in Figure 1 of [SHAVS]. The evaluators then ensure that the
+              correct result is produced when the messages are provided to the TSF.
+            </test>
+          </testlist>
+        </aactivity>
+      </f-element>   
+    </f-component>
+    
     <f-component id="fcs_sto_ext.1" name="Storage of Secrets">
       <f-element id="fcs_sto_ext.1.1">
         <title>The application shall invoke the mechanisms provided by the
