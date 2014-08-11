@@ -1347,8 +1347,8 @@
           the expiration date, and the revocation status in accordance with RFC 5280. Certificate validity
           shall be tested in accordance with testing performed for FIA_X509_EXT.1.
           For TLS connections, this channel shall not be established if the peer certificate is invalid.
-          The HTTPS protocol (FCS_HTTPS_EXT.1) requires different behavior, though HTTPS is implemented over TLS.
-          This element addresses non-HTTPS TLS connections.
+          This requirement addresses only non-HTTPS TLS connections. Although HTTPS is implemented over TLS, 
+          additional specific HTTPS requirements are defined in extended packages.
         </note>
         <aactivity>
           The evaluator shall perform the following test:
@@ -1604,11 +1604,12 @@
 	  The evaluator shall ensure that the application can run with SE for Android enabled and enforcing and 
 	  that it can be run in a confined, non-permissive domain.
 	</subaactivity>
-        <subaactivity platform="windows">The evaluator shall ensure that
-        classic desktop applications and Windows Store applications are
-        compatible with the latest version of Microsoft's Enhanced Mitigation Experince Toolkit
-        (EMET).</subaactivity>
-          <subaactivity platform="ios">
+        <subaactivity platform="windows">For both classic desktop and Windows Store applications, the evaluator
+          shall configure the latest version of Microsoft's Enhanced Mitigation Experience Toolkit
+          (EMET) to protect the application. The evaluator shall then run the application and exercise all 
+          operations of the application and verify that the application does not crash while protected by EMET.
+        </subaactivity>
+        <subaactivity platform="ios">
 	    The evaluator shall ensure that the application can successfully run on the latest version of iOS.
 	  </subaactivity>
 	  <subaactivity platform="selinux">
