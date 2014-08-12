@@ -1696,7 +1696,7 @@ After the application initializes, the evaluator shall run a network port scan t
           flags are used.  The
           <code>-fstack-protector-all</code> flag is preferred but 
           <code>-fstack-protector-strong</code> is acceptable.
-	  If the application is compiled using clang
+	  If the application is built using clang, it must be compiled and linked with the <code>-fsanitizer=address</code> flag.
 	  
           </subaactivity>
           <subaactivity platform="z/OS"></subaactivity>
@@ -1732,9 +1732,7 @@ After the application initializes, the evaluator shall run a network port scan t
           application software
         </title>
         <note role="application">
-          It is expected that mobile device applications will always initiate
-          updates through the platform, however, desktop application may contain
-          a capability to initiate a check for updates. 
+	  This requirement allows applications to "initiate" updates, but not "perform" updates---the platform is the only entity allowed to modify an application's code.
         </note>
         <aactivity>The evaluator shall verify that the application is updateable.
         </aactivity>
