@@ -917,9 +917,10 @@ After the application initializes, the evaluator shall run a network port scan t
         <subaactivity platform="android">
 	  The evaluator shall use static analysis to verify that the application uses the <code>javax.crypto.KeyGenerator</code> class or the <code>java.security.SecureRandom</code> class.
 	</subaactivity>
-        <subaactivity platform="windows">
-	  The evaluator shall use static analysis to verify that the CryptGenRandom <abbr linkend="API" /> is used for classic desktop applications.
-	  The evaluator shall use static analysis to verify that the System.Random API is used for Windows Store Applications.
+          <subaactivity platform="windows">The evaluator shall use static analysis to verify that the BCryptGenRandom or
+            CryptGenRandom <abbr linkend="API" /> is used for classic desktop applications. The evaluator shall use static analysis to verify
+            that the System.Random <abbr linkend="API" /> is used for Windows Store Applications. In future versions of this document,
+            CryptGenRandom may be removed as an option as it no longer the preferred API per vendor documentation.
 	</subaactivity>
 	<subaactivity platform="ios">
 	  The evaluator shall use static analysis to verify that the iOS Randomization Services <abbr linked="API"/> is used.
@@ -1280,7 +1281,7 @@ After the application initializes, the evaluator shall run a network port scan t
 
       </f-element>
       <f-element id="fcs_tls_ext.1.2" status="sel-based">
-        <selection-depends req="fcs_tls_ext.1.1"/>
+        <selection-depends req="ftp_dit_ext.1.1"/>
         <title>The application shall verify that the presented identifier matches the reference
           identifier according to RFC 6125</title>
         <note role="application">The rules for verification of identify are described in Section 6 of RFC 6125.
@@ -1350,7 +1351,7 @@ After the application initializes, the evaluator shall run a network port scan t
         </testlist></aactivity>
       </f-element>
       <f-element id="fcs_tls_ext.1.3" status="sel-based">
-        <selection-depends req="fcs_tls_ext.1.1"/>
+        <selection-depends req="ftp_dit_ext.1.1"/>
         <title>The application shall only establish trusted channels with peers that present valid certificates.</title>
         <note role="application">Validity is determined by the identifier verification, certificate path,
           the expiration date, and the revocation status in accordance with RFC 5280. 
