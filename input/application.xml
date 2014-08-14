@@ -467,7 +467,7 @@
                 <selectable><abbr title="Near-Field Communication">NFC</abbr></selectable>
                 <selectable><abbr title="Universal Serial Bus">USB</abbr></selectable>
                 <selectable>Bluetooth</selectable>
-                <selectable>[assignment: list of additional hardware resources that provide access
+                <selectable>[assignmento: list of additional hardware resources that provide access
                   to sensitive information]</selectable>
               </selectables> . </title>
             <note role="application"> The evaluator should ensure that the selection captures all
@@ -1405,15 +1405,38 @@
       <subsection title="Trusted Path/Channel (FTP)" id="ftp">
         <f-component id="ftp_dit_ext.1" name="Protection of Data in Transit">
           <f-element id="ftp_dit_ext.1.1">
-            <title>The application shall use <selectables atleastone="yes">
-                <selectable><abbr title="Transport Layer Security">TLS</abbr></selectable>
-                <selectable><abbr title="Datagram Transport Layer Security">DTLS</abbr></selectable>
-                <selectable>Protocol from an Extended Package</selectable>
-              </selectables>to provide a communication channel to protect <selectables>
-                <selectable>all data</selectable>
-                <selectable>all sensitive data</selectable>
-              </selectables>transmitted between itself and another trusted <abbr
-                title="information technology">IT</abbr> product.</title>
+            <title>The application shall 
+	    <selectables>
+              <selectable>not transmit any sensitive data</selectable>
+              <selectable>use only appropriate encryption protocols to transmit sensitive data</selectable>
+            </selectables>
+	    .
+	    </title>
+            <aactivity>
+	      The evaluator shall prepare a test environment which makes it possible to
+              sniff network traffic between the platform and any remote systems. 
+	      The evaluator shall install and run the application, and exercise its functionality. 
+	      The evaluator shall ensure that no sensitive data is transmitted 
+	      without appropriate protections.
+	    </aactivity>
+          </f-element>
+          <f-element id="ftp_dit_ext.1.2" status="sel-based">
+            <selection-depends req="ftp_dit_ext.1.1"/>
+            <title>The application shall use 
+	    <selectables atleastone="yes">
+              <selectable><abbr title="Transport Layer Security">TLS</abbr></selectable>
+              <selectable><abbr title="Datagram Transport Layer Security">DTLS</abbr></selectable>
+              <selectable>Protocol from an Extended Package</selectable>
+            </selectables>
+	    to provide a communication channel to protect 
+	    <selectables>
+              <selectable>all data</selectable>
+              <selectable>all sensitive data</selectable>
+            </selectables>
+	    transmitted between itself and another trusted 
+	    <abbr title="information technology">IT</abbr> 
+	    product.
+	    </title>
               <note role="application"> For the purpose of this documents HTTPS is considered a
               TLS tunnel.</note>  
             <aactivity>The evaluator shall prepare a test environment which makes it possible to
