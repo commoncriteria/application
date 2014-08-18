@@ -468,8 +468,8 @@
                 <selectable><abbr title="Near-Field Communication">NFC</abbr></selectable>
                 <selectable><abbr title="Universal Serial Bus">USB</abbr></selectable>
                 <selectable>Bluetooth</selectable>
-                <selectable>[assignmento: list of additional hardware resources that provide access
-                  to sensitive information]</selectable>
+                <selectable><assignment> list of additional hardware resources that provide access
+                  to sensitive information</assignment></selectable>
               </selectables> . </title>
             <note role="application"> The evaluator should ensure that the selection captures all
               platform hardware resources which the application is intended to access. The
@@ -483,12 +483,12 @@
               per platform. <subaactivity platform="blackberry">The evaluator shall install the
                 application and run it for the first time. The evaluator shall verify that the
                 application displays all platform resources it would like to access. Note: If the
-                user goes to: App permissions – Settings → Security and Privacy → Application
+                user goes to: App permissions → Settings → Security and Privacy → Application
                 Permissions → Select application in question, it will list which platform resource
                 are approved/denied and can be changed.</subaactivity>
               <subaactivity platform="android">The evaluator shall install the application and
                 verify that the application displays the platform resources it would like to access.
-                This includes permissions such as ACCESS_COURSE_LOCATION, ACCESS_FINE_LOCATION,
+                This includes permissions such as ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION,
                 BLUETOOTH, CAMERA, INTERNET, NFC, READ_EXTERNAL_STORAGE, RECORD_AUDIO. Note: Users
                 must accept all requested permissions upon installation and cannot choose individual
                 permissions to allow or deny. A complete list of Android permissions can be found
@@ -539,7 +539,7 @@
                 <selectable>call lists</selectable>
                 <selectable>system logs</selectable>
                 <selectable>world-readable storage</selectable>
-                <selectable>[assignment: list of additional sensitive data]</selectable>
+                <selectable><assignment> list of additional sensitive data</assignment></selectable>
               </selectables>
             </title>
             <note role="application"> The evaluator should ensure that the selection captures all
@@ -611,9 +611,15 @@
             </refs>
           </f-element>
           <f-element id="fdp_dec_ext.1.4">
-            <title>The application shall <selectables linebreak="yes">
-                <selectable>create no network connections</selectable>
-                <selectable>[assignment: list all network connections]</selectable>
+            <title>The application shall restrict network connections to 
+              <selectables linebreak="yes">
+                <selectable>provide no network connections</selectable>
+                <selectable>provide user initiated connectivity for <assignment> list of functions 
+                  for which the user can initiate network connections</assignment></selectable>
+                <selectable>respond to <assignment> list of remotely initiated connections</assignment>
+                </selectable>
+                <selectable><assignment> list application initiated network connections</assignment>
+                </selectable>
               </selectables> that are not user initiated connections. </title>
             <note role="application"> This requirement is intended to restrict both inbound and
               outbound network connections and ports to only those required, or to network
@@ -635,9 +641,6 @@
             <title>The application shall <selectables linebreak="yes">
                 <selectable> invoke platform-provided functionality to encrypt sensitive data when
                   it is stored in non-volatile memory. </selectable>
-                <selectable> implement functionality that meet requirements from the File Encryptor
-                  Protection Profile to encrypt sensitive data when it is stored in non-volatile
-                  memory. </selectable>
                 <selectable> not store any sensitive data in non-volatile memory. </selectable>
               </selectables>
             </title>
@@ -645,9 +648,8 @@
             <aactivity>The evaluator shall run the application and store potentially sensitive data.
               The evaluator shall then inspect the filesystem to determine where data has been
               written, and note whether it is encrypted. The evaluator shall determine whether
-              platform-provided functionality for protecting sensitive data is being invoked. If
-              not, the evaluator shall refer to the File Encryptor Protection Profile for
-              evaluation. Otherwise, the the evaluator shall test how the application invokes
+              platform-provided functionality for protecting sensitive data is being invoked. 
+              Otherwise, the the evaluator shall test how the application invokes
               platform-provided functionality, which varies per platform: <subaactivity
                 platform="blackberry">The evaluator shall determine whether the application properly
                 uses the Advanced Data at Rest Protection <abbr linkend="API"/> and the application
@@ -662,7 +664,7 @@
               <subaactivity platform="ios">The evaluator shall determine whether the application
                 uses the appropriate Data Protection Class for each data file stored locally. </subaactivity>
               <subaactivity platform="selinux"> The evaluator shall determine whether the
-                application properly uses KDE's KWallet or Gnome's GnomeKeyring </subaactivity>
+                application uses KDE's KWallet or Gnome's GnomeKeyring </subaactivity>
               <subaactivity platform="z/OS"/>
               <subaactivity platform="Solaris"/>
               <subaactivity platform="OS X"/>
@@ -685,7 +687,7 @@
                 that all files included in the BAR are stored in the app folder of the Application
                 working directory.</subaactivity>
               <subaactivity platform="android">The evaluator shall determine and verify that the
-                application stores all settings on internal storage. The application should make use
+                application stores all settings on internal storage. The application shall make use
                 of the <code>SharedPreferences</code> and/or <code>PreferenceActivity</code> classes
                 for storing configuration data.</subaactivity>
               <subaactivity platform="windows">The evaluator shall determine and verify that Windows
@@ -789,9 +791,9 @@
                 <li> enable/disable the transmission of any PII if this functionality exists </li>
                 <li> enable/disable transmission of any application state (e.g. crashdump)
                   information if this functionality exists </li>
-                <li>enable/disable network backup functionality to [assignment: list of enterprise
-                  or commercial cloud backup systems] if this functionality exists </li>
-                <li> [assignment: list of other management functions to be provided by the TSF]
+                <li>enable/disable network backup functionality to <assignment> list of enterprise
+                  or commercial cloud backup systems</assignment> if this functionality exists </li>
+                <li> <assignment> list of other management functions to be provided by the TSF</assignment>
                 </li> ] </ul>
             </title>
             <aactivity>The evaluator shall consult the AGD guidance to perform each of the following
@@ -1390,7 +1392,7 @@
           <f-element id="fpr_ano_ext.1.1">
             <title> The application shall use <selectables linebreaks="yes">
                 <selectable>no ad networks</selectable>
-                <selectable>[assignment: list of ad networks]</selectable>
+                <selectable><assignment> list of ad networks</assignment></selectable>
               </selectables>. </title>
             <note role="application"> The intention of this requirement is for the evaluator to
               discover and document whether the application is including in-app adware that could
