@@ -341,8 +341,8 @@
     <section title="Organizational Security Policies" id="OSPs">
       <OSPs>
         <OSP id="P.ENTERPRISE">
-          <description>The configuration of the application software must adhere to the enterprise
-            security policy.</description>
+          <description>The configuration of the application software must be capable of adhering to
+            the enterprise security policy.</description>
           <objective-refer ref="O.MANAGEMENT">
             <rationale>The organizational security policy P.ENTERPRISE is enforced through the the
               objective O.MANAGEMENT as this objective represents how the enterprise asserts
@@ -736,8 +736,8 @@
               transmitted in the clear.</aactivity>
           </f-element>
           <f-element id="fmt_cfg_ext.1.3">
-            <title>The application shall be initially configured with file permissions which protect
-              it and its data.</title>
+            <title>The application shall be configured with file permissions which protect
+              it and its data from unauthorized access.</title>
             <note role="application">The precise expectations for file permissions vary per platform
               but the general intention is that a trust boundary protects the application and its
               data. </note>
@@ -771,7 +771,7 @@
             </refs>
           </f-element>
           <f-element id="fmt_cfg_ext.1.4">
-            <title>The application shall be initially configured to not transmit any <abbr
+            <title>The application shall require user approval before transmitting any <abbr
                 linkend="PII"/> over a network.</title>
             <note role="application">A dialog box presented to the user at the time the application
               is started is sufficient to meet this requirement. </note>
@@ -831,7 +831,7 @@
               evaluator shall determine how the application acquires random bits. </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_rbg_ext.2" name="Random Bit Generation (Selection Based)">
+        <f-component id="fcs_rbg_ext.2" name="Random Bit Generation from Platform (Selection Based)">
           <f-element id="fcs_rbg_ext.2.1" status="sel-based">
             <selection-depends req="fcs_rbg_ext.1.1"/>
             <title> The application shall invoke a mechanism recommended by the operating system
@@ -867,7 +867,9 @@
               <subaactivity platform="OS X"/>
             </aactivity>
           </f-element>
-          <f-element id="fcs_rbg_ext.2.2" status="sel-based">
+        </f-component>
+         <f-component id="fcs_rbg_ext.3" name="Random Bit Generation from Application (Selection Based)">
+          <f-element id="fcs_rbg_ext.3.1" status="sel-based">
             <selection-depends req="fcs_rbg_ext.1.1"/>
             <title> The application shall perform all deterministic random bit generation (DRBG)
               services in accordance with <selectables atleastone="yes" linebreak="yes">
@@ -971,10 +973,10 @@
               </testlist>
             </aactivity>
           </f-element>
-          <f-element id="fcs_rbg_ext.2.3" status="sel-based">
+          <f-element id="fcs_rbg_ext.3.2" status="sel-based">
             <selection-depends req="fcs_rbg_ext.1.1"/>
             <title> The deterministic RBG shall be seeded by an entropy source that accumulates
-              entropy from a platform-based DRBG and <selectables linebreak="yes">
+              entropy from a platform-based source and <selectables linebreak="yes">
                 <selectable>a software-based noise source</selectable>
                 <selectable>no other noise source</selectable>
               </selectables> with a minimum of <selectables linebreak="yes">
