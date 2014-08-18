@@ -821,8 +821,10 @@
                 <selectable>invoke application-implemented DRBG services for its cryptographic
                   functionality</selectable>
               </selectables> . </title>
-            <note role="application">If the first selection is not chosen, then additional
-              FCS_RBG_EXT.1 elements shall be included in the ST. In this requirement, cryptographic
+            <note role="application">If "invoke platform-provided DRBG services" is chosen, then
+              additional FCS_RBG_EXT.2 elements shall be included in the ST. If "invoke
+              application-implemented DRBG services" is chosen, then additional FCS_RBG_EXT.3
+              elements shall be included in the ST. In this requirement, cryptographic
               functionality includes all cryptographic key generation/derivation/agreement, IVs (for
               certain modes), as well as protocol-specific random values. </note>
             <aactivity>The evaluator shall inspect the application and its developer documentation
@@ -835,8 +837,9 @@
             <selection-depends req="fcs_rbg_ext.1.1"/>
             <title> The application shall invoke a mechanism recommended by the operating system
               vendor for requesting data from the platform's DRBG.</title>
-            <note role="application">Guidance on various platform DRBGs can be found in “Random 
-              Number Generators (RNG): Introduction for Application Developers” at: <ul><li><a
+            <note role="application">This requirement shall be included in STs in which "invoke platform-provided
+              DRBG services" is chosen in FCS_RBG_EXT.1.1. Guidance on various platform DRBGs can be found in "Random
+              Number Generators (RNG): Introduction for Application Developers" at: <ul><li><a
                 href="http://www.nsa.gov/ia/mitigation_guidance/security_configuration_guides/fact_sheets.shtml">
                 http://www.nsa.gov/ia/mitigation_guidance/security_configuration_guides/fact_sheets.shtml</a></li>
               </ul>  
@@ -881,10 +884,10 @@
                 <selectable>FIPS Pub 140-2 Annex C: X9.31 Appendix 2.4 using AES</selectable>
               </selectables>
             </title>
-            <note role="application"> This requirement shall be included in STs in which “perform
-              DRBG services” is chosen in FCS_RBG_EXT.1.1. The ST author shall select the standard
-              to which the RBG services comply (either 800-90A or 140-2 Annex C). The ST author will
-              select the function used (if 800-90A is selected), and include the specific underlying
+            <note role="application">This requirement shall be included in STs in which "invoke
+              application-implemented DRBG services" is chosen in FCS_RBG_EXT.1.1. The ST author shall
+              select the standard to which the RBG services comply (either 800-90A or 140-2 Annex C). The ST
+              author will select the function used (if 800-90A is selected), and include the specific underlying
               cryptographic primitives used in the requirement or in the TSS. While any of the
               identified hash functions (SHA-1, SHA-224, SHA-256, SHA-384, and SHA-512) are allowed
               for Hash_DRBG or HMAC_DRBG, only AES-based implementations for CTR_DRBG are allowed.
