@@ -1145,14 +1145,23 @@
               </testlist>
             </aactivity>
           </f-element>
-        </f-component> <f-component id="fcs_sto_ext.1" name="Storage of Secrets">
+        </f-component> 
+        <f-component id="fcs_sto_ext.1" name="Storage of Secrets">
           <f-element id="fcs_sto_ext.1.1">
-            <title>The application shall invoke the mechanisms provided by the platform for any
-              storage of credentials.</title>
-            <note role="application">This includes items such as PKI private keys and passwords. </note>
-            <aactivity>The evaluator must identify any credentials used by the application and then
-              verify that these are stored using the mechanisms recommended by the operating system
-              vendor. The method of doing so varies per platform. <subaactivity
+            <title>The application shall 
+              <selectables linebreak="yes">
+                <selectable>invoke the mechanisms provided by the platform</selectable>
+                <selectable>invoke application-implemented mechanism</selectable>
+              </selectables>
+              for any storage of credentials to non-volatile memory.</title>
+            <note role="application">This includes items such as PKI private keys and passwords. A
+            selection of "invoke application-implemented mechanism" includes additional requirements
+            and test activities in FCS_STO_EXT.2.
+            </note>
+            <aactivity>The evaluator shall identify any credentials used by the application and then
+              verify that they are stored by invoking the platform mechanisms or by satisfying the 
+              additional requirements from FCS_STO_EXT.2. The method of invoking varies per platform.
+              <subaactivity
                 platform="blackberry"/>
               <subaactivity platform="android">The evaluator shall verify that all keys are stored
                 within a keystore using Android's <code>KeyStore</code> class. </subaactivity>
@@ -1172,7 +1181,38 @@
                 source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf"/>
             </refs>
           </f-element>
-        </f-component> <f-component id="fcs_tls_ext.1" name="TLS Implementation" status="sel-based">
+        </f-component>
+        <f-component id="fcs_sto_ext.2" name="Storage of Secrets (Selection Based)">
+          <f-element id="fcs_sto_ext.2.1" status="sel-based">
+            <selection-depends req="fcs_sto_ext.1.1"/>
+            <title>The application shall use a cryptographically strong credential-specific
+              salt.</title>
+            <aactivity>The evaluator shall run the application and exersize the "change password"
+              functionality two times, each time using the same password. The evaluator
+              shall record the stored password hash after each password change. Finally, the
+              evaluator shall verify that the password hashes were different after
+              each "change password" attempt.
+            </aactivity>
+          </f-element>
+          <f-element id="fcs_sto_ext.2.2" status="sel-based">
+            <selection-depends req="fcs_sto_ext.1.1"/>
+            <title>The application shall use a one-way function to produce an irreversible
+              transform of the credential.</title>
+            <aactivity>The evaluator shall run the application and exersize the "change password"
+              functionality five times, each time, the evaluator shall examine the stored password
+              and verify that it is not a clear text password.
+            </aactivity>
+          </f-element>
+          <f-element id="fcs_sto_ext.2.3" status="sel-based">
+            <selection-depends req="fcs_sto_ext.1.1"/>
+            <title>The application shall store credentials a location that is access controlled
+              such that standard users only have read-access.</title>
+            <aactivity>The evaluator shall identify the location of stored credentails and attempt
+              to write to that location as a standard user.
+            </aactivity>
+          </f-element>
+        </f-component>
+        <f-component id="fcs_tls_ext.1" name="TLS Implementation" status="sel-based">
           <f-element id="fcs_tls_ext.1.1" status="sel-based">
             <selection-depends req="ftp_dit_ext.1.1"/>
             <title> The application shall <selectables linebreak="yes">
@@ -1608,7 +1648,7 @@
           </f-element>
           <f-element id="fpt_aex_ext.1.4">
             <title>
-	      The application shall not write data files to directories that contain executable
+              The application shall not write user-modifiable data files to directories that contain executable 
               files unless explicitly directed by the user to do so.
 	    </title>
             <note role="application">
@@ -1632,7 +1672,8 @@
                 within the application working directory (sandbox). For Windows Desktop Applications
                 the evaluator shall run the program, mimicking normal usage, and note where all
                 files are written. The evaluator shall ensure that there are no executable files
-                stored in the same directories to which the application wrote. </subaactivity>
+                stored in the same directories to which the application wrote and no data files
+                in the application’s install directory.</subaactivity>
               <subaactivity platform="ios">The evaluator shall consider the requirement met because
                 the platform forces applications to write all data within the application working
                 directory (sandbox).</subaactivity>
@@ -1704,11 +1745,11 @@
             <aactivity>The evaluator shall verify that the application is updateable. </aactivity>
           </f-element>
           <f-element id="fpt_tud_ext.1.3">
-            <title>The application installation and update packages shall be signed by the vendor in
-              conformance with NIST SP 800-89, Recommendation for Obtaining Assurances for Digital
-              Signature Applications, using an approved digital signature algorithm as specified in
-              NIST FIPS 186-3, Digital Signature Standard, that provides at least 112 bits of
-              security strength, in accordance with NIST SP 800-131A, Transitions: Recommendation
+            <title>The application installation and update packages, including all files contained
+              within, shall be signed by the vendor in conformance with NIST SP 800-89, Recommendation
+              for Obtaining Assurances for Digital Signature Applications, using an approved digital signature
+              algorithm as specified in NIST FIPS 186-3, Digital Signature Standard, that provides at least
+              112 bits of security strength, in accordance with NIST SP 800-131A, Transitions: Recommendation
               for Transitioning the Use of Cryptographic Algorithms and Key Lengths.</title>
             <note role="application">Signatures of signed installation and update packages should be
               verified by the operating system's application installation mechanism. Since the
