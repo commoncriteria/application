@@ -718,10 +718,18 @@
         </f-component>
         <f-component id="fmt_cfg_ext.1" name="Secure by Default Configuration">
           <f-element id="fmt_cfg_ext.1.1">
-            <title>The application shall be initially configured to not use any default
-              credentials.</title>
-            <note role="application">Default credentials are credentials which would be identical
-              across examples of a product, such as an identical login username and password. </note>
+            <title>
+	      The application shall not use any default credentials to perform any cryptographic function.
+	    </title>
+            <note role="application">
+	      Default credentials are credentials which would be identical
+              across examples of a product, such as an identical login username and password. 
+	      In this requirement, cryptographic functionality includes all 
+	      cryptographic key generation/derivation/agreement, IVs (for
+              certain modes), as well as protocol-specific random values.
+	      The application must not perform any of these functions until the 
+	      credentials have been changed.
+	    </note>
             <aactivity>The evaluator shall install and run the application and inspect its
               documentation. If the application uses any credentials such as passwords or private
               keys, these must not be pre-programmed and the user must instead be prompted to
