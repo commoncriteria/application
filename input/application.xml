@@ -1171,21 +1171,26 @@
                 <selectable>invoke application-implemented mechanism</selectable>
               </selectables>
               for any storage of credentials to non-volatile memory.</title>
-            <note role="application">This includes items such as PKI private keys and passwords. A
+            <note role="application">This requirement ensures that persistent credentials (secret keys, 
+            PKI private keys, or passwords) are stored securely when not in use. A
             selection of "invoke application-implemented mechanism" includes additional requirements
             and test activities in FCS_STO_EXT.2.
             </note>
-            <aactivity>The evaluator shall identify any credentials used by the application and then
-              verify that they are stored by invoking the platform mechanisms or by satisfying the 
-              additional requirements from FCS_STO_EXT.2. The method of invoking varies per platform.
+            <aactivity>The evaluator shall check the TSS to ensure that it lists all persistent credentials
+              (secret keys, PKI private keys, or passwords) needed to meet the requirements in the ST. For
+              each of these items, the evaluator shall confirm that the TSS lists for what purpose it is used,
+              and how it is stored. For credentials stored by invoking an application-implemented mechanism the
+              evaluator shall verify that additional requirements from FCS_STO_EXT.2 are met. For credentials
+              stored by invoking the platform the evaluator shall perform the following actions which vary per
+              platform.
               <subaactivity
                 platform="blackberry"/>
               <subaactivity platform="android">The evaluator shall verify that all keys are stored
                 within a keystore using Android's <code>KeyStore</code> class. </subaactivity>
               <subaactivity platform="windows">The evaluator shall verify that all certificates are
                 stored in the Windows Certificate Store. The evaluator shall verify that other
-                secrets, like passwords, are stored in the Windows Credential Manager also referred
-                to as the Windows Vault. </subaactivity>
+                secrets, like passwords, are stored in the Windows Credential Manager or stored using
+                the Data Protection API (DPAPI). </subaactivity>
               <subaactivity platform="ios">The evaluator shall verify that all keys are stored
                 within a <code>KeyChain</code>. </subaactivity>
               <subaactivity platform="selinux"> TBD. </subaactivity>
@@ -1202,8 +1207,8 @@
         <f-component id="fcs_sto_ext.2" name="Storage of Secrets (Selection Based)">
           <f-element id="fcs_sto_ext.2.1" status="sel-based">
             <selection-depends req="fcs_sto_ext.1.1"/>
-            <title>The application shall use a cryptographically strong credential-specific
-              salt.</title>
+            <title>The application shall use a unique cryptographically strong salt for each stored
+              credential.</title>
             <aactivity>The evaluator shall run the application and exercise the "change password"
               functionality two times, each time using the same password. The evaluator
               shall record the stored password hash after each password change. Finally, the
@@ -1213,8 +1218,8 @@
           </f-element>
           <f-element id="fcs_sto_ext.2.2" status="sel-based">
             <selection-depends req="fcs_sto_ext.1.1"/>
-            <title>The application shall use a one-way function to produce an irreversible
-              transform of the credential.</title>
+            <title>The application shall use a cryptographically strong one-way function
+              to produce an irreversible transform of the credential.</title>
             <aactivity>The evaluator shall run the application and exercise the "change password"
               functionality five times, each time, the evaluator shall examine the stored password
               and verify that it is not a clear text password.
