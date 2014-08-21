@@ -517,11 +517,9 @@
                 </ul> For Windows Desktop Applications the evaluator shall verify that either the
                 application or the documentation provide the user with a list of the required
                 hardware resources.</subaactivity>
-              <subaactivity platform="ios">The evaluator shall install and run the application. The
-                evaluator shall attempt to exercise functionality within the app that should result
-                in user awareness. This includes Location Services, Bluetooth, and camera. The
-                evaluator shall verify that the application prompts the user for
-                permission.</subaactivity>
+                <subaactivity platform="ios">The evaluator shall verify that either the
+                  application or the documentation provide the user with a list of the required
+                  hardware resources. </subaactivity>
               <subaactivity platform="selinux"> The evaluator shall verify that either the
                 application or the documentation provide the user with a list of the required
                 hardware resources. </subaactivity>
@@ -538,13 +536,15 @@
           </f-element>
           <f-element id="fdp_dec_ext.1.2">
             <title>The application shall provide user awareness of its intention to access
+                system-wide sensitive information repositories
                 <selectables linebreak="yes">
                 <selectable>address book</selectable>
                 <selectable>calendar</selectable>
                 <selectable>call lists</selectable>
                 <selectable>system logs</selectable>
                 <selectable>world-readable storage</selectable>
-                <selectable><assignment> list of additional sensitive data</assignment></selectable>
+                <selectable><assignment> list of additional system-wide sensitive information repositories</assignment>
+                </selectable>
               </selectables>
             </title>
             <note role="application"> The evaluator should ensure that the selection captures all
@@ -552,7 +552,7 @@
               The requirement is worded in this way due to the diversity of methods by which user
               awareness can be achieved, which varies per platform. An application can use a file or
               directory selection dialog to provide user awareness that data can be saved to
-              world-readable-storage. </note>
+              world-readable-storage.</note>
             <aactivity>The evaluator shall install the application and inspect its user
               documentation, and determine that the user is informed of any need to access sensitive
               information which provide access to sensitive information repositories. The method of
@@ -583,13 +583,12 @@
                 </ul> For Windows Desktop Application the evaluator shall verify that either the
                 application or the documentation provide the user with a list of the required
                 information repositories. </subaactivity>
-              <subaactivity platform="ios">The evaluator shall install and run the application. The
-                evaluator shall attempt to exercise functionality in the application that would
-                cause it to access sensitive information repositories. The evaluator shall verify
-                that the application prompts the user for permission.</subaactivity>
-              <subaactivity platform="selinux"> The evaluator shall install the application and
-                verify that the application displays the permissions used to access sensitive
-                information repositories. </subaactivity>
+              <subaactivity platform="ios">The evaluator shall verify that either the application
+                or the documentation provide the user with a list of permissions used to access
+                sensitive information repositories.</subaactivity>
+              <subaactivity platform="selinux"> The evaluator shall verify that either the application
+                or the documentation provide the user with a list of permissions used to access
+                sensitive information repositories. </subaactivity>
               <subaactivity platform="z/OS"> The evaluator shall verify that either the application
                 or the documentation provide the user with a list of permissions used to access
                 sensitive information repositories. </subaactivity>
@@ -647,8 +646,8 @@
           <f-element id="fdp_dar_ext.1.1">
             <title>The application shall <selectables linebreak="yes">
                 <selectable> invoke platform-provided functionality to encrypt sensitive data when
-                  it is stored in non-volatile memory. </selectable>
-                <selectable> not store any sensitive data in non-volatile memory. </selectable>
+                  it is stored in non-volatile memory</selectable>
+                <selectable> not store any sensitive data in non-volatile memory</selectable>
               </selectables>
             </title>
             <!-- this language is intentionally different from the MDPP's FDP_DAR -->
@@ -729,10 +728,20 @@
              product, such as an identical login username and password. 
 	          </note>
             <aactivity>
-	           The evaluator shall install and run the application and inspect its documentation. 
-	           If the application uses any credentials such as passwords or private keys, it must 
-             provide only the minimal functionality required to set credentials until new 
-             credentials are set.
+             The evaluator shall check the TSS to determine if the application requires any type
+             of credentials and if the applications installs with default credentials. If the
+             application uses any default credentials the evaluator shall run the following tests.
+             <testlist>
+                <test>
+                  The evaluator shall run the application and verify that only the minimal
+                  application functionality required to set new credentials is available.
+                </test>
+                <test>
+                  The evaluator shall run the application establish new credentials and
+                  verify that the original default credentials no longer provide access to
+                  the application.
+                </test>
+             </testlist>
 	          </aactivity>
             <refs>
               <ref sect="IA-5 (5)"
