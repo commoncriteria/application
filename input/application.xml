@@ -1750,49 +1750,13 @@
             <title>The application shall <selectables atleastone="yes">
                 <selectable>provide the ability</selectable>
                 <selectable>leverage the platform</selectable>
-              </selectables> to query the current version of the application software. </title>
-            <aactivity>The evaluator shall install the application and identify its
-              version.</aactivity>
-          </f-element>
-          <f-element id="fpt_tud_ext.1.2">
-            <title>The application shall <selectables atleastone="yes">
-                <selectable>provide the ability</selectable>
-                <selectable>leverage the platform</selectable>
               </selectables> to initiate updates and patches to the application software. </title>
             <note role="application"> This requirement allows applications to "initiate" updates,
               but not "perform" updates---the platform is the only entity allowed to modify an
               application's code. </note>
             <aactivity>The evaluator shall verify that the application is updateable. </aactivity>
           </f-element>
-          <f-element id="fpt_tud_ext.1.3">
-            <title>The application installation and update packages, including all files contained
-              within, shall be signed by the vendor in conformance with NIST SP 800-89, Recommendation
-              for Obtaining Assurances for Digital Signature Applications, using an approved digital signature
-              algorithm as specified in NIST FIPS 186-3, Digital Signature Standard, that provides at least
-              112 bits of security strength, in accordance with NIST SP 800-131A, Transitions: Recommendation
-              for Transitioning the Use of Cryptographic Algorithms and Key Lengths.</title>
-            <note role="application">Signatures of signed installation and update packages should be
-              verified by the operating system's application installation mechanism. Since the
-              existence of such a mechanism is a requirement on the operating system (and not the
-              application), it is not specified here.</note>
-            <aactivity>Developers must document their process for cryptographically signing updates
-              and installation packages. The evaluator shall verify that the documentation conforms
-              with the above requirement. The evaluator shall perform the following tests: <testlist>
-                <test>The evaluator shall attempt to install an unsigned patch or update and shall
-                  verify that installation fails. </test>
-                <test>The evaluator shall sign a patch or update with an invalid certificate. The
-                  evaluator shall attempt to install the patch or update and shall verify that
-                  installation fails. </test>
-                <test>The evaluator shall sign a patch or update with a certificate containing a
-                  missing or invalid code signing entendedKeyUsage extension. The evaluator shall
-                  attempt to install the patch or update and shall verify that installation fails. </test>
-                <test>The evaluator shall attempt to install a signed patch or update and shall
-                  verify that installation is successful and happens automatically after the
-                  signature is verified. </test>
-              </testlist>
-            </aactivity>
-          </f-element>
-          <f-element id="fpt_tud_ext.1.4">
+          <f-element id="fpt_tud_ext.1.2">
             <title>The application shall be distributed using the format of the platform-supported
               package manager. </title>
             <aactivity> The evaluator shall verify that application updates are distributed in the
@@ -1819,7 +1783,7 @@
                 in the IPA format, the PKG format, or the MPKG format. </subaactivity>
             </aactivity>
           </f-element>
-          <f-element id="fpt_tud_ext.1.5">
+          <f-element id="fpt_tud_ext.1.3">
             <title>The application shall be packaged such that its removal results in the removal of
               all traces of the application, with the exception of configuration settings, output
               files, and audit/log events.</title>
@@ -1833,7 +1797,7 @@
               system differences are configuration files, output files, or audit/log files.
             </aactivity>
           </f-element>
-          <f-element id="fpt_tud_ext.1.6">
+          <f-element id="fpt_tud_ext.1.4">
             <title> The application shall not download, modify, replace or update its own binary
               code. </title>
             <note role="application">This requirement applies to the code of the application; it
@@ -1856,6 +1820,45 @@
               <ref sect="SC-18 (3)"
                 source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf"/>
             </refs>
+          </f-element>
+          <f-element id="fpt_tud_ext.1.5">
+            <title>The application shall <selectables atleastone="yes">
+                <selectable>provide the ability</selectable>
+                <selectable>leverage the platform</selectable>
+              </selectables> to query the current version of the application software. </title>
+            <aactivity>The evaluator shall install the application and identify its
+              version.</aactivity>
+          </f-element>
+        </f-component>
+        <f-component id="fpt_tud_ext.2" name="Integrity for Installation and Update (selection-based)">
+          <f-element id="fpt_tud_ext.2.1" status="sel-based">
+            <selection-depends req="fpt_tud_ext.1.1"/>
+            <title>The application installation and update packages, including all files contained
+              within, shall be signed by the vendor in conformance with NIST SP 800-89, Recommendation
+              for Obtaining Assurances for Digital Signature Applications, using an approved digital signature
+              algorithm as specified in NIST FIPS 186-3, Digital Signature Standard, that provides at least
+              112 bits of security strength, in accordance with NIST SP 800-131A, Transitions: Recommendation
+              for Transitioning the Use of Cryptographic Algorithms and Key Lengths.</title>
+            <note role="application">Signatures of signed installation and update packages should be
+              verified by the operating system's application installation mechanism. Since the
+              existence of such a mechanism is a requirement on the operating system (and not the
+              application), it is not specified here.</note>
+            <aactivity>Developers must document their process for cryptographically signing updates
+              and installation packages. The evaluator shall verify that the documentation conforms
+              with the above requirement. The evaluator shall perform the following tests: <testlist>
+                <test>The evaluator shall attempt to install an unsigned patch or update and shall
+                  verify that installation fails. </test>
+                <test>The evaluator shall sign a patch or update with an invalid certificate. The
+                  evaluator shall attempt to install the patch or update and shall verify that
+                  installation fails. </test>
+                <test>The evaluator shall sign a patch or update with a certificate containing a
+                  missing or invalid code signing entendedKeyUsage extension. The evaluator shall
+                  attempt to install the patch or update and shall verify that installation fails. </test>
+                <test>The evaluator shall attempt to install a signed patch or update and shall
+                  verify that installation is successful and happens automatically after the
+                  signature is verified. </test>
+              </testlist>
+            </aactivity>
           </f-element>
         </f-component>
         <f-component id="fpt_idv_ext.1" name="Software Identification and Versions">
