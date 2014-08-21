@@ -5,7 +5,7 @@
       <PPTitle>Protection Profile for Application Software</PPTitle>
       <PPVersion>.6</PPVersion>
       <PPAuthor>National Information Assurance Partnership</PPAuthor>
-      <PPPubDate>2014-07-17</PPPubDate>
+      <PPPubDate>2014-08-21</PPPubDate>
       <PPCertificationID>NIAP-whoknows</PPCertificationID>
       <CCVersion>.01 Revision 0</CCVersion>
       <Keywords>application; software</Keywords>
@@ -30,6 +30,11 @@
       <version>v .7</version>
       <date>2014-08-08</date>
       <subject>First round of Technical Community feedback incorporated</subject>
+    </entry>
+    <entry>
+      <version>v .8</version>
+      <date>2014-08-21</date>
+      <subject>Second round of Technical Community feedback incorporated</subject>
     </entry>
   </RevisionHistory>
   <chapter title="Introduction" id="int">
@@ -517,11 +522,9 @@
                 </ul> For Windows Desktop Applications the evaluator shall verify that either the
                 application or the documentation provide the user with a list of the required
                 hardware resources.</subaactivity>
-              <subaactivity platform="ios">The evaluator shall install and run the application. The
-                evaluator shall attempt to exercise functionality within the app that should result
-                in user awareness. This includes Location Services, Bluetooth, and camera. The
-                evaluator shall verify that the application prompts the user for
-                permission.</subaactivity>
+                <subaactivity platform="ios">The evaluator shall verify that either the
+                  application or the documentation provide the user with a list of the required
+                  hardware resources. </subaactivity>
               <subaactivity platform="selinux"> The evaluator shall verify that either the
                 application or the documentation provide the user with a list of the required
                 hardware resources. </subaactivity>
@@ -538,13 +541,14 @@
           </f-element>
           <f-element id="fdp_dec_ext.1.2">
             <title>The application shall provide user awareness of its intention to access
+                system-wide sensitive information repositories
                 <selectables linebreak="yes">
                 <selectable>address book</selectable>
                 <selectable>calendar</selectable>
                 <selectable>call lists</selectable>
                 <selectable>system logs</selectable>
-                <selectable>world-readable storage</selectable>
-                <selectable><assignment> list of additional sensitive data</assignment></selectable>
+                <selectable><assignment> list of additional system-wide sensitive information repositories</assignment>
+                </selectable>
               </selectables>
             </title>
             <note role="application"> The evaluator should ensure that the selection captures all
@@ -552,7 +556,7 @@
               The requirement is worded in this way due to the diversity of methods by which user
               awareness can be achieved, which varies per platform. An application can use a file or
               directory selection dialog to provide user awareness that data can be saved to
-              world-readable-storage. </note>
+              world-readable-storage.</note>
             <aactivity>The evaluator shall install the application and inspect its user
               documentation, and determine that the user is informed of any need to access sensitive
               information which provide access to sensitive information repositories. The method of
@@ -583,13 +587,12 @@
                 </ul> For Windows Desktop Application the evaluator shall verify that either the
                 application or the documentation provide the user with a list of the required
                 information repositories. </subaactivity>
-              <subaactivity platform="ios">The evaluator shall install and run the application. The
-                evaluator shall attempt to exercise functionality in the application that would
-                cause it to access sensitive information repositories. The evaluator shall verify
-                that the application prompts the user for permission.</subaactivity>
-              <subaactivity platform="selinux"> The evaluator shall install the application and
-                verify that the application displays the permissions used to access sensitive
-                information repositories. </subaactivity>
+              <subaactivity platform="ios">The evaluator shall verify that either the application
+                or the documentation provide the user with a list of permissions used to access
+                sensitive information repositories.</subaactivity>
+              <subaactivity platform="selinux"> The evaluator shall verify that either the application
+                or the documentation provide the user with a list of permissions used to access
+                sensitive information repositories. </subaactivity>
               <subaactivity platform="z/OS"> The evaluator shall verify that either the application
                 or the documentation provide the user with a list of permissions used to access
                 sensitive information repositories. </subaactivity>
@@ -627,7 +630,9 @@
                 </selectable>
                 <selectable><assignment> list application initiated network connections</assignment>
                 </selectable>
-              </selectables> that are not user initiated connections. </title>
+              </selectables>
+              . 
+            </title>
             <note role="application"> This requirement is intended to restrict both inbound and
               outbound network connections and ports to only those required, or to network
               connections that are user initiated. </note>
@@ -647,8 +652,8 @@
           <f-element id="fdp_dar_ext.1.1">
             <title>The application shall <selectables linebreak="yes">
                 <selectable> invoke platform-provided functionality to encrypt sensitive data when
-                  it is stored in non-volatile memory. </selectable>
-                <selectable> not store any sensitive data in non-volatile memory. </selectable>
+                  it is stored in non-volatile memory</selectable>
+                <selectable> not store any sensitive data in non-volatile memory</selectable>
               </selectables>
             </title>
             <!-- this language is intentionally different from the MDPP's FDP_DAR -->
@@ -729,10 +734,20 @@
              product, such as an identical login username and password. 
 	          </note>
             <aactivity>
-	           The evaluator shall install and run the application and inspect its documentation. 
-	           If the application uses any credentials such as passwords or private keys, it must 
-             provide only the minimal functionality required to set credentials until new 
-             credentials are set.
+             The evaluator shall check the TSS to determine if the application requires any type
+             of credentials and if the applications installs with default credentials. If the
+             application uses any default credentials the evaluator shall run the following tests.
+             <testlist>
+                <test>
+                  The evaluator shall run the application and verify that only the minimal
+                  application functionality required to set new credentials is available.
+                </test>
+                <test>
+                  The evaluator shall run the application establish new credentials and
+                  verify that the original default credentials no longer provide access to
+                  the application.
+                </test>
+             </testlist>
 	          </aactivity>
             <refs>
               <ref sect="IA-5 (5)"
@@ -741,11 +756,14 @@
           </f-element>
           <f-element id="fmt_cfg_ext.1.2">
             <title>The application shall be initially configured to prevent the transmission of any
-              plaintext credentials.</title>
-            <note role="application"> The intent of this requirement is that credentials should not
-              be transmitted in the clear. In this version of the PP there are no requirements on
-              the method used to transmit credentials in non-plaintext form, but cryptographic
-              methods based on the requirements in FCS_COP are preferred. </note>
+              plaintext credentials.
+            </title>
+            <note role="application">The intention of this requirement is to prevent the logging
+              of plaintext credentials by the platform, and the observation of plaintext credentials
+              during transmission. Future versions of this PP may include specific requirements for
+              transmission of credentials. Cryptographic methods based on the requirements in FCS_COP,
+              or the transmission of credentials over an encrypted tunnel (like TLS) are preferred.
+            </note>
             <aactivity>The evaluator shall install and run the application and inspect its
               documentation. The evaluator shall determine if the application uses any credentials
               such as passwords or private keys. The evaluator must sniff network traffic between
@@ -770,7 +788,8 @@
               <subaactivity platform="windows">The evaluator shall run the SysInternals tools,
                 Process Monitor and Access Check (or tools of equivalent capability, like icacls.exe) for Classic
                 Desktop applications to verify that files writen to disk during an applications
-                installation have the correct file permissions. For Windows Store Apps the evaluator shall
+                installation have the correct file permissions, such that a standard user cannot modify
+                the application or its data files. For Windows Store Apps the evaluator shall
                 consider the requirement met because of the AppContainer sandbox.</subaactivity>
               <subaactivity platform="ios">The evaluator shall determine whether the application
                 leverages the appropriate Data Protection Class for each data file stored
@@ -818,21 +837,16 @@
               </selectables>
             </title>
             <note role="application">
-	      This requirement stipulates that applications need provide the ability to enable/disable to only those functions that it actually implements.
+	      This requirement stipulates that applications need provide the ability to enable/disable to
+	      only those functions that it actually implements.
 	    </note>
-            <aactivity>The evaluator shall consult the AGD guidance to perform each of the following
-              tests, iterating each test as necessary if both the user and administrator may perform
-              the function. <testlist>
-                <test>The evaluator shall exercise the applications configuration as the user and
-                  the administrator. The evaluator shall perform positive and negative tests, with
-                  at least two assignments for each variable setting, for each of the following: <ul>
-                    <li>enable/disable the transmission of any information describing the system's
-                      hardware, software, or configuration</li>
-                    <li>enable/disable the transmission of any PII</li>
-                    <li>enable/disable transmission of any application state</li>
-                    <li>enable/disable network backup functionality</li>
-                  </ul></test>
-              </testlist>
+            <aactivity>The evaluator shall check to make sure that every management function mandated
+              by the PP is described in the operational guidance and that the description contains
+              the information required to perform the management duties associated with the management
+              function. The evaluator shall test the applications ability to provide the management
+              functions by configuring the application and testing each option selected from above.
+              The evaluator is expected to test these functions in all the ways in which the ST
+              and guidance documentation state the configuration can be managed.
             </aactivity>
           </f-element>
         </f-component>
@@ -1171,21 +1185,26 @@
                 <selectable>invoke application-implemented mechanism</selectable>
               </selectables>
               for any storage of credentials to non-volatile memory.</title>
-            <note role="application">This includes items such as PKI private keys and passwords. A
+            <note role="application">This requirement ensures that persistent credentials (secret keys, 
+            PKI private keys, or passwords) are stored securely when not in use. A
             selection of "invoke application-implemented mechanism" includes additional requirements
             and test activities in FCS_STO_EXT.2.
             </note>
-            <aactivity>The evaluator shall identify any credentials used by the application and then
-              verify that they are stored by invoking the platform mechanisms or by satisfying the 
-              additional requirements from FCS_STO_EXT.2. The method of invoking varies per platform.
+            <aactivity>The evaluator shall check the TSS to ensure that it lists all persistent credentials
+              (secret keys, PKI private keys, or passwords) needed to meet the requirements in the ST. For
+              each of these items, the evaluator shall confirm that the TSS lists for what purpose it is used,
+              and how it is stored. For credentials stored by invoking an application-implemented mechanism the
+              evaluator shall verify that additional requirements from FCS_STO_EXT.2 are met. For credentials
+              stored by invoking the platform the evaluator shall perform the following actions which vary per
+              platform.
               <subaactivity
                 platform="blackberry"/>
               <subaactivity platform="android">The evaluator shall verify that all keys are stored
                 within a keystore using Android's <code>KeyStore</code> class. </subaactivity>
               <subaactivity platform="windows">The evaluator shall verify that all certificates are
                 stored in the Windows Certificate Store. The evaluator shall verify that other
-                secrets, like passwords, are stored in the Windows Credential Manager also referred
-                to as the Windows Vault. </subaactivity>
+                secrets, like passwords, are stored in the Windows Credential Manager or stored using
+                the Data Protection API (DPAPI). </subaactivity>
               <subaactivity platform="ios">The evaluator shall verify that all keys are stored
                 within a <code>KeyChain</code>. </subaactivity>
               <subaactivity platform="selinux"> TBD. </subaactivity>
@@ -1202,8 +1221,8 @@
         <f-component id="fcs_sto_ext.2" name="Storage of Secrets (Selection Based)">
           <f-element id="fcs_sto_ext.2.1" status="sel-based">
             <selection-depends req="fcs_sto_ext.1.1"/>
-            <title>The application shall use a cryptographically strong credential-specific
-              salt.</title>
+            <title>The application shall use a unique cryptographically strong salt for each stored
+              credential.</title>
             <aactivity>The evaluator shall run the application and exercise the "change password"
               functionality two times, each time using the same password. The evaluator
               shall record the stored password hash after each password change. Finally, the
@@ -1213,8 +1232,8 @@
           </f-element>
           <f-element id="fcs_sto_ext.2.2" status="sel-based">
             <selection-depends req="fcs_sto_ext.1.1"/>
-            <title>The application shall use a one-way function to produce an irreversible
-              transform of the credential.</title>
+            <title>The application shall use a cryptographically strong one-way function
+              to produce an irreversible transform of the credential.</title>
             <aactivity>The evaluator shall run the application and exercise the "change password"
               functionality five times, each time, the evaluator shall examine the stored password
               and verify that it is not a clear text password.
