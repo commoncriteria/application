@@ -1304,11 +1304,23 @@
           </f-element>
           <f-element id="fcs_sto_ext.2.2" status="sel-based">
             <selection-depends req="fcs_sto_ext.1.1"/>
-            <title>The application shall use a cryptographically strong one-way function
-              to produce an irreversible transform of the credential.</title>
-            <aactivity>The evaluator shall run the application and exercise the "change password"
-              functionality five times, each time, the evaluator shall examine the stored password
-              and verify that it is not a clear text password.
+            <title>The application shall encrypt all stored credentials using AES in the
+              <selectables linebreak="yes">
+                <selectable>Key Wrap (KW) mode</selectable>
+                <selectable>Key Wrap with Padding (KWP) mode</selectable>
+                <selectable>GCM</selectable>
+                <selectable>CCM</selectable>
+                <selectable>CBC mode</selectable>
+              </selectables>
+            </title>
+            .
+            <note role="application">This requirement states that credentials used by the application
+              shall not be kept in plaintext.
+            </note>
+            <aactivity>The evaluator shall examine the TSS to ensure it describes in detail how
+              credentials are stored and encrypted. The evaluator shall review the TSS to determine
+              that it makes a case that credentials are not written unencrypted to persistent
+              memory and that it identifies the mode of encryption.
             </aactivity>
           </f-element>
         </f-component>
