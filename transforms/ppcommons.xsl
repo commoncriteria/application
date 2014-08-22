@@ -79,7 +79,7 @@
       </xsl:for-each>
     ]
   </xsl:template>
-  <xsl:template match="cc:assignment">
+  <xsl:template match="cc:assignable">
     [
       <b>assignment</b>
       :
