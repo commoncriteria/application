@@ -153,16 +153,6 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 	<xsl:template match="cc:title">
 	      		<xsl:apply-templates />
 	</xsl:template>
-
-
-
- <xsl:template match="cc:assignment">
-		[<b>assignment:</b><xsl:value-of select="text()" />]
-	</xsl:template>
-
-
-
-
   <xsl:template match="cc:subaactivity">
     <div class="subaact">
       <i>
