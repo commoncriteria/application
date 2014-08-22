@@ -58,14 +58,34 @@
   </xsl:template>
 
   <xsl:template match="cc:selectables">
-		[<b>selection</b><xsl:if test="@exclusiv">, choose one of</xsl:if><xsl:if test="@atleastone">, at least one of</xsl:if>
-		:
-        <xsl:for-each select="cc:selectable"><xsl:choose><xsl:when test="../@linebreak"><p style="margin-left: 40px;"><i><xsl:apply-templates /></i><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if></p></xsl:when><xsl:otherwise><i><xsl:apply-templates /></i><xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if></xsl:otherwise></xsl:choose></xsl:for-each>]
-	</xsl:template>
+    [
+    <b>selection</b>
+      <xsl:if test="@exclusive">, choose one of</xsl:if>
+      <xsl:if test="@atleastone">, at least one of</xsl:if>
+      :
+      <xsl:for-each select="cc:selectable">
+        <xsl:choose>
+          <xsl:when test="../@linebreak">
+            <p style="margin-left: 40px;">
+              <i><xsl:apply-templates /></i>
+              <xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
+            </p>
+          </xsl:when>
+          <xsl:otherwise>
+            <i><xsl:apply-templates /></i>
+            <xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:for-each>
+    ]
+  </xsl:template>
   <xsl:template match="cc:assignment">
-		[<b>assignment:</b><xsl:value-of select="text()" />]
-	</xsl:template>
-
+    [
+      <b>assignment</b>
+      :
+      <xsl:apply-templates />
+    ]
+  </xsl:template>
 
   <xsl:template match="cc:note[@role='application']">
     <div class="appnote">
