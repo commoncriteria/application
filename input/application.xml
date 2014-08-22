@@ -1008,23 +1008,24 @@
               that is known to be correct. Proof of correctness is left to each Scheme.
               <testlist>
                 <test>The evaluators shall perform a Variable Seed Test. The evaluators shall
-                  provide a set of 128 (Seed, DT) pairs to the TSF RBG function, each 128 bits.
-                  The evaluators shall also provide a key (of the length appropriate to the AES
-                  algorithm) that is constant for all 128 (Seed, DT) pairs. The DT value is
-                  incremented by 1 for each set. The seed values shall have no repeats within
-                  the set. The evaluators ensure that the values returned by the TSF match the
-                  expected values.
+                  provide a set of 128 (Seed, DT) pairs to the <abbr linkend="TSF"/> RBG function, 
+                  each 128 bits. The evaluators shall also provide a key (of the length appropriate 
+                  to the AES algorithm) that is constant for all 128 (Seed, DT) pairs. The DT value 
+                  is incremented by 1 for each set. The seed values shall have no repeats within
+                  the set. The evaluators ensure that the values returned by the 
+                  <abbr linkend="TSF"/> match the expected values.
                 </test>
                 <test>
                   The evaluators shall perform a Monte Carlo Test. For this test, they supply
-                  an initial Seed and DT value to the TSF RBG function; each of these is 128 bits.
-                  The evaluators shall also provide a key (of the length appropriate to the AES 
-                  algorithm) that is constant throughout the test. The evaluators then invoke the 
-                  TSF RBG 10,000 times, with the DT value being incremented by 1 on each iteration, 
-                  and the new seed for the subsequent iteration produced as specified in 
-                  NIST-Recommended Random Number Generator Based on ANSI X9.31 Appendix A.2.4 Using 
-                  the 3-Key Triple DES and AES Algorithms, Section 3. The evaluators ensure that the 
-                  10,000th value produced matches the expected value.
+                  an initial Seed and DT value to the <abbr linkend="TSF"/> RBG function; each of 
+                  these is 128 bits. The evaluators shall also provide a key (of the length 
+                  appropriate to the AES algorithm) that is constant throughout the test. The 
+                  evaluators then invoke the <abbr linkend="TSF"/> RBG 10,000 times, with the DT 
+                  value being incremented by 1 on each iteration, and the new seed for the 
+                  subsequent iteration produced as specified in NIST-Recommended Random Number 
+                  Generator Based on ANSI X9.31 Appendix A.2.4 Using the 3-Key Triple DES and AES 
+                  Algorithms, Section 3. The evaluators ensure that the 10,000th value produced 
+                  matches the expected value.
                 </test>
               </testlist>
               Implementations Conforming to NIST Special Publication 800-90A
@@ -1161,17 +1162,17 @@
                   verify the implementation of RSA Signature Generation by the <abbr linkend="TOE"/>
                   using the Signature Generation Test. To conduct this test the evaluator must 
                   generate or obtain 10 messages from a trusted reference implementation for each 
-                  modulus size/SHA combination supported by the TSF. The evaluator shall have the
-                  <abbr linkend="TOE"/> use their private key and modulus value to sign these 
-                  messages. The evaluator shall verify the correctness of the TSF’s signature using 
-                  a known good implementation and the associated public keys to verify the 
-                  signatures. Signature Verification Test The evaluator shall perform the Signature 
-                  Verification test to verify the ability of the <abbr linkend="TOE"/> to recognize 
-                  another party’s valid and invalid signatures. The evaluator shall inject errors 
-                  into the test vectors produced during the Signature Verification Test by 
-                  introducing errors in some of the public keys e, messages, IR format, and/or 
-                  signatures. The <abbr linkend="TOE"/> attempts to verify the signatures and 
-                  returns success or failure. </test>
+                  modulus size/SHA combination supported by the <abbr linkend="TSF"/>. The evaluator 
+                  shall have the <abbr linkend="TOE"/> use their private key and modulus value to 
+                  sign these messages. The evaluator shall verify the correctness of the 
+                  <abbr linkend="TSF"/>’s signature using a known good implementation and the 
+                  associated public keys to verify the signatures. Signature Verification Test The 
+                  evaluator shall perform the Signature Verification test to verify the ability of 
+                  the <abbr linkend="TOE"/> to recognize another party’s valid and invalid 
+                  signatures. The evaluator shall inject errors into the test vectors produced 
+                  during the Signature Verification Test by introducing errors in some of the public 
+                  keys e, messages, IR format, and/or signatures. The <abbr linkend="TOE"/> attempts 
+                  to verify the signatures and returns success or failure. </test>
               </testlist>
             </aactivity>
           </f-element>
@@ -1197,47 +1198,48 @@
               hashing algorithm must correspond to the selection of the message digest size; for
               example, if SHA-1 is chosen, then the only valid message digest size selection would
               be 160 bits. </note>
-            <aactivity>The TSF hashing functions can be implemented in one of two modes. The first
-              mode is the byte¬oriented mode. In this mode the TSF only hashes messages that are an
-              integral number of bytes in length; i.e., the length (in bits) of the message to be
-              hashed is divisible by 8. The second mode is the bit¬oriented mode. In this mode the
-              TSF hashes messages of arbitrary length. As there are different tests for each mode,
-              an indication is given in the following sections for the bit¬oriented vs. the
-              byte¬oriented testmacs.The evaluator shall perform all of the following tests for each
-              hash algorithm implemented by the TSF and used to satisfy the requirements of this PP.
+            <aactivity>The <abbr linkend="TSF"/> hashing functions can be implemented in one of two 
+            modes. The first mode is the byte¬oriented mode. In this mode the <abbr linkend="TSF"/> 
+            only hashes messages that are an integral number of bytes in length; i.e., the length 
+            (in bits) of the message to be hashed is divisible by 8. The second mode is the 
+            bit¬oriented mode. In this mode the <abbr linkend="TSF"/> hashes messages of arbitrary 
+            length. As there are different tests for each mode, an indication is given in the 
+            following sections for the bit¬oriented vs. the byte¬oriented testmacs.The evaluator 
+            shall perform all of the following tests for each hash algorithm implemented by the 
+            <abbr linkend="TSF"/> and used to satisfy the requirements of this PP.
                <testlist>
                 <test>Short Messages Test - Bit oriented Mode The evaluators devise an input set
                   consisting of m+1 messages, where m is the block length of the hash algorithm. The
                   length of the messages range sequentially from 0 to m bits. The message text shall
                   be pseudorandomly generated. The evaluators compute the message digest for each of
                   the messages and ensure that the correct result is produced when the messages are
-                  provided to the TSF. </test>
+                  provided to the <abbr linkend="TSF"/>. </test>
                 <test>Short Messages Test - Byte oriented Mode The evaluators devise an input set
                   consisting of m/8+1 messages, where m is the block length of the hash algorithm.
                   The length of the messages range sequentially from 0 to m/8 bytes, with each
                   message being an integral number of bytes. The message text shall be
                   pseudorandomly generated. The evaluators compute the message digest for each of
                   the messages and ensure that the correct result is produced when the messages are
-                  provided to the TSF. </test>
+                  provided to the <abbr linkend="TSF"/>. </test>
                 <test>Selected Long Messages Test - Bit oriented Mode The evaluators devise an input
                   set consisting of m messages, where m is the block length of the hash algorithm.
                   The length of the ith message is 512 + 99*i, where 1 ≤ i ≤ m. The message text
                   shall be pseudorandomly generated. The evaluators compute the message digest for
                   each of the messages and ensure that the correct result is produced when the
-                  messages are provided to the TSF. </test>
+                  messages are provided to the <abbr linkend="TSF"/>. </test>
                 <test>Selected Long Messages Test - Byte oriented Mode The evaluators devise an
                   input set consisting of m/8 messages, where m is the block length of the hash
                   algorithm. The length of the ith message is 512 + 8*99*i, where 1 ≤ i ≤ m/8. The
                   message text shall be pseudorandomly generated. The evaluators compute the message
                   digest for each of the messages and ensure that the correct result is produced
-                  when the messages are provided to the TSF. </test>
+                  when the messages are provided to the <abbr linkend="TSF"/>. </test>
                 <test>Pseudorandomly Generated Messages Test This test is for byte¬oriented
                   implementations only. The evaluators randomly generate a seed that is n bits long,
                   where n is the length of the message digest produced by the hash function to be
                   tested. The evaluators then formulate a set of 100 messages and associated digests
                   by following the algorithm provided in Figure 1 of [SHAVS]. The evaluators then
                   ensure that the correct result is produced when the messages are provided to the
-                  TSF. </test>
+                  <abbr linkend="TSF"/>. </test>
               </testlist>
             </aactivity>
           </f-element>
@@ -1525,9 +1527,9 @@
             </title>
             <note role="application">Differences between DTLS and TLS are outlined in RFC 4347 and
               RFC 6347; otherwise the protocols are the same. In particular, for the applicable
-              security characteristics defined for the TSF, the two protocols do not differ.
-              Therefore, all application notes and assurance activities that are listed for TLS
-              apply to the DTLS implementation. </note>
+              security characteristics defined for the <abbr linkend="TSF"/>, the two protocols do 
+              not differ. Therefore, all application notes and assurance activities that are listed 
+              for TLS apply to the DTLS implementation. </note>
             <aactivity>The evaluator shall perform the assurance activities listed for TLS to verify
               this component</aactivity>
           </f-element>
@@ -2106,11 +2108,11 @@
         documentation should be in an informal style and readable by the IT personnel. Guidance must
         be provided for every operational environment that the product supports as claimed in the
         ST. This guidance includes Instructions to successfully install the <abbr linkend="TSF"/> in
-        that environment; and Instructions to manage the security of the TSF as a product and as a
-        component of the larger operational environment. Guidance pertaining to particular security
-        functionality is also provided; requirements on such guidance are contained in the assurance
-        activities specified with each requirement. <a-component id="agd_ope.1"
-          name="Operational User Guidance (AGD_OPE.1)">
+        that environment; and Instructions to manage the security of the <abbr linkend="TSF"/> as a 
+        product and as a component of the larger operational environment. Guidance pertaining to 
+        particular security functionality is also provided; requirements on such guidance are 
+        contained in the assurance activities specified with each requirement. 
+        <a-component id="agd_ope.1" name="Operational User Guidance (AGD_OPE.1)">
           <h4>Developer action elements:</h4>
           <a-element id="AGD_OPE.1.1D">
             <title>The developer shall provide operational user guidance.</title>
@@ -2289,10 +2291,11 @@
               configure the environment to ensure that buffer overflow protection mechanisms in the
               environment(s) are invoked (e.g., compiler flags). The evaluator shall ensure that
               this documentation also includes an indication of whether such protections are on by
-              default, or have to be specifically enabled. The evaluator shall ensure that the TSF
-              is uniquely identified (with respect to other products from the TSF vendor), and that
-              documentation provided by the developer in association with the requirements in the ST
-              is associated with the TSF using this unique identification.</aactivity>
+              default, or have to be specifically enabled. The evaluator shall ensure that the 
+              <abbr linkend="TSF"/> is uniquely identified (with respect to other products from the 
+              <abbr linkend="TSF"/> vendor), and that documentation provided by the developer in 
+              association with the requirements in the ST is associated with the 
+              <abbr linkend="TSF"/> using this unique identification.</aactivity>
           </a-element>
         </a-component>
       </subsection>
