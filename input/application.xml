@@ -3,7 +3,7 @@
   <PPReference title="PP Reference" id="ID003">
     <ReferenceTable>
       <PPTitle>Protection Profile for Application Software</PPTitle>
-      <PPVersion>.6</PPVersion>
+      <PPVersion>.8</PPVersion>
       <PPAuthor>National Information Assurance Partnership</PPAuthor>
       <PPPubDate>2014-08-21</PPPubDate>
       <PPCertificationID>NIAP-whoknows</PPCertificationID>
@@ -40,14 +40,15 @@
   <chapter title="Introduction" id="int">
     <!-- TO DO: Distinguish citations from cross-references. Mark up each appropriately. 
                         Pick an attribute other than id to refer to the linked element. Transform 
-                        them more intelligently. Better yet, use standard markup with tool support. -->
+                        them more intelligently. Better yet, use standard markup with tool support. 
+                      -->
     <section title="Overview" id="ppoverview">The scope of this Protection Profile (PP) is to
       describe the security functionality of application software in terms of <cite linkend="bibCC"
       /> and to define functional and assurance requirements for such software. In recent years,
       software attacks have shifted from targeting operating systems to targeting applications. This
       has been the natural response to improvements in operating system security and development
       processes. As a result, it is paramount that the security of applications be improved to
-      reduce the risk to client systems and enterprise networks.</section>
+      reduce the risk of compromise.</section>
     <section title="Terms" id="glossary">The following sections provide both Common Criteria and
       technology terms used in this Protection Profile. <subsection title="Common Criteria Terms"
         id="ccterms">
@@ -83,15 +84,18 @@
           </entry>
           <entry>
             <term><abbr title="TOE Summary Specification">TSS</abbr></term>
-            <description>A description of how a TOE satisfies the SFRs in a ST.</description>
+            <description>A description of how a <abbr linkend="TOE"/> satisfies the SFRs in a ST.
+            </description>
           </entry>
           <entry>
             <term><abbr title="Security Functional Requirement">SFR</abbr></term>
-            <description>A requirement for security enforcement by the TOE.</description>
+            <description>A requirement for security enforcement by the <abbr linkend="TOE"/>.
+            </description>
           </entry>
           <entry>
             <term><abbr title="Security Assurance Requirement">SAR</abbr></term>
-            <description>A requirement to assure the security of the TOE.</description>
+            <description>A requirement to assure the security of the <abbr linkend="TOE"/>.
+            </description>
           </entry>
         </glossary>
       </subsection>
@@ -106,7 +110,7 @@
           </entry>
           <entry>
             <term><abbr title="Application">app</abbr></term>
-            <description>Software that runs on an operating system and performs tasks on behalf of
+            <description>Software that runs on a platform and performs tasks on behalf of
               the user or owner of the platform.</description>
           </entry>
           <entry>
@@ -114,7 +118,7 @@
             <description>A specification of routines, data structures, object classes, and variables
               that allows an application to make use of services provided by another software
               component, such as a library. APIs are often provided for a set of libraries included
-              with the operating system.</description>
+              with the platform.</description>
           </entry>
           <entry>
             <term>Credential</term>
@@ -134,20 +138,20 @@
               document, vendors and developers are the same.</description>
           </entry>
           <entry>
-            <term>System Owner/Machine Owner</term>
+            <term>System Owner</term>
             <description>Entity that purchased and maintains ownership of a mobile device or
               computer.</description>
           </entry>
           <entry>
             <term>Information Owner</term>
-            <description>Entity whose information is stored and/or processed on a device or
+            <description>Entity whose information is stored or processed on a device or
               computer; can be an application-specific provider, a digital provider, or an
               enterprise that allows access to resources from mobile devices or remote
               computers.</description>
           </entry>
           <entry>
             <term><abbr title="Operating System">OS</abbr></term>
-            <description>Software that manages platform resources and provides services for
+            <description>Software that manages hardware resources and provides services for
               applications.</description>
           </entry>
           <entry>
@@ -162,10 +166,10 @@
           </entry>
           <entry>
             <term>Platform</term>
-            <description>The physical or virtual environment in which software runs. From an
-              operating system's perspective, the platform is the physical or virtual hardware. From
-              an application's perspective, the platform is the operating system and the operating
-              system's platform.</description>
+            <description>The environment in which application software runs. 
+              The platform can be an operating system, an execution environment which runs atop 
+              an operating system, or some combination of these.  
+              </description>
           </entry>
           <entry>
             <term>Robustness</term>
@@ -196,36 +200,51 @@
         </glossary>
       </subsection></section>
     <section title="Compliant Targets of Evaluation" id="TOEdescription">The requirements in this
-      document apply to all application software that runs on any operating system regardless of the
-      function of the application, identity of the operating system, or composition of the
-      underlying hardware platform. This includes mobile applications as well as application
-      software on desktop or server platforms. Some application types are covered by more specific
-      PPs which may be expressed as Extended Packages of this PP. Such applications are subject to
-      the requirements of both this PP and the Extended Package that addresses their special
-      functionality. For example, web browsers are subject to the requirements in this PP and the
-      Extended Package for Web Browsers. Although the requirements in this document apply to all
-      application software that runs on any operating system, some assurance activities are specific
-      to particular operating systems in order to provide precision and repeatability. Additional
-      test activities are sought from operating system vendors so that coverage across platforms is
-      as complete as possible. <subsection title="TOE Boundary" id="TOEboundary"> An application is
-        defined as software that runs on an operating system and performs tasks on behalf of the
-        user or owner of the system. As distinguished from applications, operating system software
-        manages hardware resources and provides the runtime environment for applications. The
-        designator of application obviously includes all software that one installs onto operating
-        systems such as office suites, <abbr title="Portable Document Format">PDF</abbr> readers and
-        downloadable smartphone apps. This includes any software in the application package, even
-        those pieces that extend the functionality of the underlying operating system, such as kernel
-        drivers. It also includes any software packages that the application explicitly depends on
-        and are not part of the operating system (or operating system optional add-ons). It should
-        be noted that many operating systems come bundled with applications (such as web browsers,
-        email clients and media players) and these too are also subject to the requirements defined
-        in this document. <abbr title="Basic Input/Output System">BIOS</abbr> and other firmware,
-        the operating system kernel, and other systems software (and drivers) provided as part of
-        the platform are outside the scope of this document. <figure entity="images/toe.png"
-          title="Figure 1: Protection Profile Overview" id="generictoedesign"
+  	  document apply to all application software regardless of the function of
+  	  the application or the identity of the platform on which the application
+  	  runs.  This includes mobile applications as well as application software
+  	  on desktop or server platforms. Some application types are covered by
+  	  more specific PPs which may be expressed as Extended Packages of this PP.
+  	  Such applications are subject to the requirements of both this PP and the
+  	  Extended Package that addresses their special functionality.  Although
+  	  the requirements in this document apply to all application software,
+  	  consult guidance from the relevant national schemes to determine when
+  	  formal Common Criteria evaluation is expected for a particular
+  	  application.  The application's platform may be an operating system, an
+  	  execution environment running atop an operating system, or a combination
+  	  of these.  Some assurance activities are specific to the particular
+  	  platform on which the application runs, in order to provide precision and
+  	  repeatability.  Test activities are actively sought from platform vendors
+  	  so that coverage across platforms is as complete and accurate as
+  	  possible. 
+
+	 <subsection title="TOE Boundary" id="TOEboundary"> An application is
+		defined as software that runs on a platform and performs tasks on
+		behalf of the user or owner of the system.  The application consists of
+		the software provided by its vendor and which is installed onto the
+		filesystem provided by the operating system.  It may execute on
+		that operating system (Figure 1), on an execution environment,
+		or on some combination of these (Figure
+		2).  This includes a diverse range of sofware such as office suites,
+		thin clients, <abbr title="Portable Document Format">PDF</abbr>
+		readers,  and downloadable smartphone apps. The TOE includes any software
+		in the application installation package, even those pieces that may extend the
+		functionality of the underlying platform, such as kernel
+		drivers.  It should be noted that many platforms come bundled with
+		applications (such as web browsers, email clients and media players).
+		These too should be considered subject to the requirements defined in
+		this document although the expectation of formal Common Criteria
+		evaluation depends upon the national scheme.  <abbr title="Basic
+		Input/Output System">BIOS</abbr> and other firmware, the operating
+		system kernel, and other systems software (and drivers) provided as
+		part of the platform are outside the scope of this document. 
+		<figure entity="images/toe.png"
+          title="Figure 1: TOE as an Application and Kernel Module Running on an Operating System" 
+          id="toe-as-apponos"
       />
 	<figure entity="images/toeruntime.png"
-          title="Figure 2: Protection Profile Overview" id="generictoedesign"
+          title="Figure 2: TOE as an Application Running in an Execution Environment Plus Native 
+          Code" id="toe-as-apponee"
       />
 
     </subsection></section>
@@ -243,7 +262,8 @@
         </usecase>
         <usecase title="Communication" id="interactivecomms">
           <description>The application allows for communication interactively or
-            non-interactively with other users or applications over a communications channel.</description>
+            non-interactively with other users or applications over a communications channel.
+          </description>
         </usecase>
       </usecases></section>
   </chapter>
@@ -267,8 +287,9 @@
   </chapter>
   <chapter title="Security Problem Definition" id="spd">The security problem is described in terms
     of the threats that the <abbr linkend="TOE"/> is expected to address, assumptions about the
-    operational environment, and any organizational security policies that the TOE is expected to
-    enforce. <section title="Threats" id="threats">
+    operational environment, and any organizational security policies that the <abbr linkend="TOE"/>
+    is expected to enforce.
+    <section title="Threats" id="threats">
       <threats>
         <threat id="T.NETWORK_ATTACK">
           <description>An attacker is positioned on a communications channel or elsewhere on the
@@ -321,8 +342,8 @@
       <assumptions>
         <assumption id="A.PLATFORM">
           <description>The <abbr linkend="TOE"/> relies upon a trustworthy computing platform for
-            its execution. This includes the underlying operating system and the runtime environment
-            it provides to the TOE.</description>
+            its execution. This includes the underlying platform and whatever runtime environment
+            it provides to the <abbr linkend="TOE"/>.</description>
           <objective-refer ref="OE.PLATFORM">
             <rationale>The assumption A.PLATFORM is covered by security objectives OE.PLATFORM as
               directly follows.</rationale>
@@ -365,22 +386,26 @@
     <section title="Security Objectives for the TOE" id="SecurityObjectivesTOE">
       <SOs>
         <SO id="O.INTEGRITY">
-          <description>Conformant <abbr linkend="TOE"/>s ensure the integrity of their installation
-            and update packages, and also leverage execution environment-based mitigations. Software
-            is seldom if ever shipped without errors, and the ability to deploy patches and updates
-            to fielded software with integrity is critical to enterprise network security. Processor
-            manufacturers, compiler developers, and operating system vendors have developed
-            execution environment-based mitigations that increase the cost to attackers by adding
-            complexity to the task of compromising systems. Application software can often take
-            advantage of these mechanisms by using <abbr linkend="API"/>s provided by the operating
-            system or by enabling the mechanism through compiler or linker options.</description>
+		  <description>Conformant <abbr linkend="TOE"/>s ensure the integrity
+		  of their installation and update packages, and also leverage
+		  execution environment-based mitigations. Software is seldom if ever
+		  shipped without errors, and the ability to deploy patches and updates
+		  to fielded software with integrity is critical to enterprise network
+		  security. Processor manufacturers, compiler developers, execution
+		  environment vendors, and operating system vendors have developed
+		  execution environment-based mitigations that increase the cost to
+		  attackers by adding complexity to the task of compromising systems.
+		  Application software can often take advantage of these mechanisms by
+		  using <abbr linkend="API"/>s provided by the runtime environment or by
+		  enabling the mechanism through compiler or linker
+		  options.</description>
           <component-refer ref="fdp_dec_ext.1"/>
           <component-refer ref="fpt_aex_ext.1"/>
           <component-refer ref="fpt_tud_ext.1"/>
         </SO>
         <SO id="O.QUALITY">
           <description>To ensure quality of implementation, conformant <abbr linkend="TOE"/>s
-            leverage services and <abbr linkend="API"/>s provided by the operating system rather
+            leverage services and <abbr linkend="API"/>s provided by the runtime environment rather
             than implementing their own versions of these services and APIs. This is especially
             important for cryptographic services and other complex operations such as file and media
             parsing. 
@@ -403,8 +428,9 @@
         <SO id="O.PROTECTED_STORAGE">
           <description>To address the issue of loss of confidentiality of user data in the event of
             loss of physical control of the storage medium, conformant <abbr linkend="TOE"/>s will
-            use data-at-rest protection. This involves encrypting data and keys stored by the TOE in
-            order to prevent unauthorized access to this encrypted data.</description>
+            use data-at-rest protection. This involves encrypting data and keys stored by the 
+            <abbr linkend="TOE"/> in order to prevent unauthorized access to this encrypted data.
+          </description>
           <component-refer ref="fdp_dar_ext.1"/>
           <component-refer ref="fcs_rbg_ext.1"/>
         </SO>
@@ -412,7 +438,8 @@
           <description> To address both passive (eavesdropping) and active (packet modification)
             network attack threats, conformant <abbr linkend="TOE"/>s will use a trusted channel for
             sensitive data. Sensitive data includes cryptographic keys, passwords, and any other
-            data specific to the application that should not be exposed outside of the application. </description>
+            data specific to the application that should not be exposed outside of the application. 
+          </description>
           <component-refer ref="fcs_rbg_ext.1"/>
           <component-refer ref="fcs_tls_ext.1"/>
           <!-- <component-refer ref="fpr_ano_ext.1" /> -->
@@ -427,8 +454,8 @@
       functionality. These track with the assumptions about the environment. <SOEs>
         <SOE id="OE.PLATFORM">
           <description>The <abbr linkend="TOE"/> relies upon a trustworthy computing platform for
-            its execution. This includes the underlying operating system and the runtime environment
-            it provides to the TOE.</description>
+            its execution. This includes the underlying operating system and any descrete execution 
+            environment provided to the <abbr linkend="TOE"/>.</description>
         </SOE>
         <SOE id="OE.PROPER_USER">
           <description>The user of the application software is not willfully negligent or hostile,
@@ -502,12 +529,18 @@
                 BLUETOOTH, CAMERA, INTERNET, NFC, READ_EXTERNAL_STORAGE, RECORD_AUDIO. Note: Users
                 must accept all requested permissions upon installation and cannot choose individual
                 permissions to allow or deny. A complete list of Android permissions can be found
-                at: <ul><li><a
-                      href="http://developer.android.com/reference/android/Manifest.permission.html"
-                      >http://developer.android.com/reference/android/Manifest.permission.html</a></li>
+                at: 
+                <ul>
                   <li><a
-                      href="http://developer.android.com/reference/android/Manifest.permission_group.html"
-                      >http://developer.android.com/reference/android/Manifest.permission_group.html</a></li>
+                      href="http://developer.android.com/reference/android/Manifest.permission.html"
+                      >http://developer.android.com/reference/android/Manifest.permission.html</a>
+                  </li>
+                  <li><a
+                      href="http://developer.android.com/reference/android/Manifest.permission_group
+                      .html"
+                      >http://developer.android.com/reference/android/Manifest.permission_group.html
+                    </a>
+                  </li>
                 </ul>
               </subaactivity>
               <subaactivity platform="windows">For Windows Store Apps the evaluator shall check the
@@ -547,15 +580,16 @@
                 <selectable>calendar</selectable>
                 <selectable>call lists</selectable>
                 <selectable>system logs</selectable>
-                <selectable><assignment> list of additional system-wide sensitive information repositories</assignment>
+                <selectable><assignment> list of additional system-wide sensitive information 
+                  repositories</assignment>
                 </selectable>
               </selectables>
             </title>
             <note role="application"> The evaluator should ensure that the selection captures all
-              system-wide sensitive information repositories which the application is intended to access.
-              The requirement is worded in this way due to the diversity of methods by which user
-              awareness can be achieved, which varies per platform. An application can use a file or
-              directory selection dialog to provide user awareness that data can be saved to
+              system-wide sensitive information repositories which the application is intended to 
+              access. The requirement is worded in this way due to the diversity of methods by which 
+              user awareness can be achieved, which varies per platform. An application can use a 
+              file or directory selection dialog to provide user awareness that data can be saved to
               world-readable-storage.</note>
             <aactivity>The evaluator shall install the application and inspect its user
               documentation, and determine that the user is informed of any need to access sensitive
@@ -568,12 +602,21 @@
                 verify that the application displays the permissions used to access sensitive
                 information repositories. This includes permissions such as READ_CALENDAR,
                 READ_CALL_LOG, READ_CONTACTS, READ_EXTERNAL_STORAGE, READ_LOGS. A complete list of
-                Android permissions can be found at: <ul><li><a
+                Android permissions can be found at: 
+                <ul>
+                  <li>
+                    <a
                       href="http://developer.android.com/reference/android/Manifest.permission.html"
-                      >http://developer.android.com/reference/android/Manifest.permission.html</a></li>
-                  <li><a
-                      href="http://developer.android.com/reference/android/Manifest.permission_group.html"
-                      >http://developer.android.com/reference/android/Manifest.permission_group.html</a></li>
+                      >http://developer.android.com/reference/android/Manifest.permission.html
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="http://developer.android.com/reference/android/Manifest.permission_group
+                      html"
+                      >http://developer.android.com/reference/android/Manifest.permission_group.html
+                    </a>
+                  </li>
                 </ul>
               </subaactivity>
               <subaactivity platform="windows">For Windows Store Apps the evaluator shall check the
@@ -590,9 +633,10 @@
               <subaactivity platform="ios">The evaluator shall verify that either the application
                 or the documentation provide the user with a list of permissions used to access
                 sensitive information repositories.</subaactivity>
-              <subaactivity platform="selinux"> The evaluator shall verify that either the application
-                or the documentation provide the user with a list of permissions used to access
-                sensitive information repositories. </subaactivity>
+              <subaactivity platform="selinux"> The evaluator shall verify that either the 
+                application or the documentation provide the user with a list of permissions used to 
+                access sensitive information repositories. 
+              </subaactivity>
               <subaactivity platform="z/OS"> The evaluator shall verify that either the application
                 or the documentation provide the user with a list of permissions used to access
                 sensitive information repositories. </subaactivity>
@@ -611,7 +655,8 @@
 	    </title>
             <note role="application"> This requirement is intended to prompt judgment about whether
               the resources identified for access in <reqref linkend="fdp_dec_ext.1.1"/> and <reqref
-                linkend="fdp_dec_ext.1.2"/> are necessary for the operation of the application. </note>
+                linkend="fdp_dec_ext.1.2"/> are necessary for the operation of the application. 
+              </note>
             <aactivity> The evaluator shall review documentation provided by the application
               developer and for each resource which it requests access to, identify the
               justification as to why access is required. </aactivity>
@@ -626,7 +671,8 @@
                 <selectable>provide no network connections</selectable>
                 <selectable>provide user initiated connectivity for <assignment> list of functions 
                   for which the user can initiate network connections</assignment></selectable>
-                <selectable>respond to <assignment> list of remotely initiated connections</assignment>
+                <selectable>respond to <assignment> list of remotely initiated connections
+                </assignment>
                 </selectable>
                 <selectable><assignment> list application initiated network connections</assignment>
                 </selectable>
@@ -676,7 +722,8 @@
                 retrieve senstive information. Windows Store Apps for desktop or mobile shall use
                 the DPAPI via the ProtectedData class.</subaactivity>
               <subaactivity platform="ios">The evaluator shall determine whether the application
-                uses the appropriate Data Protection Class for each data file stored locally. </subaactivity>
+                uses the appropriate Data Protection Class for each data file stored locally. 
+              </subaactivity>
               <subaactivity platform="selinux">
 		The evaluator shall verify that the application
                 uses OpenSSL or PGP to store and retrieve senstive information. 
@@ -691,7 +738,7 @@
       <subsection title="Security Management (FMT)" id="fmt">
         <f-component id="fmt_mec_ext.1" name="Supported Configuration Mechanism">
           <f-element id="fmt_mec_ext.1.1">
-            <title> The application shall invoke the mechanisms recommended by the operating system
+            <title> The application shall invoke the mechanisms recommended by the platform
               vendor for storing and setting all security-related configuration options that are
               stored on the platform. </title>
             <note role="application"> Configuration options that are stored remotely are not subject
@@ -761,8 +808,9 @@
             <note role="application">The intention of this requirement is to prevent the logging
               of plaintext credentials by the platform, and the observation of plaintext credentials
               during transmission. Future versions of this PP may include specific requirements for
-              transmission of credentials. Cryptographic methods based on the requirements in FCS_COP,
-              or the transmission of credentials over an encrypted tunnel (like TLS) are preferred.
+              transmission of credentials. Cryptographic methods based on the requirements in 
+              FCS_COP, or the transmission of credentials over an encrypted tunnel (like TLS) are 
+              preferred.
             </note>
             <aactivity>The evaluator shall install and run the application and inspect its
               documentation. The evaluator shall determine if the application uses any credentials
@@ -786,11 +834,13 @@
                 external storage as this data can be read/modified by any application containing the
                 READ_EXTERNAL_STORAGE and/or WRITE_EXTERNAL_STORAGE permissions.</subaactivity>
               <subaactivity platform="windows">The evaluator shall run the SysInternals tools,
-                Process Monitor and Access Check (or tools of equivalent capability, like icacls.exe) for Classic
-                Desktop applications to verify that files writen to disk during an applications
-                installation have the correct file permissions, such that a standard user cannot modify
-                the application or its data files. For Windows Store Apps the evaluator shall
-                consider the requirement met because of the AppContainer sandbox.</subaactivity>
+                Process Monitor and Access Check (or tools of equivalent capability, like 
+                icacls.exe) for Classic Desktop applications to verify that files writen to disk 
+                during an applications installation have the correct file permissions, such that a 
+                standard user cannot modify the application or its data files. For Windows Store 
+                Apps the evaluator shall consider the requirement met because of the AppContainer 
+                sandbox.
+              </subaactivity>
               <subaactivity platform="ios">The evaluator shall determine whether the application
                 leverages the appropriate Data Protection Class for each data file stored
                 locally.</subaactivity>
@@ -840,13 +890,13 @@
 	      This requirement stipulates that applications need provide the ability to enable/disable to
 	      only those functions that it actually implements.
 	    </note>
-            <aactivity>The evaluator shall check to make sure that every management function mandated
-              by the PP is described in the operational guidance and that the description contains
-              the information required to perform the management duties associated with the management
-              function. The evaluator shall test the applications ability to provide the management
-              functions by configuring the application and testing each option selected from above.
-              The evaluator is expected to test these functions in all the ways in which the ST
-              and guidance documentation state the configuration can be managed.
+            <aactivity>The evaluator shall check to make sure that every management function 
+              mandated by the PP is described in the operational guidance and that the description 
+              contains the information required to perform the management duties associated with the 
+              management function. The evaluator shall test the applications ability to provide the 
+              management functions by configuring the application and testing each option selected 
+              from above. The evaluator is expected to test these functions in all the ways in which 
+              the ST and guidance documentation state the configuration can be managed.
             </aactivity>
           </f-element>
         </f-component>
@@ -872,16 +922,20 @@
               evaluator shall determine how the application acquires random bits. </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_rbg_ext.2" name="Random Bit Generation from Platform (Selection Based)">
+        <f-component id="fcs_rbg_ext.2" name="Random Bit Generation from Platform (Selection Based)"
+          >
           <f-element id="fcs_rbg_ext.2.1" status="sel-based">
             <selection-depends req="fcs_rbg_ext.1.1"/>
-            <title> The application shall invoke a mechanism recommended by the operating system
+            <title> The application shall invoke a mechanism recommended by the platform
               vendor for requesting data from the platform's DRBG.</title>
-            <note role="application">This requirement shall be included in STs in which "invoke platform-provided
-              DRBG services" is chosen in FCS_RBG_EXT.1.1. Guidance on various platform DRBGs can be found in "Random
-              Number Generators (RNG): Introduction for Application Developers" at: <ul><li><a
-                href="http://www.nsa.gov/ia/mitigation_guidance/security_configuration_guides/fact_sheets.shtml">
-                http://www.nsa.gov/ia/mitigation_guidance/security_configuration_guides/fact_sheets.shtml</a></li>
+            <note role="application">This requirement shall be included in STs in which "invoke 
+              platform-provided DRBG services" is chosen in FCS_RBG_EXT.1.1. Guidance on various 
+              platform DRBGs can be found in "Random Number Generators (RNG): Introduction for 
+              Application Developers" at: <ul><li><a
+                href="http://www.nsa.gov/ia/mitigation_guidance/security_configuration_guides/
+                fact_sheets.shtml">
+                http://www.nsa.gov/ia/mitigation_guidance/security_configuration_guides/
+                fact_sheets.shtml</a></li>
               </ul>  
             </note>
             <aactivity>The evaluator shall verify that the ST identifies the calls used in acquiring
@@ -910,7 +964,8 @@
             </aactivity>
           </f-element>
         </f-component>
-         <f-component id="fcs_rbg_ext.3" name="Random Bit Generation from Application (Selection Based)">
+         <f-component id="fcs_rbg_ext.3" name="Random Bit Generation from Application (Selection 
+          Based)">
           <f-element id="fcs_rbg_ext.3.1" status="sel-based">
             <selection-depends req="fcs_rbg_ext.1.1"/>
             <title> The application shall perform all deterministic random bit generation (DRBG)
@@ -925,49 +980,52 @@
               </selectables>
             </title>
             <note role="application">This requirement shall be included in STs in which "invoke
-              application-implemented DRBG services" is chosen in FCS_RBG_EXT.1.1. The ST author shall
-              select the standard to which the RBG services comply (either 800-90A or 140-2 Annex C). The ST
-              author will select the function used (if 800-90A is selected), and include the specific underlying
-              cryptographic primitives used in the requirement or in the TSS. While any of the
-              identified hash functions (SHA-1, SHA-224, SHA-256, SHA-384, and SHA-512) are allowed
-              for Hash_DRBG or HMAC_DRBG, only AES-based implementations for CTR_DRBG are allowed.
-              If the key length for the AES implementation used here is different than that used to
-              encrypt the user data, then FCS_COP.1 may have to be adjusted or iterated to reflect
-              the different key length. The ST author also ensures that any underlying functions are
-              included in the baseline requirements in the ST (if these are implemented by the
-              platform, then the appropriate selections are made as well). Note that for FIPS Pub
-              140-2 Annex C, currently only the method described in NIST-Recommended Random Number
-              Generator Based on ANSI X9.31 Appendix A.2.4 “Using the 3-Key Triple DES and AES
-              Algorithms”, Section 3 is valid. Use of the ANSI X9.31 DRBG (defined in FIPS 140-2) is
-              disallowed after 2015 per NIST SP 800-131A. The PP will be updated to reflect this;
-              however, developers should begin transitioning from this DRBG as soon as possible. </note>
+              application-implemented DRBG services" is chosen in FCS_RBG_EXT.1.1. The ST author 
+              shall select the standard to which the RBG services comply (either 800-90A or 140-2 
+              Annex C). The ST author will select the function used (if 800-90A is selected), and 
+              include the specific underlying cryptographic primitives used in the requirement or in 
+              the TSS. While any of the identified hash functions (SHA-1, SHA-224, SHA-256, SHA-384, 
+              and SHA-512) are allowed for Hash_DRBG or HMAC_DRBG, only AES-based implementations 
+              for CTR_DRBG are allowed. If the key length for the AES implementation used here is 
+              different than that used to encrypt the user data, then FCS_COP.1 may have to be 
+              adjusted or iterated to reflect the different key length. The ST author also ensures 
+              that any underlying functions are included in the baseline requirements in the ST (if 
+              these are implemented by the platform, then the appropriate selections are made as 
+              well). Note that for FIPS Pub 140-2 Annex C, currently only the method described in 
+              NIST-Recommended Random Number Generator Based on ANSI X9.31 Appendix A.2.4 “Using the 
+              3-Key Triple DES and AES Algorithms”, Section 3 is valid. Use of the ANSI X9.31 DRBG 
+              (defined in FIPS 140-2) is disallowed after 2015 per NIST SP 800-131A. The PP will be 
+              updated to reflect this; however, developers should begin transitioning from this DRBG 
+              as soon as possible. </note>
             <aactivity>The evaluator shall perform the following tests, depending on the standard
               to which the RBG conforms. 
               <br />
               Implementations Conforming to FIP 140-2 Annex C. 
               <br />
               The reference for the tests contained in this section is The Random Number Generator
-              Validation System (RNGVS). The evaluators shall conduct the following two tests. Note that
-              the "expected values" are produced by a reference implementation of the algorithm that is
-              known to be correct. Proof of correctness is left to each Scheme.
+              Validation System (RNGVS). The evaluators shall conduct the following two tests. Note 
+              that the "expected values" are produced by a reference implementation of the algorithm 
+              that is known to be correct. Proof of correctness is left to each Scheme.
               <testlist>
                 <test>The evaluators shall perform a Variable Seed Test. The evaluators shall
-                  provide a set of 128 (Seed, DT) pairs to the TSF RBG function, each 128 bits.
-                  The evaluators shall also provide a key (of the length appropriate to the AES
-                  algorithm) that is constant for all 128 (Seed, DT) pairs. The DT value is
-                  incremented by 1 for each set. The seed values shall have no repeats within
-                  the set. The evaluators ensure that the values returned by the TSF match the
-                  expected values.
+                  provide a set of 128 (Seed, DT) pairs to the <abbr linkend="TSF"/> RBG function, 
+                  each 128 bits. The evaluators shall also provide a key (of the length appropriate 
+                  to the AES algorithm) that is constant for all 128 (Seed, DT) pairs. The DT value 
+                  is incremented by 1 for each set. The seed values shall have no repeats within
+                  the set. The evaluators ensure that the values returned by the 
+                  <abbr linkend="TSF"/> match the expected values.
                 </test>
                 <test>
                   The evaluators shall perform a Monte Carlo Test. For this test, they supply
-                  an initial Seed and DT value to the TSF RBG function; each of these is 128 bits.
-                  The evaluators shall also provide a key (of the length appropriate to the AES algorithm)
-                  that is constant throughout the test. The evaluators then invoke the TSF RBG 10,000 times,
-                  with the DT value being incremented by 1 on each iteration, and the new seed for the
-                  subsequent iteration produced as specified in NIST-Recommended Random Number Generator
-                  Based on ANSI X9.31 Appendix A.2.4 Using the 3-Key Triple DES and AES Algorithms,
-                  Section 3. The evaluators ensure that the 10,000th value produced matches the expected value.
+                  an initial Seed and DT value to the <abbr linkend="TSF"/> RBG function; each of 
+                  these is 128 bits. The evaluators shall also provide a key (of the length 
+                  appropriate to the AES algorithm) that is constant throughout the test. The 
+                  evaluators then invoke the <abbr linkend="TSF"/> RBG 10,000 times, with the DT 
+                  value being incremented by 1 on each iteration, and the new seed for the 
+                  subsequent iteration produced as specified in NIST-Recommended Random Number 
+                  Generator Based on ANSI X9.31 Appendix A.2.4 Using the 3-Key Triple DES and AES 
+                  Algorithms, Section 3. The evaluators ensure that the 10,000th value produced 
+                  matches the expected value.
                 </test>
               </testlist>
               Implementations Conforming to NIST Special Publication 800-90A
@@ -978,39 +1036,41 @@
                   evaluator shall also confirm that the operational guidance contains appropriate
                   instructions for configuring the RNG functionality.
                   <br />
-                  If the RNG has prediction resistance enabled, each trial consists of (1) instantiate DRBG,
-                  (2) generate the first block of random bits (3) generate a second block of random bits (4)
-                  uninstantiate. The evaluator verifies that the second block of random bits is the expected
-                  value. The evaluator shall generate eight input values for each trial. The first is a count
-                  (0 – 14). The next three are entropy input, nonce, and personalization string for the
-                  instantiate operation. The next two are additional input and entropy input for the first
-                  call to generate. The final two are additional input and entropy input for the second
-                  call to generate. These values are randomly generated. “generate one block of random bits”
-                  means to generate random bits with number of returned bits equal to the Output Block Length
-                  (as defined in NIST SP800-90A).
+                  If the RNG has prediction resistance enabled, each trial consists of (1) 
+                  instantiate DRBG, (2) generate the first block of random bits (3) generate a 
+                  second block of random bits (4) uninstantiate. The evaluator verifies that the 
+                  second block of random bits is the expected value. The evaluator shall generate 
+                  eight input values for each trial. The first is a count (0 – 14). The next three 
+                  are entropy input, nonce, and personalization string for the instantiate 
+                  operation. The next two are additional input and entropy input for the first call 
+                  to generate. The final two are additional input and entropy input for the second
+                  call to generate. These values are randomly generated. “generate one block of 
+                  random bits” means to generate random bits with number of returned bits equal to 
+                  the Output Block Length (as defined in NIST SP800-90A).
                   <br />
-                  If the RNG does not have prediction resistance, each trial consists of (1) instantiate DRBG,
-                  (2) generate the first block of random bits (3) reseed, (4) generate a second block of random
-                  bits (5) uninstantiate. The evaluator verifies that the second block of random bits is the
-                  expected value. The evaluator shall generate eight input values for each trial. The first
-                  is a count (0 – 14). The next three are entropy input, nonce, and personalization string
-                  for the instantiate operation. The fifth value is additional input to the first call to
-                  generate. The sixth and seventh are additional input and entropy input to the call to
-                  reseed. The final value is additional input to the second generate call.
+                  If the RNG does not have prediction resistance, each trial consists of (1) 
+                  instantiate DRBG, (2) generate the first block of random bits (3) reseed, (4) 
+                  generate a second block of random bits (5) uninstantiate. The evaluator verifies 
+                  that the second block of random bits is the expected value. The evaluator shall 
+                  generate eight input values for each trial. The first is a count (0 – 14). The 
+                  next three are entropy input, nonce, and personalization string for the 
+                  instantiate operation. The fifth value is additional input to the first call to
+                  generate. The sixth and seventh are additional input and entropy input to the call 
+                  to reseed. The final value is additional input to the second generate call.
                   <br />
-                  The following paragraphs contain more information on some of the input values to be
-                  generated/selected by the evaluator.
+                  The following paragraphs contain more information on some of the input values to 
+                  be generated/selected by the evaluator.
                   <br />
                   Entropy input: the length of the entropy input value must equal the seed length.
-                  Nonce: If a nonce is supported (CTR_DRBG with no Derivation Function does not use a nonce),
-                  the nonce bit length is one-half the seed length.
-                  Personalization string: The length of the personalization string must be less then or equal
-                  to seed length. If the implementation only supports one personalization string length, 
-                  then the same length can be used for both values. If more than one string length is support,
-                  the evaluator shall use personalization strings of two different lengths. If the
-                  implementation does not use a personalization string, no value needs to be supplied.
-                  Additional input: the additional input bit lengths have the same defaults and
-                  restrictions as the personalization string lengths.
+                  Nonce: If a nonce is supported (CTR_DRBG with no Derivation Function does not use 
+                  a nonce), the nonce bit length is one-half the seed length. Personalization 
+                  string: The length of the personalization string must be less then or equal
+                  to seed length. If the implementation only supports one personalization string 
+                  length, then the same length can be used for both values. If more than one string 
+                  length is support, the evaluator shall use personalization strings of two 
+                  different lengths. If the implementation does not use a personalization string, no 
+                  value needs to be supplied. Additional input: the additional input bit lengths 
+                  have the same defaults and restrictions as the personalization string lengths.
                 </test>
               </testlist>
             </aactivity>
@@ -1027,15 +1087,16 @@
               </selectables> of entropy at least equal to the greatest security strength (according
               to NIST SP 800-57) of the keys and hashes that it will generate. </title>
             <note role="application">This requirement shall be included in STs in which “perform
-              DRBG services” is chosen in FCS_RBG_EXT.1.1. For the first selection in this requirement,
-              the ST author selects ‘software-based noise source’ if any additional noise sources are
-              used as input to the application’s DRBG. Note that the application must use the platform’s
-              DRBG to seed its DRBG. In the second selection in this requirement, the ST author selects
-              the appropriate number of bits of entropy that corresponds to the greatest security
-              strength of the algorithms included in the ST. Security strength is defined in Tables 2
-              and 3 of NIST SP 800-57A. For example, if the implementation includes 2048-bit RSA
-              (security strength of 112 bits), AES 128 (security strength 128 bits), and
-              HMAC-SHA-256 (security strength 256 bits), then the ST author would select 256 bits.
+              DRBG services” is chosen in FCS_RBG_EXT.1.1. For the first selection in this 
+              requirement, the ST author selects ‘software-based noise source’ if any additional 
+              noise sources are used as input to the application’s DRBG. Note that the application 
+              must use the platform’s DRBG to seed its DRBG. In the second selection in this 
+              requirement, the ST author selects the appropriate number of bits of entropy that 
+              corresponds to the greatest security strength of the algorithms included in the ST. 
+              Security strength is defined in Tables 2 and 3 of NIST SP 800-57A. For example, if the 
+              implementation includes 2048-bit RSA (security strength of 112 bits), AES 128 
+              (security strength 128 bits), and HMAC-SHA-256 (security strength 256 bits), then the 
+              ST author would select 256 bits.
             </note>
             <aactivity>Documentation shall be produced—and the evaluator shall perform the
               activities—in accordance with Appendix E, “Entropy Documentation and Assessment” and
@@ -1066,7 +1127,8 @@
               selected in the application product’s ST. </aactivity>
           </f-element>
         </f-component>
-          <f-component id="fcs_cop_ext.2" name="Cryptographic Hashing and Signing (Selection Based)">
+          <f-component id="fcs_cop_ext.2" name="Cryptographic Hashing and Signing (Selection Based)"
+            >
           <f-element id="fcs_cop_ext.2.1" status="sel-based">
             <selection-depends req="fcs_cop_ext.1.1"/>
             <title>The application shall perform cryptographic signature services (generation and
@@ -1094,21 +1156,23 @@
                   NIST curve (i.e., P-256, P-384 and P-521) and SHA function pair, the evaluator
                   shall generate a set of 10 1024-bit message, public key and signature tuples and
                   modify one of the values (message, public key or signature) in five of the 10
-                  tuples. The evaluator shall obtain in response a set of 10 PASS/FAIL values. </test>
+                  tuples. The evaluator shall obtain in response a set of 10 PASS/FAIL values. 
+                </test>
                 <test>RSA Signature Algorithm Tests Signature Generation Test The evaluator shall
-                  verify the implementation of RSA Signature Generation by the TOE using the
-                  Signature Generation Test. To conduct this test the evaluator must generate or
-                  obtain 10 messages from a trusted reference implementation for each modulus
-                  size/SHA combination supported by the TSF. The evaluator shall have the TOE use
-                  their private key and modulus value to sign these messages. The evaluator shall
-                  verify the correctness of the TSF’s signature using a known good implementation
-                  and the associated public keys to verify the signatures. Signature Verification
-                  Test The evaluator shall perform the Signature Verification test to verify the
-                  ability of the TOE to recognize another party’s valid and invalid signatures. The
-                  evaluator shall inject errors into the test vectors produced during the Signature
-                  Verification Test by introducing errors in some of the public keys e, messages, IR
-                  format, and/or signatures. The TOE attempts to verify the signatures and returns
-                  success or failure. </test>
+                  verify the implementation of RSA Signature Generation by the <abbr linkend="TOE"/>
+                  using the Signature Generation Test. To conduct this test the evaluator must 
+                  generate or obtain 10 messages from a trusted reference implementation for each 
+                  modulus size/SHA combination supported by the <abbr linkend="TSF"/>. The evaluator 
+                  shall have the <abbr linkend="TOE"/> use their private key and modulus value to 
+                  sign these messages. The evaluator shall verify the correctness of the 
+                  <abbr linkend="TSF"/>’s signature using a known good implementation and the 
+                  associated public keys to verify the signatures. Signature Verification Test The 
+                  evaluator shall perform the Signature Verification test to verify the ability of 
+                  the <abbr linkend="TOE"/> to recognize another party’s valid and invalid 
+                  signatures. The evaluator shall inject errors into the test vectors produced 
+                  during the Signature Verification Test by introducing errors in some of the public 
+                  keys e, messages, IR format, and/or signatures. The <abbr linkend="TOE"/> attempts 
+                  to verify the signatures and returns success or failure. </test>
               </testlist>
             </aactivity>
           </f-element>
@@ -1125,7 +1189,8 @@
                 <selectable>256</selectable>
                 <selectable>384</selectable>
                 <selectable>512</selectable>
-              </selectables> bits that meet the following: FIPS Pub 180-4, “Secure Hash Standard.” </title>
+              </selectables> bits that meet the following: FIPS Pub 180-4, “Secure Hash Standard.” 
+            </title>
             <note role="application">In future versions of this document, SHA-1 may be removed as an
               option. SHA-1 for generating digital signatures will no longer be allowed after
               December 2013, and SHA-1 for verification of digital signatures is strongly
@@ -1133,46 +1198,48 @@
               hashing algorithm must correspond to the selection of the message digest size; for
               example, if SHA-1 is chosen, then the only valid message digest size selection would
               be 160 bits. </note>
-            <aactivity>The TSF hashing functions can be implemented in one of two modes. The first
-              mode is the byte¬oriented mode. In this mode the TSF only hashes messages that are an
-              integral number of bytes in length; i.e., the length (in bits) of the message to be
-              hashed is divisible by 8. The second mode is the bit¬oriented mode. In this mode the
-              TSF hashes messages of arbitrary length. As there are different tests for each mode,
-              an indication is given in the following sections for the bit¬oriented vs. the
-              byte¬oriented testmacs.The evaluator shall perform all of the following tests for each
-              hash algorithm implemented by the TSF and used to satisfy the requirements of this PP. <testlist>
+            <aactivity>The <abbr linkend="TSF"/> hashing functions can be implemented in one of two 
+            modes. The first mode is the byte¬oriented mode. In this mode the <abbr linkend="TSF"/> 
+            only hashes messages that are an integral number of bytes in length; i.e., the length 
+            (in bits) of the message to be hashed is divisible by 8. The second mode is the 
+            bit¬oriented mode. In this mode the <abbr linkend="TSF"/> hashes messages of arbitrary 
+            length. As there are different tests for each mode, an indication is given in the 
+            following sections for the bit¬oriented vs. the byte¬oriented testmacs.The evaluator 
+            shall perform all of the following tests for each hash algorithm implemented by the 
+            <abbr linkend="TSF"/> and used to satisfy the requirements of this PP.
+               <testlist>
                 <test>Short Messages Test - Bit oriented Mode The evaluators devise an input set
                   consisting of m+1 messages, where m is the block length of the hash algorithm. The
                   length of the messages range sequentially from 0 to m bits. The message text shall
                   be pseudorandomly generated. The evaluators compute the message digest for each of
                   the messages and ensure that the correct result is produced when the messages are
-                  provided to the TSF. </test>
+                  provided to the <abbr linkend="TSF"/>. </test>
                 <test>Short Messages Test - Byte oriented Mode The evaluators devise an input set
                   consisting of m/8+1 messages, where m is the block length of the hash algorithm.
                   The length of the messages range sequentially from 0 to m/8 bytes, with each
                   message being an integral number of bytes. The message text shall be
                   pseudorandomly generated. The evaluators compute the message digest for each of
                   the messages and ensure that the correct result is produced when the messages are
-                  provided to the TSF. </test>
+                  provided to the <abbr linkend="TSF"/>. </test>
                 <test>Selected Long Messages Test - Bit oriented Mode The evaluators devise an input
                   set consisting of m messages, where m is the block length of the hash algorithm.
                   The length of the ith message is 512 + 99*i, where 1 ≤ i ≤ m. The message text
                   shall be pseudorandomly generated. The evaluators compute the message digest for
                   each of the messages and ensure that the correct result is produced when the
-                  messages are provided to the TSF. </test>
+                  messages are provided to the <abbr linkend="TSF"/>. </test>
                 <test>Selected Long Messages Test - Byte oriented Mode The evaluators devise an
                   input set consisting of m/8 messages, where m is the block length of the hash
                   algorithm. The length of the ith message is 512 + 8*99*i, where 1 ≤ i ≤ m/8. The
                   message text shall be pseudorandomly generated. The evaluators compute the message
                   digest for each of the messages and ensure that the correct result is produced
-                  when the messages are provided to the TSF. </test>
+                  when the messages are provided to the <abbr linkend="TSF"/>. </test>
                 <test>Pseudorandomly Generated Messages Test This test is for byte¬oriented
                   implementations only. The evaluators randomly generate a seed that is n bits long,
                   where n is the length of the message digest produced by the hash function to be
                   tested. The evaluators then formulate a set of 100 messages and associated digests
                   by following the algorithm provided in Figure 1 of [SHAVS]. The evaluators then
                   ensure that the correct result is produced when the messages are provided to the
-                  TSF. </test>
+                  <abbr linkend="TSF"/>. </test>
               </testlist>
             </aactivity>
           </f-element>
@@ -1181,21 +1248,23 @@
           <f-element id="fcs_sto_ext.1.1">
             <title>The application shall 
               <selectables linebreak="yes">
-                <selectable>invoke the mechanisms provided by the platform</selectable>
-                <selectable>invoke application-implemented mechanism</selectable>
+                <selectable>not store any credentials</selectable>
+                <selectable>invoke the mechanisms provided by the platform for any storage of credentials</selectable>
+                <selectable>invoke application-implemented mechanism for any storage of credentials</selectable>
               </selectables>
-              for any storage of credentials to non-volatile memory.</title>
-            <note role="application">This requirement ensures that persistent credentials (secret keys, 
-            PKI private keys, or passwords) are stored securely when not in use. A
-            selection of "invoke application-implemented mechanism" includes additional requirements
-            and test activities in FCS_STO_EXT.2.
+               to non-volatile memory.</title>
+            <note role="application">This requirement ensures that persistent credentials (secret 
+              keys, PKI private keys, or passwords) are stored securely when not in use. A
+              selection of "invoke application-implemented mechanism" includes additional 
+              requirements and test activities in FCS_STO_EXT.2.
             </note>
-            <aactivity>The evaluator shall check the TSS to ensure that it lists all persistent credentials
-              (secret keys, PKI private keys, or passwords) needed to meet the requirements in the ST. For
-              each of these items, the evaluator shall confirm that the TSS lists for what purpose it is used,
-              and how it is stored. For credentials stored by invoking an application-implemented mechanism the
-              evaluator shall verify that additional requirements from FCS_STO_EXT.2 are met. For credentials
-              stored by invoking the platform the evaluator shall perform the following actions which vary per
+            <aactivity>The evaluator shall check the TSS to ensure that it lists all persistent 
+              credentials (secret keys, PKI private keys, or passwords) needed to meet the 
+              requirements in the ST. For each of these items, the evaluator shall confirm that the 
+              TSS lists for what purpose it is used, and how it is stored. For credentials stored by 
+              invoking an application-implemented mechanism the evaluator shall verify that 
+              additional requirements from FCS_STO_EXT.2 are met. For credentials stored by invoking 
+              the platform the evaluator shall perform the following actions which vary per 
               platform.
               <subaactivity
                 platform="blackberry"/>
@@ -1203,8 +1272,11 @@
                 within a keystore using Android's <code>KeyStore</code> class. </subaactivity>
               <subaactivity platform="windows">The evaluator shall verify that all certificates are
                 stored in the Windows Certificate Store. The evaluator shall verify that other
-                secrets, like passwords, are stored in the Windows Credential Manager or stored using
-                the Data Protection API (DPAPI). </subaactivity>
+                secrets, like passwords, are stored in the Windows Credential Manager or stored 
+                using the Data Protection API (DPAPI). For Windows Store App the evaluator shall 
+                verify that the application is using the ProtectData class and storing credentials 
+                in IsolatedStorage.
+              </subaactivity>
               <subaactivity platform="ios">The evaluator shall verify that all keys are stored
                 within a <code>KeyChain</code>. </subaactivity>
               <subaactivity platform="selinux"> TBD. </subaactivity>
@@ -1221,7 +1293,7 @@
         <f-component id="fcs_sto_ext.2" name="Storage of Secrets (Selection Based)">
           <f-element id="fcs_sto_ext.2.1" status="sel-based">
             <selection-depends req="fcs_sto_ext.1.1"/>
-            <title>The application shall use a unique cryptographically strong salt for each stored
+            <title>The application shall use a unique cryptographic salt for each stored
               credential.</title>
             <aactivity>The evaluator shall run the application and exercise the "change password"
               functionality two times, each time using the same password. The evaluator
@@ -1239,14 +1311,6 @@
               and verify that it is not a clear text password.
             </aactivity>
           </f-element>
-          <f-element id="fcs_sto_ext.2.3" status="sel-based">
-            <selection-depends req="fcs_sto_ext.1.1"/>
-            <title>The application shall store credentials a location that is access controlled
-              such that standard users only have read-access.</title>
-            <aactivity>The evaluator shall identify the location of stored credentials and attempt
-              to write to that location as a standard user.
-            </aactivity>
-          </f-element>
         </f-component>
         <f-component id="fcs_tls_ext.1" name="TLS Implementation" status="sel-based">
           <f-element id="fcs_tls_ext.1.1" status="sel-based">
@@ -1258,7 +1322,6 @@
               </selectables> supporting the following ciphersuites: <p/>Mandatory Ciphersuites:
               TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 3268 and <p/>Optional Ciphersuites:
                 <selectables linebreak="yes">
-                <selectable>None</selectable>
                 <selectable>TLS_RSA_WITH_AES_256_CBC_SHA as defined in RFC 3268</selectable>
                 <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA as defined in RFC 3268</selectable>
                 <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA as defined in RFC 3268</selectable>
@@ -1280,11 +1343,12 @@
                   5289</selectable>
                 <selectable>no other ciphersuite</selectable>
               </selectables>
+	      .
             </title>
             <note role="application">The ciphersuites to be tested in the evaluated configuration
               are limited by this requirement. The ST author should select the optional ciphersuites
               that are supported; if there are no ciphersuites supported other than the mandatory
-              suites, then “None” should be selected. It is necessary to limit the ciphersuites that
+              suites, then “no other ciphersuite” should be selected. It is necessary to limit the ciphersuites that
               can be used in an evaluated configuration administratively on the server in the test
               environment. The Suite B algorithms listed above (RFC 6460) are the preferred
               algorithms for implementation. TLS_RSA_WITH_AES_128_CBC_SHA is required in order to
@@ -1294,9 +1358,10 @@
               protocol in the <abbr linkend="TSS"/> to ensure that the ciphersuites supported are
               specified. The evaluator shall check the TSS to ensure that the ciphersuites specified
               include those listed for this component. The evaluator shall also check the
-              operational guidance to ensure that it contains instructions on configuring the TOE so
-              that TLS conforms to the description in the TSS. The evaluator shall also perform the
-              following tests: <testlist>
+              operational guidance to ensure that it contains instructions on configuring the 
+              <abbr linkend="TOE"/> so that TLS conforms to the description in the TSS. The 
+              evaluator shall also perform the following tests: 
+              <testlist>
                 <test>The evaluator shall establish a TLS connection using each of the ciphersuites
                   specified by the requirement. This connection may be established as part of the
                   establishment of a higher-level protocol, e.g., as part of an EAP session. It is
@@ -1305,42 +1370,44 @@
                   encrypted traffic in an attempt to discern the ciphersuite being used (for
                   example, that the cryptographic algorithm is 128-bit AES and not 256-bit
                   AES).</test>
-                <test>The evaluator shall attempt to establish the connection to a peer that presents a
-                  certificate that contains the Authentication (either client or server as appropriate) purpose in the
-                  extendedKeyUsage field and verify that a connection is established. The evaluator
-                  will then verify that the application rejects an otherwise valid certificate
-                  that lacks the appropriate Authentication purpose in the extendedKeyUsage field and a
-                  connection is not established. Ideally, the two certificates should be identical
-                  except for the extendedKeyUsage field.</test>
+                <test>The evaluator shall attempt to establish the connection to a peer that 
+                  presents a certificate that contains the Authentication (either client or server 
+                  as appropriate) purpose in the extendedKeyUsage field and verify that a connection 
+                  is established. The evaluator will then verify that the application rejects an 
+                  otherwise valid certificate that lacks the appropriate Authentication purpose in 
+                  the extendedKeyUsage field and a connection is not established. Ideally, the two 
+                  certificates should be identical except for the extendedKeyUsage field.</test>
                 <test>The test entity shall send a certificate in the TLS connection that the
                   does not match the selected ciphersuite (for example, send a ECDSA
                   certificate while using the TLS_RSA_WITH_AES_128_CBC_SHA ciphersuite or send a RSA
                   certificate while using one of the ECDSA ciphersuites.) The evaluator shall verify
                   that the application disconnects after receiving the Certificate handshake
                   message.</test>
-                <test>The evaluator shall configure the test entity to select the TLS_NULL_WITH_NULL_NULL
-                  ciphersuite and verify that the application denies the connection.</test>
-                <test>The evaluator shall setup a man-in-the-middle tool between the application and the
-                  test entity and shall perform the following modifications to the
+                <test>The evaluator shall configure the test entity to select the 
+                  TLS_NULL_WITH_NULL_NULL ciphersuite and verify that the application denies the 
+                  connection.</test>
+                <test>The evaluator shall setup a man-in-the-middle tool between the application and 
+                  the test entity and shall perform the following modifications to the
                   traffic: <ul>
-                    <li>Change the TLS version selected by the test peer in the Hello sent to the application to a
-                      non-supported TLS version (for example 1.3 represented by the two bytes 03 04)
-                      and verify that the application rejects the connection.</li>
-                    <li>Modify at least one byte in the nonce sent to the application in the Hello handshake
-                      message, and verify that the application rejects the Key Exchange handshake
-                      message (if using a DHE or ECDHE ciphersuite).</li>
+                    <li>Change the TLS version selected by the test peer in the Hello sent to the 
+                      application to a non-supported TLS version (for example 1.3 represented by the 
+                      two bytes 03 04) and verify that the application rejects the connection.</li>
+                    <li>Modify at least one byte in the nonce sent to the application in the Hello 
+                      handshake message, and verify that the application rejects the Key Exchange 
+                      handshake message (if using a DHE or ECDHE ciphersuite).</li>
                     <li>Modify the selected ciphersuite in the Hello handshake
-                      message sent to the application to be a ciphersuite not presented in the application's Hello handshake
-                      message. The evaluator shall verify that the application rejects the connection.</li>
-                    <li>Modify the signature block in the Key Exchange handshake message sent to the application,
-                      and verify that the application rejects the connection after receiving the
-                      Key Exchange message.</li>
-                    <li>Modify a byte in the Finished handshake message sent to the application, and verify that the
-                      application sends a fatal alert upon receipt and does not send any application
-                      data.</li>
+                      message sent to the application to be a ciphersuite not presented in the 
+                      application's Hello handshake message. The evaluator shall verify that the 
+                      application rejects the connection.</li>
+                    <li>Modify the signature block in the Key Exchange handshake message sent to the 
+                      application, and verify that the application rejects the connection after 
+                      receiving the Key Exchange message.</li>
+                    <li>Modify a byte in the Finished handshake message sent to the application, and 
+                      verify that the application sends a fatal alert upon receipt and does not send 
+                      any application data.</li>
                     <li>Send an unencrypted packet to the application after the the
-                      ChangeCipherSpec message has been sent and verify that the application denies the
-                      connection.</li>
+                      ChangeCipherSpec message has been sent and verify that the application denies 
+                      the connection.</li>
                   </ul></test>
               </testlist></aactivity>
             <refs>
@@ -1367,9 +1434,9 @@
               compatibility. Additionally, support for use of IP addresses in the Subject Name or
               Subject Alternative name is discouraged as against best practices but may be
               implemented. Finally, the client should avoid constructing reference identifiers using
-              wildcards. However, if the presented identifiers include wildcards, the application must
-              follow the best practices regarding matching; these best practices are captured in the
-              assurance activity.</note>
+              wildcards. However, if the presented identifiers include wildcards, the application 
+              must follow the best practices regarding matching; these best practices are captured 
+              in the assurance activity.</note>
             <aactivity>The evaluator shall ensure that the <abbr linkend="TSS"/> describes the
               applications’s method of establishing all reference identifiers from the
               user/administrator/application-configured reference identifier, including which types
@@ -1377,11 +1444,12 @@
               Name, or other application-specific Subject Alternative Names) and whether IP
               addresses and wildcards are supported. The evaluator shall ensure that this
               description identifies whether and the manner in which certificate pinning is
-              supported or used by the TOE. The evaluator shall verify that the AGD guidance
-              includes instructions for setting the reference identifier to be used for the purposes
-              of certificate validation in TLS. The evaluator shall configure the reference
-              identifier according to the AGD guidance and perform the following tests during a TLS
-              connection: <testlist>
+              supported or used by the <abbr linkend="TOE"/>. The evaluator shall verify that the 
+              AGD guidance includes instructions for setting the reference identifier to be used for
+              the purposes of certificate validation in TLS. The evaluator shall configure the 
+              reference identifier according to the AGD guidance and perform the following tests 
+              during a TLS connection: 
+              <testlist>
                 <test>The evaluator shall present a certificate that does not contain an
                   identifier in either the Subject Alternative Name (SAN) or Common Name (CN) that
                   matches the reference identifier. The evaluator shall verify that the connection
@@ -1444,17 +1512,18 @@
         <f-component id="fcs_dtls_ext.1" name="DTLS Implementation" status="sel-based">
           <f-element id="fcs_dtls_ext.1.1" status="sel-based">
             <selection-depends req="ftp_dit_ext.1.1"/>
-            <title>The application shall implement the DTLS protocol in accordance with one or more
-              of <selectables atleastone="yes" linebreak="yes">
+            <title>The application shall implement the DTLS protocol in accordance with 
+	    <selectables atleastone="yes" linebreak="yes">
                 <selectable>DTLS 1.0 (RFC 4347)</selectable>
                 <selectable>DTLS 1.2 (RFC 6347)</selectable>
               </selectables>
+	      .
             </title>
             <note role="application">Differences between DTLS and TLS are outlined in RFC 4347 and
               RFC 6347; otherwise the protocols are the same. In particular, for the applicable
-              security characteristics defined for the TSF, the two protocols do not differ.
-              Therefore, all application notes and assurance activities that are listed for TLS
-              apply to the DTLS implementation. </note>
+              security characteristics defined for the <abbr linkend="TSF"/>, the two protocols do 
+              not differ. Therefore, all application notes and assurance activities that are listed 
+              for TLS apply to the DTLS implementation. </note>
             <aactivity>The evaluator shall perform the assurance activities listed for TLS to verify
               this component</aactivity>
           </f-element>
@@ -1466,9 +1535,12 @@
                 <selectable>DTLS 1.0 (RFC 4347)</selectable>
                 <selectable>DTLS 1.2 (RFC 6347)</selectable>
               </selectables>
+	      .
             </title>
-            <aactivity>The evaluator shall perform the assurance activities listed for TLS to verify
-              this component</aactivity>
+            <aactivity>
+	      The evaluator shall perform the assurance activities listed for TLS to verify
+              this component.
+	    </aactivity>
           </f-element>
         </f-component>
       </subsection>
@@ -1478,19 +1550,19 @@
       <subsection title="Privacy (FPR)" id="fpr">
         <f-component id="fpr_ano_ext.1" name="Use of Third Party Libraries">
           <f-element id="fpr_ano_ext.1.1">
-            <title> The application shall be packaged with <selectables linebreaks="yes">
-                <selectable>no third-party libraries</selectable>
-                <selectable><assignment> list of third-party libraries</assignment></selectable>
-              </selectables>. </title>
+            <title> The application shall be packaged with only
+	      <assignment> list of third-party libraries</assignment>. 
+	    </title>
+	    
             <note role="application"> 
 	      The intention of this requirement is for the evaluator to
-              discover and document whether the application is including unknown third-party software,
-	      (e.g. adware) that could present a threat to the user's privacy (or worse). 
+              discover and document whether the application is including unknown third-party 
+              software (e.g. adware) that could present a threat to the user's privacy (or worse). 
 	    </note>
             <aactivity> 
-	      The evaluator shall run the application, inspect any documentation, discover libraries
-	      employed, and also conduct network traffic analysis to determine if any third-party libraries
-	      are used by the application.
+	      The evaluator shall inspect the TSS and perform static and dynamic analysis to make sure
+	      that libraries found to be packaged with or employed by the application are limited to 
+	      those in the assignment.
 	    </aactivity>
           </f-element>
         </f-component>
@@ -1499,13 +1571,29 @@
         <f-component id="ftp_dit_ext.1" name="Protection of Data in Transit">
           <f-element id="ftp_dit_ext.1.1">
             <title>The application shall 
-	           <selectables>
+	    <selectables linebreak="yes">
               <selectable>not transmit any data</selectable>
               <selectable>not transmit any sensitive data</selectable>
-              <selectable>use only appropriate encryption protocols to transmit sensitive data</selectable>
+              <selectable>encrypt all transmitted sensitive data with
+                <selectables atleastone="yes">
+		  <selectable><abbr title="Transport Layer Security">TLS</abbr></selectable>
+		  <selectable><abbr title="Datagram Transport Layer Security">DTLS</abbr></selectable>
+		</selectables>
+              </selectable>
+              <selectable>encrypt all transmitted data with
+                <selectables atleastone="yes">
+		  <selectable><abbr title="Transport Layer Security">TLS</abbr></selectable>
+		  <selectable><abbr title="Datagram Transport Layer Security">DTLS</abbr></selectable>
+		</selectables>
+              </selectable>
             </selectables>
-	    .
+	    to provide communication channel between itself and another trusted IT product.
 	    </title>
+            <note role="application">
+	      For the purpose of this document HTTPS is considered a TLS tunnel.
+	      Extended packages may override this requirement to provide for other protocols.
+	      Encryption is not required for applications transmitting data that is not sensitive.
+	    </note>  
             <aactivity>
 	      The evaluator shall prepare a test environment which makes it possible to
               sniff network traffic between the platform and any remote systems. 
@@ -1513,34 +1601,6 @@
 	      The evaluator shall ensure that no sensitive data is transmitted 
 	      without appropriate protections.
 	    </aactivity>
-          </f-element>
-          <f-element id="ftp_dit_ext.1.2" status="sel-based">
-            <selection-depends req="ftp_dit_ext.1.1"/>
-            <title>The application shall use 
-	    <selectables atleastone="yes">
-              <selectable><abbr title="Transport Layer Security">TLS</abbr></selectable>
-              <selectable><abbr title="Datagram Transport Layer Security">DTLS</abbr></selectable>
-              <selectable>Protocol from an Extended Package</selectable>
-            </selectables>
-	    to provide a communication channel to protect 
-	    <selectables>
-              <selectable>all data</selectable>
-              <selectable>all sensitive data</selectable>
-            </selectables>
-	    transmitted between itself and another trusted 
-	    <abbr title="information technology">IT</abbr> 
-	    product.
-	    </title>
-              <note role="application"> For the purpose of this document HTTPS is considered a
-              TLS tunnel.</note>  
-            <aactivity>The evaluator shall prepare a test environment which makes it possible to
-              sniff network traffic between the platform and any remote systems. The evaluator shall
-              install and run the application, and exercise its functionality. The evaluator shall
-              ensure that transmitted data is protected as indicated in the selections.</aactivity>
-            <refs>
-              <ref sect="SC-8"
-                source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf"/>
-            </refs>
           </f-element>
         </f-component>
       </subsection>
@@ -1558,35 +1618,44 @@
           <f-element id="fpt_api_ext.1.1" status="objective">
             <title> The application shall use platform-provided libraries for parsing any structured
               files whose format is included in the IANA MIME media types as listed at
-              http://www.iana.org/assignments/media-types, unless parsing services is the purpose of
-              the application.</title>
-            <note role="application"> This includes many image, audio, video, and content file
-              formats. </note>
-            <aactivity>The evaluator shall ensure that the developer documentation specifies which
-              structured file formats are parsed by the application, and which libraries are used to
-              parse them. The evaluator shall verify that the libraries documented are provided by
-              the platform.</aactivity>
+              <a href='http://www.iana.org/assignments/media-types.'>
+		http://www.iana.org/assignments/media-types</a>.
+            </title>
+            <note role="application">
+	      This includes many image, audio, video, and content file
+              formats. 
+	      This requirement does not apply if providing parsing services is the purpose of the application.
+	    </note>
+            <aactivity>
+	      The evaluator shall verify that the TSS lists the IANA MIME media types
+	      (as described by http://www.iana.org/assignments/media-types )
+	      for all formats the application processes
+	      and that it maps those formats to parsing services provided by the platform.
+	    </aactivity>
           </f-element>
           <f-element id="fpt_api_ext.1.2">
-            <title>The application shall not use any unsupported platform <abbr linkend="API"
+            <title>The application shall only use supported platform <abbr linkend="API"
               />s.</title>
-            <aactivity>The developer must provide a list of platform API functions used by the
-              application. (This list can be generated by tools such as the linker during the
-              software build, or by software analysis tools.) The evaluator shall then compare the
-              developer-supplied list with the operating system documentation.</aactivity>
+            <aactivity>
+	      The evaluator shall verify that the TSS lists the supported platform <abbr linkend="API"/>s 
+	      used in the application.
+	      The evaluator shall then compare the list with the platform documentation and ensure that all 
+	      <abbr linkend="API"/>s listed in the TSS appear in the platform vendor's documentation.
+	    </aactivity>
           </f-element>
         </f-component>
         <f-component id="fpt_aex_ext.1" name="Anti-Exploitation Capabilities">
           <f-element id="fpt_aex_ext.1.1">
-            <title> The application shall not request any memory mapping at an explicit address.
-                <note role="application"> Requesting a memory mapping at an explicit address
+            <title> The application shall not request to map any memory at an explicit address.
+              <note role="application"> Requesting a memory mapping at an explicit address
                 subverts address space layout randomization (<abbr linkend="ASLR"/>). </note>
             </title>
-            <aactivity> The evaluator shall ensure that the <abbr linkend="TSS"/> section of the ST
-              describes the compiler flags used to enable <addr linkend="ASLR"/> in the application.
+            <aactivity> The evaluator shall ensure that the <abbr linkend="TSS"/> 
+              describes the compiler flags used to enable <abbr linkend="ASLR"/> in the application.
               The evaluator shall perform either a static or dynamic analysis to determine that no
-              memory mappings are placed at an explicit and consistent address. The method of doing
-              so varies per platform. <subaactivity platform="blackberry"> The evaluator shall run
+              memory mappings are placed at an explicit and consistent address. 
+	      The method of doing so varies per platform. 
+	      <subaactivity platform="blackberry"> The evaluator shall run
                 the same application on two different BlackBerry systems and run a tool that will
                 list all memory mapped addresses for the application. The evaluator shall then
                 verify the two different instances share no mapping locations. </subaactivity>
@@ -1611,37 +1680,52 @@
             </aactivity>
           </f-element>
           <f-element id="fpt_aex_ext.1.2">
-            <title>The application shall not allocate any memory region with both write and execute
-              permissions. </title>
+            <title>
+	      The application shall 
+	      <selectables linebreak="yes">
+		<selectable> 
+		  not allocate any memory region with both write and execute permissions 
+	        </selectable>
+		<selectable>
+		  allocate memory regions with write and execute permissions for only
+		  <assignment> list of functions performing just-in-time compilation</assignment>
+		</selectable>
+	      </selectables>
+	      .
+	    </title>
             <note role="application"> Requesting a memory mapping with both write and execute
-              permissions subverts the platform protection provided by <abbr linkend="DEP"/>. The
-              only exception for this requirement is applications which perform just-in-time
-              compilation. </note>
-            <aactivity>
+              permissions subverts the platform protection provided by <abbr linkend="DEP"/>. 
+	      If the application performs no just-in-time compiling, then the first selection must be chosen.
+	    </note>
+            <aactivity> 
+	      The evaluator shall verify that no memory mapping requests are made with write and execute permissions.
+	      The method of doing so varies per platform.
               <subaactivity platform="blackberry"/>
               <subaactivity platform="android"> The evaluator shall perform static analysis on the
                 application to verify that both <ul>
                   <li> mmap can never be invoked with both the PROT_WRITE and PROT_EXEC permissions,
                     and </li>
-                  <li> mprotect is never invoked</li>
-                </ul> . </subaactivity>
+                  <li> mprotect is never invoked.</li>
+                </ul> </subaactivity>
               <subaactivity platform="windows"> The evaluator shall examine executable file headers
-                to verify that platform supported DEP protections are enabled for the application. </subaactivity>
+                to verify that platform supported DEP protections are enabled for the application. 
+              </subaactivity>
               <subaactivity platform="ios"> The evaluator shall perform static analysis on the
-                application to verify that mprotect is never invoked with the PROT_EXEC permission. </subaactivity>
+                application to verify that mprotect is never invoked with the PROT_EXEC permission. 
+              </subaactivity>
               <subaactivity platform="selinux"> The evaluator shall perform static analysis on the
                 application to verify that both <ul>
                   <li> mmap can never be invoked with both the PROT_WRITE and PROT_EXEC permissions,
                     and </li>
-                  <li> mprotect is never invoked with the PROT_EXEC permission</li>
-                </ul> . </subaactivity>
+                  <li> mprotect is never invoked with the PROT_EXEC permission.</li>
+                </ul>  </subaactivity>
               <subaactivity platform="z/OS"/>
               <subaactivity platform="Solaris"> The evaluator shall perform static analysis on the
                 application to verify that both <ul>
                   <li> mmap can never be invoked with both the PROT_WRITE and PROT_EXEC permissions,
                     and </li>
-                  <li> mprotect is never invoked with the PROT_EXEC permission</li>
-                </ul> . </subaactivity>
+                  <li> mprotect is never invoked with the PROT_EXEC permission.</li>
+                </ul></subaactivity>
               <subaactivity platform="OS X"> The evaluator shall perform static analysis on the
                 application to verify that mprotect is never invoked with the PROT_EXEC permission.
               </subaactivity>
@@ -1652,34 +1736,35 @@
         functionality, unless that functionality also includes corruption
         detection.</title>
       </f-element> 
-       Note: We have no AA, nor much traction here - and hostility from "execution environment" vendors.
+       Note: We have no AA, nor much traction here - and hostility from "execution environment" 
+       vendors.
        Maybe this is best considered for a future version.
 -->
           <f-element id="fpt_aex_ext.1.3">
             <title>The application shall be compatible with security features provided by the
-              operating system vendor.</title>
-            <note role="application">This requirement is designed to ensure that operating system
-              features, or security enhancements provided by the operating system vendor, do not
-              need to be disabled in order for the application to run.</note>
-            <aactivity>The evaluator shall carry out one of the following tests, depending on the
-              platform. <subaactivity platform="blackberry"> The evaluator shall ensure that the
-                application can successfully run on the latest version of the BlackBerry OS using a
-                restrictive IT policy pushed from a BlackBerry Enterprise Server (BES). The
-                restrictive IT policy should be the settings from a DISA STIG if one exists,
-                otherwise the policy should contain the most restrict settings possible. </subaactivity>
+              platform vendor.</title>
+            <note role="application">This requirement is designed to ensure that platform security 
+              features do not need to be disabled in order for the application to run.</note>
+            <aactivity>
+	      The evaluator shall configure the platform in the ascribed manner and 
+	      carry out one of the prescribed tests;
+	      <subaactivity platform="blackberry"> The evaluator shall ensure that the
+                application can successfully run on the latest version of the BlackBerry OS. 
+              </subaactivity>
               <subaactivity platform="android"> The evaluator shall ensure that the application can
-                run with SE for Android enabled and enforcing and that it can be run in a confined,
-                non-permissive domain. </subaactivity>
+                run with SE for Android enabled and enforcing.
+	      </subaactivity>
               <subaactivity platform="windows">For both classic desktop and Windows Store
                 applications, the evaluator shall configure the latest version of Microsoft's
                 Enhanced Mitigation Experience Toolkit (EMET) to protect the application. The
                 evaluator shall then run the application and exercise all operations of the
-                application and verify that the application does not crash while protected by EMET. </subaactivity>
+                application and verify that the application does not crash while protected by EMET. 
+              </subaactivity>
               <subaactivity platform="ios"> The evaluator shall ensure that the application can
                 successfully run on the latest version of iOS. </subaactivity>
               <subaactivity platform="selinux"> The evaluator shall ensure that the application can
-                run with SELinux enabled and enforcing and that it can be run in a confined,
-                non-permissive domain. </subaactivity>
+                run with SELinux enabled and enforcing.
+	      </subaactivity>
               <subaactivity platform="z/OS"/>
               <subaactivity platform="Solaris"/>
               <subaactivity platform="OS X"/>
@@ -1687,8 +1772,8 @@
           </f-element>
           <f-element id="fpt_aex_ext.1.4">
             <title>
-              The application shall not write user-modifiable data files to directories that contain executable 
-              files unless explicitly directed by the user to do so.
+              The application shall not write user-modifiable data files to directories that contain 
+              executable files unless explicitly directed by the user to do so.
 	    </title>
             <note role="application">
 	      Data files are all files that are not executable. 
@@ -1705,7 +1790,8 @@
 	      </subaactivity>
               <subaactivity platform="android"> The evaluator shall run the program, mimicking
                 normal usage, and note where all files are written. The evaluator shall ensure that
-                there are no executable files stored within the application's data directory. </subaactivity>
+                there are no executable files stored within the application's data directory. 
+              </subaactivity>
               <subaactivity platform="windows">For Windows Store Apps the evaluator shall consider
                 the requirement met because the platform forces applications to write all data
                 within the application working directory (sandbox). For Windows Desktop Applications
@@ -1736,7 +1822,8 @@
               stack-based buffer overflow protection is present. The method of doing so varies per
               platform: <subaactivity platform="blackberry"> The evaluator shall ensure that the
                 -fstack-protector-strong or -fstack-protector-all flags are used. The
-                -fstack-protector-all flag is preferred but -fstack-protector-strong is acceptable. </subaactivity>
+                -fstack-protector-all flag is preferred but -fstack-protector-strong is acceptable. 
+              </subaactivity>
               <subaactivity platform="android"> Applications that are entirely Java run in the Java
                 machine and do not need tradition stack protection. For applications using Java
                 Native Interface (JNI), the evaluator shall ensure that the
@@ -1849,22 +1936,26 @@
               version.</aactivity>
           </f-element>
         </f-component>
-        <f-component id="fpt_tud_ext.2" name="Integrity for Installation and Update (selection-based)">
+        <f-component id="fpt_tud_ext.2" name="Integrity for Installation and Update (Selection 
+          Based)">
           <f-element id="fpt_tud_ext.2.1" status="sel-based">
             <selection-depends req="fpt_tud_ext.1.1"/>
             <title>The application installation and update packages, including all files contained
-              within, shall be signed by the vendor in conformance with NIST SP 800-89, Recommendation
-              for Obtaining Assurances for Digital Signature Applications, using an approved digital signature
-              algorithm as specified in NIST FIPS 186-3, Digital Signature Standard, that provides at least
-              112 bits of security strength, in accordance with NIST SP 800-131A, Transitions: Recommendation
-              for Transitioning the Use of Cryptographic Algorithms and Key Lengths.</title>
+              within, shall be signed by the vendor in conformance with NIST SP 800-89, 
+              Recommendation for Obtaining Assurances for Digital Signature Applications, using an 
+              approved digital signature algorithm as specified in NIST FIPS 186-3, Digital 
+              Signature Standard, that provides at least 112 bits of security strength, in 
+              accordance with NIST SP 800-131A, Transitions: Recommendation for Transitioning the 
+              Use of Cryptographic Algorithms and Key Lengths.
+            </title>
             <note role="application">Signatures of signed installation and update packages should be
-              verified by the operating system's application installation mechanism. Since the
-              existence of such a mechanism is a requirement on the operating system (and not the
+              verified by the platform's application installation mechanism. Since the
+              existence of such a mechanism is a requirement on the platform (and not the
               application), it is not specified here.</note>
             <aactivity>Developers must document their process for cryptographically signing updates
               and installation packages. The evaluator shall verify that the documentation conforms
-              with the above requirement. The evaluator shall perform the following tests: <testlist>
+              with the above requirement. The evaluator shall perform the following tests: 
+              <testlist>
                 <test>The evaluator shall attempt to install an unsigned patch or update and shall
                   verify that installation fails. </test>
                 <test>The evaluator shall sign a patch or update with an invalid certificate. The
@@ -1872,7 +1963,8 @@
                   installation fails. </test>
                 <test>The evaluator shall sign a patch or update with a certificate containing a
                   missing or invalid code signing entendedKeyUsage extension. The evaluator shall
-                  attempt to install the patch or update and shall verify that installation fails. </test>
+                  attempt to install the patch or update and shall verify that installation fails. 
+                </test>
                 <test>The evaluator shall attempt to install a signed patch or update and shall
                   verify that installation is successful and happens automatically after the
                   signature is verified. </test>
@@ -1898,33 +1990,36 @@
       extent to which the evaluator assesses the documentation applicable for the evaluation and
       performs independent testing. <br/>While this section contains the complete set of SARs from
       the CC, the Assurance Activities to be performed by an evaluator are detailed in <secref
-        linkend="SFRs"/> as well as in this section. The general model for evaluation of TOEs
-      against STs written to conform to this PP is as follows: <br/>After the ST has been approved
-      for evaluation, the <abbr class="expanded"
+        linkend="SFRs"/> as well as in this section. The general model for evaluation of 
+        <abbr linkend="TOE"/>s against STs written to conform to this PP is as follows: <br/>After 
+        the ST has been approved for evaluation, the <abbr class="expanded"
         title="Information Technology Security Evaluation Facility">ITSEF</abbr> will obtain the
-      TOE, supporting environmental IT, and the administrative guides for the TOE. The Assurance
-      Activities listed in the ST (which will be refined by the ITSEF to be TOE-specific, either
-      within the ST or in a separate document) will then be performed by the ITSEF. The ITSEF is
-      also expected to perform all of the actions mandated by the <cite linkend="bibCEM"/> for EAL1.
-      The results of these activities will be documented and presented (along with the
-      administrative guidance used) for validation. <br/>For each family, "Developer Notes" are
-      provided on the developer action elements to clarify what, if any, additional
-      documentation/activity needs to be provided by the developer. For the content/presentation and
-      evaluator activity elements, additional assurance activities (to those already contained in
-        <secref linkend="SFRs"/> and the CEM for EAL1) are described as a whole for the family
-      rather than for each element. Additionally, the assurance activities described in this section
-      are complementary to those specified in <secref linkend="SFRs"/>. <br/>The TOE security
-      assurance requirements, summarized in the table below, identify the management and evaluative
-      activities required to meet the objectives identified in <secref linkend="obj"/> of this PP. <!-- Generate a table here, based on the next sections -->
+      <abbr linkend="TOE"/>, supporting environmental IT, and the administrative guides for the 
+      <abbr linkend="TOE"/>. The Assurance Activities listed in the ST (which will be refined by the 
+      ITSEF to be <abbr linkend="TOE"/>-specific, either within the ST or in a separate document) 
+      will then be performed by the ITSEF. The ITSEF is also expected to perform all of the actions 
+      mandated by the <cite linkend="bibCEM"/> for EAL1. The results of these activities will be 
+      documented and presented (along with the administrative guidance used) for validation. <br/>
+      For each family, "Developer Notes" are provided on the developer action elements to clarify 
+      what, if any, additional documentation/activity needs to be provided by the developer. For the 
+      content/presentation and evaluator activity elements, additional assurance activities (to 
+      those already contained in <secref linkend="SFRs"/> and the CEM for EAL1) are described as a 
+      whole for the family rather than for each element. Additionally, the assurance activities 
+      described in this section are complementary to those specified in <secref linkend="SFRs"/>. 
+      <br/>The <abbr linkend="TOE"/> security assurance requirements, summarized in the table below, 
+      identify the management and evaluative activities required to meet the objectives identified 
+      in <secref linkend="obj"/> of this PP. <!-- Generate a table here, based on the next sections 
+    -->
       <subsection title="Class ASE: Security Target" id="ase">As per ASE activities defined in <cite
           linkend="bibCEM"/>.</subsection>
       <subsection title="Class ADV: Development" id="adv">The information about the <abbr
           linkend="TOE"/> is contained in the guidance documentation available to the end user as
-        well as the <abbr linkend="TSS"/> portion of the ST. The TOE developer must concur with the
-        description of the product that is contained in the TSS as it relates to the functional
-        requirements. The Assurance Activities contained in <secref linkend="SFRs"/> should provide
-        the ST authors with sufficient information to determine the appropriate content for the TSS
-        section. <a-component id="adv_upd_ext.1" name="Support for Updates (ADV_UPD_EXT.1)">
+        well as the <abbr linkend="TSS"/> portion of the ST. The <abbr linkend="TOE"/> developer 
+        must concur with the description of the product that is contained in the TSS as it relates 
+        to the functional requirements. The Assurance Activities contained in 
+        <secref linkend="SFRs"/> should provide the ST authors with sufficient information to 
+        determine the appropriate content for the TSS section. 
+        <a-component id="adv_upd_ext.1" name="Support for Updates (ADV_UPD_EXT.1)">
           <a-element id="adv_upd_ext.1.1">
             <title>Application developers must support updates to their products for purposes of
               fixing security vulnerabilities.</title>
@@ -1951,15 +2046,16 @@
           specification describes the <abbr title="TSF Interface">TSFI</abbr>s. It is not necessary
           to have a formal or complete specification of these interfaces. Additionally, because
             <abbr linkend="TOE"/>s conforming to this PP will necessarily have interfaces to the
-          Operational Environment that are not directly invokable by TOE users, there is little
-          point specifying that such interfaces be described in and of themselves since only
-          indirect testing of such interfaces may be possible. For this PP, the activities for this
-          family should focus on understanding the interfaces presented in the <abbr linkend="TSS"/>
-          in response to the functional requirements and the interfaces presented in the AGD
-          documentation. No additional “functional specification” documentation is necessary to
-          satisfy the assurance activities specified. The interfaces that need to be evaluated are
-          characterized through the information needed to perform the assurance activities listed,
-          rather than as an independent, abstract list. <h4>Developer action elements:</h4>
+          Operational Environment that are not directly invokable by <abbr linkend="TOE"/> users, 
+          there is little point specifying that such interfaces be described in and of themselves 
+          since only indirect testing of such interfaces may be possible. For this PP, the 
+          activities for this family should focus on understanding the interfaces presented in the 
+          <abbr linkend="TSS"/> in response to the functional requirements and the interfaces 
+          presented in the AGD documentation. No additional “functional specification” documentation 
+          is necessary to satisfy the assurance activities specified. The interfaces that need to be 
+          evaluated are characterized through the information needed to perform the assurance 
+          activities listed, rather than as an independent, abstract list. <h4>Developer action 
+          elements:</h4>
           <a-element id="ADV_FSP.1.1D">
             <title>The developer shall provide a functional specification.</title>
           </a-element>
@@ -2017,11 +2113,11 @@
         documentation should be in an informal style and readable by the IT personnel. Guidance must
         be provided for every operational environment that the product supports as claimed in the
         ST. This guidance includes Instructions to successfully install the <abbr linkend="TSF"/> in
-        that environment; and Instructions to manage the security of the TSF as a product and as a
-        component of the larger operational environment. Guidance pertaining to particular security
-        functionality is also provided; requirements on such guidance are contained in the assurance
-        activities specified with each requirement. <a-component id="agd_ope.1"
-          name="Operational User Guidance (AGD_OPE.1)">
+        that environment; and Instructions to manage the security of the <abbr linkend="TSF"/> as a 
+        product and as a component of the larger operational environment. Guidance pertaining to 
+        particular security functionality is also provided; requirements on such guidance are 
+        contained in the assurance activities specified with each requirement. 
+        <a-component id="agd_ope.1" name="Operational User Guidance (AGD_OPE.1)">
           <h4>Developer action elements:</h4>
           <a-element id="AGD_OPE.1.1D">
             <title>The developer shall provide operational user guidance.</title>
@@ -2077,21 +2173,23 @@
             <aactivity>Some of the contents of the operational guidance will be verified by the
               assurance activities in <secref linkend="SFRs"/> and evaluation of the <abbr
                 linkend="TOE"/> according to the <cite linkend="bibCEM"/>. The following additional
-              information is also required. If cryptographic functions are provided by the TOE, the
-              operational guidance shall contain instructions for configuring the cryptographic
-              engine associated with the evaluated configuration of the TOE. It shall provide a
-              warning to the administrator that use of other cryptographic engines was not evaluated
-              nor tested during the CC evaluation of the TOE. The documentation must describe the
-              process for verifying updates to the TOE by verifying a digital signature – this may
-              be done by the TOE or the underlying platform. The evaluator shall verify that this
-              process includes the following steps: Instructions for obtaining the update itself.
-              This should include instructions for making the update accessible to the TOE (e.g.,
-              placement in a specific directory). Instructions for initiating the update process, as
-              well as discerning whether the process was successful or unsuccessful. This includes
-              generation of the hash/digital signature. The TOE will likely contain security
-              functionality that does not fall in the scope of evaluation under this PP. The
-              operational guidance shall make it clear to an administrator which security
-              functionality is covered by the evaluation activities.</aactivity>
+              information is also required. If cryptographic functions are provided by the 
+              <abbr linkend="TOE"/>, the operational guidance shall contain instructions for 
+              configuring the cryptographic engine associated with the evaluated configuration of 
+              the <abbr linkend="TOE"/>. It shall provide a warning to the administrator that use of 
+              other cryptographic engines was not evaluated nor tested during the CC evaluation of 
+              the <abbr linkend="TOE"/>. The documentation must describe the process for verifying 
+              updates to the <abbr linkend="TOE"/> by verifying a digital signature – this may
+              be done by the <abbr linkend="TOE"/> or the underlying platform. The evaluator shall 
+              verify that this process includes the following steps: Instructions for obtaining the 
+              update itself. This should include instructions for making the update accessible to 
+              the <abbr linkend="TOE"/> (e.g., placement in a specific directory). Instructions for 
+              initiating the update process, as well as discerning whether the process was 
+              successful or unsuccessful. This includes generation of the hash/digital signature. 
+              The <abbr linkend="TOE"/> will likely contain security functionality that does not 
+              fall in the scope of evaluation under this PP. The operational guidance shall make it 
+              clear to an administrator which security functionality is covered by the evaluation 
+              activities.</aactivity>
           </a-element>
         </a-component>
         <a-component id="agd_pre.1" name="Preparative Procedures (AGD_PRE.1)">
@@ -2125,9 +2223,10 @@
                 linkend="TOE"/> can be prepared securely for operation.</title>
             <aactivity>As indicated in the introduction above, there are significant expectations
               with respect to the documentation—especially when configuring the operational
-              environment to support TOE functional requirements. The evaluator shall check to
-              ensure that the guidance provided for the TOE adequately addresses all platforms
-              claimed for the TOE in the ST.</aactivity>
+              environment to support <abbr linkend="TOE"/> functional requirements. The evaluator 
+              shall check to ensure that the guidance provided for the <abbr linkend="TOE"/> 
+              adequately addresses all platforms claimed for the <abbr linkend="TOE"/> in the ST.
+            </aactivity>
           </a-element>
         </a-component>
       </subsection>
@@ -2138,7 +2237,7 @@
           procured by an end user. <h4>Developer action elements:</h4>
           <a-element id="alc_cmc.1.1d">
             <title>The developer shall provide the <abbr linkend="TOE"/> and a reference for the
-              TOE.</title>
+              <abbr linkend="TOE"/>.</title>
           </a-element>
           <h4>Content and presentation elements:</h4>
           <a-element id="alc_cmc.1.1c">
@@ -2153,8 +2252,8 @@
               meets the requirements of the ST. Further, the evaluator shall check the AGD guidance
               and <abbr linkend="TOE"/> samples received for testing to ensure that the version
               number is consistent with that in the ST. If the vendor maintains a web site
-              advertising the TOE, the evaluator shall examine the information on the web site to
-              ensure that the information in the ST is sufficient to distinguish the
+              advertising the <abbr linkend="TOE"/>, the evaluator shall examine the information on 
+              the web site to ensure that the information in the ST is sufficient to distinguish the
               product.</aactivity>
           </a-element>
         </a-component>
@@ -2197,10 +2296,11 @@
               configure the environment to ensure that buffer overflow protection mechanisms in the
               environment(s) are invoked (e.g., compiler flags). The evaluator shall ensure that
               this documentation also includes an indication of whether such protections are on by
-              default, or have to be specifically enabled. The evaluator shall ensure that the TSF
-              is uniquely identified (with respect to other products from the TSF vendor), and that
-              documentation provided by the developer in association with the requirements in the ST
-              is associated with the TSF using this unique identification.</aactivity>
+              default, or have to be specifically enabled. The evaluator shall ensure that the 
+              <abbr linkend="TSF"/> is uniquely identified (with respect to other products from the 
+              <abbr linkend="TSF"/> vendor), and that documentation provided by the developer in 
+              association with the requirements in the ST is associated with the 
+              <abbr linkend="TSF"/> using this unique identification.</aactivity>
           </a-element>
         </a-component>
       </subsection>
@@ -2219,10 +2319,10 @@
           Assurance Activities identify the additional testing activities associated with these
           components. The evaluator produces a test report documenting the plan for and results of
           testing, as well as coverage arguments focused on the platform/<abbr linkend="TOE"/>
-          combinations that are claiming conformance to this PP. Given the scope of the TOE and its
-          associated evaluation evidence requirements, this component’s assurance activities are
-          covered by the assurance activities listed for ALC_CMC.1. <h4>Developer action
-            elements:</h4>
+          combinations that are claiming conformance to this PP. Given the scope of the 
+          <abbr linkend="TOE"/> and its associated evaluation evidence requirements, this 
+          component’s assurance activities are covered by the assurance activities listed for 
+          ALC_CMC.1. <h4>Developer action elements:</h4>
           <a-element id="ate_ind.1.1d">
             <title>The developer shall provide the <abbr linkend="TOE"/> for testing.</title>
           </a-element>
