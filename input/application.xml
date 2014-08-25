@@ -1250,7 +1250,6 @@
               <selectables linebreak="yes">
                 <selectable>not store any credentials</selectable>
                 <selectable>invoke the mechanisms provided by the platform for any storage of credentials</selectable>
-                <selectable>invoke application-implemented mechanism for any storage of credentials</selectable>
               </selectables>
                to non-volatile memory.</title>
             <note role="application">This requirement ensures that persistent credentials (secret 
@@ -1261,11 +1260,8 @@
             <aactivity>The evaluator shall check the TSS to ensure that it lists all persistent 
               credentials (secret keys, PKI private keys, or passwords) needed to meet the 
               requirements in the ST. For each of these items, the evaluator shall confirm that the 
-              TSS lists for what purpose it is used, and how it is stored. For credentials stored by 
-              invoking an application-implemented mechanism the evaluator shall verify that 
-              additional requirements from FCS_STO_EXT.2 are met. For credentials stored by invoking 
-              the platform the evaluator shall perform the following actions which vary per 
-              platform.
+              TSS lists for what purpose it is used, and how it is stored. The evaluator shall
+              perform the following actions which vary per platform.
               <subaactivity
                 platform="blackberry"/>
               <subaactivity platform="android">The evaluator shall verify that all keys are stored
@@ -1288,40 +1284,6 @@
               <ref sect="SC-12"
                 source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf"/>
             </refs>
-          </f-element>
-        </f-component>
-        <f-component id="fcs_sto_ext.2" name="Storage of Secrets (Selection Based)">
-          <f-element id="fcs_sto_ext.2.1" status="sel-based">
-            <selection-depends req="fcs_sto_ext.1.1"/>
-            <title>The application shall use a cryptographic salt for each stored
-              credential.</title>
-            <aactivity>The evaluator shall run the application and exercise the "change password"
-              functionality two times, each time using the same password. The evaluator
-              shall record the stored password hash after each password change. Finally, the
-              evaluator shall verify that the password hashes were different after
-              each "change password" attempt.
-            </aactivity>
-          </f-element>
-          <f-element id="fcs_sto_ext.2.2" status="sel-based">
-            <selection-depends req="fcs_sto_ext.1.1"/>
-            <title>The application shall encrypt all stored credentials using AES in the
-              <selectables linebreak="yes">
-                <selectable>Key Wrap (KW) mode</selectable>
-                <selectable>Key Wrap with Padding (KWP) mode</selectable>
-                <selectable>GCM</selectable>
-                <selectable>CCM</selectable>
-                <selectable>CBC mode</selectable>
-              </selectables>
-            </title>
-            .
-            <note role="application">This requirement states that credentials used by the application
-              shall not be kept in plaintext.
-            </note>
-            <aactivity>The evaluator shall examine the TSS to ensure it describes in detail how
-              credentials are stored and encrypted. The evaluator shall review the TSS to determine
-              that it makes a case that credentials are not written unencrypted to persistent
-              memory and that it identifies the mode of encryption.
-            </aactivity>
           </f-element>
         </f-component>
         <f-component id="fcs_tls_ext.1" name="TLS Implementation" status="sel-based">
