@@ -1293,8 +1293,12 @@
         <f-component id="fcs_sto_ext.2" name="Storage of Secrets (Selection Based)">
           <f-element id="fcs_sto_ext.2.1" status="sel-based">
             <selection-depends req="fcs_sto_ext.1.1"/>
-            <title>The application shall use a cryptographic salt for each stored
-              credential.</title>
+            <title>
+	      The application shall invoke appropriate DRBG services to generate a unique value
+	      to be used as a salt, when hashing a password, or as an IV, when encrypting a credential.
+	      The length of the salt must be 128-bit or greater.
+	    </title>
+	    
             <aactivity>The evaluator shall run the application and exercise the "change password"
               functionality two times, each time using the same password. The evaluator
               shall record the stored password hash after each password change. Finally, the
