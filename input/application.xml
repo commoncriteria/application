@@ -660,10 +660,6 @@
             <aactivity> The evaluator shall review documentation provided by the application
               developer and for each resource which it requests access to, identify the
               justification as to why access is required. </aactivity>
-            <refs>
-              <ref sect="SA-17 (7)"
-                source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf"/>
-            </refs>
           </f-element>
           <f-element id="fdp_dec_ext.1.4">
             <title>The application shall restrict network connections to 
@@ -688,10 +684,6 @@
               witnessed are documented or is user-initiated. After the application initializes, the
               evaluator shall run a network port scan to verify that any local or remote ports
               opened by the application have been documented. </aactivity>
-            <refs>
-              <ref sect="CM-7b."
-                source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf"/>
-            </refs>
           </f-element>
         </f-component>
         <f-component id="fdp_dar_ext.1" name="Storage Of Sensitive Application Data">
@@ -800,10 +792,6 @@
                 </test>
              </testlist>
 	          </aactivity>
-            <refs>
-              <ref sect="IA-5 (5)"
-                source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf"/>
-            </refs>
           </f-element>
           <f-element id="fmt_cfg_ext.1.2">
             <title>The application shall be initially configured to prevent the transmission of any
@@ -855,10 +843,6 @@
               <subaactivity platform="Solaris"/>
               <subaactivity platform="OS X"/>
             </aactivity>
-            <refs>
-              <ref sect="SC-4"
-                source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf"/>
-            </refs>
           </f-element>
           <f-element id="fmt_cfg_ext.1.4">
             <title>The application shall require user approval before transmitting any <abbr
@@ -1282,10 +1266,6 @@
               <subaactivity platform="Solaris"/>
               <subaactivity platform="OS X"/>
             </aactivity>
-            <refs>
-              <ref sect="SC-12"
-                source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf"/>
-            </refs>
           </f-element>
         </f-component>
         <f-component id="fcs_tls_ext.1" name="TLS Implementation" status="sel-based">
@@ -1386,10 +1366,7 @@
                       the connection.</li>
                   </ul></test>
               </testlist></aactivity>
-            <refs>
-              <ref sect="SC-13"
-                source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf"/>
-            </refs> </f-element>
+            </f-element>
           <f-element id="fcs_tls_ext.1.2" status="sel-based">
             <selection-depends req="ftp_dit_ext.1.1"/>
             <title>The application shall verify that the presented identifier matches the reference
@@ -1823,10 +1800,6 @@
               <subaactivity platform="OS X"/>
             </aactivity>
           </f-element>
-          <refs>
-            <ref sect="SI-3 (7)"
-              source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf"/>
-          </refs>
         </f-component>
         <f-component id="fpt_tud_ext.1" name="Integrity for Installation and Update">
           <!-- TO DO: Cite references. -->
@@ -1904,10 +1877,6 @@
                   that the hashes are identical to the first set of hashes taken. </test>
               </testlist>
             </aactivity>
-            <refs>
-              <ref sect="SC-18 (3)"
-                source="http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-53r4.pdf"/>
-            </refs>
           </f-element>
           <f-element id="fpt_tud_ext.1.5">
             <title>The application shall <selectables atleastone="yes">
@@ -2414,22 +2383,73 @@
     </section>
   </chapter>
 
-  <appendix title="NIST SP 800-53/CNSS 1253 Mapping" id="nistmapping"> The following table provides
-    references to security controls from <abbr
-      title="National Institute of Standards and Technology">NIST</abbr> Special Publication 800-53,
-      <i>Security and Privacy Controls for Federal Information Systems and Organizations</i>. NIST
-    800-53 is a "catalog of security and privacy controls for federal information systems and
-    organizations and a process for selecting controls." The following table represents <i>all
-      controls</i> selected as <i>applicable</i> to all types of applications. Additional controls
-    which are applicable only to more-specialized types of applications are found in the appendices
-    of the Protection Profiles for those particular types of applications. <br/> Appendix H of NIST
-    SP 800-53 states "organizations can obtain significant benefit from the acquisition and
-    employment of information technology products evaluated against the requirements of ISO/IEC
-    15408. The use of such products can provide evidence that certain security controls are
-    implemented correctly, operating as intended, and producing the desired effect in satisfying
-    stated security requirements." The Protection Profile thus captures the applicable set of NIST
-    controls and provides precise requirements for evaluation activites which provide assurance
-    about their implementation. <InsertRefMapping/>
+  <appendix title="Entropy Documentation and Assessment" id="entropyappendix"> 
+The documentation of the entropy source should be detailed enough that, after
+reading, the evaluator will thoroughly understand the entropy source and why
+it can be relied upon to provide entropy. This documentation should include
+multiple detailed sections: design description, entropy justification,
+operating conditions, and health testing. This documentation is not required
+to be part of the TSS.
+
+<section id="entropydesign" title="Design Description">
+Documentation shall include the design of the entropy source as a whole,
+including the interaction of all entropy source components. It will describe
+the operation of the entropy source to include how it works, how entropy is
+produced, and how unprocessed (raw) data can be obtained from within the
+entropy source for testing purposes. The documentation should walk through the
+entropy source design indicating where the random comes from, where it is
+passed next, any post-processing of the raw outputs (hash, XOR, etc.), if/where
+it is stored, and finally, how it is output from the entropy source. Any
+conditions placed on the process (e.g., blocking) should also be described in
+the entropy source design. Diagrams and examples are encouraged.
+<br/>
+This design must also include a description of the content of the security
+boundary of the entropy source and a description of how the security boundary
+ensures that an adversary outside the boundary cannot affect the entropy rate.
+<br/>
+If implemented, the design description shall include a description of how
+third-party applications can add entropy to the RBG. A description of any RBG
+state saving between power-off and power-on shall be included.
+</section>
+
+<section id="entropyjustification" title="Entropy Justification">
+There should be a technical argument for where the unpredictability in the
+source comes from and why there is confidence in the entropy source exhibiting
+probabilistic behavior (an explanation of the probability distribution and
+justification for that distribution given the particular source is one way to
+describe this). This argument will include a description of the expected
+entropy rate and explain how you ensure that sufficient entropy is going into
+the TOE randomizer seeding process. This discussion will be part of a
+justification for why the entropy source can be relied upon to produce bits
+with entropy.
+<br/>
+The entropy justification shall not include any data added from any third-party
+application or from any state saving between restarts.
+</section>
+
+Operating Conditions 
+
+<section id="entropyoperatingconditions" title="Operating Conditions">
+Documentation will also include the range of operating conditions under which
+the entropy source is expected to generate random data. It will clearly
+describe the measures that have been taken in the system design to ensure the
+entropy source continues to operate under those conditions. Similarly,
+documentation shall describe the conditions under which the entropy source is
+known to malfunction or become inconsistent. Methods used to detect failure or
+degradation of the source shall be included.
+</section>
+
+Health Testing
+
+<section id="entropyhealthtesting" title="Health Testing">
+More specifically, all entropy source health tests and their rationale will be
+documented. This will include a description of the health tests, the rate and
+conditions under which each health test is performed (e.g., at startup,
+continuously, or on-demand), the expected results for each health test, and
+rationale indicating why each test is believed to be appropriate for detecting
+one or more failures in the entropy source. 
+</section>
+  
   </appendix>
 
   <appendix title="References" id="biblio">
