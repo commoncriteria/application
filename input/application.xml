@@ -691,10 +691,20 @@
                 linkend="PII"/> over a network.</title>
             <note role="application">A dialog box presented to the user at the time the application
               is started is sufficient to meet this requirement. </note>
-            <aactivity>
-	      The evaluator shall run the application and sniff network traffic to verify that no
-	      PII is transmitted across the network before the user is notified. 
-	    </aactivity>
+            <aactivity>The evaluator shall inspect the TSS documentation to identify functionality in the
+              application where PII can be transmitted, and perform the following tests.
+              <testlist>
+                <test>
+                  The evaluator shall run the application and exercise the functionality responsibly
+                  for transmitting PII and verify that user approval is required before transmission
+                  of the PII.
+                </test>
+                <test>
+                  The evaluator shall run a network monitoring tool while running the application 
+                  and verify that no PII is transmitted without user approval.
+                </test>
+              </testlist>
+           </aactivity>
           </f-element>
         </f-component>
         <f-component id="fdp_dar_ext.1" name="Storage Of Sensitive Application Data">
@@ -923,8 +933,7 @@
               Application Developers" at: <ul><li><a
                 href="http://www.nsa.gov/ia/mitigation_guidance/security_configuration_guides/
                 fact_sheets.shtml">
-                http://www.nsa.gov/ia/mitigation_guidance/security_configuration_guides/
-                fact_sheets.shtml</a></li>
+                http://www.nsa.gov/ia/mitigation_guidance/security_configuration_guides/fact_sheets.shtml</a></li>
               </ul>  
             </note>
             <aactivity>The evaluator shall verify that the ST identifies the calls used in acquiring
@@ -1808,14 +1817,14 @@
             <title>The application shall <selectables atleastone="yes">
                 <selectable>provide the ability</selectable>
                 <selectable>leverage the platform</selectable>
-              </selectables> to initiate updates and patches to the application software. </title>
+              </selectables> to check for updates and patches to the application software. </title>
             <note role="application">This requirement is about the ability to "check" for updates.
               The actual installation of any updates should be done by the platform. This requirement
               is intended to ensure that the application can check for updates provided by the vendor,
               as updates provided by another source may contain malicious code.
             </note>
             <aactivity>The evaluator shall verify that the application is updateable by checking
-              for a legitimate update using procedures described in the operational guidance.
+              for an update using procedures described in the operational guidance.
             </aactivity>
           </f-element>
           <f-element id="fpt_tud_ext.1.2">
