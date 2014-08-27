@@ -493,7 +493,8 @@
     <section title="Security Functional Requirements" id="SFRs">The Security Functional Requirements
       included in this section are derived from Part 2 of the Common Criteria for Information
       Technology Security Evaluation, Version 3.1, Revision 4, with additional extended functional
-      components. <subsection title="User Data Protection (FDP)" id="fdp">
+      components. 
+      <subsection title="User Data Protection (FDP)" id="fdp">
         <f-component id="fdp_dec_ext.1" name="Access to Platform Resources">
           <f-element id="fdp_dec_ext.1.1">
             <title> The application shall provide user awareness of its intention to access
@@ -685,6 +686,16 @@
               evaluator shall run a network port scan to verify that any local or remote ports
               opened by the application have been documented. </aactivity>
           </f-element>
+          <f-element id="fdp_dec_ext.1.5">
+            <title>The application shall require user approval before transmitting any <abbr
+                linkend="PII"/> over a network.</title>
+            <note role="application">A dialog box presented to the user at the time the application
+              is started is sufficient to meet this requirement. </note>
+            <aactivity>
+	      The evaluator shall run the application and sniff network traffic to verify that no
+	      PII is transmitted across the network before the user is notified. 
+	    </aactivity>
+          </f-element>
         </f-component>
         <f-component id="fdp_dar_ext.1" name="Storage Of Sensitive Application Data">
           <f-element id="fdp_dar_ext.1.1">
@@ -843,16 +854,6 @@
               <subaactivity platform="Solaris"/>
               <subaactivity platform="OS X"/>
             </aactivity>
-          </f-element>
-          <f-element id="fmt_cfg_ext.1.4">
-            <title>The application shall require user approval before transmitting any <abbr
-                linkend="PII"/> over a network.</title>
-            <note role="application">A dialog box presented to the user at the time the application
-              is started is sufficient to meet this requirement. </note>
-            <aactivity>The evaluator shall install and run the application and inspect its
-              documentation. The evaluator shall survey the list of settings for the application. If
-              any setting controls the transmission of PII, it must be initially set to disable the
-              transmission of PII.</aactivity>
           </f-element>
         </f-component>
         <f-component id="fmt_smf.1" name="Specification of Management Functions">
@@ -1866,7 +1867,7 @@
               execution by the application. </note>
             <aactivity>
 	      The evaluator shall check whether the application's executable files 
-	      are changed by the application by running the following tests:
+	      are changed by the application by completing the following tests:
               <testlist>
                 <test>The evaluator shall run the application and exercise all operations of the
                   application while using a network monitoring tool to record network traffic. The
