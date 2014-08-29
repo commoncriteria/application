@@ -485,7 +485,7 @@
         <b>Refinement</b> operation (denoted by <b>bold text</b>): is used to add details to a
         requirement, and thus further restricts a requirement.</li>
       <li>
-        <b>Selection</b> (denoted by <u>underlined text</u>): is used to select one or more options
+        <b>Selection</b> (denoted by <i>italicized text</i>): is used to select one or more options
         provided by the [CC] in stating a requirement.</li>
       <li>
         <b>Assignment</b> operation (denoted by <i>italicised text</i>): is used to assign a
@@ -567,9 +567,6 @@
               <subaactivity platform="selinux"> The evaluator shall verify that either the
                 application or the documentation provide the user with a list of the required
                 hardware resources. </subaactivity>
-              <subaactivity platform="z/OS"> The evaluator shall verify that either the application
-                or the documentation provide the user with a list of the required hardware
-                resources. </subaactivity>
               <subaactivity platform="Solaris"> The evaluator shall verify that either the
                 application or the documentation provide the user with a list of the required
                 hardware resources. </subaactivity>
@@ -643,9 +640,6 @@
                 application or the documentation provide the user with a list of permissions used to 
                 access sensitive information repositories. 
               </subaactivity>
-              <subaactivity platform="z/OS"> The evaluator shall verify that either the application
-                or the documentation provide the user with a list of permissions used to access
-                sensitive information repositories. </subaactivity>
               <subaactivity platform="Solaris"> The evaluator shall verify that either the
                 application or the documentation provide the user with a list of permissions used to
                 access sensitive information repositories. </subaactivity>
@@ -750,7 +744,6 @@
 		The Linux platform currently does not have suitable encryption services built-in, 
 		so applications on it satisfy this requirement by default.
 	      </subaactivity>
-              <subaactivity platform="z/OS"/>
               <subaactivity platform="Solaris"/>
               <subaactivity platform="OS X"/>
             </aactivity>
@@ -786,7 +779,6 @@
                 and verify that the application saves its configuration in structured files that
                 reside in /etc (for system-specific configuration) or in the users' home directory
                 (for user-specific configuration). </subaactivity>
-              <subaactivity platform="z/OS"/>
               <subaactivity platform="Solaris"/>
               <subaactivity platform="OS X"/>
             </aactivity>
@@ -865,9 +857,10 @@
               <subaactivity platform="selinux"> The evaluator shall verify using <code>ls
                   -alR</code> that files written within the applications data directory are not
                 world-readable or world-writable. </subaactivity>
-              <subaactivity platform="z/OS"/>
               <subaactivity platform="Solaris"/>
-              <subaactivity platform="OS X"/>
+              <subaactivity platform="OS X">The evaluator shall verify using <code>ls
+                  -alR</code> that files written within the applications data directory are not
+                world-readable or world-writable.</subaactivity>
             </aactivity>
           </f-element>
         </f-component>
@@ -961,7 +954,6 @@
                 the iOS Randomization Services <abbr linked="API"/> is used. </subaactivity>
               <subaactivity platform="selinux"> The evaluator shall use static analysis to verify
                 that /dev/random or /dev/urandom is used. </subaactivity>
-              <subaactivity platform="z/OS"/>
               <subaactivity platform="Solaris"/>
               <subaactivity platform="OS X"/>
             </aactivity>
@@ -1252,7 +1244,9 @@
             <title>The application shall 
               <selectables linebreak="yes">
                 <selectable>not store any credentials</selectable>
-                <selectable>invoke the mechanisms provided by the platform for any storage of credentials</selectable>
+                <selectable>invoke the mechanisms provided by the platform for any storage of 
+                  credentials
+                </selectable>
               </selectables>
                to non-volatile memory.</title>
             <note role="application">This requirement ensures that persistent credentials (secret 
@@ -1276,10 +1270,13 @@
               </subaactivity>
               <subaactivity platform="ios">The evaluator shall verify that all keys are stored
                 within a <code>KeyChain</code>. </subaactivity>
-              <subaactivity platform="selinux"> TBD. </subaactivity>
-              <subaactivity platform="z/OS"/>
+              <subaactivity platform="selinux"> 
+		The evaluator shall verify that all keys are stored with GNOME Keyring or KDE 
+		KWallet.
+	      </subaactivity>
               <subaactivity platform="Solaris"/>
-              <subaactivity platform="OS X"/>
+              <subaactivity platform="OS X">The evaluator shall verify that all credentials are 
+                stored within Keychain.</subaactivity>
             </aactivity>
           </f-element>
         </f-component>
@@ -1644,7 +1641,6 @@
                 different Linux systems. The evaluator shall then compare their
                 /proc/<i>PID</i>/maps to ensure the two different instances share no mapping
                 locations. </subaactivity>
-              <subaactivity platform="z/OS"/>
               <subaactivity platform="Solaris"/>
               <subaactivity platform="OS X"/>
             </aactivity>
@@ -1689,7 +1685,6 @@
                     and </li>
                   <li> mprotect is never invoked with the PROT_EXEC permission.</li>
                 </ul>  </subaactivity>
-              <subaactivity platform="z/OS"/>
               <subaactivity platform="Solaris"> The evaluator shall perform static analysis on the
                 application to verify that both <ul>
                   <li> mmap can never be invoked with both the PROT_WRITE and PROT_EXEC permissions,
@@ -1735,7 +1730,6 @@
               <subaactivity platform="selinux"> The evaluator shall ensure that the application can
                 run with SELinux enabled and enforcing.
 	      </subaactivity>
-              <subaactivity platform="z/OS"/>
               <subaactivity platform="Solaris"/>
               <subaactivity platform="OS X"/>
             </aactivity>
@@ -1776,7 +1770,6 @@
                 normal usage, and note where all files are written. The evaluator shall ensure that
                 there are no executable files stored in the same directories to which the
                 application wrote. </subaactivity>
-              <subaactivity platform="z/OS"/>
               <subaactivity platform="Solaris"/>
               <subaactivity platform="OS X"> The evaluator shall run the program, mimicking normal
                 usage, and note where all files are written. The evaluator shall ensure that there
@@ -1810,7 +1803,6 @@
                   <code>-fstack-protector-strong</code> is acceptable. If the application is built
                 using clang, it must be compiled and linked with the
                   <code>-fsanitizer=address</code> flag. </subaactivity>
-              <subaactivity platform="z/OS"/>
               <subaactivity platform="Solaris"/>
               <subaactivity platform="OS X"/>
             </aactivity>
@@ -1851,8 +1843,6 @@
                 distribution. For example, applications running on Red Hat and Red Hat derivatives
                 should be packaged in rpm format. Applications running on Debian and Debian
                 derivatives should be packaged in deb format. </subaactivity>
-              <subaactivity platform="z/OS"> The evaluator shall ensure that the application is
-                packaged in the [?] format. </subaactivity>
               <subaactivity platform="Solaris"> The evaluator shall ensure that the application is
                 packaged in the PKG format. </subaactivity>
               <subaactivity platform="OS X"> The evaluator shall ensure that application is packaged
