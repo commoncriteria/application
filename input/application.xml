@@ -1077,10 +1077,10 @@
                 <selectable>256 bits</selectable>
               </selectables> of entropy at least equal to the greatest security strength (according
               to NIST SP 800-57) of the keys and hashes that it will generate. </title>
-            <note role="application">This requirement shall be included in STs in which “perform
-              DRBG services” is chosen in FCS_RBG_EXT.1.1. For the first selection in this 
-              requirement, the ST author selects ‘software-based noise source’ if any additional 
-              noise sources are used as input to the application’s DRBG. Note that the application 
+            <note role="application">This requirement shall be included in STs in which "invoke
+              application-implemented DRBG services" is chosen in FCS_RBG_EXT.1.1. For the first
+              selection in this  requirement, the ST author selects ‘software-based noise source’ if any
+              additional noise sources are used as input to the application’s DRBG. Note that the application 
               must use the platform’s DRBG to seed its DRBG. In the second selection in this 
               requirement, the ST author selects the appropriate number of bits of entropy that 
               corresponds to the greatest security strength of the algorithms included in the ST. 
@@ -1108,7 +1108,7 @@
             <note role="application">The evaluator should ensure "invoke platform-provided" is
               selected in cases where the application uses platform APIs to perform cryptographic
               hashing and signing. If the "invoke application-implemented" selection is chosen, then
-              additional requirements from FCS_COP_EXT.1.2 and FCS_COP.1.3 elements shall be
+              additional requirements from FCS_COP_EXT.2.2 and FCS_COP.2.2 elements shall be
               included in the ST. </note>
             <aactivity>Requirement met by the platform: The evaluator shall examine the TSS of the
               application to verify that it describes how the platforms digital signature
@@ -1568,14 +1568,6 @@
         </f-component>
       </subsection>
       <subsection title="Protection of the TSF (FPT)" id="fpt">
-        <f-component id="fpt_rob_ext.1" name="Robustness">
-          <f-element id="fpt_rob_ext.1.1">
-            <title>The application shall exhibit robustness under normal usage.</title>
-            <aactivity>The evaluator shall run the application and mimic normal usage, exercising as
-              much functionality as possible and verify that the application does not
-              crash.</aactivity>
-          </f-element>
-        </f-component>
         <f-component id="fpt_api_ext.1" name="Use of Supported Services and APIs">
           <f-element id="fpt_api_ext.1.1">
             <title>The application shall only use supported platform <abbr linkend="API"
