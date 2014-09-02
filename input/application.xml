@@ -498,7 +498,7 @@
       <subsection title="User Data Protection (FDP)" id="fdp">
         <f-component id="fdp_dec_ext.1" name="Access to Platform Resources">
           <f-element id="fdp_dec_ext.1.1">
-            <title> The application shall provide user awareness of its intention to access
+            <title> The application shall provide user awareness of its intention to directly access
                 <selectables linebreak="yes">
                 <selectable>network connectivity</selectable>
                 <selectable>camera</selectable>
@@ -513,9 +513,10 @@
             <note role="application"> The evaluator should ensure that the selection captures all
               platform hardware resources which the application is intended to access. The
               requirement is worded in this way due to the diversity of methods by which user
-              awareness can be achieved, which varies per platform. An application can use a file or
-              directory selection dialog to provide user awareness that data can be saved to a
-              removable or remote drive. </note>
+              awareness can be achieved, which varies per platform. 
+	      Generic access to the filesystem, which may provide indirect access to removable
+	      or remote (e.g. USB or network shares) drives, is not considered direct access.
+	    </note>
               <aactivity>The evaluator shall install the application and inspect its user
               documentation, and determine that the user is informed of any need to access hardware
               resources which provide access to sensitive information. The method of doing so varies
@@ -528,10 +529,8 @@
               <subaactivity platform="android">The evaluator shall install the application and
                 verify that the application displays the platform resources it would like to access.
                 This includes permissions such as ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION,
-                BLUETOOTH, CAMERA, INTERNET, NFC, READ_EXTERNAL_STORAGE, RECORD_AUDIO. Note: Users
-                must accept all requested permissions upon installation and cannot choose individual
-                permissions to allow or deny. A complete list of Android permissions can be found
-                at: 
+                BLUETOOTH, CAMERA, INTERNET, NFC, READ_EXTERNAL_STORAGE, RECORD_AUDIO. 
+		A complete list of Android permissions can be found at: 
                 <ul>
                   <li><a
                       href="http://developer.android.com/reference/android/Manifest.permission.html"
@@ -960,7 +959,7 @@
                 future versions of this document, CryptGenRandom may be removed as an option as it
                 no longer the preferred API per vendor documentation. </subaactivity>
               <subaactivity platform="ios"> The evaluator shall use static analysis to verify that
-                the iOS Randomization Services <abbr linked="API"/> is used. </subaactivity>
+                the iOS Randomization Services <abbr linkend="API"/> is used. </subaactivity>
               <subaactivity platform="linux"> The evaluator shall use static analysis to verify
                 that /dev/random or /dev/urandom is used. </subaactivity>
               <subaactivity platform="Solaris"/>
