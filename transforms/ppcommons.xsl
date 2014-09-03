@@ -38,16 +38,17 @@
 	  </xsl:element>
   </xsl:template>
 
-
   <xsl:template match="cc:testlist">
     <ul>
-      <xsl:for-each select="cc:test">
-        <li>
-          <b>Test <xsl:value-of select="position()" />: </b>
-          <xsl:apply-templates />
-        </li>
-      </xsl:for-each>
+      <xsl:apply-templates />
     </ul>
+  </xsl:template>
+
+  <xsl:template match="cc:test">
+    <li>
+      <b>Test <xsl:for-each select="ancestor::cc:test"><xsl:value-of select="count(preceding-sibling::cc:test) + 1" />.</xsl:for-each><xsl:value-of select="count(preceding-sibling::cc:test) + 1" />: </b>
+      <xsl:apply-templates />
+    </li>
   </xsl:template>
 
   <xsl:template match="cc:abbr[@linkend]">
