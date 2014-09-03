@@ -20,5 +20,8 @@ $(CRITERIA): $(TRANS)/pp2simplified.xsl $(APP_XML)
 	xsltproc -o $(CRITERIA) $(TRANS)/pp2simplified.xsl $(APP_XML)
 
 clean:
-	rm $(OUT)/application.html
-
+	@for f in a $(TABLE) $(CRITERIA) $(APP_HTML); do \
+		if [ -f $$f ]; then \
+			rm "$$f"; \
+		fi; \
+	done
