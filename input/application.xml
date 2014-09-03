@@ -663,7 +663,7 @@
           <f-element id="fdp_dec_ext.1.4">
             <title>The application shall restrict network connections to 
               <selectables linebreak="yes">
-                <selectable>provide no network connections</selectable>
+                <selectable>use no network connections</selectable>
                 <selectable>provide user initiated connectivity for <assignable> list of functions 
                   for which the user can initiate network connections</assignable></selectable>
                 <selectable>respond to <assignable> list of remotely initiated connections
@@ -678,6 +678,8 @@
 	      This requirement is intended to restrict both inbound and
               outbound network connections and ports to only those required, or to network
               connections that are user initiated.
+	      It does not apply to applications that generically access the filesystem that
+	      may cause the platform to access remotely mounted drives/shares.
 	    </note>
             <aactivity> The evaluator shall run the application on a platform running no other
               networked applications. For the duration of the lifetime of the application, the
@@ -757,7 +759,7 @@
 	      </subaactivity>
               <subaactivity platform="windows">The evaluator shall determine and verify that Windows
                 Applications use the <abbr title="Data Protection API">DPAPI</abbr> to store and
-                retrieve senstive information. Windows Store Apps for desktop or mobile shall use
+                retrieve sensitive data. Windows Store Apps for desktop or mobile shall use
                 the DPAPI via the ProtectedData class.</subaactivity>
               <subaactivity platform="ios">The evaluator shall determine whether the application
                 uses the appropriate Data Protection Class for each data file stored locally. 
@@ -1617,12 +1619,12 @@
           </f-element>
           <f-element id="fpt_api_ext.1.2" status="objective">
             <title> The application shall use platform-provided libraries for parsing any structured
-              files whose format is included in the IANA MIME media types as listed at
-              <a href='http://www.iana.org/assignments/media-types.'>
-		http://www.iana.org/assignments/media-types</a>.
+              files whose format is included in the IANA MIME media types.
             </title>
             <note role="application">
-	      This includes many image, audio, video, and content file
+	      They  IANA MIME types are listed at
+              <a href='http://www.iana.org/assignments/media-types.'>
+		http://www.iana.org/assignments/media-types</a> and includes many image, audio, video, and content file
               formats. 
 	      This requirement does not apply if providing parsing services is the purpose of the application.
 	    </note>
