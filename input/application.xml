@@ -351,9 +351,10 @@
           </objective-refer>
         </assumption>
         <assumption id="A.PROPER_USER">
-          <description>The user of the application software is not willfully negligent or hostile,
-            and uses the software within compliance of the applied enterprise security
-            policy.</description>
+          <description>
+	    The user of the application software is not willfully negligent or hostile,
+            and uses the software in compliance with the applied enterprise security policy.
+	  </description>
           <objective-refer ref="OE.PROPER_USER">
             <rationale>The assumption A.PROPER_USER is covered by objective OE.PROPER_USER as
               directly follows</rationale>
@@ -511,7 +512,7 @@
                 <selectable><abbr title="Universal Serial Bus">USB</abbr></selectable>
                 <selectable>Bluetooth</selectable>
                 <selectable><assignable> list of additional hardware resources that provide access
-                  to sensitive information</assignable></selectable>
+                  to sensitive data</assignable></selectable>
               </selectables> . </title>
             <note role="application"> The evaluator should ensure that the selection captures all
               platform hardware resources which the application is intended to access. The
@@ -522,7 +523,7 @@
 	    </note>
               <aactivity>The evaluator shall install the application and inspect its user
               documentation, and determine that the user is informed of any need to access hardware
-              resources which provide access to sensitive information. The method of doing so varies
+              resources which provide access to sensitive data. The method of doing so varies
               per platform. <subaactivity platform="blackberry">The evaluator shall install the
                 application and run it for the first time. The evaluator shall verify that the
                 application displays all platform resources it would like to access. Note: If the
@@ -688,19 +689,26 @@
 	      The application shall 
 	      <selectables linebreak="yes">
 		<selectable>
-		  not transmit <abbr linkend="PII"/> over a network.
+		  not transmit managed <abbr linkend="PII"/> over a network.
 		</selectable>
 		<selectable>
 		  require user approval before executing
 		  <assignable> 
-		    list of functions that transmit <abbr linkend="PII"/> over a network
+		    list of functions that transmit managed <abbr linkend="PII"/> over a network
 		  </assignable>
 		</selectable>
 	      </selectables>
 	      .
 	    </title>
-            <note role="application">A dialog box presented to the user at the time the application
-              is started is sufficient to meet this requirement. </note>
+            <note role="application">
+	      Thie requirement only applies to PII that is specifically requested by the application;
+	      it does not apply if the user volunteers PII without prompting from the application 
+	      into a general (or inappropriate) data field.
+	      For example, if the user includes PII into an email and sends it, the 
+	      application is not considered to have managed the PII.
+	      Also, having a dialog box that declares intent to send PII presented to the user 
+	      at the time the application is started is sufficient to meet this requirement. 
+	    </note>
             <aactivity>The evaluator shall inspect the TSS documentation to identify functionality in the
               application where PII can be transmitted, and perform the following tests.
               <testlist>
@@ -719,8 +727,9 @@
         </f-component>
         <f-component id="fdp_dar_ext.1" name="Storage Of Sensitive Application Data">
           <f-element id="fdp_dar_ext.1.1">
-            <title>The application shall <selectables linebreak="yes">
-                <selectable> invoke platform-provided functionality to encrypt sensitive data when
+            <title>The application shall 
+	      <selectables linebreak="yes">
+		<selectable> invoke platform-provided functionality to encrypt sensitive data when
                   it is stored in non-volatile memory</selectable>
                 <selectable> not store any sensitive data in non-volatile memory</selectable>
               </selectables>
@@ -741,7 +750,7 @@
                 uses the appropriate domain to store and protect each data file.</subaactivity>
               <subaactivity platform="android">
 		The evaluator shall verify that the application uses
-		the Android <code>KeyStore</code>, <code>SecretKeyFactory</code> and
+		the Android <code>KeyStore</code>, <code>SecretKeyFactory</code> and/or
 		<code>Cipher</code> classes to encrypt sensitive data.
 	      </subaactivity>
               <subaactivity platform="windows">The evaluator shall determine and verify that Windows
@@ -765,8 +774,7 @@
         <f-component id="fmt_mec_ext.1" name="Supported Configuration Mechanism">
           <f-element id="fmt_mec_ext.1.1">
             <title> The application shall invoke the mechanisms recommended by the platform
-              vendor for storing and setting all security-related configuration options that are
-              stored on the platform. </title>
+              vendor for storing and setting all security-related configuration options. </title>
             <note role="application"> Configuration options that are stored remotely are not subject
               to this requirement. </note>
             <aactivity>The evaluator must identify the application's configuration data (e.g.
@@ -798,13 +806,13 @@
         <f-component id="fmt_cfg_ext.1" name="Secure by Default Configuration">
           <f-element id="fmt_cfg_ext.1.1">
             <title>
-	           The application shall only provide enough functionaliy to set new credentials when 
-             configured with default credentials or no credentials.
-	          </title>
+	      The application shall only provide enough functionaliy to set new credentials when 
+              configured with default credentials or no credentials.
+	    </title>
             <note role="application">
-	           Default credentials are credentials which would be identical across examples of a 
-             product, such as an identical login username and password. 
-	          </note>
+	      Default credentials are credentials which would be identical across examples of a 
+              product, such as an identical login username and password. 
+	    </note>
             <aactivity>
              The evaluator shall check the TSS to determine if the application requires any type
              of credentials and if the applications installs with default credentials. If the
@@ -820,7 +828,7 @@
                   the application.
                 </test>
              </testlist>
-	          </aactivity>
+	    </aactivity>
           </f-element>
           <f-element id="fmt_cfg_ext.1.2">
             <title>The application shall be initially configured to prevent the transmission of any
@@ -940,8 +948,7 @@
               how the application acquires random bits. </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_rbg_ext.2" name="Random Bit Generation from Platform (Selection Based)"
-          >
+        <f-component id="fcs_rbg_ext.2" name="Random Bit Generation from Platform (Selection Based)">
           <f-element id="fcs_rbg_ext.2.1" status="sel-based">
             <selection-depends req="fcs_rbg_ext.1.1"/>
             <title> The application shall invoke a mechanism recommended by the platform
@@ -986,7 +993,7 @@
             <selection-depends req="fcs_rbg_ext.1.1"/>
             <title> The application shall perform all deterministic random bit generation (DRBG)
               services in accordance with <selectables atleastone="yes" linebreak="yes">
-                <selectable>NIST Special Publication 800-90A using <selectables linebreak="yes">
+                <selectable>NIST Special Publication 800-90A using <selectables>
                     <selectable>Hash_DRBG (any)</selectable>
                     <selectable>HMAC_DRBG (any)</selectable>
                     <selectable>CTR_DRBG (AES)</selectable>
@@ -1153,7 +1160,7 @@
                 <selectable>FIPS PUB 186-4, "Digital Signature Standard (DSS)", Section 4 for RSA
                   schemes</selectable>
                 <selectable>FIPS PUB 186-4, "Digital Signature Standard (DSS)", Section 5 for ECDSA
-                  schemes and implementing "NIST curves" <selectables linebreak="yes">
+                  schemes and implementing "NIST curves" <selectables>
                     <selectable>P-256</selectable>
                     <selectable>P-384</selectable>
                     <selectable>P-521</selectable>
@@ -1280,8 +1287,9 @@
               perform the following actions which vary per platform.
               <subaactivity
                 platform="blackberry"/>
-              <subaactivity platform="android">The evaluator shall verify that all keys are stored
-                within a keystore using Android's <code>KeyStore</code> class. </subaactivity>
+              <subaactivity platform="android">The evaluator shall verify that the application uses
+    the Android <code>KeyStore</code>, <code>SecretKeyFactory</code> and/or
+    <code>Cipher</code> classes to store credentials. </subaactivity>
               <subaactivity platform="windows">The evaluator shall verify that all certificates are
                 stored in the Windows Certificate Store. The evaluator shall verify that other
                 secrets, like passwords, are stored in the Windows Credential Manager or stored 
@@ -1405,11 +1413,11 @@
             <selection-depends req="ftp_dit_ext.1.1"/>
             <title>The application shall verify that the presented identifier matches the reference
               identifier according to RFC 6125</title>
-            <note role="application">The rules for verification of identify are described in Section
-              6 of RFC 6125. The reference identifier is established by the user (e.g. entering a
-              URL into a web browser or clicking a link), by configuration (e.g. configuring the
-              name of a mail server or authentication server), or by an application (e.g. a
-              parameter of an API) depending on the application service. Based on a singular
+            <note role="application">The rules for verification of identifiers are described in 
+              Section 6 of RFC 6125. The reference identifier is established by the user (e.g. 
+              entering a URL into a web browser or clicking a link), by configuration (e.g. 
+              configuring the name of a mail server or authentication server), or by an application 
+              (e.g. a parameter of an API) depending on the application service. Based on a singular
               reference identifier’s source domain and application service type (e.g. HTTP, SIP,
               LDAP), the client establishes all reference identifiers which are acceptable, such as
               a Common Name for the Subject Name field of the certificate and a (case-insensitive)
@@ -1757,7 +1765,7 @@
                 applications to write all data within the application working directory
                 (sandbox).
 	      </subaactivity>
-              <subaactivity platform="android"> The evaluator shall run the program, mimicking
+              <subaactivity platform="android"> The evaluator shall run the program, mimikcing
                 normal usage, and note where all files are written. The evaluator shall ensure that
                 there are no executable files stored within the application's data directory. 
               </subaactivity>
@@ -1855,8 +1863,8 @@
             </aactivity>
           </f-element>
           <f-element id="fpt_tud_ext.1.3">
-            <title>The application shall be packaged such that its removal results in the removal of
-              all traces of the application, with the exception of configuration settings, output
+            <title>The application shall be packaged such that its removal results in the deletion 
+              of all traces of the application, with the exception of configuration settings, output
               files, and audit/log events.</title>
             <note role="application">Applications bundled with the system/firmware image are not
               subject to this requirement if the user is unable to remove the application through
