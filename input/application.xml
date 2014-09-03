@@ -5,7 +5,7 @@
       <PPTitle>Protection Profile for Application Software</PPTitle>
       <PPVersion>.8</PPVersion>
       <PPAuthor>National Information Assurance Partnership</PPAuthor>
-      <PPPubDate>2014-08-21</PPPubDate>
+      <PPPubDate>2014-09-03</PPPubDate>
       <PPCertificationID>NIAP-whoknows</PPCertificationID>
       <CCVersion>.01 Revision 0</CCVersion>
       <Keywords>application; software</Keywords>
@@ -403,6 +403,7 @@
           <component-refer ref="fdp_dec_ext.1"/>
           <component-refer ref="fpt_aex_ext.1"/>
           <component-refer ref="fpt_tud_ext.1"/>
+          <component-refer ref="fpt_cop_ext.1"/>
         </SO>
         <SO id="O.QUALITY">
           <description>To ensure quality of implementation, conformant <abbr linkend="TOE"/>s
@@ -416,6 +417,7 @@
           <component-refer ref="fmt_mec_ext.1"/>
           <component-refer ref="fmt_cfg_ext.1"/>
           <component-refer ref="fpt_api_ext.1"/>
+          <component-refer ref="fpr_ano_ext.1"/>
         </SO>
         <SO id="O.MANAGEMENT">
           <description>To facilitate management by users and the enterprise, conformant <abbr
@@ -425,6 +427,7 @@
             mechanisms and formats, as well as providing mechanisms for configuration.</description>
           <component-refer ref="fmt_smf.1"/>
           <component-refer ref="fpt_idv_ext.1"/>
+          <component-refer ref="fpt_tud_ext.1.5"/>
         </SO>
         <SO id="O.PROTECTED_STORAGE">
           <description>To address the issue of loss of confidentiality of user data in the event of
@@ -433,6 +436,7 @@
             <abbr linkend="TOE"/> in order to prevent unauthorized access to this encrypted data.
           </description>
           <component-refer ref="fdp_dar_ext.1"/>
+          <component-refer ref="fcs_sto_ext.1.1"/>
           <component-refer ref="fcs_rbg_ext.1"/>
         </SO>
         <SO id="O.PROTECTED_COMMS">
@@ -441,11 +445,10 @@
             sensitive data. Sensitive data includes cryptographic keys, passwords, and any other
             data specific to the application that should not be exposed outside of the application. 
           </description>
-          <component-refer ref="fcs_rbg_ext.1"/>
-          <component-refer ref="fcs_tls_ext.1"/>
-          <!-- <component-refer ref="fpr_ano_ext.1" /> -->
-          <!-- this may call for a separate protected_identity objective -->
           <component-refer ref="ftp_dit_ext.1"/>
+          <component-refer ref="fcs_tls_ext.1"/>
+          <component-refer ref="fcs_dtls_ext.1"/>
+          <component-refer ref="fcs_rbg_ext.1"/>
         </SO>
       </SOs>
     </section>
@@ -1301,7 +1304,8 @@
           <f-element id="fcs_tls_ext.1.1" status="sel-based">
             <selection-depends req="ftp_dit_ext.1.1"/>
             <title> The application shall <selectables linebreak="yes">
-                <selectable>invoke the platform-provided TLS</selectable>
+                <selectable>invoke the platform-provided <abbr title="Transport Layer Security">
+                  TLS</abbr> 1.2</selectable>
                 <selectable>implement <abbr title="Transport Layer Security">TLS</abbr> 1.2 (RFC
                   5246)</selectable>
               </selectables> supporting the following ciphersuites: <p/>Mandatory Ciphersuites:
