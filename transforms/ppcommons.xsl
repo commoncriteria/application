@@ -1,7 +1,6 @@
 <xsl:stylesheet version="1.0" 
 		xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
 		xmlns:cc="http://common-criteria.rhcloud.com/ns/cc"
-		xmlns:dc="http://purl.org/dc/elements/1.1/" 
 		xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
   <xsl:key name="abbr" match="cc:glossary/cc:entry/cc:term/cc:abbr" use="text()" />
