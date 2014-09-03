@@ -846,9 +846,13 @@
               inspect the filesystem of the platform (to the extent possible) for any files created
               by the application and ensure that their permissions are adequate to protected them.
               The method of doing so varies per platform. <subaactivity platform="blackberry"/>
-              <subaactivity platform="android">The evaluator shall verify using <code>ls -alR</code>
-                that files written within the applications data directory are not world-readable or
-                world-writable. The evaluator shall also verify that no sensitive data is written to
+              <subaactivity platform="android">
+		The evaluator shall run 
+        	<code>ls -alR|grep -E '$.......(r|-w|--x)'</code> inside the application's 
+		data directories to ensure that all files are not world-accessible 
+		(either read, write, or execute).
+		The command should not print any files.
+		The evaluator shall also verify that no sensitive data is written to
                 external storage as this data can be read/modified by any application containing the
                 READ_EXTERNAL_STORAGE and/or WRITE_EXTERNAL_STORAGE permissions.</subaactivity>
               <subaactivity platform="windows">The evaluator shall run the SysInternals tools,
@@ -862,13 +866,19 @@
               <subaactivity platform="ios">The evaluator shall determine whether the application
                 leverages the appropriate Data Protection Class for each data file stored
                 locally.</subaactivity>
-              <subaactivity platform="linux"> The evaluator shall verify using <code>ls
-                  -alR</code> that files written within the applications data directory are not
-                world-readable or world-writable. </subaactivity>
+              <subaactivity platform="linux"> 
+		The evaluator shall run the command <code>find . -perm /007</code> inside
+		the application's data directories to ensure that all files are not world-accessible 
+		(either read, write, or execute).
+		The command should not print any files.
+	      </subaactivity>
               <subaactivity platform="Solaris"/>
-              <subaactivity platform="OS X">The evaluator shall verify using <code>ls
-                  -alR</code> that files written within the applications data directory are not
-                world-readable or world-writable.</subaactivity>
+              <subaactivity platform="OS X">
+		The evaluator shall run the command <code>find . -perm +007</code> inside
+		the application's data directories to ensure that all files are not world-accessible 
+		(either read, write, or execute).
+		The command should not print any files.
+	      </subaactivity>
             </aactivity>
           </f-element>
         </f-component>
