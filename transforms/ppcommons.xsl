@@ -70,7 +70,10 @@
       <xsl:apply-templates />
     </div>
   </xsl:template>
-
+  
+  <!-- No comments! -->
+  <xsl:template match="comment()"/>
+    
   <xsl:template match="@*|node()">
     <xsl:copy>
       <xsl:apply-templates select="@*|node()" />
