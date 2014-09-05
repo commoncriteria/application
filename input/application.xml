@@ -1595,6 +1595,82 @@
               </testlist>
             </aactivity>
           </f-element>
+          <f-element id="fcs_tlsc_ext.1.4" status="sel-based">
+            <selection-depends req="ftp_dit_ext.1.1"/>
+            <title>
+              The application shall support mutual authentication using X.509v3 certificates.
+            </title>
+            <note role="application">
+              The use of X.509v3 certificates for <abbr title="Transport Layer Security">TLS</abbr> 
+              is addressed in FIA_X509_EXT.2.1. This requirement adds that this use must include the 
+              client must be capable of presenting a certificate to a 
+              <abbr title="Transport Layer Security">TLS</abbr> server for 
+              <abbr title="Transport Layer Security">TLS</abbr> mutual authentication.
+            </note>
+            <aactivity>
+              The evaluator shall ensure that the 
+              <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> description required 
+              per FIA_X509_EXT.2.1 includes the use of client-side certificates for TLS mutual 
+              authentication.
+              <br></br>
+              The evaluator shall verify that the AGD guidance required per FIA_X509_EXT.2.1 
+              includes instructions for configuring the client-side certificates for 
+              <abbr title="Transport Layer Security">TLS</abbr> mutual authentication.
+              <br></br>
+              The evaluator shall also perform the following test:
+              <testlist>
+                <test>
+                  The evaluator shall perform the following modification to the traffic:
+                  <ul>
+                    <li>
+                      Configure the server to require mutual authentication and then modify a byte 
+                      in a CA field in the Server’s Certificate Request handshake message. The 
+                      modified CA field must not be the CA used to sign the client’s certificate. 
+                      The evaluator shall verify the connection is unsuccessful.
+                    </li>
+                  </ul>
+                </test>
+              </testlist>
+            </aactivity>
+          </f-element>
+          <f-element id="fcs_tlsc_ext.1.5" status="sel-based">
+            <selection-depends req="ftp_dit_ext.1.1"/>
+            <title>
+              The application shall present the supported Elliptic Curves Extension in the Client 
+              Hello with the following NIST curves: 
+              <selectables>
+                <selectable>secp256r1</selectable>
+                <selectable>secp384r1</selectable>
+                <selectable>secp521r1</selectable>
+              </selectables> and no other curves.
+            </title>
+            <note role="application">
+              This requirement limits the elliptic curves allowed for authentication and key 
+              agreement to the NIST curves from FCS_COP.1(3) and FCS_CKM.1(1) and FCS_CKM.1(2). This 
+              extension is required for clients supporting Elliptic Curve ciphersuites.
+            </note>
+            <aactivity>
+              The evaluator shall verify that 
+              <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> describes the 
+              supported Elliptic Curves Extension and whether the required behavior is performed by 
+              default or may be configured. If the 
+              <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> indicates that the 
+              supported Elliptic Curves Extension must be configured to meet the requirement, the 
+              evaluator shall verify that AGD guidance includes configuration of the supported 
+              Elliptic Curves Extension.
+              <br></br>
+              The evaluator shall also perform the following tests:
+              <testlist>
+                <test>
+                  The evaluator shall configure the server to perform an ECDHE key exchange message 
+                  in the <abbr title="Transport Layer Security">TLS</abbr> connection using a 
+                  non-supported ECDHE curve (for example, P-192) and shall verify that the 
+                  <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> disconnects after 
+                  receiving the server's Key Exchange handshake message.
+                </test>
+              </testlist>
+            </aactivity>
+          </f-element>
         </f-component>
         <f-component id="fcs_dtls_ext.1" name="DTLS Implementation" status="sel-based">
           <f-element id="fcs_dtls_ext.1.1" status="sel-based">
