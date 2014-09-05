@@ -733,14 +733,24 @@
           <f-element id="fdp_dar_ext.1.1">
             <title>The application shall 
 	      <selectables linebreak="yes">
-		<selectable> invoke platform-provided functionality to encrypt sensitive data when
-                  it is stored in non-volatile memory</selectable>
-                <selectable> not store any sensitive data in non-volatile memory</selectable>
+		<selectable>
+		  invoke platform-provided functionality to encrypt sensitive data when
+                  it is stored in non-volatile memory
+		</selectable>
+                <selectable>
+		  not store any sensitive data in non-volatile memory, unless specifically
+		  directed by the user to do so.
+		</selectable>
               </selectables>
+	      .
             </title>
             <note role="application">
 	      Any file that may potentially contain sensitive data (to include temporary files)
 	      must be protected with platform-provided encryption.
+	      The only exception is if the user actively chooses to export the sensitive data
+	      to non-protected files. 
+	      For instance, if the user opens a text document and enters sensitive data into
+	      the document, the application is not responsible for protecting that document.
 	    </note>
             <!-- this language is intentionally different from the MDPP's FDP_DAR -->
             <aactivity>The evaluator shall run the application and store potentially sensitive data.
