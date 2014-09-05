@@ -54,7 +54,7 @@
         id="ccterms">
         <glossary>
           <entry>
-            <term><abbr title="Common Criteria">CC</abbr></term>
+            <term><abbr title="Common Criteria">CC</abbr></term> 
             <description>Common Criteria for Information Technology Security
               Evaluation</description>
           </entry>
@@ -221,7 +221,7 @@
 		the software provided by its vendor and which is installed onto the
 		filesystem provided by the operating system.  It executes on the platform, which
 		may be an operating system (Figure 1), an execution environment,
-		or on some combination of these (Figure
+		or some combination of these (Figure
 		2).  Some assurance activities are specific to the particular platform
 		on which the application runs, in order to provide precision and
 		repeatability. Test activities are actively sought from platform
@@ -431,10 +431,11 @@
           <component-refer ref="fpt_tud_ext.1.5"/>
         </SO>
         <SO id="O.PROTECTED_STORAGE">
-          <description>To address the issue of loss of confidentiality of user data in the event of
-            loss of physical control of the storage medium, conformant <abbr linkend="TOE"/>s will
-            use data-at-rest protection. This involves encrypting data and keys stored by the 
-            <abbr linkend="TOE"/> in order to prevent unauthorized access to this encrypted data.
+          <description>
+	    To address the issue of loss of confidentiality of user data in the event of 
+	    loss of physical control of the storage medium, conformant <abbr linkend="TOE"/>s will 
+	    use data-at-rest protection. This involves encrypting data and keys stored by the 
+	    <abbr linkend="TOE"/> in order to prevent unauthorized access to this data.
           </description>
           <component-refer ref="fdp_dar_ext.1"/>
           <component-refer ref="fcs_sto_ext.1.1"/>
@@ -521,9 +522,9 @@
 	      Generic access to the filesystem, which may provide indirect access to removable
 	      or remote (e.g. USB or network shares) drives, is not considered direct access.
 	    </note>
-              <aactivity>The evaluator shall install the application and inspect its user
-              documentation, and determine that the user is informed of any need to access hardware
-              resources which provide access to sensitive data. The method of doing so varies
+              <aactivity>The evaluator shall install and run the application and inspect its user
+              documentation to verify that the user is informed of any need to access hardware
+              resources that provide access to sensitive data. The method of doing so varies
               per platform. <subaactivity platform="blackberry">The evaluator shall install the
                 application and run it for the first time. The evaluator shall verify that the
                 application displays all platform resources it would like to access. Note: If the
@@ -593,13 +594,16 @@
               user awareness can be achieved, which varies per platform. An application can use a 
               file or directory selection dialog to provide user awareness that data can be saved to
               world-readable-storage.</note>
-            <aactivity>The evaluator shall install the application and inspect its user
-              documentation, and determine that the user is informed of any need to access sensitive
-              information which provide access to sensitive information repositories. The method of
-              doing so varies per platform. <subaactivity platform="blackberry">The evaluator shall
+            <aactivity>
+	      The evaluator shall install and run the application and inspect its user
+              documentation to verify that the user is informed of any need to access sensitive
+              data. 
+	      The method of doing so varies per platform.
+	      <subaactivity platform="blackberry">The evaluator shall
                 install the application and run it for the first time. The evaluator shall verify
                 that the application displays all platform resources it would like to
-                access.</subaactivity>
+                access.
+	      </subaactivity>
               <subaactivity platform="android">The evaluator shall install the application and
                 verify that the application displays the permissions used to access sensitive
                 information repositories. This includes permissions such as READ_CALENDAR,
@@ -652,10 +656,6 @@
 	      The application shall only seek access to those resources 
 	      for which it has provided a justification to access. 
 	    </title>
-            <note role="application"> This requirement is intended to prompt judgment about whether
-              the resources identified for access in <reqref linkend="fdp_dec_ext.1.1"/> and <reqref
-                linkend="fdp_dec_ext.1.2"/> are necessary for the operation of the application. 
-              </note>
             <aactivity> The evaluator shall review documentation provided by the application
               developer and for each resource which it requests access to, identify the
               justification as to why access is required. </aactivity>
@@ -663,7 +663,7 @@
           <f-element id="fdp_dec_ext.1.4">
             <title>The application shall restrict network connections to 
               <selectables linebreak="yes">
-                <selectable>provide no network connections</selectable>
+                <selectable>use no network connections</selectable>
                 <selectable>provide user initiated connectivity for <assignable> list of functions 
                   for which the user can initiate network connections</assignable></selectable>
                 <selectable>respond to <assignable> list of remotely initiated connections
@@ -674,9 +674,13 @@
               </selectables>
               . 
             </title>
-            <note role="application"> This requirement is intended to restrict both inbound and
+            <note role="application">
+	      This requirement is intended to restrict both inbound and
               outbound network connections and ports to only those required, or to network
-              connections that are user initiated. </note>
+              connections that are user initiated.
+	      It does not apply to applications that generically access the filesystem that
+	      may cause the platform to access remotely mounted drives/shares.
+	    </note>
             <aactivity> The evaluator shall run the application on a platform running no other
               networked applications. For the duration of the lifetime of the application, the
               evaluator shall sniff network traffic and make sure that any network connections
@@ -729,14 +733,24 @@
           <f-element id="fdp_dar_ext.1.1">
             <title>The application shall 
 	      <selectables linebreak="yes">
-		<selectable> invoke platform-provided functionality to encrypt sensitive data when
-                  it is stored in non-volatile memory</selectable>
-                <selectable> not store any sensitive data in non-volatile memory</selectable>
+		<selectable>
+		  invoke platform-provided functionality to encrypt sensitive data when
+                  it is stored in non-volatile memory
+		</selectable>
+                <selectable>
+		  not store any sensitive data in non-volatile memory, unless specifically
+		  directed by the user to do so.
+		</selectable>
               </selectables>
+	      .
             </title>
             <note role="application">
 	      Any file that may potentially contain sensitive data (to include temporary files)
 	      must be protected with platform-provided encryption.
+	      The only exception is if the user actively chooses to export the sensitive data
+	      to non-protected files. 
+	      For instance, if the user opens a text document and enters sensitive data into
+	      the document, the application is not responsible for protecting that document.
 	    </note>
             <!-- this language is intentionally different from the MDPP's FDP_DAR -->
             <aactivity>The evaluator shall run the application and store potentially sensitive data.
@@ -755,7 +769,7 @@
 	      </subaactivity>
               <subaactivity platform="windows">The evaluator shall determine and verify that Windows
                 Applications use the <abbr title="Data Protection API">DPAPI</abbr> to store and
-                retrieve senstive information. Windows Store Apps for desktop or mobile shall use
+                retrieve sensitive data. Windows Store Apps for desktop or mobile shall use
                 the DPAPI via the ProtectedData class.</subaactivity>
               <subaactivity platform="ios">The evaluator shall determine whether the application
                 uses the appropriate Data Protection Class for each data file stored locally. 
@@ -764,7 +778,10 @@
 		The Linux platform currently does not have suitable encryption services built-in, 
 		so applications on it satisfy this requirement by default.
 	      </subaactivity>
-              <subaactivity platform="Solaris"/>
+              <subaactivity platform="Solaris">
+		The Linux platform currently does not have suitable encryption services built-in, 
+		so applications on it satisfy this requirement by default.
+	      </subaactivity>
               <subaactivity platform="OS X"/>
             </aactivity>
           </f-element>
@@ -798,7 +815,12 @@
                 and verify that the application saves its configuration in structured files that
                 reside in /etc (for system-specific configuration) or in the users' home directory
                 (for user-specific configuration). </subaactivity>
-              <subaactivity platform="Solaris"/>
+              <subaactivity platform="Solaris">
+		The evaluator shall install and run the application and
+		verify that the application saves its configuration in structured files that
+                reside in /etc (for system-specific configuration) or 
+		in the users' home directory (for user-specific configuration).
+	      </subaactivity>
               <subaactivity platform="OS X"/>
             </aactivity>
           </f-element>
@@ -831,7 +853,8 @@
 	    </aactivity>
           </f-element>
           <f-element id="fmt_cfg_ext.1.2">
-            <title>The application shall be initially configured to prevent the transmission of any
+            <title>
+	      The application shall be initially configured to prevent the transmission of any
               plaintext credentials.
             </title>
             <note role="application">The intention of this requirement is to prevent the logging
@@ -878,12 +901,19 @@
                 leverages the appropriate Data Protection Class for each data file stored
                 locally.</subaactivity>
               <subaactivity platform="linux"> 
-		The evaluator shall run the command <code>find . -perm /007</code> inside
-		the application's data directories to ensure that all files are not world-accessible 
-		(either read, write, or execute).
+		The evaluator shall run the command 
+		<code>find . -perm /007</code> 
+		inside the application's data directories to ensure that all files are 
+		not world-accessible (either read, write, or execute).
 		The command should not print any files.
 	      </subaactivity>
-              <subaactivity platform="Solaris"/>
+              <subaactivity platform="Solaris">
+		The evaluator shall run the command
+		<code>find . \( -perm -001 -o -perm -002 -o -perm -004 \)</code>
+		inside the application's data directories to ensure that all files are not 
+		world-accessible (either read, write, or execute). 
+		The command should not print any files.
+	      </subaactivity>
               <subaactivity platform="OS X">
 		The evaluator shall run the command <code>find . -perm +007</code> inside
 		the application's data directories to ensure that all files are not world-accessible 
@@ -1140,8 +1170,7 @@
             <note role="application">The evaluator should ensure "invoke platform-provided" is
               selected in cases where the application uses platform APIs to perform cryptographic
               hashing and signing. If the "invoke application-implemented" selection is chosen, then
-              additional requirements from FCS_COP_EXT.2.2 and FCS_COP.2.2 elements shall be
-              included in the ST. </note>
+              additional requirements from FCS_COP_EXT.2 shall be included in the ST. </note>
             <aactivity>Requirement met by the platform: The evaluator shall examine the TSS of the
               application to verify that it describes how the platforms digital signature
               functionality is invoked for each operation they are used for in the application. The
@@ -1201,23 +1230,28 @@
           </f-element>
           <f-element id="fcs_cop_ext.2.2" status="sel-based">
             <selection-depends req="fcs_cop_ext.1.1"/>
-            <title>The application shall perform cryptographic hashing services in accordance with a
-              specified cryptographic algorithm <selectables linebreak="yes">
-                <selectable>SHA-1</selectable>
-                <selectable>SHA-256</selectable>
-                <selectable>SHA-384</selectable>
-                <selectable>SHA-512</selectable>
-              </selectables> and message digest sizes <selectables linebreak="yes">
+            <title>
+	      The application shall perform cryptographic hashing services in accordance with a specified cryptographic algorithm 
+	      <selectables linebreak="yes">
+		<selectable>SHA-256</selectable><selectable>SHA-384</selectable><selectable>SHA-512</selectable>
+	      </selectables>
+	      in addition to
+	      <selectables linebreak="yes">
+		<selectable>SHA-1</selectable><selectable>no other algorithm</selectable>
+	      </selectables>
+              and message digest sizes <selectables linebreak="yes">
                 <selectable>160</selectable>
                 <selectable>256</selectable>
                 <selectable>384</selectable>
                 <selectable>512</selectable>
               </selectables> bits that meet the following: FIPS Pub 180-4, “Secure Hash Standard.” 
             </title>
-            <note role="application">In future versions of this document, SHA-1 may be removed as an
-              option. SHA-1 for generating digital signatures will no longer be allowed after
-              December 2013, and SHA-1 for verification of digital signatures is strongly
-              discouraged as there may be risk in accepting these signatures. The selection of the
+            <note role="application">
+	      In future versions of this document, SHA-1 may be removed as an option.
+	      SHA-1 is not allowed for generating digital signatures and 
+	      is strongly discouraged for verification of digital signatures as 
+	      there may be risk in accepting these signatures. 
+	      The selection of the
               hashing algorithm must correspond to the selection of the message digest size; for
               example, if SHA-1 is chosen, then the only valid message digest size selection would
               be 160 bits. </note>
@@ -1346,12 +1380,13 @@
             <note role="application">The ciphersuites to be tested in the evaluated configuration
               are limited by this requirement. The ST author should select the optional ciphersuites
               that are supported; if there are no ciphersuites supported other than the mandatory
-              suites, then “no other ciphersuite” should be selected. It is necessary to limit the ciphersuites that
-              can be used in an evaluated configuration administratively on the server in the test
-              environment. The Suite B algorithms listed above (RFC 6460) are the preferred
-              algorithms for implementation. TLS_RSA_WITH_AES_128_CBC_SHA is required in order to
-              ensure compliance with RFC 5246. These requirements will be revisited as new TLS
-              versions are standardized by the IETF. </note>
+              suites, then “no other ciphersuite” should be selected. It is necessary to limit the 
+              ciphersuites that can be offered and used in an evaluated configuration 
+              administratively on the server in the test environment. The Suite B algorithms listed 
+              above (RFC 6460) are the preferred algorithms for implementation. 
+              TLS_RSA_WITH_AES_128_CBC_SHA is required in order to ensure compliance with RFC 5246. 
+              These requirements will be revisited as new TLS versions are standardized by the IETF.
+            </note>
             <aactivity>The evaluator shall check the description of the implementation of this
               protocol in the <abbr linkend="TSS"/> to ensure that the ciphersuites supported are
               specified. The evaluator shall check the TSS to ensure that the ciphersuites specified
@@ -1386,27 +1421,27 @@
                   connection.</test>
                 <test>The evaluator shall setup a man-in-the-middle tool between the application and 
                   the test entity and shall perform the following modifications to the
-                  traffic: <ul>
-                    <li>Change the TLS version selected by the test peer in the Hello sent to the 
+                  traffic: <testlist>
+                    <test>Change the TLS version selected by the test peer in the Hello sent to the 
                       application to a non-supported TLS version (for example 1.3 represented by the 
-                      two bytes 03 04) and verify that the application rejects the connection.</li>
-                    <li>Modify at least one byte in the nonce sent to the application in the Hello 
+                      two bytes 03 04) and verify that the application rejects the connection.</test>
+                    <test>Modify at least one byte in the nonce sent to the application in the Hello 
                       handshake message, and verify that the application rejects the Key Exchange 
-                      handshake message (if using a DHE or ECDHE ciphersuite).</li>
-                    <li>Modify the selected ciphersuite in the Hello handshake
+                      handshake message (if using a DHE or ECDHE ciphersuite).</test>
+                    <test>Modify the selected ciphersuite in the Hello handshake
                       message sent to the application to be a ciphersuite not presented in the 
                       application's Hello handshake message. The evaluator shall verify that the 
-                      application rejects the connection.</li>
-                    <li>Modify the signature block in the Key Exchange handshake message sent to the 
+                      application rejects the connection.</test>
+                    <test>Modify the signature block in the Key Exchange handshake message sent to the 
                       application, and verify that the application rejects the connection after 
-                      receiving the Key Exchange message.</li>
-                    <li>Modify a byte in the Finished handshake message sent to the application, and 
+                      receiving the Key Exchange message.</test>
+                    <test>Modify a byte in the Finished handshake message sent to the application, and 
                       verify that the application sends a fatal alert upon receipt and does not send 
-                      any application data.</li>
-                    <li>Send an unencrypted packet to the application after the the
+                      any application data.</test>
+                    <test>Send an unencrypted packet to the application after the the
                       ChangeCipherSpec message has been sent and verify that the application denies 
-                      the connection.</li>
-                  </ul></test>
+                      the connection.</test>
+                  </testlist></test>
               </testlist></aactivity>
             </f-element>
           <f-element id="fcs_tls_ext.1.2" status="sel-based">
@@ -1461,19 +1496,19 @@
                   not match the reference identifier but does contain an identifier in the SAN that
                   matches. The evaluator shall verify that the connection succeeds.</test>
                 <test>The evaluator shall perform the following wildcard tests with each supported
-                  type of reference identifier: <ul>
-                    <li>The evaluator shall present a certificate containing a wildcard that
+                  type of reference identifier: <testlist>
+                    <test>The evaluator shall present a certificate containing a wildcard that
                       is not in the left-most label of the presented identifier (e.g.
-                      foo.*.example.com) and verify that the connection fails.</li>
-                    <li>The evaluator shall present a certificate containing a wildcard in
+                      foo.*.example.com) and verify that the connection fails.</test>
+                    <test>The evaluator shall present a certificate containing a wildcard in
                       the left-most label (e.g. *.example.com). The evaluator shall configure the
                       reference identifier with a single left-most label (e.g. foo.example.com) and
                       verify that the connection succeeds. The evaluator shall configure the
                       reference identifier without a left-most label as in the certificate (e.g.
                       example.com) and verify that the connection fails. The evaluator shall
                       configure the reference identifier with two left-most labels (e.g.
-                      bar.foo.example.come) and verify that the connection fails.</li>
-                  </ul></test>
+                      bar.foo.example.come) and verify that the connection fails.</test>
+                  </testlist></test>
                 <test>[conditional] If URI or Service name reference identifiers are supported, the
                   evaluator shall configure the DNS name and the service identifier. The evaluator
                   shall present a certificate containing the correct DNS name and service
@@ -1605,17 +1640,25 @@
             </aactivity>
           </f-element>
           <f-element id="fpt_api_ext.1.2" status="objective">
-            <title> The application shall use platform-provided libraries for parsing any structured
-              files whose format is an IANA MIME media type.
+            <title> The application 
+              <selectables>
+                <selectable>shall use platform-provided libraries</selectable>
+                <selectable>does not implement functionality</selectable>
+                </selectables>
+                 for parsing <assignable> list of formats parsed that are included in the 
+                 IANA MIME media types</assignable>.
             </title>
-            <note role="application">The IANA MIME media types are listed at
-              <a href='http://www.iana.org/assignments/media-types.'>http://www.iana.org/assignments/media-types</a>.
-              This includes many image, audio, video, and content file formats. This requirement does not
-              apply if providing parsing services is the purpose of the application.
-	          </note>
+            <note role="application">
+	      The IANA MIME types are listed at
+              <a href='http://www.iana.org/assignments/media-types'>
+		http://www.iana.org/assignments/media-types
+	      </a> 
+	      and include many image, audio, video, and content file formats. 
+	      This requirement does not apply if providing parsing services is the purpose of the application.
+	    </note>
             <aactivity>
 	      The evaluator shall verify that the TSS lists the IANA MIME media types
-	      (as described by <a href='http://www.iana.org/assignments/media-types.'>
+	      (as described by <a href='http://www.iana.org/assignments/media-types'>
 	      http://www.iana.org/assignments/media-types</a> )
 	      for all formats the application processes
 	      and that it maps those formats to parsing services provided by the platform.
@@ -1648,11 +1691,18 @@
               <subaactivity platform="ios">The evaluator shall perform a static analysis to search
                 for any mmap calls (or <abbr linkend="API"/> calls that call mmap), and ensure that
                 no arguments are provided that request a mapping at a fixed address</subaactivity>
-              <subaactivity platform="linux"> The evaluator shall run the same application on two
-                different Linux systems. The evaluator shall then compare their
-                /proc/<i>PID</i>/maps to ensure the two different instances share no mapping
-                locations. </subaactivity>
-              <subaactivity platform="Solaris"/>
+              <subaactivity platform="linux"> 
+		The evaluator shall run the same application on two different Linux systems. 
+		The evaluator shall then compare their memory maps using 
+		<code>pmap -x PID </code>
+		to ensure the two different instances share no mapping locations.
+	      </subaactivity>
+              <subaactivity platform="Solaris">
+		The evaluator shall run the same application on two different Solaris systems. 
+		The evaluator shall then compare their memory maps using 
+		<code>pmap -x PID </code>
+		to ensure the two different instances share no mapping locations.
+	      </subaactivity>
               <subaactivity platform="OS X"/>
             </aactivity>
           </f-element>
@@ -1712,8 +1762,7 @@
         functionality, unless that functionality also includes corruption
         detection.</title>
       </f-element> 
-       Note: We have no AA, nor much traction here - and hostility from "execution environment" 
-       vendors.
+       Note: We have no AA, nor much traction here - and push-back from vendors.
        Maybe this is best considered for a future version.
 -->
           <f-element id="fpt_aex_ext.1.3">
@@ -1739,9 +1788,12 @@
               <subaactivity platform="ios"> The evaluator shall ensure that the application can
                 successfully run on the latest version of iOS. </subaactivity>
               <subaactivity platform="linux"> The evaluator shall ensure that the application can
-                run with SELinux enabled and enforcing.
+                successfully run on a system with SELinux enabled and enforcing.
 	      </subaactivity>
-              <subaactivity platform="Solaris"/>
+              <subaactivity platform="Solaris">
+		The evaluator shall ensure that the application can run with 
+		Solaris Trusted Extensions enabled and enforcing.
+	      </subaactivity>
               <subaactivity platform="OS X"/>
             </aactivity>
           </f-element>
@@ -1777,11 +1829,18 @@
               <subaactivity platform="ios">The evaluator shall consider the requirement met because
                 the platform forces applications to write all data within the application working
                 directory (sandbox).</subaactivity>
-              <subaactivity platform="linux"> The evaluator shall run the program, mimicking
-                normal usage, and note where all files are written. The evaluator shall ensure that
-                there are no executable files stored in the same directories to which the
-                application wrote. </subaactivity>
-              <subaactivity platform="Solaris"/>
+              <subaactivity platform="linux"> 
+		The evaluator shall run the program, mimicking normal usage, 
+		and note where all files are written. 
+		The evaluator shall ensure that there are no executable files stored in the 
+		same directories to which the application wrote.
+	      </subaactivity>
+              <subaactivity platform="Solaris">
+		The evaluator shall run the program, mimicking normal usage, 
+		and note where all files are written. 
+		The evaluator shall ensure that there are no executable files stored in the 
+		same directories to which the application wrote.
+	      </subaactivity>
               <subaactivity platform="OS X"> The evaluator shall run the program, mimicking normal
                 usage, and note where all files are written. The evaluator shall ensure that there
                 are no executable files stored in the same directories to which the application
@@ -1807,14 +1866,24 @@
               <subaactivity platform="windows">The evaluator shall ensure that the <code>/GS</code>
                 flag was used during compilation. </subaactivity>
               <subaactivity platform="ios"> </subaactivity>
-              <subaactivity platform="linux">If the application is compiled using GCC, the
+              <subaactivity platform="linux">
+		If the application is compiled using GCC, the
                 evaluator shall ensure that the <code>-fstack-protector-strong</code> or
-                  <code>-fstack-protector-all</code> flags are used. The
-                  <code>-fstack-protector-all</code> flag is preferred but
-                  <code>-fstack-protector-strong</code> is acceptable. If the application is built
+                <code>-fstack-protector-all</code> flags are used. The
+                <code>-fstack-protector-all</code> flag is preferred but
+                <code>-fstack-protector-strong</code> is acceptable. If the application is built
                 using clang, it must be compiled and linked with the
-                  <code>-fsanitizer=address</code> flag. </subaactivity>
-              <subaactivity platform="Solaris"/>
+                <code>-fsanitizer=address</code> flag.
+	      </subaactivity>
+              <subaactivity platform="Solaris">
+	      	If the application is compiled using GCC, the
+                evaluator shall ensure that the <code>-fstack-protector-strong</code> or
+                <code>-fstack-protector-all</code> flags are used. The
+                <code>-fstack-protector-all</code> flag is preferred but
+                <code>-fstack-protector-strong</code> is acceptable. If the application is built
+                using clang, it must be compiled and linked with the
+                <code>-fsanitizer=address</code> flag.
+	      </subaactivity>
               <subaactivity platform="OS X"/>
             </aactivity>
           </f-element>
