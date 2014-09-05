@@ -168,8 +168,8 @@
             <term>Platform</term>
             <description>The environment in which application software runs. 
               The platform can be an operating system, an execution environment which runs atop 
-              an operating system, or some combination of these.  
-              </description>
+              an operating system, or some combination of these.
+            </description>
           </entry>
           <entry>
             <term>Robustness</term>
@@ -681,12 +681,19 @@
 	      It does not apply to applications that generically access the filesystem that
 	      may cause the platform to access remotely mounted drives/shares.
 	    </note>
-            <aactivity> The evaluator shall run the application on a platform running no other
-              networked applications. For the duration of the lifetime of the application, the
-              evaluator shall sniff network traffic and make sure that any network connections
-              witnessed are documented or are user-initiated. After the application initializes, the
+            <aactivity> 
+	      The evaluator shall run the application.
+	      For the lifetime of the application, 
+	      the evaluator shall sniff network traffic ignoring all non-application 
+	      associated traffic
+	      and verify that any network connections witnessed are documented or are user-initiated. 
+	      Filtering network traffic might be difficult, so it is recommended that the 
+	      evaluator minimize the number of applications and services running concurrently
+	      and run the application multiple times to isolate network traffic associated with the application.
+	      After the application initializes, the
               evaluator shall run a network port scan to verify that any local or remote ports
-              opened by the application have been documented. </aactivity>
+              opened by the application have been documented. 
+	    </aactivity>
           </f-element>
           <f-element id="fdp_dec_ext.1.5">
             <title>
@@ -854,15 +861,23 @@
           </f-element>
           <f-element id="fmt_cfg_ext.1.2">
             <title>
-	      The application shall be initially configured to prevent the transmission of any
-              plaintext credentials.
+	      The application shall be initially configured to
+	      <selectables>
+		<selectable>
+		  use TLS tunnels to 
+		</selectable>
+		<selectable>
+		  not
+		</selectable>
+	      </selectables>
+	      transmit credentials.
             </title>
-            <note role="application">The intention of this requirement is to prevent the logging
-              of plaintext credentials by the platform, and the observation of plaintext credentials
-              during transmission. Future versions of this PP may include specific requirements for
-              transmission of credentials. Cryptographic methods based on the requirements in 
-              FCS_COP, or the transmission of credentials over an encrypted tunnel (like TLS) are 
-              preferred.
+            <note role="application">
+	      The intention of this requirement is to prevent the logging
+              of plaintext credentials by the platform, 
+	      and the observation of plaintext credentials during transmission. 
+	      Future versions of this PP may include specific requirements for all transmission 
+	      of credentials.
             </note>
             <aactivity>The evaluator shall install and run the application and inspect its
               documentation. The evaluator shall determine if the application uses any credentials
@@ -1874,6 +1889,7 @@
                 <code>-fstack-protector-strong</code> is acceptable. If the application is built
                 using clang, it must be compiled and linked with the
                 <code>-fsanitizer=address</code> flag.
+		If the application is built using any other compiler, then the evaluator shall determine that appropriate stack-protection has been used during the build process.
 	      </subaactivity>
               <subaactivity platform="Solaris">
 	      	If the application is compiled using GCC, the
@@ -1883,6 +1899,7 @@
                 <code>-fstack-protector-strong</code> is acceptable. If the application is built
                 using clang, it must be compiled and linked with the
                 <code>-fsanitizer=address</code> flag.
+		If the application is built using any other compiler, then the evaluator shall determine that appropriate stack-protection has been used during the build process.
 	      </subaactivity>
               <subaactivity platform="OS X"/>
             </aactivity>
@@ -1954,7 +1971,8 @@
 	      are changed by the application by completing the following tests:
               <testlist>
                 <test>The evaluator shall run the application and exercise all operations of the
-                  application while using a network monitoring tool to record network traffic. The
+                  application while using a network monitoring tool to record network traffic.
+		  The
                   evaluator shall filter the traffic to show only traffic from the application being
                   evaluated and verify that no additional code is being delivered to the application
                   from any network connections made by the application. </test>
