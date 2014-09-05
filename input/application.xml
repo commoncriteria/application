@@ -1671,6 +1671,48 @@
               </testlist>
             </aactivity>
           </f-element>
+          <f-element id="fcs_tlsc_ext.1.6" status="sel-based">
+            <selection-depends req="ftp_dit_ext.1.1"/>
+            <title>
+              The application shall present the signature_algorithms extension in the Client Hello 
+              with the supported_signature_algorithms value containing the following hash 
+              algorithms: 
+              <selectables>
+                <selectable>SHA256</selectable>
+                <selectable>SHA384</selectable>
+                <selectable>SHA512</selectable>
+              </selectables> and no other hash algorithms.
+            </title>
+            <note role="application">
+              This requirement limits the hashing algorithms supported for the purpose of digital 
+              signature verification by the client and limits the server to the supported hashes for 
+              the purpose of digital signature generation by the server. The signature_algorithm 
+              extension is only supported by <abbr title="Transport Layer Security">TLS</abbr> 1.2.
+            </note>
+            <aactivity>
+              The evaluator shall verify that 
+              <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> describes the 
+              signature_algorithm extension and whether the required behavior is performed by 
+              default or may be configured. If the 
+              <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> indicates that the 
+              signature_algorithm extension must be configured to meet the requirement, the 
+              evaluator shall verify that AGD guidance includes configuration of the 
+              signature_algorithm extension.
+              <br></br> 
+              The evaluator shall also perform the following test:
+              <testlist>
+                <test>
+                  The evaluator shall configure the server to send a certificate in the 
+                  <abbr title="Transport Layer Security">TLS</abbr> connection that is not supported 
+                  according to the Client’s HashAlgorithm enumeration within the 
+                  signature_algorithms extension (for example, send a certificate with a SHA-1 
+                  signature). The evaluator shall verify that the 
+                  <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> disconnects after 
+                  receiving the server’s Certificate handshake message.
+                </test>
+              </testlist>
+            </aactivity>
+          </f-element>
         </f-component>
         <f-component id="fcs_dtls_ext.1" name="DTLS Implementation" status="sel-based">
           <f-element id="fcs_dtls_ext.1.1" status="sel-based">
