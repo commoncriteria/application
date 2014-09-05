@@ -1991,15 +1991,11 @@
               to query the current version of the application software.
             </title>
             <aactivity>The evaluator shall query the application for the current version of the software
-              according to the operational guidance and shall verify that the current version matches
-              that of the documented and installed version.
+              according to the operational user guidance (AGD_OPE.1) and shall verify that the
+              current version matches that of the documented and installed version.
             </aactivity>
           </f-element>
-        </f-component>
-        <f-component id="fpt_tud_ext.2" name="Integrity for Installation and Update (Selection 
-          Based)">
-          <f-element id="fpt_tud_ext.2.1" status="sel-based">
-            <selection-depends req="fpt_tud_ext.1.1"/>
+          <f-element id="fpt_tud_ext.1.6">
             <title>The application installation and update packages, including all files contained
               within, shall be signed by the vendor in conformance with NIST SP 800-89, 
               Recommendation for Obtaining Assurances for Digital Signature Applications, using an 
@@ -2014,7 +2010,8 @@
               application), it is not specified here.</note>
             <aactivity>Developers must document their process for cryptographically signing updates
               and installation packages. The evaluator shall verify that the documentation conforms
-              with the above requirement. The evaluator shall perform the following tests: 
+              with the above requirement.
+              <!-- The evaluator shall perform the following tests: 
               <testlist>
                 <test>The evaluator shall attempt to install an unsigned patch or update and shall
                   verify that installation fails. </test>
@@ -2029,16 +2026,25 @@
                   verify that installation is successful and happens automatically after the
                   signature is verified. </test>
               </testlist>
+            -->
             </aactivity>
           </f-element>
         </f-component>
         <f-component id="fpt_idv_ext.1" name="Software Identification and Versions">
           <f-element id="fpt_idv_ext.1.1" status="objective" targetdate="July 1, 2015">
             <title>The application shall include <abbr title="Software Identification">SWID</abbr>
-              tags that comply with the ISO/IEC 19770-2:2009 standard.</title>
-            <aactivity>The evaluator shall install the application, then check for the existence of
-              SWID tags that comply with the ISO/IEC 19770-2:2009 standard. The evaluator shall verify
-              that SWID tags are stored with .swidtag file extensions.</aactivity>
+              tags that comply with the minimum requirements for
+              <abbr title="Software Identification">SWID</abbr> tag from ISO/IEC 19770-2:2009
+              standard</title>
+            <note role="application">Valid SWID tags must contain a SoftwareIdentity
+              element and an Entity element as defined in the ISO/IEC 19770-2:2009
+              standard. SWID tags must be stored with a .swidtag file
+              extensions as defined in the ISO/IEC 19770-2:2009.
+            </note>
+            <aactivity>The evaluator shall install the application, then check for the
+              existence of SWID tags in a .swidtag file. The evaluator shall open the
+              file and verify that is contains at least a SoftwareIdentity element and
+              an Entity element.</aactivity>
           </f-element>
         </f-component>
       </subsection>
