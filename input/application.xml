@@ -778,7 +778,10 @@
 		The Linux platform currently does not have suitable encryption services built-in, 
 		so applications on it satisfy this requirement by default.
 	      </subaactivity>
-              <subaactivity platform="Solaris"/>
+              <subaactivity platform="Solaris">
+		The Linux platform currently does not have suitable encryption services built-in, 
+		so applications on it satisfy this requirement by default.
+	      </subaactivity>
               <subaactivity platform="OS X"/>
             </aactivity>
           </f-element>
@@ -812,7 +815,12 @@
                 and verify that the application saves its configuration in structured files that
                 reside in /etc (for system-specific configuration) or in the users' home directory
                 (for user-specific configuration). </subaactivity>
-              <subaactivity platform="Solaris"/>
+              <subaactivity platform="Solaris">
+		The evaluator shall install and run the application and
+		verify that the application saves its configuration in structured files that
+                reside in /etc (for system-specific configuration) or 
+		in the users' home directory (for user-specific configuration).
+	      </subaactivity>
               <subaactivity platform="OS X"/>
             </aactivity>
           </f-element>
@@ -845,7 +853,8 @@
 	    </aactivity>
           </f-element>
           <f-element id="fmt_cfg_ext.1.2">
-            <title>The application shall be initially configured to prevent the transmission of any
+            <title>
+	      The application shall be initially configured to prevent the transmission of any
               plaintext credentials.
             </title>
             <note role="application">The intention of this requirement is to prevent the logging
@@ -892,12 +901,19 @@
                 leverages the appropriate Data Protection Class for each data file stored
                 locally.</subaactivity>
               <subaactivity platform="linux"> 
-		The evaluator shall run the command <code>find . -perm /007</code> inside
-		the application's data directories to ensure that all files are not world-accessible 
-		(either read, write, or execute).
+		The evaluator shall run the command 
+		<code>find . -perm /007</code> 
+		inside the application's data directories to ensure that all files are 
+		not world-accessible (either read, write, or execute).
 		The command should not print any files.
 	      </subaactivity>
-              <subaactivity platform="Solaris"/>
+              <subaactivity platform="Solaris">
+		The evaluator shall run the command
+		<code>find . \( -perm -001 -o -perm -002 -o -perm -004 \)</code>
+		inside the application's data directories to ensure that all files are not 
+		world-accessible (either read, write, or execute). 
+		The command should not print any files.
+	      </subaactivity>
               <subaactivity platform="OS X">
 		The evaluator shall run the command <code>find . -perm +007</code> inside
 		the application's data directories to ensure that all files are not world-accessible 
@@ -1675,11 +1691,18 @@
               <subaactivity platform="ios">The evaluator shall perform a static analysis to search
                 for any mmap calls (or <abbr linkend="API"/> calls that call mmap), and ensure that
                 no arguments are provided that request a mapping at a fixed address</subaactivity>
-              <subaactivity platform="linux"> The evaluator shall run the same application on two
-                different Linux systems. The evaluator shall then compare their
-                /proc/<i>PID</i>/maps to ensure the two different instances share no mapping
-                locations. </subaactivity>
-              <subaactivity platform="Solaris"/>
+              <subaactivity platform="linux"> 
+		The evaluator shall run the same application on two different Linux systems. 
+		The evaluator shall then compare their memory maps using 
+		<code>pmap -x PID </code>
+		to ensure the two different instances share no mapping locations.
+	      </subaactivity>
+              <subaactivity platform="Solaris">
+		The evaluator shall run the same application on two different Solaris systems. 
+		The evaluator shall then compare their memory maps using 
+		<code>pmap -x PID </code>
+		to ensure the two different instances share no mapping locations.
+	      </subaactivity>
               <subaactivity platform="OS X"/>
             </aactivity>
           </f-element>
@@ -1767,7 +1790,10 @@
               <subaactivity platform="linux"> The evaluator shall ensure that the application can
                 successfully run on a system with SELinux enabled and enforcing.
 	      </subaactivity>
-              <subaactivity platform="Solaris"/>
+              <subaactivity platform="Solaris">
+		The evaluator shall ensure that the application can run with 
+		Solaris Trusted Extensions enabled and enforcing.
+	      </subaactivity>
               <subaactivity platform="OS X"/>
             </aactivity>
           </f-element>
@@ -1803,11 +1829,18 @@
               <subaactivity platform="ios">The evaluator shall consider the requirement met because
                 the platform forces applications to write all data within the application working
                 directory (sandbox).</subaactivity>
-              <subaactivity platform="linux"> The evaluator shall run the program, mimicking
-                normal usage, and note where all files are written. The evaluator shall ensure that
-                there are no executable files stored in the same directories to which the
-                application wrote. </subaactivity>
-              <subaactivity platform="Solaris"/>
+              <subaactivity platform="linux"> 
+		The evaluator shall run the program, mimicking normal usage, 
+		and note where all files are written. 
+		The evaluator shall ensure that there are no executable files stored in the 
+		same directories to which the application wrote.
+	      </subaactivity>
+              <subaactivity platform="Solaris">
+		The evaluator shall run the program, mimicking normal usage, 
+		and note where all files are written. 
+		The evaluator shall ensure that there are no executable files stored in the 
+		same directories to which the application wrote.
+	      </subaactivity>
               <subaactivity platform="OS X"> The evaluator shall run the program, mimicking normal
                 usage, and note where all files are written. The evaluator shall ensure that there
                 are no executable files stored in the same directories to which the application
@@ -1833,14 +1866,24 @@
               <subaactivity platform="windows">The evaluator shall ensure that the <code>/GS</code>
                 flag was used during compilation. </subaactivity>
               <subaactivity platform="ios"> </subaactivity>
-              <subaactivity platform="linux">If the application is compiled using GCC, the
+              <subaactivity platform="linux">
+		If the application is compiled using GCC, the
                 evaluator shall ensure that the <code>-fstack-protector-strong</code> or
-                  <code>-fstack-protector-all</code> flags are used. The
-                  <code>-fstack-protector-all</code> flag is preferred but
-                  <code>-fstack-protector-strong</code> is acceptable. If the application is built
+                <code>-fstack-protector-all</code> flags are used. The
+                <code>-fstack-protector-all</code> flag is preferred but
+                <code>-fstack-protector-strong</code> is acceptable. If the application is built
                 using clang, it must be compiled and linked with the
-                  <code>-fsanitizer=address</code> flag. </subaactivity>
-              <subaactivity platform="Solaris"/>
+                <code>-fsanitizer=address</code> flag.
+	      </subaactivity>
+              <subaactivity platform="Solaris">
+	      	If the application is compiled using GCC, the
+                evaluator shall ensure that the <code>-fstack-protector-strong</code> or
+                <code>-fstack-protector-all</code> flags are used. The
+                <code>-fstack-protector-all</code> flag is preferred but
+                <code>-fstack-protector-strong</code> is acceptable. If the application is built
+                using clang, it must be compiled and linked with the
+                <code>-fsanitizer=address</code> flag.
+	      </subaactivity>
               <subaactivity platform="OS X"/>
             </aactivity>
           </f-element>
