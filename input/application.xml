@@ -1563,21 +1563,35 @@
                 </test>
               </testlist></aactivity>
           </f-element>
-          <f-element id="fcs_tls_ext.1.3" status="sel-based">
+          <f-element id="fcs_tlsc_ext.1.3" status="sel-based">
             <selection-depends req="ftp_dit_ext.1.1"/>
-            <title>The application shall only establish trusted channels with peers that present
-              valid certificates.</title>
-            <note role="application">Validity is determined by the identifier verification,
-              certificate path, the expiration date, and the revocation status in accordance with
-              RFC 5280. For TLS connections, this channel shall not be established if the peer
-              certificate is invalid.</note>
-            <aactivity> The evaluator shall perform the following test: <testlist>
-                <test>The evaluator shall demonstrate that using a certificate without a valid
-                  certification path results in the function failing. Using the administrative
-                  guidance, the evaluator shall then load a certificate or certificates needed to
-                  validate the certificate to be used in the function, and demonstrate that the
-                  function succeeds. The evaluator then shall delete one of the certificates, and
-                  show that the function fails. </test>
+            <title>The application shall only establish a trusted channel if the peer certificate is 
+              valid.
+            </title>
+            <note role="application">
+              Validity is determined by the identifier verification, certificate path, the 
+              expiration date, and the revocation status in accordance with RFC 5280. Certificate 
+              validity shall be tested in accordance with testing performed for FIA_X509_EXT.1.
+              <br></br>
+              For <abbr title="Transport Layer Security">TLS</abbr> connections, this channel shall 
+              not be established if the peer certificate is invalid. The HTTPS protocol 
+              (FCS_HTTPS_EXT.1) requires different behavior, though HTTPS is implemented over TLS. 
+              This element addresses non-HTTPS <abbr title="Transport Layer Security">TLS</abbr> 
+              connections.
+            </note>
+            <aactivity>
+              The evaluator shall use <abbr title="Transport Layer Security">TLS</abbr> as a 
+              function to verify that the validation rules in FIA_X509_EXT.1.1 are adhered to and 
+              shall perform the following additional test:
+              <testlist>
+                <test>
+                  The evaluator shall demonstrate that a peer using a certificate without a valid 
+                  certification path results in an authenticate failure. Using the administrative 
+                  guidance, the evaluator shall then load the trusted CA certificate(s) needed to 
+                  validate the peer's certificate, and demonstrate that the connection succeeds. The 
+                  evaluator then shall delete one of the CA certificates, and show that the 
+                  connection fails.
+                </test>
               </testlist>
             </aactivity>
           </f-element>
