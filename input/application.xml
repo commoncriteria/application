@@ -1880,7 +1880,15 @@
                   <code>-fstack-protector-strong</code> is acceptable. </subaactivity>
               <subaactivity platform="windows">The evaluator shall ensure that the <code>/GS</code>
                 flag was used during compilation. </subaactivity>
-              <subaactivity platform="ios"> </subaactivity>
+              <subaactivity platform="ios">
+                If the application is compiled using GCC or Xcode, the
+                evaluator shall ensure that the <code>-fstack-protector-strong</code> or
+                <code>-fstack-protector-all</code> flags are used. The
+                <code>-fstack-protector-all</code> flag is preferred but
+                <code>-fstack-protector-strong</code> is acceptable.
+    If the application is built using any other compiler, then the evaluator shall determine that 
+    appropriate stack-protection has been used during the build process.
+              </subaactivity>
               <subaactivity platform="linux">
 		If the application is compiled using GCC, the
                 evaluator shall ensure that the <code>-fstack-protector-strong</code> or
@@ -1888,7 +1896,7 @@
                 <code>-fstack-protector-all</code> flag is preferred but
                 <code>-fstack-protector-strong</code> is acceptable. If the application is built
                 using clang, it must be compiled and linked with the
-                <code>-fsanitizer=address</code> flag.
+                <code>-fsanitize=address</code> flag.
 		If the application is built using any other compiler, then the evaluator shall determine that appropriate stack-protection has been used during the build process.
 	      </subaactivity>
               <subaactivity platform="Solaris">
@@ -1898,10 +1906,18 @@
                 <code>-fstack-protector-all</code> flag is preferred but
                 <code>-fstack-protector-strong</code> is acceptable. If the application is built
                 using clang, it must be compiled and linked with the
-                <code>-fsanitizer=address</code> flag.
+                <code>-fsanitize=address</code> flag.
 		If the application is built using any other compiler, then the evaluator shall determine that appropriate stack-protection has been used during the build process.
 	      </subaactivity>
-              <subaactivity platform="OS X"/>
+              <subaactivity platform="OS X">
+                If the application is compiled using GCC or Xcode, the
+                evaluator shall ensure that the <code>-fstack-protector-strong</code> or
+                <code>-fstack-protector-all</code> flags are used. The
+                <code>-fstack-protector-all</code> flag is preferred but
+                <code>-fstack-protector-strong</code> is acceptable.
+    If the application is built using any other compiler, then the evaluator shall determine that 
+    appropriate stack-protection has been used during the build process.
+              </subaactivity>
             </aactivity>
           </f-element>
         </f-component>
