@@ -454,16 +454,26 @@
 	      <ref name="normal-content"/>
 	    </element>
 	  </group>
-          <element name="testlist">
-            <oneOrMore>
-	      <element name="test">
-		<ref name="normal-content"/>
-	      </element>
-            </oneOrMore>
-          </element>
+	  <ref name="testlist"/>
         </choice>
       </oneOrMore>
     </element>
+  </define>
+
+  
+  <define name="testlist">
+    <oneOrMore>
+      <ref name="test"/>
+    </oneOrMore>
+  </define>
+
+  <define name="test">
+    <oneOrMore>
+      <choice>
+	<ref name="normal-content"/>
+	<ref name="testlist"/>
+      </choice>
+    </oneOrMore>
   </define>
 
   <define name="normal-content">

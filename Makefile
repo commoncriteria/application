@@ -19,6 +19,9 @@ simplified: $(CRITERIA)
 $(CRITERIA): $(TRANS)/pp2simplified.xsl $(APP_XML)
 	xsltproc -o $(CRITERIA) $(TRANS)/pp2simplified.xsl $(APP_XML)
 
+schema/application.rnc: schema/application.rng
+	trang -I rng -O rnc  schema/application.rng schema/application.rnc
+
 clean:
 	@for f in a $(TABLE) $(CRITERIA) $(APP_HTML); do \
 		if [ -f $$f ]; then \
