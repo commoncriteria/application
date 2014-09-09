@@ -903,7 +903,7 @@
               data. </note>
             <aactivity>The evaluator shall install and run the application. The evaluator shall
               inspect the filesystem of the platform (to the extent possible) for any files created
-              by the application and ensure that their permissions are adequate to protected them.
+              by the application and ensure that their permissions are adequate to protect them.
               The method of doing so varies per platform. <subaactivity platform="blackberry"/>
               <subaactivity platform="android">
 		The evaluator shall run 
@@ -1694,7 +1694,7 @@
         </f-component>
         <f-component id="fpt_aex_ext.1" name="Anti-Exploitation Capabilities">
           <f-element id="fpt_aex_ext.1.1">
-            <title> The application shall not request to map any memory at an explicit address.
+            <title> The application shall not request to map memory at an explicit address.
               <note role="application"> Requesting a memory mapping at an explicit address
                 subverts address space layout randomization (<abbr linkend="ASLR"/>). </note>
             </title>
@@ -1893,7 +1893,15 @@
                   <code>-fstack-protector-strong</code> is acceptable. </subaactivity>
               <subaactivity platform="windows">The evaluator shall ensure that the <code>/GS</code>
                 flag was used during compilation. </subaactivity>
-              <subaactivity platform="ios"> </subaactivity>
+              <subaactivity platform="ios">
+                If the application is compiled using GCC or Xcode, the
+                evaluator shall ensure that the <code>-fstack-protector-strong</code> or
+                <code>-fstack-protector-all</code> flags are used. The
+                <code>-fstack-protector-all</code> flag is preferred but
+                <code>-fstack-protector-strong</code> is acceptable.
+    If the application is built using any other compiler, then the evaluator shall determine that 
+    appropriate stack-protection has been used during the build process.
+              </subaactivity>
               <subaactivity platform="linux">
 		If the application is compiled using GCC, the
                 evaluator shall ensure that the <code>-fstack-protector-strong</code> or
@@ -1901,7 +1909,7 @@
                 <code>-fstack-protector-all</code> flag is preferred but
                 <code>-fstack-protector-strong</code> is acceptable. If the application is built
                 using clang, it must be compiled and linked with the
-                <code>-fsanitizer=address</code> flag.
+                <code>-fsanitize=address</code> flag.
 		If the application is built using any other compiler, then the evaluator shall determine that appropriate stack-protection has been used during the build process.
 	      </subaactivity>
               <subaactivity platform="Solaris">
@@ -1911,10 +1919,18 @@
                 <code>-fstack-protector-all</code> flag is preferred but
                 <code>-fstack-protector-strong</code> is acceptable. If the application is built
                 using clang, it must be compiled and linked with the
-                <code>-fsanitizer=address</code> flag.
+                <code>-fsanitize=address</code> flag.
 		If the application is built using any other compiler, then the evaluator shall determine that appropriate stack-protection has been used during the build process.
 	      </subaactivity>
-              <subaactivity platform="OS X"/>
+              <subaactivity platform="OS X">
+                If the application is compiled using GCC or Xcode, the
+                evaluator shall ensure that the <code>-fstack-protector-strong</code> or
+                <code>-fstack-protector-all</code> flags are used. The
+                <code>-fstack-protector-all</code> flag is preferred but
+                <code>-fstack-protector-strong</code> is acceptable.
+    If the application is built using any other compiler, then the evaluator shall determine that 
+    appropriate stack-protection has been used during the build process.
+              </subaactivity>
             </aactivity>
           </f-element>
         </f-component>
