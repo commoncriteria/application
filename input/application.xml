@@ -841,12 +841,12 @@
                   <code>user defaults system</code> or <code>key-value store</code> for storing all
                 settings.</subaactivity>
               <subaactivity platform="linux"> The evaluator shall install and run the application
-                and verify that the application saves its configuration in structured files that
+                and verify that the application saves its configuration in files that
                 reside in /etc (for system-specific configuration) or in the users' home directory
                 (for user-specific configuration). </subaactivity>
               <subaactivity platform="Solaris">
 		The evaluator shall install and run the application and
-		verify that the application saves its configuration in structured files that
+		verify that the application saves its configuration in files that
                 reside in /etc (for system-specific configuration) or 
 		in the users' home directory (for user-specific configuration).
 	      </subaactivity>
@@ -1994,11 +1994,14 @@
             <note role="application">Applications bundled with the system/firmware image are not
               subject to this requirement if the user is unable to remove the application through
               means provided by the OS.</note>
-            <aactivity>The evaluator shall take a snap shot of the entire file system prior to
-              installation of the application. Then install and run the application. The evaluator
-              shall then uninstall the application and take another snap shot of the entire file
-              system. The evaluator shall compare the two snap shots to verify that the only file
-              system differences are configuration files, output files, or audit/log files.
+            <aactivity>
+	      The evaluator shall record the path of every file on the entire 
+	      filesystem prior to installation of the application, and 
+	      then install and run the application.
+	      Aftwards, the evaluator shall then uninstall the application, and
+	      compare the resulting filesystem to the initial record to verify 
+	      that no files, other than configuration,
+	      output, and audit/log files, have been added to the filesystem.
             </aactivity>
           </f-element>
           <f-element id="fpt_tud_ext.1.4">
