@@ -253,6 +253,26 @@
       </xsl:for-each>
     </table>
   </xsl:template>
+
+  <xsl:template match="cc:acronyms">
+    <table>
+      <tr class="header">
+        <th>Acronym</th>
+        <th>Meaning</th>
+      </tr>
+      <xsl:for-each select="cc:entry">
+        <tr>
+          <td>
+            <xsl:apply-templates select="cc:term" />
+          </td>
+          <td>
+            <xsl:apply-templates select="cc:description" />
+          </td>
+        </tr>
+      </xsl:for-each>
+    </table>
+  </xsl:template>
+
   <xsl:template match="cc:ReferenceTable">
         PP-Title:<![CDATA[&]]><xsl:value-of select="cc:PPTitle" />
         PP-Version:<![CDATA[&]]><xsl:value-of select="cc:PPVersion" />
