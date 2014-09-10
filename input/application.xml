@@ -138,17 +138,21 @@
               document, vendors and developers are the same.</description>
           </entry>
           <entry>
-            <term>System Owner</term>
-            <description>Entity that purchased and maintains ownership of a mobile device or
-              computer.</description>
-          </entry>
-          <entry>
             <term>Information Owner</term>
             <description>Entity whose information is stored or processed on a device or
               computer; can be an application-specific provider, a digital provider, or an
               enterprise that allows access to resources from mobile devices or remote
               computers.</description>
           </entry>
+	  <entry>
+	    <term>Mobile Code</term>
+	    <description> 
+	      Software that is transmitted from a remote system to be
+	      executed on a legitimate framework on a local system, typically 
+	      without the user's explicit instruction.
+	      Examples of Mobile Code are Java Applets, Adobe Flash, and Office Macros.
+	    </description>
+	  </entry>
           <entry>
             <term><abbr title="Operating System">OS</abbr></term>
             <description>Software that manages hardware resources and provides services for
@@ -178,18 +182,27 @@
           </entry>
           <entry>
             <term>Sensitive Data</term>
-            <description> Any information, the loss, misuse, or unauthorized access to or
-              modification of which could adversely affect the privacy of the application user <cite
-                linkend="bibCSA"/>. The data can be stored, processed, or transmitted by the
-              application. It may include all user or enterprise data, credentials, <abbr
-                linkend="PII"/> or may be specific application data such as e-mails, messaging,
-              documents, calendar items, and contacts. </description>
+            <description> 
+	      Any information, the loss, misuse, or unauthorized access to or
+              modification of which could adversely affect the privacy of the application user 
+	      <cite linkend="bibCSA"/>.
+	      The data can be stored, processed, or transmitted by the application.
+	      It may include all user or enterprise data, credentials, <abbr linkend="PII"/> 
+	      or may be specific application data such as e-mails, messaging,
+              documents, calendar items, and contacts. 
+	      Sensitive data shall be identified in the TSS.
+ 	    </description>
           </entry>
           <entry>
             <term>Stack Cookie</term>
             <description>An anti-exploitation feature that places a value on the stack at the start
               of a function call, and checks that the value is the same at the end of the function
               call. This is also refered to as Stack Guard, or Stack Canaries.</description>
+          </entry>
+          <entry>
+            <term>System Owner</term>
+            <description>Entity that purchased and maintains ownership of a mobile device or
+              computer.</description>
           </entry>
           <entry>
             <term>Vendor</term>
@@ -489,7 +502,7 @@
         <b>Selection</b> (denoted by <i>italicized text</i>): is used to select one or more options
         provided by the [CC] in stating a requirement.</li>
       <li>
-        <b>Assignment</b> operation (denoted by <i>italicised text</i>): is used to assign a
+        <b>Assignment</b> operation (denoted by <i>italicized text</i>): is used to assign a
         specific value to an unspecified parameter, such as the length of a password. Showing the
         value in square brackets indicates assignment.</li>
       <li>
@@ -827,17 +840,22 @@
               <subaactivity platform="windows">The evaluator shall determine and verify that Windows
                 Store App applications use either the Windows.UI.ApplicationSettings namespace or
                 the IsolatedStorageSettings namespace for storing application specific settings.
-                Classic Desktop application shall use the Windows Registry.</subaactivity>
+                For Classic Desktop applications, the evaluator shall run the application while 
+		monitoring it with the SysInternal tool ProcMon and 
+		make security-related changes to its configuration. 
+		The evaluator shall verify that ProcMon logged corresponding changes to the
+		the Windows Registry.
+	      </subaactivity>
               <subaactivity platform="ios">The evaluator shall verify that the app uses the
                   <code>user defaults system</code> or <code>key-value store</code> for storing all
                 settings.</subaactivity>
               <subaactivity platform="linux"> The evaluator shall install and run the application
-                and verify that the application saves its configuration in structured files that
+                and verify that the application saves its configuration in files that
                 reside in /etc (for system-specific configuration) or in the users' home directory
                 (for user-specific configuration). </subaactivity>
               <subaactivity platform="Solaris">
 		The evaluator shall install and run the application and
-		verify that the application saves its configuration in structured files that
+		verify that the application saves its configuration in files that
                 reside in /etc (for system-specific configuration) or 
 		in the users' home directory (for user-specific configuration).
 	      </subaactivity>
@@ -1949,8 +1967,10 @@
               is intended to ensure that the application can check for updates provided by the vendor,
               as updates provided by another source may contain malicious code.
             </note>
-            <aactivity>The evaluator shall verify that the application is updateable by checking
-              for an update using procedures described in the operational guidance.
+            <aactivity>
+	      The evaluator shall check for an update using procedures described in the documentation
+	      and verify that the application does not issue an error.
+	      If it is updated or if it reports that no update is available this requirement is considered to be met.
             </aactivity>
           </f-element>
           <f-element id="fpt_tud_ext.1.2">
@@ -1985,11 +2005,14 @@
             <note role="application">Applications bundled with the system/firmware image are not
               subject to this requirement if the user is unable to remove the application through
               means provided by the OS.</note>
-            <aactivity>The evaluator shall take a snap shot of the entire file system prior to
-              installation of the application. Then install and run the application. The evaluator
-              shall then uninstall the application and take another snap shot of the entire file
-              system. The evaluator shall compare the two snap shots to verify that the only file
-              system differences are configuration files, output files, or audit/log files.
+            <aactivity>
+	      The evaluator shall record the path of every file on the entire 
+	      filesystem prior to installation of the application, and 
+	      then install and run the application.
+	      Aftwards, the evaluator shall then uninstall the application, and
+	      compare the resulting filesystem to the initial record to verify 
+	      that no files, other than configuration,
+	      output, and audit/log files, have been added to the filesystem.
             </aactivity>
           </f-element>
           <f-element id="fpt_tud_ext.1.4">
@@ -2004,7 +2027,7 @@
               <testlist>
                 <test>
 		  The evaluator shall run the application and perform all operations described 
-		  in the TSS while using a network monitoring tool to record network traffic.
+		  in the included documentation while using a network monitoring tool to record network traffic.
 		  The
                   evaluator shall filter the traffic to show only traffic from the application being
                   evaluated and verify that no additional code is being delivered to the application
