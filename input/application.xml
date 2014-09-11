@@ -823,41 +823,55 @@
       <subsection title="Security Management (FMT)" id="fmt">
         <f-component id="fmt_mec_ext.1" name="Supported Configuration Mechanism">
           <f-element id="fmt_mec_ext.1.1">
-            <title> The application shall invoke the mechanisms recommended by the platform
-              vendor for storing and setting all security-related configuration options. </title>
+            <title> 
+	      The application shall invoke the mechanisms recommended by the platform
+              vendor for storing and setting all security-related configuration options.
+	    </title>
             <note role="application"> Configuration options that are stored remotely are not subject
               to this requirement. </note>
-            <aactivity>The evaluator must identify the application's configuration data (e.g.
+            <aactivity>
+	      The evaluator must identify the application's configuration data (e.g.
               settings) and determine whether it is stored and set using the mechanisms supported by
-              the platform. The method of doing so varies per platform. <subaactivity
-                platform="blackberry">The evaluator shall verify when the application is installed
-                that all files included in the BAR are stored in the app folder of the Application
-                working directory.</subaactivity>
-              <subaactivity platform="android">The evaluator shall determine and verify that the
-                application stores all settings on internal storage. The application shall make use
-                of the <code>SharedPreferences</code> and/or <code>PreferenceActivity</code> classes
-                for storing configuration data.</subaactivity>
+              the platform. The method of doing so varies per platform. 
+	      <subaactivity platform="blackberry">
+		The evaluator shall run the application and make security-related changes to its configuration.
+		The evaluator shall check that at least one file in the app folder of the application 
+		working directory was modified to reflect the change made.
+              </subaactivity>
+              <subaactivity platform="android">
+		The evaluator shall run the application and make security-related changes to its configuration.
+		The evaluator shall check that at least one XML file at location
+		<path>/data/data/<i>package</i>/shared_prefs/</path>
+		reflects the changes made to the configuration to verify that the application used
+		<code>SharedPreferences</code> and/or <code>PreferenceActivity</code> classes
+                for storing configuration data, where <i>package</i> is the Java package
+		of the application.
+	      </subaactivity>
               <subaactivity platform="windows">The evaluator shall determine and verify that Windows
                 Store App applications use either the Windows.UI.ApplicationSettings namespace or
                 the IsolatedStorageSettings namespace for storing application specific settings.
                 For Classic Desktop applications, the evaluator shall run the application while 
-		monitoring it with the SysInternal tool ProcMon and 
+		monitoring it with the SysInternal tool <util>ProcMon</util> and 
 		make security-related changes to its configuration. 
-		The evaluator shall verify that ProcMon logged corresponding changes to the
+		The evaluator shall verify that <util>ProcMon</util> logs corresponding changes to the
 		the Windows Registry.
 	      </subaactivity>
               <subaactivity platform="ios">The evaluator shall verify that the app uses the
                   <code>user defaults system</code> or <code>key-value store</code> for storing all
                 settings.</subaactivity>
-              <subaactivity platform="linux"> The evaluator shall install and run the application
-                and verify that the application saves its configuration in files that
-                reside in /etc (for system-specific configuration) or in the users' home directory
-                (for user-specific configuration). </subaactivity>
+              <subaactivity platform="linux"> 
+		The evaluator shall run the application while monitoring it with the utility strace.
+		The evaluator shall make security-related changes to its configuration.
+		The evaluator shall verify that strace logs corresponding changes to configuration 
+		files that reside in /etc (for system-specific configuration) or 
+		in the users' home directory(for user-specific configuration).
+	      </subaactivity>
               <subaactivity platform="Solaris">
-		The evaluator shall install and run the application and
-		verify that the application saves its configuration in files that
-                reside in /etc (for system-specific configuration) or 
-		in the users' home directory (for user-specific configuration).
+		The evaluator shall run the application while monitoring it with the utility dtrace.
+		The evaluator shall make security-related changes to its configuration.
+		The evaluator shall verify that strace logs corresponding changes to configuration 
+		files that reside in /etc (for system-specific configuration) or 
+		in the users' home directory(for user-specific configuration).
 	      </subaactivity>
               <subaactivity platform="OS X"/>
             </aactivity>
@@ -866,7 +880,7 @@
         <f-component id="fmt_cfg_ext.1" name="Secure by Default Configuration">
           <f-element id="fmt_cfg_ext.1.1">
             <title>
-	      The application shall only provide enough functionaliy to set new credentials when 
+	      The application shall only provide enough functionality to set new credentials when 
               configured with default credentials or no credentials.
 	    </title>
             <note role="application">
