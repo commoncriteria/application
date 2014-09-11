@@ -626,4 +626,17 @@
       <xsl:text>]</xsl:text>
     </xsl:element>
   </xsl:template>
+
+  <xsl:template match="cc:util">
+    <span class="util">
+      <xsl:apply-templates/>
+    </span>
+  </xsl:template>
+  <xsl:template match="cc:path">
+    <span class="path">
+      <xsl:apply-templates/>
+    </span>
+  </xsl:template>
+
+
 </xsl:stylesheet>
