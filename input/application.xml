@@ -2034,6 +2034,107 @@
             </aactivity>
           </f-element>
         </f-component>
+        <f-component id="fia_x509_ext.2" name="X.509 Certificate Authentication" status="sel-based">
+          <f-element id="fia_x509_ext.2.1">
+            <selection-depends req="FIXME"/>
+            <title>
+              The application shall use X.509v3 certificates as defined by RFC 5280 to support 
+              authentication for 
+              <selectables>
+                <selectable>
+                  IPsec
+                </selectable>
+                <selectable>
+                  TLS
+                </selectable>
+                <selectable>
+                  SSH
+                </selectable>
+              </selectables>, and 
+              <selectables>
+                <selectable>
+                  code signing for system software updates
+                </selectable>
+                <selectable>
+                  code signing for integrity verification
+                </selectable>
+                <selectable>
+                  <assignable>
+                    other uses
+                  </assignable>
+                </selectable>
+                <selectable>
+                  no additional uses
+                </selectable>
+              </selectables>. 
+            </title>
+            <note role="application">
+              The ST author’s selection shall match the selection of FTP_ITC.1.1. Certificates may optionally be used for trusted updates of system software (FPT_TUD_EXT.1) and for integrity verification (FPT_TST_EXT.2).
+            </note>
+            <!-- 
+            <aactivity>
+              Currently no AA's available.
+            </aactivity>
+            -->
+          </f-element>
+          <f-element id="fia_x509_ext.2.2">
+            <selection-depends req="FIXME"/>
+            <title>
+              When the application cannot establish a connection to determine the validity of a 
+              certificate, the application shall  
+              <selectables>
+                <selectable>
+                  allow the administrator to choose whether to accept the certificate in these cases
+                </selectable>
+                <selectable>
+                  accept the certificate
+                </selectable>
+                <selectable>
+                  not accept the certificate
+                </selectable>
+              </selectables>. 
+            </title>
+            <note role="application">
+              Often a connection must be established to perform a verification of the revocation 
+              status of a certificate - either to download a CRL or to perform OCSP. The selection 
+              is used to describe the behavior in the event that such a connection cannot be 
+              established (for example, due to a network error). If the <abbr linkend="TOE"/> has 
+              determined the certificate valid according to all other rules in FIA_X509_EXT.1, 
+              the behavior indicated in the selection shall determine the validity. The 
+              <abbr linkend="TOE"/> must not accept the certificate if it fails any of the other 
+              validation rules in FIA_X509_EXT.1.
+            </note>
+            <aactivity>
+              The evaluator shall check the <abbr linkend="TSS"/> to ensure that it describes how 
+              the <abbr linkend="TOE"/> chooses which certificates to use, and any necessary 
+              instructions in the administrative guidance for configuring the operating environment 
+              so that the <abbr linkend="TOE"/> can use the certificates.
+              <br />
+              The evaluator shall examine the <abbr linkend="TSS"/> to confirm that it describes the 
+              behavior of the <abbr linkend="TOE"/> when a connection cannot be established during 
+              the validity check of a certificate used in establishing a trusted channel. The 
+              evaluator shall verify that any distinctions between trusted channels are described. 
+              If the requirement that the administrator is able to specify the default action, then 
+              the evaluator shall ensure that the operational guidance contains instructions on how 
+              this configuration action is performed.
+              <br />
+              The evaluator shall perform the following test for each trusted channel:
+              <testlist>
+                <test>
+                  The evaluator shall demonstrate that using a valid certificate that requires 
+                  certificate validation checking to be performed in at least some part by 
+                  communicating with a non-<abbr linkend="TOE"/> IT entity. The evaluator shall then 
+                  manipulate the environment so that the <abbr linkend="TOE"/> is unable to verify 
+                  the validity of the certificate, and observe that the action selected in 
+                  FIA_X509_EXT.2.2 is performed. If the selected action is 
+                  administrator-configurable, then the evaluator shall follow the operational 
+                  guidance to determine that all supported administrator-configurable options behave 
+                  in their documented manner.
+                </test>
+              </testlist>
+            </aactivity>
+          </f-element>
+        </f-component>
       </subsection>
       <!--  
        We may handle this in a different way
