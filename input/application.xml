@@ -830,9 +830,10 @@
             <note role="application"> Configuration options that are stored remotely are not subject
               to this requirement. </note>
             <aactivity>
-	      The evaluator must identify the application's configuration data (e.g.
-              settings) and determine whether it is stored and set using the mechanisms supported by
-              the platform. The method of doing so varies per platform. 
+              The evaluator shall review the TSS to identify the application's security-related
+              configuration options (e.g. settings) and determine whether it is stored and set
+              using the mechanisms supported by the platform.
+              The method of doing so varies per platform. 
 	      <subaactivity platform="blackberry">
 		The evaluator shall run the application and make security-related changes to its configuration.
 		The evaluator shall check that at least one file in the app folder of the application 
@@ -922,18 +923,19 @@
 	      </selectables>
 	      transmit credentials.
             </title>
-            <note role="application">
-	      
-	      The intention of this requirement is to prevent 
-	      the observation of plaintext credentials during transmission. 
-	      Future versions of this PP may include specific requirements for all transmission 
-	      of credentials.
+            <note role="application">The intention of this requirement is to prevent the
+              observation of plaintext credentials, such as passwords or private keys,
+              during transmission. 
             </note>
-            <aactivity>The evaluator shall install and run the application and inspect its
-              documentation. The evaluator shall determine if the application uses any credentials
-              such as passwords or private keys. The evaluator must sniff network traffic between
-              the platform and any remote systems, and determine that these credentials are not
-              transmitted in the clear.</aactivity>
+            <aactivity>The evaluator shall inspect the TSS to determine if credentials are
+              transmitted and how. If credentials are transmitted the evaluator shall set the
+              credential to a known value. The evaluator shall sniff network traffic
+              while running the application and causing credentials to be transmitted
+              as described in the TSS. The evaluator shall perform a string search
+              of the captured network traffic and verify that the plaintext credential previously
+              set by the evaluator are not found and verify that the captured traffic contains
+              TLS communications.
+              </aactivity>
           </f-element>
           <f-element id="fmt_cfg_ext.1.3">
             <title>The application shall be configured by default with file permissions which protect
