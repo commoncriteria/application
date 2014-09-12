@@ -830,9 +830,10 @@
             <note role="application"> Configuration options that are stored remotely are not subject
               to this requirement. </note>
             <aactivity>
-	      The evaluator must identify the application's configuration data (e.g.
-              settings) and determine whether it is stored and set using the mechanisms supported by
-              the platform. The method of doing so varies per platform. 
+              The evaluator shall review the TSS to identify the application's security-related
+              configuration options (e.g. settings) and determine whether it is stored and set
+              using the mechanisms supported by the platform.
+              The method of doing so varies per platform. 
 	      <subaactivity platform="blackberry">
 		The evaluator shall run the application and make security-related changes to its configuration.
 		The evaluator shall check that at least one file in the app folder of the application 
@@ -922,18 +923,19 @@
 	      </selectables>
 	      transmit credentials.
             </title>
-            <note role="application">
-	      
-	      The intention of this requirement is to prevent 
-	      the observation of plaintext credentials during transmission. 
-	      Future versions of this PP may include specific requirements for all transmission 
-	      of credentials.
+            <note role="application">The intention of this requirement is to prevent the
+              observation of plaintext credentials, such as passwords or private keys,
+              during transmission. 
             </note>
-            <aactivity>The evaluator shall install and run the application and inspect its
-              documentation. The evaluator shall determine if the application uses any credentials
-              such as passwords or private keys. The evaluator must sniff network traffic between
-              the platform and any remote systems, and determine that these credentials are not
-              transmitted in the clear.</aactivity>
+            <aactivity>The evaluator shall inspect the TSS to determine if credentials are
+              transmitted and how. If credentials are transmitted the evaluator shall set the
+              credential to a known value. The evaluator shall sniff network traffic
+              while running the application and causing credentials to be transmitted
+              as described in the TSS. The evaluator shall perform a string search
+              of the captured network traffic and verify that the plaintext credential previously
+              set by the evaluator are not found and verify that the captured traffic contains
+              TLS communications.
+              </aactivity>
           </f-element>
           <f-element id="fmt_cfg_ext.1.3">
             <title>The application shall be configured by default with file permissions which protect
@@ -1042,9 +1044,13 @@
               elements shall be included in the ST. In this requirement, cryptographic
               functionality includes all cryptographic key generation/derivation/agreement, IVs (for
               certain modes), as well as protocol-specific random values. </note>
-            <aactivity>The evaluator shall review the TSS and determine if the application
-              needs random bit generation services. If so, the evaluator shall determine
-              how the application acquires random bits. </aactivity>
+            <aactivity>
+              The evaluator shall inspect the application and its developer documentation 
+              to determine if the application needs random bit generation services. If not, the 
+              evaluator shall verify the ‘perform no cryptographic operations’ selection is present 
+              in the <abbr linkend="ST"/>. Otherwise, the evaluation activities will be performed as stated in the 
+              following requirements.
+            </aactivity>
           </f-element>
         </f-component>
         <f-component id="fcs_rbg_ext.2" name="Random Bit Generation from Platform (Selection Based)">
@@ -1066,14 +1072,16 @@
               functionality.  The evaluator shall ensure that random bits are acquired properly
               from the platform. This varies on a per-platform basis:
               <subaactivity platform="blackberry">
-                The evaluator shall use static analysis to verify that Security Builder Crypto GSE
+                The evaluator shall use static analysis to verify that the Security Builder Crypto GSE
                 library is used.</subaactivity>
               <subaactivity platform="android"> The evaluator shall use static analysis to verify
-                that the application uses the <code>javax.crypto.KeyGenerator</code> class or the
-                  <code>java.security.SecureRandom</code> class. </subaactivity>
+                that the application uses at least one of <code>javax.crypto.KeyGenerator</code> 
+                class or the <code>java.security.SecureRandom</code> class or <code>/dev/random
+                </code> or <code>/dev/urandom</code>.
+              </subaactivity>
               <subaactivity platform="windows">The evaluator shall use static analysis to verify
                 that the BCryptGenRandom or CryptGenRandom <abbr linkend="API"/> is used for classic
-                desktop applications. The evaluator shall use static analysis to verify that the
+                desktop applications. The evaluator shall verify that the
                 System.Random <abbr linkend="API"/> is used for Windows Store Applications. In
                 future versions of this document, CryptGenRandom may be removed as an option as it
                 no longer the preferred API per vendor documentation. </subaactivity>
@@ -1099,26 +1107,27 @@
                   </selectables>
                 </selectable>
                 <selectable>FIPS Pub 140-2 Annex C: X9.31 Appendix 2.4 using AES</selectable>
-              </selectables>
+              </selectables>.
             </title>
             <note role="application">This requirement shall be included in STs in which "invoke
-              application-implemented DRBG services" is chosen in FCS_RBG_EXT.1.1. The ST author 
-              shall select the standard to which the RBG services comply (either 800-90A or 140-2 
-              Annex C). The ST author will select the function used (if 800-90A is selected), and 
-              include the specific underlying cryptographic primitives used in the requirement or in 
-              the TSS. While any of the identified hash functions (SHA-1, SHA-224, SHA-256, SHA-384, 
-              and SHA-512) are allowed for Hash_DRBG or HMAC_DRBG, only AES-based implementations 
-              for CTR_DRBG are allowed. If the key length for the AES implementation used here is 
-              different than that used to encrypt the user data, then FCS_COP.1 may have to be 
-              adjusted or iterated to reflect the different key length. The ST author also ensures 
-              that any underlying functions are included in the baseline requirements in the ST (if 
-              these are implemented by the platform, then the appropriate selections are made as 
-              well). Note that for FIPS Pub 140-2 Annex C, currently only the method described in 
-              NIST-Recommended Random Number Generator Based on ANSI X9.31 Appendix A.2.4 “Using the 
-              3-Key Triple DES and AES Algorithms”, Section 3 is valid. Use of the ANSI X9.31 DRBG 
-              (defined in FIPS 140-2) is disallowed after 2015 per NIST SP 800-131A. The PP will be 
-              updated to reflect this; however, developers should begin transitioning from this DRBG 
-              as soon as possible. </note>
+              application-implemented DRBG services" is chosen in FCS_RBG_EXT.3.1. The ST author 
+              should select the standard to which the RBG services comply (either SP 800-90A or FIPS 
+              140-2 Annex C). 
+              <br />
+              SP 800-90A contains three different methods of generating random numbers; each of 
+              these, in turn, depends on underlying cryptographic primitives 
+              (hash functions/ciphers). The ST author will select the function used (if SP 800-90A 
+              is selected), and include the specific underlying cryptographic primitives used in the 
+              requirement or in the TSS. While any of the identified hash functions (SHA-1, SHA-224, 
+              SHA-256, SHA-384, SHA-512) are allowed for Hash_DRBG or HMAC_DRBG, only AES-based 
+              implementations for CTR_DRBG are allowed.
+              <br />
+              Note that for FIPS Pub 140-2 Annex C, currently only the method described in 
+              NIST-Recommended Random Number Generator Based on ANSI X9.31 Appendix A.2.4, Section 3 
+              is valid. Use of this DRBG is disallowed after 2015 per NIST SP 800-131A. The PP will 
+              be updated to reflect this; however, developers should begin transitioning from this 
+              DRBG as soon as possible.
+            </note>
             <aactivity>The evaluator shall perform the following tests, depending on the standard
               to which the RBG conforms. 
               <br />
@@ -1183,16 +1192,20 @@
                   The following paragraphs contain more information on some of the input values to 
                   be generated/selected by the evaluator.
                   <br />
-                  Entropy input: the length of the entropy input value must equal the seed length.
-                  Nonce: If a nonce is supported (CTR_DRBG with no Derivation Function does not use 
-                  a nonce), the nonce bit length is one-half the seed length. Personalization 
-                  string: The length of the personalization string must be less then or equal
-                  to seed length. If the implementation only supports one personalization string 
-                  length, then the same length can be used for both values. If more than one string 
-                  length is support, the evaluator shall use personalization strings of two 
-                  different lengths. If the implementation does not use a personalization string, no 
-                  value needs to be supplied. Additional input: the additional input bit lengths 
-                  have the same defaults and restrictions as the personalization string lengths.
+                  <b>Entropy input:</b> the length of the entropy input value must equal the seed length.
+                  <br />
+                  <b>Nonce:</b> If a nonce is supported (CTR_DRBG with no Derivation Function does not use 
+                  a nonce), the nonce bit length is one-half the seed length. 
+                  <br />
+                  <b>Personalization string:</b> The length of the personalization string must be 
+                  less then or equal to seed length. If the implementation only supports one 
+                  personalization string length, then the same length can be used for both values. 
+                  If more than one string length is support, the evaluator shall use personalization 
+                  strings of two different lengths. If the implementation does not use a 
+                  personalization string, no value needs to be supplied. 
+                  <br />
+                  <b>Additional input:</b> the additional input bit lengths have the same defaults 
+                  and restrictions as the personalization string lengths.
                 </test>
               </testlist>
             </aactivity>
@@ -1200,7 +1213,7 @@
           <f-element id="fcs_rbg_ext.3.2" status="sel-based">
             <selection-depends req="fcs_rbg_ext.1.1"/>
             <title> The deterministic RBG shall be seeded by an entropy source that accumulates
-              entropy from a platform-based source and <selectables linebreak="yes">
+              entropy from a platform-based DRBG and <selectables linebreak="yes">
                 <selectable>a software-based noise source</selectable>
                 <selectable>no other noise source</selectable>
               </selectables> with a minimum of <selectables linebreak="yes">
@@ -1210,21 +1223,21 @@
               to NIST SP 800-57) of the keys and hashes that it will generate. </title>
             <note role="application">This requirement shall be included in STs in which "invoke
               application-implemented DRBG services" is chosen in FCS_RBG_EXT.1.1. For the first
-              selection in this  requirement, the ST author selects ‘software-based noise source’ if any
-              additional noise sources are used as input to the application’s DRBG. Note that the application 
-              must use the platform’s DRBG to seed its DRBG. In the second selection in this 
-              requirement, the ST author selects the appropriate number of bits of entropy that 
-              corresponds to the greatest security strength of the algorithms included in the ST. 
-              Security strength is defined in Tables 2 and 3 of NIST SP 800-57A. For example, if the 
-              implementation includes 2048-bit RSA (security strength of 112 bits), AES 128 
-              (security strength 128 bits), and HMAC-SHA-256 (security strength 256 bits), then the 
-              ST author would select 256 bits.
+              selection in this  requirement, the ST author selects ‘software-based noise source’ if 
+              any additional noise sources are used as input to the application’s DRBG. Note that 
+              the application must use the platform’s DRBG to seed its DRBG. 
+              <br />In the second selection in this requirement, the ST author selects the 
+              appropriate number of bits of entropy that corresponds to the greatest security 
+              strength of the algorithms included in the ST. Security strength is defined in Tables 
+              2 and 3 of NIST SP 800-57A. For example, if the implementation includes 2048-bit RSA 
+              (security strength of 112 bits), AES 128 (security strength 128 bits), and 
+              HMAC-SHA-256 (security strength 256 bits), then the ST author would select 256 bits.
             </note>
             <aactivity>Documentation shall be produced—and the evaluator shall perform the
               activities—in accordance with Appendix E, “Entropy Documentation and Assessment” and
-              the “Clarification to the Entropy Documentation and Assessment Annex”. In the future, 
-              specific statistical testing (in line with NIST SP 800-90B) will be required to verify
-              the entropy estimates.
+              the “Clarification to the Entropy Documentation and Assessment Annex”. 
+              <br />In the future, specific statistical testing (in line with NIST SP 800-90B) will 
+              be required to verify the entropy estimates.
             </aactivity>
           </f-element>
         </f-component>
@@ -1420,20 +1433,21 @@
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_tls_ext.1" name="TLS Implementation" status="sel-based">
-          <f-element id="fcs_tls_ext.1.1" status="sel-based">
+        <f-component id="fcs_tlsc_ext.1" name="TLS Client Protocol" status="sel-based">
+          <f-element id="fcs_tlsc_ext.1.1" status="sel-based">
             <selection-depends req="ftp_dit_ext.1.1"/>
-            <title> The application shall <selectables linebreak="yes">
+            <title> The application shall 
+              <selectables>
                 <selectable>invoke the platform-provided <abbr title="Transport Layer Security">
                   TLS</abbr> 1.2</selectable>
                 <selectable>implement <abbr title="Transport Layer Security">TLS</abbr> 1.2 (RFC
                   5246)</selectable>
               </selectables> supporting the following ciphersuites: <p/>Mandatory Ciphersuites:
-              TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 3268 and <p/>Optional Ciphersuites:
+              TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246 <p/>Optional Ciphersuites:
                 <selectables linebreak="yes">
-                <selectable>TLS_RSA_WITH_AES_256_CBC_SHA as defined in RFC 3268</selectable>
-                <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA as defined in RFC 3268</selectable>
-                <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA as defined in RFC 3268</selectable>
+                <selectable>TLS_RSA_WITH_AES_256_CBC_SHA as defined in RFC 5246</selectable>
+                <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246</selectable>
+                <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA as defined in RFC 5246</selectable>
                 <selectable>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA as defined in RFC 4492</selectable>
                 <selectable>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA as defined in RFC 4492</selectable>
                 <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA as defined in RFC 4492</selectable>
@@ -1442,176 +1456,376 @@
                 <selectable>TLS_RSA_WITH_AES_256_CBC_ SHA256 as defined in RFC 5246</selectable>
                 <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_ SHA256 as defined in RFC 5246</selectable>
                 <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_ SHA256 as defined in RFC 5246</selectable>
-                <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC
-                  5289</selectable>
-                <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC
-                  5289</selectable>
-                <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC
-                  5289</selectable>
-                <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC
-                  5289</selectable>
+                <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
+                <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
+                <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
+                <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>
                 <selectable>no other ciphersuite</selectable>
               </selectables>
-	      .
+	           .
             </title>
-            <note role="application">The ciphersuites to be tested in the evaluated configuration
-              are limited by this requirement. The ST author should select the optional ciphersuites
-              that are supported; if there are no ciphersuites supported other than the mandatory
-              suites, then “no other ciphersuite” should be selected. It is necessary to limit the 
-              ciphersuites that can be offered and used in an evaluated configuration 
-              administratively on the server in the test environment. The Suite B algorithms listed 
-              above (RFC 6460) are the preferred algorithms for implementation. 
+            <note role="application">The ciphersuites to be tested in the evaluated configuration 
+              are limited by this requirement. The <abbr title="Security Target" linkend="ST">ST
+              </abbr> author should select the optional ciphersuites that are supported; if there 
+              are no ciphersuites supported other than the mandatory suites, then “None” should be 
+              selected. It is necessary to limit the ciphersuites that can be used in an evaluated 
+              configuration administratively on the server in the test environment. The Suite B 
+              algorithms listed above (RFC 6460) are the preferred algorithms for implementation. 
               TLS_RSA_WITH_AES_128_CBC_SHA is required in order to ensure compliance with RFC 5246. 
-              These requirements will be revisited as new TLS versions are standardized by the IETF.
+             <br />
+              These requirements will be revisited as new 
+              <abbr title="Transport Layer Security">TLS</abbr> versions are standardized by the 
+              IETF.
+             <br />
+              If any ciphersuites are selected using ECDHE, then FCS_TLSC_EXT.1.5 is required.
             </note>
-            <aactivity>The evaluator shall check the description of the implementation of this
-              protocol in the <abbr linkend="TSS"/> to ensure that the ciphersuites supported are
-              specified. The evaluator shall check the TSS to ensure that the ciphersuites specified
-              include those listed for this component. The evaluator shall also check the
-              operational guidance to ensure that it contains instructions on configuring the 
-              <abbr linkend="TOE"/> so that TLS conforms to the description in the TSS. The 
-              evaluator shall also perform the following tests: 
+            <aactivity>
+              The evaluator shall check the description of the implementation of this protocol in 
+              the <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> to ensure that 
+              the ciphersuites supported are specified. The evaluator shall check the 
+              <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> to ensure that the 
+              ciphersuites specified include those listed for this component. The evaluator shall 
+              also check the operational guidance to ensure that it contains instructions on 
+              configuring the <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> so that 
+              TLS conforms to the description in the 
+              <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr>. The evaluator shall 
+              also perform the following tests:
               <testlist>
-                <test>The evaluator shall establish a TLS connection using each of the ciphersuites
-                  specified by the requirement. This connection may be established as part of the
-                  establishment of a higher-level protocol, e.g., as part of an EAP session. It is
-                  sufficient to observe the successful negotiation of a ciphersuite to satisfy the
-                  intent of the test; it is not necessary to examine the characteristics of the
-                  encrypted traffic in an attempt to discern the ciphersuite being used (for
-                  example, that the cryptographic algorithm is 128-bit AES and not 256-bit
-                  AES).</test>
-                <test>The evaluator shall attempt to establish the connection to a peer that 
-                  presents a certificate that contains the Authentication (either client or server 
-                  as appropriate) purpose in the extendedKeyUsage field and verify that a connection 
-                  is established. The evaluator will then verify that the application rejects an 
-                  otherwise valid certificate that lacks the appropriate Authentication purpose in 
-                  the extendedKeyUsage field and a connection is not established. Ideally, the two 
-                  certificates should be identical except for the extendedKeyUsage field.</test>
-                <test>The test entity shall send a certificate in the TLS connection that the
-                  does not match the selected ciphersuite (for example, send a ECDSA
-                  certificate while using the TLS_RSA_WITH_AES_128_CBC_SHA ciphersuite or send a RSA
-                  certificate while using one of the ECDSA ciphersuites.) The evaluator shall verify
-                  that the application disconnects after receiving the Certificate handshake
-                  message.</test>
-                <test>The evaluator shall configure the test entity to select the 
-                  TLS_NULL_WITH_NULL_NULL ciphersuite and verify that the application denies the 
-                  connection.</test>
-                <test>The evaluator shall setup a man-in-the-middle tool between the application and 
-                  the test entity and shall perform the following modifications to the
-                  traffic: <testlist>
-                    <test>Change the TLS version selected by the test peer in the Hello sent to the 
-                      application to a non-supported TLS version (for example 1.3 represented by the 
-                      two bytes 03 04) and verify that the application rejects the connection.</test>
-                    <test>Modify at least one byte in the nonce sent to the application in the Hello 
-                      handshake message, and verify that the application rejects the Key Exchange 
-                      handshake message (if using a DHE or ECDHE ciphersuite).</test>
-                    <test>Modify the selected ciphersuite in the Hello handshake
-                      message sent to the application to be a ciphersuite not presented in the 
-                      application's Hello handshake message. The evaluator shall verify that the 
-                      application rejects the connection.</test>
-                    <test>Modify the signature block in the Key Exchange handshake message sent to the 
-                      application, and verify that the application rejects the connection after 
-                      receiving the Key Exchange message.</test>
-                    <test>Modify a byte in the Finished handshake message sent to the application, and 
-                      verify that the application sends a fatal alert upon receipt and does not send 
-                      any application data.</test>
-                    <test>Send an unencrypted packet to the application after the the
-                      ChangeCipherSpec message has been sent and verify that the application denies 
-                      the connection.</test>
-                  </testlist></test>
-              </testlist></aactivity>
+                <test>
+                  The evaluator shall establish a 
+                  <abbr title="Transport Layer Security">TLS</abbr> connection using each of the 
+                  ciphersuites specified by the requirement. This connection may be established as 
+                  part of the establishment of a higher-level protocol, e.g., as part of an EAP 
+                  session. It is sufficient to observe the successful negotiation of a ciphersuite 
+                  to satisfy the intent of the test; it is not necessary to examine the 
+                  characteristics of the encrypted traffic in an attempt to discern the ciphersuite 
+                  being used (for example, that the cryptographic algorithm is 128-bit AES and not 
+                  256-bit AES).
+                </test>
+                <test>
+                  The evaluator shall attempt to establish the connection using a server with a 
+                  server certificate that contains the Server Authentication purpose in the 
+                  extendedKeyUsage field and verify that a connection is established. The evaluator 
+                  will then verify that the client rejects an otherwise valid server certificate 
+                  that lacks the Server Authentication purpose in the extendedKeyUsage field and a 
+                  connection is not established. Ideally, the two certificates should be identical 
+                  except for the extendedKeyUsage field.
+                </test>
+                <test>
+                  The evaluator shall send a server certificate in the 
+                  <abbr title="Transport Layer Security">TLS</abbr> connection that the does not 
+                  match the server-selected ciphersuite (for example, send a ECDSA certificate while 
+                  using the TLS_RSA_WITH_AES_128_CBC_SHA ciphersuite or send a RSA certificate while 
+                  using one of the ECDSA ciphersuites.) The evaluator shall verify that the 
+                  <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> disconnects after 
+                  receiving the server’s Certificate handshake message.
+                </test>
+                <test>
+                  The evaluator shall configure the server to select the TLS_NULL_WITH_NULL_NULL 
+                  ciphersuite and verify that the client denies the connection.
+                </test>
+                <test>
+                  The evaluator shall perform the following modifications to the traffic: 
+                  <testlist>
+                    <test>
+                      Change the <abbr title="Transport Layer Security">TLS</abbr> version selected 
+                      by the server in the Server Hello to a non-supported 
+                      <abbr title="Transport Layer Security">TLS</abbr> version (for example 1.3 
+                      represented by the two bytes 03 04) and verify that the client rejects the 
+                      connection.
+                    </test>
+                    <test>
+                      Modify at least one byte in the server’s nonce in the Server Hello handshake 
+                      message, and verify that the client rejects the Server Key Exchange handshake 
+                      message (if using a DHE or ECDHE ciphersuite) or that the server denies the 
+                      client’s Finished handshake message.
+                    </test>
+                    <test>
+                      Modify the server’s selected ciphersuite in the Server Hello handshake 
+                      message to be a ciphersuite not presented in the Client Hello handshake 
+                      message. The evaluator shall verify that the client rejects the connection 
+                      after receiving the Server Hello.
+                    </test>
+                    <test>
+                      Modify the signature block in the Server’s Key Exchange handshake message, and 
+                      verify that the client rejects the connection after receiving the Server Key 
+                      Exchange message.
+                    </test>
+                    <test>
+                      Modify a byte in the Server Finished handshake message, and verify that the 
+                      client sends a fatal alert upon receipt and does not send any application 
+                      data.
+                    </test>
+                    <test>
+                      Send an garbled message from the Server after the Server has issued the 
+                      ChangeCipherSpec message and verify that the client denies the connection.
+                    </test>
+                  </testlist>
+                </test>
+              </testlist>
+            </aactivity>
             </f-element>
-          <f-element id="fcs_tls_ext.1.2" status="sel-based">
+          <f-element id="fcs_tlsc_ext.1.2" status="sel-based">
             <selection-depends req="ftp_dit_ext.1.1"/>
-            <title>The application shall verify that the presented identifier matches the reference
-              identifier according to RFC 6125</title>
-            <note role="application">The rules for verification of identifiers are described in 
-              Section 6 of RFC 6125. The reference identifier is established by the user (e.g. 
-              entering a URL into a web browser or clicking a link), by configuration (e.g. 
-              configuring the name of a mail server or authentication server), or by an application 
-              (e.g. a parameter of an API) depending on the application service. Based on a singular
-              reference identifier’s source domain and application service type (e.g. HTTP, SIP,
-              LDAP), the client establishes all reference identifiers which are acceptable, such as
-              a Common Name for the Subject Name field of the certificate and a (case-insensitive)
-              DNS name, URI name, and Service Name for the Subject Alternative Name field. The
-              client then compares this list of all acceptable reference identifiers to the
-              presented identifiers in the TLS peer's certificate. The preferred method for
-              verification is the Subject Alternative Name using DNS names, URI names, or Service
-              Names. Verification using the Common Name is required for the purposes of backwards
-              compatibility. Additionally, support for use of IP addresses in the Subject Name or
-              Subject Alternative name is discouraged as against best practices but may be
-              implemented. Finally, the client should avoid constructing reference identifiers using
-              wildcards. However, if the presented identifiers include wildcards, the application 
-              must follow the best practices regarding matching; these best practices are captured 
-              in the assurance activity.</note>
-            <aactivity>The evaluator shall ensure that the <abbr linkend="TSS"/> describes the
-              applications’s method of establishing all reference identifiers from the
-              user/administrator/application-configured reference identifier, including which types
-              of reference identifiers are supported (e.g Common Name, DNS Name, URI Name, Service
-              Name, or other application-specific Subject Alternative Names) and whether IP
-              addresses and wildcards are supported. The evaluator shall ensure that this
-              description identifies whether and the manner in which certificate pinning is
-              supported or used by the <abbr linkend="TOE"/>. The evaluator shall verify that the 
-              AGD guidance includes instructions for setting the reference identifier to be used for
-              the purposes of certificate validation in TLS. The evaluator shall configure the 
-              reference identifier according to the AGD guidance and perform the following tests 
-              during a TLS connection: 
+            <title>
+              The application shall verify that the presented identifier matches the reference
+              identifier according to RFC 6125
+            </title>
+            <note role="application">
+              The rules for verification of identity are described in Section 6 of RFC 6125. The 
+              reference identifier is established by the user (e.g. entering a URL into a web 
+              browser or clicking a link), by configuration (e.g. configuring the name of a mail 
+              server or authentication server), or by an application (e.g. a parameter of an API) 
+              depending on the application service. Based on a singular reference identifier’s 
+              source domain and application service type (e.g. HTTP, SIP, LDAP), the client 
+              establishes all reference identifiers which are acceptable, such as a Common Name for 
+              the Subject Name field of the certificate and a (case-insensitive) DNS name, URI name, 
+              and Service Name for the Subject Alternative Name field. The client then compares this 
+              list of all acceptable reference identifiers to the presented identifiers in the 
+              <abbr title="Transport Layer Security">TLS</abbr> server’s certificate.
+             <br />
+              The preferred method for verification is the Subject Alternative Name using DNS names, 
+              URI names, or Service Names. Verification using the Common Name is required for the 
+              purposes of backwards compatibility. Additionally, support for use of IP addresses in 
+              the Subject Name or Subject Alternative name is discouraged as against best practices 
+              but may be implemented.  Finally, the client should avoid constructing reference 
+              identifiers using wildcards. However, if the presented identifiers include wildcards, 
+              the client must follow the best practices regarding matching; these best practices are 
+              captured in the assurance activity.
+            </note>
+            <aactivity>
+              The evaluator shall ensure that the 
+              <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> describes the 
+              client’s method of establishing all reference identifiers from the 
+              application-configured reference identifier, including which types of reference 
+              identifiers are supported (e.g Common Name, DNS Name, URI Name, Service Name, or other 
+              application-specific Subject Alternative Names) and whether IP addresses and wildcards 
+              are supported.  The evaluator shall ensure that this description identifies whether 
+              and the manner in which certificate pinning is supported or used by the 
+              <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr>.
+             <br />
+              The evaluator shall verify that the AGD guidance includes instructions for setting the 
+              reference identifier to be used for the purposes of certificate validation in 
+              <abbr title="Transport Layer Security">TLS</abbr>.
+             <br />
+              The evaluator shall configure the reference identifier according to the AGD guidance 
+              and perform the following tests during a 
+              <abbr title="Transport Layer Security">TLS</abbr> connection:
               <testlist>
-                <test>The evaluator shall present a certificate that does not contain an
-                  identifier in either the Subject Alternative Name (SAN) or Common Name (CN) that
-                  matches the reference identifier. The evaluator shall verify that the connection
-                  fails. </test>
-                <test>The evaluator shall present a certificate that contains a CN that
-                  matches the reference identifier, contains the SAN extension, but does not contain
-                  an identifier in the SAN that matches the reference identifier. The evaluator
-                  shall verify that the connection fails. The evaluator shall repeat this test for
-                  each supported SAN type.</test>
-                <test>The evaluator shall present a certificate that contains a CN that
-                  matches the reference identifier and does not contains the SAN extension. The
-                  evaluator shall verify that the connection succeeds.</test>
-                <test>The evaluator shall present a certificate that contains a CN that does
-                  not match the reference identifier but does contain an identifier in the SAN that
-                  matches. The evaluator shall verify that the connection succeeds.</test>
-                <test>The evaluator shall perform the following wildcard tests with each supported
-                  type of reference identifier: <testlist>
-                    <test>The evaluator shall present a certificate containing a wildcard that
-                      is not in the left-most label of the presented identifier (e.g.
-                      foo.*.example.com) and verify that the connection fails.</test>
-                    <test>The evaluator shall present a certificate containing a wildcard in
-                      the left-most label (e.g. *.example.com). The evaluator shall configure the
-                      reference identifier with a single left-most label (e.g. foo.example.com) and
-                      verify that the connection succeeds. The evaluator shall configure the
-                      reference identifier without a left-most label as in the certificate (e.g.
-                      example.com) and verify that the connection fails. The evaluator shall
-                      configure the reference identifier with two left-most labels (e.g.
-                      bar.foo.example.come) and verify that the connection fails.</test>
+                <test>
+                  The evaluator shall present a server certificate that does not contain an 
+                  identifier in either the Subject Alternative Name (SAN) or Common Name (CN) that 
+                  matches the reference identifier. The evaluator shall verify that the connection 
+                  fails.
+                </test>
+                <test>
+                  The evaluator shall present a server certificate that contains a CN that matches 
+                  the reference identifier, contains the SAN extension, but does not contain an 
+                  identifier in the SAN that matches the reference identifier.  The evaluator shall 
+                  verify that the connection fails. The evaluator shall repeat this test for each 
+                  supported SAN type.
+                </test>
+                <test>
+                  The evaluator shall present a server certificate that contains a CN that matches 
+                  the reference identifier and does not contain the SAN extension. The evaluator 
+                  shall verify that the connection succeeds.
+                </test>
+                <test>
+                  The evaluator shall present a server certificate that contains a CN that does not 
+                  match the reference identifier but does contain an identifier in the SAN that 
+                  matches.  The evaluator shall verify that the connection succeeds.
+                </test>
+                <test>
+                  The evaluator shall perform the following wildcard tests with each supported type 
+                  of reference identifier: 
+                  <testlist>
+                    <test>The evaluator shall present a server certificate containing a wildcard 
+                      that is not in the left-most label of the presented identifier 
+                      (e.g. foo.*.example.com) and verify that the connection fails.
+                    </test>
+                    <test>
+                      The evaluator shall present a server certificate containing a wildcard in the 
+                      left-most label but not preceding the public suffix (e.g. *.example.com). 
+                      The evaluator shall configure the reference identifier with a single left-most 
+                      label (e.g. foo.example.com) and verify that the connection succeeds. The 
+                      evaluator shall configure the reference identifier without a left-most label 
+                      as in the certificate (e.g. example.com) and verify that the connection fails. 
+                      The evaluator shall configure the reference identifier with two left-most 
+                      labels (e.g. bar.foo.example.com) and verify that the connection fails.
+                    </test>
+                    <test>
+                      The evaluator shall present a server certificate containing a wildcard in the 
+                      left-most label immediately preceding the public suffix (e.g. *.com). The 
+                      evaluator shall configure the reference identifier with a single left-most 
+                      label (e.g. foo.com) and verify that the connection fails. The evaluator shall 
+                      configure the reference identifier with two left-most labels 
+                      (e.g. bar.foo.com) and verify that the connection fails.
+                    </test>
                   </testlist></test>
-                <test>[conditional] If URI or Service name reference identifiers are supported, the
-                  evaluator shall configure the DNS name and the service identifier. The evaluator
-                  shall present a certificate containing the correct DNS name and service
-                  identifier in the URIName or SRVName fields of the SAN and verify that the
-                  connection succeeds. The evaluator shall repeat this test with the wrong service
-                  identifier (but correct DNS name) and verify that the connection fails</test>
-                <test>[conditional] If pinned certificates are supported the evaluator shall present
-                  a certificate that does not match the pinned certificate and verify that the
-                  connection fails.</test>
+                <test>
+                  [conditional] If URI or Service name reference identifiers are supported, the 
+                  evaluator shall configure the <abbr title="Domain Name System">DNS</abbr> name and 
+                  the service identifier.  The evaluator shall present a server certificate 
+                  containing the correct <abbr title="Domain Name System">DNS</abbr> name and 
+                  service identifier in the URIName or SRVName fields of the SAN and verify that the 
+                  connection succeeds.  The evaluator shall repeat this test with the wrong service 
+                  identifier (but correct <abbr title="Domain Name System">DNS</abbr> name) and 
+                  verify that the connection fails.
+                </test>
+                <test>
+                  [conditional] If pinned certificates are supported the evaluator shall present a 
+                  certificate that does not match the pinned certificate and verify that the 
+                  connection fails.
+                </test>
               </testlist></aactivity>
           </f-element>
-          <f-element id="fcs_tls_ext.1.3" status="sel-based">
+          <f-element id="fcs_tlsc_ext.1.3" status="sel-based">
             <selection-depends req="ftp_dit_ext.1.1"/>
-            <title>The application shall only establish trusted channels with peers that present
-              valid certificates.</title>
-            <note role="application">Validity is determined by the identifier verification,
-              certificate path, the expiration date, and the revocation status in accordance with
-              RFC 5280. For TLS connections, this channel shall not be established if the peer
-              certificate is invalid.</note>
-            <aactivity> The evaluator shall perform the following test: <testlist>
-                <test>The evaluator shall demonstrate that using a certificate without a valid
-                  certification path results in the function failing. Using the administrative
-                  guidance, the evaluator shall then load a certificate or certificates needed to
-                  validate the certificate to be used in the function, and demonstrate that the
-                  function succeeds. The evaluator then shall delete one of the certificates, and
-                  show that the function fails. </test>
+            <title>The application shall only establish a trusted channel if the peer certificate is 
+              valid.
+            </title>
+            <note role="application">
+              Validity is determined by the identifier verification, certificate path, the 
+              expiration date, and the revocation status in accordance with RFC 5280. Certificate 
+              validity shall be tested in accordance with testing performed for FIA_X509_EXT.1.
+             <br />
+              For <abbr title="Transport Layer Security">TLS</abbr> connections, this channel shall 
+              not be established if the peer certificate is invalid. The HTTPS protocol 
+              (FCS_HTTPS_EXT.1) requires different behavior, though HTTPS is implemented over TLS. 
+              This element addresses non-HTTPS <abbr title="Transport Layer Security">TLS</abbr> 
+              connections.
+            </note>
+            <aactivity>
+              The evaluator shall use <abbr title="Transport Layer Security">TLS</abbr> as a 
+              function to verify that the validation rules in FIA_X509_EXT.1.1 are adhered to and 
+              shall perform the following additional test:
+              <testlist>
+                <test>
+                  The evaluator shall demonstrate that a peer using a certificate without a valid 
+                  certification path results in an authenticate failure. Using the administrative 
+                  guidance, the evaluator shall then load the trusted CA certificate(s) needed to 
+                  validate the peer's certificate, and demonstrate that the connection succeeds. The 
+                  evaluator then shall delete one of the CA certificates, and show that the 
+                  connection fails.
+                </test>
+              </testlist>
+            </aactivity>
+          </f-element>
+          <f-element id="fcs_tlsc_ext.1.4" status="sel-based">
+            <selection-depends req="ftp_dit_ext.1.1"/>
+            <title>
+              The application shall support mutual authentication using X.509v3 certificates.
+            </title>
+            <note role="application">
+              The use of X.509v3 certificates for <abbr title="Transport Layer Security">TLS</abbr> 
+              is addressed in FIA_X509_EXT.2.1. This requirement adds that this use must include the 
+              client must be capable of presenting a certificate to a 
+              <abbr title="Transport Layer Security">TLS</abbr> server for 
+              <abbr title="Transport Layer Security">TLS</abbr> mutual authentication.
+            </note>
+            <aactivity>
+              The evaluator shall ensure that the 
+              <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> description required 
+              per FIA_X509_EXT.2.1 includes the use of client-side certificates for TLS mutual 
+              authentication.
+             <br />
+              The evaluator shall verify that the AGD guidance required per FIA_X509_EXT.2.1 
+              includes instructions for configuring the client-side certificates for 
+              <abbr title="Transport Layer Security">TLS</abbr> mutual authentication.
+             <br />
+              The evaluator shall also perform the following test:
+              <testlist>
+                <test>
+                  The evaluator shall perform the following modification to the traffic:
+                  <ul>
+                    <li>
+                      Configure the server to require mutual authentication and then modify a byte 
+                      in a CA field in the Server’s Certificate Request handshake message. The 
+                      modified CA field must not be the CA used to sign the client’s certificate. 
+                      The evaluator shall verify the connection is unsuccessful.
+                    </li>
+                  </ul>
+                </test>
+              </testlist>
+            </aactivity>
+          </f-element>
+          <f-element id="fcs_tlsc_ext.1.5" status="sel-based">
+            <selection-depends req="fcs_tlsc_ext.1.1"/>
+            <title>
+              The application shall present the supported Elliptic Curves Extension in the Client 
+              Hello with the following NIST curves: 
+              <selectables>
+                <selectable>secp256r1</selectable>
+                <selectable>secp384r1</selectable>
+                <selectable>secp521r1</selectable>
+              </selectables> and no other curves.
+            </title>
+            <note role="application">
+              This requirement limits the elliptic curves allowed for authentication and key 
+              agreement to the NIST curves from FCS_COP.1(3) and FCS_CKM.1(1) and FCS_CKM.1(2). This 
+              extension is required for clients supporting Elliptic Curve ciphersuites.
+            </note>
+            <aactivity>
+              The evaluator shall verify that 
+              <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> describes the 
+              supported Elliptic Curves Extension and whether the required behavior is performed by 
+              default or may be configured. If the 
+              <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> indicates that the 
+              supported Elliptic Curves Extension must be configured to meet the requirement, the 
+              evaluator shall verify that AGD guidance includes configuration of the supported 
+              Elliptic Curves Extension.
+             <br />
+              The evaluator shall also perform the following tests:
+              <testlist>
+                <test>
+                  The evaluator shall configure the server to perform an ECDHE key exchange message 
+                  in the <abbr title="Transport Layer Security">TLS</abbr> connection using a 
+                  non-supported ECDHE curve (for example, P-192) and shall verify that the 
+                  <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> disconnects after 
+                  receiving the server's Key Exchange handshake message.
+                </test>
+              </testlist>
+            </aactivity>
+          </f-element>
+          <f-element id="fcs_tlsc_ext.1.6" status="objective">
+            <selection-depends req="ftp_dit_ext.1.1"/>
+            <title>
+              The application shall present the signature_algorithms extension in the Client Hello 
+              with the supported_signature_algorithms value containing the following hash 
+              algorithms: 
+              <selectables>
+                <selectable>SHA256</selectable>
+                <selectable>SHA384</selectable>
+                <selectable>SHA512</selectable>
+              </selectables> and no other hash algorithms.
+            </title>
+            <note role="application">
+              This requirement limits the hashing algorithms supported for the purpose of digital 
+              signature verification by the client and limits the server to the supported hashes for 
+              the purpose of digital signature generation by the server. The signature_algorithm 
+              extension is only supported by <abbr title="Transport Layer Security">TLS</abbr> 1.2.
+            </note>
+            <aactivity>
+              The evaluator shall verify that 
+              <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> describes the 
+              signature_algorithm extension and whether the required behavior is performed by 
+              default or may be configured. If the 
+              <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> indicates that the 
+              signature_algorithm extension must be configured to meet the requirement, the 
+              evaluator shall verify that AGD guidance includes configuration of the 
+              signature_algorithm extension.
+             <br /> 
+              The evaluator shall also perform the following test:
+              <testlist>
+                <test>
+                  The evaluator shall configure the server to send a certificate in the 
+                  <abbr title="Transport Layer Security">TLS</abbr> connection that is not supported 
+                  according to the Client’s HashAlgorithm enumeration within the 
+                  signature_algorithms extension (for example, send a certificate with a SHA-1 
+                  signature). The evaluator shall verify that the 
+                  <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> disconnects after 
+                  receiving the server’s Certificate handshake message.
+                </test>
               </testlist>
             </aactivity>
           </f-element>
@@ -1622,11 +1836,6 @@
             <title>The application shall implement the DTLS protocol in accordance with
               DTLS 1.2 (RFC 6347).
             </title>
-            <note role="application">Differences between DTLS and TLS are outlined in RFC 4347 and
-              RFC 6347; otherwise the protocols are the same. In particular, for the applicable
-              security characteristics defined for the <abbr linkend="TSF"/>, the two protocols do 
-              not differ. Therefore, all application notes and assurance activities that are listed 
-              for TLS apply to the DTLS implementation. </note>
             <aactivity>The evaluator shall perform the assurance activities listed for TLS to verify
               this component</aactivity>
           </f-element>
@@ -1635,6 +1844,12 @@
             <title>The application shall implement the requirements in TLS (FCS_TLS_EXT.1.2) for the
               DTLS implementation, except where variations are allowed according to DTLS 1.2 (RFC 6347).
             </title>
+            <note role="application">
+              Differences between DTLS 1.2 and TLS 1.2 are outlined in RFC 6347; otherwise the 
+              protocols are the same. In particular, for the applicable security characteristics 
+              defined for the TSF, the two protocols do not differ. Therefore, all application notes 
+              and assurance activities that are listed for TLS apply to the DTLS implementation.
+            </note>
             <aactivity>
 	      The evaluator shall perform the assurance activities listed for TLS to verify
               this component.
