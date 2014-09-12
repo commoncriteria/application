@@ -1862,7 +1862,7 @@
           <f-element id="fia_x509_ext.1.1" status="sel-based">
             <selection-depends req="FIXME"/>
             <title>
-              The TSF shall validate certificates in accordance with the following rules:
+              The application shall validate certificates in accordance with the following rules:
               <ul>
                 <li>
                   RFC 5280 certificate validation and certificate path validation.
@@ -1871,12 +1871,12 @@
                   The certificate path must terminate with a trusted CA certificate.
                 </li>
                 <li>
-                  The TSF shall validate a certificate path by ensuring the presence of the 
+                  The application shall validate a certificate path by ensuring the presence of the 
                   basicConstraints extension and that the CA flag is set to TRUE for all CA 
                   certificates.
                 </li>
                 <li>
-                  The TSF shall validate the revocation status of the certificate using 
+                  The application shall validate the revocation status of the certificate using 
                   <selectables>
                     <selectable>
                       the Online Certificate Status Protocol (OCSP) as specified in RFC 2560
@@ -1888,8 +1888,8 @@
                   .
                 </li>
                 <li>
-                  The TSF shall validate the extendedKeyUsage field according to the following 
-                  rules:
+                  The application shall validate the extendedKeyUsage field according to the 
+                  following rules:
                   <ul>
                     <li>
                       Certificates used for trusted updates and executable code integrity 
@@ -1927,9 +1927,15 @@
               </ul>
             </title>
             <note role="application">
-              FIA_X509_EXT.1.1 lists the rules for validating certificates. The ST author shall select whether revocation status is verified using OCSP or CRLs. FIA_X509_EXT.2 requires that certificates are used for _______; this use requires that the extendedKeyUsage rules are verified. Certificates may optionally be used for _______ and, if implemented, must be validated to contain the corresponding extendedKeyUsage.
+              FIA_X509_EXT.1.1 lists the rules for validating certificates. The ST author shall 
+              select whether revocation status is verified using OCSP or CRLs. FIA_X509_EXT.2 
+              requires that certificates are used for _______; this use requires that the 
+              extendedKeyUsage rules are verified. Certificates may optionally be used for _______ 
+              and, if implemented, must be validated to contain the corresponding extendedKeyUsage.
               <br />
-              Regardless of the selection of <abbr linkend="TSF"/> or <abbr linkend="TOE"/> platform, the validation is expected to end in a trusted root CA certificate in a root store managed by the platform.
+              Regardless of the selection of <abbr linkend="TSF"/> or <abbr linkend="TOE"/> 
+              platform, the validation is expected to end in a trusted root CA certificate in a root 
+              store managed by the platform.
             </note>
             <aactivity>
               The evaluator shall ensure the <abbr linkend="TSS"/> describes where the check of 
@@ -1987,6 +1993,42 @@
                   The evaluator shall modify any byte in the public key of the certificate and 
                   demonstrate that the certificate fails to validate. (The signature on the 
                   certificate will not validate.)
+                </test>
+              </testlist> 
+            </aactivity>
+          </f-element>
+          <f-element id="fia_x509_ext.1.2" status="sel-based">
+            <selection-depends req="FIXME"/>
+            <title>
+              The application shall only treat a certificate as a CA certificate if the 
+              basicConstraints extension is present and the CA flag is set to TRUE.
+            </title>
+            <note role="application">
+              This requirement applies to certificates that are used and processed by the 
+              <abbr linkend="TSF"/> and restricts the certificates that may be added as trusted CA 
+              certificates.
+            </note>
+            <aactivity>
+              The tests described must be performed in conjunction with the other certificate 
+              services assurance activities, including the functions in FIA_X509_EXT.2.1. The 
+              evaluator shall create a chain of at least four certificates: the node certificate to 
+              be tested, two Intermediate CAs, and the self-signed Root CA.
+              <testlist>
+                <test>
+                  The evaluator shall construct a certificate path, such that the certificate of the 
+                  CA issuing the <abbr linkend="TOE"/>’s certificate does not contain the 
+                  basicConstraints extension. The validation of the certificate path fails.
+                </test>
+                <test>
+                  The evaluator shall construct a certificate path, such that the certificate of the 
+                  CA issuing the <abbr linkend="TOE"/>’s certificate has the cA flag in the 
+                  basicConstraints extension not set. The validation of the certificate path fails.
+                </test>
+                <test>
+                  The evaluator shall construct a certificate path, such that the certificate of the 
+                  CA issuing the <abbr linkend="TOE"/>’s certificate has the CA flag in the 
+                  basicConstraints extension set to TRUE. The validation of the certificate path 
+                  succeeds.
                 </test>
               </testlist> 
             </aactivity>
