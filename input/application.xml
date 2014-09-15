@@ -289,7 +289,7 @@
   <chapter title="Conformance Claims" id="ccl">
     <cclaims>
       <cclaim id="Conformance Statement">
-        <description>The PP requires strict conformance of any PPs/STs to this PP.</description>
+        <description>The PP requires strict conformance of any PPs/<abbr linkend="ST"/>s to this PP.</description>
       </cclaim>
       <cclaim id="CC Conformance Claims">
         <description>This PP is conformant to Parts 2 (extended) and 3 (extended) of Common Criteria
@@ -1028,7 +1028,8 @@
               management function. The evaluator shall test the applications ability to provide the 
               management functions by configuring the application and testing each option selected 
               from above. The evaluator is expected to test these functions in all the ways in which 
-              the ST and guidance documentation state the configuration can be managed.
+              the <abbr linkend="ST"/> and guidance documentation state the configuration can be 
+              managed.
             </aactivity>
           </f-element>
         </f-component>
@@ -1044,9 +1045,9 @@
                   functionality</selectable>
               </selectables> . </title>
             <note role="application">If "invoke platform-provided DRBG services" is chosen, then
-              additional FCS_RBG_EXT.2 elements shall be included in the ST. If "invoke
+              additional FCS_RBG_EXT.2 elements shall be included in the <abbr linkend="ST"/>. If "invoke
               application-implemented DRBG services" is chosen, then additional FCS_RBG_EXT.3
-              elements shall be included in the ST. In this requirement, cryptographic
+              elements shall be included in the <abbr linkend="ST"/>. In this requirement, cryptographic
               functionality includes all cryptographic key generation/derivation/agreement, IVs (for
               certain modes), as well as protocol-specific random values. </note>
             <aactivity>
@@ -1063,7 +1064,7 @@
             <selection-depends req="fcs_rbg_ext.1.1"/>
             <title> The application shall invoke a mechanism recommended by the platform
               vendor for requesting data from the platform's DRBG.</title>
-            <note role="application">This requirement shall be included in STs in which "invoke 
+            <note role="application">This requirement shall be included in <abbr linkend="ST"/>s in which "invoke 
               platform-provided DRBG services" is chosen in FCS_RBG_EXT.1.1. Guidance on various 
               platform DRBGs can be found in "Random Number Generators (RNG): Introduction for 
               Application Developers" at: <ul><li><a
@@ -1072,7 +1073,7 @@
                 http://www.nsa.gov/ia/mitigation_guidance/security_configuration_guides/fact_sheets.shtml</a></li>
               </ul>  
             </note>
-            <aactivity>The evaluator shall verify that the ST identifies the calls used in acquiring
+            <aactivity>The evaluator shall verify that the <abbr linkend="ST"/> identifies the calls used in acquiring
               random from each instantiation of the RBG used for the application’s cryptographic
               functionality.  The evaluator shall ensure that random bits are acquired properly
               from the platform. This varies on a per-platform basis:
@@ -1114,14 +1115,14 @@
                 <selectable>FIPS Pub 140-2 Annex C: X9.31 Appendix 2.4 using AES</selectable>
               </selectables>.
             </title>
-            <note role="application">This requirement shall be included in STs in which "invoke
-              application-implemented DRBG services" is chosen in FCS_RBG_EXT.3.1. The ST author 
+            <note role="application">This requirement shall be included in <abbr linkend="ST"/>s in which "invoke
+              application-implemented DRBG services" is chosen in FCS_RBG_EXT.3.1. The <abbr linkend="ST"/> author 
               should select the standard to which the RBG services comply (either SP 800-90A or FIPS 
               140-2 Annex C). 
               <br />
               SP 800-90A contains three different methods of generating random numbers; each of 
               these, in turn, depends on underlying cryptographic primitives 
-              (hash functions/ciphers). The ST author will select the function used (if SP 800-90A 
+              (hash functions/ciphers). The <abbr linkend="ST"/> author will select the function used (if SP 800-90A 
               is selected), and include the specific underlying cryptographic primitives used in the 
               requirement or in the TSS. While any of the identified hash functions (SHA-1, SHA-224, 
               SHA-256, SHA-384, SHA-512) are allowed for Hash_DRBG or HMAC_DRBG, only AES-based 
@@ -1226,17 +1227,17 @@
                 <selectable>256 bits</selectable>
               </selectables> of entropy at least equal to the greatest security strength (according
               to NIST SP 800-57) of the keys and hashes that it will generate. </title>
-            <note role="application">This requirement shall be included in STs in which "invoke
+            <note role="application">This requirement shall be included in <abbr linkend="ST"/>s in which "invoke
               application-implemented DRBG services" is chosen in FCS_RBG_EXT.1.1. For the first
-              selection in this  requirement, the ST author selects ‘software-based noise source’ if 
+              selection in this  requirement, the <abbr linkend="ST"/> author selects ‘software-based noise source’ if 
               any additional noise sources are used as input to the application’s DRBG. Note that 
               the application must use the platform’s DRBG to seed its DRBG. 
-              <br />In the second selection in this requirement, the ST author selects the 
+              <br />In the second selection in this requirement, the <abbr linkend="ST"/> author selects the 
               appropriate number of bits of entropy that corresponds to the greatest security 
-              strength of the algorithms included in the ST. Security strength is defined in Tables 
+              strength of the algorithms included in the <abbr linkend="ST"/>. Security strength is defined in Tables 
               2 and 3 of NIST SP 800-57A. For example, if the implementation includes 2048-bit RSA 
               (security strength of 112 bits), AES 128 (security strength 128 bits), and 
-              HMAC-SHA-256 (security strength 256 bits), then the ST author would select 256 bits.
+              HMAC-SHA-256 (security strength 256 bits), then the <abbr linkend="ST"/> author would select 256 bits.
             </note>
             <aactivity>Documentation shall be produced—and the evaluator shall perform the
               activities—in accordance with Appendix E, “Entropy Documentation and Assessment” and
@@ -1264,13 +1265,13 @@
             <note role="application">The evaluator should ensure "invoke platform-provided" is
               selected in cases where the application uses platform APIs to perform cryptographic
               hashing and signing. If the "invoke application-implemented" selection is chosen, then
-              additional requirements from FCS_COP_EXT.2 shall be included in the ST. </note>
+              additional requirements from FCS_COP_EXT.2 shall be included in the <abbr linkend="ST"/>. </note>
             <aactivity>Requirement met by the platform: The evaluator shall examine the TSS of the
               application to verify that it describes how the platforms digital signature
               functionality is invoked for each operation they are used for in the application. The
-              evaluator shall also examine the TSS of the application product’s ST to verify that it
+              evaluator shall also examine the TSS of the application product’s <abbr linkend="ST"/> to verify that it
               describes how the platforms hash functionality is invoked for each digest size
-              selected in the application product’s ST. </aactivity>
+              selected in the application product’s <abbr linkend="ST"/>. </aactivity>
           </f-element>
         </f-component>
           <f-component id="fcs_cop_ext.2" 
@@ -1292,7 +1293,7 @@
               </selectables> and cryptographic key sizes equivalent to, or greater than, a symmetric
               key strength of 112 bits. </title>
             <aactivity>The evaluator shall perform the following activities based on the selections
-              in the ST. <testlist>
+              in the <abbr linkend="ST"/>. <testlist>
                 <test>ECDSA Algorithm Tests CDSA FIPS 186-4 Signature Generation Test For each
                   supported NIST curve (i.e., P-256, P-384 and P-521) and SHA function pair, the
                   evaluator shall generate 10 1024-bit long messages and obtain for each message a
@@ -1411,7 +1412,7 @@
             </note>
             <aactivity>The evaluator shall check the TSS to ensure that it lists all persistent 
               credentials (secret keys, PKI private keys, or passwords) needed to meet the 
-              requirements in the ST. For each of these items, the evaluator shall confirm that the 
+              requirements in the <abbr linkend="ST"/>. For each of these items, the evaluator shall confirm that the 
               TSS lists for what purpose it is used, and how it is stored. The evaluator shall
               perform the following actions which vary per platform.
               <subaactivity
@@ -1929,7 +1930,7 @@
               </ul>
             </title>
             <note role="application">
-              FIA_X509_EXT.1.1 lists the rules for validating certificates. The ST author shall 
+              FIA_X509_EXT.1.1 lists the rules for validating certificates. The <abbr linkend="ST"/> author shall 
               select whether revocation status is verified using OCSP or CRLs. FIA_X509_EXT.2 
               requires that certificates are used for _______; this use requires that the 
               extendedKeyUsage rules are verified. Certificates may optionally be used for _______ 
@@ -2071,7 +2072,7 @@
               </selectables>. 
             </title>
             <note role="application">
-              The ST author’s selection shall match the selection of FTP_ITC.1.1. Certificates may optionally be used for trusted updates of system software (FPT_TUD_EXT.1) and for integrity verification (FPT_TST_EXT.2).
+              The <abbr linkend="ST"/> author’s selection shall match the selection of FTP_ITC.1.1. Certificates may optionally be used for trusted updates of system software (FPT_TUD_EXT.1) and for integrity verification (FPT_TST_EXT.2).
             </note>
             <!-- 
             <aactivity>
@@ -2178,13 +2179,13 @@
               receiving the CA Certificate Response.
             </title>
             <aactivity>
-              If the ST author selects "device-specific information", the evaluator shall verify 
+              If the <abbr linkend="ST"/> author selects "device-specific information", the evaluator shall verify 
               that the <abbr linkend="TSS"/> contains a description of the device-specific fields 
               used in certificate requests.
               <br />
               The evaluator shall check to ensure that the operational guidance contains 
               instructions on requesting certificates from a CA, including generation of a 
-              Certificate Request Message.  If the ST author selects "Common Name", "Organization", 
+              Certificate Request Message.  If the <abbr linkend="ST"/> author selects "Common Name", "Organization", 
               "Organizational Unit", or "Country", the evaluator shall ensure that this guidance 
               includes instructions for establishing these fields before creating the certificate 
               request message.
@@ -2498,7 +2499,7 @@
           <f-element id="fpt_aex_ext.1.5">
             <title>The application must be compiled with stack-based buffer overflow protection
               enabled.</title>
-            <aactivity>The evaluator shall ensure that the <abbr linkend="TSS"/> section of the ST
+            <aactivity>The evaluator shall ensure that the <abbr linkend="TSS"/> section of the <abbr linkend="ST"/>
               describes the compiler flag used to enable stack-based buffer overflow protection in
               the application. The evaluator shall perform a static analysis to verify that
               stack-based buffer overflow protection is present. The method of doing so varies per
@@ -2709,12 +2710,12 @@
       performs independent testing. <br/>While this section contains the complete set of SARs from
       the CC, the Assurance Activities to be performed by an evaluator are detailed in <secref
         linkend="SFRs"/> as well as in this section. The general model for evaluation of 
-        <abbr linkend="TOE"/>s against STs written to conform to this PP is as follows: <br/>After 
-        the ST has been approved for evaluation, the <abbr class="expanded"
+        <abbr linkend="TOE"/>s against <abbr linkend="ST"/>s written to conform to this PP is as follows: <br/>After 
+        the <abbr linkend="ST"/> has been approved for evaluation, the <abbr class="expanded"
         title="Information Technology Security Evaluation Facility">ITSEF</abbr> will obtain the
       <abbr linkend="TOE"/>, supporting environmental IT, and the administrative guides for the 
-      <abbr linkend="TOE"/>. The Assurance Activities listed in the ST (which will be refined by the 
-      ITSEF to be <abbr linkend="TOE"/>-specific, either within the ST or in a separate document) 
+      <abbr linkend="TOE"/>. The Assurance Activities listed in the <abbr linkend="ST"/> (which will be refined by the 
+      ITSEF to be <abbr linkend="TOE"/>-specific, either within the <abbr linkend="ST"/> or in a separate document) 
       will then be performed by the ITSEF. The ITSEF is also expected to perform all of the actions 
       mandated by the <cite linkend="bibCEM"/> for EAL1. The results of these activities will be 
       documented and presented (along with the administrative guidance used) for validation. <br/>
@@ -2732,10 +2733,10 @@
           linkend="bibCEM"/>.</subsection>
       <subsection title="Class ADV: Development" id="adv">The information about the <abbr
           linkend="TOE"/> is contained in the guidance documentation available to the end user as
-        well as the <abbr linkend="TSS"/> portion of the ST. The <abbr linkend="TOE"/> developer 
+        well as the <abbr linkend="TSS"/> portion of the <abbr linkend="ST"/>. The <abbr linkend="TOE"/> developer 
         must concur with the description of the product that is contained in the TSS as it relates 
         to the functional requirements. The Assurance Activities contained in 
-        <secref linkend="SFRs"/> should provide the ST authors with sufficient information to 
+        <secref linkend="SFRs"/> should provide the <abbr linkend="ST"/> authors with sufficient information to 
         determine the appropriate content for the TSS section. 
         <a-component id="adv_upd_ext.1" name="Support for Updates (ADV_UPD_EXT.1)">
           <a-element id="adv_upd_ext.1.1">
@@ -2826,11 +2827,11 @@
         </a-component>
       </subsection>
       <subsection id="agd" title="Class AGD: Guidance Documentation">The guidance documents will be
-        provided with the ST. Guidance must include a description of how the IT personnel verifies
+        provided with the <abbr linkend="ST"/>. Guidance must include a description of how the IT personnel verifies
         that the Operational Environment can fulfill its role for the security functionality. The
         documentation should be in an informal style and readable by the IT personnel. Guidance must
         be provided for every operational environment that the product supports as claimed in the
-        ST. This guidance includes Instructions to successfully install the <abbr linkend="TSF"/> in
+        <abbr linkend="ST"/>. This guidance includes Instructions to successfully install the <abbr linkend="TSF"/> in
         that environment; and Instructions to manage the security of the <abbr linkend="TSF"/> as a 
         product and as a component of the larger operational environment. Guidance pertaining to 
         particular security functionality is also provided; requirements on such guidance are 
@@ -2879,7 +2880,7 @@
           <a-element id="AGD_OPE.1.6C">
             <title>The operational user guidance shall, for each user role, describe the security
               measures to be followed in order to fulfill the security objectives for the
-              operational environment as described in the ST.</title>
+              operational environment as described in the <abbr linkend="ST"/>.</title>
           </a-element>
           <a-element id="AGD_OPE.1.7C">
             <title>The operational user guidance shall be clear and reasonable.</title>
@@ -2929,7 +2930,7 @@
             <title>The preparative procedures shall describe all the steps necessary for secure
               installation of the <abbr linkend="TOE"/> and for the secure preparation of the
               operational environment in accordance with the security objectives for the operational
-              environment as described in the ST.</title>
+              environment as described in the <abbr linkend="ST"/>.</title>
           </a-element>
           <h4>Evaluator action elements:</h4>
           <a-element id="AGD_PRE.1.1E">
@@ -2943,7 +2944,7 @@
               with respect to the documentation—especially when configuring the operational
               environment to support <abbr linkend="TOE"/> functional requirements. The evaluator 
               shall check to ensure that the guidance provided for the <abbr linkend="TOE"/> 
-              adequately addresses all platforms claimed for the <abbr linkend="TOE"/> in the ST.
+              adequately addresses all platforms claimed for the <abbr linkend="TOE"/> in the <abbr linkend="ST"/>.
             </aactivity>
           </a-element>
         </a-component>
@@ -2965,13 +2966,13 @@
           <a-element id="alc_cmc.1.1e">
             <title>The evaluator <i>shall confirm</i> that the information provided meets all
               requirements for content and presentation of evidence.</title>
-            <aactivity>The evaluator shall check the ST to ensure that it contains an identifier
+            <aactivity>The evaluator shall check the <abbr linkend="ST"/> to ensure that it contains an identifier
               (such as a product name/version number) that specifically identifies the version that
-              meets the requirements of the ST. Further, the evaluator shall check the AGD guidance
+              meets the requirements of the <abbr linkend="ST"/>. Further, the evaluator shall check the AGD guidance
               and <abbr linkend="TOE"/> samples received for testing to ensure that the version
-              number is consistent with that in the ST. If the vendor maintains a web site
+              number is consistent with that in the <abbr linkend="ST"/>. If the vendor maintains a web site
               advertising the <abbr linkend="TOE"/>, the evaluator shall examine the information on 
-              the web site to ensure that the information in the ST is sufficient to distinguish the
+              the web site to ensure that the information in the <abbr linkend="ST"/> is sufficient to distinguish the
               product.</aactivity>
           </a-element>
         </a-component>
@@ -2996,9 +2997,9 @@
             <title>The evaluator shall confirm that the information provided meets all requirements
               for content and presentation of evidence.</title>
             <aactivity>The "evaluation evidence required by the SARs" in this PP is limited to the
-              information in the ST coupled with the guidance provided to administrators and users
+              information in the <abbr linkend="ST"/> coupled with the guidance provided to administrators and users
               under the AGD requirements. By ensuring that the <abbr linkend="TOE"/> is specifically
-              identified and that this identification is consistent in the ST and in the AGD
+              identified and that this identification is consistent in the <abbr linkend="ST"/> and in the AGD
               guidance (as done in the assurance activity for ALC_CMC.1), the evaluator implicitly
               confirms the information required by this component. Life-cycle support is targeted
               aspects of the developer’s life-cycle and instructions to providers of applications
@@ -3017,7 +3018,7 @@
               default, or have to be specifically enabled. The evaluator shall ensure that the 
               <abbr linkend="TSF"/> is uniquely identified (with respect to other products from the 
               <abbr linkend="TSF"/> vendor), and that documentation provided by the developer in 
-              association with the requirements in the ST is associated with the 
+              association with the requirements in the <abbr linkend="ST"/> is associated with the 
               <abbr linkend="TSF"/> using this unique identification.</aactivity>
           </a-element>
         </a-component>
@@ -3066,13 +3067,13 @@
               the <cite linkend="bibCEM"/> and the body of this PP’s Assurance Activities. While it
               is not necessary to have one test case per test listed in an Assurance Activity, the
               evaluator must document in the test plan that each applicable testing requirement in
-              the ST is covered. The test plan identifies the platforms to be tested, and for those
-              platforms not included in the test plan but included in the ST, the test plan provides
+              the <abbr linkend="ST"/> is covered. The test plan identifies the platforms to be tested, and for those
+              platforms not included in the test plan but included in the <abbr linkend="ST"/>, the test plan provides
               a justification for not testing the platforms. This justification must address the
               differences between the tested platforms and the untested platforms, and make an
               argument that the differences do not affect the testing to be performed. It is not
               sufficient to merely assert that the differences have no affect; rationale must be
-              provided. If all platforms claimed in the ST are tested, then no rationale is
+              provided. If all platforms claimed in the <abbr linkend="ST"/> are tested, then no rationale is
               necessary. The test plan describes the composition of each platform to be tested, and
               any setup that is necessary beyond what is contained in the AGD documentation. It
               should be noted that the evaluator is expected to follow the AGD documentation for
