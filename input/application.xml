@@ -520,8 +520,7 @@
       <subsection title="User Data Protection (FDP)" id="fdp">
         <f-component id="fdp_dec_ext.1" name="Access to Platform Resources">
           <f-element id="fdp_dec_ext.1.1">
-	    <!-- It's TOE here because we're looking at the application+documentation -->
-            <title> The TOE shall provide user awareness of and justification for its intention to access
+            <title> The application or its documentation shall provide user awareness of for its intent to access
                 <selectables linebreak="yes">
                 <selectable>no hardware resources</selectable>
                 <selectable>network connectivity</selectable>
@@ -549,8 +548,6 @@
 		documentation to verify that the user is informed of any need to access hardware
 		resources.
 		The method of doing so varies per platform. 
-		For each resource identified, the evaluator shall verify that the documentation 
-		provided by the developer contains justification for why access is required.
 	      <subaactivity platform="blackberry">The evaluator shall install the
                 application and run it for the first time. The evaluator shall verify that the
                 application displays all platform resources it would like to access. Note: If the
@@ -572,19 +569,6 @@
 		    http://developer.android.com/reference/android/Manifest.permission_group.html
                   </a>
                 </li></ul>
-		<!-- <table> -->
-		<!--   <tr><th>Resource</th><th>Permission</th><th>Permission Group</th></tr> -->
-		<!--   <tr><td>network</td><td colspan="2"><i>granted automatically</i></td></tr> -->
-		<!--   <tr><td>camera</td><td>CAMERA</td><td>CAMERA</td></tr> -->
-		<!--   <tr><td>microphone</td><td>RECORD_AUDIO</td><td>MICROPHONE</td></tr> -->
-		<!--   <tr><td>GPS</td><td>ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION</td><td>LOCATION</td></tr> -->
-		<!--   <tr><td>NFC</td><td>NFC</td><td>n/a</td></tr> -->
-		<!--   <tr><td>Bluetooth</td><td>BLUETOOTH, BLUETOOTH_ADMIN, BLUETOOTH_PRIVILEGED</td><td>BLUETOOTH</td></tr> -->
-		<!-- </table> -->
-		<!--
-		http://developer.android.com/reference/android/Manifest.permission.html
-		http://developer.android.com/reference/android/Manifest.permission_group.html
-		-->
               </subaactivity>
               <subaactivity platform="windows">For Windows Store Apps the evaluator shall check the
                 WMAppManifest.xml file for a list of required hardware capabilities. The evaluator
@@ -617,25 +601,24 @@
             </aactivity>
           </f-element>
           <f-element id="fdp_dec_ext.1.2">
-            <title>The TOE shall provide user awareness of and justification for its intention to access
+            <title>The application or its documentation shall provide user awareness of its intent to access
                 <selectables linebreak="yes">
-                <selectable>no system-wide sensitive information repositories</selectable>
+                <selectable>no system-wide information repositories</selectable>
                 <selectable>address book</selectable>
                 <selectable>calendar</selectable>
                 <selectable>call lists</selectable>
                 <selectable>system logs</selectable>
-                <selectable><assignable> list of additional system-wide sensitive information 
+                <selectable><assignable> list of additional system-wide information 
                   repositories</assignable>
                 </selectable>
               </selectables>
+	      .
             </title>
             <note role="application"> 
 	      The evaluator should ensure that the selection captures all
               system-wide information repositories which the application is intended to 
               access. The requirement is worded in this way due to the diversity of methods by which 
               user awareness can be achieved, which varies per platform.
-	      For each resource identified, the evaluator shall verify that the documentation 
-	      provided by the developer contains justification for why access is required.
 	    </note>
             <aactivity>
 	      The evaluator shall install and run the application and inspect its user
@@ -647,9 +630,10 @@
                 that the application displays all platform resources it would like to
                 access.
 	      </subaactivity>
-              <subaactivity platform="android">The evaluator shall install the application and
-                verify that the application displays the permissions used to access sensitive
-                information repositories. This includes permissions such as READ_CALENDAR,
+              <subaactivity platform="android">
+		The evaluator shall install the application and
+                verify that the application displays the permissions used to access system-wide
+		repositories. This includes permissions such as READ_CALENDAR,
                 READ_CALL_LOG, READ_CONTACTS, READ_EXTERNAL_STORAGE, READ_LOGS.
                 A complete list of Android permissions can be found at: 
                 <ul><li>
@@ -733,8 +717,19 @@
 	      </test>
 	    </testlist>
 	    </aactivity>
-          </f-element>
+	  </f-element>
           <f-element id="fdp_dec_ext.1.4">
+	    <title>
+	      The application shall only seek access to those resources
+	      for which it has provided a justification to access.
+	    </title>
+	    <aactivity> 
+	      The evaluator shall review documentation provided by the application
+	      developer and for each resource which it requests access to, identify the
+	      justification as to why access is required. 
+	    </aactivity>
+	  </f-element> 
+          <f-element id="fdp_dec_ext.1.5">
             <title>
 	      The application shall 
 	      <selectables linebreak="yes">
@@ -754,8 +749,6 @@
 	      This requirement only applies to PII that is specifically requested by the application;
 	      it does not apply if the user volunteers PII without prompting from the application 
 	      into a general (or inappropriate) data field.
-	      For example, if the user includes PII into an email and sends it, the 
-	      application is not considered to have managed the PII.
 	      Also, having a dialog box that declares intent to send PII presented to the user 
 	      at the time the application is started is sufficient to meet this requirement. 
 	    </note>
@@ -795,8 +788,6 @@
 	      must be protected with platform-provided encryption.
 	      The only exception is if the user actively chooses to export the sensitive data
 	      to non-protected files. 
-	      For instance, if the user opens a text document and enters sensitive data into
-	      the document, the application is not responsible for protecting that document.
 	    </note>
             <!-- this language is intentionally different from the MDPP's FDP_DAR -->
             <aactivity>The evaluator shall run the application and store potentially sensitive data.
@@ -1436,10 +1427,12 @@
               <subaactivity platform="ios">The evaluator shall verify that all keys are stored
                 within a <code>KeyChain</code>. </subaactivity>
               <subaactivity platform="linux"> 
-		The evaluator shall verify that all keys are stored with GNOME Keyring or KDE 
-		KWallet.
+		The evaluator shall verify that all keys are stored using Linux 
+		<code>keyrings</code>.
 	      </subaactivity>
               <subaactivity platform="Solaris"/>
+		The evaluator shall verify that all keys are stored using Solaris 
+		<code>Key Management Framework(KMF)</code>.
               <subaactivity platform="OS X">The evaluator shall verify that all credentials are 
                 stored within Keychain.</subaactivity>
             </aactivity>
