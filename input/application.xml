@@ -520,7 +520,8 @@
       <subsection title="User Data Protection (FDP)" id="fdp">
         <f-component id="fdp_dec_ext.1" name="Access to Platform Resources">
           <f-element id="fdp_dec_ext.1.1">
-            <title> The application shall provide user awareness of its intention to directly access
+	    <!-- It's TOE here because we're looking at the application+documentation -->
+            <title> The TOE shall provide user awareness of and justification for its intention to access
                 <selectables linebreak="yes">
                 <selectable>no hardware resources</selectable>
                 <selectable>network connectivity</selectable>
@@ -532,17 +533,25 @@
                 <selectable>Bluetooth</selectable>
                 <selectable><assignable>list of additional hardware resources</assignable></selectable>
               </selectables> . </title>
-            <note role="application"> The evaluator should ensure that the selection captures all
-              platform hardware resources which the application is intended to access. The
-              requirement is worded in this way due to the diversity of methods by which user
-              awareness can be achieved, which varies per platform. 
-	      Generic access to the filesystem, which may provide indirect access to removable
-	      or remote (e.g. USB or network shares) drives, is not considered direct access.
+            <note role="application"> 
+	      The evaluator should ensure that the selection captures all
+              platform hardware resources which the application intends to access. 
+	      The requirement is worded in this way due to the diversity of methods by 
+	      which user awareness can be achieved, which varies per platform. 
+	      Resources that do not need to be explicitly identified are 
+	      processors, memory, displays,keyboards, pointing devices 
+	      (e.g. mice, trackpads), USB hubs, and mass storage devices.
+	      Composite devices that provide resources in addition to generic resources are
+	      still required to be identified.
 	    </note>
-              <aactivity>The evaluator shall install and run the application and inspect its user
-              documentation to verify that the user is informed of any need to access hardware
-              resources. The method of doing so varies
-              per platform. <subaactivity platform="blackberry">The evaluator shall install the
+              <aactivity>
+		The evaluator shall install and run the application and inspect its user
+		documentation to verify that the user is informed of any need to access hardware
+		resources.
+		The method of doing so varies per platform. 
+		For each resource identified, the evaluator shall verify that the documentation 
+		provided by the developer contains justification for why access is required.
+	      <subaactivity platform="blackberry">The evaluator shall install the
                 application and run it for the first time. The evaluator shall verify that the
                 application displays all platform resources it would like to access. Note: If the
                 user goes to: App permissions → Settings → Security and Privacy → Application
@@ -622,7 +631,7 @@
             </title>
             <note role="application"> 
 	      The evaluator should ensure that the selection captures all
-              system-wide sensitive information repositories which the application is intended to 
+              system-wide information repositories which the application is intended to 
               access. The requirement is worded in this way due to the diversity of methods by which 
               user awareness can be achieved, which varies per platform.
 	    </note>
