@@ -89,7 +89,8 @@
           </entry>
           <entry>
             <term><abbr title="TOE Summary Specification">TSS</abbr></term>
-            <description>A description of how a <abbr linkend="TOE"/> satisfies the SFRs in a ST.
+            <description>A description of how a <abbr linkend="TOE"/> satisfies the SFRs in a 
+            <abbr linkend="ST"/>.
             </description>
           </entry>
           <entry>
@@ -177,12 +178,12 @@
           <entry>
             <term>Sensitive Data</term>
             <description> 
-	      Sensitive data shall be identified by the application’s TSS. 
-	      Sensitive data may include all user or enterprise data or 
-	      may be specific application data 
+	      Sensitive data shall be identified in the application’s TSS by the <abbr linkend="ST"/> 
+        author. 
+	      Sensitive data may include all user or enterprise data or may be
+	      specific application data 
 	      such as emails, messaging, documents, calendar items, and contacts.
-	      Sensitive data must minimally include some or all keys in
-	      software-based key storage
+	      Sensitive data must minimally include PII, credentials, and keys.
  	    </description>
           </entry>
           <entry>
@@ -274,7 +275,7 @@
         <description>
       To be conformant to this PP, a <abbr linkend="ST"/> must demonstrate 
       Exact Conformance, a subset of Strict Conformance as defined in <cite linkend="bibCC"/> Part 1 
-      (ASE_CCL): the ST must include all components in this PP (<a href="#req">Chapter 5</a>), that are
+      (ASE_CCL): the <abbr linkend="ST"/> must include all components in this PP (<a href="#req">Chapter 5</a>), that are
       <ul>
           <li>unconditional (always required) or</li>
           <li>selection-based (when corresponding selections have been made)</li>
@@ -283,8 +284,8 @@
           <li>optional or</li>
           <li>objective.</li>
       </ul>
-	  The ST may iterate any of these components, but it must not include any additional 
-	  component (e.g. from CC Part 2 or 3 or a PP not conformant with this one, or extended by the ST) 
+	  The <abbr linkend="ST"/> may iterate any of these components, but it must not include any additional 
+	  component (e.g. from CC Part 2 or 3 or a PP not conformant with this one, or extended by the <abbr linkend="ST"/>) 
 	  not defined in this PP or a PP conformant to this one 
 	  (see <a href="#TOEdescription">Section 1.3</a> regarding more specific PPs).
 	</description>
@@ -393,7 +394,7 @@
           <description>The configuration of the application software must be capable of adhering to
             the enterprise security policy.</description>
           <objective-refer ref="O.MANAGEMENT">
-            <rationale>The organizational security policy P.ENTERPRISE is enforced through the the
+            <rationale>The organizational security policy P.ENTERPRISE is enforced through the
               objective O.MANAGEMENT as this objective represents how the enterprise asserts
               management over the <abbr linkend="TOE"/>.</rationale>
           </objective-refer>
@@ -790,7 +791,7 @@
               The evaluator shall then inspect the filesystem to determine where data has been
               written, and note whether it is encrypted. The evaluator shall determine whether
               platform-provided functionality for protecting sensitive data is being invoked. 
-              Otherwise, the the evaluator shall test how the application invokes
+              Otherwise, the evaluator shall test how the application invokes
               platform-provided functionality, which varies per platform: <subaactivity
                 platform="blackberry">The evaluator shall determine whether the application properly
                 uses the Advanced Data at Rest Protection <abbr linkend="API"/> and the application
@@ -917,33 +918,6 @@
                 </test>
              </testlist>
 	    </aactivity>
-          </f-element>
-          <f-element id="fmt_cfg_ext.1.2">
-            <title>
-	      The application shall be initially configured to
-	      <selectables>
-		<selectable>
-		  use TLS tunnels to 
-		</selectable>
-		<selectable>
-		  not
-		</selectable>
-	      </selectables>
-	      transmit credentials.
-            </title>
-            <note role="application">The intention of this requirement is to prevent the
-              observation of plaintext credentials, such as passwords or private keys,
-              during transmission. 
-            </note>
-            <aactivity>The evaluator shall inspect the TSS to determine if credentials are
-              transmitted and how. If credentials are transmitted the evaluator shall set the
-              credential to a known value. The evaluator shall sniff network traffic
-              while running the application and causing credentials to be transmitted
-              as described in the TSS. The evaluator shall perform a string search
-              of the captured network traffic and verify that the plaintext credential previously
-              set by the evaluator are not found and verify that the captured traffic contains
-              TLS communications.
-              </aactivity>
           </f-element>
           <f-element id="fmt_cfg_ext.1.3">
             <title>The application shall be configured by default with file permissions which protect
@@ -1419,9 +1393,9 @@
             </note>
             <aactivity>The evaluator shall check the TSS to ensure that it lists all persistent 
               credentials (secret keys, PKI private keys, or passwords) needed to meet the 
-              requirements in the <abbr linkend="ST"/>. For each of these items, the evaluator shall confirm that the 
-              TSS lists for what purpose it is used, and how it is stored. The evaluator shall
-              perform the following actions which vary per platform.
+              requirements in the <abbr linkend="ST"/>. For each of these items, the evaluator shall 
+              confirm that the TSS lists for what purpose it is used, and how it is stored. The 
+              evaluator shall perform the following actions which vary per platform.
               <subaactivity
                 platform="blackberry"/>
               <subaactivity platform="android">The evaluator shall verify that the application uses
@@ -1705,7 +1679,10 @@
               validity shall be tested in accordance with testing performed for FIA_X509_EXT.1.
              <br />
               For <abbr title="Transport Layer Security">TLS</abbr> connections, this channel shall 
-              not be established if the peer certificate is invalid.
+              not be established if the peer certificate is invalid. The HTTPS protocol 
+              (FCS_HTTPS_EXT.1) requires different behavior, though HTTPS is implemented over 
+              <abbr title="Transport Layer Security">TLS</abbr>. This element addresses non-HTTPS
+              <abbr title="Transport Layer Security">TLS</abbr> connections.
             </note>
             <aactivity>
               The evaluator shall use <abbr title="Transport Layer Security">TLS</abbr> as a 
@@ -1723,8 +1700,7 @@
               </testlist>
             </aactivity>
           </f-element>
-          <f-element id="fcs_tlsc_ext.1.4" status="sel-based">
-            <selection-depends req="ftp_dit_ext.1.1"/>
+          <f-element id="fcs_tlsc_ext.1.4" status="optional">
             <title>
               The application shall support mutual authentication using X.509v3 certificates.
             </title>
@@ -1848,8 +1824,18 @@
             <title>The application shall implement the DTLS protocol in accordance with
               DTLS 1.2 (RFC 6347).
             </title>
-            <aactivity>The evaluator shall perform the assurance activities listed for TLS to verify
-              this component</aactivity>
+            <aactivity>
+            	<testlist>
+                <test>
+                  The evaluator shall attempt to establish a connection with a DTLS server, observe 
+                  the traffic with a packet analyzer, and verify that the connection succeeds and 
+                  that the traffic is identified as DTLS.
+                </test>
+                <br />
+                Other tests are performed in conjunction with the Assurance Activity listed for 
+                FCS_TLSC_EXT.1.
+                </testlist>
+            </aactivity>
           </f-element>
           <f-element id="fcs_dtls_ext.1.2" status="sel-based">
             <selection-depends req="ftp_dit_ext.1.1"/>
@@ -1865,8 +1851,7 @@
               <abbr title="Transport Layer Security">TLS</abbr> apply to the DTLS implementation.
             </note>
             <aactivity>
-	      The evaluator shall perform the assurance activities listed for TLS to verify
-              this component.
+	      The evaluator shall perform the assurance activities listed for FCS_TLSC_EXT.1.
 	    </aactivity>
           </f-element>
           <f-element id="fcs_dtls_ext.1.3" status="sel-based">
@@ -1879,18 +1864,9 @@
               revocation status in accordance with RFC 5280.
             </note>
             <aactivity>
-              <testlist>
-                <test>
-                  The evaluator shall attempt to establish a connection with a DTLS server, observe 
-                  the traffic with a packet analyzer, and verify that the connection succeeds and 
-                  that the traffic is identified as DTLS.
-                </test>
-                <br />
-                Other tests are performed in conjunction with the Assurance Activity listed for 
-                FCS_TLSC_EXT.2.
                 Certificate validity shall be tested in accordance with testing performed for 
                 FIA_X509_EXT.1, and the evaluator shall perform the following test.
-                <br />
+                <testlist>
                 <test>
                   The evaluator shall demonstrate that using a certificate without a valid 
                   certification path results in the function failing. Using the administrative 
@@ -1898,6 +1874,65 @@
                   Trust Anchor Database needed to validate the certificate to be used in the 
                   function, and demonstrate that the function succeeds. The evaluator then shall 
                   delete one of the certificates, and show that the function fails.
+                </test>
+              </testlist>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <f-component id="fcs_https_ext.1" name="HTTPS Protocol" status="sel-based">
+          <f-element id="fcs_https_ext.1.1" status="sel-based">
+            <selection-depends req="ftp_dit_ext.1.1"/>
+            <title>
+              The application shall implement the HTTPS protocol that complies with RFC 2818.
+            </title>
+            <aactivity>
+              The evaluator shall attempt to establish an HTTPS connection with a webserver, 
+              observe the traffic with a packet analyzer, and verify that the connection succeeds 
+              and that the traffic is identified as 
+              <abbr title="Transport Layer Security">TLS</abbr> or HTTPS.
+            </aactivity>
+          </f-element>
+          <f-element id="fcs_https_ext.1.2" status="sel-based">
+            <selection-depends req="ftp_dit_ext.1.1"/>
+            <title>The application shall implement HTTPS using 
+              <abbr title="Transport Layer Security">TLS</abbr> (FCS_TLSC_EXT.1).
+            </title>
+            <aactivity>
+              Other tests are performed in conjunction with FCS_TLSC_EXT.1.
+            </aactivity>
+          </f-element>
+          <f-element id="fcs_https_ext.1.3" status="sel-based">
+            <selection-depends req="ftp_dit_ext.1.1"/>
+            <title> The application shall notify the application and 
+              <selectables>
+                <selectable>
+                  not establish the connection
+                </selectable>
+                <selectable>
+                  request application authorization to establish the connection
+                </selectable>
+                <selectable>
+                  no other action
+                </selectable>
+              </selectables>
+                if the peer certificate is deemed invalid. 
+            </title>
+            <note role="application">
+              Validity is determined by the certificate path, the expiration date, and the 
+              revocation status in accordance with RFC 5280.
+            </note>
+            <aactivity>
+              Certificate validity shall be tested in accordance with testing performed for 
+              FIA_X509_EXT.1, and the evaluator shall perform the following test:
+              <testlist>
+                <test>
+                  The evaluator shall demonstrate that using a certificate without a valid 
+                  certification path results in an application notification. Using the 
+                  administrative guidance, the evaluator shall then load a certificate or 
+                  certificates to the Trust Anchor Database needed to validate the certificate to be 
+                  used in the function, and demonstrate that the function succeeds. The evaluator 
+                  then shall delete one of the certificates, and show that the application is 
+                  notified of the validation failure.
                 </test>
               </testlist>
             </aactivity>
@@ -2089,13 +2124,10 @@
               authentication for 
               <selectables>
                 <selectable>
-                  IPsec
-                </selectable>
-                <selectable>
                   TLS
                 </selectable>
                 <selectable>
-                  SSH
+                  DTLS
                 </selectable>
               </selectables>, and 
               <selectables>
@@ -2182,79 +2214,6 @@
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fia_x509_ext.3" name="X.509 Certificate Enrollment" status="sel-based">
-          <f-element id="fia_x509_ext.3.1" status="sel-based">
-            <selection-depends req="FIXME"/>
-            <title>
-              The application shall generate a Certificate Request Message as specified by RFC 2986 
-              and be able to provide the following information in the request: public key and 
-              <selectables>
-                <selectable>
-                  device-specific information
-                </selectable>
-                <selectable>
-                  Common Name
-                </selectable>
-                <selectable>
-                  Organization
-                </selectable>
-                <selectable>
-                  Organizational Unit
-                </selectable>
-                <selectable>
-                  Country
-                </selectable>
-              </selectables>. 
-            </title>
-            <note role="application">
-              The public key is the public key portion of the public-private key pair generated by 
-              the <abbr linkend="TOE"/> as specified in FCS_CKM.1.1.
-            </note>
-            <!-- 
-            <aactivity>
-              Currently no AA's available.
-            </aactivity>
-            -->
-          </f-element>
-          <f-element id="fia_x509_ext.3.2" status="sel-based">
-            <selection-depends req="FIXME"/>
-            <title>
-              The application shall validate the chain of certificates from the Root CA upon 
-              receiving the CA Certificate Response.
-            </title>
-            <aactivity>
-              If the <abbr linkend="ST"/> author selects "device-specific information", the evaluator shall verify 
-              that the <abbr linkend="TSS"/> contains a description of the device-specific fields 
-              used in certificate requests.
-              <br />
-              The evaluator shall check to ensure that the operational guidance contains 
-              instructions on requesting certificates from a CA, including generation of a 
-              Certificate Request Message.  If the <abbr linkend="ST"/> author selects "Common Name", "Organization", 
-              "Organizational Unit", or "Country", the evaluator shall ensure that this guidance 
-              includes instructions for establishing these fields before creating the certificate 
-              request message.
-              <br />
-              <testlist>
-                <test>
-                  The evaluator shall use the operational guidance to cause the 
-                  <abbr linkend="TOE"/> to generate a certificate request message.  The evaluator 
-                  shall capture the generated message and ensure that it conforms to the format 
-                  specified. The evaluator shall confirm that the certificate request provides the 
-                  public key and other required information, including any necessary user-input 
-                  information.
-                </test>
-                <test>
-                  The evaluator shall demonstrate that validating a certificate response message 
-                  without a valid certification path results in the function failing. The evaluator 
-                  shall then load a certificate or certificates as trusted CAs needed to validate 
-                  the certificate response message, and demonstrate that the function succeeds. The 
-                  evaluator shall then delete one of the certificates, and show that the function 
-                  fails.
-                </test>
-              </testlist>
-            </aactivity>
-          </f-element>
-        </f-component>
       </subsection>
       <!--  
        We may handle this in a different way
@@ -2271,9 +2230,10 @@
          (e.g. known malware) that could present a threat to the user's privacy.
         </note>
       <aactivity> 
-	      The evaluator shall install the application and survey its installation directory for dynamic libraries. 
-	      that libraries found to be packaged with or employed by the application are limited to 
-	      those in the assignment.
+	      The evaluator shall install the application and survey its installation directory for 
+        dynamic libraries. 
+	      The evaluator shall verify that libraries found to be packaged with or employed by the 
+        application are limited to those in the assignment.
 	      The evaluator shall also run a virus scanner with the most current virus 
 	      definitions against the application files and verify that no files are flagged as malicious.
 	    </aactivity>
@@ -2285,34 +2245,57 @@
           <f-element id="ftp_dit_ext.1.1">
             <title>The application shall 
 	    <selectables linebreak="yes">
-              <selectable>not transmit any data</selectable>
-              <selectable>not transmit any sensitive data</selectable>
-              <selectable>encrypt all transmitted sensitive data with
-                <selectables atleastone="yes">
-		  <selectable><abbr title="Transport Layer Security">TLS</abbr></selectable>
-		  <selectable><abbr title="Datagram Transport Layer Security">DTLS</abbr></selectable>
-		</selectables>
-              </selectable>
-              <selectable>encrypt all transmitted data with
-                <selectables atleastone="yes">
-		  <selectable><abbr title="Transport Layer Security">TLS</abbr></selectable>
-		  <selectable><abbr title="Datagram Transport Layer Security">DTLS</abbr></selectable>
-		</selectables>
-              </selectable>
-            </selectables>
+        <selectable>not transmit any data</selectable>
+        <selectable>not transmit any sensitive data</selectable>
+        <selectable>encrypt all transmitted sensitive data with
+          <selectables atleastone="yes">
+            <selectable><abbr title="Hypertext Transfer Protocol Secure">HTTPS</abbr></selectable>
+		        <selectable><abbr title="Transport Layer Security">TLS</abbr></selectable>
+		        <selectable><abbr title="Datagram Transport Layer Security">DTLS</abbr></selectable>
+		      </selectables>
+        </selectable>
+        <selectable>encrypt all transmitted data with
+          <selectables atleastone="yes">
+            <selectable><abbr title="Hypertext Transfer Protocol Secure">HTTPS</abbr></selectable>
+            <selectable><abbr title="Transport Layer Security">TLS</abbr></selectable>
+            <selectable><abbr title="Datagram Transport Layer Security">DTLS</abbr></selectable>
+		      </selectables>
+        </selectable>
+      </selectables>
 	    to provide communication channel between itself and another trusted IT product.
 	    </title>
-            <note role="application">
-	      For the purpose of this document HTTPS is considered a TLS tunnel.
+      <note role="application">
 	      Extended packages may override this requirement to provide for other protocols.
-	      Encryption is not required for applications transmitting data that is not sensitive.
+	      Encryption is not required for applications transmitting data that is not sensitive. 
 	    </note>  
-            <aactivity>
-	      The evaluator shall prepare a test environment which makes it possible to
-              sniff network traffic between the platform and any remote systems. 
-	      The evaluator shall install and run the application, and exercise its functionality. 
-	      The evaluator shall ensure that no sensitive data is transmitted 
-	      without appropriate protections.
+      <aactivity>
+        The evaluator shall perform the following tests.
+        <testlist>
+          <test>
+            The evaluator shall exercise the application (attempting to transmit data; for example 
+            by connecting to remote systems or websites) while capturing packets from the 
+            application. The evaluator shall verify from the packet capture that the traffic is 
+            encrypted with <abbr title="Hypertext Transfer Protocol Secure">HTTPS</abbr>, 
+            <abbr title="Transport Layer Security">TLS</abbr> or 
+            <abbr title="Datagram Transport Layer Security">DTLS</abbr> in accordance with the 
+            selection in the <abbr linkend="ST"/>.
+          </test>
+          <test>
+            The evaluator shall exercise the application (attempting to transmit data; for example by 
+    	      connecting to remote systems or websites) while capturing packets from the application.
+    	      The evaluator shall review the packet capture and verify that no sensitive data is transmitted 
+    	      in the clear.
+	        </test>
+          <test>
+            The evaluator shall inspect the TSS to determine if user credentials are
+            transmitted. If credentials are transmitted the evaluator shall set the
+            credential to a known value. The evaluator shall capture packets from the application
+            while causing credentials to be transmitted as described in the TSS.
+            The evaluator shall perform a string search
+            of the captured network packets and verify that the plaintext credential previously
+            set by the evaluator is not found.
+          </test>
+        </testlist>
 	    </aactivity>
           </f-element>
         </f-component>
@@ -2788,29 +2771,6 @@
         to the functional requirements. The Assurance Activities contained in 
         <secref linkend="SFRs"/> should provide the <abbr linkend="ST"/> authors with sufficient information to 
         determine the appropriate content for the TSS section. 
-        <a-component id="adv_upd_ext.1" name="Support for Updates (ADV_UPD_EXT.1)">
-          <a-element id="adv_upd_ext.1.1">
-            <title>Application developers must support updates to their products for purposes of
-              fixing security vulnerabilities.</title>
-          </a-element>
-          <a-element id="adv_upd_ext.1.2">
-            <title>
-	      Application updates must not change the security properties or configuration of
-              the product without publically disclosing or specifically notifying the user of 
-	      the specific changes.
-	    </title>
-          </a-element>
-          <a-element id="adv_upd_ext.1.3">
-            <title>
-	      Application developers must commit to supporting their applications with updates
-              for a publicly documented period of time.
-	    </title>
-	    <note role="application">
-	      At a minimum, support must include providing remedies to customers to 
-	      address publically known security vulnerabilities.
-	    </note>
-          </a-element>
-        </a-component>
         <a-component id="adv_fsp.1" name="Basic Functional Specification (ADV_FSP.1)">The functional
           specification describes the <abbr title="TSF Interface">TSFI</abbr>s. It is not necessary
           to have a formal or complete specification of these interfaces. Additionally, because
@@ -2872,7 +2832,7 @@
             other activities described for AGD, ATE, and AVA SARs. The requirements on the content
             of the functional specification information is implicitly assessed by virtue of the
             other assurance activities being performed; if the evaluator is unable to perform an
-            activity because the there is insufficient interface information, then an adequate
+            activity because there is insufficient interface information, then an adequate
             functional specification has not been provided.</aactivity>
         </a-component>
       </subsection>
@@ -3000,6 +2960,12 @@
         </a-component>
       </subsection>
       <subsection id="alc" title="Class ALC: Life-cycle Support">
+        At the assurance level provided for TOEs conformant to this PP, life-cycle support is limited
+        to end-user-visible aspects of the life-cycle, rather than an examination of the TOE vendor’s
+        development and configuration management process. This is not meant to diminish the
+        critical role that a developer’s practices play in contributing to the overall trustworthiness of a
+        product; rather, it is a reflection on the information to be made available for evaluation at this
+        assurance level.
         <a-component id="alc_cmc.1" name="Labeling of the TOE (ALC_CMC.1)">This component is
           targeted at identifying the <abbr linkend="TOE"/> such that it can be distinguished from
           other products or versions from the same vendor and can be easily specified when being
@@ -3070,6 +3036,68 @@
               <abbr linkend="TSF"/> vendor), and that documentation provided by the developer in 
               association with the requirements in the <abbr linkend="ST"/> is associated with the 
               <abbr linkend="TSF"/> using this unique identification.</aactivity>
+          </a-element>
+        </a-component>
+        <a-component id="alc_tsu_ext" name="Timely Security Updates">
+          This component requires the TOE developer, in conjunction with any other necessary parties,
+          to provide information as to how the end-user devices are updated to address security issues
+          in a timely manner. The documentation describes the process of providing updates to the
+          public from the time a security flaw is reported/discovered, to the time an update is released.
+          This description includes the parties involved (e.g., the developer, carriers(s)) and the steps
+          that are performed (e.g., developer testing, carrier testing), including worst case time periods,
+          before an update is made available to the public.
+          <h4>Developer action elements:</h4>
+          <a-element id="alc_tsu_ext.1.1d">
+            <title>The developer shall provide a description in the TSS of how timely
+              security updates are made to the <abbr linkend="TOE"/>.</title>
+            <note>
+              Application developers must support updates to their products for purposes of
+              fixing security vulnerabilities.
+            </note>
+          </a-element>
+          <h4>Content and presentation elements:</h4>
+          <a-element id="alc_tsu_ext.1.1c">
+            <title>The description shall include the process for creating and deploying
+              security updates for the <abbr linkend="TOE"/> software.</title>
+          </a-element>
+          <a-element id="alc_tsu_ext.1.2c">
+            <title>The description shall express the time window as the length of time, 
+              in days, between public disclosure of a vulnerability and the public availability
+              of security updates to the <abbr linkend="TOE"/>.</title>
+          </a-element>
+          <a-element id="alc_tsu_ext.1.3c">
+            <title>The description shall include the mechanisms publicly available for
+              reporting security issues pertaining to the <abbr linkend="TOE"/>.</title>
+            <note>
+              The reporting mechanism could include web sites, email addresses, as
+              well as a means to protect the sensitive nature of the report (e.g., public keys that could be
+              used to encrypt the details of a proof-of-concept exploit).
+            </note>
+          </a-element>
+          <h4>Evaluator action elements:</h4>
+          <a-element id="alc_tsu_ext.2.1e">
+            <title>The evaluator <i>shall confirm</i> that the information provided meets all
+              requirements for content and presentation of evidence.</title>
+            <aactivity>
+              The evaluator shall verify that the TSS contains a description of the timely security update
+              process used by the developer to create and deploy security updates. The evaluator shall
+              verify that this description addresses the entire application. The evaluator shall also
+              verify that, in addition to the TOE developer’s process, any
+              third-party processes are also addressed in the description. The evaluator shall
+              also verify that each mechanism for deployment of security updates is described.
+              <br/>
+              The evaluator shall verify that, for each deployment mechanism described for the update
+              process, the TSS lists a time between public disclosure of a vulnerability and public
+              availability of the security update to the TOE patching this vulnerability, to include any third-party
+              or carrier delays in deployment. The evaluator shall verify that this time is expressed in
+              a number or range of days.
+              <br/>
+              The evaluator shall verify that this description includes the publically available mechanisms
+              (including either an email address or website) for reporting security issues related to the TOE.
+              The evaluator shall verify that the description of this mechanism includes a method for
+              protecting the report either using a public key for encrypting email or a trusted channel for a
+              website.
+            </aactivity>
           </a-element>
         </a-component>
       </subsection>

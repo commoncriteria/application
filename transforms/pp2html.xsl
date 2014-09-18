@@ -464,6 +464,11 @@
 			<xsl:if test="../@targetdate">It is targeted for <xsl:value-of select="../@targetdate"/>.</xsl:if></b></i>
 			</div>
           </xsl:when>
+          <xsl:when test="../@status='optional'">
+			<div class="statustag">
+             <p/><i><b>This is an optional requirement.  It may be required by Extended Packages of this Protection Profile.</b></i>
+			</div>
+          </xsl:when>
           <xsl:when test="../@status='sel-based'">
 			 <div class="statustag">
              <b><i>This is a selection-based requirement.

@@ -135,6 +135,12 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 					<xsl:if test="@targetdate">It is targeted for <xsl:value-of select="@targetdate"/>.</xsl:if></b></i>
 					<br/>
          		 </xsl:when>
+			<xsl:when test="../@status='optional'">
+				<div class="statustag">
+             			<p/><i><b>This is an optional requirement.  It may be required by Extended Packages of this Protection Profile.</b></i>
+				</div>
+          		</xsl:when>
+
        		     <xsl:when test="@status='sel-based'">
         		     <br/><b><i>This is a selection-based requirement.
 					 Its inclusion depends upon selection in 
