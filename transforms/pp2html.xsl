@@ -5,7 +5,8 @@
     Version: 9 Jan 2014
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cc="http://common-criteria.rhcloud.com/ns/cc" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
-  <xsl:param name="appendicize-optional"/>
+  <!-- <xsl:param name="appendicize-optional"/>-->
+  <!-- <xsl:value-of select="$appendicize"/> -->
 
   <!-- very important, for special characters and umlauts iso8859-1-->
   <xsl:output method="html" encoding="UTF-8" indent="yes" />
@@ -137,7 +138,6 @@
       <body>
         <h1 class="title">
           <xsl:value-of select="//cc:ReferenceTable/cc:PPTitle" />
-	  <xsl:value-of select="$appendicize"/>
         </h1>
         <div class="center">
           <img src="images/niaplogodraft.png" />
