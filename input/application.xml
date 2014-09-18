@@ -1833,8 +1833,18 @@
             <title>The application shall implement the DTLS protocol in accordance with
               DTLS 1.2 (RFC 6347).
             </title>
-            <aactivity>The evaluator shall perform the assurance activities listed for TLS to verify
-              this component</aactivity>
+            <aactivity>
+            	<testlist>
+                <test>
+                  The evaluator shall attempt to establish a connection with a DTLS server, observe 
+                  the traffic with a packet analyzer, and verify that the connection succeeds and 
+                  that the traffic is identified as DTLS.
+                </test>
+                <br />
+                Other tests are performed in conjunction with the Assurance Activity listed for 
+                FCS_TLSC_EXT.1.
+                </testlist>
+            </aactivity>
           </f-element>
           <f-element id="fcs_dtls_ext.1.2" status="sel-based">
             <selection-depends req="ftp_dit_ext.1.1"/>
@@ -1850,8 +1860,7 @@
               <abbr title="Transport Layer Security">TLS</abbr> apply to the DTLS implementation.
             </note>
             <aactivity>
-	      The evaluator shall perform the assurance activities listed for TLS to verify
-              this component.
+	      The evaluator shall perform the assurance activities listed for FCS_TLSC_EXT.1.
 	    </aactivity>
           </f-element>
           <f-element id="fcs_dtls_ext.1.3" status="sel-based">
@@ -1864,18 +1873,9 @@
               revocation status in accordance with RFC 5280.
             </note>
             <aactivity>
-              <testlist>
-                <test>
-                  The evaluator shall attempt to establish a connection with a DTLS server, observe 
-                  the traffic with a packet analyzer, and verify that the connection succeeds and 
-                  that the traffic is identified as DTLS.
-                </test>
-                <br />
-                Other tests are performed in conjunction with the Assurance Activity listed for 
-                FCS_TLSC_EXT.2.
                 Certificate validity shall be tested in accordance with testing performed for 
                 FIA_X509_EXT.1, and the evaluator shall perform the following test.
-                <br />
+                <testlist>
                 <test>
                   The evaluator shall demonstrate that using a certificate without a valid 
                   certification path results in the function failing. Using the administrative 
