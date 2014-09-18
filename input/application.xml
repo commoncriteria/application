@@ -814,7 +814,9 @@
               <subaactivity platform="Solaris">
 		The evaluator shall verify that the application uses Solaris Cryptoki libraries to encrypt sensitive data.
 	      </subaactivity>
-              <subaactivity platform="OS X"/>
+              <subaactivity platform="OS X">
+		The evaluator shall verify that the application uses Apple's Security Transforms API to store and retrieve sensitive data.
+	      </subaactivity>
             </aactivity>
           </f-element>
         </f-component>
@@ -867,13 +869,18 @@
 		in the user's home directory(for user-specific configuration).
 	      </subaactivity>
               <subaactivity platform="Solaris">
-		The evaluator shall run the application while monitoring it with the utility <util>dtrace</util>.
+		The evaluator shall run the application while monitoring it with the utility 
+		<util>dtrace</util>.
 		The evaluator shall make security-related changes to its configuration.
-		The evaluator shall verify that <util>dtrace</util> logs corresponding changes to configuration 
+		The evaluator shall verify that <util>dtrace</util> logs corresponding changes to 
+		configuration 
 		files that reside in /etc (for system-specific configuration) or 
 		in the user's home directory(for user-specific configuration).
 	      </subaactivity>
-              <subaactivity platform="OS X"/>
+              <subaactivity platform="OS X">
+		The evaluator shall verify that the application stores and retrieves settings using the <code>NSUserDefaults</code> class.
+
+	      </subaactivity>
             </aactivity>
           </f-element>
         </f-component>
@@ -884,8 +891,10 @@
               configured with default credentials or no credentials.
 	    </title>
             <note role="application">
-	      Default credentials are credentials (e.g., passwords, keys) that are automatically (without user interaction) loaded onto the platform during application installation.
-	      Credentials that are generated during installation using requirements laid out in fcs_rbg_ext are not by definition default credentials.
+	      Default credentials are credentials (e.g., passwords, keys) that are automatically 
+	      (without user interaction) loaded onto the platform during application installation.
+	      Credentials that are generated during installation using requirements laid out in 
+	      fcs_rbg_ext are not by definition default credentials.
 	    </note>
             <aactivity>
              The evaluator shall check the TSS to determine if the application requires any type
@@ -1043,25 +1052,31 @@
               functionality.  The evaluator shall ensure that random bits are acquired properly
               from the platform. This varies on a per-platform basis:
               <subaactivity platform="blackberry">
-                The evaluator shall use static analysis to verify that the Security Builder Crypto GSE
-                library is used.</subaactivity>
+                The evaluator shall verify that the application invokes Security Builder Crypto GSE.
+              </subaactivity>
               <subaactivity platform="android"> The evaluator shall use static analysis to verify
                 that the application uses at least one of <code>javax.crypto.KeyGenerator</code> 
                 class or the <code>java.security.SecureRandom</code> class or <code>/dev/random
                 </code> or <code>/dev/urandom</code>.
               </subaactivity>
-              <subaactivity platform="windows">The evaluator shall use static analysis to verify
-                that the BCryptGenRandom or CryptGenRandom <abbr linkend="API"/> is used for classic
+              <subaactivity platform="windows">For The evaluator shall verify
+               that  BCryptGenRandom or CryptGenRandom <abbr linkend="API"/> is used for classic
                 desktop applications. The evaluator shall verify that the
                 System.Random <abbr linkend="API"/> is used for Windows Store Applications. In
                 future versions of this document, CryptGenRandom may be removed as an option as it
                 no longer the preferred API per vendor documentation. </subaactivity>
-              <subaactivity platform="ios"> The evaluator shall use static analysis to verify that
-                the iOS Randomization Services <abbr linkend="API"/> is used. </subaactivity>
-              <subaactivity platform="linux"> The evaluator shall use static analysis to verify
-                that /dev/random or /dev/urandom is used. </subaactivity>
-              <subaactivity platform="Solaris"/>
-              <subaactivity platform="OS X"/>
+              <subaactivity platform="ios"> 
+		The evaluator shall verify that the application invokes 
+	        the iOS Randomization Services <abbr linkend="API"/> to acquire random. </subaactivity>
+              <subaactivity platform="linux"> 
+		The evaluator shall verify that the application collects random from  /dev/random or /dev/urandom.
+	      </subaactivity>
+	      <subaactivity platform="Solaris">
+		The evaluator shall verify that the application collects random from /dev/random.
+	      </subaactivity>
+              <subaactivity platform="OS X">
+		The evaluator shall verify that the application uses <code>SecRandomCopyBytes</code> to acquire RBG.
+	      </subaactivity>
             </aactivity>
           </f-element>
         </f-component>
@@ -2352,16 +2367,21 @@
               <subaactivity platform="linux"> 
 		The evaluator shall run the same application on two different Linux systems. 
 		The evaluator shall then compare their memory maps using 
-		<code>pmap -x PID </code>
+		<code>pmap -x <i>PID</i> </code>
 		to ensure the two different instances share no mapping locations.
 	      </subaactivity>
               <subaactivity platform="Solaris">
 		The evaluator shall run the same application on two different Solaris systems. 
 		The evaluator shall then compare their memory maps using 
-		<code>pmap -x PID </code>
+		<code>pmap -x <i>PID</i> </code>
 		to ensure the two different instances share no mapping locations.
 	      </subaactivity>
-              <subaactivity platform="OS X"/>
+              <subaactivity platform="OS X">
+		The evaluator shall run the same application on two different Mac OS X systems. 
+		The evaluator shall then compare their memory maps using 
+		<code>vmmap <i>PID</i></code>
+		to ensure the two different instances share no mapping locations.
+	      </subaactivity>
             </aactivity>
           </f-element>
           <f-element id="fpt_aex_ext.1.2">
@@ -2454,7 +2474,8 @@
 		The evaluator shall ensure that the application can run with 
 		Solaris Trusted Extensions enabled and enforcing.
 	      </subaactivity>
-              <subaactivity platform="OS X"/>
+              <subaactivity platform="OS X"> The evaluator shall ensure that the application can
+                successfully run on the latest version of OS X. </subaactivity>
             </aactivity>
           </f-element>
           <f-element id="fpt_aex_ext.1.4">
