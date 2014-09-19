@@ -5,7 +5,7 @@
     Version: 9 Jan 2014
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cc="http://common-criteria.rhcloud.com/ns/cc" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
-  <!-- <xsl:param name="appendicize-optional"/>-->
+  <!-- <xsl:param name="options-appendix"/>-->
   <!-- <xsl:value-of select="$appendicize"/> -->
 
   <!-- very important, for special characters and umlauts iso8859-1-->
@@ -31,6 +31,42 @@
 			img.src=(currimage=='collapsed.png')?'images/expanded.png':'images/collapsed.png';
 			}
 	}
+
+
+ 	function init(){
+              var GET = {};
+	      <![CDATA[
+              var query = window.location.search.substring(1).split("&");
+	      ]]>
+              for (var i = 0, max = query.length; max > i; i++){
+                  if (query[i] === "")
+                  continue;
+                  var param = query[i].split("=");
+                  GET[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
+               }
+	      if(GET["appendicize"]=="on"){
+	          moveClass("optional", document.getElementById("optional-requirements"));
+	          moveClass("sel-based", document.getElementById("selection-based-requirements"));
+	          moveClass("objective", document.getElementById("objective-requirements"));
+	          document.getElementById("optional-appendicies").style.display="block";
+	      }
+	}
+
+	function moveClass(classname, parent){
+             var x = document.getElementsByClassName(classname);
+             var i;
+             for (i = 0; x.length>i ; i++) {
+	         appendicize(x[i], parent);
+             }
+	}
+
+	function appendicize(element, parent){
+	     parent.appendChild(element);
+	}
+
+
+
+
   </script>
         <style type="text/css">
       /*       { background-color: #FFFFFF; } */
@@ -82,6 +118,7 @@
           margin-bottom: 1em;
       }    
 
+      div.optional-appendicies{display: none}
 
 
       div.statustag { margin-left: 0%; margin-top: 1em; margin-bottom: 1em;	padding: 1em;
@@ -135,10 +172,14 @@
       
   </style>
       </head>
-      <body>
+      <body onLoad="init()">
         <h1 class="title">
           <xsl:value-of select="//cc:ReferenceTable/cc:PPTitle" />
         </h1>
+
+	<noscript>
+	  <h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1>
+	</noscript>
         <div class="center">
           <img src="images/niaplogodraft.png" />
           <p />Version: <xsl:value-of select="//cc:ReferenceTable/cc:PPVersion" /><p /><xsl:value-of select="//cc:ReferenceTable/cc:PPPubDate" /><p /><xsl:value-of select="//cc:PPAuthor" /></div>
@@ -445,14 +486,15 @@
 
   <xsl:template match="cc:f-element | cc:a-element">
     <xsl:variable name="reqid" select="translate(@id, $lower, $upper)" />
-    <div class="req">
+    <xsl:element name="div">
+      <xsl:attribute name="class">req <xsl:value-of select="@status"/></xsl:attribute>
       <div class="reqid" id="{$reqid}">
         <a href="#{$reqid}" class="abbr"><xsl:value-of select="$reqid" /></a>
       </div>
       <div class="reqdesc">
         <xsl:apply-templates />
       </div>
-    </div>
+    </xsl:element>
   </xsl:template>
 
   <xsl:template match="cc:title">
@@ -463,6 +505,7 @@
              <p/><i><b>This is currently an objective requirement.
 			<xsl:if test="../@targetdate">It is targeted for <xsl:value-of select="../@targetdate"/>.</xsl:if></b></i>
 			</div>
+
           </xsl:when>
           <xsl:when test="../@status='optional'">
 			<div class="statustag">
@@ -507,7 +550,46 @@
     </div>
   </xsl:template>
 
+
   <xsl:template match="cc:appendix">
+    <div id="optional-appendicies" class="optional-appendicies">
+      <h1>B. Optional Requirements</h1>
+      As indicated in the introduction to this PP, the baseline requirements (those that must be
+      performed by the TOE or its underlying platform) are contained in the body of this PP.
+      Additionally, there are three other types of requirements specified in Appendices B, C, and D.
+      The first type (in this Appendix) are requirements that can be included in the ST, but do not
+      have to be in order for a TOE to claim conformance to this PP. The second type (in Appendix
+      C) are requirements based on selections in the body of the PP: if certain selections are made,
+      then additional requirements in that appendix will need to be included. The third type (in
+      Appendix D) are components that are not required in order to conform to this PP, but will be
+      included in the baseline requirements in future versions of this PP, so adoption by Mobile
+      Device vendors is encouraged. Note that the ST author is responsible for ensuring that
+      requirements that may be associated with those in Appendix B, Appendix C, and/or
+      Appendix D but are not listed (e.g., FMT-type requirements) are also included in the ST.
+      <div id="optional-requirements">
+      </div>
+      
+      <h1>C. Selection-Based Requirements</h1>
+      As indicated in the introduction to this PP, the baseline requirements (those that must be
+      performed by the TOE or its underlying platform) are contained in the body of this PP. There
+      are additional requirements based on selections in the body of the PP: if certain selections are
+      made, then additional requirements below will need to be included.
+      <div id="selection-based-requirements">
+      </div>
+      
+      
+      <h1 >D. Objective Requirements</h1>
+      This Annex includes requirements that specify security functionality which also addresses
+      threats. The requirements are not currently mandated in the body of this PP as they describe
+      security functionality not yet widely-available in commercial technology. However, these
+      requirements may be included in the ST such that the TOE is still conformant to this PP, and
+      it is expected that they be included as soon as possible.
+      <div id="objective-requirements"> 
+      </div>
+    </div>
+
+
+
     <xsl:variable name="appendix-num">
       <xsl:number format="A" />.</xsl:variable>
     <h1 id="{@id}">
@@ -518,6 +600,9 @@
       <xsl:with-param name="section-prefix" select="$appendix-num" />
     </xsl:apply-templates>
   </xsl:template>
+
+
+
   <xsl:template match="cc:chapter">
     <xsl:variable name="chapter-num" select="concat(position(), '.')" />
     <h1 id="{@id}">
