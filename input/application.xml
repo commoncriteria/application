@@ -1375,19 +1375,27 @@
             The following tests require the developer to provide access to a test application
             that provides the evaluator with tools that are typically not found in the production
             application.
+            <br/>
+              ECDSA Algorithm Tests
               <testlist>
-                <test>ECDSA Algorithm Tests CDSA FIPS 186-4 Signature Generation Test For each
+                <test>ECDSA FIPS 186-4 Signature Generation Test. For each
                   supported NIST curve (i.e., P-256, P-384 and P-521) and SHA function pair, the
                   evaluator shall generate 10 1024-bit long messages and obtain for each message a
                   public key and the resulting signature values R and S. To determine correctness,
                   the evaluator shall use the signature verification function of a known good
-                  implementation. ECDSA FIPS 186-4 Signature Verification Test For each supported
+                  implementation. 
+                </test>
+                <test>
+                  ECDSA FIPS 186-4 Signature Verification Test. For each supported
                   NIST curve (i.e., P-256, P-384 and P-521) and SHA function pair, the evaluator
                   shall generate a set of 10 1024-bit message, public key and signature tuples and
                   modify one of the values (message, public key or signature) in five of the 10
-                  tuples. The evaluator shall obtain in response a set of 10 PASS/FAIL values. 
+                  tuples. The evaluator shall obtain in response a set of 10 PASS/FAIL values.
                 </test>
-                <test>RSA Signature Algorithm Tests Signature Generation Test The evaluator shall
+                </testlist>
+                RSA Signature Algorithm Tests
+                <testlist>
+                <test>Signature Generation Test. The evaluator shall
                   verify the implementation of RSA Signature Generation by the <abbr linkend="TOE"/>
                   using the Signature Generation Test. To conduct this test the evaluator must 
                   generate or obtain 10 messages from a trusted reference implementation for each 
@@ -1395,13 +1403,16 @@
                   shall have the <abbr linkend="TOE"/> use their private key and modulus value to 
                   sign these messages. The evaluator shall verify the correctness of the 
                   <abbr linkend="TSF"/>’s signature using a known good implementation and the 
-                  associated public keys to verify the signatures. Signature Verification Test The 
+                  associated public keys to verify the signatures.
+                 </test>
+                  <test>Signature Verification Test. The 
                   evaluator shall perform the Signature Verification test to verify the ability of 
                   the <abbr linkend="TOE"/> to recognize another party’s valid and invalid 
                   signatures. The evaluator shall inject errors into the test vectors produced 
                   during the Signature Verification Test by introducing errors in some of the public 
                   keys, e, messages, IR format, and/or signatures. The <abbr linkend="TOE"/> attempts 
-                  to verify the signatures and returns success or failure. </test>
+                  to verify the signatures and returns success or failure.
+                  </test>
               </testlist>
             </aactivity>
           </f-element>
