@@ -1288,7 +1288,12 @@
               	support the message digest size selection. The hash selection should be consistent with the
               	overall strength of the algorithm used (for example, SHA 256 for 128-bit keys).
               </note>
-            <aactivity>The <abbr linkend="TSF"/> hashing functions can be implemented in one of two 
+            <aactivity>
+            The evaluator shall check that the association of the hash function with other
+            application cryptographic functions (for example, the digital signature verification
+            function) is documented in the TSS.
+            <br/>
+            The <abbr linkend="TSF"/> hashing functions can be implemented in one of two 
             modes. The first mode is the byte¬oriented mode. In this mode the <abbr linkend="TSF"/> 
             only hashes messages that are an integral number of bytes in length; i.e., the length 
             (in bits) of the message to be hashed is divisible by 8. The second mode is the 
@@ -1297,6 +1302,10 @@
             following sections for the bit¬oriented vs. the byte¬oriented testmacs.The evaluator 
             shall perform all of the following tests for each hash algorithm implemented by the 
             <abbr linkend="TSF"/> and used to satisfy the requirements of this PP.
+            <br/>
+            The following tests require the developer to provide access to a test application
+            that provides the evaluator with tools that are typically not found in the production
+            application.
                <testlist>
                 <test>Short Messages Test - Bit oriented Mode The evaluators devise an input set
                   consisting of m+1 messages, where m is the block length of the hash algorithm. The
@@ -1361,7 +1370,12 @@
 		with FCS_TLSC_EXT.2.
             </note>
             <aactivity>The evaluator shall perform the following activities based on the selections
-              in the <abbr linkend="ST"/>. <testlist>
+              in the <abbr linkend="ST"/>.
+            <br/>
+            The following tests require the developer to provide access to a test application
+            that provides the evaluator with tools that are typically not found in the production
+            application.
+              <testlist>
                 <test>ECDSA Algorithm Tests CDSA FIPS 186-4 Signature Generation Test For each
                   supported NIST curve (i.e., P-256, P-384 and P-521) and SHA function pair, the
                   evaluator shall generate 10 1024-bit long messages and obtain for each message a
@@ -2754,7 +2768,7 @@
         linkend="TOE"/> in <secref linkend="req"/> were constructed to address threats identified in
         <secref linkend="threats"/>. <abbr linkend="SFR"/>s in <secref linkend="SFRs"/> are a formal
       instantiation of the Security Objectives. The PP draws from <abbr
-        title="Evaluation Assurance Level">EAL</abbr>1 the <abbr linkend="SAR"/>s) to frame the
+        title="Evaluation Assurance Level">EAL</abbr>1 the <abbr linkend="SAR"/>s to frame the
       extent to which the evaluator assesses the documentation applicable for the evaluation and
       performs independent testing. <br/>While this section contains the complete set of SARs from
       the CC, the Assurance Activities to be performed by an evaluator are detailed in <secref
