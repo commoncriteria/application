@@ -427,6 +427,7 @@
       <tr class="header">
         <td>Threat, Assumption, or OSP</td>
         <td>Security Objectives</td>
+        <td>Rationale</td>
       </tr>
       <xsl:for-each select="(//cc:threat | //cc:OSP | //cc:assumption)">
         <tr>
@@ -441,6 +442,13 @@
               </xsl:if>
             </xsl:for-each>
           </td>
+          <td>
+            <xsl:for-each select="cc:objective-refer">
+              <xsl:apply-templates select="cc:rationale" />
+              <xsl:if test="position() != last()"><p/></xsl:if>
+            </xsl:for-each>
+          </td>
+
         </tr>
       </xsl:for-each>
     </table>
