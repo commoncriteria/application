@@ -235,13 +235,19 @@
     </xsl:if>
   </xsl:template>
   <!-- Template for toc entries, for top 3 levels -->
+
+  <!-- For the table of contents-->
   <xsl:template match="cc:appendix" mode="toc">
-    <xsl:variable name="appendix-num">
-      <xsl:number format="A" />
-    </xsl:variable>
-    <p xmlns="http://www.w3.org/1999/xhtml" class="toc2">
+    <xsl:if test="$appendicize='on' or (@id!='optionalappendix' and @id!='selection-basedappendix' and @id!='objectiveappendix')">
+      <xsl:variable name="appendix-num">
+	<xsl:number format="A"/>
+      </xsl:variable>
+      <p xmlns="http://www.w3.org/1999/xhtml" class="toc2">
       Appendix <xsl:value-of select="$appendix-num" /><xsl:text>: </xsl:text><a class="toc" href="#{@id}"><xsl:value-of select="@title" /></a></p>
+    </xsl:if>
   </xsl:template>
+
+
   <xsl:template match="cc:usecases">
     <dl>
       <xsl:for-each select="cc:usecase">
@@ -465,67 +471,70 @@
   </xsl:template>
 
   <xsl:template match="cc:f-component | cc:a-component">
-    <xsl:if test="$appendicize='on' and string-length(@status)=0">
-    </xsl:if>
-
-    <xsl:variable name="family" select="substring(@id,1,7)" />
-    <xsl:variable name="component" select="substring(@id,1,9)" />
-    <xsl:variable name="SFRID" select="@id" />
-
+    <!-- If we're not appendicizing or status is normal. Include-->
+    <xsl:if test="$appendicize!='on' or string-length(@status)=0">
+      <xsl:variable name="family" select="substring(@id,1,7)" />
+      <xsl:variable name="component" select="substring(@id,1,9)" />
+      <xsl:variable name="SFRID" select="@id" />
       <!-- Make an anchor here -->
       <xsl:element name="div">
 	<xsl:attribute name="class">comp</xsl:attribute>
 	<xsl:attribute name="id"><xsl:value-of select="translate(@id, $lower, $upper)" /></xsl:attribute>
-	
 	<h4>
 	  <xsl:value-of select="concat(translate(@id, $lower, $upper), ' ')" />
 	  <xsl:value-of select="@name" />
 	</h4>
 	<xsl:apply-templates />
       </xsl:element>
+    </xsl:if>
   </xsl:template>
 
 
   <xsl:template match="cc:f-element | cc:a-element">
-    <xsl:variable name="reqid" select="translate(@id, $lower, $upper)" />
-    <xsl:element name="div">
-      <xsl:attribute name="class">req <xsl:value-of select="@status"/></xsl:attribute>
-      <div class="reqid" id="{$reqid}">
-        <a href="#{$reqid}" class="abbr"><xsl:value-of select="$reqid" /></a>
-      </div>
-      <div class="reqdesc">
-        <xsl:apply-templates />
-      </div>
-    </xsl:element>
+    <!-- If we're not appendicizing or status is normal. Include-->
+    <xsl:if test="$appendicize!='on' or string-length(@status)=0">
+      <xsl:variable name="reqid" select="translate(@id, $lower, $upper)" />
+      <xsl:element name="div">
+	<xsl:attribute name="class">req <xsl:value-of select="@status"/></xsl:attribute>
+	<div class="reqid" id="{$reqid}">
+          <a href="#{$reqid}" class="abbr"><xsl:value-of select="$reqid" /></a>
+	</div>
+	<div class="reqdesc">
+          <xsl:apply-templates />
+	</div>
+      </xsl:element>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="cc:title">
-      <xsl:apply-templates />
-        <xsl:choose>
-          <xsl:when test="../@status='objective'">
+    <xsl:apply-templates />
+    <xsl:if test="$appendicize!='on'">
+      <xsl:choose>
+        <xsl:when test="../@status='objective'">
 			<div class="statustag">
              <p/><i><b>This is currently an objective requirement.
 			<xsl:if test="../@targetdate">It is targeted for <xsl:value-of select="../@targetdate"/>.</xsl:if></b></i>
 			</div>
 
-          </xsl:when>
-          <xsl:when test="../@status='optional'">
+        </xsl:when>
+        <xsl:when test="../@status='optional'">
 			<div class="statustag">
              <p/><i><b>This is an optional requirement.  It may be required by Extended Packages of this Protection Profile.</b></i>
 			</div>
-          </xsl:when>
-          <xsl:when test="../@status='sel-based'">
+        </xsl:when>
+        <xsl:when test="../@status='sel-based'">
 			 <div class="statustag">
              <b><i>This is a selection-based requirement.
 			 Its inclusion depends upon selection in 
-				<xsl:for-each select="../cc:selection-depends">
-        			<xsl:value-of select="translate(@req, $lower, $upper)" />
-					<xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
-				</xsl:for-each>.
+			 <xsl:for-each select="../cc:selection-depends">
+        		   <xsl:value-of select="translate(@req, $lower, $upper)" />
+			   <xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
+			   </xsl:for-each>.
 			 </i></b>
 			</div>
-          </xsl:when>
-        </xsl:choose>
+        </xsl:when>
+      </xsl:choose>
+    </xsl:if>
   </xsl:template>
 
   <xsl:template match="cc:aactivity">
@@ -551,49 +560,83 @@
       <xsl:apply-templates />
     </div>
   </xsl:template>
-
-
-  <xsl:template match="cc:appendix">
-    <div id="optional-appendicies" class="optional-appendicies">
-      <h1>B. Optional Requirements</h1>
-      As indicated in the introduction to this PP, the baseline requirements (those that must be
-      performed by the TOE or its underlying platform) are contained in the body of this PP.
-      Additionally, there are three other types of requirements specified in Appendices B, C, and D.
-      The first type (in this Appendix) are requirements that can be included in the ST, but do not
-      have to be in order for a TOE to claim conformance to this PP. The second type (in Appendix
-      C) are requirements based on selections in the body of the PP: if certain selections are made,
-      then additional requirements in that appendix will need to be included. The third type (in
-      Appendix D) are components that are not required in order to conform to this PP, but will be
-      included in the baseline requirements in future versions of this PP, so adoption by Mobile
-      Device vendors is encouraged. Note that the ST author is responsible for ensuring that
-      requirements that may be associated with those in Appendix B, Appendix C, and/or
-      Appendix D but are not listed (e.g., FMT-type requirements) are also included in the ST.
-      <div id="optional-requirements">
-      </div>
-      
-      <h1>C. Selection-Based Requirements</h1>
-      As indicated in the introduction to this PP, the baseline requirements (those that must be
-      performed by the TOE or its underlying platform) are contained in the body of this PP. There
-      are additional requirements based on selections in the body of the PP: if certain selections are
-      made, then additional requirements below will need to be included.
-      <div id="selection-based-requirements">
-      </div>
-      
-      
-      <h1 >D. Objective Requirements</h1>
-      This Annex includes requirements that specify security functionality which also addresses
-      threats. The requirements are not currently mandated in the body of this PP as they describe
-      security functionality not yet widely-available in commercial technology. However, these
-      requirements may be included in the ST such that the TOE is still conformant to this PP, and
-      it is expected that they be included as soon as possible.
-      <div id="objective-requirements"> 
-      </div>
-    </div>
-
-
-
-    <xsl:variable name="appendix-num">
+  
+  <xsl:template match="cc:appendix[@id='optionalappendix']">
+    <xsl:if test="$appendicize='on'">
+      <xsl:variable name="appendix-num">
       <xsl:number format="A" />.</xsl:variable>
+      <h1 id="{@id}">
+	<xsl:value-of select="concat($appendix-num, ' ')" />
+	<xsl:value-of select="@title" />
+      </h1>
+      <xsl:apply-templates/>
+      <xsl:for-each select="//cc:f-element[@status='optional']">
+	<xsl:variable name="reqid" select="translate(@id, $lower, $upper)" />
+	<xsl:element name="div">
+	  <xsl:attribute name="class">req <xsl:value-of select="@status"/></xsl:attribute>
+	  <div class="reqid" id="{$reqid}">
+            <a href="#{$reqid}" class="abbr"><xsl:value-of select="$reqid" /></a>
+	  </div>
+	  <div class="reqdesc">
+            <xsl:apply-templates />
+	  </div>
+	</xsl:element>
+      </xsl:for-each>
+    </xsl:if>
+  </xsl:template>
+
+  <xsl:template match="cc:appendix[@id='selection-basedappendix']">
+    <xsl:if test="$appendicize='on'">
+      <xsl:variable name="appendix-num">
+      <xsl:number format="A" />.</xsl:variable>
+      <h1 id="{@id}">
+	<xsl:value-of select="concat($appendix-num, ' ')" />
+	<xsl:value-of select="@title" />
+      </h1>
+      <xsl:apply-templates/>
+      <xsl:for-each select="//cc:f-element[@status='sel-based']">
+	<xsl:variable name="reqid" select="translate(@id, $lower, $upper)" />
+	<xsl:element name="div">
+	  <xsl:attribute name="class">req <xsl:value-of select="@status"/></xsl:attribute>
+	  <div class="reqid" id="{$reqid}">
+            <a href="#{$reqid}" class="abbr"><xsl:value-of select="$reqid" /></a>
+	  </div>
+	  <div class="reqdesc">
+            <xsl:apply-templates />
+	  </div>
+	</xsl:element>
+      </xsl:for-each>
+    </xsl:if>
+  </xsl:template>
+
+
+  <xsl:template match="cc:appendix[@id='objectiveappendix']">
+    <xsl:if test="$appendicize='on'">
+      <xsl:variable name="appendix-num">
+      <xsl:number format="A" />.</xsl:variable>
+      <h1 id="{@id}">
+	<xsl:value-of select="concat($appendix-num, ' ')" />
+	<xsl:value-of select="@title" />
+      </h1>
+      <xsl:apply-templates/>
+      <xsl:for-each select="//cc:f-element[@status='objective']">
+	<xsl:variable name="reqid" select="translate(@id, $lower, $upper)" />
+	<xsl:element name="div">
+	  <xsl:attribute name="class">req <xsl:value-of select="@status"/></xsl:attribute>
+	  <div class="reqid" id="{$reqid}">
+            <a href="#{$reqid}" class="abbr"><xsl:value-of select="$reqid" /></a>
+	  </div>
+	  <div class="reqdesc">
+            <xsl:apply-templates />
+	  </div>
+	</xsl:element>
+      </xsl:for-each>
+    </xsl:if>
+  </xsl:template>
+  
+  <xsl:template match="cc:appendix">
+    <xsl:variable name="appendix-num">
+    <xsl:number format="A" />.</xsl:variable>
     <h1 id="{@id}">
       <xsl:value-of select="concat($appendix-num, ' ')" />
       <xsl:value-of select="@title" />
@@ -695,6 +738,28 @@
       Section 
 		<xsl:apply-templates select="//cc:chapter" mode="secreflookup"><xsl:with-param name="linkend" select="$linkend" /></xsl:apply-templates></xsl:element>
   </xsl:template>
+<xsl:template match="cc:appendref">
+    <xsl:variable name="linkend" select="@linkend" />
+    <xsl:element name="a">
+      <xsl:attribute name="href">
+        <xsl:text>#</xsl:text>
+        <xsl:value-of select="$linkend" />
+      </xsl:attribute>
+      Appendix 
+    <xsl:apply-templates select="//cc:appendix" mode="secreflookup"><xsl:with-param name="linkend" select="$linkend" /></xsl:apply-templates></xsl:element>
+  </xsl:template>
+
+  <xsl:template match="cc:appendix" mode="secreflookup">
+    <xsl:param name="linkend" />
+    <xsl:param name="prefix" />
+    <xsl:variable name="pos">
+      <xsl:number format="A"/>
+    </xsl:variable>
+    <xsl:if test="@id=$linkend">
+      <xsl:value-of select="concat($prefix,$pos)" />
+    </xsl:if>
+  </xsl:template>
+
   <xsl:template match="cc:chapter | cc:section | cc:subsection" mode="secreflookup">
     <xsl:param name="linkend" />
     <xsl:param name="prefix" />
