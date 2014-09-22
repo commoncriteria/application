@@ -695,6 +695,28 @@
       Section 
 		<xsl:apply-templates select="//cc:chapter" mode="secreflookup"><xsl:with-param name="linkend" select="$linkend" /></xsl:apply-templates></xsl:element>
   </xsl:template>
+<xsl:template match="cc:appendref">
+    <xsl:variable name="linkend" select="@linkend" />
+    <xsl:element name="a">
+      <xsl:attribute name="href">
+        <xsl:text>#</xsl:text>
+        <xsl:value-of select="$linkend" />
+      </xsl:attribute>
+      Appendix 
+    <xsl:apply-templates select="//cc:appendix" mode="secreflookup"><xsl:with-param name="linkend" select="$linkend" /></xsl:apply-templates></xsl:element>
+  </xsl:template>
+
+  <xsl:template match="cc:appendix" mode="secreflookup">
+    <xsl:param name="linkend" />
+    <xsl:param name="prefix" />
+    <xsl:variable name="pos">
+      <xsl:number format="A"/>
+    </xsl:variable>
+    <xsl:if test="@id=$linkend">
+      <xsl:value-of select="concat($prefix,$pos)" />
+    </xsl:if>
+  </xsl:template>
+
   <xsl:template match="cc:chapter | cc:section | cc:subsection" mode="secreflookup">
     <xsl:param name="linkend" />
     <xsl:param name="prefix" />
