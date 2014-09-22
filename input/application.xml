@@ -81,7 +81,7 @@
           <entry>
             <term><abbr title="Target of Evaluation">TOE</abbr></term>
             <description>The product under evaluation. In this case, application
-              software.</description>
+              software and its supporting documentation.</description>
           </entry>
           <entry>
             <term><abbr title="TOE Security Functionality">TSF</abbr></term>
@@ -117,7 +117,9 @@
           <entry>
             <term><abbr title="Application">app</abbr></term>
             <description>Software that runs on a platform and performs tasks on behalf of
-              the user or owner of the platform.</description>
+              the user or owner of the platform, as well as its supporting documentation. The 
+              terms <i>TOE</i> and <i>application</i> are interchangeable in this document.
+              </description>
           </entry>
           <entry>
             <term><abbr title="Application Programming Interface">API</abbr></term>
@@ -736,7 +738,7 @@
 	      The application shall 
 	      <selectables linebreak="yes">
 		<selectable>
-		  not transmit <abbr linkend="PII"/> over a network.
+		  not transmit <abbr linkend="PII"/> over a network
 		</selectable>
 		<selectable>
 		  require user approval before executing
@@ -762,12 +764,14 @@
                   for transmitting PII and verify that user approval is required before transmission
                   of the PII.
                 </test>
+                <!-- Removing this test for now. 
                 <test>
                   The evaluator shall sniff network traffic while running the application 
                   and verify that no PII is transmitted without user approval.
-		  If the application communicates over TLS, the evaluator shall use
-		  man-in-the-middle tools to expose encrypted traffic before sniffing.
+		              If the application communicates over TLS, the evaluator shall use
+		              man-in-the-middle tools to expose encrypted traffic before sniffing.
                 </test>
+                -->
               </testlist>
            </aactivity>
           </f-element>
@@ -2056,7 +2060,7 @@
             <note role="application">
               FIA_X509_EXT.1.1 lists the rules for validating certificates. The <abbr linkend="ST"/> author shall 
               select whether revocation status is verified using OCSP or CRLs. FIA_X509_EXT.2 
-              requires that certificates are used for _______; this use requires that the 
+              requires that certificates are used for HTTPS, TLS and DTLS; this use requires that the 
               extendedKeyUsage rules are verified. Certificates may optionally be used for _______ 
               and, if implemented, must be validated to contain the corresponding extendedKeyUsage.
               <br />
@@ -2168,6 +2172,9 @@
               The application shall use X.509v3 certificates as defined by RFC 5280 to support 
               authentication for 
               <selectables>
+                 <selectable>
+                  HTTPS
+                </selectable>
                 <selectable>
                   TLS
                 </selectable>
@@ -2455,8 +2462,8 @@
 	      The method of doing so varies per platform.
               <subaactivity platform="blackberry"/>
               <subaactivity platform="android"> The evaluator shall perform static analysis on the
-                application to verify that both <ul>
-                  <li> mmap can never be invoked with both the PROT_WRITE and PROT_EXEC permissions,
+                application to verify that <ul>
+                  <li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions,
                     and </li>
                   <li> mprotect is never invoked.</li>
                 </ul> </subaactivity>
