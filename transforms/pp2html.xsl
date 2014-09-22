@@ -4,9 +4,9 @@
     Authors: Dennis Orth, Jeff Blank
     Version: 9 Jan 2014
 -->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cc="http://common-criteria.rhcloud.com/ns/cc" xmlns="http://www.w3.org/1999/xhtml" version="1.0">
-  <!-- <xsl:param name="options-appendix"/>-->
-  <!-- <xsl:value-of select="$appendicize"/> -->
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cc="http://common-criteria.rhcloud.com/ns/cc" xmlns="http://www.w3.org/1999/xhtml" 
+		xmlns:fn="http://www.w3.org/2005/xpath-functions" version="1.0">
+  <xsl:param name="appendicize"/>
 
   <!-- very important, for special characters and umlauts iso8859-1-->
   <xsl:output method="html" encoding="UTF-8" indent="yes" />
@@ -465,10 +465,12 @@
   </xsl:template>
 
   <xsl:template match="cc:f-component | cc:a-component">
+    <xsl:if test="$appendicize='on' and string-length(@status)=0">
+    </xsl:if>
+
     <xsl:variable name="family" select="substring(@id,1,7)" />
     <xsl:variable name="component" select="substring(@id,1,9)" />
     <xsl:variable name="SFRID" select="@id" />
-    
 
       <!-- Make an anchor here -->
       <xsl:element name="div">
