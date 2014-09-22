@@ -235,12 +235,12 @@
     </xsl:if>
   </xsl:template>
   <!-- Template for toc entries, for top 3 levels -->
-
+  
   <!-- For the table of contents-->
   <xsl:template match="cc:appendix" mode="toc">
     <xsl:if test="$appendicize='on' or (@id!='optionalappendix' and @id!='selection-basedappendix' and @id!='objectiveappendix')">
       <xsl:variable name="appendix-num">
-	<xsl:number format="A"/>
+	<xsl:number format="A" count="*/[@id!='optionalappendix']"/>
       </xsl:variable>
       <p xmlns="http://www.w3.org/1999/xhtml" class="toc2">
       Appendix <xsl:value-of select="$appendix-num" /><xsl:text>: </xsl:text><a class="toc" href="#{@id}"><xsl:value-of select="@title" /></a></p>
