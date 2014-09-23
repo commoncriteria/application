@@ -277,7 +277,7 @@
         <description>
       To be conformant to this PP, a <abbr linkend="ST"/> must demonstrate 
       Exact Conformance, a subset of Strict Conformance as defined in <cite linkend="bibCC"/> Part 1 
-      (ASE_CCL): the <abbr linkend="ST"/> must include all components in this PP (<a href="#req">Chapter 5</a>), that are
+      (ASE_CCL): the <abbr linkend="ST"/> must include all components in <secref linkend="reqs"/> that are
       <ul>
           <li>unconditional (always required) or</li>
           <li>selection-based (when corresponding selections have been made)</li>
@@ -289,7 +289,7 @@
 	  The <abbr linkend="ST"/> may iterate any of these components, but it must not include any additional 
 	  component (e.g. from CC Part 2 or 3 or a PP not conformant with this one, or extended by the <abbr linkend="ST"/>) 
 	  not defined in this PP or a PP conformant to this one 
-	  (see <a href="#TOEdescription">Section 1.3</a> regarding more specific PPs).
+	  (see <secref linkend="TOEdescription"/> regarding more specific PPs).
 	</description>
       </cclaim>
       <cclaim id="CC Conformance Claims">
@@ -335,7 +335,7 @@
               provides for confidentiality of transmitted data.</rationale>
           </objective-refer>
           <objective-refer ref="O.QUALITY">
-            <rationale>The objective O.QUALITY ensures use of mechanisms that provide strong
+            <rationale>The objective O.QUALITY ensures use of mechanisms that provide 
               protection against network-based attack.</rationale>
           </objective-refer>
         </threat>
@@ -345,14 +345,15 @@
             input to the application in the form of files or other local
             communications.</description>
           <objective-refer ref="O.QUALITY">
-            <rationale>The objective O.QUALITY protects against the use of mechanisms that leave the
-                <abbr linkend="TOE"/> open to attacks.</rationale>
+			<rationale>The objective O.QUALITY protects against the use of
+			mechanisms that weaken the <abbr linkend="TOE"/> with regard to
+			attack by other software on the platform.</rationale>
           </objective-refer>
         </threat>
         <threat id="T.PHYSICAL_ACCESS">
           <description>An attacker may try to access sensitive data at rest.</description>
           <objective-refer ref="O.PROTECTED_STORAGE">
-            <rationale>The objective O.PROTECTED_STORAGE protects against attempts to access
+            <rationale>The objective O.PROTECTED_STORAGE protects against unauthorized attempts to access
               physical storage used by the <abbr linkend="TOE"/>.</rationale>
           </objective-refer>
         </threat>
@@ -365,8 +366,8 @@
             its execution. This includes the underlying platform and whatever runtime environment
             it provides to the <abbr linkend="TOE"/>.</description>
           <objective-refer ref="OE.PLATFORM">
-            <rationale>The assumption A.PLATFORM is covered by security objectives OE.PLATFORM as
-              directly follows.</rationale>
+            <rationale>The operational environment objective OE.PLATFORM is realized through
+			  A.PLATFORM.</rationale>
           </objective-refer>
         </assumption>
         <assumption id="A.PROPER_USER">
@@ -375,8 +376,8 @@
             and uses the software in compliance with the applied enterprise security policy.
 	  </description>
           <objective-refer ref="OE.PROPER_USER">
-            <rationale>The assumption A.PROPER_USER is covered by objective OE.PROPER_USER as
-              directly follows</rationale>
+            <rationale>The operational environment objective OE.PROPER_USER 
+			is realized through A.PROPER_USER.</rationale>
           </objective-refer>
         </assumption>
         <assumption id="A.PROPER_ADMIN">
@@ -384,8 +385,8 @@
             negligent or hostile, and administers the software within compliance of the applied
             enterprise security policy.</description>
           <objective-refer ref="OE.PROPER_ADMIN">
-            <rationale>The assumption A.PROPER_ADMIN is covered by objective OE.PROPER_ADMIN as
-              directly follows</rationale>
+            <rationale>The operational environment objective OE.PROPER_ADMIN 
+			is realized through A.PROPER_ADMIN.</rationale>
           </objective-refer>
         </assumption>
       </assumptions>
@@ -397,7 +398,7 @@
             the enterprise security policy.</description>
           <objective-refer ref="O.MANAGEMENT">
             <rationale>The organizational security policy P.ENTERPRISE is enforced through the
-              objective O.MANAGEMENT as this objective represents how the enterprise asserts
+              objective O.MANAGEMENT as this objective represents how the enterprise and user assert
               management over the <abbr linkend="TOE"/>.</rationale>
           </objective-refer>
         </OSP>
@@ -421,6 +422,7 @@
 		  enabling the mechanism through compiler or linker
 		  options.</description>
           <component-refer ref="fdp_dec_ext.1"/>
+          <component-refer ref="fmt_cfg_ext.1"/>
           <component-refer ref="fpt_aex_ext.1"/>
           <component-refer ref="fpt_tud_ext.1"/>
           <component-refer ref="fpt_cop_ext.1"/>
@@ -435,9 +437,8 @@
 	    behavior which can be guaranteed by using only documented and supported APIs.
 	  </description>
           <component-refer ref="fmt_mec_ext.1"/>
-          <component-refer ref="fmt_cfg_ext.1"/>
           <component-refer ref="fpt_api_ext.1"/>
-          <component-refer ref="fpr_ano_ext.1"/>
+          <component-refer ref="fpt_lib_ext.1"/>
         </SO>
         <SO id="O.MANAGEMENT">
           <description>To facilitate management by users and the enterprise, conformant <abbr
@@ -457,7 +458,7 @@
 	    <abbr linkend="TOE"/> in order to prevent unauthorized access to this data.
           </description>
           <component-refer ref="fdp_dar_ext.1"/>
-          <component-refer ref="fcs_sto_ext.1.1"/>
+          <component-refer ref="fcs_sto_ext.1"/>
           <component-refer ref="fcs_rbg_ext.1"/>
         </SO>
         <SO id="O.PROTECTED_COMMS">
@@ -522,7 +523,7 @@
       <subsection title="User Data Protection (FDP)" id="fdp">
         <f-component id="fdp_dec_ext.1" name="Access to Platform Resources">
           <f-element id="fdp_dec_ext.1.1">
-            <title> The application or its documentation shall provide user awareness of for its 
+            <title> The application shall provide user awareness of its 
               intent to access
               <selectables linebreak="yes">
                 <selectable>no hardware resources</selectable>
@@ -542,16 +543,15 @@
       	      The requirement is worded in this way due to the diversity of methods by 
       	      which user awareness can be achieved, which varies per platform. 
       	      Resources that do not need to be explicitly identified are 
-      	      processors, memory, displays,keyboards, pointing devices 
-      	      (e.g. mice, trackpads), USB hubs, and mass storage devices.
+      	      processors, memory, displays, input devices (e.g. keyboards, mice), USB hubs, 
+			  and mass storage devices.
       	      Composite devices that provide resources in addition to generic resources are
       	      still required to be identified.
             </note>
             <aactivity>
           		The evaluator shall install and run the application and inspect its user
           		documentation to verify that the user is informed of any need to access hardware
-          		resources.
-          		The method of doing so varies per platform.
+          		resources.  The method of doing so varies per platform.
               <subaactivity platform="blackberry">
                 The evaluator shall install the
                 application and run it for the first time. The evaluator shall verify that the
@@ -1237,27 +1237,47 @@
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_cop_ext.1" name="Cryptographic Hashing and Signing">
+        <f-component id="fcs_cop_ext.1" name="Cryptographic Hashing">
           <f-element id="fcs_cop_ext.1.1">
             <title>The application shall <selectables linebreak="yes">
-                <selectable>perform no cryptographic hashing and signing</selectable>
-                <selectable>invoke platform-provided cryptographic 
-		  <selectables><selectable>hashing</selectable>
-		               <selectable>signing</selectable></selectables>
-		</selectable>
-                <selectable>invoke application-implemented cryptographic 
-		  <selectables><selectable>hashing</selectable>
-		               <selectable>signing</selectable></selectables>
-                </selectable>
+                <selectable>perform no cryptographic hashing</selectable>
+                <selectable>invoke platform-provided cryptographic hashing</selectable>
+                <selectable>implement cryptographic hashing</selectable>
               </selectables> 
 	      .
 	    </title>
-            <note role="application">The evaluator should ensure "invoke platform-provided" is
+            <note role="application">The evaluator should ensure 
+			  <i>invoke platform-provided cryptographic hashing</i> is
               selected in cases where the application uses platform APIs to perform cryptographic
-              hashing and signing. If the "invoke application-implemented" selection is chosen, then
-              additional requirements from FCS_COP.1(2), FCS_COP.1(3), or both shall be included in
+              hashing. If <i>implement cryptographic hashing</i> is selected, then
+              additional requirements from FCS_COP.1(2) shall be included in
               the <abbr linkend="ST"/>.
-             </note>
+            </note>
+            <aactivity>Requirement met by the platform: The evaluator shall examine the TSS of the
+              application to verify that it describes how the platforms digital signature
+              functionality is invoked for each operation they are used for in the application. The
+              evaluator shall also examine the TSS of the application product’s <abbr linkend="ST"/> to verify that it
+              describes how the platforms hash functionality is invoked for each digest size
+              selected in the application product’s <abbr linkend="ST"/>. </aactivity>
+          </f-element>
+        </f-component>
+        <f-component id="fcs_cop_ext.2" name="Cryptographic Signing">
+          <f-element id="fcs_cop_ext.2.1">
+            <title>The application shall 
+			  <selectables linebreak="yes">
+                <selectable>perform no cryptographic signing</selectable>
+                <selectable>invoke platform-provided cryptographic signing</selectable>
+                <selectable>implement cryptographic signing</selectable>
+              </selectables> 
+	      .
+	    </title>
+            <note role="application">The evaluator should ensure 
+			  <i>invoke platform-provided cryptographic signing</i> is
+              selected in cases where the application uses platform APIs to perform cryptographic
+              signing. If <i>implement cryptographic signing</i> is selected, then
+              additional requirements from FCS_COP.1(3) shall be included in
+              the <abbr linkend="ST"/>.
+            </note>
             <aactivity>Requirement met by the platform: The evaluator shall examine the TSS of the
               application to verify that it describes how the platforms digital signature
               functionality is invoked for each operation they are used for in the application. The
@@ -2253,31 +2273,6 @@
           </f-element>
         </f-component>
       </subsection>
-      <!--  
-       We may handle this in a different way
-  -->
-      <subsection title="Privacy (FPR)" id="fpr">
-        <f-component id="fpr_ano_ext.1" name="Use of Third Party Libraries">
-          <f-element id="fpr_ano_ext.1.1">
-            <title> The application shall be packaged with only
-	      <assignable> list of third-party libraries</assignable>. 
-	    </title>
-        <note role="application"> 
-	       The intention of this requirement is for the evaluator to discover and document whether the 
-         application is including unknown third-party (e.g. adware) or known malicious software 
-         (e.g. known malware) that could present a threat to the user's privacy.
-        </note>
-      <aactivity> 
-	      The evaluator shall install the application and survey its installation directory for 
-        dynamic libraries. 
-	      The evaluator shall verify that libraries found to be packaged with or employed by the 
-        application are limited to those in the assignment.
-	      The evaluator shall also run a virus scanner with the most current virus 
-	      definitions against the application files and verify that no files are flagged as malicious.
-	    </aactivity>
-          </f-element>
-        </f-component>
-      </subsection>
       <subsection title="Trusted Path/Channel (FTP)" id="ftp">
         <f-component id="ftp_dit_ext.1" name="Protection of Data in Transit">
           <f-element id="ftp_dit_ext.1.1">
@@ -2751,6 +2746,26 @@
               </testlist>
             -->
             </aactivity>
+          </f-element>
+        </f-component>
+        <f-component id="fpt_lib_ext.1" name="Use of Third Party Libraries">
+          <f-element id="fpt_lib_ext.1.1">
+            <title> The application shall be packaged with only
+	      <assignable> list of third-party libraries</assignable>. 
+	    </title>
+        <note role="application"> 
+	     The intention of this requirement is for the evaluator to discover and document whether the 
+         application is including unnecessary or unexpected third-party libraries (e.g. adware), 
+		 or known malicious software (e.g. known malware) that could present a threat.
+        </note>
+      <aactivity> 
+	      The evaluator shall install the application and survey its installation directory for 
+        dynamic libraries. 
+	      The evaluator shall verify that libraries found to be packaged with or employed by the 
+        application are limited to those in the assignment.
+	      The evaluator shall also run a virus scanner with the most current virus 
+	      definitions against the application files and verify that no files are flagged as malicious.
+	    </aactivity>
           </f-element>
         </f-component>
         <f-component id="fpt_idv_ext.1" name="Software Identification and Versions">
