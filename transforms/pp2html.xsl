@@ -563,35 +563,46 @@
     <xsl:if test="../@status='objective'">
 	<xsl:if test="$appendicize!='on'">
 	  <div class="statustag">
-          <p/><i><b> This is currently an objective requirement.
-	<xsl:if test="../@targetdate">It is targeted for inclusion on <xsl:value-of select="../@targetdate"/>.</xsl:if></b></i>
+          <p/><i><b> This is an objective requirement.
+	<xsl:if test="../@targetdate">It is scheduled to be mandatory for applications entering evaluation after <xsl:value-of select="../@targetdate"/> .</xsl:if></b></i>
 	  </div>
-
 	</xsl:if>
 	<xsl:if test="$appendicize='on' and ../@targetdate">
 	  <div class="statustag">
-          <p/><i><b> This requirement is targeted for inclusion on <xsl:value-of select="../@targetdate"/>.</b></i>
+          <p/><i><b> This requirement is scheduled to be mandatory for applications entering evaluations after <xsl:value-of select="../@targetdate"/>.</b></i>
 	  </div>
 	</xsl:if>
-
     </xsl:if>
+
+    <xsl:if test="../@status='sel-based'">
+      <div class="statustag">
+        <b><i>
+
+	<xsl:if test="$appendicize!='on'">
+	  This is a selection-based requirement.
+	  Its inclusion depends upon selection in 
+	</xsl:if>
+	<xsl:if test="$appendicize='on'">
+	  This requirement depends upon selection in
+	</xsl:if>
+
+	<xsl:for-each select="../cc:selection-depends">
+          <xsl:value-of select="translate(@req, $lower, $upper)" />
+	  <xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
+	  </xsl:for-each>.
+	</i></b>
+      </div>
+    </xsl:if>
+    
+
+
     <xsl:if test="$appendicize!='on'">
       <xsl:if test="../@status='optional'">
 	<div class="statustag">
           <p/><i><b>This is an optional requirement.  It may be required by Extended Packages of this Protection Profile.</b></i>
 	</div>
       </xsl:if>
-      <xsl:if test="../@status='sel-based'">
-			 <div class="statustag">
-             <b><i>This is a selection-based requirement.
-			 Its inclusion depends upon selection in 
-			 <xsl:for-each select="../cc:selection-depends">
-        		   <xsl:value-of select="translate(@req, $lower, $upper)" />
-			   <xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
-			   </xsl:for-each>.
-			 </i></b>
-			</div>
-	</xsl:if>
+
     </xsl:if>
   </xsl:template>
 
