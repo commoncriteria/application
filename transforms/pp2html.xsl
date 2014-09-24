@@ -559,20 +559,29 @@
 
   <xsl:template match="cc:title">
     <xsl:apply-templates />
+
+    <xsl:if test="../@status='objective'">
+	<xsl:if test="$appendicize!='on'">
+	  <div class="statustag">
+          <p/><i><b> This is currently an objective requirement.
+	<xsl:if test="../@targetdate">It is targeted for inclusion on <xsl:value-of select="../@targetdate"/>.</xsl:if></b></i>
+	  </div>
+
+	</xsl:if>
+	<xsl:if test="$appendicize='on' and ../@targetdate">
+	  <div class="statustag">
+          <p/><i><b> This requirement is targeted for inclusion on <xsl:value-of select="../@targetdate"/>.</b></i>
+	  </div>
+	</xsl:if>
+
+    </xsl:if>
     <xsl:if test="$appendicize!='on'">
-      <xsl:choose>
-        <xsl:when test="../@status='objective'">
-			<div class="statustag">
-             <p/><i><b>This is currently an objective requirement.
-			<xsl:if test="../@targetdate">It is targeted for <xsl:value-of select="../@targetdate"/>.</xsl:if></b></i>
-			</div>
-        </xsl:when>
-        <xsl:when test="../@status='optional'">
-			<div class="statustag">
-             <p/><i><b>This is an optional requirement.  It may be required by Extended Packages of this Protection Profile.</b></i>
-			</div>
-        </xsl:when>
-        <xsl:when test="../@status='sel-based'">
+      <xsl:if test="../@status='optional'">
+	<div class="statustag">
+          <p/><i><b>This is an optional requirement.  It may be required by Extended Packages of this Protection Profile.</b></i>
+	</div>
+      </xsl:if>
+      <xsl:if test="../@status='sel-based'">
 			 <div class="statustag">
              <b><i>This is a selection-based requirement.
 			 Its inclusion depends upon selection in 
@@ -582,8 +591,7 @@
 			   </xsl:for-each>.
 			 </i></b>
 			</div>
-        </xsl:when>
-      </xsl:choose>
+	</xsl:if>
     </xsl:if>
   </xsl:template>
 
@@ -641,7 +649,6 @@
     </xsl:if>
   </xsl:template>
 
-  <!-- Start stuff-->
   <xsl:template name="requirement-stealer">
     <xsl:param name="selected-status"/>
     <!-- Select all f-componenets which have an f-element with a selected-status-->
@@ -650,22 +657,8 @@
 	<xsl:call-template name="component-template">
 	  <xsl:with-param name="selected-statuses" select="concat('_', concat($selected-status,'_'))"/>
 	</xsl:call-template>
-    <!-- <xsl:for-each select="//cc:f-element[@status=$selected-status]">      -->
-    <!--   <xsl:variable name="reqid" select="translate(@id, $lower, $upper)" /> -->
-    <!--   <xsl:element name="div"> -->
-    <!-- 	<xsl:attribute name="class">req <xsl:value-of select="@status"/></xsl:attribute> -->
-    <!-- 	<div class="reqid" id="{$reqid}"> -->
-    <!-- 	  <a href="#{$reqid}" class="abbr"><xsl:value-of select="$reqid" /></a> -->
-    <!-- 	</div> -->
-    <!-- 	<div class="reqdesc"> -->
-    <!-- 	  <xsl:apply-templates /> -->
-    <!-- 	</div> -->
-    <!--   </xsl:element> -->
     </xsl:for-each>
   </xsl:template>
-  <!-- End stuff-->
-
-
 
   <xsl:template match="cc:chapter">
     <xsl:variable name="chapter-num" select="concat(position(), '.')" />
