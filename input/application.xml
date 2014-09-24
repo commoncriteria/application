@@ -1376,7 +1376,7 @@
         </f-component> 
         <f-component id="fcs_cop.1(3)" name="Cryptographic Signing (Selection Based)">
           <f-element id="fcs_cop.1.1(3)" status="sel-based">
-            <selection-depends req="fcs_cop_ext.1.1"/>
+            <selection-depends req="fcs_cop_ext.2.1"/>
             <title>The TSF shall perform cryptographic signature services (generation and
               verification) in accordance with a specified cryptographic algorithm <selectables
                 linebreak="yes">
@@ -1398,7 +1398,7 @@
 		to specify the functionality. For the algorithm chosen, the ST author should make the
 		appropriate assignments/selections to specify the parameters that are implemented for that
 		algorithm. RSA signature generation and verification is currently required in order to comply
-		with FCS_TLSC_EXT.2.
+		with FCS_TLSC_EXT.1.
             </note>
             <aactivity>The evaluator shall perform the following activities based on the selections
               in the <abbr linkend="ST"/>.
@@ -2082,8 +2082,7 @@
               FIA_X509_EXT.1.1 lists the rules for validating certificates. The <abbr linkend="ST"/> author shall 
               select whether revocation status is verified using OCSP or CRLs. FIA_X509_EXT.2 
               requires that certificates are used for HTTPS, TLS and DTLS; this use requires that the 
-              extendedKeyUsage rules are verified. Certificates may optionally be used for _______ 
-              and, if implemented, must be validated to contain the corresponding extendedKeyUsage.
+              extendedKeyUsage rules are verified.
               <br />
               Regardless of the selection of <abbr linkend="TSF"/> or <abbr linkend="TOE"/> 
               platform, the validation is expected to end in a trusted root CA certificate in a root 
@@ -2205,9 +2204,8 @@
               </selectables>. 
             </title>
             <note role="application">
-              The <abbr linkend="ST"/> author’s selection shall match the selection of FTP_ITC.1.1. 
-              Certificates may optionally be used for trusted updates of system software 
-              (FPT_TUD_EXT.1) and for integrity verification (FPT_TST_EXT.2).
+              The <abbr linkend="ST"/> author’s selection shall match the selection of 
+              FCS_DIT_EXT.1.1.
             </note>
             <!-- 
             <aactivity>
@@ -3305,14 +3303,14 @@
       Appendix D but are not listed (e.g., FMT-type requirements) are also included in the ST.
   </appendix>
 
-  <appendix title="Selection-Based Requirements" id="selection-basedappendix">
+  <appendix title="Selection-Based Requirements" id="selection-basedappendix" optional="1">
       As indicated in the introduction to this PP, the baseline requirements (those that must be
       performed by the TOE or its underlying platform) are contained in the body of this PP. There
       are additional requirements based on selections in the body of the PP: if certain selections are
       made, then additional requirements below will need to be included.
   </appendix>
 
-  <appendix title="Objective Requirements" id="objectiveappendix">
+  <appendix title="Objective Requirements" id="objectiveappendix" optional="1">
       This Annex includes requirements that specify security functionality which also addresses
       threats. The requirements are not currently mandated in the body of this PP as they describe
       security functionality not yet widely-available in commercial technology. However, these
@@ -3364,8 +3362,6 @@ The entropy justification shall not include any data added from any third-party
 application or from any state saving between restarts.
 </section>
 
-Operating Conditions 
-
 <section id="entropyoperatingconditions" title="Operating Conditions">
 Documentation will also include the range of operating conditions under which
 the entropy source is expected to generate random data. It will clearly
@@ -3375,8 +3371,6 @@ documentation shall describe the conditions under which the entropy source is
 known to malfunction or become inconsistent. Methods used to detect failure or
 degradation of the source shall be included.
 </section>
-
-Health Testing
 
 <section id="entropyhealthtesting" title="Health Testing">
 More specifically, all entropy source health tests and their rationale will be
