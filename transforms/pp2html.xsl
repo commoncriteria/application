@@ -6,7 +6,7 @@
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cc="http://common-criteria.rhcloud.com/ns/cc" xmlns="http://www.w3.org/1999/xhtml" 
 		xmlns:fn="http://www.w3.org/2005/xpath-functions" version="1.0">
-  <xsl:param name="appendicize"/>
+  <xsl:param name="appendicize" select="''"/>
 
   <!-- very important, for special characters and umlauts iso8859-1-->
   <xsl:output method="html" encoding="UTF-8" indent="yes" />
@@ -240,7 +240,14 @@
   <xsl:template match="cc:appendix" mode="toc">
     <xsl:if test="$appendicize='on' or (@id!='optionalappendix' and @id!='selection-basedappendix' and @id!='objectiveappendix')">
       <xsl:variable name="appendix-num">
-	<xsl:number format="A" count="*"/>
+      <xsl:choose>
+        <xsl:when test="$appendicize='on'">
+		  <xsl:number format="A" />
+        </xsl:when>	
+        <xsl:otherwise>	
+          <xsl:number format="A" count="cc:appendix[@id!='optionalappendix' and @id!='objectiveappendix' and @id!='selection-basedappendix']"/>
+        </xsl:otherwise>	
+      </xsl:choose>	
       </xsl:variable>
       <p xmlns="http://www.w3.org/1999/xhtml" class="toc2">
       Appendix <xsl:value-of select="$appendix-num" /><xsl:text>: </xsl:text><a class="toc" href="#{@id}"><xsl:value-of select="@title" /></a></p>
@@ -344,6 +351,7 @@
       </xsl:for-each>
     </dl>
   </xsl:template>
+
   <xsl:template match="cc:cclaims">
     <dl>
       <xsl:for-each select="cc:cclaim">
@@ -357,6 +365,17 @@
       </xsl:for-each>
     </dl>
   </xsl:template>
+
+  <xsl:template match="cc:InsertAppendixExplainer">
+    <xsl:if test="$appendicize='on'">
+	  Unconditional requirements are found in the main body of the document, while
+      appendices contain the selection-based, optional, and objective requirements.
+    </xsl:if>
+    <xsl:if test="$appendicize!='on'">
+      The type of each requirement is identified inline with the text.
+    </xsl:if>
+  </xsl:template>
+
   <xsl:template match="cc:threats">
     <dl>
       <xsl:for-each select="cc:threat">
@@ -448,7 +467,6 @@
               <xsl:if test="position() != last()"><p/></xsl:if>
             </xsl:for-each>
           </td>
-
         </tr>
       </xsl:for-each>
     </table>
@@ -523,7 +541,6 @@
              <p/><i><b>This is currently an objective requirement.
 			<xsl:if test="../@targetdate">It is targeted for <xsl:value-of select="../@targetdate"/>.</xsl:if></b></i>
 			</div>
-
         </xsl:when>
         <xsl:when test="../@status='optional'">
 			<div class="statustag">
@@ -569,82 +586,19 @@
     </div>
   </xsl:template>
   
-  <xsl:template match="cc:appendix[@id='optionalappendix']">
-    <xsl:if test="$appendicize='on'">
-      <xsl:variable name="appendix-num">
-      <xsl:number format="A" />.</xsl:variable>
-      <h1 id="{@id}">
-	<xsl:value-of select="concat($appendix-num, ' ')" />
-	<xsl:value-of select="@title" />
-      </h1>
-      <xsl:apply-templates/>
-      <xsl:for-each select="//cc:f-element[@status='optional']">
-	<xsl:variable name="reqid" select="translate(@id, $lower, $upper)" />
-	<xsl:element name="div">
-	  <xsl:attribute name="class">req <xsl:value-of select="@status"/></xsl:attribute>
-	  <div class="reqid" id="{$reqid}">
-            <a href="#{$reqid}" class="abbr"><xsl:value-of select="$reqid" /></a>
-	  </div>
-	  <div class="reqdesc">
-            <xsl:apply-templates />
-	  </div>
-	</xsl:element>
-      </xsl:for-each>
-    </xsl:if>
-  </xsl:template>
-
-  <xsl:template match="cc:appendix[@id='selection-basedappendix']">
-    <xsl:if test="$appendicize='on'">
-      <xsl:variable name="appendix-num">
-      <xsl:number format="A" />.</xsl:variable>
-      <h1 id="{@id}">
-	<xsl:value-of select="concat($appendix-num, ' ')" />
-	<xsl:value-of select="@title" />
-      </h1>
-      <xsl:apply-templates/>
-      <xsl:for-each select="//cc:f-element[@status='sel-based']">
-	<xsl:variable name="reqid" select="translate(@id, $lower, $upper)" />
-	<xsl:element name="div">
-	  <xsl:attribute name="class">req <xsl:value-of select="@status"/></xsl:attribute>
-	  <div class="reqid" id="{$reqid}">
-            <a href="#{$reqid}" class="abbr"><xsl:value-of select="$reqid" /></a>
-	  </div>
-	  <div class="reqdesc">
-            <xsl:apply-templates />
-	  </div>
-	</xsl:element>
-      </xsl:for-each>
-    </xsl:if>
-  </xsl:template>
-
-
-  <xsl:template match="cc:appendix[@id='objectiveappendix']">
-    <xsl:if test="$appendicize='on'">
-      <xsl:variable name="appendix-num">
-      <xsl:number format="A" />.</xsl:variable>
-      <h1 id="{@id}">
-	<xsl:value-of select="concat($appendix-num, ' ')" />
-	<xsl:value-of select="@title" />
-      </h1>
-      <xsl:apply-templates/>
-      <xsl:for-each select="//cc:f-element[@status='objective']">
-	<xsl:variable name="reqid" select="translate(@id, $lower, $upper)" />
-	<xsl:element name="div">
-	  <xsl:attribute name="class">req <xsl:value-of select="@status"/></xsl:attribute>
-	  <div class="reqid" id="{$reqid}">
-            <a href="#{$reqid}" class="abbr"><xsl:value-of select="$reqid" /></a>
-	  </div>
-	  <div class="reqdesc">
-            <xsl:apply-templates />
-	  </div>
-	</xsl:element>
-      </xsl:for-each>
-    </xsl:if>
-  </xsl:template>
   
   <xsl:template match="cc:appendix">
+    <xsl:if test="$appendicize='on' or (@id!='optionalappendix' and @id!='selection-basedappendix' and @id!='objectiveappendix')">
     <xsl:variable name="appendix-num">
-    <xsl:number format="A" />.</xsl:variable>
+      <xsl:choose>
+        <xsl:when test="$appendicize='on'">
+		  <xsl:number format="A" />.
+        </xsl:when>	
+        <xsl:otherwise>	
+          <xsl:number format="A" count="cc:appendix[@id!='optionalappendix' and @id!='objectiveappendix' and @id!='selection-basedappendix']"/>.
+        </xsl:otherwise>	
+      </xsl:choose>	
+    </xsl:variable>
     <h1 id="{@id}">
       <xsl:value-of select="concat($appendix-num, ' ')" />
       <xsl:value-of select="@title" />
@@ -652,6 +606,7 @@
     <xsl:apply-templates>
       <xsl:with-param name="section-prefix" select="$appendix-num" />
     </xsl:apply-templates>
+	</xsl:if>
   </xsl:template>
 
 
@@ -746,7 +701,9 @@
       Section 
 		<xsl:apply-templates select="//cc:chapter" mode="secreflookup"><xsl:with-param name="linkend" select="$linkend" /></xsl:apply-templates></xsl:element>
   </xsl:template>
-<xsl:template match="cc:appendref">
+
+
+  <xsl:template match="cc:appref">
     <xsl:variable name="linkend" select="@linkend" />
     <xsl:element name="a">
       <xsl:attribute name="href">
@@ -754,24 +711,23 @@
         <xsl:value-of select="$linkend" />
       </xsl:attribute>
       Appendix 
-    <xsl:apply-templates select="//cc:appendix" mode="secreflookup"><xsl:with-param name="linkend" select="$linkend" /></xsl:apply-templates></xsl:element>
+		<xsl:apply-templates select="//cc:appendix" mode="secreflookup"><xsl:with-param name="linkend" select="$linkend" /></xsl:apply-templates></xsl:element>
   </xsl:template>
 
-  <xsl:template match="cc:appendix" mode="secreflookup">
+  <xsl:template match="cc:chapter | cc:section | cc:subsection | cc:appendix" mode="secreflookup">
     <xsl:param name="linkend" />
     <xsl:param name="prefix" />
-    <xsl:variable name="pos">
-      <xsl:number format="A"/>
-    </xsl:variable>
-    <xsl:if test="@id=$linkend">
-      <xsl:value-of select="concat($prefix,$pos)" />
-    </xsl:if>
-  </xsl:template>
-
-  <xsl:template match="cc:chapter | cc:section | cc:subsection" mode="secreflookup">
-    <xsl:param name="linkend" />
-    <xsl:param name="prefix" />
-    <xsl:variable name="pos" select="position()" />
+	<!-- make the identifier a letter or number as appropriate for appendix or chapter/section -->
+    <xsl:variable name="pos"> 
+      <xsl:choose>
+        <xsl:when test="name()='appendix'">
+		  <xsl:number format="A" />
+        </xsl:when>	
+        <xsl:otherwise>	
+		  <xsl:number />
+        </xsl:otherwise>	
+      </xsl:choose>	
+    </xsl:variable> 
     <xsl:if test="@id=$linkend">
       <xsl:value-of select="concat($prefix,$pos)" />
     </xsl:if>
@@ -782,6 +738,7 @@
       </xsl:apply-templates>
     </xsl:if>
   </xsl:template>
+
   <xsl:template match="cc:cite">
     <xsl:variable name="linkend" select="@linkend" />
     <xsl:element name="a">
