@@ -243,11 +243,11 @@
       <xsl:choose>
         <xsl:when test="$appendicize='on'">
 		  <xsl:number format="A" />
-        </xsl:when>	
-        <xsl:otherwise>	
+        </xsl:when>
+        <xsl:otherwise>
           <xsl:number format="A" count="cc:appendix[@id!='optionalappendix' and @id!='objectiveappendix' and @id!='selection-basedappendix']"/>
-        </xsl:otherwise>	
-      </xsl:choose>	
+        </xsl:otherwise>
+      </xsl:choose>
       </xsl:variable>
       <p xmlns="http://www.w3.org/1999/xhtml" class="toc2">
       Appendix <xsl:value-of select="$appendix-num" /><xsl:text>: </xsl:text><a class="toc" href="#{@id}"><xsl:value-of select="@title" /></a></p>
@@ -593,11 +593,11 @@
       <xsl:choose>
         <xsl:when test="$appendicize='on'">
 		  <xsl:number format="A" />.
-        </xsl:when>	
-        <xsl:otherwise>	
+        </xsl:when>
+        <xsl:otherwise>
           <xsl:number format="A" count="cc:appendix[@id!='optionalappendix' and @id!='objectiveappendix' and @id!='selection-basedappendix']"/>.
-        </xsl:otherwise>	
-      </xsl:choose>	
+        </xsl:otherwise>
+      </xsl:choose>
     </xsl:variable>
     <h1 id="{@id}">
       <xsl:value-of select="concat($appendix-num, ' ')" />
