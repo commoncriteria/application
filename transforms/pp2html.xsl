@@ -618,6 +618,12 @@
       <xsl:apply-templates />
     </div>
   </xsl:template>
+
+  <xsl:template match="cc:indent">
+    <div class="indent" style="margin-left:2em">
+      <xsl:apply-templates />
+    </div>
+  </xsl:template>
   
   
   <xsl:template match="cc:appendix">
