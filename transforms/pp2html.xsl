@@ -496,10 +496,27 @@
     </table>
   </xsl:template>
 
-  <!-- Used to match regular f-components -->
+
+  <!-- Used to match regular ?-components -->
   <xsl:template match="cc:f-component | cc:a-component">
+    <xsl:variable name="sel">
+      <xsl:if test="$appendicize!='on'">
+	<xsl:value-of select="'__,_objective_, _optional_, _sel-based_'"/>
+      </xsl:if>
+      <xsl:if test="$appendicize='on'">
+	<xsl:value-of select="'__'"/>
+      </xsl:if>
+    </xsl:variable>
+    <xsl:call-template name="component-template">
+      <xsl:with-param name="selected-statuses" select="$sel"/>
+    </xsl:call-template>
+  </xsl:template>
+
+
+  <xsl:template name="component-template">
+    <xsl:param name="selected-statuses"/>
     <!-- If we're not appendicizing or status is normal. Include-->
-    <xsl:if test="$appendicize!='on' or count(./*[string-length(@status)=0])>0">
+    <xsl:if test="count(./*[contains($selected-statuses, concat('_', concat(@status, '_')))])>0">
       <xsl:variable name="family" select="substring(@id,1,7)" />
       <xsl:variable name="component" select="substring(@id,1,9)" />
       <xsl:variable name="SFRID" select="@id" />
@@ -511,15 +528,22 @@
 	  <xsl:value-of select="concat(translate(@id, $lower, $upper), ' ')" />
 	  <xsl:value-of select="@name" />
 	</h4>
-	<xsl:apply-templates />
+
+	<xsl:for-each select="cc:f-element | cc:a-element">
+	    <xsl:call-template name="element-template">
+		<xsl:with-param name="selected-statuses" select="$selected-statuses"/>
+   	    </xsl:call-template>
+	</xsl:for-each>
       </xsl:element>
     </xsl:if>
   </xsl:template>
 
-
-  <xsl:template match="cc:f-element | cc:a-element">
-    <!-- If we're not appendicizing or status is normal. Include-->
-    <xsl:if test="$appendicize!='on' or string-length(@status)=0">
+  <!-- Prints out only those templates whose status is inside selected-statuses-->
+  <xsl:template name="element-template">
+    <xsl:param name="selected-statuses"/>
+<!-- QQQ      Haystack: <xsl:value-of select="$selected-statuses"/> -->
+<!-- QQQ      Needle: <xsl:value-of select="concat('_', concat(@status, '_'))"/> -->
+    <xsl:if test="contains($selected-statuses, concat('_', concat(@status, '_')))">
       <xsl:variable name="reqid" select="translate(@id, $lower, $upper)" />
       <xsl:element name="div">
 	<xsl:attribute name="class">req <xsl:value-of select="@status"/></xsl:attribute>
@@ -621,18 +645,22 @@
   <xsl:template name="requirement-stealer">
     <xsl:param name="selected-status"/>
     <!-- Select all f-componenets which have an f-element with a selected-status-->
-    <!--    <xsl:for-each select="//cc:f-component[cc:f-element/@status=$selected-status]">-->
-    <xsl:for-each select="//cc:f-element[@status=$selected-status]">     
-      <xsl:variable name="reqid" select="translate(@id, $lower, $upper)" />
-      <xsl:element name="div">
-	<xsl:attribute name="class">req <xsl:value-of select="@status"/></xsl:attribute>
-	<div class="reqid" id="{$reqid}">
-	  <a href="#{$reqid}" class="abbr"><xsl:value-of select="$reqid" /></a>
-	</div>
-	<div class="reqdesc">
-	  <xsl:apply-templates />
-	</div>
-      </xsl:element>
+    
+    <xsl:for-each select="//cc:f-component[cc:f-element/@status=$selected-status]">
+	<xsl:call-template name="component-template">
+	  <xsl:with-param name="selected-statuses" select="concat('_', concat($selected-status,'_'))"/>
+	</xsl:call-template>
+    <!-- <xsl:for-each select="//cc:f-element[@status=$selected-status]">      -->
+    <!--   <xsl:variable name="reqid" select="translate(@id, $lower, $upper)" /> -->
+    <!--   <xsl:element name="div"> -->
+    <!-- 	<xsl:attribute name="class">req <xsl:value-of select="@status"/></xsl:attribute> -->
+    <!-- 	<div class="reqid" id="{$reqid}"> -->
+    <!-- 	  <a href="#{$reqid}" class="abbr"><xsl:value-of select="$reqid" /></a> -->
+    <!-- 	</div> -->
+    <!-- 	<div class="reqdesc"> -->
+    <!-- 	  <xsl:apply-templates /> -->
+    <!-- 	</div> -->
+    <!--   </xsl:element> -->
     </xsl:for-each>
   </xsl:template>
   <!-- End stuff-->
