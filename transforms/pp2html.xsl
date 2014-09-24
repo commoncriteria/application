@@ -238,14 +238,14 @@
   
   <!-- For the table of contents-->
   <xsl:template match="cc:appendix" mode="toc">
-    <xsl:if test="$appendicize='on' or (@id!='optionalappendix' and @id!='selection-basedappendix' and @id!='objectiveappendix')">
+    <xsl:if test="$appendicize='on' or (@id!='optional' and @id!='sel-based' and @id!='objective')">
       <xsl:variable name="appendix-num">
       <xsl:choose>
         <xsl:when test="$appendicize='on'">
 		  <xsl:number format="A" />
         </xsl:when>
         <xsl:otherwise>
-          <xsl:number format="A" count="cc:appendix[@id!='optionalappendix' and @id!='objectiveappendix' and @id!='selection-basedappendix']"/>
+          <xsl:number format="A" count="cc:appendix[@id!='optional' and @id!='objective' and @id!='sel-based']"/>
         </xsl:otherwise>
       </xsl:choose>
       </xsl:variable>
@@ -496,6 +496,7 @@
     </table>
   </xsl:template>
 
+  <!-- Used to match regular f-components -->
   <xsl:template match="cc:f-component | cc:a-component">
     <!-- If we're not appendicizing or status is normal. Include-->
     <xsl:if test="$appendicize!='on' or string-length(@status)=0">
@@ -588,26 +589,53 @@
   
   
   <xsl:template match="cc:appendix">
-    <xsl:if test="$appendicize='on' or (@id!='optionalappendix' and @id!='selection-basedappendix' and @id!='objectiveappendix')">
-    <xsl:variable name="appendix-num">
-      <xsl:choose>
-        <xsl:when test="$appendicize='on'">
-		  <xsl:number format="A" />.
-        </xsl:when>
-        <xsl:otherwise>
-          <xsl:number format="A" count="cc:appendix[@id!='optionalappendix' and @id!='objectiveappendix' and @id!='selection-basedappendix']"/>.
-        </xsl:otherwise>
-      </xsl:choose>
-    </xsl:variable>
-    <h1 id="{@id}">
-      <xsl:value-of select="concat($appendix-num, ' ')" />
-      <xsl:value-of select="@title" />
-    </h1>
-    <xsl:apply-templates>
-      <xsl:with-param name="section-prefix" select="$appendix-num" />
-    </xsl:apply-templates>
-	</xsl:if>
+    <xsl:if test="$appendicize='on' or (@id!='optional' and @id!='sel-based' and @id!='objective')">
+      <xsl:variable name="appendix-num">
+	<xsl:choose>
+          <xsl:when test="$appendicize='on'">
+	    <xsl:number format="A" />.
+          </xsl:when>
+          <xsl:otherwise>
+	    <!-- Don't count the first couple -->
+            <xsl:number format="A" count="cc:appendix[@id!='optional' and @id!='objective' and @id!='sel-based']"/>.
+          </xsl:otherwise>
+	</xsl:choose>
+      </xsl:variable>
+      <h1 id="{@id}">
+	<xsl:value-of select="concat($appendix-num, ' ')" />
+	<xsl:value-of select="@title" />
+      </h1>
+      <!-- Convert the words -->
+      <xsl:apply-templates>
+	<xsl:with-param name="section-prefix" select="$appendix-num" />
+      </xsl:apply-templates>
+
+      <!-- If we need to steal templates from the rest of the document -->
+      <xsl:call-template name='requirement-stealer'>
+	<xsl:with-param name="selected-status" select="@id"/>
+      </xsl:call-template>
+    </xsl:if>
   </xsl:template>
+
+  <!-- Start stuff-->
+  <xsl:template name="requirement-stealer">
+    <xsl:param name="selected-status"/>
+    <!-- Select all f-componenets which have an f-element with a selected-status-->
+    <!--    <xsl:for-each select="//cc:f-component[cc:f-element/@status=$selected-status]">-->
+    <xsl:for-each select="//cc:f-element[@status=$selected-status]">     
+      <xsl:variable name="reqid" select="translate(@id, $lower, $upper)" />
+      <xsl:element name="div">
+	<xsl:attribute name="class">req <xsl:value-of select="@status"/></xsl:attribute>
+	<div class="reqid" id="{$reqid}">
+	  <a href="#{$reqid}" class="abbr"><xsl:value-of select="$reqid" /></a>
+	</div>
+	<div class="reqdesc">
+	  <xsl:apply-templates />
+	</div>
+      </xsl:element>
+    </xsl:for-each>
+  </xsl:template>
+  <!-- End stuff-->
 
 
 
