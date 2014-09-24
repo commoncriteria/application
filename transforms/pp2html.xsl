@@ -499,7 +499,7 @@
   <!-- Used to match regular f-components -->
   <xsl:template match="cc:f-component | cc:a-component">
     <!-- If we're not appendicizing or status is normal. Include-->
-    <xsl:if test="$appendicize!='on' or string-length(@status)=0">
+    <xsl:if test="$appendicize!='on' or count(./*[string-length(@status)=0])>0">
       <xsl:variable name="family" select="substring(@id,1,7)" />
       <xsl:variable name="component" select="substring(@id,1,9)" />
       <xsl:variable name="SFRID" select="@id" />
