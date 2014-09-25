@@ -551,8 +551,6 @@
 			  such as central processing units, 
 			  main memory, displays, input devices (e.g. keyboards, mice), and 
 			  persistent storage devices provided by the platform.
-      	      Composite devices that provide resources in addition to generic resources are
-      	      still required to be identified.
             </note>
             <aactivity>
           		The evaluator shall install and run the application and inspect its user
@@ -1242,6 +1240,418 @@
             </aactivity>
           </f-element>
         </f-component>
+        <f-component id="fcs_ckm.1" name="Cryptographic Key Generation">
+          <f-element id="fcs_ckm.1.1">
+            <title>
+              The application shall
+              <selectables>
+                <selectable>
+                  invoke platform-provided API's
+                </selectable>
+                <selectable>
+                  invoke application-implemented services
+                </selectable>
+              </selectables>
+                 to generate asymmetric cryptographic keys in accordance 
+              with a specified cryptographic key generation algorithm
+              <selectables linebreak="yes">
+                <selectable>
+                  <b>[RSA schemes]</b> using cryptographic key sizes of <b>[2048-bit or greater]</b> that meet the 
+                  following: 
+                  <selectables linebreak="yes">
+                    <selectable>
+                      <b>FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.3</b>
+                    </selectable>
+                    <selectable>
+                      <b>ANSI X9.31-1998, Section 4.1</b>
+                    </selectable>
+                  </selectables>
+                </selectable>
+                <selectable>
+                  <b>[ECC schemes]</b> using <b>[“NIST curves” P-256, P-384 and 
+                  <selectables>
+                    <selectable>
+                      P-521
+                    </selectable>
+                    <selectable>
+                      no other curves
+                    </selectable>
+                  </selectables> 
+                  ]</b> that meet the following: <b>[FIPS PUB 186-4, “Digital Signature Standard 
+                  (DSS)”, Appendix B.4]</b>
+                </selectable>
+                <selectable>
+                  <b>[FFC schemes]</b> using cryptographic key sizes of <b>[2048-bit or greater]</b> 
+                  that meet the 
+                  following: 
+                  <b>[FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.1]</b>
+                </selectable>
+              </selectables>.
+            </title>
+            <note role="application">
+              The <abbr linkend="ST"/> author shall select all key generation schemes used for key 
+              establishment and entity authentication. When key generation is used for key 
+              establishment, the schemes in FCS_CKM.2.1(1) and selected cryptographic protocols must 
+              match the selection. When key generation is used for entity authentication, the public 
+              key is expected to be associated with an X.509v3 certificate.
+              <br />
+              If the <abbr linkend="TOE"/> acts as a receiver in the RSA key establishment scheme, 
+              the <abbr linkend="TOE"/> does not need to implement RSA key generation. 
+              <br />
+              The ANSI X9.31-1998 option will be removed from the selection in a future publication 
+              of this document. Presently, the selection is not exclusively limited to the FIPS PUB 
+              186-4 options in order to allow industry some further time to complete the transition 
+              to the modern FIPS PUB 186-4 standard.
+              <br />
+              ECC schemes will be required for products entering evaluation after July 1, 2015.
+            </note>
+            <aactivity>
+              The evaluator shall ensure that the <abbr linkend="TSS"/> identifies the key sizes 
+              supported by the <abbr linkend="TOE"/>. If the <abbr linkend="ST"/> specifies more 
+              than one scheme, the evaluator shall examine the <abbr linkend="TSS"/> to verify that 
+              it identifies the usage for each scheme.
+              <br />
+              The evaluator shall verify that the AGD guidance instructs the administrator how to 
+              configure the <abbr linkend="TOE"/> to use the selected key generation scheme(s) and 
+              key size(s) for all uses defined in this PP.
+              <br />
+              Assurance Activity Note: The following tests require the developer to provide access 
+              to a test platform that provides the evaluator with tools that are typically not found 
+              on factory products.
+              <br />
+              <b>Key Generation for FIPS PUB 186-4 RSA Schemes</b><p/>
+              The evaluator shall verify the implementation of RSA Key Generation by the 
+              <abbr linkend="TOE"/> using the Key Generation test. This test verifies the ability of 
+              the <abbr linkend="TSF"/> to correctly produce values for the key components including 
+              the public verification exponent e, the private prime factors p and q, the public 
+              modulus n and the calculation of the private signature exponent d. Key Pair generation 
+              specifies 5 ways (or methods) to generate the primes p and q. 
+              These include:
+              <ol>
+                <li>
+                  Random Primes:
+                  <ul>
+                    <li>Provable primes</li>
+                    <li>Probable primes</li>
+                  </ul>
+                </li>
+                <li>
+                  Primes with Conditions:
+                  <ul>
+                    <li>Primes p1, p2, q1,q2, p and q shall all be provable primes</li>
+                    <li>Primes p1, p2, q1, and q2 shall be provable primes and p and q shall be 
+                      probable primes</li>
+                    <li>Primes p1, p2, q1,q2, p and q shall all be probable primes</li>
+                  </ul>
+                </li>
+              </ol>
+              To test the key generation method for the Random Provable primes method and for all 
+              the Primes with Conditions methods, the evaluator must seed the <abbr linkend="TSF"/> 
+              key generation routine with sufficient data to deterministically generate the RSA key 
+              pair. This includes the random seed(s), the public exponent of the RSA key, and the 
+              desired key length. For each key length supported, the evaluator shall have the 
+              <abbr linkend="TSF"/> generate 25 key pairs. The evaluator shall verify the 
+              correctness of the <abbr linkend="TSF"/>’s implementation by comparing values 
+              generated by the <abbr linkend="TSF"/> with those generated from a known good 
+              implementation.
+              <br />
+              If possible, the Random Probable primes method should also be verified against a 
+              known good implementation as described above. Otherwise, the evaluator shall have 
+              the <abbr linkend="TSF"/> generate 10 keys pairs for each supported key length nlen 
+              and verify:
+              <ul>
+                <li>n = p*q,</li>
+                <li>p and q are probably prime according to Miller-Rabin tests,</li>
+                <li>GCD(p-1,e) = 1,</li>
+                <li>GCD(q-1,e) = 1,</li>
+                <li>2^16 &lt;= e &lt;= 2^256 and e is an odd integer,</li>
+                <li>|p-q| > 2^(nlen/2 - 100),</li>
+                <li>p >= squareroot(2)*( 2^(nlen/2 -1) ),</li>
+                <li>q >= squareroot(2)*( 2^(nlen/2 -1) ),</li>
+                <li>2^(nlen/2) &lt; d &lt; LCM(p-1,q-1),</li>
+                <li>e*d = 1 mod LCM(p-1,q-1).</li>
+              </ul>
+              <b>Key Generation for ANSI X9.31-1998 RSA Schemes</b><p/>
+              If the <abbr linkend="TSF"/> implements the ANSI X9.31-1998 scheme, the evaluator 
+              shall check to ensure that the <abbr linkend="TSS"/> describes how the key-pairs are 
+              generated. In order to show that the <abbr linkend="TSF"/> 
+              implementation complies with ANSI X9.31-1998, the evaluator shall ensure that the 
+              <abbr linkend="TSS"/> contains the following information: 
+              <ul>
+                <li>
+                  The <abbr linkend="TSS"/> shall list all sections of the standard to which the 
+                  <abbr linkend="TOE"/> complies;</li>
+                <li>
+                  For each applicable section listed in the <abbr linkend="TSS"/>, for all 
+                  statements that are not "shall" (that is, "shall not", "should", and "should not")
+                  , if the <abbr linkend="TOE"/> implements such options it shall be described in 
+                  the <abbr linkend="TSS"/>. If the included functionality is indicated as "shall 
+                  not" or "should not" in the standard, the <abbr linkend="TSS"/> shall provide a 
+                  rationale for why this will not adversely affect the security policy implemented 
+                  by the <abbr linkend="TOE"/>;
+                </li>
+                <li>
+                  For each applicable section of Appendix B, any omission of functionality related 
+                  to "shall" or “should” statements shall be described.
+                </li>
+              </ul>
+              <b>Key Generation for Elliptic Curve Cryptography (ECC)</b><p/>
+              FIPS 186-4 ECC Key Generation Test
+              For each supported NIST curve, i.e., P-256, P-384 and P-521, the evaluator shall
+              require the implementation under test (IUT) to generate 10 private/public key pairs.
+              The private key shall be generated using an approved random bit generator (RBG). To 
+              determine correctness, the evaluator shall submit the generated key pairs to the 
+              public key verification (PKV) function of a known good implementation.
+              <br />
+              FIPS 186-4 Public Key Verification (PKV) Test
+              For each supported NIST curve, i.e., P-256, P-384 and P-521, the evaluator shall
+              generate 10 private/public key pairs using the key generation function of a known 
+              good implementation and modify five of the public key values so that they are 
+              incorrect, leaving five values unchanged (i.e., correct). The evaluator shall obtain 
+              in response a set of 10 PASS/FAIL values.
+              <br />
+              <b>Key Generation for Finite-Field Cryptography (FFC)</b><p/>
+              The evaluator shall verify the implementation of the Parameters Generation and the 
+              Key Generation for FFC by the <abbr linkend="TOE"/> using the Parameter Generation and 
+              Key Generation test. This test verifies the ability of the <abbr linkend="TSF"/> to 
+              correctly produce values for the field prime p, the cryptographic prime q (dividing 
+              p-1), the cryptographic group generator g, and the calculation of the private key x 
+              and public key y. The Parameter generation specifies 2 ways (or methods) to generate 
+              the cryptographic prime q and the field prime p:
+              <br />Cryptographic and Field Primes:
+              <ul>
+                <li>Primes q and p shall both be provable primes</li>
+                <li>Primes q and field prime p shall both be probable primes</li>
+              </ul>
+              and two ways to generate the cryptographic group generator g:
+              <br />
+              Cryptographic Group Generator:
+              <ul>
+                <li>Generator g constructed through a verifiable process</li>
+                <li>Generator g constructed through an unverifiable process.</li>
+              </ul>
+              The Key generation specifies 2 ways to generate the private key x:
+              Private Key:
+              <ul>
+                <li>len(q) bit output of RBG where 1 &lt;=x &lt;= q-1</li>
+                <li>len(q) + 64 bit output of RBG, followed by a mod q-1 operation where 
+              1&lt;= x&lt;=q-1.</li>
+              </ul>
+              The security strength of the RBG must be at least that of the security offered by the 
+              FFC parameter set.
+              To test the cryptographic and field prime generation method for the provable primes 
+              method and/or the group generator g for a verifiable process, the evaluator must seed 
+              the <abbr linkend="TSF"/> parameter generation routine with sufficient data to 
+              deterministically generate the parameter set.
+              For each key length supported, the evaluator shall have the <abbr linkend="TSF"/> 
+              generate 25 parameter sets and key pairs. The evaluator shall verify the correctness 
+              of the <abbr linkend="TSF"/>’s implementation by comparing values generated by the 
+              <abbr linkend="TSF"/> with those generated from a known good implementation. 
+              Verification must also confirm
+              <ul>
+                <li>g != 0,1</li>
+                <li>q divides p-1</li>
+                <li>g^q mod p = 1</li>
+                <li>g^x mod p = y</li>
+              </ul>
+              for each FFC parameter set and key pair.
+            </aactivity>
+          </f-element>
+        </f-component>
+        <f-component id="fcs_ckm.2" name="Cryptographic Key Establishment">
+          <f-element id="fcs_ckm.2.1">
+            <title>
+              The application shall
+              <selectables>
+                <selectable>
+                  invoke platform-provided API's
+                </selectable>
+                <selectable>
+                  invoke application-implemented services
+                </selectable>
+              </selectables>
+               to perform cryptographic key establishment in accordance with a specified 
+              cryptographic key establishment method:<p/>
+              
+                  <b>[RSA-based key establishment schemes]</b> that meets the following: <b>[NIST 
+                  Special Publication 800-56B, “Recommendation for Pair-Wise Key Establishment 
+                  Schemes Using Integer Factorization Cryptography”]</b><p/>
+             
+              and
+              <selectables linebreak="yes">
+                <selectable>
+                  <b>[Elliptic curve-based key establishment schemes]</b> that meets the 
+                  following: <b>[NIST Special Publication 800-56A, “Recommendation for Pair-Wise Key Establishment 
+                  Schemes Using Discrete Logarithm Cryptography”]</b>
+                </selectable>
+                <selectable>
+                  <b>[Finite field-based key establishment schemes]</b> that meets the following: 
+                  <b>[NIST Special Publication 800-56A, “Recommendation for Pair-Wise Key 
+                  Establishment Schemes Using Discrete Logarithm Cryptography”]</b>
+                </selectable>
+                <selectable>
+                  No other schemes
+                </selectable>
+              </selectables>.
+            </title>
+            <note role="application">
+              The ST author shall select all key establishment schemes used for the selected cryptographic 
+              protocols. FCS_TLSC_EXT.1 requires ciphersuites that use RSA-based key establishment 
+              schemes.
+              <br />
+              The RSA-based key establishment schemes are described in Section 9 of NIST SP 800-56B; 
+              however, Section 9 relies on implementation of other sections in SP 800-56B. If the TOE acts 
+              as a receiver in the RSA key establishment scheme, the TOE does not need to implement 
+              RSA key generation.
+              <br />
+              The elliptic curves used for the key establishment scheme shall correlate with the curves 
+              specified in FCS_CKM.1.1. Elliptic curve-based schemes will be required for products 
+              entering evaluation after July 1, 2015.
+              <br />
+              The domain parameters used for the finite field-based key establishment scheme are specified 
+              by the key generation according to FCS_CKM.1.1.
+            </note>
+            <aactivity>
+              The evaluator shall ensure that the supported key establishment schemes correspond to the 
+              key generation schemes identified in FCS_CKM.1.1. If the ST specifies more than one 
+              scheme, the evaluator shall examine the TSS to verify that it identifies the usage for each 
+              scheme.
+              <br /> 
+              The evaluator shall verify that the AGD guidance instructs the administrator how to configure 
+              the TOE to use the selected key establishment scheme(s).
+              <br />
+              Assurance Activity Note: The following tests require the developer to provide access to a test 
+              platform that provides the evaluator with tools that are typically not found on factory 
+              products.
+              <br />
+              <b>Key Establishment Schemes</b><p/>
+              The evaluator shall verify the implementation of the key establishment schemes supported by 
+              the TOE using the applicable tests below. 
+              <br />
+              <b>SP800-56A Key Establishment Schemes</b><p/>
+              The evaluator shall verify a TOE's implementation of SP800-56A key agreement schemes 
+              using the following Function and Validity tests. These validation tests for each key agreement 
+              scheme verify that a TOE has implemented the components of the key agreement scheme 
+              according to the specifications in the Recommendation. These components include the 
+              calculation of the DLC primitives (the shared secret value Z) and the calculation of the 
+              derived keying material (DKM) via the Key Derivation Function (KDF). If key confirmation 
+              is supported, the evaluator shall also verify that the components of key confirmation have 
+              been implemented correctly, using the test procedures described below. This includes the 
+              parsing of the DKM, the generation of MACdata and the calculation of MACtag.
+              <br />
+              <indent>
+                <b>Function Test</b><p/>
+                The Function test verifies the ability of the TOE to implement the key agreement 
+                schemes correctly. To conduct this test the evaluator shall generate or obtain test vectors 
+                from a known good implementation of the TOE supported schemes. For each supported 
+                key agreement scheme-key agreement role combination, KDF type, and, if supported, 
+                key confirmation role- key confirmation type combination, the tester shall generate 10 
+                sets of test vectors. The data set consists of one set of domain parameter values (FFC) or 
+                the NIST approved curve (ECC) per 10 sets of public keys. These keys are static, 
+                ephemeral or both depending on the scheme being tested.
+                <br />
+                The evaluator shall obtain the DKM, the corresponding TOE’s public keys (static and/or 
+                ephemeral), the MAC tag(s), and any inputs used in the KDF, such as the Other 
+                Information field OI and TOE id fields.
+                <br />
+                If the TOE does not use a KDF defined in SP 800-56A, the evaluator shall obtain only 
+                the public keys and the hashed value of the shared secret.
+                <br />
+                The evaluator shall verify the correctness of the TSF’s implementation of a given 
+                scheme by using a known good implementation to calculate the shared secret value, 
+                derive the keying material DKM, and compare hashes or MAC tags generated from 
+                these values.
+                <br />
+                If key confirmation is supported, the TSF shall perform the above for each implemented 
+                approved MAC algorithm.
+                <br />
+                <b>Validity Test</b><p/>
+                The Validity test verifies the ability of the TOE to recognize another party’s valid and 
+                invalid key agreement results with or without key confirmation. To conduct this test, the 
+                evaluator shall obtain a list of the supporting cryptographic functions included in the 
+                SP800-56A key agreement implementation to determine which errors the TOE should 
+                be able to recognize. The evaluator generates a set of 24 (FFC) or 30 (ECC) test vectors 
+                consisting of data sets including domain parameter values or NIST approved curves, the 
+                evaluator’s public keys, the TOE’s public/private key pairs, MACTag, and any inputs 
+                used in the KDF, such as the other info and TOE id fields.
+                <br />
+                The evaluator shall inject an error in some of the test vectors to test that the TOE 
+                recognizes invalid key agreement results caused by the following fields being incorrect: 
+                the shared secret value Z, the DKM, the other information field OI, the data to be 
+                MACed, or the generated MACTag. If the TOE contains the full or partial (only ECC) 
+                public key validation, the evaluator will also individually inject errors in both parties’ 
+                static public keys, both parties’ ephemeral public keys and the TOE’s static private key 
+                to assure the TOE detects errors in the public key validation function and/or the partial 
+                key validation function (in ECC only). At least two of the test vectors shall remain 
+                unmodified and therefore should result in valid key agreement results (they should 
+                pass).
+                <br />
+                The TOE shall use these modified test vectors to emulate the key agreement scheme 
+                using the corresponding parameters. The evaluator shall compare the TOE’s results with 
+                the results using a known good implementation verifying that the TOE detects these 
+                errors.
+                <br />
+              </indent>
+              <b>SP800-56B Key Establishment Schemes</b><p/>
+              The evaluator shall verify that the TSS describes whether the TOE acts as a sender, a 
+              recipient, or both for RSA-based key establishment schemes.
+              <br />
+              If the TOE acts as a sender, the following assurance activity shall be performed to ensure the 
+              proper operation of every TOE supported combination of RSA-based key establishment 
+              scheme:
+              <br />
+              <indent>
+                To conduct this test the evaluator shall generate or obtain test vectors from a known 
+                good implementation of the TOE supported schemes. For each combination of 
+                supported key establishment scheme and its options (with or without key confirmation 
+                if supported, for each supported key confirmation MAC function if key confirmation 
+                is supported, and for each supported mask generation function if KTS-OAEP is 
+                supported), the tester shall generate 10 sets of test vectors. Each test vector shall 
+                include the RSA public key, the plaintext keying material, any additional input 
+                parameters if applicable, the MacKey and MacTag if key confirmation is 
+                incorporated, and the outputted ciphertext. For each test vector, the evaluator shall 
+                perform a key establishment encryption operation on the TOE with the same inputs 
+                (in cases where key confirmation is incorporated, the test shall use the MacKey from 
+                the test vector instead of the randomly generated MacKey used in normal operation) 
+                and ensure that the outputted ciphertext is equivalent to the ciphertext in the test 
+                vector.
+              </indent>
+              <br />
+              If the TOE acts as a receiver, the following assurance activities shall be performed to ensure 
+              the proper operation of every TOE supported combination of RSA-based key establishment 
+              scheme:
+              <br />
+              <indent>
+                To conduct this test the evaluator shall generate or obtain test vectors from a known 
+                good implementation of the TOE supported schemes. For each combination of 
+                supported key establishment scheme and its options (with our without key 
+                confirmation if supported, for each supported key confirmation MAC function if key 
+                confirmation is supported, and for each supported mask generation function if KTS-OAEP is 
+                supported), the tester shall generate 10 sets of test vectors. Each test vector 
+                shall include the RSA private key, the plaintext keying material (KeyData), any 
+                additional input parameters if applicable, the MacTag in cases where key 
+                confirmation is incorporated, and the outputted ciphertext. For each test vector, the 
+                evaluator shall perform the key establishment decryption operation on the TOE and 
+                ensure that the outputted plaintext keying material (KeyData) is equivalent to the 
+                plaintext keying material in the test vector. In cases where key confirmation is 
+                incorporated, the evaluator shall perform the key confirmation steps and ensure that 
+                the outputted MacTag is equivalent to the MacTag in the test vector.
+              </indent>
+              <br />
+              The evaluator shall ensure that the TSS describes how the TOE handles decryption errors. In 
+              accordance with NIST Special Publication 800-56B, the TOE must not reveal the particular 
+              error that occurred, either through the contents of any outputted or logged error message or 
+              through timing variations. If KTS-OAEP is supported, the evaluator shall create separate 
+              contrived ciphertext values that trigger each of the three decryption error checks described in 
+              NIST Special Publication 800-56B section 7.2.2.3, ensure that each decryption attempt 
+              results in an error, and ensure that any outputted or logged error message is identical for each. 
+              If KTS-KEM-KWS is supported, the evaluator shall create separate contrived ciphertext 
+              values that trigger each of the three decryption error checks described in NIST Special 
+              Publication 800-56B section 7.2.3.3, ensure that each decryption attempt results in an error, 
+              and ensure that any outputted or logged error message is identical for each.
+            </aactivity>
+          </f-element>
+        </f-component>
         <f-component id="fcs_cop_ext.1" name="Cryptographic Hashing">
           <f-element id="fcs_cop_ext.1.1">
             <title>The application shall <selectables linebreak="yes">
@@ -1314,8 +1724,8 @@
               	longer allowed, and SHA-1 for verification of digital signatures is strongly discouraged as
               	there may be risk in accepting these signatures.
               	<br/>
-              	SHA-1 is currently required in order to comply with FCS_TLSC_EXT.1 and
-              	FCS_CKM.1.1(2). Vendors are strongly encouraged to implement updated protocols that
+              	SHA-1 is currently required in order to comply with FCS_TLSC_EXT.1 and. Vendors are 
+                strongly encouraged to implement updated protocols that
               	support the SHA-2 family; until updated protocols are supported, this PP allows support for
               	SHA-1 implementations in compliance with SP 800-131A.
               	<br/>
@@ -1824,7 +2234,7 @@
             </title>
             <note role="application">
               This requirement limits the elliptic curves allowed for authentication and key 
-              agreement to the NIST curves from FCS_COP.1(3) and FCS_CKM.1(1) and FCS_CKM.1(2). This 
+              agreement to the NIST curves from FCS_COP.1(3) and FCS_CKM.1 and FCS_CKM.2. This 
               extension is required for clients supporting Elliptic Curve ciphersuites.
             </note>
             <aactivity>
@@ -3288,18 +3698,18 @@
     </section>
   </chapter>
 
-  <appendix title="Optional Requirements" id="optionalappendix" >
+  <appendix title="Optional Requirements" id="optional" >
       As indicated in <secref linkend="ccl"/>, the baseline requirements (those that must be
       performed by the <abbr linkend="TOE"/>) are contained in the body of this PP.
       Additionally, there are three other types of requirements specified in 
-	  <appref linkend="optionalappendix"/>, <appref linkend="selection-basedappendix"/>, and
-	  <appref linkend="objectiveappendix"/>.
+	  <appref linkend="optional"/>, <appref linkend="sel-based"/>, and
+	  <appref linkend="objective"/>.
       The first type (in this Appendix) are requirements that can be included in the ST, but do not
       have to be in order for a TOE to claim conformance to this PP. The second type 
-	  (in <appref linkend="selection-basedappendix"/>)
+	  (in <appref linkend="sel-based"/>)
       are requirements based on selections in the body of the PP: if certain selections are made,
       then additional requirements in that appendix will need to be included. The third type (in
-      <appref linkend="objectiveappendix"/> are components that are not required in
+      <appref linkend="objective"/> are components that are not required in
 	  order to conform to this PP, but will be
       included in the baseline requirements in future versions of this PP, so adoption by Mobile
       Device vendors is encouraged. Note that the ST author is responsible for ensuring that
@@ -3307,14 +3717,14 @@
       Appendix D but are not listed (e.g., FMT-type requirements) are also included in the ST.
   </appendix>
 
-  <appendix title="Selection-Based Requirements" id="selection-basedappendix" optional="1">
+  <appendix title="Selection-Based Requirements" id="sel-based" >
       As indicated in the introduction to this PP, the baseline requirements (those that must be
       performed by the TOE or its underlying platform) are contained in the body of this PP. There
       are additional requirements based on selections in the body of the PP: if certain selections are
       made, then additional requirements below will need to be included.
   </appendix>
 
-  <appendix title="Objective Requirements" id="objectiveappendix" optional="1">
+  <appendix title="Objective Requirements" id="objective">
       This Annex includes requirements that specify security functionality which also addresses
       threats. The requirements are not currently mandated in the body of this PP as they describe
       security functionality not yet widely-available in commercial technology. However, these
