@@ -6,7 +6,12 @@
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cc="http://common-criteria.rhcloud.com/ns/cc" xmlns="http://www.w3.org/1999/xhtml" 
 		xmlns:fn="http://www.w3.org/2005/xpath-functions" version="1.0">
+
+  <!-- release variable, overridden to "final" for release versions -->
+  <xsl:param name="release" select="'draft'"/>
+
   <xsl:param name="appendicize" select="''"/>
+
 
   <!-- very important, for special characters and umlauts iso8859-1-->
   <xsl:output method="html" encoding="UTF-8" indent="yes" />
@@ -181,7 +186,11 @@
 	  <h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1>
 	</noscript>
         <div class="center">
-          <img src="images/niaplogodraft.png" />
+          <xsl:choose>
+            <xsl:when test="$release='final'"><img src="images/niaplogo.png" /></xsl:when>
+            <xsl:when test="$release='draft'"><img src="images/niaplogodraft.png" /></xsl:when>
+          </xsl:choose>
+          <br/>
           <p />Version: <xsl:value-of select="//cc:ReferenceTable/cc:PPVersion" /><p /><xsl:value-of select="//cc:ReferenceTable/cc:PPPubDate" /><p /><xsl:value-of select="//cc:PPAuthor" /></div>
         <h2>Revision History</h2>
         <table>
@@ -190,7 +199,7 @@
             <th>Date</th>
             <th>Comment</th>
           </tr>
-          <xsl:for-each select="cc:RevisionHistory/cc:entry">
+          <xsl:for-each select="cc:RevisionHistory[@role=$release]/cc:entry">
             <tr>
               <td>
                 <xsl:value-of select="cc:version" />
