@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 
     Stylesheet for Protection Profile Schema  
-    Authors: Dennis Orth, Jeff Blank
-    Version: 9 Jan 2014
+    Based on original work by Dennis Orth
+	Subsequent modifications in support of US NIAP
 -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cc="http://common-criteria.rhcloud.com/ns/cc" xmlns="http://www.w3.org/1999/xhtml" 
 		xmlns:fn="http://www.w3.org/2005/xpath-functions" version="1.0">
@@ -191,7 +191,9 @@
             <xsl:when test="$release='draft'"><img src="images/niaplogodraft.png" /></xsl:when>
           </xsl:choose>
           <br/>
-          <p />Version: <xsl:value-of select="//cc:ReferenceTable/cc:PPVersion" /><p /><xsl:value-of select="//cc:ReferenceTable/cc:PPPubDate" /><p /><xsl:value-of select="//cc:PPAuthor" /></div>
+          <p/>Version: <xsl:value-of select="//cc:ReferenceTable/cc:PPVersion" />
+		  <p/><xsl:value-of select="//cc:ReferenceTable/cc:PPPubDate" />
+		  <p/><b><xsl:value-of select="//cc:PPAuthor" /></b></div>
         <h2>Revision History</h2>
         <table>
           <tr class="header">
