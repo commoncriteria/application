@@ -3,11 +3,11 @@ OUT = output
 TRANS = transforms
 APP_XML=$(IN)/application.xml
 TABLE=$(OUT)/application-table.html
-SIMPLIFIED=$(OUT)/application-table-simplified.html
+SIMPLIFIED=$(OUT)/application-table-reqs.html
 APP_HTML=$(OUT)/application.html
 APP_OP_HTML=$(OUT)/application-optionsappendix.html
 APP_RELEASE_HTML=$(OUT)/application-release.html
-all: $(TABLE) $(CRITERIA) $(APP_HTML)
+all: $(TABLE) $(SIMPLIFIED) $(APP_HTML)
 
 pp:$(APP_HTML)
 $(APP_HTML):  $(TRANS)/pp2html.xsl $(APP_XML)
