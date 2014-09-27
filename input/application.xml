@@ -6,7 +6,7 @@
       <PPVersion>1.0</PPVersion>
       <PPAuthor>National Information Assurance Partnership</PPAuthor>
       <PPPubDate>2014-10-01</PPPubDate>
-      <PPCertificationID>NIAP-whoknows</PPCertificationID>
+      <PPCertificationID>unassigned</PPCertificationID>
       <CCVersion>.01 Revision 0</CCVersion>
       <Keywords>application; software</Keywords>
       <entry>
@@ -1253,8 +1253,32 @@
             </aactivity>
           </f-element>
         </f-component>
+
+        <f-component id="fcs_ckm_ext.1" name="Cryptographic Key Generation Services">
+          <f-element id="fcs_ckm_ext.1.1">
+            <title>The application shall <selectables atleastone="yes" linebreak="yes">
+                <selectable>generate no asymmetric cryptographic keys</selectable>
+                <selectable>invoke platform-provided functionality for asymmetric key generation</selectable>
+                <selectable>implement functionality for asymmetric key generation</selectable>
+              </selectables>.
+            </title>
+            <note role="application">If "invoke platform-provided services for asymmetric key 
+              generation" or "implement asymmetric key generation" is chosen, then
+              additional FCS_CKM.1 elements shall be included in the <abbr linkend="ST"/>.
+            </note>
+            <aactivity>
+              The evaluator shall inspect the application and its developer documentation 
+              to determine if the application needs asymmetric key generation services. If not, the 
+              evaluator shall verify the 'generate no asymmetric cryptographic keys' selection is present 
+              in the <abbr linkend="ST"/>. Otherwise, the evaluation activities will be performed as stated in the 
+              selection-based requirement requirements.
+            </aactivity>
+          </f-element>
+        </f-component>
+
         <f-component id="fcs_ckm.1" name="Cryptographic Key Generation">
-          <f-element id="fcs_ckm.1.1">
+          <f-element id="fcs_ckm.1.1" status="sel-based">
+            <selection-depends req="fcs_ckm_ext.1"/>
             <title>
               The application shall
               <selectables>
@@ -2400,7 +2424,7 @@
           </f-element>
           <f-element id="fcs_https_ext.1.3" status="sel-based">
             <selection-depends req="ftp_dit_ext.1.1"/>
-            <title> The application shall notify the application and 
+            <title> The application shall notify the user and 
               <selectables>
                 <selectable>
                   not establish the connection
