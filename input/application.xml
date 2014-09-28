@@ -534,528 +534,25 @@
       included in this section are derived from Part 2 of the Common Criteria for Information
       Technology Security Evaluation, Version 3.1, Revision 4, with additional extended functional
       components. 
-      <subsection title="User Data Protection (FDP)" id="fdp">
-        <f-component id="fdp_dec_ext.1" name="Access to Platform Resources">
-          <f-element id="fdp_dec_ext.1.1">
-            <title> The application shall provide user awareness of its 
-              intent to access
-              <selectables linebreak="yes">
-                <selectable>no hardware resources</selectable>
-                <selectable>network connectivity</selectable>
-                <selectable>camera</selectable>
-                <selectable>microphone</selectable>
-                <selectable>location services (implies use of e.g. <abbr title="Global Positioning System">GPS</abbr> receiver)</selectable>
-                <selectable><abbr title="Near-Field Communication">NFC</abbr></selectable>
-                <selectable><abbr title="Universal Serial Bus">USB</abbr></selectable>
-                <selectable>Bluetooth</selectable>
-                <selectable><assignable>list of additional hardware resources</assignable></selectable>
-              </selectables>. 
-            </title>
-            <note role="application">
-              The evaluator should ensure that the selection captures all
-              platform hardware resources which the application intends to access. 
-      	      The requirement is worded in this way due to the diversity of methods by 
-      	      which user awareness can be achieved, which varies per platform. 
-      	      Resources that do not need to be explicitly identified are 
-      	      those which are typically used by any application, 
-			  such as central processing units, 
-			  main memory, displays, input devices (e.g. keyboards, mice), and 
-			  persistent storage devices provided by the platform.
-            </note>
-            <aactivity>
-          		The evaluator shall install and run the application and inspect its user
-          		documentation to verify that the user is informed of any need to access hardware
-          		resources.  The method of doing so varies per platform.
-              <subaactivity platform="blackberry">
-                The evaluator shall install the
-                application and run it for the first time. The evaluator shall verify that the
-                application displays all platform resources it would like to access. Note: If the
-                user goes to: App permissions → Settings → Security and Privacy → Application
-                Permissions → Select application in question, it will list which platform resource
-                are approved/denied and can be changed.
-              </subaactivity>
-              <subaactivity platform="android">
-                The evaluator shall install the application and
-                verify that the application displays the platform resources it would like to access.
-                This includes permissions such as ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION,
-                BLUETOOTH, CAMERA, INTERNET, NFC, READ_EXTERNAL_STORAGE, RECORD_AUDIO. 
-                A complete list of Android permissions can be found at: 
-                <ul><li>
-		  <a href="http://developer.android.com/reference/android/Manifest.permission.html">
-                    http://developer.android.com/reference/android/Manifest.permission.html
-		  </a>
-                </li>
-                <li>
-		  <a href="http://developer.android.com/reference/android/Manifest.permission_group.html">
-		    http://developer.android.com/reference/android/Manifest.permission_group.html
-                  </a>
-                </li></ul>
-              </subaactivity>
-              <subaactivity platform="windows">For Windows Store Apps the evaluator shall check the
-                WMAppManifest.xml file for a list of required hardware capabilities. The evaluator
-                shall verify that the user is made aware of the required hardware capabilities when
-                the application is first installed. This includes permissions such as
-                ID_CAP_ISV_CAMERA, ID_CAP_LOCATION, ID_CAP_NETWORKING, ID_CAP_MICROPHONE,
-                ID_CAP_PROXIMITY and so on.
-		A complete list of Windows App permissions can be found
-                at: 
-		<ul><li>
-		  <a href="http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx">
-                    http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx
-		  </a>
-		</li></ul>
-		For Windows Desktop Applications the evaluator shall verify that either the
-                application or the documentation provide the user with a list of the required
-                hardware resources.</subaactivity>
-                <subaactivity platform="ios">The evaluator shall verify that either the
-                  application or the documentation provide the user with a list of the required
-                  hardware resources. </subaactivity>
-              <subaactivity platform="linux"> The evaluator shall verify that either the
-                application or the documentation provide the user with a list of the required
-                hardware resources. </subaactivity>
-              <subaactivity platform="Solaris"> The evaluator shall verify that either the
-                application or the documentation provide the user with a list of the required
-                hardware resources. </subaactivity>
-              <subaactivity platform="OS X"> The evaluator shall verify that either the application
-                or the documentation provide the user with a list of the required hardware
-                resources. </subaactivity>
-            </aactivity>
-          </f-element>
-          <f-element id="fdp_dec_ext.1.2">
-            <title>The application or its documentation shall provide user awareness of its intent to access
-                <selectables linebreak="yes">
-                <selectable>no system-wide information repositories</selectable>
-                <selectable>address book</selectable>
-                <selectable>calendar</selectable>
-                <selectable>call lists</selectable>
-                <selectable>system logs</selectable>
-                <selectable><assignable> list of additional system-wide information 
-                  repositories</assignable>
-                </selectable>
-              </selectables>
-	      .
-            </title>
-            <note role="application"> 
-	      The evaluator should ensure that the selection captures all
-              system-wide information repositories which the application is intended to 
-              access. The requirement is worded in this way due to the diversity of methods by which 
-              user awareness can be achieved, which varies per platform.
-	    </note>
-            <aactivity>
-	      The evaluator shall install and run the application and inspect its user
-              documentation to verify that the user is informed of any need to access sensitive
-              data. 
-	      The method of doing so varies per platform.
-	      <subaactivity platform="blackberry">The evaluator shall
-                install the application and run it for the first time. The evaluator shall verify
-                that the application displays all platform resources it would like to
-                access.
-	      </subaactivity>
-              <subaactivity platform="android">
-		The evaluator shall install the application and
-                verify that the application displays the permissions used to access system-wide
-		repositories. This includes permissions such as READ_CALENDAR,
-                READ_CALL_LOG, READ_CONTACTS, READ_EXTERNAL_STORAGE, READ_LOGS.
-                A complete list of Android permissions can be found at: 
-                <ul><li>
-		  <a href="http://developer.android.com/reference/android/Manifest.permission.html">
-                    http://developer.android.com/reference/android/Manifest.permission.html
-		  </a>
-                </li>
-                <li>
-		  <a href="http://developer.android.com/reference/android/Manifest.permission_group.html">
-		    http://developer.android.com/reference/android/Manifest.permission_group.html
-                  </a>
-                </li></ul>
-              </subaactivity>
-              <subaactivity platform="windows">For Windows Store Apps the evaluator shall check the
-                WMAppManifest.xml file for a list of required capabilities. The evaluator shall
-                verify that the user is made aware of the required information repositories when the
-                application is first installed. This includes permissions such as
-                ID_CAP_CONTACTS,ID_CAP_APPOINTMENTS,ID_CAP_MEDIALIB and so on. A complete list of
-                Windows App permissions can be found at: 
-		<ul><li>
-		  <a href="http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx">
-                    http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx
-		  </a>
-		</li></ul> 
-		For Windows Desktop Application the evaluator shall verify that either the
-                application or the documentation provide the user with a list of the required
-                information repositories. </subaactivity>
-              <subaactivity platform="ios">The evaluator shall verify that either the application
-                or the documentation provide the user with a list of permissions used to access
-                sensitive information repositories.</subaactivity>
-              <subaactivity platform="linux"> The evaluator shall verify that either the 
-                application or the documentation provide the user with a list of permissions used to 
-                access sensitive information repositories. 
-              </subaactivity>
-              <subaactivity platform="Solaris"> The evaluator shall verify that either the
-                application or the documentation provide the user with a list of permissions used to
-                access sensitive information repositories. </subaactivity>
-              <subaactivity platform="OS X"> The evaluator shall verify that either the application
-                or the documentation provide the user with a list of permissions used to access
-                sensitive information repositories. </subaactivity>
-            </aactivity>
-          </f-element>
-          <f-element id="fdp_dec_ext.1.3">
-            <title>The application shall restrict network communication to 
-              <selectables linebreak="yes">
-                <selectable>no network communication</selectable>
-                <selectable>user-initiated communication for <assignable>list of functions 
-                  for which the user can initiate network communication</assignable></selectable>
-                <selectable>respond to <assignable>list of remotely-initiated communication
-                </assignable>
-                </selectable>
-                <selectable><assignable>list of application-initiated network communication</assignable>
-                </selectable>
-              </selectables>
-              . 
-            </title>
-            <note role="application">
-	      This requirement is intended to restrict both inbound and
-              outbound network communications to only those required, or to network
-              communications that are user initiated.
-	      It does not apply to applications that generically access the filesystem that
-	      may cause the platform to access remotely mounted drives/shares.
-	    </note>
-            <aactivity> The evaluator shall perform the following tests:
-	    <testlist>
-	      <test>
-		The evaluator shall run the application.  While the application is running,
-		the evaluator shall sniff network traffic ignoring all non-application 
-		associated traffic
-		and verify that any network communications witnessed are documented or are user-initiated. 
-	      </test>
-	      <test>
-		The evaluator shall run the application.  After the application initializes, the
-		evaluator shall run network port scans to verify that any ports
-		opened by the application have been documented.  This includes
-		connection-based protocols (e.g. TCP, DCCP) as well as connectionless protocols
-		(e.g. UDP).
-	      </test>
-	    </testlist>
-	    </aactivity>
-	  </f-element>
-          <f-element id="fdp_dec_ext.1.4">
-	    <title>
-	      The application shall only seek access to those resources
-	      for which it has provided a justification to access.
-	    </title>
-	    <aactivity> 
-	      The evaluator shall review documentation provided by the application
-	      developer and for each resource which it requests access to, identify the
-	      justification as to why access is required. 
-	    </aactivity>
-	  </f-element> 
-          <f-element id="fdp_dec_ext.1.5">
-            <title>
-	      The application shall 
-	      <selectables linebreak="yes">
-		<selectable>
-		  not transmit <abbr linkend="PII"/> over a network
-		</selectable>
-		<selectable>
-		  require user approval before executing
-		  <assignable> 
-		    list of functions that transmit <abbr linkend="PII"/> over a network
-		  </assignable>
-		</selectable>
-	      </selectables>
-	      .
-	    </title>
-            <note role="application">
-	      This requirement only applies to PII that is specifically requested by the application;
-	      it does not apply if the user volunteers PII without prompting from the application 
-	      into a general (or inappropriate) data field.
-	      A dialog box that declares intent to send PII presented to the user 
-	      at the time the application is started is sufficient to meet this requirement. 
-	    </note>
-            <aactivity>The evaluator shall inspect the TSS documentation to identify functionality in the
-              application where PII can be transmitted, and perform the following tests.
-              <testlist>
-                <test>
-                  The evaluator shall run the application and exercise the functionality responsibly
-                  for transmitting PII and verify that user approval is required before transmission
-                  of the PII.
-                </test>
-                <!-- Removing this test for now. 
-                <test>
-                  The evaluator shall sniff network traffic while running the application 
-                  and verify that no PII is transmitted without user approval.
-		              If the application communicates over TLS, the evaluator shall use
-		              man-in-the-middle tools to expose encrypted traffic before sniffing.
-                </test>
-                -->
-              </testlist>
-           </aactivity>
-          </f-element>
-        </f-component>
-        <f-component id="fdp_dar_ext.1" name="Storage Of Sensitive Application Data">
-          <f-element id="fdp_dar_ext.1.1">
-            <title>The application shall 
-	      <selectables linebreak="yes">
-		<selectable>
-		  invoke platform-provided functionality to encrypt sensitive data stored</selectable>
-        <selectable>
-		  not store any sensitive data
-		</selectable>
-              </selectables>
-              in non-volatile memory.
-            </title>
-            <note role="application">
-	      Any file that may potentially contain sensitive data (to include temporary files)
-	      must be protected with platform-provided encryption.
-	      The only exception is if the user intentionally exports the sensitive data
-	      to non-protected files. 
-	    </note>
-            <!-- this language is intentionally different from the MDPP's FDP_DAR -->
-            <aactivity>The evaluator shall run the application and store potentially sensitive data.
-              The evaluator shall then inspect the filesystem to determine where data has been
-              written, and note whether it is encrypted. The evaluator shall determine whether
-              platform-provided functionality for protecting sensitive data is being invoked. 
-              Otherwise, the evaluator shall test how the application invokes
-              platform-provided functionality, which varies per platform: <subaactivity
-                platform="blackberry">The evaluator shall determine whether the application properly
-                uses the Advanced Data at Rest Protection <abbr linkend="API"/> and the application
-                uses the appropriate domain to store and protect each data file.</subaactivity>
-              <subaactivity platform="android">
-		            The evaluator shall verify that files containing sensitive data are stored with the 
-                <code>MODE_PRIVATE</code> flag set.
-	            </subaactivity>
-              <subaactivity platform="windows">The evaluator shall determine and verify that Windows
-                Applications use the <abbr title="Data Protection API">DPAPI</abbr> to store and
-                retrieve sensitive data. Windows Store Apps for desktop or mobile shall use
-                the DPAPI via the ProtectedData class.</subaactivity>
-              <subaactivity platform="ios">The evaluator shall determine whether the application
-                is protected with the Complete Protection, Protected Unless Open, or Protected Until 
-                First User Authentication Data Protection Class for each data file stored locally. 
-              </subaactivity>
-<!--
-    Applications must opt into which the platform provides key management 
--->
-              <subaactivity platform="linux">
-		The Linux platform currently does not provide data-at-rest encryption services which depend
-		upon invocation by application developers, so applications on it vacuously satisfy this requirement.
-	      </subaactivity>
-              <subaactivity platform="Solaris">
-		The Solaris platform currently does not provide data-at-rest encryption services which depend
-		upon invocation by application developers, so applications on it vacuously satisfy this requirement.
-	      </subaactivity>
-              <subaactivity platform="OS X">
-		The evaluator shall verify that the application uses Apple's Security Transforms API to store and retrieve sensitive data.
-	      </subaactivity>
-            </aactivity>
-          </f-element>
-        </f-component>
-      </subsection>
-      <subsection title="Security Management (FMT)" id="fmt">
-        <f-component id="fmt_mec_ext.1" name="Supported Configuration Mechanism">
-          <f-element id="fmt_mec_ext.1.1">
-            <title> 
-	      The application shall invoke the mechanisms recommended by the platform
-              vendor for storing and setting configuration options.
-	    </title>
-            <note role="application"> Configuration options that are stored remotely are not subject
-              to this requirement. </note>
-            <aactivity>
-              The evaluator shall review the TSS to identify the application's
-              configuration options (e.g. settings) and determine whether these are stored and set
-              using the mechanisms supported by the platform.
-              The method of doing so varies per platform. 
-	      <subaactivity platform="blackberry">
-		The evaluator shall run the application and make security-related changes to its configuration.
-		The evaluator shall check that at least one file in the app folder of the application 
-		working directory was modified to reflect the change made.
-              </subaactivity>
-              <subaactivity platform="android">
-		The evaluator shall run the application and make security-related changes to its configuration.
-		The evaluator shall check that at least one XML file at location
-		<path>/data/data/<i>package</i>/shared_prefs/</path>
-		reflects the changes made to the configuration to verify that the application used
-		<code>SharedPreferences</code> and/or <code>PreferenceActivity</code> classes
-                for storing configuration data, where <i>package</i> is the Java package
-		of the application.
-	      </subaactivity>
-              <subaactivity platform="windows">The evaluator shall determine and verify that Windows
-                Store App applications use either the Windows.UI.ApplicationSettings namespace or
-                the IsolatedStorageSettings namespace for storing application specific settings.
-                For Classic Desktop applications, the evaluator shall run the application while 
-		monitoring it with the SysInternal tool <util>ProcMon</util> and 
-		make changes to its configuration. 
-		The evaluator shall verify that <util>ProcMon</util> logs show corresponding changes to the
-		the Windows Registry.
-	      </subaactivity>
-              <subaactivity platform="ios">The evaluator shall verify that the app uses the
-                  <code>user defaults system</code> or <code>key-value store</code> for storing all
-                settings.</subaactivity>
-              <subaactivity platform="linux"> 
-		The evaluator shall run the application while monitoring it with the utility <util>strace</util>.
-		The evaluator shall make security-related changes to its configuration.
-		The evaluator shall verify that <util>strace</util> logs corresponding changes to configuration 
-		files that reside in /etc (for system-specific configuration) or 
-		in the user's home directory(for user-specific configuration).
-	      </subaactivity>
-              <subaactivity platform="Solaris">
-		The evaluator shall run the application while monitoring it with the utility 
-		<util>dtrace</util>.
-		The evaluator shall make security-related changes to its configuration.
-		The evaluator shall verify that <util>dtrace</util> logs corresponding changes to 
-		configuration 
-		files that reside in /etc (for system-specific configuration) or 
-		in the user's home directory(for user-specific configuration).
-	      </subaactivity>
-              <subaactivity platform="OS X">
-		The evaluator shall verify that the application stores and retrieves settings using the <code>NSUserDefaults</code> class.
-
-	      </subaactivity>
-            </aactivity>
-          </f-element>
-        </f-component>
-        <f-component id="fmt_cfg_ext.1" name="Secure by Default Configuration">
-          <f-element id="fmt_cfg_ext.1.1">
-            <title>
-	      The application shall only provide enough functionality to set new credentials when 
-              configured with default credentials or no credentials.
-	    </title>
-            <note role="application">
-	      Default credentials are credentials (e.g., passwords, keys) that are automatically 
-	      (without user interaction) loaded onto the platform during application installation.
-	      Credentials that are generated during installation using requirements laid out in 
-	      fcs_rbg_ext are not by definition default credentials.
-	    </note>
-            <aactivity>
-             The evaluator shall check the TSS to determine if the application requires any type
-             of credentials and if the applications installs with default credentials. If the
-             application uses any default credentials the evaluator shall run the following tests.
-             <testlist>
-                <test>
-                  The evaluator shall install and run the application without generating or loading 
-		  new credentials and verify that only the minimal
-                  application functionality required to set new credentials is available.
-                </test>
-                <test>
-                  The evaluator shall attempt to clear all credentials and verify that only
-		  the minimal application functionality required to set new credentials is available.
-                </test>
-                <test>
-                  The evaluator shall run the application establish new credentials and
-                  verify that the original default credentials no longer provide access to
-                  the application.
-                </test>
-             </testlist>
-	    </aactivity>
-          </f-element>
-          <f-element id="fmt_cfg_ext.1.2">
-            <title>The application shall be configured by default with file permissions which protect
-              it and its data from unauthorized access.</title>
-            <note role="application">
-	      The precise expectations for file permissions vary per platform
-              but the general intention is that a trust boundary protects the application and its
-              data.
-	    </note>
-            <aactivity>The evaluator shall install and run the application. The evaluator shall
-              inspect the filesystem of the platform (to the extent possible) for any files created
-              by the application and ensure that their permissions are adequate to protect them.
-              The method of doing so varies per platform. <subaactivity platform="blackberry"/>
-              <subaactivity platform="android">
-		The evaluator shall run 
-        	<code>ls -alR|grep -E '$.......(r|-w|--x)'</code> inside the application's 
-		data directories to ensure that all files are not world-accessible 
-		(either read, write, or execute).
-		The command should not print any files.
-		The evaluator shall also verify that no sensitive data is written to
-                external storage as this data can be read/modified by any application containing the
-                READ_EXTERNAL_STORAGE and/or WRITE_EXTERNAL_STORAGE permissions.</subaactivity>
-              <subaactivity platform="windows">The evaluator shall run the SysInternals tools,
-                Process Monitor and Access Check (or tools of equivalent capability, like 
-                icacls.exe) for Classic Desktop applications to verify that files written to disk 
-                during an applications installation have the correct file permissions, such that a 
-                standard user cannot modify the application or its data files. For Windows Store 
-                Apps the evaluator shall consider the requirement met because of the AppContainer 
-                sandbox.
-              </subaactivity>
-              <subaactivity platform="ios">The evaluator shall determine whether the application
-                leverages the appropriate Data Protection Class for each data file stored
-                locally.</subaactivity>
-              <subaactivity platform="linux"> 
-		The evaluator shall run the command 
-		<code>find . -perm /007</code> 
-		inside the application's data directories to ensure that all files are 
-		not world-accessible (either read, write, or execute).
-		The command should not print any files.
-	      </subaactivity>
-              <subaactivity platform="Solaris">
-		The evaluator shall run the command
-		<code>find . \( -perm -001 -o -perm -002 -o -perm -004 \)</code>
-		inside the application's data directories to ensure that all files are not 
-		world-accessible (either read, write, or execute). 
-		The command should not print any files.
-	      </subaactivity>
-              <subaactivity platform="OS X">
-		The evaluator shall run the command <code>find . -perm +007</code> inside
-		the application's data directories to ensure that all files are not world-accessible 
-		(either read, write, or execute).
-		The command should not print any files.
-	      </subaactivity>
-            </aactivity>
-          </f-element>
-        </f-component>
-        <f-component id="fmt_smf.1" name="Specification of Management Functions">
-          <f-element id="fmt_smf.1.1">
-            <title> The <abbr linkend="TSF"/> shall be capable of performing the following
-              management functions 
-              <selectables linebreak="yes">
-                <selectable> enable/disable the transmission of any information describing the
-                  system's hardware, software, or configuration
-                </selectable>
-                <selectable> enable/disable the transmission of any PII
-                </selectable>
-                <selectable> enable/disable transmission of any application state (e.g. crashdump)
-                  information</selectable>
-                <selectable> enable/disable network backup functionality to <assignable> list of 
-                  enterprise or commercial cloud backup systems</assignable>
-		</selectable>
-                <selectable> <assignable> list of other management functions to be provided by the 
-                  <abbr linkend="TSF" /></assignable></selectable> 
-              </selectables>
-            </title>
-            <note role="application">
-	      This requirement stipulates that applications need to provide the ability to 
-	      enable/disable only those functions that it actually implements. The application
-	      is not responsible for controlling the behavior of the platform or other applications.
-	    </note>
-            <aactivity>The evaluator shall verify that every management function 
-              mandated by the PP is described in the operational guidance and that the description 
-              contains the information required to perform the management duties associated with the 
-              management function. The evaluator shall test the applications ability to provide the 
-              management functions by configuring the application and testing each option selected 
-              from above. The evaluator is expected to test these functions in all the ways in which 
-              the <abbr linkend="ST"/> and guidance documentation state the configuration can be 
-              managed.
-            </aactivity>
-          </f-element>
-        </f-component>
-      </subsection>
       <subsection title="Cryptographic Support (FCS)" id="fcs">
         <f-component id="fcs_rbg_ext.1" name="Random Bit Generation">
           <f-element id="fcs_rbg_ext.1.1">
-            <title> The application shall <selectables atleastone="yes" linebreak="yes">
-                <selectable>perform no cryptographic operations</selectable>
-                <selectable>invoke platform-provided DRBG services for its cryptographic
-                  functionality</selectable>
-                <selectable>invoke application-implemented DRBG services for its cryptographic
-                  functionality</selectable>
-              </selectables> . </title>
-            <note role="application">If "invoke platform-provided DRBG services" is chosen, then
-              additional FCS_RBG_EXT.2 elements shall be included in the <abbr linkend="ST"/>. If "invoke
-              application-implemented DRBG services" is chosen, then additional FCS_RBG_EXT.3
+            <title> The application shall
+			  <selectables atleastone="yes" linebreak="yes">
+                <selectable>use no DRBG functionality</selectable>
+                <selectable>invoke platform-provided DRBG functionality</selectable>
+                <selectable>implement DRBG functionality</selectable>
+              </selectables> for its cryptographic operations. </title>
+            <note role="application">If the selection <i>invoke platform-provided DRBG functionality</i> is chosen, then
+              additional FCS_RBG_EXT.2 elements shall be included in the <abbr linkend="ST"/>. If 
+              <i>implement DRBG functionality</i> is chosen, then additional FCS_RBG_EXT.3
               elements shall be included in the <abbr linkend="ST"/>. In this requirement, cryptographic
-              functionality includes all cryptographic key generation/derivation/agreement, IVs (for
+              operations include all cryptographic key generation/derivation/agreement, IVs (for
               certain modes), as well as protocol-specific random values. </note>
             <aactivity>
               The evaluator shall inspect the application and its developer documentation 
               to determine if the application needs random bit generation services. If not, the 
-              evaluator shall verify the ‘perform no cryptographic operations’ selection is present 
+              evaluator shall verify the <i>use no DRBG functionality</i> selection is present 
               in the <abbr linkend="ST"/>. Otherwise, the evaluation activities will be performed as stated in the 
               following requirements.
             </aactivity>
@@ -1259,11 +756,11 @@
             <title>The application shall <selectables atleastone="yes" linebreak="yes">
                 <selectable>generate no asymmetric cryptographic keys</selectable>
                 <selectable>invoke platform-provided functionality for asymmetric key generation</selectable>
-                <selectable>implement functionality for asymmetric key generation</selectable>
+                <selectable>implement asymmetric key generation</selectable>
               </selectables>.
             </title>
-            <note role="application">If "invoke platform-provided services for asymmetric key 
-              generation" or "implement asymmetric key generation" is chosen, then
+            <note role="application">If <i>invoke platform-provided functionality for asymmetric key 
+              generation</i> or <i>implement asymmetric key generation</i> is chosen, then
               additional FCS_CKM.1 elements shall be included in the <abbr linkend="ST"/>.
             </note>
             <aactivity>
@@ -1283,10 +780,10 @@
               The application shall
               <selectables>
                 <selectable>
-                  invoke platform-provided APIs
+                  invoke platform-provided functionality
                 </selectable>
                 <selectable>
-                  invoke application-implemented services
+                  implement functionality
                 </selectable>
               </selectables>
                  to generate asymmetric cryptographic keys in accordance 
@@ -1496,15 +993,16 @@
           </f-element>
         </f-component>
         <f-component id="fcs_ckm.2" name="Cryptographic Key Establishment">
-          <f-element id="fcs_ckm.2.1">
+          <f-element id="fcs_ckm.2.1" status="sel-based">
+		   <selection-depends req="fcs_rbg_ext.1.1"/>
             <title>
               The application shall
               <selectables>
                 <selectable>
-                  invoke platform-provided APIs
+                  invoke platform-provided functionality
                 </selectable>
                 <selectable>
-                  invoke application-implemented services
+                  implement functionality
                 </selectable>
               </selectables>
                to perform cryptographic key establishment in accordance with a specified 
@@ -2211,11 +1709,11 @@
               shall perform the following additional test:
               <testlist>
                 <test>
-                  The evaluator shall demonstrate that a peer using a certificate without a valid 
-                  certification path results in an authenticate failure. Using the administrative 
-                  guidance, the evaluator shall then load the trusted CA certificate(s) needed to 
-                  validate the peer's certificate, and demonstrate that the connection succeeds. The 
-                  evaluator then shall delete one of the CA certificates, and show that the 
+                  The evaluator shall demonstrate that a peer using a certificate without a valid
+                  certification path results in an authenticate failure. Using the administrative
+                  guidance, the evaluator shall then load the trusted CA certificate(s) needed to
+                  validate the peer's certificate, and demonstrate that the connection succeeds. The
+                  evaluator then shall delete one of the CA certificates, and show that the
                   connection fails.
                 </test>
               </testlist>
@@ -2456,6 +1954,326 @@
                   notified of the validation failure.
                 </test>
               </testlist>
+            </aactivity>
+          </f-element>
+        </f-component>
+      </subsection>
+
+      <subsection title="User Data Protection (FDP)" id="fdp">
+        <f-component id="fdp_dec_ext.1" name="Access to Platform Resources">
+          <f-element id="fdp_dec_ext.1.1">
+            <title> The application shall provide user awareness of its
+              intent to access
+              <selectables linebreak="yes">
+                <selectable>no hardware resources</selectable>
+                <selectable>network connectivity</selectable>
+                <selectable>camera</selectable>
+                <selectable>microphone</selectable>
+                <selectable>location services</selectable>
+                <selectable><abbr title="Near-Field Communication">NFC</abbr></selectable>
+                <selectable><abbr title="Universal Serial Bus">USB</abbr></selectable>
+                <selectable>Bluetooth</selectable>
+                <selectable><assignable>list of additional hardware resources</assignable></selectable>
+              </selectables>.
+            </title>
+            <note role="application">
+              The evaluator should ensure that the selection captures all
+              platform hardware resources which the application intends to access.
+      	      The requirement is worded in this way due to the diversity of methods by
+      	      which user awareness can be achieved, which varies per platform. Selections
+              should be expressed in a manner consistent with how the application expresses
+			  its access needs to the underlying platform.  For example,
+			  the platform may provide <i>location services</i> which implies the potential use of a variety
+			  of hardware resources (e.g. satellite receivers, WiFi, cellular radio)
+			  yet <i>location services</i> is the proper selection.  This is because use of these resources
+			  can be inferred, but also because the actual usage may vary based on the particular platform.
+              Resources that do not need to be explicitly identified are
+              those which are ordinarily used by any application such as central processing units,
+			  main memory, displays, input devices (e.g. keyboards, mice), and
+			  persistent storage devices provided by the platform.
+            </note>
+            <aactivity>
+                The evaluator shall install and run the application and inspect its user
+                documentation to verify that the user is informed of any need to access hardware
+                resources.  The method of doing so varies per platform.
+              <subaactivity platform="blackberry">
+                The evaluator shall install the
+                application and run it for the first time. The evaluator shall verify that the
+                application displays all platform resources it would like to access. Note: If the
+                user goes to: App permissions → Settings → Security and Privacy → Application
+                Permissions → Select application in question, it will list which platform resource
+                are approved/denied and can be changed.
+              </subaactivity>
+              <subaactivity platform="android">
+                The evaluator shall install the application and
+                verify that the application displays the platform resources it would like to access.
+                This includes permissions such as ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION,
+                BLUETOOTH, CAMERA, INTERNET, NFC, READ_EXTERNAL_STORAGE, RECORD_AUDIO. 
+                A complete list of Android permissions can be found at: 
+                <ul><li>
+		  <a href="http://developer.android.com/reference/android/Manifest.permission.html">
+                    http://developer.android.com/reference/android/Manifest.permission.html
+		  </a>
+                </li>
+                <li>
+		  <a href="http://developer.android.com/reference/android/Manifest.permission_group.html">
+		    http://developer.android.com/reference/android/Manifest.permission_group.html
+                  </a>
+                </li></ul>
+              </subaactivity>
+              <subaactivity platform="windows">For Windows Store Apps the evaluator shall check the
+                WMAppManifest.xml file for a list of required hardware capabilities. The evaluator
+                shall verify that the user is made aware of the required hardware capabilities when
+                the application is first installed. This includes permissions such as
+                ID_CAP_ISV_CAMERA, ID_CAP_LOCATION, ID_CAP_NETWORKING, ID_CAP_MICROPHONE,
+                ID_CAP_PROXIMITY and so on.
+		A complete list of Windows App permissions can be found
+                at: 
+		<ul><li>
+		  <a href="http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx">
+                    http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx
+		  </a>
+		</li></ul>
+		For Windows Desktop Applications the evaluator shall verify that either the
+                application or the documentation provide the user with a list of the required
+                hardware resources.</subaactivity>
+                <subaactivity platform="ios">The evaluator shall verify that either the
+                  application or the documentation provide the user with a list of the required
+                  hardware resources. </subaactivity>
+              <subaactivity platform="linux"> The evaluator shall verify that either the
+                application or the documentation provide the user with a list of the required
+                hardware resources. </subaactivity>
+              <subaactivity platform="Solaris"> The evaluator shall verify that either the
+                application or the documentation provide the user with a list of the required
+                hardware resources. </subaactivity>
+              <subaactivity platform="OS X"> The evaluator shall verify that either the application
+                or the documentation provide the user with a list of the required hardware
+                resources. </subaactivity>
+            </aactivity>
+          </f-element>
+          <f-element id="fdp_dec_ext.1.2">
+            <title>The application or its documentation shall provide user awareness of its intent to access
+                <selectables linebreak="yes">
+                <selectable>no system-wide information repositories</selectable>
+                <selectable>address book</selectable>
+                <selectable>calendar</selectable>
+                <selectable>call lists</selectable>
+                <selectable>system logs</selectable>
+                <selectable><assignable> list of additional system-wide information 
+                  repositories</assignable>
+                </selectable>
+              </selectables>
+	      .
+            </title>
+            <note role="application"> 
+	      The evaluator should ensure that the selection captures all
+              system-wide information repositories which the application is intended to 
+              access. The requirement is worded in this way due to the diversity of methods by which 
+              user awareness can be achieved, which varies per platform.
+	    </note>
+            <aactivity>
+	      The evaluator shall install and run the application and inspect its user
+              documentation to verify that the user is informed of any need to access sensitive
+              data. 
+	      The method of doing so varies per platform.
+	      <subaactivity platform="blackberry">The evaluator shall
+                install the application and run it for the first time. The evaluator shall verify
+                that the application displays all platform resources it would like to
+                access.
+	      </subaactivity>
+              <subaactivity platform="android">
+		The evaluator shall install the application and
+                verify that the application displays the permissions used to access system-wide
+		repositories. This includes permissions such as READ_CALENDAR,
+                READ_CALL_LOG, READ_CONTACTS, READ_EXTERNAL_STORAGE, READ_LOGS.
+                A complete list of Android permissions can be found at: 
+                <ul><li>
+		  <a href="http://developer.android.com/reference/android/Manifest.permission.html">
+                    http://developer.android.com/reference/android/Manifest.permission.html
+		  </a>
+                </li>
+                <li>
+		  <a href="http://developer.android.com/reference/android/Manifest.permission_group.html">
+		    http://developer.android.com/reference/android/Manifest.permission_group.html
+                  </a>
+                </li></ul>
+              </subaactivity>
+              <subaactivity platform="windows">For Windows Store Apps the evaluator shall check the
+                WMAppManifest.xml file for a list of required capabilities. The evaluator shall
+                verify that the user is made aware of the required information repositories when the
+                application is first installed. This includes permissions such as
+                ID_CAP_CONTACTS,ID_CAP_APPOINTMENTS,ID_CAP_MEDIALIB and so on. A complete list of
+                Windows App permissions can be found at: 
+		<ul><li>
+		  <a href="http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx">
+                    http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx
+		  </a>
+		</li></ul> 
+		For Windows Desktop Application the evaluator shall verify that either the
+                application or the documentation provide the user with a list of the required
+                information repositories. </subaactivity>
+              <subaactivity platform="ios">The evaluator shall verify that either the application
+                or the documentation provide the user with a list of permissions used to access
+                sensitive information repositories.</subaactivity>
+              <subaactivity platform="linux"> The evaluator shall verify that either the 
+                application or the documentation provide the user with a list of permissions used to 
+                access sensitive information repositories. 
+              </subaactivity>
+              <subaactivity platform="Solaris"> The evaluator shall verify that either the
+                application or the documentation provide the user with a list of permissions used to
+                access sensitive information repositories. </subaactivity>
+              <subaactivity platform="OS X"> The evaluator shall verify that either the application
+                or the documentation provide the user with a list of permissions used to access
+                sensitive information repositories. </subaactivity>
+            </aactivity>
+          </f-element>
+          <f-element id="fdp_dec_ext.1.3">
+            <title>The application shall restrict network communication to 
+              <selectables linebreak="yes">
+                <selectable>no network communication</selectable>
+                <selectable>user-initiated communication for <assignable>list of functions 
+                  for which the user can initiate network communication</assignable></selectable>
+                <selectable>respond to <assignable>list of remotely-initiated communication
+                </assignable>
+                </selectable>
+                <selectable><assignable>list of application-initiated network communication</assignable>
+                </selectable>
+              </selectables>
+              . 
+            </title>
+            <note role="application">
+	      This requirement is intended to restrict both inbound and
+              outbound network communications to only those required, or to network
+              communications that are user initiated.
+	      It does not apply to applications that generically access the filesystem that
+	      may cause the platform to access remotely mounted drives/shares.
+	    </note>
+            <aactivity> The evaluator shall perform the following tests:
+	    <testlist>
+	      <test>
+		The evaluator shall run the application.  While the application is running,
+		the evaluator shall sniff network traffic ignoring all non-application 
+		associated traffic
+		and verify that any network communications witnessed are documented or are user-initiated. 
+	      </test>
+	      <test>
+		The evaluator shall run the application.  After the application initializes, the
+		evaluator shall run network port scans to verify that any ports
+		opened by the application have been documented.  This includes
+		connection-based protocols (e.g. TCP, DCCP) as well as connectionless protocols
+		(e.g. UDP).
+	      </test>
+	    </testlist>
+	    </aactivity>
+	  </f-element>
+          <f-element id="fdp_dec_ext.1.4">
+	    <title>
+	      The application shall only seek access to those resources
+	      for which it has provided a justification to access.
+	    </title>
+	    <aactivity> 
+	      The evaluator shall review documentation provided by the application
+	      developer and for each resource which it requests access to, identify the
+	      justification as to why access is required. 
+	    </aactivity>
+	  </f-element> 
+          <f-element id="fdp_dec_ext.1.5">
+            <title>
+	      The application shall 
+	      <selectables linebreak="yes">
+		<selectable>
+		  not transmit <abbr linkend="PII"/> over a network
+		</selectable>
+		<selectable>
+		  require user approval before executing
+		  <assignable> 
+		    list of functions that transmit <abbr linkend="PII"/> over a network
+		  </assignable>
+		</selectable>
+	      </selectables>
+	      .
+	    </title>
+            <note role="application">
+	      This requirement only applies to PII that is specifically requested by the application;
+	      it does not apply if the user volunteers PII without prompting from the application 
+	      into a general (or inappropriate) data field.
+	      A dialog box that declares intent to send PII presented to the user 
+	      at the time the application is started is sufficient to meet this requirement. 
+	    </note>
+            <aactivity>The evaluator shall inspect the TSS documentation to identify functionality in the
+              application where PII can be transmitted, and perform the following tests.
+              <testlist>
+                <test>
+                  The evaluator shall run the application and exercise the functionality responsibly
+                  for transmitting PII and verify that user approval is required before transmission
+                  of the PII.
+                </test>
+                <!-- Removing this test for now. 
+                <test>
+                  The evaluator shall sniff network traffic while running the application 
+                  and verify that no PII is transmitted without user approval.
+		              If the application communicates over TLS, the evaluator shall use
+		              man-in-the-middle tools to expose encrypted traffic before sniffing.
+                </test>
+                -->
+              </testlist>
+           </aactivity>
+          </f-element>
+        </f-component>
+        <f-component id="fdp_dar_ext.1" name="Storage Of Sensitive Application Data">
+          <f-element id="fdp_dar_ext.1.1">
+            <title>The application shall 
+	      <selectables linebreak="yes">
+		<selectable>
+		  invoke platform-provided functionality to encrypt sensitive data stored</selectable>
+        <selectable>
+		  not store any sensitive data
+		</selectable>
+              </selectables>
+              in non-volatile memory.
+            </title>
+            <note role="application">
+	      Any file that may potentially contain sensitive data (to include temporary files)
+	      must be protected with platform-provided encryption.
+	      The only exception is if the user intentionally exports the sensitive data
+	      to non-protected files. 
+	    </note>
+            <!-- this language is intentionally different from the MDPP's FDP_DAR -->
+            <aactivity>The evaluator shall run the application and store potentially sensitive data.
+              The evaluator shall then inspect the filesystem to determine where data has been
+              written, and note whether it is encrypted. The evaluator shall determine whether
+              platform-provided functionality for protecting sensitive data is being invoked. 
+              Otherwise, the evaluator shall test how the application invokes
+              platform-provided functionality, which varies per platform: <subaactivity
+                platform="blackberry">The evaluator shall determine whether the application properly
+                uses the Advanced Data at Rest Protection <abbr linkend="API"/> and the application
+                uses the appropriate domain to store and protect each data file.</subaactivity>
+              <subaactivity platform="android">
+		            The evaluator shall verify that files containing sensitive data are stored with the 
+                <code>MODE_PRIVATE</code> flag set.
+	            </subaactivity>
+              <subaactivity platform="windows">The evaluator shall determine and verify that Windows
+                Applications use the <abbr title="Data Protection API">DPAPI</abbr> to store and
+                retrieve sensitive data. Windows Store Apps for desktop or mobile shall use
+                the DPAPI via the ProtectedData class.</subaactivity>
+              <subaactivity platform="ios">The evaluator shall determine whether the application
+                is protected with the Complete Protection, Protected Unless Open, or Protected Until 
+                First User Authentication Data Protection Class for each data file stored locally. 
+              </subaactivity>
+<!--
+    Applications must opt into which the platform provides key management 
+-->
+              <subaactivity platform="linux">
+		The Linux platform currently does not provide data-at-rest encryption services which depend
+		upon invocation by application developers, so applications on it vacuously satisfy this requirement.
+	      </subaactivity>
+              <subaactivity platform="Solaris">
+		The Solaris platform currently does not provide data-at-rest encryption services which depend
+		upon invocation by application developers, so applications on it vacuously satisfy this requirement.
+	      </subaactivity>
+              <subaactivity platform="OS X">
+		The evaluator shall verify that the application uses Apple's Security Transforms API to store and retrieve sensitive data.
+	      </subaactivity>
             </aactivity>
           </f-element>
         </f-component>
@@ -2723,63 +2541,191 @@
           </f-element>
         </f-component>
       </subsection>
-      <subsection title="Trusted Path/Channel (FTP)" id="ftp">
-        <f-component id="ftp_dit_ext.1" name="Protection of Data in Transit">
-          <f-element id="ftp_dit_ext.1.1">
-            <title>The application shall 
-	    <selectables linebreak="yes">
-        <selectable>not transmit any data</selectable>
-        <selectable>not transmit any sensitive data</selectable>
-        <selectable>encrypt all transmitted sensitive data with
-          <selectables atleastone="yes">
-            <selectable><abbr title="Hypertext Transfer Protocol Secure">HTTPS</abbr></selectable>
-		        <selectable><abbr title="Transport Layer Security">TLS</abbr></selectable>
-		        <selectable><abbr title="Datagram Transport Layer Security">DTLS</abbr></selectable>
-		      </selectables>
-        </selectable>
-        <selectable>encrypt all transmitted data with
-          <selectables atleastone="yes">
-            <selectable><abbr title="Hypertext Transfer Protocol Secure">HTTPS</abbr></selectable>
-            <selectable><abbr title="Transport Layer Security">TLS</abbr></selectable>
-            <selectable><abbr title="Datagram Transport Layer Security">DTLS</abbr></selectable>
-		      </selectables>
-        </selectable>
-      </selectables>
-	    to provide communication channel between itself and another trusted IT product.
+      <subsection title="Security Management (FMT)" id="fmt">
+        <f-component id="fmt_mec_ext.1" name="Supported Configuration Mechanism">
+          <f-element id="fmt_mec_ext.1.1">
+            <title> 
+	      The application shall invoke the mechanisms recommended by the platform
+              vendor for storing and setting configuration options.
 	    </title>
-      <note role="application">
-	      Extended packages may override this requirement to provide for other protocols.
-	      Encryption is not required for applications transmitting data that is not sensitive. 
-	    </note>  
-      <aactivity>
-        The evaluator shall perform the following tests.
-        <testlist>
-          <test>
-            The evaluator shall exercise the application (attempting to transmit data; for example 
-            by connecting to remote systems or websites) while capturing packets from the 
-            application. The evaluator shall verify from the packet capture that the traffic is 
-            encrypted with <abbr title="Hypertext Transfer Protocol Secure">HTTPS</abbr>, 
-            <abbr title="Transport Layer Security">TLS</abbr> or 
-            <abbr title="Datagram Transport Layer Security">DTLS</abbr> in accordance with the 
-            selection in the <abbr linkend="ST"/>.
-          </test>
-          <test>
-            The evaluator shall exercise the application (attempting to transmit data; for example by 
-    	      connecting to remote systems or websites) while capturing packets from the application.
-    	      The evaluator shall review the packet capture and verify that no sensitive data is transmitted 
-    	      in the clear.
-	        </test>
-          <test>
-            The evaluator shall inspect the TSS to determine if user credentials are
-            transmitted. If credentials are transmitted the evaluator shall set the
-            credential to a known value. The evaluator shall capture packets from the application
-            while causing credentials to be transmitted as described in the TSS.
-            The evaluator shall perform a string search
-            of the captured network packets and verify that the plaintext credential previously
-            set by the evaluator is not found.
-          </test>
-        </testlist>
+            <note role="application"> Configuration options that are stored remotely are not subject
+              to this requirement. </note>
+            <aactivity>
+              The evaluator shall review the TSS to identify the application's
+              configuration options (e.g. settings) and determine whether these are stored and set
+              using the mechanisms supported by the platform.
+              The method of doing so varies per platform. 
+	      <subaactivity platform="blackberry">
+		The evaluator shall run the application and make security-related changes to its configuration.
+		The evaluator shall check that at least one file in the app folder of the application 
+		working directory was modified to reflect the change made.
+              </subaactivity>
+              <subaactivity platform="android">
+		The evaluator shall run the application and make security-related changes to its configuration.
+		The evaluator shall check that at least one XML file at location
+		<path>/data/data/<i>package</i>/shared_prefs/</path>
+		reflects the changes made to the configuration to verify that the application used
+		<code>SharedPreferences</code> and/or <code>PreferenceActivity</code> classes
+                for storing configuration data, where <i>package</i> is the Java package
+		of the application.
+	      </subaactivity>
+              <subaactivity platform="windows">The evaluator shall determine and verify that Windows
+                Store App applications use either the Windows.UI.ApplicationSettings namespace or
+                the IsolatedStorageSettings namespace for storing application specific settings.
+                For Classic Desktop applications, the evaluator shall run the application while 
+		monitoring it with the SysInternal tool <util>ProcMon</util> and 
+		make changes to its configuration. 
+		The evaluator shall verify that <util>ProcMon</util> logs show corresponding changes to the
+		the Windows Registry.
+	      </subaactivity>
+              <subaactivity platform="ios">The evaluator shall verify that the app uses the
+                  <code>user defaults system</code> or <code>key-value store</code> for storing all
+                settings.</subaactivity>
+              <subaactivity platform="linux"> 
+		The evaluator shall run the application while monitoring it with the utility <util>strace</util>.
+		The evaluator shall make security-related changes to its configuration.
+		The evaluator shall verify that <util>strace</util> logs corresponding changes to configuration 
+		files that reside in /etc (for system-specific configuration) or 
+		in the user's home directory(for user-specific configuration).
+	      </subaactivity>
+              <subaactivity platform="Solaris">
+		The evaluator shall run the application while monitoring it with the utility 
+		<util>dtrace</util>.
+		The evaluator shall make security-related changes to its configuration.
+		The evaluator shall verify that <util>dtrace</util> logs corresponding changes to 
+		configuration 
+		files that reside in /etc (for system-specific configuration) or 
+		in the user's home directory(for user-specific configuration).
+	      </subaactivity>
+              <subaactivity platform="OS X">
+		The evaluator shall verify that the application stores and retrieves settings using the <code>NSUserDefaults</code> class.
+
+	      </subaactivity>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <f-component id="fmt_cfg_ext.1" name="Secure by Default Configuration">
+          <f-element id="fmt_cfg_ext.1.1">
+            <title>
+	      The application shall only provide enough functionality to set new credentials when 
+              configured with default credentials or no credentials.
+	    </title>
+            <note role="application">
+	      Default credentials are credentials (e.g., passwords, keys) that are automatically 
+	      (without user interaction) loaded onto the platform during application installation.
+	      Credentials that are generated during installation using requirements laid out in 
+	      fcs_rbg_ext are not by definition default credentials.
+	    </note>
+            <aactivity>
+             The evaluator shall check the TSS to determine if the application requires any type
+             of credentials and if the applications installs with default credentials. If the
+             application uses any default credentials the evaluator shall run the following tests.
+             <testlist>
+                <test>
+                  The evaluator shall install and run the application without generating or loading 
+		  new credentials and verify that only the minimal
+                  application functionality required to set new credentials is available.
+                </test>
+                <test>
+                  The evaluator shall attempt to clear all credentials and verify that only
+		  the minimal application functionality required to set new credentials is available.
+                </test>
+                <test>
+                  The evaluator shall run the application establish new credentials and
+                  verify that the original default credentials no longer provide access to
+                  the application.
+                </test>
+             </testlist>
 	    </aactivity>
+          </f-element>
+          <f-element id="fmt_cfg_ext.1.2">
+            <title>The application shall be configured by default with file permissions which protect
+              it and its data from unauthorized access.</title>
+            <note role="application">
+	      The precise expectations for file permissions vary per platform
+              but the general intention is that a trust boundary protects the application and its
+              data.
+	    </note>
+            <aactivity>The evaluator shall install and run the application. The evaluator shall
+              inspect the filesystem of the platform (to the extent possible) for any files created
+              by the application and ensure that their permissions are adequate to protect them.
+              The method of doing so varies per platform. <subaactivity platform="blackberry"/>
+              <subaactivity platform="android">
+		The evaluator shall run 
+        	<code>ls -alR|grep -E '$.......(r|-w|--x)'</code> inside the application's 
+		data directories to ensure that all files are not world-accessible 
+		(either read, write, or execute).
+		The command should not print any files.
+		The evaluator shall also verify that no sensitive data is written to
+                external storage as this data can be read/modified by any application containing the
+                READ_EXTERNAL_STORAGE and/or WRITE_EXTERNAL_STORAGE permissions.</subaactivity>
+              <subaactivity platform="windows">The evaluator shall run the SysInternals tools,
+                Process Monitor and Access Check (or tools of equivalent capability, like 
+                icacls.exe) for Classic Desktop applications to verify that files written to disk 
+                during an applications installation have the correct file permissions, such that a 
+                standard user cannot modify the application or its data files. For Windows Store 
+                Apps the evaluator shall consider the requirement met because of the AppContainer 
+                sandbox.
+              </subaactivity>
+              <subaactivity platform="ios">The evaluator shall determine whether the application
+                leverages the appropriate Data Protection Class for each data file stored
+                locally.</subaactivity>
+              <subaactivity platform="linux"> 
+		The evaluator shall run the command 
+		<code>find . -perm /007</code> 
+		inside the application's data directories to ensure that all files are 
+		not world-accessible (either read, write, or execute).
+		The command should not print any files.
+	      </subaactivity>
+              <subaactivity platform="Solaris">
+		The evaluator shall run the command
+		<code>find . \( -perm -001 -o -perm -002 -o -perm -004 \)</code>
+		inside the application's data directories to ensure that all files are not 
+		world-accessible (either read, write, or execute). 
+		The command should not print any files.
+	      </subaactivity>
+              <subaactivity platform="OS X">
+		The evaluator shall run the command <code>find . -perm +007</code> inside
+		the application's data directories to ensure that all files are not world-accessible 
+		(either read, write, or execute).
+		The command should not print any files.
+	      </subaactivity>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <f-component id="fmt_smf.1" name="Specification of Management Functions">
+          <f-element id="fmt_smf.1.1">
+            <title> The <abbr linkend="TSF"/> shall be capable of performing the following
+              management functions 
+              <selectables linebreak="yes">
+                <selectable> enable/disable the transmission of any information describing the
+                  system's hardware, software, or configuration
+                </selectable>
+                <selectable> enable/disable the transmission of any PII
+                </selectable>
+                <selectable> enable/disable transmission of any application state (e.g. crashdump)
+                  information</selectable>
+                <selectable> enable/disable network backup functionality to <assignable> list of 
+                  enterprise or commercial cloud backup systems</assignable>
+		</selectable>
+                <selectable> <assignable> list of other management functions to be provided by the 
+                  <abbr linkend="TSF" /></assignable></selectable> 
+              </selectables>
+            </title>
+            <note role="application">
+	      This requirement stipulates that applications need to provide the ability to 
+	      enable/disable only those functions that it actually implements. The application
+	      is not responsible for controlling the behavior of the platform or other applications.
+	    </note>
+            <aactivity>The evaluator shall verify that every management function 
+              mandated by the PP is described in the operational guidance and that the description 
+              contains the information required to perform the management duties associated with the 
+              management function. The evaluator shall test the applications ability to provide the 
+              management functions by configuring the application and testing each option selected 
+              from above. The evaluator is expected to test these functions in all the ways in which 
+              the <abbr linkend="ST"/> and guidance documentation state the configuration can be 
+              managed.
+            </aactivity>
           </f-element>
         </f-component>
       </subsection>
@@ -3233,6 +3179,66 @@
               existence of SWID tags in a .swidtag file. The evaluator shall open the
               file and verify that is contains at least a SoftwareIdentity element and
               an Entity element.</aactivity>
+          </f-element>
+        </f-component>
+      </subsection>
+      <subsection title="Trusted Path/Channel (FTP)" id="ftp">
+        <f-component id="ftp_dit_ext.1" name="Protection of Data in Transit">
+          <f-element id="ftp_dit_ext.1.1">
+            <title>The application shall 
+	    <selectables linebreak="yes">
+        <selectable>not transmit any data</selectable>
+        <selectable>not transmit any sensitive data</selectable>
+        <selectable>encrypt all transmitted sensitive data with
+          <selectables atleastone="yes">
+            <selectable><abbr title="Hypertext Transfer Protocol Secure">HTTPS</abbr></selectable>
+		        <selectable><abbr title="Transport Layer Security">TLS</abbr></selectable>
+		        <selectable><abbr title="Datagram Transport Layer Security">DTLS</abbr></selectable>
+		      </selectables>
+        </selectable>
+        <selectable>encrypt all transmitted data with
+          <selectables atleastone="yes">
+            <selectable><abbr title="Hypertext Transfer Protocol Secure">HTTPS</abbr></selectable>
+            <selectable><abbr title="Transport Layer Security">TLS</abbr></selectable>
+            <selectable><abbr title="Datagram Transport Layer Security">DTLS</abbr></selectable>
+		      </selectables>
+        </selectable>
+      </selectables>
+	    to provide communication channel between itself and another trusted IT product.
+	    </title>
+      <note role="application">
+	      Extended packages may override this requirement to provide for other protocols.
+	      Encryption is not required for applications transmitting data that is not sensitive. 
+	    </note>  
+      <aactivity>
+        The evaluator shall perform the following tests.
+        <testlist>
+          <test>
+            The evaluator shall exercise the application (attempting to transmit data; for example 
+            by connecting to remote systems or websites) while capturing packets from the 
+            application. The evaluator shall verify from the packet capture that the traffic is 
+            encrypted with <abbr title="Hypertext Transfer Protocol Secure">HTTPS</abbr>, 
+            <abbr title="Transport Layer Security">TLS</abbr> or 
+            <abbr title="Datagram Transport Layer Security">DTLS</abbr> in accordance with the 
+            selection in the <abbr linkend="ST"/>.
+          </test>
+          <test>
+            The evaluator shall exercise the application (attempting to transmit data; for example by 
+    	      connecting to remote systems or websites) while capturing packets from the application.
+    	      The evaluator shall review the packet capture and verify that no sensitive data is transmitted 
+    	      in the clear.
+	        </test>
+          <test>
+            The evaluator shall inspect the TSS to determine if user credentials are
+            transmitted. If credentials are transmitted the evaluator shall set the
+            credential to a known value. The evaluator shall capture packets from the application
+            while causing credentials to be transmitted as described in the TSS.
+            The evaluator shall perform a string search
+            of the captured network packets and verify that the plaintext credential previously
+            set by the evaluator is not found.
+          </test>
+        </testlist>
+	    </aactivity>
           </f-element>
         </f-component>
       </subsection>
