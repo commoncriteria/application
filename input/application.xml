@@ -543,9 +543,8 @@
                 <selectable>invoke platform-provided DRBG functionality</selectable>
                 <selectable>implement DRBG functionality</selectable>
               </selectables> for its cryptographic operations. </title>
-            <note role="application">If the selection <i>invoke platform-provided DRBG functionality</i> is chosen, then
-              additional FCS_RBG_EXT.2 elements shall be included in the <abbr linkend="ST"/>. If 
-              <i>implement DRBG functionality</i> is chosen, then additional FCS_RBG_EXT.3
+            <note role="application"> If 
+              <i>implement DRBG functionality</i> is chosen, then additional <linkref linkend="FCS_RBG_EXT.2"/>
               elements shall be included in the <abbr linkend="ST"/>. In this requirement, cryptographic
               operations include all cryptographic key generation/derivation/agreement, IVs (for
               certain modes), as well as protocol-specific random values. </note>
@@ -555,24 +554,8 @@
               evaluator shall verify the <i>use no DRBG functionality</i> selection is present 
               in the <abbr linkend="ST"/>. Otherwise, the evaluation activities will be performed as stated in the 
               following requirements.
-            </aactivity>
-          </f-element>
-        </f-component>
-        <f-component id="fcs_rbg_ext.2" name="Random Bit Generation from Platform">
-          <f-element id="fcs_rbg_ext.2.1" status="sel-based">
-            <selection-depends req="fcs_rbg_ext.1.1"/>
-            <title> The application shall invoke a mechanism recommended by the platform
-              vendor for requesting data from the platform's DRBG.</title>
-            <note role="application">This requirement shall be included in <abbr linkend="ST"/>s in which "invoke 
-              platform-provided DRBG services" is chosen in FCS_RBG_EXT.1.1. Guidance on various 
-              platform DRBGs can be found in "Random Number Generators (RNG): Introduction for 
-              Application Developers" at: <ul><li><a
-                href="http://www.nsa.gov/ia/mitigation_guidance/security_configuration_guides/fact_sheets.shtml">
-                http://www.nsa.gov/ia/mitigation_guidance/security_configuration_guides/fact_sheets.shtml</a></li>
-              </ul>  
-            </note>
-            <aactivity>The evaluator shall verify that the <abbr linkend="ST"/> identifies the calls used in acquiring
-              random from each instantiation of the RBG used for the application’s cryptographic
+              The evaluator shall verify that the <abbr linkend="ST"/> identifies the calls used in acquiring
+              random from each instantiation of the RBG used for the application's cryptographic
               functionality.  The evaluator shall ensure that random bits are acquired properly
               from the platform. This varies on a per-platform basis:
               <subaactivity platform="blackberry">
@@ -604,8 +587,8 @@
             </aactivity>
           </f-element>
         </f-component>
-         <f-component id="fcs_rbg_ext.3" name="Random Bit Generation from Application">
-          <f-element id="fcs_rbg_ext.3.1" status="sel-based">
+         <f-component id="fcs_rbg_ext.2" name="Random Bit Generation from Application">
+          <f-element id="fcs_rbg_ext.2.1" status="sel-based">
             <selection-depends req="fcs_rbg_ext.1.1"/>
             <title> The application shall perform all deterministic random bit generation (DRBG)
               services in accordance with <selectables atleastone="yes" linebreak="yes">
@@ -618,8 +601,9 @@
                 <selectable>FIPS Pub 140-2 Annex C: X9.31 Appendix 2.4 using AES</selectable>
               </selectables>.
             </title>
-            <note role="application">This requirement shall be included in <abbr linkend="ST"/>s in which "invoke
-              application-implemented DRBG services" is chosen in FCS_RBG_EXT.3.1. The <abbr linkend="ST"/> author 
+            <note role="application">This requirement shall be included in <abbr linkend="ST"/>s in which <i>invoke
+              application-implemented DRBG services</i> is chosen in <linkref linkend="FCS_RBG_EXT.1.1"/>. 
+			  The <abbr linkend="ST"/> author 
               should select the standard to which the RBG services comply (either SP 800-90A or FIPS 
               140-2 Annex C). 
               <br />
@@ -719,7 +703,7 @@
               </testlist>
             </aactivity>
           </f-element>
-          <f-element id="fcs_rbg_ext.3.2" status="sel-based">
+          <f-element id="fcs_rbg_ext.2.2" status="sel-based">
             <selection-depends req="fcs_rbg_ext.1.1"/>
             <title> The deterministic RBG shall be seeded by an entropy source that accumulates
               entropy from a platform-based DRBG and <selectables linebreak="yes">
@@ -759,9 +743,8 @@
                 <selectable>implement asymmetric key generation</selectable>
               </selectables>.
             </title>
-            <note role="application">If <i>invoke platform-provided functionality for asymmetric key 
-              generation</i> or <i>implement asymmetric key generation</i> is chosen, then
-              additional FCS_CKM.1 elements shall be included in the <abbr linkend="ST"/>.
+            <note role="application">If <i>implement asymmetric key generation</i> is chosen, then
+              additional <linkref linkend="FCS_CKM.1"/> elements shall be included in the <abbr linkend="ST"/>.
             </note>
             <aactivity>
               The evaluator shall inspect the application and its developer documentation 
@@ -777,16 +760,7 @@
           <f-element id="fcs_ckm.1.1" status="sel-based">
             <selection-depends req="fcs_ckm_ext.1"/>
             <title>
-              The application shall
-              <selectables>
-                <selectable>
-                  invoke platform-provided functionality
-                </selectable>
-                <selectable>
-                  implement functionality
-                </selectable>
-              </selectables>
-                 to generate asymmetric cryptographic keys in accordance 
+              The application shall generate asymmetric cryptographic keys in accordance 
               with a specified cryptographic key generation algorithm
               <selectables linebreak="yes">
                 <selectable>
@@ -994,7 +968,7 @@
         </f-component>
         <f-component id="fcs_ckm.2" name="Cryptographic Key Establishment">
           <f-element id="fcs_ckm.2.1" status="sel-based">
-		   <selection-depends req="fcs_rbg_ext.1.1"/>
+		   <selection-depends req="fcs_tlsc_ext.1.1"/>
             <title>
               The application shall
               <selectables>
@@ -1187,8 +1161,34 @@
             </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_cop_ext.1" name="Cryptographic Hashing">
+
+        <f-component id="fcs_cop_ext.1" name="Encryption/Decryption">
           <f-element id="fcs_cop_ext.1.1">
+            <title>The application shall <selectables linebreak="yes">
+                <selectable>perform no encryption/decryption</selectable>
+                <selectable>invoke platform-provided encryption/decryption functionality</selectable>
+                <selectable>implement encryption/decryption functionality</selectable>
+              </selectables> 
+	      .
+	    </title>
+            <note role="application">The evaluator should ensure 
+			  <i>invoke platform-provided encryption/decryption functionality</i> is
+              selected in cases where the application uses platform APIs to perform those
+              operations. If <i>implement encryption/decryption functionality</i> is selected, then
+              additional requirements from FCS_COP.1(1) shall be included in
+              the <abbr linkend="ST"/>.
+            </note>
+            <aactivity>Requirement met by the platform: The evaluator shall examine the TSS of the
+              application to verify that it describes how the platform's digital signature
+              functionality is invoked for each operation they are used for in the application. The
+              evaluator shall also examine the TSS of the application product’s <abbr linkend="ST"/> to verify that it
+              describes how the platforms hash functionality is invoked for each digest size
+              selected in the application product’s <abbr linkend="ST"/>. </aactivity>
+          </f-element>
+        </f-component>
+
+        <f-component id="fcs_cop_ext.2" name="Cryptographic Hashing">
+          <f-element id="fcs_cop_ext.2.1">
             <title>The application shall <selectables linebreak="yes">
                 <selectable>perform no cryptographic hashing</selectable>
                 <selectable>invoke platform-provided cryptographic hashing</selectable>
@@ -1211,16 +1211,16 @@
               selected in the application product’s <abbr linkend="ST"/>. </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_cop_ext.2" name="Cryptographic Signing">
-          <f-element id="fcs_cop_ext.2.1">
+        <f-component id="fcs_cop_ext.3" name="Cryptographic Signing">
+          <f-element id="fcs_cop_ext.3.1">
             <title>The application shall 
 			  <selectables linebreak="yes">
                 <selectable>perform no cryptographic signing</selectable>
                 <selectable>invoke platform-provided cryptographic signing</selectable>
                 <selectable>implement cryptographic signing</selectable>
               </selectables> 
-	      .
-	    </title>
+	        .
+	        </title>
             <note role="application">The evaluator should ensure 
 			  <i>invoke platform-provided cryptographic signing</i> is
               selected in cases where the application uses platform APIs to perform cryptographic
@@ -1236,7 +1236,182 @@
               selected in the application product’s <abbr linkend="ST"/>. </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fcs_cop.1(2)" name="Cryptographic Hashing">
+
+        <f-component id="fcs_cop.1(1)" name="Cryptographic Operation - Encryption/Decryption">
+          <f-element id="fcs_cop.1.1(1)" status="sel-based">
+            <selection-depends req="fcs_cop_ext.1.1"/>
+            <title>The application shall perform encryption/decryption in accordance with a specified 
+        cryptographic algorithm  
+		<br/>
+        <ul>
+          <li>AES-CBC (as defined in NIST SP 800-38A) mode;</li>
+        </ul>
+        and
+		<selectables linebreak="yes">
+		  <selectable>AES-GCM (as defined in NIST SP 800-38D)</selectable>
+		  <selectable>no other modes</selectable>
+	    </selectables>
+        and cryptographic key sizes 128-bit key sizes and 
+		<selectables>
+		  <selectable>256-bit key sizes</selectable>
+		  <selectable>no other key sizes</selectable>
+	    </selectables>
+		.
+		</title>
+            <note role="application">
+                For the first selection, the ST author should choose
+                the mode or modes in which AES operates. For the second selection, the ST author should
+                choose the key sizes that are supported by this functionality. 128-bit key size 
+                is required in order to comply with <linkref linkend="FCS_TLSC_EXT.1"/> and
+				<linkref linkend="FCS_CKM.1.1(2)"/>, if those are selected.
+				<br/>
+                Support for 256-bit key sizes will be required for products entering evaluation 
+				after Quarter 3, 2015.
+            </note>
+            <aactivity>
+			The evaluator checks the AGD documents to determine that any configuration that 
+			is required to be done to configure the functionality for the required modes
+			and key sizes is present. The evaluator shall perform all of the 
+			following tests for each algorithm implemented by the TSF and used to
+			satisfy the requirements of this PP:
+			<br/>
+              <b>AES-CBC Known Answer Tests</b>
+              <p />There are four Known Answer Tests (KATs), described below. In
+              all KATs, the plaintext, ciphertext, and IV values shall be 128-bit
+              blocks. The results from each test may either be obtained by the
+              evaluator directly or by supplying the inputs to the implementer
+              and receiving the results in response. To determine correctness,
+              the evaluator shall compare the resulting values to those obtained
+              by submitting the same inputs to a known good implementation. 
+              <ul>
+                <li>KAT-1. To test the encrypt functionality of AES-CBC, the
+                evaluator shall supply a set of 10 plaintext values and obtain
+                the ciphertext value that results from AES-CBC encryption of the
+                given plaintext using a key value of all zeros and an IV of all
+                zeros. Five plaintext values shall be encrypted with a 128-bit
+                all-zeros key, and the other five shall be encrypted with a
+                256-bit all- zeros key. To test the decrypt functionality of
+                AES-CBC, the evaluator shall perform the same test as for
+                encrypt, using 10 ciphertext values as input and AES-CBC
+                decryption.</li>
+                <li>KAT-2. To test the encrypt functionality of AES-CBC, the
+                evaluator shall supply a set of 10 key values and obtain the
+                ciphertext value that results from AES-CBC encryption of an
+                all-zeros plaintext using the given key value and an IV of all
+                zeros. Five of the keys shall be 128-bit keys, and the other five
+                shall be 256-bit keys. To test the decrypt functionality of
+                AES-CBC, the evaluator shall perform the same test as for
+                encrypt, using an all-zero ciphertext value as input and AES-CBC
+                decryption.</li>
+                <li>KAT-3. To test the encrypt functionality of AES-CBC, the
+                evaluator shall supply the two sets of key values described below
+                and obtain the ciphertext value that results from AES encryption
+                of an all-zeros plaintext using the given key value and an IV of
+                all zeros. The first set of keys shall have 128 128-bit keys, and
+                the second set shall have 256 256-bit keys. Key i in each set
+                shall have the leftmost i bits be ones and the rightmost N-i bits
+                be zeros, for i in [1,N]. To test the decrypt functionality of
+                AES-CBC, the evaluator shall supply the two sets of key and
+                ciphertext value pairs described below and obtain the plaintext
+                value that results from AES-CBC decryption of the given
+                ciphertext using the given key and an IV of all zeros. The first
+                set of key/ciphertext pairs shall have 128 128-bit key/ciphertext
+                pairs, and the second set of key/ciphertext pairs shall have 256
+                256-bit key/ciphertext pairs. Key i in each set shall have the
+                leftmost i bits be ones and the rightmost N-i bits be zeros, for
+                i in [1,N]. The ciphertext value in each pair shall be the value
+                that results in an all-zeros plaintext when decrypted with its
+                corresponding key.</li>
+                <li>KAT-4. To test the encrypt functionality of AES-CBC, the
+                evaluator shall supply the set of 128 plaintext values described
+                below and obtain the two ciphertext values that result from
+                AES-CBC encryption of the given plaintext using a 128-bit key
+                value of all zeros with an IV of all zeros and using a 256-bit
+                key value of all zeros with an IV of all zeros, respectively.
+                Plaintext value i in each set shall have the leftmost i bits be
+                ones and the rightmost 128-i bits be zeros, for i in
+                [1,128].</li>
+              </ul>To test the decrypt functionality of AES-CBC, the evaluator
+              shall perform the same test as for encrypt, using ciphertext values
+              of the same form as the plaintext in the encrypt test as input and
+              AES-CBC decryption. 
+              <br />
+              <b>AES-CBC Multi-Block Message Test</b>
+              <p />The evaluator shall test the encrypt functionality by
+              encrypting an i-block message where 1 &lt; i &lt;= 10. The
+              evaluator shall choose a key, an IV and plaintext message of length
+              i blocks and encrypt the message, using the mode to be tested, with
+              the chosen key and IV. The ciphertext shall be compared to the
+              result of encrypting the same plaintext message with the same key
+              and IV using a known good implementation. The evaluator shall also
+              test the decrypt functionality for each mode by decrypting an
+              i-block message where 1 &lt; i &lt;=10. The evaluator shall choose
+              a key, an IV and a ciphertext message of length i blocks and
+              decrypt the message, using the mode to be tested, with the chosen
+              key and IV. The plaintext shall be compared to the result of
+              decrypting the same ciphertext message with the same key and IV
+              using a known good implementation. AES-CBC Monte Carlo Tests The
+              evaluator shall test the encrypt functionality using a set of 200
+              plaintext, IV, and key 3- tuples. 100 of these shall use 128 bit
+              keys, and 100 shall use 256 bit keys. The plaintext and IV values
+              shall be 128-bit blocks. For each 3-tuple, 1000 iterations shall be
+              run as follows: 
+              <pre>
+              # Input: PT, IV, Key
+              for i = 1 to 1000:
+                if i == 1:
+                      CT[1] = AES-CBC-Encrypt(Key, IV, PT)
+                      PT = IV
+                else:
+                  CT[i] = AES-CBC-Encrypt(Key, PT) 
+                  PT = CT[i-1]
+              </pre>The ciphertext computed in the 1000th iteration (i.e.,
+              CT[1000]) is the result for that trial. This result shall be
+              compared to the result of running 1000 iterations with the same
+              values using a known good implementation.
+              <br />The evaluator shall test the decrypt functionality using the
+              same test as for encrypt, exchanging CT and PT and replacing
+              AES-CBC-Encrypt with AES-CBC-Decrypt. 
+              <br />
+              <b>AES-GCM Monte Carlo Tests</b>
+              <p />The evaluator shall test the authenticated encrypt
+              functionality of AES-GCM for each combination of the following
+              input parameter lengths: 
+              <ul>
+                <li>128 bit and 256 bit keys</li>
+                <li>Two plaintext lengths. One of the plaintext lengths shall be
+                a non-zero integer multiple of 128 bits, if
+                supported. The other plaintext length shall not be an integer
+                multiple of 128 bits, if supported.</li>
+                <li>Three AAD lengths. One AAD length shall be 0, if supported.
+                One AAD length shall be a non-zero integer
+                multiple of 128 bits, if supported. One AAD length shall not be
+                an integer multiple of 128 bits, if
+                supported.</li>
+                <li>Two IV lengths. If 96 bit IV is supported, 96 bits shall be
+                one of the two IV lengths tested.</li>
+              </ul>The evaluator shall test the encrypt functionality using a set
+              of 10 key, plaintext, AAD, and IV tuples for each combination of
+              parameter lengths above and obtain the ciphertext value and tag
+              that results from AES-GCM authenticated encrypt. Each supported tag
+              length shall be tested at least once per set of 10. The IV value
+              may be supplied by the evaluator or the implementation being
+              tested, as long as it is known. 
+              <br />The evaluator shall test the decrypt functionality using a
+              set of 10 key, ciphertext, tag, AAD, and IV 5-tuples for each
+              combination of parameter lengths above and obtain a Pass/Fail
+              result on authentication and the decrypted plaintext if Pass. The
+              set shall include five tuples that Pass and five that Fail. 
+              <br />The results from each test may either be obtained by the
+              evaluator directly or by supplying the inputs to the implementer
+              and receiving the results in response. To determine correctness,
+              the evaluator shall compare the resulting values to those obtained
+              by submitting the same inputs to a known good
+              implementation.
+            </aactivity>
+          </f-element>
+        </f-component> 
+        <f-component id="fcs_cop.1(2)" name="Cryptographic Operation - Hashing">
           <f-element id="fcs_cop.1.1(2)" status="sel-based">
             <selection-depends req="fcs_cop_ext.1.1"/>
             <title>The TSF shall perform cryptographic hashing services in accordance with a specified 
@@ -1267,7 +1442,7 @@
               	The intent of this requirement is to specify the hashing function. The hash selection must
               	support the message digest size selection. The hash selection should be consistent with the
               	overall strength of the algorithm used (for example, SHA 256 for 128-bit keys).
-              </note>
+            </note>
             <aactivity>
             The evaluator shall check that the association of the hash function with other
             application cryptographic functions (for example, the digital signature verification
@@ -1323,7 +1498,7 @@
             </aactivity>
           </f-element>
         </f-component> 
-        <f-component id="fcs_cop.1(3)" name="Cryptographic Signing">
+        <f-component id="fcs_cop.1(3)" name="Cryptographic Operation - Signing">
           <f-element id="fcs_cop.1.1(3)" status="sel-based">
             <selection-depends req="fcs_cop_ext.2.1"/>
             <title>The TSF shall perform cryptographic signature services (generation and
@@ -1446,10 +1621,13 @@
             <selection-depends req="ftp_dit_ext.1.1"/>
             <title> The application shall 
               <selectables>
-                <selectable>invoke the platform-provided <abbr title="Transport Layer Security">
-                  TLS</abbr> 1.2</selectable>
-                <selectable>implement <abbr title="Transport Layer Security">TLS</abbr> 1.2 (RFC
-                  5246)</selectable>
+                <selectable>
+				  invoke platform-provided <abbr title="Transport Layer Security">TLS</abbr> 1.2
+				</selectable>
+                <selectable>
+				  implement <abbr title="Transport Layer Security">TLS</abbr> 1.2 (RFC 5246)
+				  <requires req="fcs_ckm.2.1"/>
+				</selectable>
               </selectables> supporting the following ciphersuites: <p/>Mandatory Ciphersuites:
               TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246 <p/>Optional Ciphersuites:
                 <selectables linebreak="yes">
@@ -1485,7 +1663,11 @@
               <abbr title="Transport Layer Security">TLS</abbr> versions are standardized by the 
               IETF.
              <br />
-              If any ciphersuites are selected using ECDHE, then FCS_TLSC_EXT.1.5 is required.
+              If any ciphersuites are selected using ECDHE, then 
+			  <linkref linkend="FCS_TLSC_EXT.1.5"/> is required.
+             <br />
+              If <i>implement TLS 1.2 (RFC 5246)</i> is selected, then 
+			  <linkref linkend="FCS_CKM.2.1"/> is required.
             </note>
             <aactivity>
               The evaluator shall check the description of the implementation of this protocol in 
@@ -2281,7 +2463,7 @@
       <subsection title="Identification and Authentication (FIA)" id="fia">
         <f-component id="fia_x509_ext.1" name="X.509 Certificate Validation" status="sel-based">
           <f-element id="fia_x509_ext.1.1" status="sel-based">
-            <selection-depends req="fcs_dit_ext.1.1"/>
+            <selection-depends req="ftp_dit_ext.1.1"/>
             <title>
               The application shall validate certificates in accordance with the following rules:
               <ul>
@@ -2418,7 +2600,7 @@
             </aactivity>
           </f-element>
           <f-element id="fia_x509_ext.1.2" status="sel-based">
-            <selection-depends req="fcs_dit_ext.1.1"/>
+            <selection-depends req="ftp_dit_ext.1.1"/>
             <title>
               The application shall only treat a certificate as a CA certificate if the 
               basicConstraints extension is present and the CA flag is set to TRUE.
@@ -2456,7 +2638,7 @@
         </f-component>
         <f-component id="fia_x509_ext.2" name="X.509 Certificate Authentication" status="sel-based">
           <f-element id="fia_x509_ext.2.1" status="sel-based">
-            <selection-depends req="fcs_dit_ext.1.1"/>
+            <selection-depends req="ftp_dit_ext.1.1"/>
             <title>
               The application shall use X.509v3 certificates as defined by RFC 5280 to support 
               authentication for 
@@ -2473,8 +2655,8 @@
               </selectables>. 
             </title>
             <note role="application">
-              The <abbr linkend="ST"/> author’s selection shall match the selection of 
-              FCS_DIT_EXT.1.1.
+              The <abbr linkend="ST"/> author's selection shall match the selection in 
+              <linkref linkend="FTP_DIT_EXT.1.1"/>.
             </note>
             <!-- 
             <aactivity>
@@ -2483,7 +2665,7 @@
             -->
           </f-element>
           <f-element id="fia_x509_ext.2.2" status="sel-based">
-            <selection-depends req="fcs_dit_ext.1.1"/>
+            <selection-depends req="ftp_dit_ext.1.1"/>
             <title>
               When the application cannot establish a connection to determine the validity of a 
               certificate, the application shall  
