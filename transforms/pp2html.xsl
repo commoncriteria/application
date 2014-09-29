@@ -345,7 +345,7 @@
         PP-Title:<![CDATA[&]]><xsl:value-of select="cc:PPTitle" />
         PP-Version:<![CDATA[&]]><xsl:value-of select="cc:PPVersion" />
         PP-Author:<![CDATA[&]]><xsl:value-of select="cc:PPAuthor" />
-        PP-Puplication Date:<![CDATA[&]]><xsl:value-of select="cc:PPPubDate" />   
+        PP-Publication Date:<![CDATA[&]]><xsl:value-of select="cc:PPPubDate" />   
         Certification-ID:<![CDATA[&]]><xsl:value-of select="cc:PPCertificationID" />
         CC-Version:<![CDATA[&]]><xsl:value-of select="cc:CCVersion" />
         Keywords:<![CDATA[&]]><xsl:value-of select="cc:Keywords" /><xsl:for-each select="cc:entry"><xsl:value-of select="cc:name" />:<![CDATA[&]]><xsl:value-of select="cc:description" /></xsl:for-each></xsl:template>
@@ -598,7 +598,8 @@
 	</xsl:if>
 
 	<xsl:for-each select="../cc:selection-depends">
-          <xsl:value-of select="translate(@req, $lower, $upper)" />
+          <xsl:variable name="reqid" select="translate(@req, $lower, $upper)" />
+          <a href="#{$reqid}" class="abbr"><xsl:value-of select="$reqid" /></a>
 	  <xsl:if test="position() != last()"><xsl:text>, </xsl:text></xsl:if>
 	  </xsl:for-each>.
 	</i></b>
@@ -653,11 +654,11 @@
       <xsl:variable name="appendix-num">
 	<xsl:choose>
           <xsl:when test="$appendicize='on'">
-	    <xsl:number format="A" />.
-          </xsl:when>
+		    <xsl:number format="A." />
+		  </xsl:when>
           <xsl:otherwise>
-	    <!-- Don't count the first couple -->
-            <xsl:number format="A" count="cc:appendix[@id!='optional' and @id!='objective' and @id!='sel-based']"/>.
+	        <!-- Don't count ones with these special IDs -->
+            <xsl:number format="A." count="cc:appendix[@id!='optional' and @id!='objective' and @id!='sel-based']"/>
           </xsl:otherwise>
 	</xsl:choose>
       </xsl:variable>
@@ -698,6 +699,7 @@
       <xsl:with-param name="section-prefix" select="$chapter-num" />
     </xsl:apply-templates>
   </xsl:template>
+
   <xsl:template match="cc:section">
     <xsl:param name="section-prefix" />
     <xsl:variable name="section-num">
@@ -712,6 +714,7 @@
       <xsl:with-param name="subsection-prefix" select="concat($section-prefix, $section-num, '.')" />
     </xsl:apply-templates>
   </xsl:template>
+  
   <xsl:template match="cc:subsection">
     <xsl:param name="subsection-prefix" />
     <xsl:variable name="subsection-num">
@@ -732,6 +735,7 @@
     </h4>
     <xsl:apply-templates />
   </xsl:template>
+
   <xsl:template match="cc:figure">
     <div class="figure">
       <img>
@@ -765,6 +769,17 @@
         <xsl:value-of select="$linkend" />
       </xsl:attribute>
       <xsl:value-of select="//*[@id=$linkend]/@title" />
+    </xsl:element>
+  </xsl:template>
+
+  <xsl:template match="cc:linkref">
+    <xsl:variable name="linkend" select="@linkend" />
+    <xsl:element name="a">
+      <xsl:attribute name="href">
+        <xsl:text>#</xsl:text>
+        <xsl:value-of select="$linkend" />
+      </xsl:attribute>
+      <xsl:value-of select="$linkend" />
     </xsl:element>
   </xsl:template>
 
