@@ -535,7 +535,7 @@
       Technology Security Evaluation, Version 3.1, Revision 4, with additional extended functional
       components. 
       <subsection title="Cryptographic Support (FCS)" id="fcs">
-        <f-component id="fcs_rbg_ext.1" name="Random Bit Generation">
+        <f-component id="fcs_rbg_ext.1" name="Random Bit Generation Services">
           <f-element id="fcs_rbg_ext.1.1">
             <title> The application shall
 			  <selectables linebreak="yes">
@@ -1572,6 +1572,52 @@
             </aactivity>
           </f-element>
           </f-component> 
+        <f-component id="fcs_cop.1(4)" name="Cryptographic Operation - Keyed-Hash Message Authentication">
+          <f-element id="fcs_cop.1.1(4)" status="sel-based">
+            <selection-depends req="fcs_tlsc_ext.1.1"/>
+            <title>The application shall perform keyed-hash message authentication in accordance with a 
+			specified cryptographic algorithm
+			<ul>
+			<li>HMAC-SHA-256</li>
+			</ul>
+			and
+			<selectables linebreak="yes">
+                <selectable>SHA-1</selectable>
+                <selectable>SHA-384</selectable>
+                <selectable>SHA-512</selectable>
+                <selectable>no other algorithms</selectable>
+            </selectables>
+			with key sizes <assignable>key size (in bits) used in HMAC</assignable> 
+			and message digest sizes 256 and 
+			<selectables>
+                <selectable>160</selectable>
+                <selectable>384</selectable>
+                <selectable>512</selectable>
+                <selectable>no other size</selectable>
+            </selectables>
+            bits that meet the following: FIPS Pub 198-1 <i>The Keyed-Hash Message Authentication Code</i>
+			and FIPS Pub 180-4 <i>Secure Hash Standard</i>.
+            </title>
+            <note role="application">
+			  The intent of this requirement is to specify the keyed-hash
+			  message authentication function used for key
+			  establishment purposes for the various cryptographic protocols
+			  used by the application (e.g., trusted channel). The hash selection must
+			  support the message digest size selection. The hash selection
+			  should be consistent with the overall strength of the algorithm
+			  used for <linkref linkend="FCS_COP.1(1)"/>. HMAC-SHA256 is required in order to comply
+			  with the required ciphersuites in <linkref linkend="FCS_TLSC_EXT.1" />.
+            </note>
+            <aactivity>The evaluator shall perform the following activities based on the selections
+              in the <abbr linkend="ST"/>.
+            <br/>
+            For each of the supported parameter sets, the evaluator shall compose 15 sets of test data.
+			Each set shall consist of a key and message data.  The evaluator shall have the TSF generate
+			HMAC tags for these sets of test data.  The resulting MAC tags shall be compared to the 
+			result of generating HMAC tags with the same key and IV using a known-good implementation.
+            </aactivity>
+          </f-element>
+          </f-component> 
         <f-component id="fcs_sto_ext.1" name="Storage of Secrets">
           <f-element id="fcs_sto_ext.1.1">
             <title>The application shall 
@@ -1667,7 +1713,12 @@
 			  <linkref linkend="FCS_TLSC_EXT.1.5"/> is required.
              <br />
               If <i>implement TLS 1.2 (RFC 5246)</i> is selected, then 
-			  <linkref linkend="FCS_CKM.2.1"/> is required.
+			  <linkref linkend="FCS_CKM.2.1"/>, 
+			  <linkref linkend="FCS_COP.1.1(1)"/>, 
+			  <linkref linkend="FCS_COP.1.1(2)"/>, 
+			  <linkref linkend="FCS_COP.1.1(3)"/>, and
+			  <linkref linkend="FCS_COP.1.1(4)"/>
+			  are required.
             </note>
             <aactivity>
               The evaluator shall check the description of the implementation of this protocol in 
