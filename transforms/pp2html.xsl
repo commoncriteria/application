@@ -69,7 +69,7 @@
                 imgID = "link-";
               }    
           }
-          </script>
+        </script>
         <style type="text/css">
       /*       { background-color: #FFFFFF; } */
       body { margin-left: 8%; margin-right: 8%; foreground: black; }
