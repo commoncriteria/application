@@ -439,7 +439,7 @@
           <component-refer ref="fmt_cfg_ext.1"/>
           <component-refer ref="fpt_aex_ext.1"/>
           <component-refer ref="fpt_tud_ext.1"/>
-          <component-refer ref="fpt_cop_ext.1"/>
+          <component-refer ref="fcs_cop_ext.1"/>
         </SO>
         <SO id="O.QUALITY">
           <description>To ensure quality of implementation, conformant <abbr linkend="TOE"/>s
@@ -551,8 +551,11 @@
             <aactivity>
               The evaluator shall inspect the application and its developer documentation 
               to determine if the application needs random bit generation services. If not, the 
-              evaluator shall verify the <i>use no DRBG functionality</i> selection is present 
-              in the <abbr linkend="ST"/>. Otherwise, the evaluation activities will be performed as stated in the 
+              evaluator shall verify the <b>use no DRBG functionality</b> selection is present 
+              in the <abbr linkend="ST"/>. 
+			  <br/>
+			  If <b>invoke platform-provided DRBG functionality</b> is selected, 
+			  the evaluation activities will be performed as stated in the 
               following requirements.
               The evaluator shall verify that the <abbr linkend="ST"/> identifies the calls used in acquiring
               random from each instantiation of the RBG used for the application's cryptographic
@@ -601,8 +604,8 @@
                 <selectable>FIPS Pub 140-2 Annex C: X9.31 Appendix 2.4 using AES</selectable>
               </selectables>.
             </title>
-            <note role="application">This requirement shall be included in <abbr linkend="ST"/>s in which <i>invoke
-              application-implemented DRBG services</i> is chosen in <linkref linkend="FCS_RBG_EXT.1.1"/>. 
+            <note role="application">This requirement shall be included in <abbr linkend="ST"/>s in which 
+			  <i>implement DRBG functionality</i> is chosen in <linkref linkend="FCS_RBG_EXT.1.1"/>. 
 			  The <abbr linkend="ST"/> author 
               should select the standard to which the RBG services comply (either SP 800-90A or FIPS 
               140-2 Annex C). 
@@ -705,7 +708,7 @@
           </f-element>
           <f-element id="fcs_rbg_ext.2.2" status="sel-based">
             <selection-depends req="fcs_rbg_ext.1.1"/>
-            <title> The deterministic RBG shall be seeded by an entropy source that accumulates
+            <title>The deterministic RBG shall be seeded by an entropy source that accumulates
               entropy from a platform-based DRBG and <selectables linebreak="yes">
                 <selectable>a software-based noise source</selectable>
                 <selectable>no other noise source</selectable>
@@ -714,11 +717,11 @@
                 <selectable>256 bits</selectable>
               </selectables> of entropy at least equal to the greatest security strength (according
               to NIST SP 800-57) of the keys and hashes that it will generate. </title>
-            <note role="application">This requirement shall be included in <abbr linkend="ST"/>s in which "invoke
-              application-implemented DRBG services" is chosen in <linkref linkend="FCS_RBG_EXT.1.1"/>. For the first
-              selection in this  requirement, the <abbr linkend="ST"/> author selects ‘software-based noise source’ if 
-              any additional noise sources are used as input to the application’s DRBG. Note that 
-              the application must use the platform’s DRBG to seed its DRBG. 
+            <note role="application">This requirement shall be included in <abbr linkend="ST"/>s in which 
+			  <i>implement DRBG functionality</i> is chosen in <linkref linkend="FCS_RBG_EXT.1.1"/>. For the first
+              selection in this requirement, the <abbr linkend="ST"/> author selects 'software-based noise source' if 
+              any additional noise sources are used as input to the application's DRBG. Note that 
+              the application must use the platform's DRBG to seed its DRBG. 
               <br />In the second selection in this requirement, the <abbr linkend="ST"/> author selects the 
               appropriate number of bits of entropy that corresponds to the greatest security 
               strength of the algorithms included in the <abbr linkend="ST"/>. Security strength is defined in Tables 
@@ -726,9 +729,9 @@
               (security strength of 112 bits), AES 128 (security strength 128 bits), and 
               HMAC-SHA-256 (security strength 256 bits), then the <abbr linkend="ST"/> author would select 256 bits.
             </note>
-            <aactivity>Documentation shall be produced—and the evaluator shall perform the
-              activities—in accordance with <secref linkend="entropyappendix"/>, “Entropy Documentation and Assessment” and
-              the “Clarification to the Entropy Documentation and Assessment Annex”. 
+            <aactivity>Documentation shall be produced - and the evaluator shall perform the
+              activities - in accordance with <appref linkend="entropyappendix"/> and
+              the <a href="https://www.niap-ccevs.org/Documents_and_Guidance/ccevs/Entropy%20Documentation%20and%20Assessment%20Clarification.pdf">Clarification to the Entropy Documentation and Assessment Annex</a>.
               <br />In the future, specific statistical testing (in line with NIST SP 800-90B) will 
               be required to verify the entropy estimates.
             </aactivity>
@@ -1414,7 +1417,7 @@
         <f-component id="fcs_cop.1(2)" name="Cryptographic Operation - Hashing">
           <f-element id="fcs_cop.1.1(2)" status="sel-based">
             <selection-depends req="fcs_cop_ext.1.1"/>
-            <title>The TSF shall perform cryptographic hashing services in accordance with a specified 
+            <title>The application shall perform cryptographic hashing services in accordance with a specified 
         cryptographic algorithm SHA-1 and 
 	      <selectables linebreak="yes">
 		<selectable>SHA-256</selectable>
@@ -1449,12 +1452,12 @@
             function) is documented in the TSS.
             <br/>
             The <abbr linkend="TSF"/> hashing functions can be implemented in one of two 
-            modes. The first mode is the byte¬oriented mode. In this mode the <abbr linkend="TSF"/> 
+            modes. The first mode is the byte-oriented mode. In this mode the <abbr linkend="TSF"/> 
             only hashes messages that are an integral number of bytes in length; i.e., the length 
             (in bits) of the message to be hashed is divisible by 8. The second mode is the 
-            bit¬oriented mode. In this mode the <abbr linkend="TSF"/> hashes messages of arbitrary 
+            bit-oriented mode. In this mode the <abbr linkend="TSF"/> hashes messages of arbitrary 
             length. As there are different tests for each mode, an indication is given in the 
-            following sections for the bit¬oriented vs. the byte¬oriented testmacs. The evaluator 
+            following sections for the bit-oriented vs. the byte-oriented testmacs. The evaluator 
             shall perform all of the following tests for each hash algorithm implemented by the 
             <abbr linkend="TSF"/> and used to satisfy the requirements of this PP.
             <br/>
@@ -1487,7 +1490,7 @@
                   message text shall be pseudorandomly generated. The evaluators compute the message
                   digest for each of the messages and ensure that the correct result is produced
                   when the messages are provided to the <abbr linkend="TSF"/>. </test>
-                <test>Pseudorandomly Generated Messages Test This test is for byte¬oriented
+                <test>Pseudorandomly Generated Messages Test This test is for byte-oriented
                   implementations only. The evaluators randomly generate a seed that is n bits long,
                   where n is the length of the message digest produced by the hash function to be
                   tested. The evaluators then formulate a set of 100 messages and associated digests
@@ -1501,7 +1504,7 @@
         <f-component id="fcs_cop.1(3)" name="Cryptographic Operation - Signing">
           <f-element id="fcs_cop.1.1(3)" status="sel-based">
             <selection-depends req="fcs_cop_ext.2.1"/>
-            <title>The TSF shall perform cryptographic signature services (generation and
+            <title>The application shall perform cryptographic signature services (generation and
               verification) in accordance with a specified cryptographic algorithm <selectables
                 linebreak="yes">
                 <selectable><b>RSA schemes</b> using cryptographic key sizes of 2048-bit or greater that meet the 
@@ -1658,7 +1661,7 @@
 		The evaluator shall verify that all keys are stored using Solaris 
 		<code>Key Management Framework(KMF)</code>.
               <subaactivity platform="OS X">The evaluator shall verify that all credentials are 
-                stored within Keychain.</subaactivity>
+                stored within <code>Keychain</code>.</subaactivity>
             </aactivity>
           </f-element>
         </f-component>
@@ -2233,8 +2236,8 @@
                 The evaluator shall install the
                 application and run it for the first time. The evaluator shall verify that the
                 application displays all platform resources it would like to access. Note: If the
-                user goes to: App permissions → Settings → Security and Privacy → Application
-                Permissions → Select application in question, it will list which platform resource
+                user goes to: <code>App permissions > Settings > Security and Privacy > Application
+                Permissions > Select application in question</code>, it will list which platform resource
                 are approved/denied and can be changed.
               </subaactivity>
               <subaactivity platform="android">
@@ -2274,18 +2277,18 @@
                   application or the documentation provide the user with a list of the required
                   hardware resources. </subaactivity>
               <subaactivity platform="linux"> The evaluator shall verify that either the
-                application or the documentation provide the user with a list of the required
+                application software or its documentation provides the user with a list of the required
                 hardware resources. </subaactivity>
               <subaactivity platform="Solaris"> The evaluator shall verify that either the
-                application or the documentation provide the user with a list of the required
+                application software or its documentation provides the user with a list of the required
                 hardware resources. </subaactivity>
               <subaactivity platform="OS X"> The evaluator shall verify that either the application
-                or the documentation provide the user with a list of the required hardware
+                software or its documentation provides the user with a list of the required hardware
                 resources. </subaactivity>
             </aactivity>
           </f-element>
           <f-element id="fdp_dec_ext.1.2">
-            <title>The application or its documentation shall provide user awareness of its intent to access
+            <title>The application shall provide user awareness of its intent to access
                 <selectables linebreak="yes">
                 <selectable>no system-wide information repositories</selectable>
                 <selectable>address book</selectable>
@@ -2305,7 +2308,7 @@
               user awareness can be achieved, which varies per platform.
 	    </note>
             <aactivity>
-	      The evaluator shall install and run the application and inspect its user
+	      The evaluator shall install and run the application software and inspect its user
               documentation to verify that the user is informed of any need to access sensitive
               data. 
 	      The method of doing so varies per platform.
@@ -2343,56 +2346,56 @@
 		  </a>
 		</li></ul> 
 		For Windows Desktop Application the evaluator shall verify that either the
-                application or the documentation provide the user with a list of the required
-                information repositories. </subaactivity>
-              <subaactivity platform="ios">The evaluator shall verify that either the application
-                or the documentation provide the user with a list of permissions used to access
-                sensitive information repositories.</subaactivity>
-              <subaactivity platform="linux"> The evaluator shall verify that either the 
-                application or the documentation provide the user with a list of permissions used to 
-                access sensitive information repositories. 
-              </subaactivity>
-              <subaactivity platform="Solaris"> The evaluator shall verify that either the
-                application or the documentation provide the user with a list of permissions used to
-                access sensitive information repositories. </subaactivity>
-              <subaactivity platform="OS X"> The evaluator shall verify that either the application
-                or the documentation provide the user with a list of permissions used to access
+                application software or its documentation provides the user with a list of the required
                 sensitive information repositories. </subaactivity>
+              <subaactivity platform="ios">The evaluator shall verify that either the application
+                software or its documentation provides provides the user with a list of
+                the required sensitive information repositories.</subaactivity>
+              <subaactivity platform="linux"> The evaluator shall verify that either the 
+                application software or its documentation provides the user with a list of 
+                required sensitive information repositories. 
+              </subaactivity>
+              <subaactivity platform="Solaris">The evaluator shall verify that either the
+                application software or its documentation provides the user with a list of required
+                sensitive information repositories. </subaactivity>
+              <subaactivity platform="OS X">The evaluator shall verify that either the application
+                software or its documentation provides the user with a list of required
+                sensitive information repositories.</subaactivity>
             </aactivity>
           </f-element>
           <f-element id="fdp_dec_ext.1.3">
             <title>The application shall restrict network communication to 
               <selectables linebreak="yes">
                 <selectable>no network communication</selectable>
-                <selectable>user-initiated communication for <assignable>list of functions 
+                <selectable>user-initiated communication for 
+				  <assignable>list of functions 
                   for which the user can initiate network communication</assignable></selectable>
-                <selectable>respond to <assignable>list of remotely-initiated communication
-                </assignable>
-                </selectable>
-                <selectable><assignable>list of application-initiated network communication</assignable>
-                </selectable>
+                <selectable>respond to <assignable>list of remotely-initiated communication </assignable></selectable>
+                <selectable><assignable>list of application-initiated network communication</assignable></selectable>
               </selectables>
               . 
             </title>
             <note role="application">
-	      This requirement is intended to restrict both inbound and
+              This requirement is intended to restrict both inbound and
               outbound network communications to only those required, or to network
               communications that are user initiated.
-	      It does not apply to applications that generically access the filesystem that
-	      may cause the platform to access remotely mounted drives/shares.
-	    </note>
+              It does not apply to network communications in which the application may generically 
+			  access the filesystem which may result in the platform accessing remotely-mounted
+			  drives/shares.
+            </note>
             <aactivity> The evaluator shall perform the following tests:
 	    <testlist>
 	      <test>
 		The evaluator shall run the application.  While the application is running,
 		the evaluator shall sniff network traffic ignoring all non-application 
 		associated traffic
-		and verify that any network communications witnessed are documented or are user-initiated. 
+		and verify that any network communications witnessed are documented in the TSS or are user-initiated. 
 	      </test>
 	      <test>
 		The evaluator shall run the application.  After the application initializes, the
 		evaluator shall run network port scans to verify that any ports
-		opened by the application have been documented.  This includes
+		opened by the application have captured in the <abbr linkend="ST"/> for the third
+		selection and its assignment.  This includes
 		connection-based protocols (e.g. TCP, DCCP) as well as connectionless protocols
 		(e.g. UDP).
 	      </test>
@@ -3437,11 +3440,15 @@
 		      </selectables>
         </selectable>
       </selectables>
-	    to provide communication channel between itself and another trusted IT product.
+	    between itself and another trusted IT product.
 	    </title>
       <note role="application">
 	      Extended packages may override this requirement to provide for other protocols.
 	      Encryption is not required for applications transmitting data that is not sensitive. 
+		  <br/>
+		  If <i>HTTPS</i> is selected, then evaluation of elements from <linkref linkend="FCS_TLSC_EXT.1"/> is required.<p/>
+		  If <i>TLS</i> is selected, then evaluation of elements from <linkref linkend="FCS_HTTPS_EXT.1"/> is required.<p/>
+		  If <i>DTLS</i> is selected, then evaluation of elements from <linkref linkend="FCS_DTLS_EXT.1"/> is required.
 	    </note>  
       <aactivity>
         The evaluator shall perform the following tests.
