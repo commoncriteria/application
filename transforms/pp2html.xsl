@@ -803,7 +803,8 @@
         <xsl:value-of select="$linkend" />
       </xsl:attribute>
       Appendix 
-		<xsl:apply-templates select="//cc:appendix" mode="secreflookup"><xsl:with-param name="linkend" select="$linkend" /></xsl:apply-templates></xsl:element>
+      <xsl:apply-templates select="//cc:appendix" mode="secreflookup"><xsl:with-param name="linkend" select="$linkend" /></xsl:apply-templates>
+	  </xsl:element>
   </xsl:template>
 
   <xsl:template match="cc:chapter | cc:section | cc:subsection | cc:appendix" mode="secreflookup">
@@ -813,7 +814,14 @@
     <xsl:variable name="pos"> 
       <xsl:choose>
         <xsl:when test="name()='appendix'">
-		  <xsl:number format="A" />
+          <xsl:choose>
+          <xsl:when test="$appendicize='on'">
+		    <xsl:number format="A" />
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:number format="A" count="cc:appendix[@id!='optional' and @id!='objective' and @id!='sel-based']"/>
+          </xsl:otherwise>
+          </xsl:choose>
         </xsl:when>	
         <xsl:otherwise>	
 		  <xsl:number />
