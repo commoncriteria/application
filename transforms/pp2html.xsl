@@ -25,54 +25,51 @@
     <html xmlns="http://www.w3.org/1999/xhtml">
       <head>
         <script type="text/javascript">
-	function toggle(divID, imgID) {
-		var item = document.getElementById(divID);
-		var img = document.getElementById(imgID);
-		if (item) {
-			item.className = (item.className=='aacthidden') ? 'aact':'aacthidden';
-		}
-		if (img) {
-			var currimage = img.src.substring(img.src.lastIndexOf('/')+1);
-			img.src=(currimage=='collapsed.png')?'images/expanded.png':'images/collapsed.png';
-			}
-	}
+          <!-- Function to expand and contract a given div -->
+        	function toggle(divID, imgID) {
+        		var item = document.getElementById(divID);
+        		var img = document.getElementById(imgID);
+        		if (item) {
+        			item.className = (item.className=='aacthidden') ? 'aact':'aacthidden';
+        		}
+        		if (img) {
+        			var currimage = img.src.substring(img.src.lastIndexOf('/')+1);
+        			img.src=(currimage=='collapsed.png')?'images/expanded.png':'images/collapsed.png';
+        			}
+        	}
 
+          <!-- Called on page load to parse URL parameters and perform actions on them. -->
+         	function init(){
+                if(getQueryVariable("expand") == "on"){
+                  expand();
+                }
+        	}
 
- 	function init(){
-              var GET = {};
-	      <![CDATA[
-              var query = window.location.search.substring(1).split("&");
-	      ]]>
-              for (var i = 0, max = query.length; max > i; i++){
-                  if (query[i] === "")
-                  continue;
-                  var param = query[i].split("=");
-                  GET[decodeURIComponent(param[0])] = decodeURIComponent(param[1] || "");
-               }
-	      if(GET["appendicize"]=="on"){
-	          moveClass("optional", document.getElementById("optional-requirements"));
-	          moveClass("sel-based", document.getElementById("selection-based-requirements"));
-	          moveClass("objective", document.getElementById("objective-requirements"));
-	          document.getElementById("optional-appendicies").style.display="block";
-	      }
-	}
+          <!-- Pass a URL variable to this function and it will return it's value -->
+          function getQueryVariable(variable)
+          {
+                 var query = window.location.search.substring(1);
+                 var vars = query.split("&amp;");
+                 for (var i=0;i&lt;vars.length;i++) {
+                         var pair = vars[i].split("=");
+                         if(pair[0] == variable){return pair[1];}
+                 }
+                 return(false);
+          }
 
-	function moveClass(classname, parent){
-             var x = document.getElementsByClassName(classname);
-             var i;
-             for (i = 0; x.length>i ; i++) {
-	         appendicize(x[i], parent);
-             }
-	}
-
-	function appendicize(element, parent){
-	     parent.appendChild(element);
-	}
-
-
-
-
-  </script>
+          <!-- Expands all assurance activities -->
+          function expand(){  
+              var divID = "";
+              var imgID = "link-";
+              var hidden_elements = document.getElementsByClassName('aacthidden');
+              for (var i = hidden_elements.length - 1; i >= 0; --i) {
+                divID = hidden_elements[i].id;
+                imgID += divID;
+                toggle(divID,imgID);
+                imgID = "link-";
+              }    
+          }
+          </script>
         <style type="text/css">
       /*       { background-color: #FFFFFF; } */
       body { margin-left: 8%; margin-right: 8%; foreground: black; }
