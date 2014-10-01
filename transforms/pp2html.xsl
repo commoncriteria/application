@@ -2,8 +2,9 @@
 <!-- 
     Stylesheet for Protection Profile Schema  
     Based on original work by Dennis Orth
-	Subsequent modifications in support of US NIAP
+    Subsequent modifications in support of US NIAP
 -->
+
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:cc="http://common-criteria.rhcloud.com/ns/cc" xmlns="http://www.w3.org/1999/xhtml" 
 		xmlns:fn="http://www.w3.org/2005/xpath-functions" version="1.0">
 
@@ -17,7 +18,7 @@
   <xsl:output method="html" encoding="UTF-8" indent="yes" />
   
 
-  <!-- Put all common templates into ProtectionProfileCommons -->
+  <!-- Put all common templates into ppcommons.xsl -->
   <!-- They can be redefined/overridden  -->
   <xsl:include href="ppcommons.xsl"/>
   

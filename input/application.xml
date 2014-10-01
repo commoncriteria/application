@@ -1626,25 +1626,39 @@
             <title>The application shall 
               <selectables linebreak="yes">
                 <selectable>not store any credentials</selectable>
-                <selectable>invoke the mechanisms provided by the platform for any storage of 
-                  credentials
+                <selectable>invoke the functionality provided by the platform to securely store 
+                  <assignable>list of credentials</assignable>
+                </selectable>
+                <selectable>implement functionality to securely store
+                  <assignable>list of credentials</assignable>
                 </selectable>
               </selectables>
                to non-volatile memory.</title>
             <note role="application">This requirement ensures that persistent credentials (secret 
-              keys, PKI private keys, or passwords) are stored securely when not in use.
+              keys, PKI private keys, or passwords) are stored securely when not in use.  
+              <br/>
+              If <i>implement functionality to securely store</i> credentials is selected, then 
+			  <linkref linkend="FCS_CKM.2.1"/>, 
+			  <linkref linkend="FCS_COP.1.1(1)"/>, 
+			  <linkref linkend="FCS_COP.1.1(2)"/>, 
+			  <linkref linkend="FCS_COP.1.1(3)"/>, and
+			  <linkref linkend="FCS_COP.1.1(4)"/>
+			  are required.
+
             </note>
             <aactivity>The evaluator shall check the TSS to ensure that it lists all persistent 
               credentials (secret keys, PKI private keys, or passwords) needed to meet the 
               requirements in the <abbr linkend="ST"/>. For each of these items, the evaluator shall 
-              confirm that the TSS lists for what purpose it is used, and how it is stored. The 
-              evaluator shall perform the following actions which vary per platform.
+              confirm that the TSS lists for what purpose it is used, and how it is stored. 
+
+              For all credentials for which the application invokes platform-provided
+              functionality, the evaluator shall perform the following actions which vary per platform.
               <subaactivity platform="blackberry">The evaluator shall verify that the application 
                 uses the BlackBerry KeyStore and Security Builder APIs to store credentials.
               </subaactivity>
               <subaactivity platform="android">The evaluator shall verify that the application uses
-	      the Android <code>KeyStore</code>, <code>SecretKeyFactory</code> and/or
-	      <code>Cipher</code> classes to store credentials. </subaactivity>
+	      the Android <code>KeyStore</code> to store certificates.  
+              </subaactivity>
               <subaactivity platform="windows">The evaluator shall verify that all certificates are
                 stored in the Windows Certificate Store. The evaluator shall verify that other
                 secrets, like passwords, are stored in the Windows Credential Manager or stored 
@@ -1653,14 +1667,14 @@
                 in IsolatedStorage.
               </subaactivity>
               <subaactivity platform="ios">The evaluator shall verify that all keys are stored
-                within a <code>KeyChain</code>. </subaactivity>
+                within a <code>KeyChain</code>.</subaactivity>
               <subaactivity platform="linux"> 
 		The evaluator shall verify that all keys are stored using Linux 
 		<code>keyrings</code>.
 	      </subaactivity>
               <subaactivity platform="Solaris">
             		The evaluator shall verify that all keys are stored using Solaris 
-            		<code>Key Management Framework(KMF)</code>.
+            		<code>Key Management Framework (KMF)</code>.
               </subaactivity>
               <subaactivity platform="OS X">The evaluator shall verify that all credentials are 
                 stored within <code>Keychain</code>.</subaactivity>
@@ -1672,13 +1686,10 @@
             <selection-depends req="ftp_dit_ext.1.1"/>
             <title> The application shall 
               <selectables>
-                <selectable>
-				  invoke platform-provided <abbr title="Transport Layer Security">TLS</abbr> 1.2
-				</selectable>
-                <selectable>
-				  implement <abbr title="Transport Layer Security">TLS</abbr> 1.2 (RFC 5246)
-				  <requires req="fcs_ckm.2.1"/>
-				</selectable>
+                <selectable>invoke platform-provided <abbr title="Transport Layer Security">TLS</abbr> 1.2</selectable>
+                <selectable>implement <abbr title="Transport Layer Security">TLS</abbr> 1.2 (RFC 5246)
+                  <requires req="fcs_ckm.2.1"/>
+                </selectable>
               </selectables> supporting the following ciphersuites: <p/>Mandatory Ciphersuites:
               TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246 <p/>Optional Ciphersuites:
                 <selectables linebreak="yes">
@@ -2462,18 +2473,15 @@
           <f-element id="fdp_dar_ext.1.1">
             <title>The application shall 
 	      <selectables linebreak="yes">
-		<selectable>
-		  invoke platform-provided functionality to encrypt sensitive data stored</selectable>
-        <selectable>
-		  not store any sensitive data
-		</selectable>
+		<selectable>invoke platform-provided functionality to encrypt sensitive data stored</selectable>
+		<selectable>implement functionality to encrypt sensitive data stored</selectable>
+                <selectable>not store any sensitive data</selectable>
               </selectables>
               in non-volatile memory.
             </title>
             <note role="application">
 	      Any file that may potentially contain sensitive data (to include temporary files)
-	      must be protected with platform-provided encryption.
-	      The only exception is if the user intentionally exports the sensitive data
+	      must be protected.  The only exception is if the user intentionally exports the sensitive data
 	      to non-protected files. 
 	    </note>
             <!-- this language is intentionally different from the MDPP's FDP_DAR -->
@@ -2510,7 +2518,8 @@
 		upon invocation by application developers, so applications on it vacuously satisfy this requirement.
 	      </subaactivity>
               <subaactivity platform="OS X">
-		The evaluator shall verify that the application uses Apple's Security Transforms API to store and retrieve sensitive data.
+		The Mac OS X platform currently does not provide data-at-rest encryption services which depend
+		upon invocation by application developers, so applications on it vacuously satisfy this requirement.
 	      </subaactivity>
             </aactivity>
           </f-element>
