@@ -791,6 +791,45 @@
 			  zeroized by overwriting three times with a random pattern that is
 			  changed before each write"). If a read-back is done to verify the
 			  zeroization, this shall be described as well.
+              <br/>
+			  For each key clearing situation described in the TSS the evaluator
+			  shall repeat the following test.
+              <testlist>￼￼￼￼
+			  <test>The evaluator shall utilize appropriate combinations of
+			  specialized operational environment and development tools
+			  (debuggers, simulators, etc.) for the TOE and instrumented TOE
+			  builds to test that keys are cleared correctly, including all
+			  intermediate copies of the key that may have been created
+			  internally by the TOE during normal cryptographic processing with
+			  that key.  Cryptographic TOE implementations in software shall be
+			  loaded and exercised under a debugger to perform such tests. The
+			  evaluator shall perform the following test for each key subject
+			  to clearing, including intermediate copies of keys that are
+			  persisted encrypted by the TOE:
+
+              <ul>
+                <li>Load the instrumented TOE build in a debugger.</li>
+                <li>Record the value of the key in the TOE subject to clearing.</li>
+                <li>Cause the TOE to perform a normal cryptographic processing with the key from #1.</li>
+                <li>Cause the TOE to clear the key.</li>
+                <li>Cause the TOE to stop the execution but not exit.</li>
+                <li>Cause the TOE to dump the entire memory footprint of the TOE into a binary file.</li>
+                <li>Search the content of the binary file created in #4 for instances of the known key value from #1.</li>
+              </ul>
+			  The test succeeds if no copies of the key from #1 are found in
+			  step #7 above and fails otherwise.  The evaluator shall perform
+			  this test on all keys, including those that persist in encrypted
+			  form, to ensure intermediate copies are cleared.
+              </test>
+			  <test>In cases where the TOE is implemented in firmware and
+			  operates in a limited operating environment that does not allow
+			  the use of debuggers, the evaluator shall utilize a simulator
+			  for the TOE on a general purpose operating system. The evaluator
+			  shall provide a rationale explaining the instrumentation of the
+			  simulated test environment and justifying the obtained test
+			  results.
+			  </test>
+              </testlist>
             </aactivity>
           </f-element>
         </f-component>
