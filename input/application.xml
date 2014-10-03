@@ -331,11 +331,11 @@
             software or alter communications between the application software and other endpoints in
             order to compromise it.</description>
           <objective-refer ref="O.PROTECTED_COMMS">
-            <rationale>The threat T.NETWORK_EAVESDROP is countered by O.PROTECTED_COMMS as this
+            <rationale>The threat T.NETWORK_ATTACK is countered by O.PROTECTED_COMMS as this
               provides for integrity of transmitted data.</rationale>
           </objective-refer>
           <objective-refer ref="O.INTEGRITY">
-            <rationale>The threat T.NETWORK_EAVESDROP is countered by O.INTEGRITY as this provides
+            <rationale>The threat T.NETWORK_ATTACK is countered by O.INTEGRITY as this provides
               for integrity of software that is installed onto the system from the
               network.</rationale>
           </objective-refer>
@@ -3158,7 +3158,14 @@
             <aactivity> 
 	      The evaluator shall verify that no memory mapping requests are made with write and execute permissions.
 	      The method of doing so varies per platform.
-              <subaactivity platform="blackberry"/>
+              <subaactivity platform="blackberry">
+                The evaluator shall perform static analysis on the
+                application to verify that <ul>
+                  <li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions,
+                    and </li>
+                  <li> mprotect is never invoked.</li>
+                </ul> 
+              </subaactivity>
               <subaactivity platform="android"> The evaluator shall perform static analysis on the
                 application to verify that <ul>
                   <li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions,
