@@ -449,7 +449,7 @@
             parsing. 
 	    Quality of implementation depends heavily on reliable platform 
 	    behavior which can be guaranteed by using only documented and supported APIs.
-	  </description>
+          </description>
           <component-refer ref="fmt_mec_ext.1"/>
           <component-refer ref="fpt_api_ext.1"/>
           <component-refer ref="fpt_lib_ext.1"/>
@@ -549,10 +549,12 @@
               operations include all cryptographic key generation/derivation/agreement, IVs (for
               certain modes), as well as protocol-specific random values. </note>
             <aactivity>
-              The evaluator shall inspect the application and its developer documentation 
-              to determine if the application needs random bit generation services. If not, the 
-              evaluator shall verify the <b>use no DRBG functionality</b> selection is present 
-              in the <abbr linkend="ST"/>. 
+              If <b>use no DRBG functionality</b> is selected, the evaluator shall inspect the 
+			  application and its developer documentation and verify that the application needs no
+              random bit generation services. 
+			  <br/>
+              If <b>implement DRBG functionality</b> is selected, the evaluator shall ensure
+			  that additional <linkref linkend="FCS_RBG_EXT.2"/> elements are included in the <abbr linkend="ST"/>.
 			  <br/>
 			  If <b>invoke platform-provided DRBG functionality</b> is selected, 
 			  the evaluation activities will be performed as stated in the 
@@ -564,29 +566,35 @@
               <subaactivity platform="blackberry">
                 The evaluator shall verify that the application invokes Security Builder Crypto GSE.
               </subaactivity>
-              <subaactivity platform="android"> The evaluator shall use static analysis to verify
+              <subaactivity platform="android"> The evaluator shall verify
                 that the application uses at least one of <code>javax.crypto.KeyGenerator</code> 
                 class or the <code>java.security.SecureRandom</code> class or <code>/dev/random
                 </code> or <code>/dev/urandom</code>.
               </subaactivity>
               <subaactivity platform="windows">The evaluator shall verify
-               that  BCryptGenRandom or CryptGenRandom <abbr linkend="API"/> is used for classic
+               that BCryptGenRandom or CryptGenRandom <abbr linkend="API"/> is used for classic
                 desktop applications. The evaluator shall verify that the
                 System.Random <abbr linkend="API"/> is used for Windows Store Applications. In
-                future versions of this document, CryptGenRandom may be removed as an option as it
+                future versions of this document, CryptGenRandom may be removed as an option as it is
                 no longer the preferred API per vendor documentation. </subaactivity>
               <subaactivity platform="ios"> 
-		The evaluator shall verify that the application invokes 
-	        the iOS Randomization Services <abbr linkend="API"/> to acquire random. </subaactivity>
+                The evaluator shall verify that the application invokes 
+                <code>SecRandomCopyBytes</code> or uses <code>/dev/random</code> directly to acquire random.
+				</subaactivity>
               <subaactivity platform="linux"> 
-		The evaluator shall verify that the application collects random from  /dev/random or /dev/urandom.
+                The evaluator shall verify that the application collects random from <code>/dev/random</code>
+				or <code>/dev/urandom</code>.
 	      </subaactivity>
 	      <subaactivity platform="Solaris">
-		The evaluator shall verify that the application collects random from /dev/random.
+                The evaluator shall verify that the application collects random from <code>/dev/random</code>.
 	      </subaactivity>
               <subaactivity platform="OS X">
-		The evaluator shall verify that the application uses <code>SecRandomCopyBytes</code> to acquire RBG.
+                The evaluator shall verify that the application uses <code>/dev/random</code> to
+				acquire random.
 	      </subaactivity>
+		        If invocation of platform-provided functionality is achieved in another way, the evaluator 
+				shall ensure the TSS describes how this is carried out, and how it is equivalent to the 
+				methods listed here (e.g. higher-level API invokes identical low-level API).
             </aactivity>
           </f-element>
         </f-component>
@@ -739,22 +747,25 @@
         </f-component>
 
         <f-component id="fcs_ckm_ext.1" name="Cryptographic Key Generation Services">
-          <f-element id="fcs_ckm_ext.1.1">
+          <f-element id="fcs_ckm_ext.1.1" status="sel-based">
+		      <selection-depends req="fdp_dar_ext.1.1"/>
+		      <selection-depends req="fcs_tlsc_ext.1"/>
             <title>The application shall <selectables linebreak="yes">
                 <selectable>generate no asymmetric cryptographic keys</selectable>
                 <selectable>invoke platform-provided functionality for asymmetric key generation</selectable>
                 <selectable>implement asymmetric key generation</selectable>
               </selectables>.
             </title>
-            <note role="application">If <i>implement asymmetric key generation</i> is chosen, then
+            <note role="application">If <i>implement asymmetric key generation</i> or 
+			  <i>invoke platform-provided functionality for asymmetric key generation</i> is chosen, then
               additional <linkref linkend="FCS_CKM.1"/> elements shall be included in the <abbr linkend="ST"/>.
             </note>
             <aactivity>
               The evaluator shall inspect the application and its developer documentation 
               to determine if the application needs asymmetric key generation services. If not, the 
-              evaluator shall verify the 'generate no asymmetric cryptographic keys' selection is present 
-              in the <abbr linkend="ST"/>. Otherwise, the evaluation activities will be performed as stated in the 
-              selection-based requirement requirements.
+              evaluator shall verify the <b>generate no asymmetric cryptographic keys</b> selection is present 
+              in the <abbr linkend="ST"/>. Otherwise, the evaluation activities shall be performed as stated in the 
+              selection-based requirements.
             </aactivity>
           </f-element>
         </f-component>
@@ -839,7 +850,8 @@
           <f-element id="fcs_ckm.1.1" status="sel-based">
             <selection-depends req="fcs_ckm_ext.1"/>
             <title>
-              The application shall generate asymmetric cryptographic keys in accordance 
+              The application shall generate 
+			  asymmetric cryptographic keys in accordance 
               with a specified cryptographic key generation algorithm
               <selectables linebreak="yes">
                 <selectable>
@@ -902,9 +914,16 @@
               configure the <abbr linkend="TOE"/> to use the selected key generation scheme(s) and 
               key size(s) for all uses defined in this PP.
               <br />
-              Assurance Activity Note: The following tests require the developer to provide access 
-              to a test platform that provides the evaluator with tools that are typically not found 
-              on factory products.
+              If the application <b>invokes platform-provided functionality for asymmetric key generation</b>,
+			  then the evaluator shall examine the TSS to verify that it describes 
+			  how the key generation functionality is invoked.
+			  <br/> 
+			  If the application <b>implements asymmetric key generation</b>, then the following test
+			  activities shall be carried out.
+              <br/>
+              Assurance Activity Note: The following tests may require the developer to provide access 
+              to a developer environment that provides the evaluator with tools that are typically available
+			  to end-users of the application.
               <br />
               <b>Key Generation for FIPS PUB 186-4 RSA Schemes</b><p/>
               The evaluator shall verify the implementation of RSA Key Generation by the 
@@ -1240,7 +1259,10 @@
             </aactivity>
           </f-element>
         </f-component>
+<!-- 
 
+Commenting these out: the fundamental question is how to handle requirements for more general
+functionality (such as these)
         <f-component id="fcs_cop_ext.1" name="Encryption/Decryption Services">
           <f-element id="fcs_cop_ext.1.1">
             <title>The application shall <selectables linebreak="yes">
@@ -1257,7 +1279,10 @@
               additional requirements from <linkref linkend="FCS_COP.1(1)"/> shall be included in
               the <abbr linkend="ST"/>.
             </note>
-            <aactivity>Requirement met by the platform: The evaluator shall examine the TSS of the
+            <aactivity>
+			
+			
+			Requirement met by the platform: The evaluator shall examine the TSS of the
               application to verify that it describes how the platform's digital signature
               functionality is invoked for each operation they are used for in the application. The
               evaluator shall also examine the TSS of the application product’s <abbr linkend="ST"/> to verify that it
@@ -1315,10 +1340,10 @@
               selected in the application product’s <abbr linkend="ST"/>. </aactivity>
           </f-element>
         </f-component>
-
+-->
         <f-component id="fcs_cop.1(1)" name="Cryptographic Operation - Encryption/Decryption">
           <f-element id="fcs_cop.1.1(1)" status="sel-based">
-            <selection-depends req="fcs_cop_ext.1.1"/>
+            <selection-depends req="fdp_dar_ext.1.1"/>
             <title>The application shall perform encryption/decryption in accordance with a specified 
         cryptographic algorithm  
 		<br/>
@@ -1713,20 +1738,22 @@
             <note role="application">This requirement ensures that persistent credentials (secret 
               keys, PKI private keys, or passwords) are stored securely when not in use.  
               <br/>
-              If <i>implement functionality to securely store</i> credentials is selected, then 
-			  <linkref linkend="FCS_CKM.2.1"/>, 
-			  <linkref linkend="FCS_COP.1.1(1)"/>, 
-			  <linkref linkend="FCS_COP.1.1(2)"/>, 
-			  <linkref linkend="FCS_COP.1.1(3)"/>, and
-			  <linkref linkend="FCS_COP.1.1(4)"/>
-			  are required.
+              If <i>implement functionality to securely store</i> credentials is selected, then the
+			  following requirements must be included in the <abbr linkend="ST"/>:
+			  <ul>
+			  <li><linkref linkend="FCS_CKM.1"/></li> 
+			  <li><linkref linkend="FCS_COP.1.1(1)"/></li>
+			  <li><linkref linkend="FCS_COP.1.1(2)"/></li>
+			  <li><linkref linkend="FCS_COP.1.1(3)"/></li>
+			  <li><linkref linkend="FCS_COP.1.1(4)"/></li>
+			  </ul>
 
             </note>
             <aactivity>The evaluator shall check the TSS to ensure that it lists all persistent 
               credentials (secret keys, PKI private keys, or passwords) needed to meet the 
               requirements in the <abbr linkend="ST"/>. For each of these items, the evaluator shall 
               confirm that the TSS lists for what purpose it is used, and how it is stored. 
-
+              <br/>
               For all credentials for which the application invokes platform-provided
               functionality, the evaluator shall perform the following actions which vary per platform.
               <subaactivity platform="blackberry">The evaluator shall verify that the application 
@@ -2453,6 +2480,17 @@
             </aactivity>
           </f-element>
           <f-element id="fdp_dec_ext.1.3">
+	    <title>
+	      The application shall only seek access to those resources
+	      for which it has provided a justification to access.
+	    </title>
+	    <aactivity> 
+	      The evaluator shall review documentation provided by the application
+	      developer and for each resource which it requests access to, identify the
+	      justification as to why access is required. 
+	    </aactivity>
+	  </f-element> 
+          <f-element id="fdp_dec_ext.1.4">
             <title>The application shall restrict network communication to 
               <selectables linebreak="yes">
                 <selectable>no network communication</selectable>
@@ -2472,7 +2510,7 @@
 			  access the filesystem which may result in the platform accessing remotely-mounted
 			  drives/shares.
             </note>
-            <aactivity> The evaluator shall perform the following tests:
+            <aactivity>The evaluator shall perform the following tests:
 	    <testlist>
 	      <test>
 		The evaluator shall run the application.  While the application is running,
@@ -2491,17 +2529,6 @@
 	    </testlist>
 	    </aactivity>
 	  </f-element>
-          <f-element id="fdp_dec_ext.1.4">
-	    <title>
-	      The application shall only seek access to those resources
-	      for which it has provided a justification to access.
-	    </title>
-	    <aactivity> 
-	      The evaluator shall review documentation provided by the application
-	      developer and for each resource which it requests access to, identify the
-	      justification as to why access is required. 
-	    </aactivity>
-	  </f-element> 
           <f-element id="fdp_dec_ext.1.5">
             <title>
 	      The application shall 
@@ -2556,17 +2583,29 @@
               in non-volatile memory.
             </title>
             <note role="application">
-	      Any file that may potentially contain sensitive data (to include temporary files)
-	      must be protected.  The only exception is if the user intentionally exports the sensitive data
-	      to non-protected files. 
+			  If <i>implement functionality to encrypt sensitive data stored</i> is selected, then
+              the following additional requirements shall be included in the <abbr linkend="ST"/>:
+			  <ul>
+			  <li><linkref linkend="FCS_COP.1(1)"/></li>
+			  <li><linkref linkend="FCS_CKM_EXT.1"/></li>
+			  </ul>
+			  <br/>
+              Any file that may potentially contain sensitive data (to include temporary files)
+              shall be protected.  The only exception is if the user intentionally exports the sensitive data
+              to non-protected files. 
 	    </note>
             <!-- this language is intentionally different from the MDPP's FDP_DAR -->
-            <aactivity>The evaluator shall run the application and store potentially sensitive data.
-              The evaluator shall then inspect the filesystem to determine where data has been
-              written, and note whether it is encrypted. The evaluator shall determine whether
+            <aactivity>The evaluator shall inventory the filesystem locations where the application
+			  may write data.  The evaluator shall run the application and store potentially sensitive data.
+              The evaluator shall then inspect those areas of the filesystem to note where
+			  the data was stored, and determine whether it has been encrypted. 
+			  <br/>
+                
+			  The evaluator shall determine whether
               platform-provided functionality for protecting sensitive data is being invoked. 
               Otherwise, the evaluator shall test how the application invokes
-              platform-provided functionality, which varies per platform: <subaactivity
+              platform-provided functionality, which varies per platform:
+			  <subaactivity
                 platform="blackberry">The evaluator shall determine whether the application properly
                 uses the Advanced Data at Rest Protection <abbr linkend="API"/> and the application
                 uses the appropriate domain to store and protect each data file.</subaactivity>
@@ -3486,9 +3525,9 @@
         </note>
       <aactivity> 
 	      The evaluator shall install the application and survey its installation directory for 
-        dynamic libraries. 
-	      The evaluator shall verify that libraries found to be packaged with or employed by the 
-        application are limited to those in the assignment.
+          dynamic libraries. 
+          The evaluator shall verify that libraries found to be packaged with or employed by the 
+          application are limited to those in the assignment.
 	      The evaluator shall also run a virus scanner with the most current virus 
 	      definitions against the application files and verify that no files are flagged as malicious.
 	    </aactivity>
