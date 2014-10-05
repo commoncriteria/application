@@ -1261,7 +1261,7 @@
         </f-component>
 <!-- 
 
-Commenting these out: the fundamental question is how to handle requirements for more general
+Commenting out: the fundamental question is how to handle requirements for more general
 functionality (such as these)
         <f-component id="fcs_cop_ext.1" name="Encryption/Decryption Services">
           <f-element id="fcs_cop_ext.1.1">
@@ -1272,22 +1272,26 @@ functionality (such as these)
               </selectables> 
 	      .
 	    </title>
-            <note role="application">The evaluator should ensure 
-			  <i>invoke platform-provided encryption/decryption functionality</i> is
-              selected in cases where the application uses platform APIs to perform those
-              operations. If <i>implement encryption/decryption functionality</i> is selected, then
+            <note role="application">
+			  The selection <i>invoke platform-provided encryption/decryption services</i> is to be
+              chosen in cases where the application uses platform APIs to perform these operations.
+              If <i>implement encryption/decryption functionality</i> is selected, then
               additional requirements from <linkref linkend="FCS_COP.1(1)"/> shall be included in
-              the <abbr linkend="ST"/>.
+              the <abbr linkend="ST"/>.  
             </note>
             <aactivity>
-			
-			
-			Requirement met by the platform: The evaluator shall examine the TSS of the
-              application to verify that it describes how the platform's digital signature
-              functionality is invoked for each operation they are used for in the application. The
-              evaluator shall also examine the TSS of the application product’s <abbr linkend="ST"/> to verify that it
-              describes how the platforms hash functionality is invoked for each digest size
-              selected in the application product’s <abbr linkend="ST"/>. </aactivity>
+              If <b>perform no encryption/decryption</b> is selected, the evaluator shall inspect the 
+			  application and its developer documentation and verify that the application needs no
+              encryption/decryption services. 
+			  <br/>
+              If <b>implement encryption/decryption functionality</b> is selected, the evaluator shall ensure
+			  that additional <linkref linkend="FCS_COP.1(1)"/> elements are included in the <abbr linkend="ST"/>.
+			  <br/>
+			  If <b>invoke platform-provided encryption/decryption functionality </b> is selected, 
+			  the evaluator shall examine the TSS of the
+              application to verify that it describes how the platform's encryption/decryption
+              functionality is invoked for each operation for which it is used by the application. 
+			</aactivity>
           </f-element>
         </f-component>
 
@@ -1300,21 +1304,30 @@ functionality (such as these)
               </selectables> 
 	      .
 	    </title>
-            <note role="application">The evaluator should ensure 
-			  <i>invoke platform-provided cryptographic hashing</i> is
-              selected in cases where the application uses platform APIs to perform cryptographic
+            <note role="application">
+			  The selection <i>invoke platform-provided cryptographic hashing</i> is to be
+              chosen in cases where the application uses platform APIs to perform cryptographic
               hashing. If <i>implement cryptographic hashing</i> is selected, then
               additional requirements from <linkref linkend="FCS_COP.1(2)"/> shall be included in
               the <abbr linkend="ST"/>.
             </note>
-            <aactivity>Requirement met by the platform: The evaluator shall examine the TSS of the
-              application to verify that it describes how the platforms digital signature
-              functionality is invoked for each operation they are used for in the application. The
-              evaluator shall also examine the TSS of the application product’s <abbr linkend="ST"/> to verify that it
-              describes how the platforms hash functionality is invoked for each digest size
-              selected in the application product’s <abbr linkend="ST"/>. </aactivity>
+            <aactivity>
+              If <b>perform no cryptographic hashing</b> is selected, the evaluator shall inspect the 
+			  application and its developer documentation and verify that the application needs no
+              cryptographic hashing services. 
+			  <br/>
+              If <b>implement cryptographic hashing</b> is selected, the evaluator shall ensure
+			  that additional <linkref linkend="FCS_COP.1(2)"/> elements are included in the <abbr linkend="ST"/>.
+			  <br/>
+			  If <b>invoke platform-provided cryptographic hashing</b> is selected, 
+			  the evaluator shall examine the TSS of the
+              application to verify that it describes how the platform's hashing
+              functionality is invoked for each operation for which it is used in the application, including
+			  digest sizes used.
+			</aactivity>
           </f-element>
         </f-component>
+
         <f-component id="fcs_cop_ext.3" name="Cryptographic Signing Services">
           <f-element id="fcs_cop_ext.3.1">
             <title>The application shall 
@@ -1325,25 +1338,33 @@ functionality (such as these)
               </selectables> 
 	        .
 	        </title>
-            <note role="application">The evaluator should ensure 
-			  <i>invoke platform-provided cryptographic signing</i> is
-              selected in cases where the application uses platform APIs to perform cryptographic
+            <note role="application">The selection <i>invoke platform-provided cryptographic signing</i> 
+			  is to be used in cases where the application uses platform APIs to perform cryptographic
               signing. If <i>implement cryptographic signing</i> is selected, then
               additional requirements from <linkref linkend="FCS_COP.1(3)"/> shall be included in
               the <abbr linkend="ST"/>.
             </note>
-            <aactivity>Requirement met by the platform: The evaluator shall examine the TSS of the
-              application to verify that it describes how the platforms digital signature
-              functionality is invoked for each operation they are used for in the application. The
-              evaluator shall also examine the TSS of the application product’s <abbr linkend="ST"/> to verify that it
-              describes how the platforms hash functionality is invoked for each digest size
-              selected in the application product’s <abbr linkend="ST"/>. </aactivity>
+            <aactivity>
+              If <b>perform no cryptographic signing</b> is selected, the evaluator shall inspect the 
+			  application and its developer documentation and verify that the application needs no
+              cryptographic hashing services. 
+			  <br/>
+              If <b>implement cryptographic signing</b> is selected, the evaluator shall ensure
+			  that additional <linkref linkend="FCS_COP.1(3)"/> elements are included in the <abbr linkend="ST"/>.
+			  <br/>
+			  If <b>invoke platform-provided cryptographic cryptographic signing</b> is selected, 
+			  the evaluator shall examine the TSS of the
+              application to verify that it describes how the platform's digital signature
+              functionality is invoked for each operation for which it is used in the application, 
+			  including digest sizes used.
+              </aactivity>
           </f-element>
         </f-component>
 -->
         <f-component id="fcs_cop.1(1)" name="Cryptographic Operation - Encryption/Decryption">
           <f-element id="fcs_cop.1.1(1)" status="sel-based">
             <selection-depends req="fdp_dar_ext.1.1"/>
+            <selection-depends req="fdp_tlsc_ext.1.1"/>
             <title>The application shall perform encryption/decryption in accordance with a specified 
         cryptographic algorithm  
 		<br/>
@@ -1517,7 +1538,7 @@ functionality (such as these)
         </f-component> 
         <f-component id="fcs_cop.1(2)" name="Cryptographic Operation - Hashing">
           <f-element id="fcs_cop.1.1(2)" status="sel-based">
-            <selection-depends req="fcs_cop_ext.1.1"/>
+            <selection-depends req="fcs_tlsc_ext.1.1"/>
             <title>The application shall perform cryptographic hashing services in accordance with a specified 
         cryptographic algorithm SHA-1 and 
 	      <selectables linebreak="yes">
