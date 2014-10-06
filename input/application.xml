@@ -3138,10 +3138,11 @@ functionality (such as these)
             <title>The application shall only use supported platform <abbr linkend="API"
             />s.</title>
             <aactivity>
-              The evaluator shall verify that the TSS lists the supported platform <abbr linkend="API"/>s 
+              The evaluator shall verify that the TSS lists the platform <abbr linkend="API"/>s 
               used in the application.
-              The evaluator shall then compare the list with the platform documentation and ensure that all 
-              <abbr linkend="API"/>s listed in the TSS appear in the platform vendor's documentation.
+              The evaluator shall then compare the list with the supported <abbr linkend="API"/>s
+              (available through e.g. developer accounts) and ensure that all 
+              <abbr linkend="API"/>s listed in the TSS are supported.
             </aactivity>
           </f-element>
           <f-element id="fpt_api_ext.1.2" status="objective">
@@ -3173,7 +3174,8 @@ functionality (such as these)
         </f-component>
         <f-component id="fpt_aex_ext.1" name="Anti-Exploitation Capabilities">
           <f-element id="fpt_aex_ext.1.1">
-            <title> The application shall not request to map memory at an explicit address.
+            <title> The application shall not request to map memory at an explicit address
+              except for <assignable>list of explicit exceptions</assignable>.
               <note role="application"> Requesting a memory mapping at an explicit address
                 subverts address space layout randomization (<abbr linkend="ASLR"/>). </note>
             </title>
@@ -3292,11 +3294,11 @@ functionality (such as these)
               features do not need to be disabled in order for the application to run.</note>
             <aactivity>
 	      The evaluator shall configure the platform in the ascribed manner and 
-	      carry out one of the prescribed tests;
-	      <subaactivity platform="blackberry"> The evaluator shall ensure that the
+	      carry out one of the prescribed tests:
+	      <subaactivity platform="blackberry">The evaluator shall ensure that the
                 application can successfully run on the latest version of the BlackBerry OS. 
               </subaactivity>
-              <subaactivity platform="android"> The evaluator shall ensure that the application can
+              <subaactivity platform="android">The evaluator shall ensure that the application can
                 run with SE for Android enabled and enforcing.
 	      </subaactivity>
               <subaactivity platform="windows">For both classic desktop and Windows Store
@@ -3305,7 +3307,7 @@ functionality (such as these)
                 evaluator shall then run the application and verify that the application does not 
                 crash while protected by EMET. 
               </subaactivity>
-              <subaactivity platform="ios"> The evaluator shall ensure that the application can
+              <subaactivity platform="ios">The evaluator shall ensure that the application can
                 successfully run on the latest version of iOS. </subaactivity>
               <subaactivity platform="linux"> The evaluator shall ensure that the application can
                 successfully run on a system with SELinux enabled and enforcing.
@@ -3369,7 +3371,7 @@ functionality (such as these)
                 wrote. </subaactivity>
             </aactivity></f-element>
           <f-element id="fpt_aex_ext.1.5">
-            <title>The application must be compiled with stack-based buffer overflow protection
+            <title>The application shall be compiled with stack-based buffer overflow protection
               enabled.</title>
             <aactivity>The evaluator shall ensure that the <abbr linkend="TSS"/> section of the <abbr linkend="ST"/>
               describes the compiler flag used to enable stack-based buffer overflow protection in
@@ -3433,7 +3435,7 @@ functionality (such as these)
         <f-component id="fpt_tud_ext.1" name="Integrity for Installation and Update">
           <!-- TO DO: Cite references. -->
           <f-element id="fpt_tud_ext.1.1">
-            <title>The application shall <selectables atleastone="yes">
+            <title>The application shall <selectables>
                 <selectable>provide the ability</selectable>
                 <selectable>leverage the platform</selectable>
               </selectables> to check for updates and patches to the application software. </title>
@@ -3465,8 +3467,8 @@ functionality (such as these)
               <subaactivity platform="linux"> The evaluator shall ensure that the application is
                 packaged in the format of the package management infrastructure of the chosen
                 distribution. For example, applications running on Red Hat and Red Hat derivatives
-                should be packaged in rpm format. Applications running on Debian and Debian
-                derivatives should be packaged in deb format. </subaactivity>
+                should be packaged in RPM format. Applications running on Debian and Debian
+                derivatives should be packaged in <code>deb</code> format. </subaactivity>
               <subaactivity platform="Solaris"> The evaluator shall ensure that the application is
                 packaged in the PKG format. </subaactivity>
               <subaactivity platform="OS X"> The evaluator shall ensure that application is packaged
@@ -3569,8 +3571,6 @@ functionality (such as these)
           dynamic libraries. 
           The evaluator shall verify that libraries found to be packaged with or employed by the 
           application are limited to those in the assignment.
-	      The evaluator shall also run a virus scanner with the most current virus 
-	      definitions against the application files and verify that no files are flagged as malicious.
 	    </aactivity>
           </f-element>
         </f-component>
@@ -4142,13 +4142,18 @@ functionality (such as these)
             <title>The evaluator shall conduct penetration testing, based on the identified
               potential vulnerabilities, to determine that the <abbr linkend="TOE"/> is resistant to
               attacks performed by an attacker possessing Basic attack potential.</title>
-            <aactivity>As with ATE_IND, the evaluator shall generate a report to document their
+            <aactivity>The evaluator shall generate a report to document their
               findings with respect to this requirement. This report could physically be part of the
               overall test report mentioned in ATE_IND, or a separate document. The evaluator
               performs a search of public information to find vulnerabilities that have been found
               in similar applications with a particular focus on network protocols the application
-              uses and document formats it parses. The evaluator documents the sources consulted and
-              the vulnerabilities found in the report. For each vulnerability found, the evaluator
+              uses and document formats it parses. 
+	          The evaluator shall also run a virus scanner with the most current virus 
+	          definitions against the application files and verify that no files are flagged as malicious.
+              The evaluator documents the sources consulted and
+              the vulnerabilities found in the report. 
+              <br/>
+              For each vulnerability found, the evaluator
               either provides a rationale with respect to its non-applicability, or the evaluator
               formulates a test (using the guidelines provided in ATE_IND) to confirm the
               vulnerability, if suitable. Suitability is determined by assessing the attack vector
