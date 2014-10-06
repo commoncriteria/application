@@ -3043,7 +3043,16 @@ functionality (such as these)
             <aactivity>The evaluator shall install and run the application. The evaluator shall
               inspect the filesystem of the platform (to the extent possible) for any files created
               by the application and ensure that their permissions are adequate to protect them.
-              The method of doing so varies per platform. <subaactivity platform="blackberry"/>
+              The method of doing so varies per platform.
+              <subaactivity platform="blackberry">
+		The evaluator shall run 
+        	<code>ls -alR|grep -E '$.......(r|-w|--x)'</code> inside the application's 
+		data directories to ensure that all files are not world-accessible 
+		(either read, write, or execute).
+		The command should not print any files.
+		The evaluator shall also verify that no sensitive data is written to
+                external storage which could be read/modified by any other application.
+                </subaactivity>
               <subaactivity platform="android">
 		The evaluator shall run 
         	<code>ls -alR|grep -E '$.......(r|-w|--x)'</code> inside the application's 
