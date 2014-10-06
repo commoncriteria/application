@@ -339,6 +339,10 @@
               for integrity of software that is installed onto the system from the
               network.</rationale>
           </objective-refer>
+          <objective-refer ref="O.MANAGEMENT">
+            <rationale>The threat T.NETWORK_ATTACK is countered by O.MANAGEMENT as this
+              provides for the ability to configure the application to defend against network attack.</rationale>
+          </objective-refer>
         </threat>
         <threat id="T.NETWORK_EAVESDROP">
           <description>An attacker is positioned on a communications channel or elsewhere on the
@@ -351,6 +355,11 @@
           <objective-refer ref="O.QUALITY">
             <rationale>The objective O.QUALITY ensures use of mechanisms that provide 
               protection against network-based attack.</rationale>
+          </objective-refer>
+          <objective-refer ref="O.MANAGEMENT">
+            <rationale>The threat T.NETWORK_EAVESDROP is countered by O.MANAGEMENT as this
+              provides for the ability to configure the application to protect the
+              confidentiality of its transmitted data.</rationale>
           </objective-refer>
         </threat>
         <threat id="T.LOCAL_ATTACK">
@@ -406,7 +415,8 @@
       </assumptions>
     </section>
     <section title="Organizational Security Policies" id="OSPs">
-      <OSPs>
+      There are no OSPs for the application.
+   <!--   <OSPs>
         <OSP id="P.ENTERPRISE">
           <description>The configuration of the application software must be capable of adhering to
             the enterprise security policy.</description>
@@ -416,8 +426,9 @@
               management over the <abbr linkend="TOE"/>.</rationale>
           </objective-refer>
         </OSP>
-      </OSPs>
-    </section></chapter>
+      </OSPs> -->
+    </section>
+  </chapter>
   <chapter title="Security Objectives" id="obj">
     <section title="Security Objectives for the TOE" id="SecurityObjectivesTOE">
       <SOs>
@@ -559,7 +570,7 @@
 			  If <b>invoke platform-provided DRBG functionality</b> is selected, 
 			  the evaluation activities will be performed as stated in the 
               following requirements.
-              The evaluator shall verify that the <abbr linkend="ST"/> identifies the calls used in acquiring
+              The evaluator shall verify that the <abbr linkend="TSS"/> identifies the calls used in acquiring
               random from each instantiation of the RBG used for the application's cryptographic
               functionality.  The evaluator shall ensure that random bits are acquired properly
               from the platform. This varies on a per-platform basis:
@@ -2368,7 +2379,7 @@ functionality (such as these)
             <aactivity>
                 The evaluator shall install and run the application and inspect its user
                 documentation to verify that the user is informed of any need to access hardware
-                resources.  The method of doing so varies per platform.
+                resources.  The method of doing so varies per platform.  
               <subaactivity platform="blackberry">
                 The evaluator shall install the
                 application and run it for the first time. The evaluator shall verify that the
@@ -2542,7 +2553,7 @@ functionality (such as these)
 	      <test>
 		The evaluator shall run the application.  After the application initializes, the
 		evaluator shall run network port scans to verify that any ports
-		opened by the application have captured in the <abbr linkend="ST"/> for the third
+		opened by the application have been captured in the <abbr linkend="ST"/> for the third
 		selection and its assignment.  This includes
 		connection-based protocols (e.g. TCP, DCCP) as well as connectionless protocols
 		(e.g. UDP).
