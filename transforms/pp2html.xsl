@@ -102,6 +102,7 @@
       a.abbr:hover {color:blue; text-decoration:none;}
       a.abbr:hover:visited {color:purple; text-decoration:none;}
       a.abbr:active {color:red; text-decoration:none;}
+      a.linkref { font-family:   verdana, arial, helvetica, sans-serif; font-size: 90%; }
       
       *.simpleText   { margin-left: 10%; }
       *.propertyText { margin-left: 10%; margin-top: 0.2em; margin-bottom: 0.2em }
@@ -772,13 +773,14 @@
 
   <xsl:template match="cc:linkref">
     <xsl:variable name="linkend" select="@linkend" />
-    <xsl:element name="a">
+	<a class="linkref" href="#{$linkend}"><xsl:value-of select="$linkend" /></a>
+<!--    <xsl:element name="a">
       <xsl:attribute name="href">
         <xsl:text>#</xsl:text>
         <xsl:value-of select="$linkend" />
       </xsl:attribute>
       <xsl:value-of select="$linkend" />
-    </xsl:element>
+    </xsl:element> -->
   </xsl:template>
 
   <xsl:template match="cc:secref">
