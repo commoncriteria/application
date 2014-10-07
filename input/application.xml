@@ -4205,66 +4205,111 @@ functionality (such as these)
   </appendix>
 
   <appendix title="Entropy Documentation and Assessment" id="entropyappendix"> 
-The documentation of the entropy source should be detailed enough that, after
-reading, the evaluator will thoroughly understand the entropy source and why
-it can be relied upon to provide entropy. This documentation should include
-multiple detailed sections: design description, entropy justification,
-operating conditions, and health testing. This documentation is not required
-to be part of the TSS.
-
+  This appendix describes the required supplementary information for the entropy
+  source used by the TOE.
+  <br/>
+  The documentation of the entropy source should be detailed enough that, after
+  reading, the evaluator will thoroughly understand the entropy source and why
+  it can be relied upon to provide sufficient entropy. This documentation should
+  include multiple detailed sections: design description, entropy justification,
+  operating conditions, and health testing. This documentation is not required to
+  be part of the TSS. 
+   
 <section id="entropydesign" title="Design Description">
-Documentation shall include the design of the entropy source as a whole,
-including the interaction of all entropy source components. It will describe
-the operation of the entropy source to include how it works, how entropy is
-produced, and how unprocessed (raw) data can be obtained from within the
-entropy source for testing purposes. The documentation should walk through the
-entropy source design indicating where the random comes from, where it is
-passed next, any post-processing of the raw outputs (hash, XOR, etc.), if/where
-it is stored, and finally, how it is output from the entropy source. Any
-conditions placed on the process (e.g., blocking) should also be described in
-the entropy source design. Diagrams and examples are encouraged.
-<br/>
-This design must also include a description of the content of the security
-boundary of the entropy source and a description of how the security boundary
-ensures that an adversary outside the boundary cannot affect the entropy rate.
-<br/>
-If implemented, the design description shall include a description of how
-third-party applications can add entropy to the RBG. A description of any RBG
-state saving between power-off and power-on shall be included.
+  Documentation shall include the design of the entropy source as a whole,
+  including the interaction of all entropy source components. Any information
+  that can be shared regarding the design should also be included for any
+  third-party entropy sources that are included in the product. 
+  <br/>
+  The documentation will describe the operation of the entropy source to
+  include, how entropy is produced, and how unprocessed (raw) data can be
+  obtained from within the entropy source for testing purposes. The documentation
+  should walk through the entropy source design indicating where the entropy
+  comes from, where the entropy output is passed next, any post-processing
+  of the raw outputs (hash, XOR, etc.), if/where it is stored, and finally,
+  how it is output from the entropy source. Any conditions placed on the
+  process (e.g., blocking) should also be described in the entropy source
+  design. Diagrams and examples are encouraged. 
+  <br/>
+  This design must also include a description of the content of the
+  security boundary of the entropy source and a description of how
+  the security boundary ensures that an adversary outside the boundary
+  cannot affect the entropy rate.
+  <br/>
+  If implemented, the design description shall include a description
+  of how third-party applications can add entropy to the RBG. A
+  description of any RBG state saving between power-off and
+  power-on shall be included.
 </section>
 
 <section id="entropyjustification" title="Entropy Justification">
-There should be a technical argument for where the unpredictability in the
-source comes from and why there is confidence in the entropy source exhibiting
-probabilistic behavior (an explanation of the probability distribution and
-justification for that distribution given the particular source is one way to
-describe this). This argument will include a description of the expected
-entropy rate and explain how you ensure that sufficient entropy is going into
-the TOE randomizer seeding process. This discussion will be part of a
-justification for why the entropy source can be relied upon to produce bits
-with entropy.
-<br/>
-The entropy justification shall not include any data added from any third-party
-application or from any state saving between restarts.
+  There should be a technical argument for where the unpredictability in
+  the source comes from and why there is confidence in the entropy source
+  delivering sufficient entropy for the uses made of the RBG output
+  (by this particular TOE). . This argument will include a description of
+  the expected min-entropy rate (i.e. the minimum entropy (in bits) per
+  bit or byte of source data) and explain that sufficient entropy is
+  going into the TOE randomizer seeding process. This discussion will
+  be part of a justification for why the entropy source can be relied
+  upon to produce bits with entropy.
+  <br/>
+  The amount of information necessary to justify the expected
+  min-entropy rate depends on the type of entropy source included in the
+  product.
+  <br/>
+  For developer provided entropy sources, in order to justify the
+  min-entropy rate, it is expected that a large number of raw source
+  bits will be collected, statistical tests will be performed, and the
+  min-entropy rate determined from the statistical tests. While no
+  particular statistical tests are required at this time, it is expected
+  that some testing is necessary in order to determine the amount of
+  min-entropy in each output.
+  <br/>
+  For third party provided entropy sources, in which the TOE vendor
+  has limited access to the design and raw entropy data of the source, the
+  documentation will indicate an estimate of the amount of min-entropy
+  obtained from this third-party source.  It is acceptable for the vendor
+  to “assume” an amount of min-entropy, however, this assumption must be
+  clearly stated in the documentation provided.  In particular, the
+  min-entropy estimate must be specified and the assumption included
+  in the ST.
+  <br/>
+  Regardless of type of entropy source, the justification will also
+  include how the DRBG is initialized with the entropy stated in the ST,
+  for example by verifying that the min-entropy rate is multiplied by the
+  amount of source data used to seed the DRBG or that the rate of entropy
+  expected based on the amount of source data is explicitly stated and
+  compared to the statistical rate. If the amount of source data used to
+  seed the DRBG is not clear or the calculated rate is not explicitly
+  related to the seed, the documentation will not be considered complete.
+  <br/>
+  The entropy justification shall not include any data added from
+  any third-party application or from any state saving between restarts.
 </section>
 
 <section id="entropyoperatingconditions" title="Operating Conditions">
-Documentation will also include the range of operating conditions under which
-the entropy source is expected to generate random data. It will clearly
-describe the measures that have been taken in the system design to ensure the
-entropy source continues to operate under those conditions. Similarly,
-documentation shall describe the conditions under which the entropy source is
-known to malfunction or become inconsistent. Methods used to detect failure or
-degradation of the source shall be included.
+  The entropy rate may be affected by conditions outside the control
+  of the entropy source itself.  For example, voltage, frequency,
+  temperature, and elapsed time after power-on are just a few of the
+  factors that may affect the operation of the entropy source.
+  As such, documentation will also include the range of operating conditions
+  under which the entropy source is expected to generate random data.
+  It will clearly describe the measures that have been taken in the
+  system design to ensure the entropy source continues to operate
+  under those conditions. Similarly, documentation shall describe
+  the conditions under which the entropy source is known to malfunction
+  or become inconsistent. Methods used to detect failure or degradation
+  of the source shall be included.
 </section>
 
 <section id="entropyhealthtesting" title="Health Testing">
-More specifically, all entropy source health tests and their rationale will be
-documented. This will include a description of the health tests, the rate and
-conditions under which each health test is performed (e.g., at startup,
-continuously, or on-demand), the expected results for each health test, and
-rationale indicating why each test is believed to be appropriate for detecting
-one or more failures in the entropy source. 
+  More specifically, all entropy source health tests and their rationale
+  will be documented. This will include a description of the health tests,
+  the rate and conditions under which each health test is performed
+  (e.g., at startup, continuously, or on-demand), the expected results
+  for each health test, and rationale indicating why each test is
+  believed to be appropriate for detecting one or more failures in the
+  entropy source.
 </section>
   
   </appendix>
