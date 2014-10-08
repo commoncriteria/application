@@ -773,14 +773,7 @@
 
   <xsl:template match="cc:linkref">
     <xsl:variable name="linkend" select="@linkend" />
-	<a class="linkref" href="#{$linkend}"><xsl:value-of select="$linkend" /></a>
-<!--    <xsl:element name="a">
-      <xsl:attribute name="href">
-        <xsl:text>#</xsl:text>
-        <xsl:value-of select="$linkend" />
-      </xsl:attribute>
-      <xsl:value-of select="$linkend" />
-    </xsl:element> -->
+    <a class="linkref" href="#{$linkend}"><xsl:value-of select="$linkend" /></a>
   </xsl:template>
 
   <xsl:template match="cc:secref">

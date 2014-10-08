@@ -25,16 +25,9 @@
     </xsl:choose>
   </xsl:template>
 
-
-  <xsl:template match="cc:reqref">
+  <xsl:template match="cc:linkref">
     <xsl:variable name="linkend" select="translate(@linkend,$lower,$upper)" />
-    <xsl:element name="a">
-      <xsl:attribute name="href">
-        <xsl:text>#</xsl:text>
-        <xsl:value-of select="$linkend" />
-      </xsl:attribute>
-	  <xsl:value-of select="$linkend" />
-	  </xsl:element>
+    <a class="linkref" href="#{$linkend}"><xsl:value-of select="$linkend" /></a>
   </xsl:template>
 
   <xsl:template match="cc:testlist">

@@ -74,7 +74,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 		{ 
             background-color: #dedede;
 		}
-
+	    div.appnote    { margin-left: 0%; margin-top: 1em; }
 		td.tabletitle
 		{ 
 			text-align: left; font-size: x-large; font-weight:bold;
@@ -104,19 +104,25 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
     	</style>
 
 		<head>
-			<title>Evaluation Requirements for Apps</title>
+			<title>Requirements from the Protection Profile for Application Software</title>
 		</head>
 		<body>
 			<br/>
 			<br/>
 			<div class="title">
-			Evaluation Criteria for Apps
+			Requirements from the <br/><i>Protection Profile for Application Software</i>
 			</div>
 			<div class="intro">
-			This document presents evaluation criteria for application software on mobile devices, which also
-			applies to application software on desktop and server systems.
-            These are grouped into component areas and each features related requirements.
-            Each component area addresses particular threats.
+			This document presents the functional and assurance elements from the 
+			Protection Profile.  These are grouped into component areas and each 
+			features related requirements.
+			Each component area addresses particular threats.
+			This representation is provided for audiences whose interest lies in 
+			the requirements from the Protection Profile and their use
+			outside formal Common Criteria evaluation for IA and IA-enabled products.
+			The Protection Profile itself remains the
+			only complete and authoritative representation, and includes 
+			discussion of assumptions, threats, and objectives.
 			</div>
 			<br/>
 
@@ -140,12 +146,12 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			<td class="element"><xsl:apply-templates select="cc:title"/><br/>
 				 <xsl:choose>
 				 <xsl:when test="@status='objective'">
-       		        <br/><i><b>This is currently an objective requirement.
+       		        <p/><i><b>This is currently an objective requirement.
 					<xsl:if test="@targetdate">It is targeted for <xsl:value-of select="@targetdate"/>.</xsl:if></b></i>
 					<br/>
          		 </xsl:when>
        		     <xsl:when test="@status='sel-based'">
-        		     <br/><b><i>This is a selection-based requirement.
+        		     <p/><b><i>This is a selection-based requirement.
 					 Its inclusion depends upon selection in 
 					<xsl:for-each select="cc:selection-depends">
         				<xsl:value-of select="translate(@req, $lower, $upper)" />
