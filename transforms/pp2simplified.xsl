@@ -117,10 +117,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			Protection Profile.  These are grouped into component areas and each 
 			features related requirements.
 			Each component area addresses particular threats.
-			This representation is provided for audiences whose interest lies in 
-			the requirements from the Protection Profile and their use
-			outside formal Common Criteria evaluation for IA and IA-enabled products.
-			The Protection Profile itself remains the
+			This representation is provided for use by audiences with an interest in 
+			conducting evaluations against the requirements of the Protection Profile, but outside 
+			formal Common Criteria evaluation.  The Protection Profile itself remains the
 			only complete and authoritative representation, and includes 
 			discussion of assumptions, threats, and objectives.
 			</div>
