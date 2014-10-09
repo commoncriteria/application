@@ -151,10 +151,10 @@
       .expandstyle a:active  { color: black; text-decoration: none;  } 
       
       @media screen {
-        *.reqid { position:absolute; font-size: 90%; 
-                  font-family:   verdana, arial, helvetica, sans-serif; }
+        *.reqid { float:left; font-size: 90%; 
+                  font-family:   verdana, arial, helvetica, sans-serif; margin-right:1em;}
         *.req { margin-left: 0%; margin-top: 1em; margin-bottom: 1em; }
-        *.reqdesc { display:inline-block; margin-left: 20%; }
+        *.reqdesc { margin-left: 20%; }
           div.aacthidden{ display: none; }
         div.statustag {box-shadow: 4px 4px 3px #888888; }
         div.aact      {box-shadow: 4px 4px 3px #888888; }
