@@ -84,13 +84,13 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			border-bottom: solid 2px gray; 
 			padding-bottom: 0.25em; padding-top: 1.25em;
 		}
-		td.element, td.elementid
+		td.element, td.elementidstyle
 		{ 
 			padding-top: 1em;
 			padding-bottom: 2em;
 			padding-right: 1em;
 		}
-		td.elementid
+		td.elementidstyle
 		{ 
 			font-weight: bold;
             font-family: verdana,arial,sans-serif;
@@ -132,16 +132,17 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 	</xsl:template>
 
 	<xsl:template match="cc:f-component">
-
-		<div class="componenttitle"><xsl:value-of select="@name"/> </div>
+		<xsl:variable name="componentid" select="translate(@id,$lower,$upper)" />	
+		<div id="{$componentid}" class="componenttitle"><a class="abbr" href="#{$componentid}"><xsl:value-of select="@name"/></a></div>
 		<table>
 		<xsl:apply-templates select=".//cc:f-element"/>
 		</table>
 	</xsl:template>
 
 	<xsl:template match="cc:f-element | cc:a-element">
+		<xsl:variable name="elementid" select="translate(@id,$lower,$upper)" />	
 		<tr>
-		    <td class="elementid"><xsl:value-of select="translate(@id, $lower, $upper)"/></td>
+		    <td id="{$elementid}" class="elementidstyle"><a class="abbr" href="#{$elementid}"><xsl:value-of select="$elementid"/></a></td>
 			<td class="element"><xsl:apply-templates select="cc:title"/><br/>
 				 <xsl:choose>
 				 <xsl:when test="@status='objective'">

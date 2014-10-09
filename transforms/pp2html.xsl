@@ -186,7 +186,7 @@
 	</noscript>
         <div class="center">
           <xsl:choose>
-            <xsl:when test="$release='final'"><img src="images/niaplogo.png" /></xsl:when>
+            <xsl:when test="$release='final'"><img src="images/niaplogodraft.png" /></xsl:when>
             <xsl:when test="$release='draft'"><img src="images/niaplogodraft.png" /></xsl:when>
           </xsl:choose>
           <br/>
