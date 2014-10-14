@@ -110,32 +110,56 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			<br/>
 			<br/>
 			<div class="title">
-			Requirements from the <br/><i>Protection Profile for Application Software</i>
+			Requirements from the 
+			<br/><i>Protection Profile for Application Software</i>
+			<br/>for Vetting Mobile Apps outside Common Criteria
 			</div>
 			<div class="intro">
-			This document presents the functional and assurance elements from the 
-			Protection Profile.  These are grouped into component areas and each 
-			features related requirements.
-			Each component area addresses particular threats.
-			This representation is provided for use by audiences with an interest in 
-			conducting evaluations against the requirements of the Protection Profile, but outside 
-			formal Common Criteria evaluation.  The Protection Profile itself remains the
-			only complete and authoritative representation, and includes 
-			discussion of assumptions, threats, and objectives.
+			This document presents functional and assurance requirements from the 
+			<i>Protection Profile for Application Software</i> which are appropriate for vetting
+			mobile application software ("apps") outside formal Common Criteria (ISO/IEC 15408) evaluations.
+			Common Criteria evaluation, facilitated in the U.S. by the National Information Assurance 
+			Partnership (NIAP), is required for IA and IA-enabled products
+			in National Security Systems according to CNSS Policy #11.  However, even apps without IA
+			functionality may impose some security risks, and concern about these risks has motivated
+			the vetting of such apps in government and industry.  
+			<p/>In addition to providing security requirements for vetting
+			apps, this document provides a basis for discussion and consideration
+			of the vetting provided by commercially-available app stores.  
+			This document does not imply to Authorizing Officials that the vetting provided by 
+			commercially-available app stores is either adequate or inadequate for the context in which they
+			must weigh risks.  Rather, it is intended to help inform their decision-making with regard to
+			investment in app vetting processes.
+			<p/>
+			This representation of the Protection Profile includes all of its <i>Security Functional Requirements</i>,
+			but excludes certain <i>Security Assurance Requirements</i> such as Functional Specification, 
+			Operational User Guidance, and Preparative Procedures.
+			These assurance requirements were excluded because they are only likely to be provided by
+			a cooperative developer who has chosen to pursue formal Common Criteria certification, and insisting upon
+			them is not likely to be feasible in other evaluation scenarios.
 			</div>
 			<br/>
 
-			<xsl:apply-templates select="//cc:f-component[not(@status='sel-based')]"/>
+			<div class="tabletitle">
+				Security Functional Requirements
+			</div>
+			<xsl:apply-templates select="//cc:f-component"/>
+			<!-- <xsl:apply-templates select="//cc:f-component[not(@status='sel-based')]"/> -->
 
+			<div class="tabletitle">
+				Security Assurance Requirements
+			</div>
+			<xsl:apply-templates select="//cc:a-component[not(@id='adv_fsp.1') and not(@id='agd_pre.1') and not(@id='alc_cms.1')]"/>
+	
 		</body>
 		</html>
 	</xsl:template>
 
-	<xsl:template match="cc:f-component">
+	<xsl:template match="cc:f-component | cc:a-component">
 		<xsl:variable name="componentid" select="translate(@id,$lower,$upper)" />	
 		<div id="{$componentid}" class="componenttitle"><a class="abbr" href="#{$componentid}"><xsl:value-of select="@name"/></a></div>
 		<table>
-		<xsl:apply-templates select=".//cc:f-element"/>
+		<xsl:apply-templates select=".//cc:f-element | .//cc:a-element"/>
 		</table>
 	</xsl:template>
 
