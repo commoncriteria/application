@@ -27,7 +27,7 @@ schema/application.rnc: schema/application.rng
 	trang -I rng -O rnc  schema/application.rng schema/application.rnc
 
 clean:
-	@for f in a $(TABLE) $(CRITERIA) $(APP_HTML); do \
+	@for f in a $(TABLE) $(SIMPLIFIED) $(APP_HTML) $(APP_RELEASE_HTML) $(APP_OP_HTML); do \
 		if [ -f $$f ]; then \
 			rm "$$f"; \
 		fi; \
