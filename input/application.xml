@@ -3497,10 +3497,14 @@ functionality (such as these)
             <aactivity>The evaluator shall verify that the application's executable files are
               not changed by the application. The evaluator shall complete the following test:
               <testlist>
-                <test>The evaluator shall hash all the executable binary files of the application,
-                  then run the application and exercise all features of the application as described
-                  in the TSS. The evaluator shall then hash all the executable binary files a second
-                  time and verify that the hashes are identical to the first set of hashes taken.
+                <test>The evaluator shall install the application and then
+                locate all of its executable files.  The evaluator shall then,
+                for each file, save off either a hash of the file or a copy of
+                the file itself.  The evaluator shall then run the application
+                and exercise all features of the application as described in
+                the TSS. The evaluator shall then compare each executable file
+                with the either the saved hash or the saved copy of the files.
+                The evaluator shall verify that these are identical.
                 </test>
               </testlist>
             </aactivity>
@@ -3518,49 +3522,33 @@ functionality (such as these)
             </aactivity>
           </f-element>
           <f-element id="fpt_tud_ext.1.6">
-            <title>The application installation and update packages, including all files contained
-              within, shall be signed by the vendor in conformance with NIST SP 800-89, 
-              Recommendation for Obtaining Assurances for Digital Signature Applications, using an 
-              approved digital signature algorithm as specified in NIST FIPS 186-3, Digital 
-              Signature Standard, that provides at least 112 bits of security strength, in 
-              accordance with NIST SP 800-131A, Transitions: Recommendation for Transitioning the 
-              Use of Cryptographic Algorithms and Key Lengths.
+            <title>
+			  The application installation package and its updates shall be digitally signed 
+			  such that its platform can cryptographically verify them prior to installation.
             </title>
-            <note role="application">Signatures of signed installation and update packages should be
-              verified by the platform's application installation mechanism. Since the
-              existence of such a mechanism is a requirement on the platform (and not the
-              application), it is not specified here.</note>
-            <aactivity>Developers must document their process for cryptographically signing updates
-              and installation packages. The evaluator shall verify that the documentation conforms
-              with the above requirement.
-              <!-- The evaluator shall perform the following tests: 
-              <testlist>
-                <test>The evaluator shall attempt to install an unsigned patch or update and shall
-                  verify that installation fails. </test>
-                <test>The evaluator shall sign a patch or update with an invalid certificate. The
-                  evaluator shall attempt to install the patch or update and shall verify that
-                  installation fails. </test>
-                <test>The evaluator shall sign a patch or update with a certificate containing a
-                  missing or invalid code signing entendedKeyUsage extension. The evaluator shall
-                  attempt to install the patch or update and shall verify that installation fails. 
-                </test>
-                <test>The evaluator shall attempt to install a signed patch or update and shall
-                  verify that installation is successful and happens automatically after the
-                  signature is verified. </test>
-              </testlist>
-            -->
+            <note role="application">The specifics of the verification of installation packages
+			  and updates involves requirements on the platform (and not the
+              application), so these are not fully specified here. </note>
+            <aactivity>
+			  The evaluator shall verify that the TSS identifies how the application
+			  installation package and updates to it  
+			  are signed by an authorized source. The definition of an
+			  authorized source must be contained in the TSS.
+			  The evaluator shall also ensure that the TSS (or the operational
+			  guidance) describes how candidate updates are obtained.
             </aactivity>
           </f-element>
         </f-component>
         <f-component id="fpt_lib_ext.1" name="Use of Third Party Libraries">
           <f-element id="fpt_lib_ext.1.1">
             <title> The application shall be packaged with only
-	      <assignable> list of third-party libraries</assignable>. 
+	      <assignable>list of third-party libraries</assignable>. 
 	    </title>
         <note role="application"> 
 	     The intention of this requirement is for the evaluator to discover and document whether the 
-         application is including unnecessary or unexpected third-party libraries (e.g. adware), 
-		 or known malicious software (e.g. known malware) that could present a threat.
+         application is including unnecessary or unexpected third-party libraries.  This includes
+		 adware libraries which could present a privacy threat, as well as ensuring
+		 documentation of such libraries in case vulnerabilities are later discovered.
         </note>
       <aactivity> 
 	      The evaluator shall install the application and survey its installation directory for 
