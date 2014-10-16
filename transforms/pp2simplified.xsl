@@ -133,7 +133,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			<p/>
 			This representation of the Protection Profile includes all of its <i>Security Functional Requirements</i>,
 			but excludes certain <i>Security Assurance Requirements</i> such as Functional Specification, 
-			Operational User Guidance, and Preparative Procedures.
+			Operational User Guidance, Configuration Management Coverage, and Preparative Procedures.
 			These assurance requirements were excluded because they are only likely to be provided by
 			a cooperative developer who has chosen to pursue formal Common Criteria certification, and insisting upon
 			them is not likely to be feasible in other evaluation scenarios.
@@ -143,14 +143,40 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			<div class="tabletitle">
 				Security Functional Requirements
 			</div>
-			<xsl:apply-templates select="//cc:f-component"/>
+			<table>
+			<xsl:apply-templates select="//cc:f-element[not(@status)]"/>
+			</table>
 			<!-- <xsl:apply-templates select="//cc:f-component[not(@status='sel-based')]"/> -->
 
 			<div class="tabletitle">
 				Security Assurance Requirements
 			</div>
-			<xsl:apply-templates select="//cc:a-component[not(@id='adv_fsp.1') and not(@id='agd_pre.1') and not(@id='alc_cms.1')]"/>
+			<table>
+			<xsl:apply-templates select="//cc:a-element[not(../@id='adv_fsp.1') and not(../@id='agd_pre.1') and not(../@id='alc_cms.1') and not(../@id='agd_ope.1') and not(../@id='alc_tsu_ext.1')]"/>
+			</table>
 	
+			<div class="tabletitle">
+				Selection-Based Security Functional Requirements
+			</div>
+			<table>
+			<xsl:apply-templates select="//cc:f-element[@status='sel-based']"/>
+			</table>
+
+
+			<div class="tabletitle">
+				Objective Security Functional Requirements
+			</div>
+			<table>
+			<xsl:apply-templates select="//cc:f-element[@status='objective']"/>
+			</table>
+
+			<div class="tabletitle">
+				Optional Security Functional Requirements
+			</div>
+			<table>
+			<xsl:apply-templates select="//cc:f-element[@status='optional']"/>
+			</table>
+
 		</body>
 		</html>
 	</xsl:template>
