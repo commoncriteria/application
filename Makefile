@@ -21,7 +21,7 @@ $(TABLE): $(TRANS)/pp2table.xsl $(APP_XML)
 
 simplified: $(SIMPLIFIED)
 $(SIMPLIFIED): $(TRANS)/pp2simplified.xsl $(APP_XML)
-	xsltproc -o $(SIMPLIFIED) $(TRANS)/pp2simplified.xsl $(APP_XML)
+	xsltproc --stringparam release final -o $(SIMPLIFIED) $(TRANS)/pp2simplified.xsl $(APP_XML)
 
 schema/application.rnc: schema/application.rng
 	trang -I rng -O rnc  schema/application.rng schema/application.rnc
