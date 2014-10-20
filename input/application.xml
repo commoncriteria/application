@@ -1379,7 +1379,6 @@ functionality (such as these)
 -->
         <f-component id="fcs_cop.1(1)" name="Cryptographic Operation - Encryption/Decryption">
           <f-element id="fcs_cop.1.1(1)" status="sel-based">
-            <selection-depends req="fdp_dar_ext.1.1"/>
             <selection-depends req="fdp_tlsc_ext.1.1"/>
             <title>The application shall perform encryption/decryption in accordance with a specified 
         cryptographic algorithm  
@@ -2606,20 +2605,20 @@ functionality (such as these)
            </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fdp_dar_ext.1" name="Storage Of Sensitive Application Data">
+        <f-component id="fdp_dar_ext.1" name="Encryption Of Sensitive Application Data">
           <f-element id="fdp_dar_ext.1.1">
             <title>The application shall 
 	      <selectables linebreak="yes">
-		<selectable>invoke platform-provided functionality to encrypt sensitive data stored</selectable>
-		<selectable>implement functionality to encrypt sensitive data stored</selectable>
+                <selectable>leverage platform-provided functionality to encrypt sensitive data</selectable>
+                <selectable>implement functionality to encrypt sensitive data</selectable>
                 <selectable>not store any sensitive data</selectable>
               </selectables>
               in non-volatile memory.
             </title>
             <note role="application">
-			  If <i>implement functionality to encrypt sensitive data stored</i> is selected, then
-              the following additional requirements shall be included in the <abbr linkend="ST"/>:
-			  <linkref linkend="FCS_COP.1(1)"/>, <linkref linkend="FCS_CKM_EXT.1"/>.
+			  If <i>implement functionality to encrypt sensitive data</i> is selected, then
+              evaluation is required against the 
+              <i>Application Software Protection Profile Extended Package: File Encryption</i>.
 			  <br/>
               Any file that may potentially contain sensitive data (to include temporary files)
               shall be protected.  The only exception is if the user intentionally exports the sensitive data
@@ -2627,45 +2626,56 @@ functionality (such as these)
 	    </note>
             <!-- this language is intentionally different from the MDPP's FDP_DAR -->
             <aactivity>The evaluator shall inventory the filesystem locations where the application
-			  may write data.  The evaluator shall run the application and store potentially sensitive data.
+			  may write data.  The evaluator shall run the application and attempt to store sensitive data.
               The evaluator shall then inspect those areas of the filesystem to note where
-			  the data was stored, and determine whether it has been encrypted. 
+			  data was stored (if any), and determine whether it has been encrypted. 
+              <br/>
+              If <b>not store any sensitive data</b> is selected, the evaluator shall inspect the TSS and
+              ensure that it describes how sensitive data cannot be written to non-volatile memory.  The evaluator
+              shall also ensure that this is consistent with the filesystem test above.
 			  <br/>
-                
-			  The evaluator shall determine whether
-              platform-provided functionality for protecting sensitive data is being invoked. 
-              Otherwise, the evaluator shall test how the application invokes
-              platform-provided functionality, which varies per platform:
-			  <subaactivity
-                platform="blackberry">The evaluator shall determine whether the application properly
-                uses the Advanced Data at Rest Protection <abbr linkend="API"/> and the application
+			  If <i>implement functionality to encrypt sensitive data</i> is selected, then
+              evaluation is required against the 
+              <b><i>Application Software Protection Profile Extended Package: File Encryption</i></b>. The evaluator
+              shall ensure that such evaluation is underway.
+              <br/>
+			  If <b>invoke platform-provided functionality</b> is selected, the
+              evaluation activities will be performed as stated in the following
+              requirements, which vary on a per-platform basis:
+			  <subaactivity>
+                platform="blackberry">The evaluator shall inspect the TSS and ensure that it describes how
+                the application 
+                uses the Advanced Data at Rest Protection <abbr linkend="API"/> and how the application
                 uses the appropriate domain to store and protect each data file.</subaactivity>
               <subaactivity platform="android">
-		            The evaluator shall verify that files containing sensitive data are stored with the 
-                <code>MODE_PRIVATE</code> flag set.
-	            </subaactivity>
-              <subaactivity platform="windows">The evaluator shall determine and verify that Windows
-                Applications use the <abbr title="Data Protection API">DPAPI</abbr> to store and
-                retrieve sensitive data. Windows Store Apps for desktop or mobile shall use
+		        The evaluator shall inspect the TSS and verify that it describes how files containing sensitive data are 
+                stored with the <code>MODE_PRIVATE</code> flag set.
+	          </subaactivity>
+              <subaactivity platform="windows">The evaluator shall inspect the TSS and ensure that it describes
+                how the application uses the <abbr title="Data Protection API">DPAPI</abbr> to store and
+                retrieve sensitive data, and (for those application types) how Windows Store Apps for desktop or mobile use
                 the DPAPI via the ProtectedData class.</subaactivity>
-              <subaactivity platform="ios">The evaluator shall determine whether the application
-                is protected with the Complete Protection, Protected Unless Open, or Protected Until 
+              <subaactivity platform="ios">The evaluator shall inspect the TSS and ensure that it describes how the 
+                application uses the Complete Protection, Protected Unless Open, or Protected Until 
                 First User Authentication Data Protection Class for each data file stored locally. 
               </subaactivity>
-<!--
-    Applications must opt into which the platform provides key management 
--->
               <subaactivity platform="linux">
-		The Linux platform currently does not provide data-at-rest encryption services which depend
-		upon invocation by application developers, so applications on it vacuously satisfy this requirement.
+               The Linux platform currently does not provide data-at-rest encryption services which depend
+               upon invocation by application developers.  The evaluator shall verify that
+               the Operational User Guidance makes the need to activate platform encryption clear 
+               to the end user.
 	      </subaactivity>
               <subaactivity platform="Solaris">
-		The Solaris platform currently does not provide data-at-rest encryption services which depend
-		upon invocation by application developers, so applications on it vacuously satisfy this requirement.
+               The Solaris platform currently does not provide data-at-rest encryption services which depend
+               upon invocation by application developers.  The evaluator shall verify that
+               the Operational User Guidance makes the need to activate platform encryption clear 
+               to the end user.
 	      </subaactivity>
               <subaactivity platform="OS X">
-		The Mac OS X platform currently does not provide data-at-rest encryption services which depend
-		upon invocation by application developers, so applications on it vacuously satisfy this requirement.
+               The Mac OS X platform currently does not provide data-at-rest encryption services which depend
+               upon invocation by application developers.  The evaluator shall verify that
+               the Operational User Guidance makes the need to activate platform encryption clear
+               to the end user.
 	      </subaactivity>
             </aactivity>
           </f-element>
