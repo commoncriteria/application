@@ -116,14 +116,8 @@
 						display: block; 
       }
       div.subaact       { margin-left: 0%; margin-top: 1em;  }
-      div.aacthidden{ 
-          margin-left: 0%; 
-          margin-top: 1em;
-          margin-bottom: 1em;
-      }    
-
-      div.optional-appendicies{display: none}
-
+      div.aacthidden    { margin-left: 0%; margin-top: 1em; margin-bottom: 1em; }    
+      div.optional-appendicies { display: none; }
 
       div.statustag { margin-left: 0%; margin-top: 1em; margin-bottom: 1em;	padding: 1em;
 				border:2px solid  #888888; border-radius:3px; }
@@ -186,7 +180,7 @@
 	</noscript>
         <div class="center">
           <xsl:choose>
-            <xsl:when test="$release='final'"><img src="images/niaplogodraft.png" /></xsl:when>
+            <xsl:when test="$release='final'"><img src="images/niaplogo.png" /></xsl:when>
             <xsl:when test="$release='draft'"><img src="images/niaplogodraft.png" /></xsl:when>
           </xsl:choose>
           <br/>

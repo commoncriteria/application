@@ -13,39 +13,49 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <!-- They can be redefined/overridden  -->
   <xsl:include href="ppcommons.xsl"/>
 
-  <xsl:template match="/">
+  <!-- release variable, overridden to "final" for release versions -->
+  <xsl:param name="release" select="'draft'"/>
+
+  <!-- very important, for special characters and umlauts iso8859-1-->
+  <xsl:output method="html" encoding="UTF-8" indent="yes" />
+
+  <xsl:template match="/cc:PP">
     <html>
       <style type="text/css">
-        table
+		h1   { text-align: left; font-size: 200%;  margin-top: 2em; margin-bottom: 2em;
+             font-family: verdana, arial, helvetica, sans-serif;
+             margin-bottom: 1.0em; }
+		h1.title { text-align: center; }
+		h2   { font-size: 125%;
+             border-bottom: solid 1px gray; margin-bottom: 1.0em;
+             margin-top: 2em; margin-bottom: 0.75em;
+             font-family: verdana, arial, helvetica, sans-serif; }
+        table.revisionhistory
         {
-            border-collapse:collapse;
+			margin: auto; margin-top: 1em; border-collapse:collapse;  }
         }
+		tr.header
+		{
+			border-bottom: 3px solid gray; padding: 8px 8px; text-align:left; font-weight: bold;
+		} 
         table, th, td
         {
+			border-collapse: collapse;
             border: 2px solid #dcdcdc;
             border-left: none;
             border-right: none;
             vertical-align: top;
+			text-align: left;
             padding: 2px;
             font-family: verdana,arial,sans-serif;
             font-size:14px;
+			padding-right: 20px; 
         }
-        td.indented
-        {
-            padding-left: 100px;
-            padding-right: 150px;
-        }
+
         pre {
             white-space: pre-wrap;
             white-space: -moz-pre-wrap !important;
             word-wrap:break-word;
-        }
-        /*table tr:nth-child(2n+2) { background-color: #f4f4f4; }*/
-        thead
-        {
-            display: table-header-group;
-            font-weight: bold;
-            background-color: #dedede;
         }
 		div.title
 		{ 
@@ -54,6 +64,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			<!--border-bottom: solid 1px gray; -->
 			margin-left: 8%; margin-right: 8%; 
 		}
+		div.center	{ display: block; margin-left: auto; margin-right: auto; text-align:center; }
 		div.intro
 		{ 
 			text-align: left; font-size: normal; 
@@ -107,15 +118,43 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			<title>Requirements from the Protection Profile for Application Software</title>
 		</head>
 		<body>
-			<br/>
-			<br/>
-			<div class="title">
+		<h1 class="title">
 			Requirements from the 
 			<br/><i>Protection Profile for Application Software</i>
 			<br/>for Vetting Mobile Apps outside Common Criteria
-			</div>
-			<div class="intro">
-			This document presents functional and assurance requirements from the 
+		</h1>
+		<div class="center">
+			<img src="images/niaplogo.png" />
+			<p/>Version: <xsl:value-of select="//cc:ReferenceTable/cc:PPVersion" />
+			<p/><xsl:value-of select="//cc:ReferenceTable/cc:PPPubDate" />
+			<p/><b><xsl:value-of select="//cc:PPAuthor" /></b>
+		</div>
+		<h2>Revision History</h2>
+		<div class="center">
+			<table class="revisionhistory">
+				<tr class="header">
+					<th>Version</th>
+					<th>Date</th>
+					<th>Comment</th>
+				</tr>
+				<xsl:for-each select="cc:RevisionHistory[@role=$release]/cc:entry">
+					<tr>
+					<td>
+					<xsl:value-of select="cc:version" />
+					</td>
+					<td>
+					<xsl:value-of select="cc:date" />
+					</td>
+					<td>
+					<xsl:value-of select="cc:subject" />
+					</td>
+					</tr>
+				</xsl:for-each>
+			</table>
+		</div>
+		<h2>Introduction</h2>
+		<div class="intro">
+			<b>Purpose.</b> This document presents functional and assurance requirements from the 
 			<i>Protection Profile for Application Software</i> which are appropriate for vetting
 			mobile application software ("apps") outside formal Common Criteria (ISO/IEC 15408) evaluations.
 			Common Criteria evaluation, facilitated in the U.S. by the National Information Assurance 
@@ -123,24 +162,41 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			in National Security Systems according to CNSS Policy #11.  However, even apps without IA
 			functionality may impose some security risks, and concern about these risks has motivated
 			the vetting of such apps in government and industry.  
-			<p/>In addition to providing security requirements for vetting
+			<p/>
+			<b>Using this document.</b> This representation of the Protection Profile includes:
+			<ul> 
+			<li><a href="#SFRs"><i>Security Functional Requirements</i></a> which are required for evaluation.  These are featured without the formal
+			Assurance Activities specified in the Protection Profile, as evaluation methods may vary
+			outside the formal Common Criteria. 
+			<p/> It also includes, in
+			tables shown later, particular types of security functional requirements that are not strictly required in all cases.
+			These are:</li>
+			<p/>
+				<ul>
+				<li><a href="#selbasedSFRs"><i>Selection-based Security Functional Requirements</i></a> which become required when certain selections are made inside the regular
+				Security Functionality Requirements (as indicated by the <b>[selection:]</b> construct).</li>
+				<li><a href="objSFRs"><i>Objective Security Functional Requirements</i></a> which are highly desired but not yet widely-available in commercial technology.</li>
+				<li><a href="optSFRs"><i>Optional Security Functional Requirements</i></a> which are available for evaluation and which some customers may insist upon.</li>
+				</ul>
+			
+			<p/>
+			<li><a href="SARs"><i>Security Assurance Requirements</i></a> which are still practical without the close developer cooperation
+			expected during a formal Common Criteria evaluation.  The security assurance requirements are a carefully-chosen subset
+			from the Protection Profile.</li>
+			</ul>
+			<p/>
+			In addition to providing these security requirements for vetting
 			apps, this document provides a basis for discussion and consideration
 			of the vetting provided by commercially-available app stores.  
 			This document does not imply to Authorizing Officials that the vetting provided by 
 			commercially-available app stores is either adequate or inadequate for the context in which they
-			must weigh risks.  Rather, it is intended to help inform their decision-making with regard to
+			must weigh risks.  Rather, it is intended to help inform and support decision-making with regard to
 			investment in app vetting processes.
 			<p/>
-			This representation of the Protection Profile includes all of its <i>Security Functional Requirements</i>,
-			but excludes certain <i>Security Assurance Requirements</i> such as Functional Specification, 
-			Operational User Guidance, Configuration Management Coverage, and Preparative Procedures.
-			These assurance requirements were excluded because they are only likely to be provided by
-			a cooperative developer who has chosen to pursue formal Common Criteria certification, and insisting upon
-			them is not likely to be feasible in other evaluation scenarios.
-			</div>
+		</div>
 			<br/>
 
-			<div class="tabletitle">
+			<div class="tabletitle" id="SFRs">
 				Security Functional Requirements
 			</div>
 			<table>
@@ -148,14 +204,14 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			</table>
 			<!-- <xsl:apply-templates select="//cc:f-component[not(@status='sel-based')]"/> -->
 
-			<div class="tabletitle">
+			<div class="tabletitle" id="SARs">
 				Security Assurance Requirements
 			</div>
 			<table>
-			<xsl:apply-templates select="//cc:a-element[not(../@id='adv_fsp.1') and not(../@id='agd_pre.1') and not(../@id='alc_cms.1') and not(../@id='agd_ope.1') and not(../@id='alc_tsu_ext.1')]"/>
+			<xsl:apply-templates select="//cc:a-element[@id='alc_cmc.1.1c' or @id='ate_ind.1.2e' or @id='ava_van.1.1c' or @id='ava_van.1.2e']"/>
 			</table>
 	
-			<div class="tabletitle">
+			<div class="tabletitle" id="selbasedSFRs">
 				Selection-Based Security Functional Requirements
 			</div>
 			<table>
@@ -163,14 +219,14 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			</table>
 
 
-			<div class="tabletitle">
+			<div class="tabletitle" id="objSRFs">
 				Objective Security Functional Requirements
 			</div>
 			<table>
 			<xsl:apply-templates select="//cc:f-element[@status='objective']"/>
 			</table>
 
-			<div class="tabletitle">
+			<div class="tabletitle" id="optSFRs">
 				Optional Security Functional Requirements
 			</div>
 			<table>
@@ -191,7 +247,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
 	<xsl:template match="cc:f-element | cc:a-element">
 		<xsl:variable name="elementid" select="translate(@id,$lower,$upper)" />	
-		<tr>
+		<xsl:variable name="componentid" select="translate(../@id,$lower,$upper)" />	
+		<!-- this will result in duplicate IDs for TRs (as link targets), but this does not create a problem in practice -->
+		<tr id="{$componentid}">
 		    <td id="{$elementid}" class="elementidstyle"><a class="abbr" href="#{$elementid}"><xsl:value-of select="$elementid"/></a></td>
 			<td class="element"><xsl:apply-templates select="cc:title"/><br/>
 				 <xsl:choose>
