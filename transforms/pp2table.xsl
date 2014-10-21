@@ -13,22 +13,57 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <!-- They can be redefined/overridden  -->
   <xsl:include href="ppcommons.xsl"/>
 
-	<xsl:template match="/">
+  <!-- release variable, overridden to "final" for release versions -->
+  <xsl:param name="release" select="'draft'"/>
+
+  <!-- very important, for special characters and umlauts iso8859-1-->
+  <xsl:output method="html" encoding="UTF-8" indent="yes" />
+
+	<xsl:template match="/cc:PP">
 		<html>
 		<style type="text/css">
+
+        h1
+        {
+             text-align: left; font-size: 200%;  margin-top: 2em; margin-bottom: 2em;
+             font-family: verdana, arial, helvetica, sans-serif;
+             margin-bottom: 1.0em;
+        }
+	h1.title
+        {
+             text-align: center;
+        }
+        h2
+        {
+             font-size: 125%;
+             border-bottom: solid 1px gray; margin-bottom: 1.0em;
+             margin-top: 2em; margin-bottom: 0.75em;
+             font-family: verdana, arial, helvetica, sans-serif;
+        }
+        table.revisionhistory
+        {
+             margin: auto; margin-top: 1em; border-collapse:collapse;
+        }
+        tr.header
+        {
+             border-bottom: 3px solid gray; padding: 8px 8px; text-align:left; font-weight: bold;
+        } 
         table
         {
             border-collapse:collapse;
         }
         table, th, td
         {
+            border-collapse: collapse;
             border: 2px solid #dcdcdc;
             border-left: none;
             border-right: none;
             vertical-align: top;
+            text-align: left;
             padding: 2px;
             font-family: verdana,arial,sans-serif;
             font-size:11px;
+            padding-right: 20px;
         }
         pre {
             white-space: pre-wrap;
@@ -42,34 +77,41 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
             font-weight: bold;
             background-color: #dedede;
         }
-		div.title
-		{ 
-			text-align: center; font-size: xx-large; font-weight:bold;
+        div.title
+        {
+            text-align: center; font-size: xx-large; font-weight:bold;
             font-family: verdana,arial,sans-serif;
-			<!--border-bottom: solid 1px gray; -->
-			margin-left: 8%; margin-right: 8%; 
-		}
-		div.intro
-		{ 
-			text-align: left; font-size: normal; 
+            margin-left: 8%; margin-right: 8%;
+        }
+        div.center
+        {
+            display: block; margin-left: auto; margin-right: auto; text-align:center;
+        }
+        div.intro
+        {
+            text-align: left; font-size: normal;
             font-family: verdana,arial,sans-serif;
-			margin-left: 12%; margin-right: 12%; 
-			padding-top: 1em;
-		}
-		div.tabletitle
-		{ 
-			text-align: left; font-size: x-large; font-weight:bold;
+            margin-left: 12%; margin-right: 12%;
+            padding-top: 1em;
+        }
+        div.appnote
+        {
+            margin-left: 0%; margin-top: 1em;
+        }
+        div.tabletitle
+        {
+            text-align: left; font-size: x-large; font-weight:bold;
             font-family: verdana,arial,sans-serif;
-			margin-top: 2em;
-			border-top: solid 2px gray; 
-			border-bottom: solid 2px gray; 
-			padding-bottom: 0.25em; padding-top: 0.25em;
-		}
-		a.abbr:link {color:black; text-decoration:none;}
-		a.abbr:visited {color:black; text-decoration:none;}
-		a.abbr:hover {color:blue; text-decoration:none;}
-		a.abbr:hover:visited {color:purple; text-decoration:none;}
-		a.abbr:active {color:red; text-decoration:none;}
+            margin-top: 2em;
+            border-top: solid 2px gray;
+            border-bottom: solid 2px gray;
+            padding-bottom: 0.25em; padding-top: 0.25em;
+        }
+	a.abbr:link {color:black; text-decoration:none;}
+	a.abbr:visited {color:black; text-decoration:none;}
+	a.abbr:hover {color:blue; text-decoration:none;}
+	a.abbr:hover:visited {color:purple; text-decoration:none;}
+	a.abbr:active {color:red; text-decoration:none;}
 
     	</style>
 
@@ -77,11 +119,42 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			<title>Tabular Presentation of the <xsl:value-of select="/cc:PP/cc:PPReference/cc:ReferenceTable/cc:PPTitle" /></title>
 		</head>
 		<body>
-			<br/>
-			<br/>
-			<div class="title">
+		<h1 class="title">
 			Tabular Presentation of the <br/><i><xsl:value-of select="/cc:PP/cc:PPReference/cc:ReferenceTable/cc:PPTitle" /></i>
-			</div>
+		</h1>
+		<div class="center">
+			<img src="images/niaplogo.png" />
+			<p/>Version: <xsl:value-of select="//cc:ReferenceTable/cc:PPVersion" />
+			<p/><xsl:value-of select="//cc:ReferenceTable/cc:PPPubDate" />
+			<p/><b><xsl:value-of select="//cc:PPAuthor" /></b>
+		</div>
+		<h2>Revision History</h2>
+		<div class="center">
+			<table class="revisionhistory">
+				<tr class="header">
+					<th>Version</th>
+					<th>Date</th>
+					<th>Comment</th>
+				</tr>
+				<xsl:for-each select="cc:RevisionHistory[@role=$release]/cc:entry">
+					<tr>
+					<td>
+					<xsl:value-of select="cc:version" />
+					</td>
+					<td>
+					<xsl:value-of select="cc:date" />
+					</td>
+					<td>
+					<xsl:value-of select="cc:subject" />
+					</td>
+					</tr>
+				</xsl:for-each>
+			</table>
+		</div>
+
+			<br/>
+ 			<h2>Introduction</h2>
+
 			<div class="intro">
 			This document presents the Security Functional Requirements and 
 			Security Assurance Requirements from the  

@@ -17,7 +17,7 @@ $(APP_HTML):  $(TRANS)/pp2html.xsl $(APP_XML)
 
 table: $(TABLE)
 $(TABLE): $(TRANS)/pp2table.xsl $(APP_XML)
-	xsltproc -o $(TABLE) $(TRANS)/pp2table.xsl $(APP_XML)
+	xsltproc  --stringparam release final -o $(TABLE) $(TRANS)/pp2table.xsl $(APP_XML)
 
 simplified: $(SIMPLIFIED)
 $(SIMPLIFIED): $(TRANS)/pp2simplified.xsl $(APP_XML)
