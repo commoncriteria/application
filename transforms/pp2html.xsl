@@ -208,7 +208,7 @@
             </tr>
           </xsl:for-each>
         </table>
-        <h2>Contents</h2>
+        <h2 style="page-break-before:always;">Contents</h2>
         <div class="toc">
           <!-- generate table of contents -->
           <xsl:apply-templates mode="toc" select="./cc:chapter" />
