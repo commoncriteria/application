@@ -455,16 +455,13 @@
           <component-refer ref="fmt_cfg_ext.1"/>
           <component-refer ref="fpt_aex_ext.1"/>
           <component-refer ref="fpt_tud_ext.1"/>
-          <component-refer ref="fcs_cop_ext.1"/>
         </SO>
         <SO id="O.QUALITY">
           <description>To ensure quality of implementation, conformant <abbr linkend="TOE"/>s
             leverage services and <abbr linkend="API"/>s provided by the runtime environment rather
             than implementing their own versions of these services and APIs. This is especially
             important for cryptographic services and other complex operations such as file and media
-            parsing. 
-	    Quality of implementation depends heavily on reliable platform 
-	    behavior which can be guaranteed by using only documented and supported APIs.
+            parsing. Leveraging this platform behavior relies upon using only documented and supported APIs.
           </description>
           <component-refer ref="fmt_mec_ext.1"/>
           <component-refer ref="fpt_api_ext.1"/>
@@ -2436,29 +2433,31 @@ functionality (such as these)
           <f-element id="fdp_dec_ext.1.2">
             <title>The application shall provide user awareness of its intent to access
                 <selectables linebreak="yes">
-                <selectable>no system-wide information repositories</selectable>
+                <selectable>no sensitive information repositories</selectable>
                 <selectable>address book</selectable>
                 <selectable>calendar</selectable>
                 <selectable>call lists</selectable>
                 <selectable>system logs</selectable>
-                <selectable><assignable> list of additional system-wide information 
+                <selectable><assignable>list of additional sensitive information 
                   repositories</assignable>
                 </selectable>
               </selectables>
 	      .
             </title>
             <note role="application"> 
-	            The evaluator should ensure that the selection captures all
-              system-wide information repositories which the application is intended to 
+              <i>Sensitive information repositories</i> are defined as those collections of sensitive data that 
+              could be expected to be shared among some applications, users, or user roles, but to which not all
+              of these would ordinarily require access.
+              The intent is for the evaluator to ensure that the selection captures all
+              sensitive information repositories which the application is intended to 
               access. The requirement is worded in this way due to the diversity of methods by which 
               user awareness can be achieved, which varies per platform.
 	    </note>
             <aactivity>
               The evaluator shall ensure that the selection captures all
-              system-wide information repositories which the application is intended to 
+              sensitive information repositories which the application is intended to 
               access. The evaluator shall install and run the application software and inspect its user
-              documentation to verify that the user is informed of any need to access sensitive
-              data. 
+              documentation to verify that the user is informed of any need to access these repositories.
 	      The method of doing so varies per platform.
 	      <subaactivity platform="blackberry">The evaluator shall
                 install the application and run it for the first time. The evaluator shall verify
@@ -2684,7 +2683,16 @@ functionality (such as these)
           <f-element id="fia_x509_ext.1.1" status="sel-based">
             <selection-depends req="ftp_dit_ext.1.1"/>
             <title>
-              The application shall validate certificates in accordance with the following rules:
+              The application shall 
+              <selectables>
+                <selectable>
+                  invoked platform-provided functionality
+                </selectable>
+                <selectable>
+                  implement functionality
+                </selectable>
+              </selectables>
+              to validate certificates in accordance with the following rules:
               <ul>
                 <li>
                   RFC 5280 certificate validation and certificate path validation.
@@ -2754,8 +2762,8 @@ functionality (such as these)
               requires that certificates are used for HTTPS, TLS and DTLS; this use requires that the 
               extendedKeyUsage rules are verified.
               <br />
-              Regardless of the selection of <abbr linkend="TSF"/> or <abbr linkend="TOE"/> 
-              platform, the validation is expected to end in a trusted root CA certificate in a root 
+              Regardless of the selection of <i>implement functionality</i> or <i>invoke platform-provided functionality</i>,
+              the validation is expected to end in a trusted root CA certificate in a root 
               store managed by the platform.
             </note>
             <aactivity>
@@ -2837,17 +2845,17 @@ functionality (such as these)
               <testlist>
                 <test>
                   The evaluator shall construct a certificate path, such that the certificate of the 
-                  CA issuing the <abbr linkend="TOE"/>’s certificate does not contain the 
+                  CA issuing the <abbr linkend="TOE"/>'s certificate does not contain the 
                   basicConstraints extension. The validation of the certificate path fails.
                 </test>
                 <test>
                   The evaluator shall construct a certificate path, such that the certificate of the 
-                  CA issuing the <abbr linkend="TOE"/>’s certificate has the CA flag in the 
+                  CA issuing the <abbr linkend="TOE"/>'s certificate has the CA flag in the 
                   basicConstraints extension not set. The validation of the certificate path fails.
                 </test>
                 <test>
                   The evaluator shall construct a certificate path, such that the certificate of the 
-                  CA issuing the <abbr linkend="TOE"/>’s certificate has the CA flag in the 
+                  CA issuing the <abbr linkend="TOE"/>'s certificate has the CA flag in the 
                   basicConstraints extension set to TRUE. The validation of the certificate path 
                   succeeds.
                 </test>
@@ -3032,7 +3040,7 @@ functionality (such as these)
 		  the minimal application functionality required to set new credentials is available.
                 </test>
                 <test>
-                  The evaluator shall run the application establish new credentials and
+                  The evaluator shall run the application, establish new credentials and
                   verify that the original default credentials no longer provide access to
                   the application.
                 </test>
@@ -3125,14 +3133,14 @@ functionality (such as these)
               .
             </title>
             <note role="application">
-	      This requirement stipulates that applications need to provide the ability to 
+	      This requirement stipulates that an application needs to provide the ability to 
 	      enable/disable only those functions that it actually implements. The application
 	      is not responsible for controlling the behavior of the platform or other applications.
 	    </note>
             <aactivity>The evaluator shall verify that every management function 
               mandated by the PP is described in the operational guidance and that the description 
               contains the information required to perform the management duties associated with the 
-              management function. The evaluator shall test the applications ability to provide the 
+              management function. The evaluator shall test the application's ability to provide the 
               management functions by configuring the application and testing each option selected 
               from above. The evaluator is expected to test these functions in all the ways in which 
               the <abbr linkend="ST"/> and guidance documentation state the configuration can be 
@@ -3146,11 +3154,16 @@ functionality (such as these)
           <f-element id="fpt_api_ext.1.1">
             <title>The application shall only use supported platform <abbr linkend="API"
             />s.</title>
+            <note role="application">
+              The definition of <i>supported</i> may vary depending upon whether the application is provided by
+              a third party (who relies upon documented platform APIs) or by a platform vendor 
+              who may be able to guarantee support for platform APIs which are not externally documented.
+	    </note>
             <aactivity>
               The evaluator shall verify that the TSS lists the platform <abbr linkend="API"/>s 
               used in the application.
               The evaluator shall then compare the list with the supported <abbr linkend="API"/>s
-              (available through e.g. developer accounts) and ensure that all 
+              (available through e.g. developer accounts, platform developer groups) and ensure that all 
               <abbr linkend="API"/>s listed in the TSS are supported.
             </aactivity>
           </f-element>
