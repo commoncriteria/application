@@ -76,7 +76,9 @@
       body { margin-left: 8%; margin-right: 8%; foreground: black; }
       h1   { text-align: left; font-size: 200%;  margin-top: 2em; margin-bottom: 2em;
              font-family: verdana, arial, helvetica, sans-serif;
-             margin-bottom: 1.0em; }
+             margin-bottom: 1.0em; 
+             page-break-before:always;
+           }
 	  h1.title { text-align: center; }
       h2   { font-size: 125%;
              border-bottom: solid 1px gray; margin-bottom: 1.0em;
