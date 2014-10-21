@@ -77,7 +77,6 @@
       h1   { text-align: left; font-size: 200%;  margin-top: 2em; margin-bottom: 2em;
              font-family: verdana, arial, helvetica, sans-serif;
              margin-bottom: 1.0em; 
-             page-break-before:always;
            }
 	  h1.title { text-align: center; }
       h2   { font-size: 125%;
@@ -189,7 +188,7 @@
           <p/>Version: <xsl:value-of select="//cc:ReferenceTable/cc:PPVersion" />
 		  <p/><xsl:value-of select="//cc:ReferenceTable/cc:PPPubDate" />
 		  <p/><b><xsl:value-of select="//cc:PPAuthor" /></b></div>
-        <h2>Revision History</h2>
+        <h2 style="page-break-before:always;">Revision History</h2>
         <table>
           <tr class="header">
             <th>Version</th>
@@ -210,7 +209,7 @@
             </tr>
           </xsl:for-each>
         </table>
-        <h2 style="page-break-before:always;">Contents</h2>
+        <h2>Contents</h2>
         <div class="toc">
           <!-- generate table of contents -->
           <xsl:apply-templates mode="toc" select="./cc:chapter" />
