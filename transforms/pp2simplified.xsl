@@ -115,13 +115,12 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
     	</style>
 
 		<head>
-			<title>Requirements from the Protection Profile for Application Software</title>
+			<title>Requirements for Vetting Mobile Apps from the Protection Profile for Application Software</title>
 		</head>
 		<body>
 		<h1 class="title">
-			Requirements from the 
+			Requirements for Vetting Mobile Apps from the
 			<br/><i>Protection Profile for Application Software</i>
-			<br/>for Vetting Mobile Apps outside Common Criteria
 		</h1>
 		<div class="center">
 			<img src="images/niaplogo.png" />
