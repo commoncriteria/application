@@ -2637,7 +2637,7 @@ functionality (such as these)
               <b><i>Application Software Protection Profile Extended Package: File Encryption</i></b>. The evaluator
               shall ensure that such evaluation is underway.
               <br/>
-			  If <b>invoke platform-provided functionality</b> is selected, the
+              If <b>leverage platform-provided functionality</b> is selected, the
               evaluation activities will be performed as stated in the following
               requirements, which vary on a per-platform basis:
 			  <subaactivity platform="blackberry">The evaluator shall inspect the TSS and ensure that it describes how
@@ -2648,10 +2648,11 @@ functionality (such as these)
 		        The evaluator shall inspect the TSS and verify that it describes how files containing sensitive data are 
                 stored with the <code>MODE_PRIVATE</code> flag set.
 	          </subaactivity>
-              <subaactivity platform="windows">The evaluator shall inspect the TSS and ensure that it describes
-                how the application uses the <abbr title="Data Protection API">DPAPI</abbr> to store and
-                retrieve sensitive data, and (for those application types) how Windows Store Apps for desktop or mobile use
-                the DPAPI via the ProtectedData class.</subaactivity>
+              <subaactivity platform="windows">The Windows platform currently does not provide data-at-rest
+                encryption services which depend upon invocation by application developers. The evaluator shall
+                verify that the Operational User Guidance makes the need to activate platform encryption, 
+                such as BitLocker or Encrypting File System (EFS), clear to the end user.
+              </subaactivity>
               <subaactivity platform="ios">The evaluator shall inspect the TSS and ensure that it describes how the 
                 application uses the Complete Protection, Protected Unless Open, or Protected Until 
                 First User Authentication Data Protection Class for each data file stored locally. 
@@ -3217,7 +3218,10 @@ functionality (such as these)
                 different Windows systems and run a tool that will list all memory mapped addresses
                 for the application. The evaluator shall then verify the two different instances
                 share no mapping locations. The Microsoft sysinternals tool, VMMap, could be used to
-                view memory addresses of a running application. </subaactivity>
+                view memory addresses of a running application.  The evaluator shall use a tool
+                such as Microsoft's BinScope Binary Analyzer to confirm that the application has
+                ASLR enabled.
+              </subaactivity>
               <subaactivity platform="ios">The evaluator shall perform a static analysis to search
                 for any mmap calls (or <abbr linkend="API"/> calls that call mmap), and ensure that
                 no arguments are provided that request a mapping at a fixed address</subaactivity>

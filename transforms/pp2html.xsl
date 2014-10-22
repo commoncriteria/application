@@ -76,7 +76,8 @@
       body { margin-left: 8%; margin-right: 8%; foreground: black; }
       h1   { text-align: left; font-size: 200%;  margin-top: 2em; margin-bottom: 2em;
              font-family: verdana, arial, helvetica, sans-serif;
-             margin-bottom: 1.0em; }
+             margin-bottom: 1.0em; 
+           }
 	  h1.title { text-align: center; }
       h2   { font-size: 125%;
              border-bottom: solid 1px gray; margin-bottom: 1.0em;
@@ -187,7 +188,7 @@
           <p/>Version: <xsl:value-of select="//cc:ReferenceTable/cc:PPVersion" />
 		  <p/><xsl:value-of select="//cc:ReferenceTable/cc:PPPubDate" />
 		  <p/><b><xsl:value-of select="//cc:PPAuthor" /></b></div>
-        <h2>Revision History</h2>
+        <h2 style="page-break-before:always;">Revision History</h2>
         <table>
           <tr class="header">
             <th>Version</th>
