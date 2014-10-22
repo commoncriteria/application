@@ -164,7 +164,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			<p/>
 			<b>Using this document.</b> This representation of the Protection Profile includes:
 			<ul> 
-			<li><a href="#SFRs"><i>Security Functional Requirements</i></a> which are required for evaluation.  These are featured without the formal
+			<li><a href="#SFRs"><i>Security Functional Requirements</i></a> for use in evaluation.  These are featured without the formal
 			Assurance Activities specified in the Protection Profile, as evaluation methods may vary
 			outside the formal Common Criteria. 
 			<p/> It also includes, in
