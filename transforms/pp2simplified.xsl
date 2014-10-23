@@ -153,14 +153,17 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 		</div>
 		<h2>Introduction</h2>
 		<div class="intro">
-			<b>Purpose.</b> This document presents functional and assurance requirements from the 
-			<i>Protection Profile for Application Software</i> which are appropriate for vetting
-			mobile application software ("apps") outside formal Common Criteria (ISO/IEC 15408) evaluations.
-			Common Criteria evaluation, facilitated in the U.S. by the National Information Assurance 
-			Partnership (NIAP), is required for IA and IA-enabled products
-			in National Security Systems according to CNSS Policy #11.  However, even apps without IA
-			functionality may impose some security risks, and concern about these risks has motivated
-			the vetting of such apps in government and industry.  
+			<b>Purpose.</b> This document presents functional and
+			assurance requirements found in the <i>Protection Profile for Application
+			Software</i> which are appropriate for vetting mobile application software
+			("apps") <b>outside</b> formal Common Criteria (ISO/IEC 15408) evaluations.  Common
+			Criteria evaluation, facilitated in the U.S. by the National Information
+			Assurance Partnership (NIAP), is required for IA and IA-enabled products in
+			National Security Systems according to CNSS Policy #11. Such evaluations, including
+			those for mobile apps, must use the complete
+			Protection Profile.  However, even apps without IA functionality may
+			impose some security risks, and concern about these risks has motivated the
+			vetting of such apps in government and industry.  
 			<p/>
 			<b>Using this document.</b> This representation of the Protection Profile includes:
 			<ul> 
