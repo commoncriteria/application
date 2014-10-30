@@ -221,7 +221,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			</table>
 
 
-			<div class="tabletitle" id="objSRFs">
+			<div class="tabletitle" id="objSFRs">
 				Objective Security Functional Requirements
 			</div>
 			<table>
