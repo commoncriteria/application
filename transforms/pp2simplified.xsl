@@ -177,12 +177,12 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 				<ul>
 				<li><a href="#selbasedSFRs"><i>Selection-based Security Functional Requirements</i></a> which become required when certain selections are made inside the regular
 				Security Functionality Requirements (as indicated by the <b>[selection:]</b> construct).</li>
-				<li><a href="objSFRs"><i>Objective Security Functional Requirements</i></a> which are highly desired but not yet widely-available in commercial technology.</li>
-				<li><a href="optSFRs"><i>Optional Security Functional Requirements</i></a> which are available for evaluation and which some customers may insist upon.</li>
+				<li><a href="#objSFRs"><i>Objective Security Functional Requirements</i></a> which are highly desired but not yet widely-available in commercial technology.</li>
+				<li><a href="#optSFRs"><i>Optional Security Functional Requirements</i></a> which are available for evaluation and which some customers may insist upon.</li>
 				</ul>
 			
 			<p/>
-			<li><a href="SARs"><i>Security Assurance Requirements</i></a> which are still practical without the close developer cooperation
+			<li><a href="#SARs"><i>Security Assurance Requirements</i></a> which are still practical without the close developer cooperation
 			expected during a formal Common Criteria evaluation.  The security assurance requirements are a carefully-chosen subset
 			from the Protection Profile.</li>
 			</ul>
