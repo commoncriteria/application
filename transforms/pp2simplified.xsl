@@ -153,14 +153,17 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 		</div>
 		<h2>Introduction</h2>
 		<div class="intro">
-			<b>Purpose.</b> This document presents functional and assurance requirements from the 
-			<i>Protection Profile for Application Software</i> which are appropriate for vetting
-			mobile application software ("apps") outside formal Common Criteria (ISO/IEC 15408) evaluations.
-			Common Criteria evaluation, facilitated in the U.S. by the National Information Assurance 
-			Partnership (NIAP), is required for IA and IA-enabled products
-			in National Security Systems according to CNSS Policy #11.  However, even apps without IA
-			functionality may impose some security risks, and concern about these risks has motivated
-			the vetting of such apps in government and industry.  
+			<b>Purpose.</b> This document presents functional and
+			assurance requirements found in the <i>Protection Profile for Application
+			Software</i> which are appropriate for vetting mobile application software
+			("apps") <b>outside</b> formal Common Criteria (ISO/IEC 15408) evaluations.  Common
+			Criteria evaluation, facilitated in the U.S. by the National Information
+			Assurance Partnership (NIAP), is required for IA and IA-enabled products in
+			National Security Systems according to CNSS Policy #11. Such evaluations, including
+			those for mobile apps, must use the complete
+			Protection Profile.  However, even apps without IA functionality may
+			impose some security risks, and concern about these risks has motivated the
+			vetting of such apps in government and industry.  
 			<p/>
 			<b>Using this document.</b> This representation of the Protection Profile includes:
 			<ul> 
@@ -174,12 +177,12 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 				<ul>
 				<li><a href="#selbasedSFRs"><i>Selection-based Security Functional Requirements</i></a> which become required when certain selections are made inside the regular
 				Security Functionality Requirements (as indicated by the <b>[selection:]</b> construct).</li>
-				<li><a href="objSFRs"><i>Objective Security Functional Requirements</i></a> which are highly desired but not yet widely-available in commercial technology.</li>
-				<li><a href="optSFRs"><i>Optional Security Functional Requirements</i></a> which are available for evaluation and which some customers may insist upon.</li>
+				<li><a href="#objSFRs"><i>Objective Security Functional Requirements</i></a> which are highly desired but not yet widely-available in commercial technology.</li>
+				<li><a href="#optSFRs"><i>Optional Security Functional Requirements</i></a> which are available for evaluation and which some customers may insist upon.</li>
 				</ul>
 			
 			<p/>
-			<li><a href="SARs"><i>Security Assurance Requirements</i></a> which are still practical without the close developer cooperation
+			<li><a href="#SARs"><i>Security Assurance Requirements</i></a> which are still practical without the close developer cooperation
 			expected during a formal Common Criteria evaluation.  The security assurance requirements are a carefully-chosen subset
 			from the Protection Profile.</li>
 			</ul>
@@ -218,7 +221,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			</table>
 
 
-			<div class="tabletitle" id="objSRFs">
+			<div class="tabletitle" id="objSFRs">
 				Objective Security Functional Requirements
 			</div>
 			<table>
