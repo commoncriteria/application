@@ -74,4 +74,6 @@
     </xsl:copy>
   </xsl:template>
 
+  <xsl:template match="processing-instruction('xml-stylesheet')"/>
+
 </xsl:stylesheet>
