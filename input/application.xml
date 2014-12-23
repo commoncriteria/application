@@ -1558,14 +1558,16 @@ functionality (such as these)
           <f-element id="fcs_cop.1.1(2)" status="sel-based">
             <selection-depends req="fcs_tlsc_ext.1.1"/>
             <title>The application shall perform cryptographic hashing services in accordance with a specified 
-        cryptographic algorithm SHA-1 and 
+        cryptographic algorithm 
 	      <selectables linebreak="yes">
+	  <selectable>SHA-1</selectable>
 		<selectable>SHA-256</selectable>
 		<selectable>SHA-384</selectable>
 		<selectable>SHA-512</selectable>
 		<selectable>no other algorithms</selectable>
 	      </selectables>
-              and message digest sizes 160 and <selectables linebreak="yes">
+              and message digest sizes <selectables linebreak="yes">
+                <selectable>160</selectable>
                 <selectable>256</selectable>
                 <selectable>384</selectable>
                 <selectable>512</selectable>
@@ -1577,8 +1579,10 @@ functionality (such as these)
               	longer allowed, and SHA-1 for verification of digital signatures is strongly discouraged as
               	there may be risk in accepting these signatures.
               	<br/>
-              	SHA-1 is currently required in order to comply with <linkref linkend="FCS_TLSC_EXT.1"/>. Vendors are 
-                strongly encouraged to implement updated protocols that
+                SHA-1 is currently required in order to comply with <linkref linkend="FCS_TLSC_EXT.1"/>. If
+                FCS_TLSC_EXT.1.1 is included in the ST, the hashing algorithms selection for FCS_COP.1(2)
+                must match the hashing algorithms used in the mandatory and selected ciphersuites of
+                FCS_TLSC_EXT.1.1. Vendors are strongly encouraged to implement updated protocols that
               	support the SHA-2 family; until updated protocols are supported, this PP allows support for
               	SHA-1 implementations in compliance with SP 800-131A.
               	<br/>
@@ -2972,9 +2976,10 @@ functionality (such as these)
             <note role="application"> Configuration options that are stored remotely are not subject
               to this requirement. </note>
             <aactivity>
-              The evaluator shall review the TSS to identify the application's
-              configuration options (e.g. settings) and determine whether these are stored and set
-              using the mechanisms supported by the platform.
+              The evaluator shall review the TSS to identify the application's configuration options
+              (e.g. settings) and determine whether these are stored and set using the mechanisms
+              supported by the platform. At a minimum the TSS shall list settings related to any SFRs
+              and any settings that are mandated in the operational guidance in response to an SFR.
               The method of doing so varies per platform. 
 	      <subaactivity platform="blackberry">
 		The evaluator shall run the application and make security-related changes to its configuration.
