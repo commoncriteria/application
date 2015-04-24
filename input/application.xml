@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<?xml-stylesheet type="text/xsl" href="../transforms/pp2html.xsl?>
+<?xml-stylesheet type="text/xsl" href="..\transforms\pp2html.xsl"?>
 
 <PP xmlns="http://common-criteria.rhcloud.com/ns/cc" name="Application Software">
   <PPReference title="PP Reference" id="ID003">
@@ -1558,14 +1558,16 @@ functionality (such as these)
           <f-element id="fcs_cop.1.1(2)" status="sel-based">
             <selection-depends req="fcs_tlsc_ext.1.1"/>
             <title>The application shall perform cryptographic hashing services in accordance with a specified 
-        cryptographic algorithm SHA-1 and 
+        cryptographic algorithm 
 	      <selectables linebreak="yes">
+	  <selectable>SHA-1</selectable>
 		<selectable>SHA-256</selectable>
 		<selectable>SHA-384</selectable>
 		<selectable>SHA-512</selectable>
 		<selectable>no other algorithms</selectable>
 	      </selectables>
-              and message digest sizes 160 and <selectables linebreak="yes">
+              and message digest sizes <selectables linebreak="yes">
+                <selectable>160</selectable>
                 <selectable>256</selectable>
                 <selectable>384</selectable>
                 <selectable>512</selectable>
@@ -1577,8 +1579,10 @@ functionality (such as these)
               	longer allowed, and SHA-1 for verification of digital signatures is strongly discouraged as
               	there may be risk in accepting these signatures.
               	<br/>
-              	SHA-1 is currently required in order to comply with <linkref linkend="FCS_TLSC_EXT.1"/>. Vendors are 
-                strongly encouraged to implement updated protocols that
+                SHA-1 is currently required in order to comply with <linkref linkend="FCS_TLSC_EXT.1"/>. If
+                FCS_TLSC_EXT.1.1 is included in the ST, the hashing algorithms selection for FCS_COP.1(2)
+                must match the hashing algorithms used in the mandatory and selected ciphersuites of
+                FCS_TLSC_EXT.1.1. Vendors are strongly encouraged to implement updated protocols that
               	support the SHA-2 family; until updated protocols are supported, this PP allows support for
               	SHA-1 implementations in compliance with SP 800-131A.
               	<br/>
@@ -1841,8 +1845,10 @@ functionality (such as these)
                 <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
                 <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>
                 <selectable>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA as defined in RFC 4492</selectable>
+                <selectable>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
                 <selectable>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
                 <selectable>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA as defined in RFC 4492</selectable>
+                <selectable>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
                 <selectable>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>
                 <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
                 <selectable>TLS_RSA_WITH_AES_256_CBC_SHA as defined in RFC 5246</selectable>
@@ -2955,6 +2961,11 @@ functionality (such as these)
                   guidance to determine that all supported administrator-configurable options behave 
                   in their documented manner.
                 </test>
+                <test>
+                  The evaluator shall demonstrate that an invalid certificate that requires 
+                  certificate validation checking to be performed in at least some part by 
+                  communicating with a non-<abbr linkend="TOE"/> IT entity cannot be accepted. 
+                </test>
               </testlist>
             </aactivity>
           </f-element>
@@ -2970,9 +2981,10 @@ functionality (such as these)
             <note role="application"> Configuration options that are stored remotely are not subject
               to this requirement. </note>
             <aactivity>
-              The evaluator shall review the TSS to identify the application's
-              configuration options (e.g. settings) and determine whether these are stored and set
-              using the mechanisms supported by the platform.
+              The evaluator shall review the TSS to identify the application's configuration options
+              (e.g. settings) and determine whether these are stored and set using the mechanisms
+              supported by the platform. At a minimum the TSS shall list settings related to any SFRs
+              and any settings that are mandated in the operational guidance in response to an SFR.
               The method of doing so varies per platform. 
 	      <subaactivity platform="blackberry">
 		The evaluator shall run the application and make security-related changes to its configuration.
@@ -3643,9 +3655,12 @@ functionality (such as these)
 	      Extended packages may override this requirement to provide for other protocols.
 	      Encryption is not required for applications transmitting data that is not sensitive. 
 		  <br/>
-		  If <i>HTTPS</i> is selected, then evaluation of elements from <linkref linkend="FCS_TLSC_EXT.1"/> is required.<p/>
-		  If <i>TLS</i> is selected, then evaluation of elements from <linkref linkend="FCS_HTTPS_EXT.1"/> is required.<p/>
-		  If <i>DTLS</i> is selected, then evaluation of elements from <linkref linkend="FCS_DTLS_EXT.1"/> is required.
+		  If <i>TLS</i> is selected, then evaluation of elements from 
+		  <linkref linkend="FCS_TLSC_EXT.1"/> is required.<p/>
+		  If <i>HTTPS</i> is selected, then evaluation of elements from 
+		  <linkref linkend="FCS_HTTPS_EXT.1"/> is required.<p/> 
+		  If <i>DTLS</i> is selected, then evaluation of elements from 
+		  <linkref linkend="FCS_DTLS_EXT.1"/> is required.
 	    </note>  
       <aactivity>
         The evaluator shall perform the following tests.
