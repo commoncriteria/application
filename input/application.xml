@@ -766,6 +766,7 @@
           </f-element>
         </f-component>
 
+
         <f-component id="fcs_ckm_ext.1" name="Cryptographic Key Generation Services">
           <f-element id="fcs_ckm_ext.1.1" status="sel-based">
 		      <selection-depends req="fcs_tlsc_ext.1"/>
@@ -777,7 +778,7 @@
             </title>
             <note role="application">If <i>implement asymmetric key generation</i> or 
 			  <i>invoke platform-provided functionality for asymmetric key generation</i> is chosen, then
-              additional <linkref linkend="FCS_CKM.1"/> elements shall be included in the <abbr linkend="ST"/>.
+              additional <linkref linkend="FCS_CKM.1(1)"/> elements shall be included in the <abbr linkend="ST"/>.
             </note>
             <aactivity>
               The evaluator shall inspect the application and its developer documentation 
@@ -865,8 +866,8 @@
         </f-component>
 -->
 
-        <f-component id="fcs_ckm.1" name="Cryptographic Key Generation">
-          <f-element id="fcs_ckm.1.1" status="sel-based">
+        <f-component id="fcs_ckm.1(1)" name="Cryptographic Asymmetric Key Generation">
+          <f-element id="fcs_ckm.1.1(1)" status="sel-based">
             <selection-depends req="fcs_ckm_ext.1"/>
             <title>
               The application shall generate 
@@ -1083,6 +1084,54 @@
             </aactivity>
           </f-element>
         </f-component>
+
+
+    <!-- Added for CSFC DAR (FCS_CKM.1(a) Renumbered from (c) -->
+        <f-component id="FCS_CKM.1(2)" name="Cryptographic Symmetric Key Generation">
+          <f-element id="FCS_CKM.1.1(2)" status="optional">
+            <title>The email client shall generate symmetric cryptographic keys using a Random Bit
+              Generator as specified in FCS_RBG_EXT.1 <cite linkend="bibAppPP"/> and specified
+              cryptographic key sizes <selectables linebreak="yes">
+                <selectable>128 bit</selectable>
+                <selectable>256 bit</selectable>
+                <!-- </selectables> that meet the following: <selectables>
+                <assignable>specify standard</assignable>
+                <selectable>no standard</selectable>
+            </selectables> --></selectables>. </title>
+            <note role="application">Symmetric keys may be used to generate keys along the key
+              chain.</note>
+            <aactivity>
+              <!-- Revised <tss>The evaluator shall review the TSS to determine that it describes how the
+                functionality described by FCS_RBG_EXT.1 <cite linkend="bibAppPP"/> is invoked.<br/>
+                If the email client is relying on random from the host platform, the evaluator shall
+                verify the TSS includes the name/manufacturer of the external RBG. If different
+                external RBGs are used for different platforms, the TSS identifies each one for each
+                platform. <br/>If the email client is relying on random from the host platform, the
+                evaluator shall verify the TSS describes the function call and parameters used when
+                calling the external DRBG function. Also, the TSS includes a short description of
+                the vendor's assumption for the amount of entropy seeding the external DRBG. The
+                evaluator uses the description of the RBG functionality in FCS_RBG_EXT or
+                documentation available for the operational environment to determine that the key
+                size being requested is identical to the key size and mode to be used for the
+                encryption/decryption of the user data (<linkref linkend="FCS_COP.1(f)" />. </tss> -->
+              <tss>The evaluator shall review the <linkref linkend="TSS"/> to determine that it
+                describes how the functionality described by FCS_RBG_EXT.1 <cite linkend="bibAppPP"
+                /> is invoked.<br/> If the email client is relying on random bit generation from the
+                host platform, the evaluator shall verify the <linkref linkend="TSS"/> includes the
+                name/manufacturer of the external RBG and describes the function call and parameters
+                used when calling the external DRBG function. If different external RBGs are used
+                for different platforms, the evaluator shall verify the TSS identifies each RBG for
+                each platform. Also, the evaluator shall verify the TSS includes a short description
+                of the vendor's assumption for the amount of entropy seeding the external DRBG. The
+                evaluator uses the description of the RBG functionality in FCS_RBG_EXT or
+                documentation available for the operational environment to determine that the key
+                size being requested is identical to the key size and mode to be used for the
+                encryption/decryption of the user data (<linkref linkend="FCS_COP.2"/>. </tss>
+            </aactivity>
+          </f-element>
+        </f-component>
+
+
         <f-component id="fcs_ckm.2" name="Cryptographic Key Establishment">
           <f-element id="fcs_ckm.2.1" status="sel-based">
 		   <selection-depends req="fcs_tlsc_ext.1.1"/>
@@ -1278,6 +1327,8 @@
             </aactivity>
           </f-element>
         </f-component>
+
+
 <!-- 
 
 Commenting out: the fundamental question is how to handle requirements for more general
