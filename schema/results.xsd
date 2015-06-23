@@ -1,49 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://common-criteria.rhcloud.com/ns/rs" xmlns:rs="http://common-criteria.rhcloud.com/ns/rs">
   <xs:element name="results">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="version"/>
-        <xs:element ref="identifier"/>
-        <xs:element ref="rbgusage"/>
-        <xs:element ref="storedcredentials"/>
-        <xs:element ref="hardwareresources"/>
-        <xs:element ref="inforepositories"/>
-        <xs:element ref="excessprivileges"/>
-        <xs:element ref="networkcomms"/>
-        <xs:element ref="piitransmitted"/>
-        <xs:element ref="networkcommsprotection"/>
-        <xs:element ref="filesencrypted"/>
-        <xs:element ref="config"/>
-        <xs:element ref="defaultcreds"/>
-        <xs:element ref="files"/>
-        <xs:element ref="untrustedupdate"/>
-        <xs:element ref="libraries"/>
+        <xs:element ref="rs:version"/>
+        <xs:element ref="rs:identifier"/>
+        <xs:element ref="rs:storedcredentials"/>
+        <xs:element ref="rs:hardwareresources"/>
+        <xs:element ref="rs:inforepositories"/>
+        <xs:element ref="rs:excessprivileges"/>
+        <xs:element ref="rs:networkcomms"/>
+        <xs:element ref="rs:piitransmitted"/>
+        <xs:element ref="rs:networkcommsprotection"/>
+        <xs:element ref="rs:filesencrypted"/>
+        <xs:element ref="rs:config"/>
+        <xs:element ref="rs:defaultcreds"/>
+        <xs:element ref="rs:files"/>
+        <xs:element ref="rs:untrustedupdate"/>
+        <xs:element ref="rs:libraries"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="identifier">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="name"/>
-        <xs:element ref="version"/>
-        <xs:element ref="description"/>
-        <xs:element ref="platform"/>
-        <xs:element ref="hash"/>
+        <xs:element ref="rs:name"/>
+        <xs:element ref="rs:vendor"/>
+        <xs:element ref="rs:version"/>
+        <xs:element ref="rs:description"/>
+        <xs:element ref="rs:platform"/>
+        <xs:element ref="rs:hash"/>
       </xs:sequence>
       <xs:attribute name="ref" use="required" type="xs:NCName"/>
     </xs:complexType>
   </xs:element>
+  <xs:element name="vendor">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="rs:name"/>
+        <xs:element ref="rs:address"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="address">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="rs:street1"/>
+        <xs:element ref="rs:street2"/>
+        <xs:element ref="rs:city"/>
+        <xs:element ref="rs:state"/>
+        <xs:element ref="rs:postalcode"/>
+        <xs:element ref="rs:country"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="street1" type="xs:string"/>
+  <xs:element name="street2">
+    <xs:complexType/>
+  </xs:element>
+  <xs:element name="city" type="xs:NCName"/>
+  <xs:element name="state" type="xs:NCName"/>
+  <xs:element name="postalcode" type="xs:integer"/>
+  <xs:element name="country" type="xs:NCName"/>
   <xs:element name="description" type="xs:string"/>
-  <xs:element name="platform" type="xs:NCName"/>
+  <xs:element name="platform" type="xs:string"/>
   <xs:element name="hash">
     <xs:complexType>
       <xs:attribute name="type" use="required" type="xs:NCName"/>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="rbgusage">
-    <xs:complexType>
-      <xs:attribute name="ref" use="required"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="storedcredentials">
@@ -53,25 +76,95 @@
   </xs:element>
   <xs:element name="hardwareresources">
     <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="rs:network"/>
+        <xs:element ref="rs:camera"/>
+        <xs:element ref="rs:microphone"/>
+        <xs:element ref="rs:locationservices"/>
+        <xs:element ref="rs:NFC"/>
+        <xs:element ref="rs:bluetooth"/>
+        <xs:element ref="rs:other"/>
+      </xs:sequence>
       <xs:attribute name="ref" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="network">
+    <xs:complexType>
+      <xs:attribute name="use" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="camera">
+    <xs:complexType>
+      <xs:attribute name="use" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="microphone">
+    <xs:complexType>
+      <xs:attribute name="use" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="locationservices">
+    <xs:complexType>
+      <xs:attribute name="type" use="required" type="xs:NCName"/>
+      <xs:attribute name="use" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NFC">
+    <xs:complexType>
+      <xs:attribute name="use" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="bluetooth">
+    <xs:complexType>
+      <xs:attribute name="use" use="required" type="xs:NCName"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="inforepositories">
     <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="rs:addressbook"/>
+        <xs:element ref="rs:calendar"/>
+        <xs:element ref="rs:calllists"/>
+        <xs:element ref="rs:other"/>
+      </xs:sequence>
       <xs:attribute name="ref" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="addressbook">
+    <xs:complexType>
+      <xs:attribute name="use" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="calendar">
+    <xs:complexType>
+      <xs:attribute name="use" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="calllists">
+    <xs:complexType>
+      <xs:attribute name="use" use="required" type="xs:NCName"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="excessprivileges">
     <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="rs:privilege"/>
+      </xs:sequence>
       <xs:attribute name="ref" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="privilege">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="rs:name"/>
+        <xs:element ref="rs:note"/>
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="networkcomms">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="connections"/>
-        <xs:element ref="openports"/>
-        <xs:element ref="pcap"/>
+        <xs:element ref="rs:connections"/>
       </xs:sequence>
       <xs:attribute name="ref" use="required" type="xs:NCName"/>
     </xs:complexType>
@@ -79,57 +172,48 @@
   <xs:element name="connections">
     <xs:complexType>
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="host"/>
+        <xs:element maxOccurs="unbounded" ref="rs:host"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="host">
+  <xs:element name="piitransmitted">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="ipaddr"/>
-        <xs:element ref="hostname"/>
-        <xs:element ref="port"/>
+        <xs:element ref="rs:emailaddr"/>
+      </xs:sequence>
+      <xs:attribute name="ref" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="emailaddr">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="rs:destination"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ipaddr">
-    <xs:complexType/>
-  </xs:element>
-  <xs:element name="hostname">
-    <xs:complexType/>
-  </xs:element>
-  <xs:element name="openports">
+  <xs:element name="destination">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="port"/>
+        <xs:element ref="rs:host"/>
       </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="networkcommsprotection">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="rs:pcap"/>
+        <xs:element ref="rs:analysis"/>
+      </xs:sequence>
+      <xs:attribute name="ref" use="required" type="xs:NCName"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="pcap">
     <xs:complexType/>
   </xs:element>
-  <xs:element name="piitransmitted">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="list">
-          <xs:attribute name="ref" use="required" type="xs:NCName"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="networkcommsprotection">
-    <xs:complexType>
-      <xs:complexContent>
-        <xs:extension base="list">
-          <xs:attribute name="ref" use="required" type="xs:NCName"/>
-        </xs:extension>
-      </xs:complexContent>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="filesencrypted">
     <xs:complexType>
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="file"/>
+        <xs:element maxOccurs="unbounded" ref="rs:file"/>
       </xs:sequence>
       <xs:attribute name="ref" use="required" type="xs:NCName"/>
     </xs:complexType>
@@ -147,7 +231,7 @@
   <xs:element name="files">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="file"/>
+        <xs:element maxOccurs="unbounded" ref="rs:file"/>
       </xs:sequence>
       <xs:attribute name="ref" use="required" type="xs:NCName"/>
     </xs:complexType>
@@ -155,7 +239,7 @@
   <xs:element name="untrustedupdate">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="file"/>
+        <xs:element ref="rs:file"/>
       </xs:sequence>
       <xs:attribute name="ref" use="required" type="xs:NCName"/>
     </xs:complexType>
@@ -163,7 +247,7 @@
   <xs:element name="libraries">
     <xs:complexType>
       <xs:sequence>
-        <xs:element maxOccurs="unbounded" ref="library"/>
+        <xs:element maxOccurs="unbounded" ref="rs:library"/>
       </xs:sequence>
       <xs:attribute name="ref" use="required" type="xs:NCName"/>
     </xs:complexType>
@@ -171,63 +255,93 @@
   <xs:element name="library">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="name"/>
-        <xs:element ref="version"/>
+        <xs:element ref="rs:name"/>
+        <xs:element ref="rs:version"/>
+        <xs:element ref="rs:analysis"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="version" type="xs:string"/>
+  <xs:element name="version" type="xs:NMTOKEN"/>
   <xs:element name="name" type="xs:string"/>
-  <xs:element name="port">
+  <xs:element name="other">
     <xs:complexType>
-      <xs:sequence minOccurs="0">
-        <xs:element ref="number"/>
-        <xs:element ref="protocol"/>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="rs:resource"/>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="number">
+  <xs:element name="resource">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="rs:name"/>
+        <xs:element ref="rs:use"/>
+        <xs:element ref="rs:note"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="use" type="xs:NCName"/>
+  <xs:element name="note" type="xs:string"/>
+  <xs:element name="host">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="rs:ipaddr"/>
+        <xs:element ref="rs:hostname"/>
+        <xs:element ref="rs:port"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ipaddr" type="xs:NMTOKEN"/>
+  <xs:element name="hostname" type="xs:NCName"/>
+  <xs:element name="port" type="xs:integer"/>
+  <xs:element name="analysis">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element ref="rs:adnetworks"/>
+        <xs:element ref="rs:cloudstorage"/>
+        <xs:element ref="rs:noencryption"/>
+        <xs:element ref="rs:sharedappdata"/>
+        <xs:element ref="rs:vulnerablelib"/>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="adnetworks">
+    <xs:complexType>
+      <xs:attribute name="use" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="cloudstorage">
+    <xs:complexType>
+      <xs:attribute name="use" use="required" type="xs:NCName"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="noencryption">
     <xs:complexType/>
   </xs:element>
-  <xs:element name="protocol">
+  <xs:element name="sharedappdata">
     <xs:complexType/>
   </xs:element>
-  <xs:complexType name="list">
-    <xs:sequence>
-      <xs:element ref="list"/>
-    </xs:sequence>
-  </xs:complexType>
-  <xs:element name="list">
-    <xs:complexType/>
+  <xs:element name="vulnerablelib">
+    <xs:complexType>
+      <xs:attribute name="cve" use="required" type="xs:NMTOKEN"/>
+    </xs:complexType>
   </xs:element>
   <xs:element name="file">
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="path"/>
-        <xs:choice>
-          <xs:element ref="permissions"/>
-          <xs:element ref="protection"/>
+        <xs:element ref="rs:path"/>
+        <xs:element minOccurs="0" ref="rs:permissions"/>
+        <xs:choice minOccurs="0">
+          <xs:element ref="rs:analysis"/>
           <xs:sequence>
-            <xs:element ref="originalfile"/>
-            <xs:element ref="newfile"/>
+            <xs:element ref="rs:originalfile"/>
+            <xs:element ref="rs:newfile"/>
           </xs:sequence>
         </xs:choice>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="path">
-    <xs:complexType/>
-  </xs:element>
-  <xs:element name="permissions">
-    <xs:complexType/>
-  </xs:element>
-  <xs:element name="protection">
-    <xs:complexType/>
-  </xs:element>
-  <xs:element name="originalfile">
-    <xs:complexType/>
-  </xs:element>
-  <xs:element name="newfile">
-    <xs:complexType/>
-  </xs:element>
+  <xs:element name="path" type="xs:string"/>
+  <xs:element name="permissions" type="xs:NCName"/>
+  <xs:element name="originalfile" type="xs:string"/>
+  <xs:element name="newfile" type="xs:string"/>
 </xs:schema>
