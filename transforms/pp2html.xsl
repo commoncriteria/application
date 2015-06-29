@@ -528,7 +528,7 @@
       <!-- Make an anchor here -->
       <xsl:element name="div">
 	<xsl:attribute name="class">comp</xsl:attribute>
-	<xsl:attribute name="id"><xsl:value-of select="translate(@id, $lower, $upper)" /></xsl:attribute>
+	<xsl:attribute name="id"><xsl:value-of select="translate(@id, $lower, $upper)"/><xsl:if test="$selected-statuses='_objective_'">-objective</xsl:if><xsl:if test="$selected-statuses='_optional_'">-optional</xsl:if></xsl:attribute>
 	<h4>
 	  <xsl:value-of select="concat(translate(@id, $lower, $upper), ' ')" />
 	  <xsl:value-of select="@name" />
