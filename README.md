@@ -9,5 +9,8 @@ Protection Profile for Application Software
 
 ## Quickstart
 To clone this project along with its _transforms_ submodule run:
+
+````
   git clone git@github.com:commoncriteria/application.git &&\
   git submodule init && git submodule update
+````
