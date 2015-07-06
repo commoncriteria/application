@@ -23,6 +23,12 @@ simplified: $(SIMPLIFIED)
 $(SIMPLIFIED): $(TRANS)/pp2simplified.xsl $(APP_XML)
 	xsltproc --stringparam release final -o $(SIMPLIFIED) $(TRANS)/pp2simplified.xsl $(APP_XML)
 
+linkcheck:
+	for bb in output/*.html; do for aa in $$(\
+	  sed "s/href=['\"]/\nhref=\"/g" $$bb | grep "^href=[\"']#" | sed "s/href=[\"']#//g" | sed "s/[\"'].*//g"\
+        ); do grep "id=[\"']$${aa}[\"']" -q  $$bb || echo "Detected missing link $$bb:$$aa"; done; done
+
+
 schema/application.rnc: schema/application.rng
 	trang -I rng -O rnc  schema/application.rng schema/application.rnc
 
