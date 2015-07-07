@@ -11,6 +11,11 @@ Protection Profile for Application Software
 To clone this project along with its _transforms_ submodule run:
 
 ````
-  git clone git@github.com:commoncriteria/application.git &&\
-  git submodule init && git submodule update
+  git clone --recursive git@github.com:commoncriteria/application.git
+````
+To pull updates from the upstream transforms submodule and commit them run:
+````
+ git submodule update --remote transforms
+ git add transforms
+ git commit
 ````
