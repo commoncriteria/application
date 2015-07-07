@@ -13,7 +13,7 @@ To clone this project along with its _transforms_ submodule run:
 ````
   git clone --recursive git@github.com:commoncriteria/application.git
 ````
-To pull updates from the upstream transforms submodule and commit them run:
+To pull updates from the upstream _transforms_ submodule and commit them run:
 ````
  git submodule update --remote transforms
  git add transforms
