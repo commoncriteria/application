@@ -27,7 +27,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
              font-family: verdana, arial, helvetica, sans-serif;
              margin-bottom: 1.0em;
         }
-	h1.title
+        h1.title
         {
              text-align: center;
         }
@@ -48,9 +48,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
         } 
         table, th, td
         {
-			margin-left: 7em; 
-			margin-right: 7em; 
-            border-collapse: collapse;
+            /*border-collapse: collapse; */
             border: 2px solid #dcdcdc;
             border-left: none;
             border-right: none;
@@ -58,9 +56,27 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
             text-align: left;
             padding: 2px;
             font-family: verdana,arial,sans-serif;
-            font-size:11px;
+            font-size: normal;
             padding-right: 20px;
         }
+
+		td.checkboxon
+		{
+		    background-color: darkgray;
+			border: 3px solid black;
+			padding: 3px 3px;
+			border-spacing: 5px;
+			width: 20px;
+		}
+		td.checkboxoff
+		{
+		    background-color: white;
+			border: 3px solid black;
+			padding: 3px 3px;
+			border-spacing: 5px;
+			width: 20px;
+		}
+
         pre {
             white-space: pre-wrap;
             white-space: -moz-pre-wrap !important;
@@ -90,11 +106,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
             margin-left: 12%; margin-right: 12%;
             padding-top: 1em;
         }
-        div.appnote
-        {
-            margin-left: 0%; margin-top: 1em;
-        }
-        div.tabletitle
+        div.sectiontitle
         {
             text-align: left; font-size: x-large; font-weight:bold; 
             font-family: verdana,arial,sans-serif;
@@ -105,11 +117,46 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
             border-bottom: solid 2px gray;
             padding-bottom: 0.25em; padding-top: 0.25em;
         }
+        div.reqelementtitle
+        {
+            overflow:auto; text-align: left; font-size: x-large; font-weight:bold; 
+            font-family: verdana,arial,sans-serif;
+            border-bottom: solid 2px gray;
+            padding-bottom: 0.25em; padding-top: 0.25em;
+        }
+        .reqelementtitletext
+        {
+            float: left;
+			font-size: large; font-weight:bold; 
+            font-family: verdana,arial,sans-serif;
+        }
+        .reqelementtitleppref
+        {
+            float: right;
+			text-decoration: none;
+			font-size: large; color: #666699;
+            font-family: verdana,arial,sans-serif;
+        }
+        .reqelement
+        {
+            text-align: left; font-size: large; font-weight:bold; 
+            font-family: verdana,arial,sans-serif;
+            margin-top: 2em;
+            padding-bottom: 0.25em; padding-top: 0.25em;
+			margin-left: 5em; 
+			margin-right: 3em; 
+        }
 	a.abbr:link {color:black; text-decoration:none;}
 	a.abbr:visited {color:black; text-decoration:none;}
 	a.abbr:hover {color:blue; text-decoration:none;}
 	a.abbr:hover:visited {color:purple; text-decoration:none;}
 	a.abbr:active {color:red; text-decoration:none;}
+
+	a.ppreflink:link {color:#666699; text-decoration:none;}
+	a.ppreflink:visited {color:#666699; text-decoration:none;}
+	a.ppreflink:hover {color:blue; text-decoration:none;}
+	a.ppreflink:hover:visited {color:purple; text-decoration:none;}
+	a.ppreflink:active {color:red; text-decoration:none;}
 
     	</style>
 
@@ -118,10 +165,16 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			<xsl:value-of select="/rr:results/rr:identifier/rr:name" /></title>
 		</head>
 		<body>
-		<h1 class="title"> App Vetting Reciprocity Report </h1>
+		<h1 class="title">App Vetting Reciprocity Report</h1>
 
-		<div class="tabletitle">App Information</div>
-		<br/>
+		<div class="sectiontitle">App Information</div>
+		<div class="reqelement">
+		<div class="reqelementtitle">
+		  <span class="reqelementtitletext">App Identity</span>
+		  <span class="reqelementtitleppref">
+		  <a class="ppreflink" href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#ALC_CMC.1.1C">ALC_CMC.1</a></span>
+		</div>
+		<p/>
 		<table>
 		<tr>
 		<td><b>Name</b></td>
@@ -130,6 +183,15 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 		<tr>
 		<td><b>Description</b></td>
 		<td><xsl:value-of select="/rr:results/rr:identifier/rr:description" /></td>
+		</tr>
+		<tr>
+		<td><b>Software Identifier</b></td>
+		<!-- insert SWID tags in here, should those become a thing -->
+		<td><xsl:value-of select="/rr:results/rr:identifier/rr:packageidentification" /></td>
+		</tr>
+		<tr>
+		<td><b>Version</b></td>
+		<td><xsl:value-of select="/rr:results/rr:identifier/rr:version" /></td>
 		</tr>
 		<tr>
 		<td><b>Vendor</b></td>
@@ -147,37 +209,90 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 		<td><b>Platform</b></td>
 		<td><xsl:apply-templates select="/rr:results/rr:identifier/rr:platform" /></td>
 		</tr>
+		</table>
+		</div>
+		
+		<div class="sectiontitle">
+		User Data Protection
+		</div>
+
+		<div class="reqelement">
+		<div class="reqelementtitle">
+		  <span class="reqelementtitletext">Access to Hardware Resources</span>
+		  <span class="reqelementtitleppref">
+		  <a class="ppreflink" href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FDP_DEC_EXT.1.1">FDP_DEC.1.1</a></span>
+		</div>
+		<p/>
+		<table>
 		<tr>
-		<td><b>Software ID</b></td><td></td>
+		<td><b>Network</b></td>
+		<td class="checkboxon"></td>
+		</tr>
+		<tr>
+		<td><b>Camera</b></td>
+		<td class="checkboxon"></td>
+		</tr>
+		<tr>
+		<td><b>Microphone</b></td>
+		<td class="checkboxon"></td>
+		</tr>
+		<tr>
+		<td><b>Location Services</b></td>
+		<td class="checkboxon"></td>
+		</tr>
+		<tr> <td><b>NFC</b></td>
+		<td class="checkboxoff"> </td>
+		</tr>
+		<tr> <td><b>Bluetooth</b></td>
+		<td class="checkboxoff"> </td>
 		</tr>
 		</table>
+		</div>
+		<div class="reqelement">
+		<div class="reqelementtitle">
+		  <span class="reqelementtitletext">Access to Sensitive Information Repositories</span>
+		  <span class="reqelementtitleppref">
+		  <a class="ppreflink" href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FDP_DEC_EXT.1.2">FDP_DEC.1.2</a></span>
+		</div>
+		<p/>
+		<table>
+		<tr>
+		<td><b>Address Book</b></td>
+		<td class="checkboxon"> </td>
+		</tr>
+		<tr>
+		<td><b>Calendar</b></td>
+		<td class="checkboxoff"> </td>
+		</tr>
+		<tr>
+		<td><b>Photos</b></td>
+		<td class="checkboxoff"></td>
+		</tr>
+		<tr>
+		<td><b>Notes</b></td>
+		<td class="checkboxon"></td>
+		</tr>
+		</table>
+		</div>
+		<div class="sectiontitle">
+		Cryptographic Support
+		</div>
 
+		<table>
+		</table>
+		<div class="sectiontitle">
+		Trusted Communication Path/Channels
+		</div>
 
-			<div class="tabletitle">
-			User Data Protection
-			</div>
-			<table>
-			</table>
+		<table>
+		</table>
 
-			<div class="tabletitle">
-			Cryptographic Support
-			</div>
+		<div class="sectiontitle">
+		Protection of Security Functionality and Integrity
+		</div>
 
-			<table>
-			</table>
-			<div class="tabletitle">
-			Trusted Communication Path/Channels
-			</div>
-
-			<table>
-	
-			</table>
-			<div class="tabletitle">
-			Protection of Security Functionality and Integrity
-			</div>
-
-			<table>
-			</table>
+		<table>
+		</table>
 		</body>
 		</html>
 	</xsl:template>
@@ -222,33 +337,6 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 	<xsl:template match="cc:title">
 	      		<xsl:apply-templates />
 	</xsl:template>
-
-
-  <xsl:template match="cc:f-component | cc:a-component">
-    <xsl:variable name="family" select="substring(@id,1,7)" />
-    <xsl:variable name="component" select="substring(@id,1,9)" />
-    <xsl:variable name="SFRID" select="@id" />
-    <div class="comp">
-      <h4>
-		 <xsl:value-of select="concat(translate(@id, $lower, $upper), ' ')" />
-         <xsl:value-of select="@name" />
-      </h4>
-      <xsl:apply-templates />
-    </div>
-  </xsl:template>
-
-
-
-
-  <xsl:template match="cc:subaactivity">
-    <div class="subaact">
-      <i>
-        <b>For <xsl:call-template name="OSabbrev2name"><xsl:with-param name="osname" select="@platform" /></xsl:call-template>:
-	  </b>
-      </i>
-      <xsl:apply-templates />
-    </div>
-  </xsl:template>
 
 
 	<!-- getting rid of XHTML namespace -->
