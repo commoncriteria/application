@@ -169,8 +169,8 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 		<body>
 		<h1 class="title">App Vetting Reciprocity Report</h1>
 
-		<div class="reqelement" style="margin-left:20%; margin-right:20%">
-		<div class="reqelementtitle">
+		<div class="reqelement" style="margin-left:25%; margin-right:25%; ">
+		<div class="reqelementtitle" >
 		  <span class="reqelementtitletext">App Identification</span>
 		  <span class="reqelementtitleppref">
 		  <a class="ppreflink" href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#ALC_CMC.1.1C">ALC_CMC.1</a></span>
@@ -207,7 +207,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 		</td>
 		</tr>
 		<tr>
-		<td><b>Platform</b></td>
+		<td><b>Test Platform</b></td>
 		<td><xsl:apply-templates select="/rr:results/rr:identifier/rr:platform" /></td>
 		</tr>
 		</table>
