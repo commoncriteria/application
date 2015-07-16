@@ -33,8 +33,8 @@ vettingreport: $(APP_RECIPROCITY_WORKSHEET)
 $(APP_RECIPROCITY_WORKSHEET): schema/results2vettingreport.xsl schema/results-example.xml
 	xsltproc -o $(APP_RECIPROCITY_WORKSHEET) schema/results2vettingreport.xsl schema/results-example.xml
 
-schema/application.rnc: schema/application.rng
-	trang -I rng -O rnc  schema/application.rng schema/application.rnc
+transforms/schemas/schema.rnc: transforms/schemas/schema.rng
+	trang -I rng -O rnc  transforms/schemas/schema.rng transforms/schemas/schema.rnc
 
 clean:
 	@for f in a $(TABLE) $(SIMPLIFIED) $(APP_HTML) $(APP_RELEASE_HTML) $(APP_OP_HTML); do \
