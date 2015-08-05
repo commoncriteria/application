@@ -1172,7 +1172,7 @@
             </title>
             <note role="application">
               The ST author shall select all key establishment schemes used for the selected cryptographic 
-              protocols. FCS_TLSC_EXT.1 requires ciphersuites that use RSA-based key establishment 
+              protocols. FCS_TLSC_EXT.1 requires cipher suites that use RSA-based key establishment 
               schemes.
               <br />
               The RSA-based key establishment schemes are described in Section 9 of NIST SP 800-56B; 
@@ -1633,7 +1633,7 @@ functionality (such as these)
               	<br/>
                 SHA-1 is currently required in order to comply with <linkref linkend="FCS_TLSC_EXT.1"/>. If
                 FCS_TLSC_EXT.1.1 is included in the ST, the hashing algorithms selection for FCS_COP.1(2)
-                must match the hashing algorithms used in the mandatory and selected ciphersuites of
+                must match the hashing algorithms used in the mandatory and selected cipher suites of
                 FCS_TLSC_EXT.1.1. Vendors are strongly encouraged to implement updated protocols that
               	support the SHA-2 family; until updated protocols are supported, this PP allows support for
               	SHA-1 implementations in compliance with SP 800-131A.
@@ -1806,7 +1806,7 @@ functionality (such as these)
 			  support the message digest size selection. The hash selection
 			  should be consistent with the overall strength of the algorithm
 			  used for <linkref linkend="FCS_COP.1(1)"/>. HMAC-SHA256 is required in order to comply
-			  with the required ciphersuites in <linkref linkend="FCS_TLSC_EXT.1" />.
+			  with the required cipher suites in <linkref linkend="FCS_TLSC_EXT.1" />.
             </note>
             <aactivity>The evaluator shall perform the following activities based on the selections
               in the <abbr linkend="ST"/>.
@@ -1883,8 +1883,8 @@ functionality (such as these)
                 <selectable>implement <abbr title="Transport Layer Security">TLS</abbr> 1.2 (RFC 5246)
                   <requires req="fcs_ckm.2.1"/>
                 </selectable>
-              </selectables> supporting the following ciphersuites: <p/>Mandatory Ciphersuites:
-              TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246 <p/>Optional Ciphersuites:
+              </selectables> supporting the following cipher suites: <p/>Mandatory Cipher Suites:
+              TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246 <p/>Optional Cipher Suites:
                 <selectables linebreak="yes">
                 <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246</selectable>
                 <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
@@ -1905,15 +1905,15 @@ functionality (such as these)
                 <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
                 <selectable>TLS_RSA_WITH_AES_256_CBC_SHA as defined in RFC 5246</selectable>
                 <selectable>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
-                <selectable>no other ciphersuite</selectable>
+                <selectable>no other cipher suite</selectable>
               </selectables>
 	           .
             </title>
-            <note role="application">The ciphersuites to be tested in the evaluated configuration 
+            <note role="application">The cipher suites to be tested in the evaluated configuration 
               are limited by this requirement. The <abbr title="Security Target" linkend="ST">ST
-              </abbr> author should select the optional ciphersuites that are supported; if there 
-              are no ciphersuites supported other than the mandatory suites, then “None” should be 
-              selected. It is necessary to limit the ciphersuites that can be used in an evaluated 
+              </abbr> author should select the optional cipher suites that are supported; if there 
+              are no cipher suites supported other than the mandatory suites, then “None” should be 
+              selected. It is necessary to limit the cipher suites that can be used in an evaluated 
               configuration administratively on the server in the test environment. The Suite B 
               algorithms listed above (RFC 6460) are the preferred algorithms for implementation. 
               TLS_RSA_WITH_AES_128_CBC_SHA is required in order to ensure compliance with RFC 5246. 
@@ -1922,7 +1922,7 @@ functionality (such as these)
               <abbr title="Transport Layer Security">TLS</abbr> versions are standardized by the 
               IETF.
              <br />
-              If any ciphersuites are selected using ECDHE, then 
+              If any cipher suites are selected using ECDHE, then 
 			  <linkref linkend="FCS_TLSC_EXT.1.5"/> is required.
              <br />
               If <i>implement TLS 1.2 (RFC 5246)</i> is selected, then 
@@ -1936,9 +1936,9 @@ functionality (such as these)
             <aactivity>
               The evaluator shall check the description of the implementation of this protocol in 
               the <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> to ensure that 
-              the ciphersuites supported are specified. The evaluator shall check the 
+              the cipher suites supported are specified. The evaluator shall check the 
               <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> to ensure that the 
-              ciphersuites specified include those listed for this component. The evaluator shall 
+              cipher suites specified include those listed for this component. The evaluator shall 
               also check the operational guidance to ensure that it contains instructions on 
               configuring the <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> so that 
               TLS conforms to the description in the 
@@ -1948,11 +1948,11 @@ functionality (such as these)
                 <test>
                   The evaluator shall establish a 
                   <abbr title="Transport Layer Security">TLS</abbr> connection using each of the 
-                  ciphersuites specified by the requirement. This connection may be established as 
+                  cipher suites specified by the requirement. This connection may be established as 
                   part of the establishment of a higher-level protocol, e.g., as part of an EAP 
-                  session. It is sufficient to observe the successful negotiation of a ciphersuite 
+                  session. It is sufficient to observe the successful negotiation of a cipher suite 
                   to satisfy the intent of the test; it is not necessary to examine the 
-                  characteristics of the encrypted traffic in an attempt to discern the ciphersuite 
+                  characteristics of the encrypted traffic in an attempt to discern the cipher suite 
                   being used (for example, that the cryptographic algorithm is 128-bit AES and not 
                   256-bit AES).
                 </test>
@@ -1968,15 +1968,15 @@ functionality (such as these)
                 <test>
                   The evaluator shall send a server certificate in the 
                   <abbr title="Transport Layer Security">TLS</abbr> connection that does not 
-                  match the server-selected ciphersuite (for example, send a ECDSA certificate while 
-                  using the TLS_RSA_WITH_AES_128_CBC_SHA ciphersuite or send a RSA certificate while 
-                  using one of the ECDSA ciphersuites.) The evaluator shall verify that the 
+                  match the server-selected cipher suite (for example, send a ECDSA certificate while 
+                  using the TLS_RSA_WITH_AES_128_CBC_SHA cipher suite or send a RSA certificate while 
+                  using one of the ECDSA cipher suites.) The evaluator shall verify that the 
                   <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> disconnects after 
                   receiving the server’s Certificate handshake message.
                 </test>
                 <test>
                   The evaluator shall configure the server to select the TLS_NULL_WITH_NULL_NULL 
-                  ciphersuite and verify that the client denies the connection.
+                  cipher suite and verify that the client denies the connection.
                 </test>
                 <test>
                   The evaluator shall perform the following modifications to the traffic: 
@@ -1991,12 +1991,12 @@ functionality (such as these)
                     <test>
                       Modify at least one byte in the server’s nonce in the Server Hello handshake 
                       message, and verify that the client rejects the Server Key Exchange handshake 
-                      message (if using a DHE or ECDHE ciphersuite) or that the server denies the 
+                      message (if using a DHE or ECDHE cipher suite) or that the server denies the 
                       client’s Finished handshake message.
                     </test>
                     <test>
-                      Modify the server’s selected ciphersuite in the Server Hello handshake 
-                      message to be a ciphersuite not presented in the Client Hello handshake 
+                      Modify the server’s selected cipher suite in the Server Hello handshake 
+                      message to be a cipher suite not presented in the Client Hello handshake 
                       message. The evaluator shall verify that the client rejects the connection 
                       after receiving the Server Hello.
                     </test>
@@ -2216,7 +2216,7 @@ functionality (such as these)
             <note role="application">
               This requirement limits the elliptic curves allowed for authentication and key 
               agreement to the NIST curves from <linkref linkend="FCS_COP.1(3)"/> and <linkref linkend="FCS_CKM.1(1)"/> and <linkref linkend="FCS_CKM.2"/>. This 
-              extension is required for clients supporting Elliptic Curve ciphersuites.
+              extension is required for clients supporting Elliptic Curve cipher suites.
             </note>
             <aactivity>
               The evaluator shall verify that 
