@@ -33,11 +33,11 @@
 			elaborate on subtleties not apparent in the “bulleted” high level
 			statements.
 		-->
-    	This document describes a high-level set of security requirements
+    	This document describes a core set of security requirements
     	for application software.
-	These requirements represent basic security functionality for
-	application software.  These requirements must be extended to cover more
-	specialized application types.  
+	These requirements establish expectations for basic security behavior for
+	application software.  These core requirements must be extended to adequately cover 
+	many specialized application types.  
 	<p/>
         The vast majority of application software should satisfy
 	this core set of requirements, yet a very small set of extremely specialized
@@ -59,6 +59,19 @@
 	The application exists both as an object that
 	is stored on the file system of the host platform as well as a runtime
 	object that exists during its execution. 
+	<p/>
+	<note>This is not a declaration that all software should be evaluated through the 
+	Common Criteria.  Although it depends on the national market, Common Criteria
+	evaluation focuses on providing assurance for products which provide security
+	functionality.  Many applications without security functionality, particularly on 
+	mobile platforms, now receive some type of evaluation (often called vetting).  
+	This occurs because software without
+	security functionality, when flawed, has security consequences.
+	This document is offered as a reference for those activities, in addition to
+	its role in the Common Criteria.
+	The goal is to establish a consistent set of expectations for all application software
+	developers, independent of the evaluation methodology.  
+	</note>
 	</section>
 
 	<section title="Use Cases" id="usecases">
@@ -71,24 +84,32 @@
 			considered in the drafting of the Essential Security Requirements 
 			(ESR) and for the TC to consider when writing the PP.
 		-->
-		<p>
+			Application software is used in innumerable specific use cases.
+			The following use cases are not all-inclusive, nor are they 
+			even mutually exclusive:
 			<ul>
 				<li>
-					A user or system application process creates or modifies 
-					content that is saved as a file system object.
+					<b>Content creation.</b> A user or system application process creates or modifies 
+					content that is saved as a file system object.  This could
+					includes documents for general business processes.
 				</li>
 				<li>
-					A user or system application process reads file system 
-					object data into the application in order for some 
-					operation to be performed that uses the data.
+					<b>Content consumption/processing.</b> A user or system application process
+					reads file system object data into the
+					application in order for some operation
+					to be performed that uses the data.
+					This allows a user to consume content,
+					retrieving it from either local or
+					remote storage. It also includes system-level
+					applications that gather system information for 
+					enterprise reporting.
 				</li>
 				<li>
-					A user or system application process uses the application 
-					to communicate with other users or applications over an 
+					<b>Communications.</b> A user or system application process uses the application 
+					to communicate with other users or systems over an 
 					external communications channel.
 				</li>
 			</ul>
-		</p>
 	</section>
 
 	<section title="Resources to be protected" id="resourcesprotected">
@@ -104,35 +125,29 @@
 		<p>
 			<ul>
 				<li>
-					Hardware components that reside on the same system as the 
-					application.
+					Sensitive data in transit.
 				</li>
 				<li>
-					Network interfaces that reside on the same system as the 
-					application.
+					Sensitive data, under control of the application, 
+					that must be stored on the local system.
 				</li>
 				<li>
-					Sensitive data that is necessary to store in non-volatile 
-					memory, whether owned by the application or consumed from 
-					the Operational Environment.
-				</li>
-				<li>
-					The configuration of the application itself.
+					Application configuration data which affects its behavior.
 				</li>
 			</ul>
 		</p>
 	</section>
 
 	<section title="Attacker access" id="attackeraccess"> 
-		The following assumptions are made about an	attackers' ability to 
+		The following assumptions are made about an attackers' ability to 
 		develop attacks: 
 		<ul>
 			<li>
 				An attacker has access to at least one of the following:
 				<ul>
 					<li>
-						The device or platform on which the application is 
-						locally installed.
+						The platform on which the application is 
+						locally installed, though in an unprivileged fashion.
 					</li>
 					<li>
 						A local network on which the application's device or 
