@@ -129,20 +129,18 @@
 	</section>
 
 	<section title="Attacker access" id="attackeraccess"> 
-		The following assumptions are made about an attackers' ability to 
-		develop attacks: 
 		<ul>
 			<li>
-				An attacker should be assumed to attempt attacks from the following
+				An attacker is assumed to attempt attacks from the following
 				vantage points:
 				<ul>
 					<li>
-						The platform on which the application is 
-						installed, though as an unprivileged subject.
+						The network across which the application engages
+						in communication, both actively and passively.
 					</li>
 					<li>
-						The network on which the application engages
-						in communication.
+						The platform on which the application is 
+						installed, though as an unprivileged subject.
 					</li>
 				</ul>
 			</li>
@@ -152,29 +150,23 @@
 				device or platform, and/or the data it transmits over the 
 				network.
 			</li>
-			<li>
-				An attacker is able to acquire their own copy of the target 
-				application and study its behavior on a platform that they own.
-			</li>
 		</ul>
 	</section>
 	
 	<section title="Evaluation Boundary" id="boundary">
 		<ul>
 			<li>
-				The application, which consists of the software
-				provided by its vendor and which is installed
-				onto the filesystem provided by the underlying
-				platform.  Any software in the application
-				installation package should be considered
-				during evaluation, even those pieces that may
+				The application consists of the software
+				provided by its vendor.
+				Any software in the application
+				installation package is potentially in scope 
+				during evaluation.  This includes those pieces that may
 				extend the functionality of the underlying
 				platform, such as kernel drivers.  The
 				application exists both as an object that is
 				stored on the file system of the host platform
 				as well as a runtime object that exists during
-				its execution.  
-				The application
+				its execution.  The application
 				code may execute directly on a microprocessor,
 				or it may be script or bytecode interpreted by
 				a runtime environment.  
@@ -182,12 +174,8 @@
 			<li>
 				Shared libraries (static or dynamically loaded)
 				from third parties that convey with the
-				application and thus are not provided by the
-				underlying platform.  
+				application are also in scope.  
 			</li> 
-			<li>
-				Configuration files/parameters consumed by the application.
-			</li>
 		</ul>
 	</section>
 
@@ -208,14 +196,6 @@
         	of this document, to provide the TC enough information to ensure 
         	they have an understanding of what is minimally required in breath.
         -->
-			The following are the essential security requirements that are 
-			expected to be implemented by any application that is compliant 
-			with the Application Software cPP. Many security 
-			requirements are conditional on functionality being present. 
-			For example, a product that does not require an external network 
-			connection for any purpose is considered to satisfy any security 
-			requirements that pertain to the secure use of external network 
-			connections. 
 			<p/>
 			Functionality-related requirements are:
 			<ul>
@@ -223,10 +203,8 @@
 					Restrict its access to only necessary platform resources.
 				</li>
 				<li>
-					Limit network connectivity to necessary communications.
-				</li>
-				<li>
-					Encrypt any sensitive data that is transmitted remotely 
+					Limit network connectivity to necessary communications, and
+					encrypt sensitive data that is transmitted remotely 
 					using a trusted communications channel.
 				</li>
 				<li>
@@ -235,84 +213,53 @@
 					as credentials.
 				</li>
 				<li>
-					Require assignment of credentials
-					whenever the application is shipped
+					Require assignment of credentials whenever the application is shipped
 					with default credentials or no
 					credentials.
 				</li>
 				<li>
-					Implement or leverage the platform for cryptographic services such as:
-					<ul>
-						<li>
-							Asymmetric key generation
-						</li>
-						<li>
-							Symmetric key encryption and decryption
-						</li>
-						<li>
-							Deterministic random bit generation (DRBG)
-						</li>
-						<li>
-							Cryptographic hashing 
-						</li>
-						<li>
-							Cryptographic signing
-						</li>
-						<li>
-							Keyed-hash message authentication
-						</li>
-					</ul>
-				</li>
-				<li>
-					Use only APIs that are supported by the host platform.
+					Properly implement, or leverage the platform, for cryptographic operations such as
+					key generation, encryption and decryption, random bit generation, hashing, signing, 
+					and keyed-hash message authentication.
 				</li>
 				<li>
 					Refrain from engaging in behavior that undermines platform
-					security features, such as
-					<ul>
-					<li>issuing requests to map memory at an explicit 
-					address, as this undermines ASLR
+					security features
+				</li> <!--, such as
+				<ul>
+					<li>
+						issuing requests to map memory at an explicit 
+			 			address, as this undermines ASLR
 					</li>
 					<li>
-					allocating memory with both write and execute permissions,
-					as this undermines DEP
+						allocating memory with both write and execute permissions,
+						as this undermines DEP
 					</li>
 					<li>
-					requiring disablement of any platform security features
+						requiring disablement of any platform security features
 					</li>
 					</ul>
 
-				</li>
-				<li>
-					Write user-modifiable files to directories that contain 
-					executable files only if explicitly directed by the user.
-				</li>
-				<li>
+				</li> -->
+				<!--<li>
 					Be compiled with stack-based buffer overflow protection 
 					enabled.
-				</li>
+				</li> -->
 				<li>
-					Be distributed in a format that is consistent with the host
-					platform’s package manager.
-				</li>
-				<li>
-					Never download, modify, replace, or update its own 
-					code.
-				</li>
-				<li>
-					Have its installation and update packages signed by the 
-					vendor in accordance with a defined standard.
-				</li>
-				<li>
-					Include only a defined set of third-party libraries as part
-					of its installation package.
+					Be distributed only in the format supported by the
+					platform's package manager, and ensure trusted update.
 				</li>
 			</ul>
 		Assurance-related requirements are:
 		<ul>
-		<li>Timely patching of any publicly-disclosed vulnerabilities
+		<li>
+			Timely patching of any publicly-disclosed vulnerabilities,
+			including those in 3rd party components that convey with the
+			application
 		</li>
-		<li>Use of anti-exploitation options provided in the development toolchain
+		<li>
+			Use of anti-exploitation options provided in the development
+			toolchain
 		</li>
 		</ul>
 	</section>
