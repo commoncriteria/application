@@ -37,11 +37,11 @@
     	for application software.
 	These requirements establish expectations for basic security behavior for
 	application software.  These core requirements must be extended to adequately cover 
-	many specialized application types.  
+	specialized application types.  
 	<p/>
         The vast majority of application software should satisfy
 	this core set of requirements, yet a very small set of extremely specialized
-	software may not do so.  The requirements for such software
+	software may not do so.  The requirements for such exceptional software
 	may be specified in Protection Profiles which do not extend the requirements
 	described here.
         <p/>
@@ -49,16 +49,6 @@
 	a platform and performs tasks on behalf of the user or owner of the
 	system.  The platform for the application is an operating system, an execution
 	environment, or some combination of these.
-	<p/>
-	The application consists of the software provided by its vendor
-	and which is installed onto the filesystem provided by the underlying 
-	platform.  Any software in the application installation package should be 
-	considered during evaluation,
-	even those pieces that may extend the functionality of the underlying
-	platform, such as kernel drivers. 
-	The application exists both as an object that
-	is stored on the file system of the host platform as well as a runtime
-	object that exists during its execution. 
 	<p/>
 	<note>This is not a declaration that all software should be evaluated through the 
 	Common Criteria.  Although it depends on the national market, Common Criteria
@@ -85,8 +75,9 @@
 			(ESR) and for the TC to consider when writing the PP.
 		-->
 			Application software is used in innumerable specific use cases.
-			The following use cases are not all-inclusive, nor are they 
-			even mutually exclusive:
+			The following broad categories are not all-inclusive, nor are they 
+			even mutually exclusive -- they are provided simply to convey
+			the broadness of scope:
 			<ul>
 				<li>
 					<b>Content creation.</b> A user or system application process creates or modifies 
@@ -128,11 +119,10 @@
 					Sensitive data in transit.
 				</li>
 				<li>
-					Sensitive data, under control of the application, 
-					that must be stored on the local system.
+					Sensitive data stored on the local system.
 				</li>
 				<li>
-					Application configuration data which affects its behavior.
+					Application code and conifiguration parameters.
 				</li>
 			</ul>
 		</p>
@@ -147,7 +137,7 @@
 				<ul>
 					<li>
 						The platform on which the application is 
-						locally installed, though in an unprivileged fashion.
+						installed, though in an unprivileged fashion.
 					</li>
 					<li>
 						A local network on which the application's device or 
@@ -168,24 +158,34 @@
 		</ul>
 	</section>
 	
-	<section title="Boundary of Device" id="boundary">
+	<section title="Evaluation Boundary" id="boundary">
 		<ul>
 			<li>
-				Executable code that provides the application functionality.
+				The application, which consists of the software
+				provided by its vendor and which is installed
+				onto the filesystem provided by the underlying
+				platform.  Any software in the application
+				installation package should be considered
+				during evaluation, even those pieces that may
+				extend the functionality of the underlying
+				platform, such as kernel drivers.  The
+				application exists both as an object that is
+				stored on the file system of the host platform
+				as well as a runtime object that exists during
+				its execution.  
+				The application
+				code may execute directly on a microprocessor,
+				or it may be script or bytecode interpreted by
+				a runtime environment.  
 			</li>
 			<li>
-				User space libraries (both static and/or runtime libraries 
-				depending on the nature of the application platform).
-			</li>
+				Shared libraries (static or dynamically loaded)
+				from third parties that convey with the
+				application and thus are not provided by the
+				underlying platform.  
+			</li> 
 			<li>
-				Configuration files consumed by the application.
-			</li>
-			<li>
-				Data files produced by the application.
-			</li>
-			<li>
-				Kernel modules provided by the application vendor that are 
-				necessary to run the application.
+				Configuration files/parameters consumed by the application.
 			</li>
 		</ul>
 	</section>
@@ -295,16 +295,11 @@
 					using a trusted communications channel.
 				</li>
 				<li>
-					Implement administrative functions that allow for the 
-					configuration of data transmission and other security 
-					functions where applicable.
-				</li>
-				<li>
 					Use only APIs that are supported by the host platform.
 				</li>
 				<li>
 					Refrain from issuing requests to map memory at an explicit 
-					address.
+					address, as this undermines ASLR.
 				</li>
 				<li>
 					Allocate memory with both write and execute permissions 
@@ -336,12 +331,8 @@
 					output files, and audit data.
 				</li>
 				<li>
-					Never download, modify, replace, or update its own binary 
+					Never download, modify, replace, or update its own 
 					code.
-				</li>
-				<li>
-					Provide or leverage the host platform’s ability to query 
-					its version.
 				</li>
 				<li>
 					Have its installation and update packages signed by the 
@@ -384,11 +375,11 @@
 
 	<section title="Optional Extensions" id="extensions"> 
 		The following requirements may already be realized in some products in 
-		this technology class, but the ESR is not mandating these capabilities 
-		exist in “baseline” level products:
+		this technology class, but the ESR is not mandating these capabilities.
+		The resulting PP may permit their evaluation:
 		<ul>
 			<li>
-				The application shall support mutual authentication with remote
+				The application supports client authentication with remote
 				peers using X.509v3 certificates.
 			</li>
 		</ul>
