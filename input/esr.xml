@@ -226,38 +226,29 @@
 			The application shall:
 			<ul>
 				<li>
-					Make users aware of its intent to access hardware resources
-					on the host platform.
+					Restrict its access to only necessary host resources.
 				</li>
 				<li>
-					Make users aware of its intent to access system-wide 
-					information repositories on the host platform.
+					Limit network connectivity to necessary communications.
 				</li>
 				<li>
-					Be capable of limiting any use of network connectivity to 
-					authorized functions.
+					Encrypt any sensitive data that is transmitted remotely 
+					using a trusted communications channel.
 				</li>
 				<li>
-					Seek user approval before executing any functions that 
-					transmit data objects that are expected to contain 
-					personally identifiable information (PII).
-				</li>
-				<li>
-					Use encryption provided by the host platform to protect any
-					sensitive data at rest stored in non-volatile memory.
+					Leverage the host platform to protect any
+					sensitive data at rest stored in non-volatile memory, such
+					as credentials.
 				</li>
 				<li>
 					Store and set configuration options using mechanisms that 
 					are recommended by the platform vendor.
 				</li>
 				<li>
-					Provide the ability to enter credentials for the host 
-					platform only in cases where it is configured with default 
-					credentials or no credentials.
-				</li>
-				<li>
-					Leverage security features of the host platform in order to
-					protect it and its data from unauthorized access.
+					Require assignment of credentials
+					whenever the application is shipped
+					with default credentials or no
+					credentials.
 				</li>
 				<li>
 					Provide the ability to configure the types of information 
@@ -287,27 +278,24 @@
 					</ul>
 				</li>
 				<li>
-					Leverage features of the host platform to store credential 
-					data in non-volatile memory.
-				</li>
-				<li>
-					Encrypt any sensitive data that is transmitted remotely 
-					using a trusted communications channel.
-				</li>
-				<li>
 					Use only APIs that are supported by the host platform.
 				</li>
 				<li>
-					Refrain from issuing requests to map memory at an explicit 
-					address, as this undermines ASLR.
-				</li>
-				<li>
-					Allocate memory with both write and execute permissions 
-					only for functions that use just-in-time compiling.
-				</li>
-				<li>
-					Be able to function with security features enabled as part 
-					of a secure configuration of the host platform.
+					Refrain from engaging in behavior that undermines platform
+					security features, such as
+					<ul>
+					<li>issuing requests to map memory at an explicit 
+					address, as this undermines ASLR
+					</li>
+					<li>
+					allocating memory with both write and execute permissions,
+					as this undermines DEP
+					</li>
+					<li>
+					requiring disablement of any platform security features
+					</li>
+					</ul>
+
 				</li>
 				<li>
 					Write user-modifiable files to directories that contain 
@@ -324,11 +312,6 @@
 				<li>
 					Be distributed in a format that is consistent with the host
 					platform’s package manager.
-				</li>
-				<li>
-					Have the ability to be removed in a manner that eliminates 
-					all trace of itself except for any configuration settings, 
-					output files, and audit data.
 				</li>
 				<li>
 					Never download, modify, replace, or update its own 
@@ -366,7 +349,7 @@
 				applied enterprise security policy.
 			</li>
 			<li>
-				The administrator of the application software is not careless, 
+				The administrator of the platform or application software is not careless, 
 				wilfully negligent or hostile, and administers the software 
 				within compliance of the approved enterprise security policy.
 			</li>
