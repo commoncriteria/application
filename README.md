@@ -5,6 +5,8 @@ Protection Profile for Application Software
 
 
 ## Links
+[Essential Security Requirements (ESR)](http://common-criteria.rhcloud.com/application/output/application-esr.html)
+
 [Protection Profile for Application Software](http://common-criteria.rhcloud.com/application/output/application-release.html)
 
 [Help working with Transforms Submodule](https://github.com/commoncriteria/transforms/wiki/Working-with-Transforms-as-a-Submodule)
