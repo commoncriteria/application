@@ -38,18 +38,6 @@
 	These requirements establish expectations for basic security behavior for
 	application software.  These core requirements must be extended to adequately cover 
 	specialized application types.  
-	<p/>
-        The vast majority of application software should satisfy
-	this core set of requirements, yet a very small set of extremely specialized
-	software may not do so.  The requirements for such exceptional software
-	may be specified in Protection Profiles which do not extend the requirements
-	described here.
-        <p/>
-	Application software in the context of this document is software that runs on
-	a platform and performs tasks on behalf of the user or owner of the
-	system.  The platform for the application is an operating system, an execution
-	environment, or some combination of these.
-	<p/>
 	<note>This is not a declaration that all software should be evaluated through the 
 	Common Criteria.  Although it depends on the national market, Common Criteria
 	evaluation generally focuses on providing assurance for products which provide security
@@ -62,6 +50,18 @@
 	The goal is to establish a consistent set of expectations for all application software
 	developers, independent of the evaluation methodology.  
 	</note>
+	<p/>
+        The vast majority of application software should satisfy
+	this core set of requirements, yet a very small set of extremely specialized
+	software may not do so.  The requirements for such exceptional software
+	may be specified in Protection Profiles which do not extend the requirements
+	described here.
+        <p/>
+	Application software in the context of this document is software that runs on
+	a platform and performs tasks on behalf of the user or owner of the
+	system.  The platform for the application is an operating system, an execution
+	environment, or some combination of these.
+	<p/>
 	</section>
 
 	<section title="Use Cases" id="usecases">
@@ -74,9 +74,16 @@
 			considered in the drafting of the Essential Security Requirements 
 			(ESR) and for the TC to consider when writing the PP.
 		-->
-			Application software is used in innumerable specific use cases.
-			The following broad categories are not all-inclusive, nor are they 
-			even mutually exclusive -- they are provided simply to convey
+			Application software is used in innumerable specific use cases.  
+			<p/>
+			However, in formal Common Criteria evaluations we seek evaluation only of applications
+			which provide security functionality (which are called IA or IA-enabled in
+			some markets).  Such applications include thin clients and host-based security agents.
+			Other applications will be covered by Extended Packages of the
+			resulting Protection Profile (email client, web browser, VPN client, MDM agent).
+			
+<!--			The following broad categories are not all-inclusive, nor are they 
+			even mutually exclusive - they are provided simply to convey
 			the broadness of scope:
 			<ul>
 				<li>
@@ -100,7 +107,7 @@
 					to communicate with other users or systems over an 
 					external communications channel.
 				</li>
-			</ul>
+			</ul> -->
 	</section>
 
 	<section title="Resources to be protected" id="resourcesprotected">
@@ -125,6 +132,8 @@
 					Application code and configuration parameters.
 				</li>
 			</ul>
+			The application should also not require security features in the 
+			platform be disabled, as this weakens the underlying platform.
 		</p>
 	</section>
 
@@ -223,9 +232,10 @@
 					and keyed-hash message authentication.
 				</li>
 				<li>
-					Refrain from engaging in behavior that undermines platform
-					security features.
-				</li> <!--, such as
+					Leverage the platform's exploit mitigation features, and never engage
+					in behavior that undermines the platform's security features.
+				</li>
+				<!--, such as
 				<ul>
 					<li>
 						issuing requests to map memory at an explicit 
