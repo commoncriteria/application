@@ -40,14 +40,18 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
         }
         tr.header
         {
-             border-bottom: 3px solid gray; padding: 8px 8px; text-align:left; font-weight: bold;
-        } 
+             border-bottom: 3px solid gray; 
+             padding: 8px 8px;
+             text-align:left;
+             font-weight: bold;
+        }    
+      
         table, th, td
         {
-            border-collapse: collapse; 
-            border: 2px solid #dcdcdc;
-            border-left: none;
-            border-right: none;
+            border-collapse: collapse;
+            border: 1px solid #000000;
+            <!--border-left: none;
+            border-right: none;-->
             vertical-align: top;
             text-align: left;
             padding: 2px;
@@ -166,283 +170,664 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			<title>App Vetting Reciprocity Report for 
 			<xsl:value-of select="/rr:results/rr:identifier/rr:name" /></title>
 		</head>
-		<body>
-		<h1 class="title">App Vetting Reciprocity Report</h1>
+			<body>
+				<h1 class="title">Mobile App Security Vetting Reciprocity Report Visualization</h1>
 
-		<div class="reqelement" style="margin-left:25%; margin-right:25%; ">
-		<div class="reqelementtitle" >
-		  <span class="reqelementtitletext">App Identification</span>
-		  <span class="reqelementtitleppref">
-		  <a class="ppreflink" href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#ALC_CMC.1.1C">ALC_CMC.1</a></span>
-		</div>
-		<p/>
-		<table>
-		<tr>
-		<td><b>Name</b></td>
-		<td><xsl:value-of select="/rr:results/rr:identifier/rr:name" /></td>
-		</tr>
-		<tr>
-		<td><b>Description</b></td>
-		<td><xsl:value-of select="/rr:results/rr:identifier/rr:description" /></td>
-		</tr>
-		<tr>
-		<td><b>Software Identifier</b></td>
-		<!-- insert SWID tags in here, should those become a thing -->
-		<td><xsl:value-of select="/rr:results/rr:identifier/rr:packageidentification" /></td>
-		</tr>
-		<tr>
-		<td><b>Version</b></td>
-		<td><xsl:value-of select="/rr:results/rr:identifier/rr:version" /></td>
-		</tr>
-		<tr>
-		<td><b>Vendor</b></td>
-		<td>
-		<xsl:value-of select="/rr:results/rr:identifier/rr:vendor/rr:name" /><p/>
-		<xsl:value-of select="/rr:results/rr:identifier/rr:vendor/rr:address/rr:street1" /><p/>
-		<xsl:value-of select="/rr:results/rr:identifier/rr:vendor/rr:address/rr:street2" /><p/>
-		<xsl:value-of select="/rr:results/rr:identifier/rr:vendor/rr:address/rr:city" /><xsl:text>, </xsl:text>
-		<xsl:value-of select="/rr:results/rr:identifier/rr:vendor/rr:address/rr:state" /><xsl:text> </xsl:text>
-		<xsl:value-of select="/rr:results/rr:identifier/rr:vendor/rr:address/rr:postalcode"/><p/>
-		<xsl:value-of select="/rr:results/rr:identifier/rr:vendor/rr:address/rr:country" />
-		</td>
-		</tr>
-		<tr>
-		<td><b>Test Platform</b></td>
-		<td><xsl:apply-templates select="/rr:results/rr:identifier/rr:platform" /></td>
-		</tr>
-		</table>
-		</div>
-		
-		<div class="sectiontitle">
-		User Data Protection
-		</div>
+				<div class="reqelement" style="margin-left:25%; margin-right:25%; ">
+					<div class="reqelementtitle">
+						<span class="reqelementtitletext">Application Information</span>
+					</div>
+					<table>
+						<tr>
+							<td>
+								<b>App Name</b>
+							</td>
+							<td>
+								<xsl:value-of select="/rr:results/rr:identifier/rr:name"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Description</b>
+							</td>
+							<td>
+								<xsl:value-of select="/rr:results/rr:identifier/rr:description"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Category/Genre</b>
+							</td>
+							<td/>
+						</tr>
+						<tr>
+							<td>
+								<b>Application Type (3rd party/GOTS)</b>
+							</td>
+							<td/>
+						</tr>
+						<tr>
+							<td>
+								<b>URL/Filename</b>
+							</td>
+							<td/>
+						</tr>
+						<tr>
+							<td>
+								<b>App ID</b>
+							</td>
+							<!-- insert SWID tags in here, should those become a thing -->
+							<td>
+								<xsl:value-of
+									select="/rr:results/rr:identifier/rr:packageidentification"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Version</b>
+							</td>
+							<td>
+								<xsl:value-of select="/rr:results/rr:identifier/rr:version"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>SHA1 hash of package</b>
+							</td>
+							<td/>
+						</tr>
+						<tr>
+							<td>
+								<b>Hash of package signature</b>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>OS Platform and Version</b>
+							</td>
+							<td>
+								<xsl:apply-templates select="/rr:results/rr:identifier/rr:platform"
+								/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Vendor</b>
+							</td>
+							<td>
+								<xsl:value-of select="/rr:results/rr:identifier/rr:vendor/rr:name"/>
+								<p/>
+								<xsl:value-of
+									select="/rr:results/rr:identifier/rr:vendor/rr:address/rr:street1"/>
+								<p/>
+								<xsl:value-of
+									select="/rr:results/rr:identifier/rr:vendor/rr:address/rr:street2"/>
+								<p/>
+								<xsl:value-of
+									select="/rr:results/rr:identifier/rr:vendor/rr:address/rr:city"/>
+								<xsl:text>, </xsl:text>
+								<xsl:value-of
+									select="/rr:results/rr:identifier/rr:vendor/rr:address/rr:state"/>
+								<xsl:text> </xsl:text>
+								<xsl:value-of
+									select="/rr:results/rr:identifier/rr:vendor/rr:address/rr:postalcode"/>
+								<p/>
+								<xsl:value-of
+									select="/rr:results/rr:identifier/rr:vendor/rr:address/rr:country"
+								/>
+							</td>
+						</tr>
 
-		<div class="reqelement">
-		<div class="reqelementtitle">
-		  <span class="reqelementtitletext">Access to Hardware Resources</span>
-		  <span class="reqelementtitleppref">
-		  <a class="ppreflink" href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FDP_DEC_EXT.1.1">FDP_DEC_EXT.1.1</a></span>
-		</div>
-		<table>
-		<tr>
-		<td><b>Network</b></td>
-		<td class="checkboxon">X</td>
-		</tr>
-		<tr>
-		<td><b>Camera</b></td>
-		<td class="checkboxon"></td>
-		</tr>
-		<tr>
-		<td><b>Microphone</b></td>
-		<td class="checkboxon"></td>
-		</tr>
-		<tr>
-		<td><b>Location Services</b></td>
-		<td class="checkboxon"></td>
-		</tr>
-		<tr> <td><b>NFC</b></td>
-		<td class="checkboxoff"> </td>
-		</tr>
-		<tr> <td><b>Bluetooth</b></td>
-		<td class="checkboxoff"> </td>
-		</tr>
-		</table>
-		</div>
-		<div class="reqelement">
-		<div class="reqelementtitle">
-		  <span class="reqelementtitletext">Access to Sensitive Information Repositories</span>
-		  <span class="reqelementtitleppref">
-		  <a class="ppreflink" href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FDP_DEC_EXT.1.2">FDP_DEC_EXT.1.2</a></span>
-		</div>
-		<table>
-		<tr>
-		<td><b>Address Book</b></td>
-		<td class="checkboxon">X</td>
-		</tr>
-		<tr>
-		<td><b>Calendar</b></td>
-		<td class="checkboxoff"> </td>
-		</tr>
-		<tr>
-		<td><b>Photos</b></td>
-		<td class="checkboxoff"></td>
-		</tr>
-		<tr>
-		<td><b>Notes</b></td>
-		<td class="checkboxon">X</td>
-		</tr>
-		</table>
-		</div>
-
-		<div class="reqelement">
-		<div class="reqelementtitle">
-		  <span class="reqelementtitletext">Justified Access to Resources</span>
-		  <span class="reqelementtitleppref">
-		  <a class="ppreflink" href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FDP_DEC_EXT.1.3">FDP_DEC_EXT.1.3</a></span>
-		</div>
-		<div class="bodytext">The app does not appear to need the Address Book permission, but all other permissions
-		are within its expected function.
-		</div>
-
-		</div>
-
-
-		<div class="reqelement">
-		<div class="reqelementtitle">
-		  <span class="reqelementtitletext">Network Communication</span>
-		  <span class="reqelementtitleppref">
-		  <a class="ppreflink" href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FDP_DEC_EXT.1.4">FDP_DEC_EXT.1.4</a></span>
-		</div>
-		<div class="bodytext">The app engages in communication with the following systems:
-		</div>
-		<table>
-		<tr>
-		<th><b>Host IP Address</b></th>
-		<th><b>Port</b></th>
-		<th><b>Hostname</b></th>
-		<th><b>Whois Information</b></th>
-		</tr>
-		<xsl:for-each select="//rr:networkcomms/rr:connections">
-			<xsl:for-each select="rr:host">
-
-				<tr>
-				<td><xsl:value-of select="rr:ipaddr"/></td>
-				<td><xsl:value-of select="rr:port"/></td>
-				<td><xsl:value-of select="rr:hostname"/></td>
-				<td><xsl:value-of select="rr:whois"/></td>
-				</tr>
-			</xsl:for-each>
-		</xsl:for-each>
-		</table>
-		</div>
-
-		<div class="sectiontitle">Trusted Communication Path/Channels</div>
-		<div class="reqelement">
-		<div class="reqelementtitle">
-		  <span class="reqelementtitletext">Network Communication</span>
-		  <span class="reqelementtitleppref">
-		  <a class="ppreflink" href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FDP_DEC_EXT.1.4">FDP_DEC_EXT.1.4</a></span>
-		</div>
-		<div class="bodytext">The app engages in communication with the following systems:
-		</div>
-		<table>
-		<tr>
-		<th><b>Host IP Address</b></th>
-		<th><b>Port</b></th>
-		<th><b>Hostname</b></th>
-		<th><b>Whois Information</b></th>
-		</tr>
-		<xsl:for-each select="//rr:networkcomms/rr:connections">
-			<xsl:for-each select="rr:host">
-
-				<tr>
-				<td><xsl:value-of select="rr:ipaddr"/></td>
-				<td><xsl:value-of select="rr:port"/></td>
-				<td><xsl:value-of select="rr:hostname"/></td>
-				<td><xsl:value-of select="rr:whois"/></td>
-				</tr>
-			</xsl:for-each>
-		</xsl:for-each>
-		</table>
-		</div>
-
-		<div class="sectiontitle">Security Configuration and Management</div>
-		<div class="reqelement">
-		<div class="reqelementtitle">
-		  <span class="reqelementtitletext">File Permissions</span>
-		  <span class="reqelementtitleppref">
-		  <a class="ppreflink" href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FMT_CFG_EXT.1.2">FMT_CFG_EXT.1.2</a></span>
-		</div>
-		<table>
-		<tr>
-		<th>File</th>
-		<th>Permissions</th>
-		<th>Notes</th>
-		</tr>
-		<xsl:for-each select="//rr:files">
-			<xsl:for-each select="rr:file">
-
-				<tr>
-				<td><xsl:value-of select="rr:path"/></td>
-				<td><xsl:value-of select="rr:permissions"/></td>
-				<td><xsl:value-of select="rr:analysis/rr:note"/></td>
-				</tr>
-			</xsl:for-each>
-		</xsl:for-each>
-		</table>
-		<div class="bodytext"><b>Analysis: </b> <xsl:value-of select="//rr:files/rr:analysis/rr:note"/>
-		</div>
-		</div>
-
-
-		<div class="sectiontitle">Cryptographic Support</div>
-
-		<div class="sectiontitle">Protection of Security Functionality and Integrity</div>
-
-		<div class="reqelement">
-		<div class="reqelementtitle">
-		  <span class="reqelementtitletext">Third Party Libraries</span>
-		  <span class="reqelementtitleppref">
-		  <a class="ppreflink" href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FPT_LIB_EXT.1.1">FPT_LIB_EXT.1.1</a></span>
-		</div>
-		<table>
-		<tr>
-		<th>Library Name</th>
-		<th>Version</th>
-		<th>Notes</th>
-		</tr>
-		<tr>
-		<td>OpenSSL</td>
-		<td>1.0.1f</td>
-		<td>What could possibly go wrong?</td>
-		</tr>
-		<tr>
-		<td>AdMob</td>
-		<td>1.3</td>
-		<td>Google's mobile advertising network.</td>
-		</tr>
-		<tr>
-		<td>Appcelerator Titanium</td>
-		<td>3.2.2</td>
-		<td></td>
-		</tr>
-		</table>
-		<div class="bodytext"><b>Analysis:</b> These libraries raise concerns about use of ad networks and out-of-date software.  
-		</div>
-
-		</div>
-
-		
-		<div class="reqelement">
-		<div class="reqelementtitle">
-		  <span class="reqelementtitletext">Untrusted Updates to Binary Code</span>
-		  <span class="reqelementtitleppref">
-		  <a class="ppreflink" href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FPT_TUD_EXT.1.4">FPT_TUD_EXT.1.4</a></span>
-		</div>
-		<table>
-		<tr>
-		<th>Executable File Changed</th>
-		<th>Metadata</th>
-		</tr>
-		<xsl:for-each select="//rr:untrustedupdate">
-			<xsl:for-each select="rr:file">
-				<tr>
-				<td><xsl:value-of select="rr:path"/></td>
-				<td>
-				<table>
-				<tr><td style="text-align:right; font-weight: bold;">Old Hash:</td><td><xsl:value-of select="rr:originalfilehash"/></td></tr>
-				<tr><td style="text-align:right; font-weight: bold;">New Hash:</td><td><xsl:value-of select="rr:newfilehash"/></td></tr>
-				<tr><td style="text-align:right; font-weight: bold;">Source:</td><td><xsl:value-of select="rr:source"/></td></tr>
-				</table>
-				</td>
-				</tr>
-			</xsl:for-each>
-		</xsl:for-each>
-		</table>
-		</div>
+					</table>
+				</div>
+				
+				<div class="reqelement" style="margin-left:25%; margin-right:25%; ">
+					<div class="reqelementtitle">
+						<span class="reqelementtitletext">Application Tester</span>
+					</div>
+					<table>
+						<tr>
+							<td>
+								<b>Name</b>
+							</td>
+							<td>
+								
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>E-mail</b>
+							</td>
+							<td>
+								
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Organization</b>
+							</td>
+							<td/>
+						</tr>
+						<tr>
+							<td>
+								<b>Date(s) App Tested</b>
+							</td>
+							<td></td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="reqelement" style="margin-left:25%; margin-right:25%; ">
+					<div class="reqelementtitle">
+						<span class="reqelementtitletext">Analysis Tools Used</span>
+					</div>
+					<table>
+						<tr>
+							<td>
+								<b>Was source code available?</b>
+							</td>
+							<td>
+								
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Static Analysis Tools Used</b>
+							</td>
+							<td>
+								
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Dynamic Analysis Tools Used</b>
+							</td>
+							<td/>
+						</tr>
+						<tr>
+							<td>
+								<b>Behavioral Analysis Tools Used</b>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>
+								<b>Was the app scanned for malware?</b>
+							</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>
+								<b>Was malware detected?</b>
+							</td>
+							<td></td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="reqelement" style="margin-left:25%; margin-right:25%; ">
+					<div class="reqelementtitle">
+						<span class="reqelementtitletext">Supply Chain Risk Management</span>
+					</div>
+					<table>
+						<tr>
+							<td>
+								<b>Has a Supply Chain Risk Management assessment been performed?</b>
+							</td>
+							<td>
+								
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="reqelement" style="margin-left:25%; margin-right:25%; ">
+					<div class="reqelementtitle">
+						<span class="reqelementtitletext">Test Results</span>
+					</div>
+					<table class="results">
+						<tr>
+							<th>Category</th>
+							<th>Status</th>
+							<th>Criteria</th>
+							<th>Analyst's Comment</th>
+						</tr>
+						<tr>
+							<td rowspan="3">
+								<b>Permissions</b>
+							</td>
+							<td>
+							</td>
+							<td>Permissions comply with, and do not exceed, the application's stated function.<ul><li>List permissions that comply with the application's stated function</li><li>List permissions that exceed the application's stated function</li></ul></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								The application provides user awareness of any access to hardware resources.
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								The application notifies the user of any access to other applications.<ul><li>List any Failure of notification of any access to other applications or information repositories</li><li>List any Successful notification of any access to other applications or information repositories</li></ul>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td rowspan="9">
+								<b>Storing Data</b>
+							</td>
+							<td>
+							</td>
+							<td>Encrypts sensitive data (including credentials) stored on the device.</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								Uses platform-provided encryption libraries for encrypting stored data on the device.
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								Implements FIPS 140-2 validated algorithms/modules on the device. <ul><li>List encryption algorithms/modules used</li></ul>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								The application shall invoke platform-provided deterministic random bit generation (DRBG) functionality for its cryptographic operations.
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								Does the application write data to persistent memory accessible to other applications?<ul><li>List the shared file locations where the application write data to persistent memory</li></ul>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								Encryptes sensitive data (including credentials) stored off the device (e.g., removable media, Cloud Storage, Remote Access Sessions, etc.).
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								Sensitive data stored off the device is encrypted with FIPS 140-2 validated algorithms/modules.<ul><li>List encryption algorithms/modules used to encrypt data stored off the device</li></ul>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								Cloud storage used by App is explicitly referenced and complies with FedRAMP certification<ul><li>List Cloud storage provider(s)</li></ul>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								The app removes temporary files when it is closed or removed.
+							</td>
+							<td>
+							</td>
+						</tr>
+					</table>
+				</div>
 
 
-		</body>
+				<div class="sectiontitle"> User Data Protection </div>
+
+				<div class="reqelement">
+					<div class="reqelementtitle">
+						<span class="reqelementtitletext">Access to Hardware Resources</span>
+						<span class="reqelementtitleppref">
+							<a class="ppreflink"
+								href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FDP_DEC_EXT.1.1"
+								>FDP_DEC_EXT.1.1</a>
+						</span>
+					</div>
+					<table>
+						<tr>
+							<td>
+								<b>Network</b>
+							</td>
+							<td class="checkboxon">X</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Camera</b>
+							</td>
+							<td class="checkboxon"/>
+						</tr>
+						<tr>
+							<td>
+								<b>Microphone</b>
+							</td>
+							<td class="checkboxon"/>
+						</tr>
+						<tr>
+							<td>
+								<b>Location Services</b>
+							</td>
+							<td class="checkboxon"/>
+						</tr>
+						<tr>
+							<td>
+								<b>NFC</b>
+							</td>
+							<td class="checkboxoff"> </td>
+						</tr>
+						<tr>
+							<td>
+								<b>Bluetooth</b>
+							</td>
+							<td class="checkboxoff"> </td>
+						</tr>
+					</table>
+				</div>
+				<div class="reqelement">
+					<div class="reqelementtitle">
+						<span class="reqelementtitletext">Access to Sensitive Information
+							Repositories</span>
+						<span class="reqelementtitleppref">
+							<a class="ppreflink"
+								href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FDP_DEC_EXT.1.2"
+								>FDP_DEC_EXT.1.2</a>
+						</span>
+					</div>
+					<table>
+						<tr>
+							<td>
+								<b>Address Book</b>
+							</td>
+							<td class="checkboxon">X</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Calendar</b>
+							</td>
+							<td class="checkboxoff"> </td>
+						</tr>
+						<tr>
+							<td>
+								<b>Photos</b>
+							</td>
+							<td class="checkboxoff"/>
+						</tr>
+						<tr>
+							<td>
+								<b>Notes</b>
+							</td>
+							<td class="checkboxon">X</td>
+						</tr>
+					</table>
+				</div>
+
+				<div class="reqelement">
+					<div class="reqelementtitle">
+						<span class="reqelementtitletext">Justified Access to Resources</span>
+						<span class="reqelementtitleppref">
+							<a class="ppreflink"
+								href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FDP_DEC_EXT.1.3"
+								>FDP_DEC_EXT.1.3</a>
+						</span>
+					</div>
+					<div class="bodytext">The app does not appear to need the Address Book
+						permission, but all other permissions are within its expected function. </div>
+
+				</div>
+
+
+				<div class="reqelement">
+					<div class="reqelementtitle">
+						<span class="reqelementtitletext">Network Communication</span>
+						<span class="reqelementtitleppref">
+							<a class="ppreflink"
+								href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FDP_DEC_EXT.1.4"
+								>FDP_DEC_EXT.1.4</a>
+						</span>
+					</div>
+					<div class="bodytext">The app engages in communication with the following
+						systems: </div>
+					<table>
+						<tr>
+							<th>
+								<b>Host IP Address</b>
+							</th>
+							<th>
+								<b>Port</b>
+							</th>
+							<th>
+								<b>Hostname</b>
+							</th>
+							<th>
+								<b>Whois Information</b>
+							</th>
+						</tr>
+						<xsl:for-each select="//rr:networkcomms/rr:connections">
+							<xsl:for-each select="rr:host">
+
+								<tr>
+									<td>
+										<xsl:value-of select="rr:ipaddr"/>
+									</td>
+									<td>
+										<xsl:value-of select="rr:port"/>
+									</td>
+									<td>
+										<xsl:value-of select="rr:hostname"/>
+									</td>
+									<td>
+										<xsl:value-of select="rr:whois"/>
+									</td>
+								</tr>
+							</xsl:for-each>
+						</xsl:for-each>
+					</table>
+				</div>
+
+				<div class="sectiontitle">Trusted Communication Path/Channels</div>
+				<div class="reqelement">
+					<div class="reqelementtitle">
+						<span class="reqelementtitletext">Network Communication</span>
+						<span class="reqelementtitleppref">
+							<a class="ppreflink"
+								href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FDP_DEC_EXT.1.4"
+								>FDP_DEC_EXT.1.4</a>
+						</span>
+					</div>
+					<div class="bodytext">The app engages in communication with the following
+						systems: </div>
+					<table>
+						<tr>
+							<th>
+								<b>Host IP Address</b>
+							</th>
+							<th>
+								<b>Port</b>
+							</th>
+							<th>
+								<b>Hostname</b>
+							</th>
+							<th>
+								<b>Whois Information</b>
+							</th>
+						</tr>
+						<xsl:for-each select="//rr:networkcomms/rr:connections">
+							<xsl:for-each select="rr:host">
+
+								<tr>
+									<td>
+										<xsl:value-of select="rr:ipaddr"/>
+									</td>
+									<td>
+										<xsl:value-of select="rr:port"/>
+									</td>
+									<td>
+										<xsl:value-of select="rr:hostname"/>
+									</td>
+									<td>
+										<xsl:value-of select="rr:whois"/>
+									</td>
+								</tr>
+							</xsl:for-each>
+						</xsl:for-each>
+					</table>
+				</div>
+
+				<div class="sectiontitle">Security Configuration and Management</div>
+				<div class="reqelement">
+					<div class="reqelementtitle">
+						<span class="reqelementtitletext">File Permissions</span>
+						<span class="reqelementtitleppref">
+							<a class="ppreflink"
+								href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FMT_CFG_EXT.1.2"
+								>FMT_CFG_EXT.1.2</a>
+						</span>
+					</div>
+					<table>
+						<tr>
+							<th>File</th>
+							<th>Permissions</th>
+							<th>Notes</th>
+						</tr>
+						<xsl:for-each select="//rr:files">
+							<xsl:for-each select="rr:file">
+
+								<tr>
+									<td>
+										<xsl:value-of select="rr:path"/>
+									</td>
+									<td>
+										<xsl:value-of select="rr:permissions"/>
+									</td>
+									<td>
+										<xsl:value-of select="rr:analysis/rr:note"/>
+									</td>
+								</tr>
+							</xsl:for-each>
+						</xsl:for-each>
+					</table>
+					<div class="bodytext">
+						<b>Analysis: </b>
+						<xsl:value-of select="//rr:files/rr:analysis/rr:note"/>
+					</div>
+				</div>
+
+
+				<div class="sectiontitle">Cryptographic Support</div>
+
+				<div class="sectiontitle">Protection of Security Functionality and Integrity</div>
+
+				<div class="reqelement">
+					<div class="reqelementtitle">
+						<span class="reqelementtitletext">Third Party Libraries</span>
+						<span class="reqelementtitleppref">
+							<a class="ppreflink"
+								href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FPT_LIB_EXT.1.1"
+								>FPT_LIB_EXT.1.1</a>
+						</span>
+					</div>
+					<table>
+						<tr>
+							<th>Library Name</th>
+							<th>Version</th>
+							<th>Notes</th>
+						</tr>
+						<tr>
+							<td>OpenSSL</td>
+							<td>1.0.1f</td>
+							<td>What could possibly go wrong?</td>
+						</tr>
+						<tr>
+							<td>AdMob</td>
+							<td>1.3</td>
+							<td>Google's mobile advertising network.</td>
+						</tr>
+						<tr>
+							<td>Appcelerator Titanium</td>
+							<td>3.2.2</td>
+							<td/>
+						</tr>
+					</table>
+					<div class="bodytext"><b>Analysis:</b> These libraries raise concerns about use
+						of ad networks and out-of-date software. </div>
+
+				</div>
+
+
+				<div class="reqelement">
+					<div class="reqelementtitle">
+						<span class="reqelementtitletext">Untrusted Updates to Binary Code</span>
+						<span class="reqelementtitleppref">
+							<a class="ppreflink"
+								href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FPT_TUD_EXT.1.4"
+								>FPT_TUD_EXT.1.4</a>
+						</span>
+					</div>
+					<table>
+						<tr>
+							<th>Executable File Changed</th>
+							<th>Metadata</th>
+						</tr>
+						<xsl:for-each select="//rr:untrustedupdate">
+							<xsl:for-each select="rr:file">
+								<tr>
+									<td>
+										<xsl:value-of select="rr:path"/>
+									</td>
+									<td>
+										<table>
+											<tr>
+												<td style="text-align:right; font-weight: bold;">Old
+												Hash:</td>
+												<td>
+												<xsl:value-of select="rr:originalfilehash"/>
+												</td>
+											</tr>
+											<tr>
+												<td style="text-align:right; font-weight: bold;">New
+												Hash:</td>
+												<td>
+												<xsl:value-of select="rr:newfilehash"/>
+												</td>
+											</tr>
+											<tr>
+												<td style="text-align:right; font-weight: bold;"
+												>Source:</td>
+												<td>
+												<xsl:value-of select="rr:source"/>
+												</td>
+											</tr>
+										</table>
+									</td>
+								</tr>
+							</xsl:for-each>
+						</xsl:for-each>
+					</table>
+				</div>
+
+
+			</body>
 		</html>
 	</xsl:template>
 
