@@ -61,6 +61,22 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			margin-left: 4%;
 			margin-bottom: 2em;
         }
+        
+        .results, .results th, .results td
+        {
+        border-collapse: collapse;
+        border: 1px solid #000000;
+			<!--border-left: none;
+            border-right: none;-->
+			vertical-align: middle;
+			text-align: center;
+			padding: 2px;
+			font-family: verdana,arial,sans-serif;
+			font-size: normal;
+			padding-right: 20px;
+			margin-left: 4%;
+			margin-bottom: 2em;
+			}
 
 
 		td.checkboxon
@@ -70,6 +86,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			padding: 3px 3px;
 			border-spacing: 5px;
 			width: 20px;
+			height: 28px;
 			text-align: center;
 			font-weight: bold;
 		}
@@ -80,6 +97,22 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			padding: 3px 3px;
 			border-spacing: 5px;
 			width: 20px;
+		}
+		
+		td.pass
+		{
+			background:#9BBB59;
+			texr-align:center;
+		}
+		td.fail
+		{
+			background:#C0504D;
+			text-align:center;
+		}
+		td.notTested
+		{
+			background:#959595;
+			text-align:center;
 		}
 
         pre {
@@ -151,6 +184,26 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
             padding-bottom: 0.25em; padding-top: 0.25em;
 			margin-left: 5em; 
 			margin-right: 3em; 
+        }
+        .vertical-text {
+        display: inline-block;
+        overflow: hidden;
+        width: 1.5em;
+        }
+        .vertical-text__inner {
+        display: inline-block;
+        white-space: nowrap;
+        line-height: 1.5;
+        transform: translate(0,100%) rotate(-90deg);
+        transform-origin: 0 0;
+        vertical-align: top;
+        }
+        /* This element stretches the parent to be square
+        by using the mechanics of vertical margins  */
+        .vertical-text__inner:after {
+        content: "";
+        display: block;
+        margin: -1.5em 0 100%;
         }
 	a.abbr:link {color:black; text-decoration:none;}
 	a.abbr:visited {color:black; text-decoration:none;}
@@ -387,22 +440,28 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 					</div>
 					<table class="results">
 						<tr>
-							<th>Category</th>
-							<th>Status</th>
-							<th>Criteria</th>
-							<th>Analyst's Comment</th>
+							<th rowspan="2">Category</th>
+							<th colspan="3">Status</th>
+							<th rowspan="2">Criteria</th>
+							<th rowspan="2">Analyst's Comment</th>
 						</tr>
+						<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
 						<tr>
 							<td rowspan="3">
 								<b>Permissions</b>
 							</td>
-							<td>
+							<td class="pass">
+								&#10004;
 							</td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
 							<td>Permissions comply with, and do not exceed, the application's stated function.<ul><li>List permissions that comply with the application's stated function</li><li>List permissions that exceed the application's stated function</li></ul></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td></td>
+							<td class="pass"></td>
+							<td class="fail">&#10004;</td>
+							<td class="notTested"></td>
 							<td>
 								The application provides user awareness of any access to hardware resources.
 							</td>
@@ -410,7 +469,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</td>
 						</tr>
 						<tr>
-							<td></td>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested">&#10004;</td>
 							<td>
 								The application notifies the user of any access to other applications.<ul><li>List any Failure of notification of any access to other applications or information repositories</li><li>List any Successful notification of any access to other applications or information repositories</li></ul>
 							</td>
@@ -421,13 +482,16 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td rowspan="9">
 								<b>Storing Data</b>
 							</td>
-							<td>
-							</td>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
 							<td>Encrypts sensitive data (including credentials) stored on the device.</td>
 							<td></td>
 						</tr>
 						<tr>
-							<td></td>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
 							<td>
 								Uses platform-provided encryption libraries for encrypting stored data on the device.
 							</td>
@@ -435,7 +499,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</td>
 						</tr>
 						<tr>
-							<td></td>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
 							<td>
 								Implements FIPS 140-2 validated algorithms/modules on the device. <ul><li>List encryption algorithms/modules used</li></ul>
 							</td>
@@ -443,7 +509,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</td>
 						</tr>
 						<tr>
-							<td></td>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
 							<td>
 								The application shall invoke platform-provided deterministic random bit generation (DRBG) functionality for its cryptographic operations.
 							</td>
@@ -451,7 +519,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</td>
 						</tr>
 						<tr>
-							<td></td>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
 							<td>
 								Does the application write data to persistent memory accessible to other applications?<ul><li>List the shared file locations where the application write data to persistent memory</li></ul>
 							</td>
@@ -459,7 +529,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</td>
 						</tr>
 						<tr>
-							<td></td>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
 							<td>
 								Encryptes sensitive data (including credentials) stored off the device (e.g., removable media, Cloud Storage, Remote Access Sessions, etc.).
 							</td>
@@ -467,7 +539,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</td>
 						</tr>
 						<tr>
-							<td></td>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
 							<td>
 								Sensitive data stored off the device is encrypted with FIPS 140-2 validated algorithms/modules.<ul><li>List encryption algorithms/modules used to encrypt data stored off the device</li></ul>
 							</td>
@@ -475,7 +549,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</td>
 						</tr>
 						<tr>
-							<td></td>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
 							<td>
 								Cloud storage used by App is explicitly referenced and complies with FedRAMP certification<ul><li>List Cloud storage provider(s)</li></ul>
 							</td>
@@ -483,12 +559,302 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</td>
 						</tr>
 						<tr>
-							<td></td>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
 							<td>
 								The app removes temporary files when it is closed or removed.
 							</td>
 							<td>
 							</td>
+						</tr>
+						<tr>
+							<td rowspan="5">
+								<b>Transmitting Data</b>
+							</td>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>Disallows unprotected (e.g., cleartext) transmission of sensitive data</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>
+								The transmission of sensitive data is encrypted with FIPS 140-2 validated algorithms/modules
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>
+								The app verifies destination before transmitting data. <p>If the app fails this test, provide information on how it fails (i.e. certificate is not signed by a trusted CA or certificate is expired)</p>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>
+								Does the behavior of encryption in transit change over different methods of communication? (i.e. Wi-Fi communications are encrypted but Cellular communications are not)<ul><li>List which communication channels were tested</li><li>If the app fails this test, provide information on how it fails</li></ul>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>
+								Does the app perform certificate pinning?
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td rowspan="3">
+								<b>Network Connections</b>
+							</td>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>List the application-initiated communications to external sites, services or networks</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>
+								List the remotely-initiated network communications (i.e. communications initiated from remote locations)
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>
+								Are all identified communications routed within the continental United States<p>List all endpoints which have communication paths that route packets outside of the continental United States</p>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td rowspan="3">
+								<b>Authentication</b>
+							</td>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>List the identity services used for authentication to access sensitive data<ul><li>List the identity services used for authentication to access sensitive data</li><li>Are the authentication methods prioritized (i.e. biometric is used before pin)</li><li>Provide the level of Assurance (LOA) of thr authentication</li></ul></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>
+								Requires authentication to store sensitive data on the mobile device
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>
+								Does not store hard-coded credentials<ul><li>List the hard-coded credentials</li><li>Describe what the hard-coded credentials are used for</li></ul>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td rowspan="3">
+								<b>Privacy</b>
+							</td>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>The application is capable of preventing the transmission of PII used by the application</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>
+								The application is capable of preventing the transmission of user location information used by the application
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>
+								Provide a list of advertising networks accessed by the mobile application
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td rowspan="8">
+								<b>Source Code Analysis/Programming Logic</b>
+							</td>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>The application is capable of enabling or disabling the transmission of crash logs</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>
+								Does the App come with a crash reporting capability? (i.e. Does the app use something similar to Crashlytics)<ul><li>List crash reporting tool(s) used by the App</li><li>List remote locations where crash logs are sent</li></ul>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>
+								The application only uses supported platform APIs
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>
+								List the third-party libraries packaged with the application.<p>Flag libraries that allow crash reporting (for example Crashlytics)</p>
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>
+								Code components can be scanned
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>
+								The application functions without disabling platform operating system features or security enhancements
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>
+								List the APIs and SDKs that are used by the mobile application
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>
+								The application's executable files are not changed by the application
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Resource Use</b>
+							</td>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>The application uses resources aligned with its stated function<ul><li>List resources tested</li><li>Describe how the Application failed to comply with this requirement</li></ul></td>
+							<td></td>
+						</tr>
+						<tr>
+							<td rowspan="3">
+								<b>Audit/Logging</b>
+							</td>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>Audit logs capture security information</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>
+								Audit logs containing sensitive information are encrypted
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td class="pass"></td>
+							<td class="fail"></td>
+							<td class="notTested"></td>
+							<td>
+								The Application does not log location information<p>List location information that is logged</p>
+							</td>
+							<td>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="reqelement" style="margin-left:25%; margin-right:25%; ">
+					<div class="reqelementtitle">
+						<span class="reqelementtitletext">Test Summary and Analyst Notes</span>
+					</div>
+					<table>
+						<th>
+							Test Summary and Analyst Notes:
+						</th>
+						<tr>
+							<td></td>
+						</tr>
+					</table>
+				</div>
+				
+				<div class="reqelement" style="margin-left:25%; margin-right:25%; ">
+					<div class="reqelementtitle">
+						<span class="reqelementtitletext">Analyst's Concerns and Mitigation Recommendations</span>
+					</div>
+					<table>
+						<th>
+							Analyst's Concerns and Mitigation Recommendations:
+						</th>
+						<tr>
+							<td></td>
 						</tr>
 					</table>
 				</div>
