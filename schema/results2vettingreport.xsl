@@ -221,11 +221,10 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
 		<head>
 			<title>App Vetting Reciprocity Report for 
-			<xsl:value-of select="/rr:results/rr:identifier/rr:name" /></title>
+			<xsl:value-of select="/rr:results/rr:appinfo/rr:name" /></title>
 		</head>
 			<body>
 				<h1 class="title">Mobile App Security Vetting Reciprocity Report Visualization</h1>
-
 				<div class="reqelement" style="margin-left:25%; margin-right:25%; ">
 					<div class="reqelementtitle">
 						<span class="reqelementtitletext">Application Information</span>
@@ -236,7 +235,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>App Name</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:identifier/rr:name"/>
+								<xsl:value-of select="/rr:results/rr:appinfo/rr:name"/>
 							</td>
 						</tr>
 						<tr>
@@ -244,26 +243,32 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Description</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:identifier/rr:description"/>
+								<xsl:value-of select="/rr:results/rr:appinfo/rr:description"/>
 							</td>
 						</tr>
 						<tr>
 							<td>
 								<b>Category/Genre</b>
 							</td>
-							<td/>
+							<td>
+								<xsl:value-of select="/rr:results/rr:appinfo/rr:category"/>
+							</td>
 						</tr>
 						<tr>
 							<td>
 								<b>Application Type (3rd party/GOTS)</b>
 							</td>
-							<td/>
+							<td>
+								<xsl:value-of select="/rr:results/rr:appinfo/rr:apptype"/>
+							</td>
 						</tr>
 						<tr>
 							<td>
 								<b>URL/Filename</b>
 							</td>
-							<td/>
+							<td>
+								<xsl:value-of select="/rr:results/rr:appinfo/rr:filename"/>
+							</td>
 						</tr>
 						<tr>
 							<td>
@@ -272,7 +277,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<!-- insert SWID tags in here, should those become a thing -->
 							<td>
 								<xsl:value-of
-									select="/rr:results/rr:identifier/rr:packageidentification"/>
+									select="/rr:results/rr:appinfo/rr:packageidentification"/>
 							</td>
 						</tr>
 						<tr>
@@ -280,18 +285,23 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Version</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:identifier/rr:version"/>
+								<xsl:value-of select="/rr:results/rr:appinfo/rr:version"/>
 							</td>
 						</tr>
 						<tr>
 							<td>
 								<b>SHA1 hash of package</b>
 							</td>
-							<td/>
+							<td>
+								<xsl:value-of select="/rr:results/rr:appinfo/rr:hash"/>
+							</td>
 						</tr>
 						<tr>
 							<td>
 								<b>Hash of package signature</b>
+							</td>
+							<td>
+								<xsl:value-of select="/rr:results/rr:appinfo/rr:signature"/>
 							</td>
 						</tr>
 						<tr>
@@ -299,7 +309,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>OS Platform and Version</b>
 							</td>
 							<td>
-								<xsl:apply-templates select="/rr:results/rr:identifier/rr:platform"
+								<xsl:apply-templates select="/rr:results/rr:appinfo/rr:platform"
 								/>
 							</td>
 						</tr>
@@ -308,25 +318,25 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Vendor</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:identifier/rr:vendor/rr:name"/>
+								<xsl:value-of select="/rr:results/rr:appinfo/rr:vendor/rr:name"/>
 								<p/>
 								<xsl:value-of
-									select="/rr:results/rr:identifier/rr:vendor/rr:address/rr:street1"/>
+									select="/rr:results/rr:appinfo/rr:vendor/rr:address/rr:street1"/>
 								<p/>
 								<xsl:value-of
-									select="/rr:results/rr:identifier/rr:vendor/rr:address/rr:street2"/>
+									select="/rr:results/rr:appinfo/rr:vendor/rr:address/rr:street2"/>
 								<p/>
 								<xsl:value-of
-									select="/rr:results/rr:identifier/rr:vendor/rr:address/rr:city"/>
+									select="/rr:results/rr:appinfo/rr:vendor/rr:address/rr:city"/>
 								<xsl:text>, </xsl:text>
 								<xsl:value-of
-									select="/rr:results/rr:identifier/rr:vendor/rr:address/rr:state"/>
+									select="/rr:results/rr:appinfo/rr:vendor/rr:address/rr:state"/>
 								<xsl:text> </xsl:text>
 								<xsl:value-of
-									select="/rr:results/rr:identifier/rr:vendor/rr:address/rr:postalcode"/>
+									select="/rr:results/rr:appinfo/rr:vendor/rr:address/rr:postalcode"/>
 								<p/>
 								<xsl:value-of
-									select="/rr:results/rr:identifier/rr:vendor/rr:address/rr:country"
+									select="/rr:results/rr:appinfo/rr:vendor/rr:address/rr:country"
 								/>
 							</td>
 						</tr>
@@ -344,7 +354,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Name</b>
 							</td>
 							<td>
-								
+								<xsl:value-of select="/rr:results/rr:apptester/rr:name"/>
 							</td>
 						</tr>
 						<tr>
@@ -352,20 +362,24 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>E-mail</b>
 							</td>
 							<td>
-								
+								<xsl:value-of select="/rr:results/rr:apptester/rr:email"/>
 							</td>
 						</tr>
 						<tr>
 							<td>
 								<b>Organization</b>
 							</td>
-							<td/>
+							<td>
+								<xsl:value-of select="/rr:results/rr:apptester/rr:organization"/>
+							</td>
 						</tr>
 						<tr>
 							<td>
 								<b>Date(s) App Tested</b>
 							</td>
-							<td></td>
+							<td>
+								<xsl:value-of select="/rr:results/rr:apptester/rr:datestested"/>
+							</td>
 						</tr>
 					</table>
 				</div>
@@ -380,7 +394,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Was source code available?</b>
 							</td>
 							<td>
-								
+								<xsl:value-of select="/rr:results/rr:analysistools/rr:sourceavailable"/>
 							</td>
 						</tr>
 						<tr>
@@ -388,32 +402,46 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Static Analysis Tools Used</b>
 							</td>
 							<td>
-								
+								<xsl:for-each select="/rr:results/rr:analysistools/rr:statictools/rr:tool">
+									<xsl:call-template name="tools"/>
+								</xsl:for-each>
 							</td>
 						</tr>
 						<tr>
 							<td>
 								<b>Dynamic Analysis Tools Used</b>
 							</td>
-							<td/>
+							<td>
+								<xsl:for-each select="/rr:results/rr:analysistools/rr:dynamictools/rr:tool">
+									<xsl:call-template name="tools"/>
+								</xsl:for-each>
+							</td>
 						</tr>
 						<tr>
 							<td>
 								<b>Behavioral Analysis Tools Used</b>
 							</td>
-							<td></td>
+							<td>
+								<xsl:for-each select="/rr:results/rr:analysistools/rr:behaviortools/rr:tool">
+									<xsl:call-template name="tools"/>
+								</xsl:for-each>
+							</td>
 						</tr>
 						<tr>
 							<td>
 								<b>Was the app scanned for malware?</b>
 							</td>
-							<td></td>
+							<td>
+								<xsl:value-of select="/rr:results/rr:analysistools/rr:malwarescan"/>
+							</td>
 						</tr>
 						<tr>
 							<td>
 								<b>Was malware detected?</b>
 							</td>
-							<td></td>
+							<td>
+								<xsl:value-of select="/rr:results/rr:analysistools/rr:malwaredetected"/>
+							</td>
 						</tr>
 					</table>
 				</div>
@@ -428,7 +456,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Has a Supply Chain Risk Management assessment been performed?</b>
 							</td>
 							<td>
-								
+								<xsl:value-of select="/rr:results/rr:supplychain/rr:riskassessment"/>
 							</td>
 						</tr>
 					</table>
@@ -450,18 +478,20 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td rowspan="3">
 								<b>Permissions</b>
 							</td>
-							<td class="pass">
-								&#10004;
-							</td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
+							<xsl:call-template name="status">
+								<xsl:with-param name="status">
+									<xsl:value-of select="/rr:results/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.3']/rr:status"/>
+								</xsl:with-param>
+							</xsl:call-template>
 							<td>Permissions comply with, and do not exceed, the application's stated function.<ul><li>List permissions that comply with the application's stated function</li><li>List permissions that exceed the application's stated function</li></ul></td>
 							<td></td>
 						</tr>
 						<tr>
-							<td class="pass"></td>
-							<td class="fail">&#10004;</td>
-							<td class="notTested"></td>
+							<xsl:call-template name="status">
+								<xsl:with-param name="status">
+									<xsl:value-of select="/rr:results/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.1']/rr:status"/>
+								</xsl:with-param>
+							</xsl:call-template>
 							<td>
 								The application provides user awareness of any access to hardware resources.
 							</td>
@@ -469,9 +499,11 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</td>
 						</tr>
 						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested">&#10004;</td>
+							<xsl:call-template name="status">
+								<xsl:with-param name="status">
+									<xsl:value-of select="/rr:results/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.2']/rr:status"/>
+								</xsl:with-param>
+							</xsl:call-template>
 							<td>
 								The application notifies the user of any access to other applications.<ul><li>List any Failure of notification of any access to other applications or information repositories</li><li>List any Successful notification of any access to other applications or information repositories</li></ul>
 							</td>
@@ -1216,5 +1248,38 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 		<xsl:apply-templates select="@*|node()" />
 	</xsl:template>
 	
-
+	<xsl:template name="tools">
+		<xsl:value-of select="."/>
+		<xsl:choose>
+			<xsl:when test="position() != last()">, </xsl:when>
+		</xsl:choose>
+	</xsl:template>
+	
+	<xsl:template name="status">
+		<xsl:param name="status"/>
+		<xsl:choose>
+			<xsl:when test="$status='Passed'">
+				<td class="pass">
+					&#10004;
+				</td>
+				<td class="fail"/>
+				<td class="notTested"/>
+			</xsl:when>
+			<xsl:when test="'Failed' = $status">
+				<td class="pass"/>
+				<td class="fail">
+					&#10004;
+				</td>
+				<td class="notTested"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<td class="pass"/>
+				<td class="fail"/>
+				<td class="notTested">
+					&#10004;
+				</td>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
 </xsl:stylesheet>
