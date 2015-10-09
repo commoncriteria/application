@@ -10,7 +10,7 @@ Protection Profile for Application Software
 [Protection Profile for Application Software](http://common-criteria.rhcloud.com/application/output/application-release.html)
 
 ## Release Version
-[Protection Profile for Application Software v1.1 11/06/2014](https://www.niap-ccevs.org/pp/PP_APP_v1.1/)
+[Protection Profile for Application Software v1.1](https://www.niap-ccevs.org/pp/PP_APP_v1.1/) 11/06/2014
 
 ## Change Log
 
