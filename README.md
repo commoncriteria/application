@@ -4,7 +4,7 @@ Application
 Protection Profile for Application Software
 
 
-## Working Drafts
+## Working Draft
 [Essential Security Requirements (ESR)](http://common-criteria.rhcloud.com/application/output/application-esr.html)
 
 [Protection Profile for Application Software](http://common-criteria.rhcloud.com/application/output/application-release.html)
