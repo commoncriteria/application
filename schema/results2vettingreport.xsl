@@ -903,44 +903,67 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								>FDP_DEC_EXT.1.1</a>
 						</span>
 					</div>
-					<table>
-						<tr>
-							<td>
-								<b>Network</b>
-							</td>
-							<td class="checkboxon">X</td>
-						</tr>
-						<tr>
-							<td>
-								<b>Camera</b>
-							</td>
-							<td class="checkboxon"/>
-						</tr>
-						<tr>
-							<td>
-								<b>Microphone</b>
-							</td>
-							<td class="checkboxon"/>
-						</tr>
-						<tr>
-							<td>
-								<b>Location Services</b>
-							</td>
-							<td class="checkboxon"/>
-						</tr>
-						<tr>
-							<td>
-								<b>NFC</b>
-							</td>
-							<td class="checkboxoff"> </td>
-						</tr>
-						<tr>
-							<td>
-								<b>Bluetooth</b>
-							</td>
-							<td class="checkboxoff"> </td>
-						</tr>
-					</table>
+					<div class="bodytext">
+						<p>The application provides user awareness of its intent to access:</p>
+						<table>
+							<tr>
+								<th>Hardware Resource</th>
+								<th>User Awareness</th>
+							</tr>
+							<tr>
+								<td>
+									Network
+								</td>
+								<td>&#10004;</td>
+							</tr>
+							<tr>
+								<td>
+									Camera
+								</td>
+								<td>&#10004;</td>
+							</tr>
+							<tr>
+								<td>
+									Microphone
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>
+									Location Services
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>
+									NFC
+								</td>
+								<td>&#10004;</td>
+							</tr>
+							<tr>
+								<td>
+									Bluetooth
+								</td>
+								<td>&#10004;</td>
+							</tr>
+						</table>
+						<b>Results:</b>
+						<table class="results">
+							<tr>
+								<th colspan="3">Status</th>
+								<th rowspan="2">Analyst's Comment</th>
+							</tr>
+							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+							<tr>
+								<xsl:call-template name="status">
+									<xsl:with-param name="status">
+										<xsl:value-of select="/rr:results/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.3']/rr:status"/>
+									</xsl:with-param>
+								</xsl:call-template>
+								<td></td>
+							</tr>
+						</table>
+					</div>
 				</div>
 				<div class="reqelement">
 					<div class="reqelementtitle">
@@ -989,9 +1012,39 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								>FDP_DEC_EXT.1.3</a>
 						</span>
 					</div>
-					<div class="bodytext">The app does not appear to need the Address Book
-						permission, but all other permissions are within its expected function. </div>
-
+					<div class="bodytext">
+						<p>List of application permissions and whether they comply with the applications stated function.</p>
+						<table>
+							<tr>
+								<th>Permission</th>
+								<th>Complies with Stated Function</th>
+							</tr>
+							<tr>
+								<td>android.permission.ACCESS_FINE_LOCATION</td>
+								<td>&#10004;</td>
+							</tr>
+							<tr>
+								<td>android.permission.READ_CONTACTS</td>
+								<td>&#10008;</td>
+							</tr>
+						</table>
+						<b>Results:</b>
+						<table class="results">
+							<tr>
+								<th colspan="3">Status</th>
+								<th rowspan="2">Analyst's Comment</th>
+							</tr>
+							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+							<tr>
+								<xsl:call-template name="status">
+									<xsl:with-param name="status">
+										<xsl:value-of select="/rr:results/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.1']/rr:status"/>
+									</xsl:with-param>
+								</xsl:call-template>
+								<td>The app does not appear to need the Address Book permission, but all other permissions are within its expected function.</td>
+							</tr>
+						</table>
+					</div>
 				</div>
 
 
@@ -1005,42 +1058,59 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						</span>
 					</div>
 					<div class="bodytext">The app engages in communication with the following
-						systems: </div>
-					<table>
-						<tr>
-							<th>
-								<b>Host IP Address</b>
-							</th>
-							<th>
-								<b>Port</b>
-							</th>
-							<th>
-								<b>Hostname</b>
-							</th>
-							<th>
-								<b>Whois Information</b>
-							</th>
-						</tr>
-						<xsl:for-each select="//rr:networkcomms/rr:connections">
-							<xsl:for-each select="rr:host">
-
-								<tr>
-									<td>
-										<xsl:value-of select="rr:ipaddr"/>
-									</td>
-									<td>
-										<xsl:value-of select="rr:port"/>
-									</td>
-									<td>
-										<xsl:value-of select="rr:hostname"/>
-									</td>
-									<td>
-										<xsl:value-of select="rr:whois"/>
-									</td>
-								</tr>
+						systems:
+						<table>
+							<tr>
+								<th>
+									<b>Host IP Address</b>
+								</th>
+								<th>
+									<b>Port</b>
+								</th>
+								<th>
+									<b>Hostname</b>
+								</th>
+								<th>
+									<b>Whois Information</b>
+								</th>
+							</tr>
+							<xsl:for-each select="//rr:networkcomms/rr:connections">
+								<xsl:for-each select="rr:host">
+	
+									<tr>
+										<td>
+											<xsl:value-of select="rr:ipaddr"/>
+										</td>
+										<td>
+											<xsl:value-of select="rr:port"/>
+										</td>
+										<td>
+											<xsl:value-of select="rr:hostname"/>
+										</td>
+										<td>
+											<xsl:value-of select="rr:whois"/>
+										</td>
+									</tr>
+								</xsl:for-each>
 							</xsl:for-each>
-						</xsl:for-each>
-					</table>
+						</table>
+						<b>Results:</b>
+						<table class="results">
+							<tr>
+								<th colspan="3">Status</th>
+								<th rowspan="2">Analyst's Comment</th>
+							</tr>
+							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+							<tr>
+								<xsl:call-template name="status">
+									<xsl:with-param name="status">
+										<xsl:value-of select="/rr:results/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.2']/rr:status"/>
+									</xsl:with-param>
+								</xsl:call-template>
+								<td></td>
+							</tr>
+						</table>
+					</div>
 				</div>
 
 				<div class="sectiontitle">Trusted Communication Path/Channels</div>
