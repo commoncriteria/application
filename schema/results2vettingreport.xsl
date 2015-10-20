@@ -17,7 +17,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <!-- very important, for special characters and umlauts iso8859-1-->
   <xsl:output method="html" encoding="UTF-8" indent="yes" />
 
-	<xsl:template match="/rr:results">
+	<xsl:template match="/rr:report">
 		<html>
 		<style type="text/css">
 
@@ -221,7 +221,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
 		<head>
 			<title>App Vetting Reciprocity Report for 
-			<xsl:value-of select="/rr:results/rr:appinfo/rr:name" /></title>
+			<xsl:value-of select="/rr:report/rr:appinfo/rr:name" /></title>
 		</head>
 			<body>
 				<h1 class="title">Mobile App Security Vetting Reciprocity Report Visualization</h1>
@@ -235,7 +235,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>App Name</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:appinfo/rr:name"/>
+								<xsl:value-of select="/rr:report/rr:appinfo/rr:name"/>
 							</td>
 						</tr>
 						<tr>
@@ -243,7 +243,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Description</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:appinfo/rr:description"/>
+								<xsl:value-of select="/rr:report/rr:appinfo/rr:description"/>
 							</td>
 						</tr>
 						<tr>
@@ -251,7 +251,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Category/Genre</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:appinfo/rr:category"/>
+								<xsl:value-of select="/rr:report/rr:appinfo/rr:category"/>
 							</td>
 						</tr>
 						<tr>
@@ -259,7 +259,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Application Type (3rd party/GOTS)</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:appinfo/rr:apptype"/>
+								<xsl:value-of select="/rr:report/rr:appinfo/rr:apptype"/>
 							</td>
 						</tr>
 						<tr>
@@ -267,7 +267,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>URL/Filename</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:appinfo/rr:filename"/>
+								<xsl:value-of select="/rr:report/rr:appinfo/rr:filename"/>
 							</td>
 						</tr>
 						<tr>
@@ -277,7 +277,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<!-- insert SWID tags in here, should those become a thing -->
 							<td>
 								<xsl:value-of
-									select="/rr:results/rr:appinfo/rr:packageidentification"/>
+									select="/rr:report/rr:appinfo/rr:packageidentification"/>
 							</td>
 						</tr>
 						<tr>
@@ -285,7 +285,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Version</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:appinfo/rr:version"/>
+								<xsl:value-of select="/rr:report/rr:appinfo/rr:version"/>
 							</td>
 						</tr>
 						<tr>
@@ -293,7 +293,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>SHA1 hash of package</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:appinfo/rr:hash"/>
+								<xsl:value-of select="/rr:report/rr:appinfo/rr:hash"/>
 							</td>
 						</tr>
 						<tr>
@@ -301,7 +301,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Hash of package signature</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:appinfo/rr:signature"/>
+								<xsl:value-of select="/rr:report/rr:appinfo/rr:signature"/>
 							</td>
 						</tr>
 						<tr>
@@ -309,7 +309,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>OS Platform and Version</b>
 							</td>
 							<td>
-								<xsl:apply-templates select="/rr:results/rr:appinfo/rr:platform"
+								<xsl:apply-templates select="/rr:report/rr:appinfo/rr:platform"
 								/>
 							</td>
 						</tr>
@@ -318,25 +318,25 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Vendor</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:appinfo/rr:vendor/rr:name"/>
+								<xsl:value-of select="/rr:report/rr:appinfo/rr:vendor/rr:name"/>
 								<p/>
 								<xsl:value-of
-									select="/rr:results/rr:appinfo/rr:vendor/rr:address/rr:street1"/>
+									select="/rr:report/rr:appinfo/rr:vendor/rr:address/rr:street1"/>
 								<p/>
 								<xsl:value-of
-									select="/rr:results/rr:appinfo/rr:vendor/rr:address/rr:street2"/>
+									select="/rr:report/rr:appinfo/rr:vendor/rr:address/rr:street2"/>
 								<p/>
 								<xsl:value-of
-									select="/rr:results/rr:appinfo/rr:vendor/rr:address/rr:city"/>
+									select="/rr:report/rr:appinfo/rr:vendor/rr:address/rr:city"/>
 								<xsl:text>, </xsl:text>
 								<xsl:value-of
-									select="/rr:results/rr:appinfo/rr:vendor/rr:address/rr:state"/>
+									select="/rr:report/rr:appinfo/rr:vendor/rr:address/rr:state"/>
 								<xsl:text> </xsl:text>
 								<xsl:value-of
-									select="/rr:results/rr:appinfo/rr:vendor/rr:address/rr:postalcode"/>
+									select="/rr:report/rr:appinfo/rr:vendor/rr:address/rr:postalcode"/>
 								<p/>
 								<xsl:value-of
-									select="/rr:results/rr:appinfo/rr:vendor/rr:address/rr:country"
+									select="/rr:report/rr:appinfo/rr:vendor/rr:address/rr:country"
 								/>
 							</td>
 						</tr>
@@ -354,7 +354,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Name</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:apptester/rr:name"/>
+								<xsl:value-of select="/rr:report/rr:apptester/rr:name"/>
 							</td>
 						</tr>
 						<tr>
@@ -362,7 +362,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>E-mail</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:apptester/rr:email"/>
+								<xsl:value-of select="/rr:report/rr:apptester/rr:email"/>
 							</td>
 						</tr>
 						<tr>
@@ -370,7 +370,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Organization</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:apptester/rr:organization"/>
+								<xsl:value-of select="/rr:report/rr:apptester/rr:organization"/>
 							</td>
 						</tr>
 						<tr>
@@ -378,7 +378,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Date(s) App Tested</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:apptester/rr:datestested"/>
+								<xsl:value-of select="/rr:report/rr:apptester/rr:datestested"/>
 							</td>
 						</tr>
 					</table>
@@ -394,7 +394,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Was source code available?</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:analysistools/rr:sourceavailable"/>
+								<xsl:value-of select="/rr:report/rr:analysistools/rr:sourceavailable"/>
 							</td>
 						</tr>
 						<tr>
@@ -402,7 +402,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Static Analysis Tools Used</b>
 							</td>
 							<td>
-								<xsl:for-each select="/rr:results/rr:analysistools/rr:statictools/rr:tool">
+								<xsl:for-each select="/rr:report/rr:analysistools/rr:statictools/rr:tool">
 									<xsl:call-template name="tools"/>
 								</xsl:for-each>
 							</td>
@@ -412,7 +412,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Dynamic Analysis Tools Used</b>
 							</td>
 							<td>
-								<xsl:for-each select="/rr:results/rr:analysistools/rr:dynamictools/rr:tool">
+								<xsl:for-each select="/rr:report/rr:analysistools/rr:dynamictools/rr:tool">
 									<xsl:call-template name="tools"/>
 								</xsl:for-each>
 							</td>
@@ -422,7 +422,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Behavioral Analysis Tools Used</b>
 							</td>
 							<td>
-								<xsl:for-each select="/rr:results/rr:analysistools/rr:behaviortools/rr:tool">
+								<xsl:for-each select="/rr:report/rr:analysistools/rr:behaviortools/rr:tool">
 									<xsl:call-template name="tools"/>
 								</xsl:for-each>
 							</td>
@@ -432,7 +432,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Was the app scanned for malware?</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:analysistools/rr:malwarescan"/>
+								<xsl:value-of select="/rr:report/rr:analysistools/rr:malwarescan"/>
 							</td>
 						</tr>
 						<tr>
@@ -440,7 +440,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Was malware detected?</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:analysistools/rr:malwaredetected"/>
+								<xsl:value-of select="/rr:report/rr:analysistools/rr:malwaredetected"/>
 							</td>
 						</tr>
 					</table>
@@ -456,7 +456,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Has a Supply Chain Risk Management assessment been performed?</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:results/rr:supplychain/rr:riskassessment"/>
+								<xsl:value-of select="/rr:report/rr:supplychain/rr:riskassessment"/>
 							</td>
 						</tr>
 					</table>
@@ -556,7 +556,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
-										<xsl:value-of select="/rr:results/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.3']/rr:status"/>
+										<xsl:value-of select="/rr:report/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.3']/rr:status"/>
 									</xsl:with-param>
 								</xsl:call-template>
 								<td></td>
@@ -637,7 +637,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
-										<xsl:value-of select="/rr:results/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.1']/rr:status"/>
+										<xsl:value-of select="/rr:report/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.1']/rr:status"/>
 									</xsl:with-param>
 								</xsl:call-template>
 								<td>The app does not appear to need the Address Book permission, but all other permissions are within its expected function.</td>
@@ -654,7 +654,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						</span>
 					</div>
 					<div class="bodytext">
-						<p>The application encrypts sensitive data (including credentials) stored on the device.</p>
+						<p>The application uses platform-provided encryption libraries for encrypting data and sensitive data (including credentials) stored on the device.</p>
 						<b>Results:</b>
 						<table class="results">
 							<tr>
@@ -677,14 +677,15 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
 				<div class="reqelement">
 					<div class="reqelementtitle">
-						<span class="reqelementtitletext">Application-initiated Network Communication</span>
+						<span class="reqelementtitletext">Network Communication</span>
 						<span class="reqelementtitleppref">
 							<a class="ppreflink"
 								href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FDP_DEC_EXT.1.4"
 								>FDP_DEC_EXT.1.4</a>
 						</span>
 					</div>
-					<div class="bodytext">Application-initiated communications to external sites, services or networks:
+					<div class="bodytext">
+						<p>Application-initiated communications to external sites, services or networks:</p>
 						<table>
 							<tr>
 								<th>
@@ -697,7 +698,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 									<b>Hostname</b>
 								</th>
 								<th>
-									<b>Whois Information</b>
+									<b>Routed within Continental United States</b>
 								</th>
 							</tr>
 							<xsl:for-each select="//rr:networkcomms/rr:connections">
@@ -714,40 +715,13 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 											<xsl:value-of select="rr:hostname"/>
 										</td>
 										<td>
-											<xsl:value-of select="rr:whois"/>
+											<xsl:value-of select="rr:usrouting"/>
 										</td>
 									</tr>
 								</xsl:for-each>
 							</xsl:for-each>
 						</table>
-						<b>Results:</b>
-						<table class="results">
-							<tr>
-								<th colspan="3">Status</th>
-								<th rowspan="2">Analyst's Comment</th>
-							</tr>
-							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
-							<tr>
-								<xsl:call-template name="status">
-									<xsl:with-param name="status">
-										<xsl:value-of select="/rr:results/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.2']/rr:status"/>
-									</xsl:with-param>
-								</xsl:call-template>
-								<td></td>
-							</tr>
-						</table>
-					</div>
-				</div>
-				<div class="reqelement">
-					<div class="reqelementtitle">
-						<span class="reqelementtitletext">Remotely-initiated Network Communication</span>
-						<span class="reqelementtitleppref">
-							<a class="ppreflink"
-								href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FDP_DEC_EXT.1.4"
-								>FDP_DEC_EXT.1.4</a>
-						</span>
-					</div>
-					<div class="bodytext">Remotely-initiated network communications (i.e. communications initiated from remote locations):
+						<p>Remotely-initiated network communications (i.e. communications initiated from remote locations):</p>
 						<table>
 							<tr>
 								<th>
@@ -760,7 +734,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 									<b>Hostname</b>
 								</th>
 								<th>
-									<b>Whois Information</b>
+									<b>Routed within Countinental United States</b>
 								</th>
 							</tr>
 							<xsl:for-each select="//rr:networkcomms/rr:connections">
@@ -777,7 +751,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 											<xsl:value-of select="rr:hostname"/>
 										</td>
 										<td>
-											<xsl:value-of select="rr:whois"/>
+											<xsl:value-of select="rr:usrouting"/>
 										</td>
 									</tr>
 								</xsl:for-each>
@@ -793,7 +767,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
-										<xsl:value-of select="/rr:results/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.2']/rr:status"/>
+										<xsl:value-of select="/rr:report/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.2']/rr:status"/>
 									</xsl:with-param>
 								</xsl:call-template>
 								<td></td>
@@ -812,7 +786,8 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								>FDP_DEC_EXT.1.4</a>
 						</span>
 					</div>
-					<div class="bodytext">The application:
+					<div class="bodytext">
+						<p>The application:</p>
 						<table>
 							<tr><td>does not transmit any data.</td><td></td></tr>
 							<tr><td>does not transmit any sensitive data.</td><td></td></tr>
@@ -829,7 +804,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
-										<xsl:value-of select="/rr:results/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.2']/rr:status"/>
+										<xsl:value-of select="/rr:report/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.2']/rr:status"/>
 									</xsl:with-param>
 								</xsl:call-template>
 								<td></td>
@@ -886,7 +861,8 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								>FMT_SMF.1.1</a>
 						</span>
 					</div>
-					<div class="bodytext">The application is capable of:
+					<div class="bodytext">
+						<p>The application is capable of:</p>
 						<table>
 							<tr>
 								<td>no management functions</td>
@@ -910,6 +886,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</tr>
 							<tr>
 								<td>enable/disable transmission of user location information used by the application</td>
+								<td></td>
 							</tr>
 						</table>
 						<b>Results:</b>
@@ -922,7 +899,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
-										<xsl:value-of select="/rr:results/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.2']/rr:status"/>
+										<xsl:value-of select="/rr:report/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.2']/rr:status"/>
 									</xsl:with-param>
 								</xsl:call-template>
 								<td></td>
@@ -963,6 +940,77 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 				</div>
 
 				<div class="sectiontitle">Protection of Security Functionality and Integrity</div>
+				
+				<div class="reqelement">
+					<div class="reqelementtitle">
+						<span class="reqelementtitletext">Use of Supported Services and APIs</span>
+						<span class="reqelementtitleppref">
+							<a class="ppreflink" href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FPT_API_EXT.1.1">FPT_API_EXT.1.1</a>
+						</span>
+					</div>
+					<div class="bodytext">
+						<p>The application makes use of the following APIs and SDKs:</p>
+						<table>
+							<tr>
+								<th>API</th>
+								<th>SDK</th>
+							</tr>
+							<tr>
+								<td>SharedPreferences getPreferences(int mode)</td>
+								<td>Android</td>
+							</tr>
+							<tr>
+								<td>PEMReader(Reader reader)</td>
+								<td>Spongy Castle</td>
+							</tr>
+						</table>
+						<b>Results:</b>
+						<table class="results">
+							<tr>
+								<th colspan="3">Status</th>
+								<th rowspan="2">Analyst's Comment</th>
+							</tr>
+							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+							<tr>
+								<xsl:call-template name="status">
+									<xsl:with-param name="status">
+										
+									</xsl:with-param>
+								</xsl:call-template>
+								<td></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				
+				<div class="reqelement">
+					<div class="reqelementtitle">
+						<span class="reqelementtitletext">Anti-Exploitation Capabilities</span>
+						<span class="reqelementtitleppref">
+							<a class="ppreflink" href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FPT_AEX_EXT.1.3">FPT_AEX_EXT.1.3</a>
+						</span>
+					</div>
+					<div class="bodytext">
+						<p>The application shall be compatible with security features provided by the platform vendor.</p>
+						<p><b>Application Note:</b> This requirement is designed to ensure that platform security features do not need to be disabled in order for the application to run.</p>
+						<b>Results:</b>
+						<table class="results">
+							<tr>
+								<th colspan="3">Status</th>
+								<th rowspan="2">Analyst's Comment</th>
+							</tr>
+							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+							<tr>
+								<xsl:call-template name="status">
+									<xsl:with-param name="status">
+										
+									</xsl:with-param>
+								</xsl:call-template>
+								<td></td>
+							</tr>
+						</table>
+					</div>
+				</div>
 
 				<div class="reqelement">
 					<div class="reqelementtitle">
@@ -973,30 +1021,60 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								>FPT_LIB_EXT.1.1</a>
 						</span>
 					</div>
-					<table>
-						<tr>
-							<th>Library Name</th>
-							<th>Version</th>
-							<th>Notes</th>
-						</tr>
-						<tr>
-							<td>OpenSSL</td>
-							<td>1.0.1f</td>
-							<td>What could possibly go wrong?</td>
-						</tr>
-						<tr>
-							<td>AdMob</td>
-							<td>1.3</td>
-							<td>Google's mobile advertising network.</td>
-						</tr>
-						<tr>
-							<td>Appcelerator Titanium</td>
-							<td>3.2.2</td>
-							<td/>
-						</tr>
-					</table>
-					<div class="bodytext"><b>Analysis:</b> These libraries raise concerns about use
-						of ad networks and out-of-date software. </div>
+					<div class="bodytext">
+						<p>The application is packaged with the following third-party libraries:</p>
+						<table>
+							<tr>
+								<th>Library Name</th>
+								<th>Version</th>
+								<th>Allows Crash Reporting</th>
+								<th>Notes</th>
+							</tr>
+							<tr>
+								<td>OpenSSL</td>
+								<td>1.0.1f</td>
+								<td></td>
+								<td>What could possibly go wrong?</td>
+							</tr>
+							<tr>
+								<td>AdMob</td>
+								<td>1.3</td>
+								<td></td>
+								<td>Google's mobile advertising network.</td>
+							</tr>
+							<tr>
+								<td>Appcelerator Titanium</td>
+								<td>3.2.2</td>
+								<td></td>
+								<td></td>
+							</tr>
+						</table>
+						List of FIPS Libraries and the algorithms/modules used:
+						<table>
+							<tr>
+								<th>FIPS Library</th>
+								<th>Version</th>
+								<th>Algorithms/modules</th>
+							</tr>
+							<tr><td>Samsung Kernel Cryptographic Module</td><td>SKC1.6</td><td>AES, ECDSA</td></tr>
+						</table>
+							<b>Results:</b>
+							<table class="results">
+								<tr>
+									<th colspan="3">Status</th>
+									<th rowspan="2">Analyst's Comment</th>
+								</tr>
+								<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+								<tr>
+									<xsl:call-template name="status">
+										<xsl:with-param name="status">
+											
+										</xsl:with-param>
+									</xsl:call-template>
+									<td></td>
+								</tr>
+							</table>
+					</div>
 
 				</div>
 
@@ -1010,46 +1088,66 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								>FPT_TUD_EXT.1.4</a>
 						</span>
 					</div>
-					<table>
-						<tr>
-							<th>Executable File Changed</th>
-							<th>Metadata</th>
-						</tr>
-						<xsl:for-each select="//rr:untrustedupdate">
-							<xsl:for-each select="rr:file">
-								<tr>
-									<td>
-										<xsl:value-of select="rr:path"/>
-									</td>
-									<td>
-										<table>
-											<tr>
-												<td style="text-align:right; font-weight: bold;">Old
-												Hash:</td>
-												<td>
-												<xsl:value-of select="rr:originalfilehash"/>
-												</td>
-											</tr>
-											<tr>
-												<td style="text-align:right; font-weight: bold;">New
-												Hash:</td>
-												<td>
-												<xsl:value-of select="rr:newfilehash"/>
-												</td>
-											</tr>
-											<tr>
-												<td style="text-align:right; font-weight: bold;"
-												>Source:</td>
-												<td>
-												<xsl:value-of select="rr:source"/>
-												</td>
-											</tr>
-										</table>
-									</td>
-								</tr>
+					<div class="bodytext">
+						<p>The application shall not download, modify, replace or update its own binary code.</p>
+						<p><b>Application Note:</b> This requirement applies to the code of the application; it does not apply to mobile code technologies that are designed for download and execution by the application.</p>
+						<table>
+							<tr>
+								<th>Executable File Changed</th>
+								<th>Metadata</th>
+							</tr>
+							<xsl:for-each select="//rr:untrustedupdate">
+								<xsl:for-each select="rr:file">
+									<tr>
+										<td>
+											<xsl:value-of select="rr:path"/>
+										</td>
+										<td>
+											<table>
+												<tr>
+													<td style="text-align:right; font-weight: bold;">Old
+													Hash:</td>
+													<td>
+													<xsl:value-of select="rr:originalfilehash"/>
+													</td>
+												</tr>
+												<tr>
+													<td style="text-align:right; font-weight: bold;">New
+													Hash:</td>
+													<td>
+													<xsl:value-of select="rr:newfilehash"/>
+													</td>
+												</tr>
+												<tr>
+													<td style="text-align:right; font-weight: bold;"
+													>Source:</td>
+													<td>
+													<xsl:value-of select="rr:source"/>
+													</td>
+												</tr>
+											</table>
+										</td>
+									</tr>
+								</xsl:for-each>
 							</xsl:for-each>
-						</xsl:for-each>
-					</table>
+						</table>
+						<b>Results:</b>
+						<table class="results">
+							<tr>
+								<th colspan="3">Status</th>
+								<th rowspan="2">Analyst's Comment</th>
+							</tr>
+							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+							<tr>
+								<xsl:call-template name="status">
+									<xsl:with-param name="status">
+										
+									</xsl:with-param>
+								</xsl:call-template>
+								<td></td>
+							</tr>
+						</table>
+					</div>
 				</div>
 
 
@@ -1068,7 +1166,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td>Permissions</td>
 							<xsl:call-template name="status">
 								<xsl:with-param name="status">
-									<xsl:value-of select="/rr:results/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.2']/rr:status"/>
+									<xsl:value-of select="/rr:report/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.2']/rr:status"/>
 								</xsl:with-param>
 							</xsl:call-template>
 							<td>
@@ -1078,31 +1176,10 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</td>
 						</tr>
 						<tr>
-							<td rowspan="8">
+							<td rowspan="6">
 								<b>Storing Data</b>
 							</td>
 						</tr>
-						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
-							<td>
-								Uses platform-provided encryption libraries for encrypting stored data on the device.
-							</td>
-							<td>
-							</td>
-						</tr>
-						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
-							<td>
-								Implements FIPS 140-2 validated algorithms/modules on the device. <ul><li>List encryption algorithms/modules used</li></ul>
-							</td>
-							<td>
-							</td>
-						</tr>
-						
 						<tr>
 							<td class="pass"></td>
 							<td class="fail"></td>
@@ -1199,21 +1276,6 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</td>
 						</tr>
 						<tr>
-							<td rowspan="2">
-								<b>Network Connections</b>
-							</td>
-						</tr>
-						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
-							<td>
-								Are all identified communications routed within the continental United States<p>List all endpoints which have communication paths that route packets outside of the continental United States</p>
-							</td>
-							<td>
-							</td>
-						</tr>
-						<tr>
 							<td rowspan="3">
 								<b>Authentication</b>
 							</td>
@@ -1259,7 +1321,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</td>
 						</tr>
 						<tr>
-							<td rowspan="8">
+							<td rowspan="3">
 								<b>Source Code Analysis/Programming Logic</b>
 							</td>
 						</tr>
@@ -1278,57 +1340,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td class="fail"></td>
 							<td class="notTested"></td>
 							<td>
-								The application only uses supported platform APIs
-							</td>
-							<td>
-							</td>
-						</tr>
-						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
-							<td>
-								List the third-party libraries packaged with the application.<p>Flag libraries that allow crash reporting (for example Crashlytics)</p>
-							</td>
-							<td>
-							</td>
-						</tr>
-						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
-							<td>
 								Code components can be scanned
-							</td>
-							<td>
-							</td>
-						</tr>
-						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
-							<td>
-								The application functions without disabling platform operating system features or security enhancements
-							</td>
-							<td>
-							</td>
-						</tr>
-						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
-							<td>
-								List the APIs and SDKs that are used by the mobile application
-							</td>
-							<td>
-							</td>
-						</tr>
-						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
-							<td>
-								The application's executable files are not changed by the application
 							</td>
 							<td>
 							</td>

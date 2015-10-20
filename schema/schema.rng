@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<grammar ns="http://common-criteria.rhcloud.com/ns/rr" xmlns="http://relaxng.org/ns/structure/1.0" datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes">
+  <start>
+    <element name="report">
+      <ref name="version"/>
+      <element name="appinfo">
+        <ref name="name"/>
+        <element name="description">
+          <text/>
+        </element>
+        <element name="vendor">
+          <ref name="name"/>
+          <element name="address">
+            <element name="street1">
+              <text/>
+            </element>
+            <element name="street2">
+              <empty/>
+            </element>
+            <element name="city">
+              <data type="NCName"/>
+            </element>
+            <element name="state">
+              <data type="NCName"/>
+            </element>
+            <element name="postalcode">
+              <data type="integer"/>
+            </element>
+            <element name="country">
+              <data type="NCName"/>
+            </element>
+          </element>
+        </element>
+        <element name="packageidentification">
+          <data type="NCName"/>
+        </element>
+        <ref name="version"/>
+        <element name="platform">
+          <text/>
+        </element>
+        <element name="hash">
+          <attribute name="type">
+            <data type="NCName"/>
+          </attribute>
+          <text/>
+        </element>
+        <element name="signature">
+          <attribute name="type">
+            <data type="NCName"/>
+          </attribute>
+          <text/>
+        </element>
+        <element name="category">
+          <data type="NCName"/>
+        </element>
+        <element name="apptype">
+          <data type="NCName"/>
+        </element>
+        <element name="filename">
+          <data type="NCName"/>
+        </element>
+      </element>
+      <element name="apptester">
+        <ref name="name"/>
+        <element name="email">
+          <text/>
+        </element>
+        <element name="organization">
+          <text/>
+        </element>
+        <element name="datestested">
+          <oneOrMore>
+            <element name="date">
+              <text/>
+            </element>
+          </oneOrMore>  
+        </element>
+      </element>
+      <element name="analysistools">
+        <element name="sourceavailable">
+          <data type="NCName"/>
+        </element>
+        <element name="statictools">
+          <zeroOrMore>
+            <ref name="tool"/>
+          </zeroOrMore>
+        </element>
+        <element name="dynamictools">
+          <zeroOrMore>
+            <ref name="tool"/>
+          </zeroOrMore>
+        </element>
+        <element name="behaviortools">
+          <zeroOrMore>
+            <ref name="tool"/>
+          </zeroOrMore>
+        </element>
+        <element name="malwarescan">
+          <data type="NCName"/>
+        </element>
+        <element name="malwaredetected">
+          <data type="NCName"/>
+        </element>
+      </element>
+      <element name="supplychain">
+        <element name="riskassessment">
+          <data type="NCName"/>
+        </element>
+      </element>
+      <element name="testresults">
+        <ref name="permissions"/>
+        <element name="storingdata">
+          <empty/>
+        </element>
+        <element name="transmittingdata">
+          <empty/>
+        </element>
+        <element name="networkconnections">
+          <empty/>
+        </element>
+        <element name="authentication">
+          <empty/>
+        </element>
+        <element name="privacy">
+          <empty/>
+        </element>
+        <element name="sourcecode">
+          <empty/>
+        </element>
+        <element name="resourceuse">
+          <empty/>
+        </element>
+        <element name="auditing">
+          <empty/>
+        </element>
+      </element>
+      <element name="storedcredentials">
+        <attribute name="ref">
+          <data type="NCName"/>
+        </attribute>
+      </element>
+      <element name="hardwareresources">
+        <attribute name="ref">
+          <data type="NCName"/>
+        </attribute>
+        <element name="network">
+          <attribute name="use">
+            <data type="NCName"/>
+          </attribute>
+        </element>
+        <element name="camera">
+          <attribute name="use">
+            <data type="NCName"/>
+          </attribute>
+        </element>
+        <element name="microphone">
+          <attribute name="use">
+            <data type="NCName"/>
+          </attribute>
+        </element>
+        <element name="locationservices">
+          <attribute name="type">
+            <data type="NCName"/>
+          </attribute>
+          <attribute name="use">
+            <data type="NCName"/>
+          </attribute>
+        </element>
+        <element name="NFC">
+          <attribute name="use">
+            <data type="NCName"/>
+          </attribute>
+        </element>
+        <element name="bluetooth">
+          <attribute name="use">
+            <data type="NCName"/>
+          </attribute>
+        </element>
+        <ref name="other"/>
+      </element>
+      <element name="inforepositories">
+        <attribute name="ref">
+          <data type="NCName"/>
+        </attribute>
+        <element name="addressbook">
+          <attribute name="use">
+            <data type="NCName"/>
+          </attribute>
+        </element>
+        <element name="calendar">
+          <attribute name="use">
+            <data type="NCName"/>
+          </attribute>
+        </element>
+        <element name="calllists">
+          <attribute name="use">
+            <data type="NCName"/>
+          </attribute>
+        </element>
+        <ref name="other"/>
+      </element>
+      <element name="excessprivileges">
+        <attribute name="ref">
+          <data type="NCName"/>
+        </attribute>
+        <oneOrMore>
+          <element name="privilege">
+            <ref name="name"/>
+            <ref name="note"/>
+          </element>
+        </oneOrMore>
+      </element>
+      <element name="networkcomms">
+        <attribute name="ref">
+          <data type="NCName"/>
+        </attribute>
+        <element name="connections">
+          <oneOrMore>
+            <ref name="host"/>
+          </oneOrMore>
+        </element>
+      </element>
+      <element name="piitransmitted">
+        <attribute name="ref">
+          <data type="NCName"/>
+        </attribute>
+        <element name="emailaddr">
+          <element name="destination">
+            <ref name="host"/>
+          </element>
+        </element>
+      </element>
+      <element name="networkcommsprotection">
+        <attribute name="ref">
+          <data type="NCName"/>
+        </attribute>
+        <element name="pcap">
+          <empty/>
+        </element>
+        <ref name="analysis"/>
+      </element>
+      <element name="filesencrypted">
+        <attribute name="ref">
+          <data type="NCName"/>
+        </attribute>
+        <oneOrMore>
+          <ref name="file"/>
+        </oneOrMore>
+      </element>
+      <element name="config">
+        <attribute name="ref">
+          <data type="NCName"/>
+        </attribute>
+      </element>
+      <element name="defaultcreds">
+        <attribute name="ref">
+          <data type="NCName"/>
+        </attribute>
+      </element>
+      <element name="files">
+        <attribute name="ref">
+          <data type="NCName"/>
+        </attribute>
+        <oneOrMore>
+          <ref name="file"/>
+        </oneOrMore>
+        <ref name="analysis"/>
+      </element>
+      <element name="untrustedupdate">
+        <attribute name="ref">
+          <data type="NCName"/>
+        </attribute>
+        <oneOrMore>
+          <ref name="file"/>
+        </oneOrMore>
+      </element>
+      <element name="libraries">
+        <attribute name="ref">
+          <data type="NCName"/>
+        </attribute>
+        <oneOrMore>
+          <element name="library">
+            <ref name="name"/>
+            <ref name="version"/>
+            <ref name="analysis"/>
+          </element>
+        </oneOrMore>
+      </element>
+    </element>
+  </start>
+  <define name="version">
+    <element name="version">
+      <data type="NMTOKEN"/>
+    </element>
+  </define>
+  <define name="name">
+    <element name="name">
+      <text/>
+    </element>
+  </define>
+  <define name="tool">
+    <element name="tool">
+      <text/>
+    </element>
+  </define>
+  <define name="permissions">
+    <element name="permissions">
+      <oneOrMore>
+        <choice>
+          <text/>
+          <element name="req">
+            <attribute name="ref">
+              <data type="NCName"/>
+            </attribute>
+            <element name="status">
+              <text/>
+            </element>
+          </element>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="other">
+    <element name="other">
+      <oneOrMore>
+        <element name="resource">
+          <ref name="name"/>
+          <element name="use">
+            <data type="NCName"/>
+          </element>
+          <ref name="note"/>
+        </element>
+      </oneOrMore>
+    </element>
+  </define>
+  <define name="note">
+    <element name="note">
+      <text/>
+    </element>
+  </define>
+  <define name="host">
+    <element name="host">
+      <element name="ipaddr">
+        <data type="NMTOKEN"/>
+      </element>
+      <element name="hostname">
+        <data type="NCName"/>
+      </element>
+      <element name="port">
+        <data type="integer"/>
+      </element>
+    </element>
+  </define>
+  <define name="analysis">
+    <element name="analysis">
+      <optional>
+        <element name="noencryption">
+          <empty/>
+        </element>
+      </optional>
+      <optional>
+        <element name="adnetworks">
+          <attribute name="use">
+            <data type="NCName"/>
+          </attribute>
+        </element>
+      </optional>
+      <optional>
+        <choice>
+          <element name="cloudstorage">
+            <attribute name="use">
+              <data type="NCName"/>
+            </attribute>
+          </element>
+          <element name="vulnerablelib">
+            <attribute name="cve">
+              <data type="NMTOKEN"/>
+            </attribute>
+          </element>
+        </choice>
+      </optional>
+      <optional>
+        <ref name="note"/>
+      </optional>
+      <optional>
+        <element name="sharedappdata">
+          <empty/>
+        </element>
+      </optional>
+    </element>
+  </define>
+  <define name="file">
+    <element name="file">
+      <element name="path">
+        <text/>
+      </element>
+      <optional>
+        <ref name="permissions"/>
+      </optional>
+      <optional>
+        <choice>
+          <ref name="analysis"/>
+          <group>
+            <element name="originalfilehash">
+              <attribute name="type">
+                <data type="NCName"/>
+              </attribute>
+              <text/>
+            </element>
+            <element name="newfilehash">
+              <attribute name="type">
+                <data type="NCName"/>
+              </attribute>
+              <text/>
+            </element>
+            <element name="source">
+              <empty/>
+            </element>
+          </group>
+        </choice>
+      </optional>
+    </element>
+  </define>
+</grammar>
