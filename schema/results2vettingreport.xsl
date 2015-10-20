@@ -574,32 +574,55 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								>FDP_DEC_EXT.1.2</a>
 						</span>
 					</div>
-					<table>
-						<tr>
-							<td>
-								<b>Address Book</b>
-							</td>
-							<td class="checkboxon">X</td>
-						</tr>
-						<tr>
-							<td>
-								<b>Calendar</b>
-							</td>
-							<td class="checkboxoff"> </td>
-						</tr>
-						<tr>
-							<td>
-								<b>Photos</b>
-							</td>
-							<td class="checkboxoff"/>
-						</tr>
-						<tr>
-							<td>
-								<b>Notes</b>
-							</td>
-							<td class="checkboxon">X</td>
-						</tr>
-					</table>
+					<div class="bodytext">
+						<p>The application provides user awareness of its intent to access:</p>
+						<table>
+							<tr>
+								<th>Repository</th>
+								<th>User Awareness</th>
+							</tr>
+							<tr>
+								<td>
+									Address Book
+								</td>
+								<td>&#10004;</td>
+							</tr>
+							<tr>
+								<td>
+									Calendar
+								</td>
+								<td>&#10004;</td>
+							</tr>
+							<tr>
+								<td>
+									Call Lists
+								</td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>
+									System Logs
+								</td>
+								<td></td>
+							</tr>
+						</table>
+						<b>Results:</b>
+						<table class="results">
+							<tr>
+								<th colspan="3">Status</th>
+								<th rowspan="2">Analyst's Comment</th>
+							</tr>
+							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+							<tr>
+								<xsl:call-template name="status">
+									<xsl:with-param name="status">
+										<xsl:value-of select="/rr:report/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.3']/rr:status"/>
+									</xsl:with-param>
+								</xsl:call-template>
+								<td></td>
+							</tr>
+						</table>
+					</div>
 				</div>
 
 				<div class="reqelement">
@@ -791,8 +814,13 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						<table>
 							<tr><td>does not transmit any data.</td><td></td></tr>
 							<tr><td>does not transmit any sensitive data.</td><td></td></tr>
-							<tr><td>encrypts all transmitted sensitive data with: <b>HTTPS</b></td><td>&#10004;</td></tr>
-							<tr><td>encrypts all transmitted data with: <b> </b> </td><td></td></tr>
+							<tr><td>encrypts all transmitted sensitive data with FIPS 140-2.</td><td>&#10004;</td></tr>
+							<tr><td>encrypts all transmitted data with FIPS 140-2.</td><td></td></tr>
+						</table>
+						<p>List of FIPS algorithms/modules used to encrypt transmitted data:</p>
+						<table>
+							<tr><th>Algorithms/Modules</th></tr>
+							<tr><td>TLS 1.2</td></tr>
 						</table>
 						<b>Results:</b>
 						<table class="results">
@@ -824,33 +852,48 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								>FMT_CFG_EXT.1.2</a>
 						</span>
 					</div>
-					<table>
-						<tr>
-							<th>File</th>
-							<th>Permissions</th>
-							<th>Notes</th>
-						</tr>
-						<xsl:for-each select="//rr:files">
-							<xsl:for-each select="rr:file">
-
-								<tr>
-									<td>
-										<xsl:value-of select="rr:path"/>
-									</td>
-									<td>
-										<xsl:value-of select="rr:permissions"/>
-									</td>
-									<td>
-										<xsl:value-of select="rr:analysis/rr:note"/>
-									</td>
-								</tr>
-							</xsl:for-each>
-						</xsl:for-each>
-					</table>
 					<div class="bodytext">
-						<b>Analysis: </b>
-						<xsl:value-of select="//rr:files/rr:analysis/rr:note"/>
+						<table>
+							<tr>
+								<th>File</th>
+								<th>Permissions</th>
+								<th>Notes</th>
+							</tr>
+							<xsl:for-each select="//rr:files">
+								<xsl:for-each select="rr:file">
+	
+									<tr>
+										<td>
+											<xsl:value-of select="rr:path"/>
+										</td>
+										<td>
+											<xsl:value-of select="rr:permissions"/>
+										</td>
+										<td>
+											<xsl:value-of select="rr:analysis/rr:note"/>
+										</td>
+									</tr>
+								</xsl:for-each>
+							</xsl:for-each>
+						</table>					
+						<b>Results:</b>
+						<table class="results">
+							<tr>
+								<th colspan="3">Status</th>
+								<th rowspan="2">Analyst's Comment</th>
+							</tr>
+							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+							<tr>
+								<xsl:call-template name="status">
+									<xsl:with-param name="status">
+										<xsl:value-of select="/rr:report/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.2']/rr:status"/>
+									</xsl:with-param>
+								</xsl:call-template>
+								<td><xsl:value-of select="//rr:files/rr:analysis/rr:note"/></td>
+							</tr>
+						</table>
 					</div>
+					
 				</div>
 				<div class="reqelement">
 					<div class="reqelementtitle">
@@ -1231,18 +1274,8 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</td>
 						</tr>
 						<tr>
-							<td rowspan="5">
+							<td rowspan="4">
 								<b>Transmitting Data</b>
-							</td>
-						</tr>
-						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
-							<td>
-								The transmission of sensitive data is encrypted with FIPS 140-2 validated algorithms/modules
-							</td>
-							<td>
 							</td>
 						</tr>
 						<tr>
