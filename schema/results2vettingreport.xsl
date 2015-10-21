@@ -513,37 +513,73 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<td>
 									Network
 								</td>
-								<td>&#10004;</td>
+								<td>
+									<xsl:call-template name="used">
+										<xsl:with-param name="used">
+											<xsl:value-of select="/rr:report/rr:hardwareresources/rr:network/@use"/>
+										</xsl:with-param>
+									</xsl:call-template>
+								</td>
 							</tr>
 							<tr>
 								<td>
 									Camera
 								</td>
-								<td>&#10004;</td>
+								<td>
+									<xsl:call-template name="used">
+										<xsl:with-param name="used">
+											<xsl:value-of select="/rr:report/rr:hardwareresources/rr:camera/@use"/>
+										</xsl:with-param>
+									</xsl:call-template>
+								</td>
 							</tr>
 							<tr>
 								<td>
 									Microphone
 								</td>
-								<td></td>
+								<td>
+									<xsl:call-template name="used">
+										<xsl:with-param name="used">
+											<xsl:value-of select="/rr:report/rr:hardwareresources/rr:microphone/@use"/>
+										</xsl:with-param>
+									</xsl:call-template>
+								</td>
 							</tr>
 							<tr>
 								<td>
 									Location Services
 								</td>
-								<td></td>
+								<td>
+									<xsl:call-template name="used">
+										<xsl:with-param name="used">
+											<xsl:value-of select="/rr:report/rr:hardwareresources/rr:locationservices/@use"/>
+										</xsl:with-param>
+									</xsl:call-template>
+								</td>
 							</tr>
 							<tr>
 								<td>
 									NFC
 								</td>
-								<td>&#10004;</td>
+								<td>
+									<xsl:call-template name="used">
+										<xsl:with-param name="used">
+											<xsl:value-of select="/rr:report/rr:hardwareresources/rr:nfc/@use"/>
+										</xsl:with-param>
+									</xsl:call-template>
+								</td>
 							</tr>
 							<tr>
 								<td>
 									Bluetooth
 								</td>
-								<td>&#10004;</td>
+								<td>
+									<xsl:call-template name="used">
+										<xsl:with-param name="used">
+											<xsl:value-of select="/rr:report/rr:hardwareresources/rr:bluetooth/@use"/>
+										</xsl:with-param>
+									</xsl:call-template>
+								</td>
 							</tr>
 						</table>
 						<b>Results:</b>
@@ -556,10 +592,10 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
-										<xsl:value-of select="/rr:report/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.3']/rr:status"/>
+										<xsl:value-of select="/rr:report/rr:hardwareresources/rr:results/rr:status"/>
 									</xsl:with-param>
 								</xsl:call-template>
-								<td></td>
+								<td><xsl:value-of select="/rr:report/rr:hardwareresources/rr:results/rr:comment"/></td>
 							</tr>
 						</table>
 					</div>
@@ -585,25 +621,49 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<td>
 									Address Book
 								</td>
-								<td>&#10004;</td>
+								<td>
+									<xsl:call-template name="used">
+										<xsl:with-param name="used">
+											<xsl:value-of select="/rr:report/rr:inforepositories/rr:addressbook/@use"/>
+										</xsl:with-param>
+									</xsl:call-template>
+								</td>
 							</tr>
 							<tr>
 								<td>
 									Calendar
 								</td>
-								<td>&#10004;</td>
+								<td>
+									<xsl:call-template name="used">
+										<xsl:with-param name="used">
+											<xsl:value-of select="/rr:report/rr:inforepositories/rr:calendar/@use"/>
+										</xsl:with-param>
+									</xsl:call-template>
+								</td>
 							</tr>
 							<tr>
 								<td>
 									Call Lists
 								</td>
-								<td></td>
+								<td>
+									<xsl:call-template name="used">
+										<xsl:with-param name="used">
+											<xsl:value-of select="/rr:report/rr:inforepositories/rr:calllist/@use"/>
+										</xsl:with-param>
+									</xsl:call-template>
+								</td>
 							</tr>
 							<tr>
 								<td>
 									System Logs
 								</td>
-								<td></td>
+								<td>
+									<xsl:call-template name="used">
+										<xsl:with-param name="used">
+											<xsl:value-of select="/rr:report/rr:inforepositories/rr:systemlogs/@use"/>
+										</xsl:with-param>
+									</xsl:call-template>
+								</td>
 							</tr>
 						</table>
 						<b>Results:</b>
@@ -616,10 +676,10 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
-										<xsl:value-of select="/rr:report/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.3']/rr:status"/>
+										<xsl:value-of select="/rr:report/rr:inforepositories/rr:results/rr:status"/>
 									</xsl:with-param>
 								</xsl:call-template>
-								<td></td>
+								<td><xsl:value-of select="/rr:report/rr:inforepositories/rr:results/rr:comment"/></td>
 							</tr>
 						</table>
 					</div>
@@ -641,14 +701,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<th>Permission</th>
 								<th>Complies with Stated Function</th>
 							</tr>
-							<tr>
-								<td>android.permission.ACCESS_FINE_LOCATION</td>
-								<td>&#10004;</td>
-							</tr>
-							<tr>
-								<td>android.permission.READ_CONTACTS</td>
-								<td>&#10008;</td>
-							</tr>
+							<xsl:call-template name="permissions"></xsl:call-template>
 						</table>
 						<b>Results:</b>
 						<table class="results">
@@ -660,10 +713,10 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
-										<xsl:value-of select="/rr:report/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.1']/rr:status"/>
+										<xsl:value-of select="/rr:report/rr:excessprivileges/rr:results/rr:status"/>
 									</xsl:with-param>
 								</xsl:call-template>
-								<td>The app does not appear to need the Address Book permission, but all other permissions are within its expected function.</td>
+								<td><xsl:value-of select="/rr:report/rr:excessprivileges/rr:results/rr:comment"/></td>
 							</tr>
 						</table>
 					</div>
@@ -688,10 +741,10 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
-										
+										<xsl:value-of select="/rr:report/rr:storingdata/rr:results/rr:status"/>
 									</xsl:with-param>
 								</xsl:call-template>
-								<td></td>
+								<td><xsl:value-of select="/rr:report/rr:storingdata/rr:results/rr:comment"/></td>
 							</tr>
 						</table>
 					</div>
@@ -1472,6 +1525,33 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 		<xsl:choose>
 			<xsl:when test="position() != last()">, </xsl:when>
 		</xsl:choose>
+	</xsl:template>
+	
+	<xsl:template name="used">
+		<xsl:param name="used"/>
+		<xsl:choose>
+			<xsl:when test="$used='yes'">
+				&#10004;
+			</xsl:when>
+		</xsl:choose>
+	</xsl:template>
+	
+	<xsl:template name="permissions">
+		<xsl:for-each select="/rr:report/rr:excessprivileges/rr:privilege">
+			<tr>
+				<td><xsl:value-of select="rr:name"/></td>
+				<td>
+					<xsl:choose>
+						<xsl:when test="rr:complies='yes'">
+							&#10004;
+						</xsl:when>
+						<xsl:otherwise>
+							&#10008;
+						</xsl:otherwise>
+					</xsl:choose>
+				</td>
+			</tr>
+		</xsl:for-each>
 	</xsl:template>
 	
 	<xsl:template name="status">

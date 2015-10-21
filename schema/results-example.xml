@@ -58,6 +58,82 @@
         <riskassessment>No</riskassessment>
     </supplychain>
     
+    <hardwareresources ref="fdp_dec_ext.1.1">
+        <network use="yes"/>
+        <camera use="yes"/>
+        <microphone use="no"/>
+        <locationservices use="yes" type="coarse"/>
+        <nfc use="yes"/>
+        <bluetooth use="yes"/>
+        <other>
+            <resource>
+                <name>Phone dialer</name>
+                <use>yes</use>
+                <note></note>
+            </resource>
+            <resource>
+                <name>SMS</name>
+                <use>yes</use>
+                <note></note>
+            </resource>
+            <resource>
+                <name>Flux capacitor</name>
+                <use>yes</use>
+                <note></note>
+            </resource>
+        </other>
+        <results>
+            <status>Passed</status>
+            <comment></comment>
+        </results>
+    </hardwareresources>
+    
+    <inforepositories ref="fdp_dec_ext.1.2">
+        <addressbook use="yes"/>
+        <calendar use="yes"/>
+        <calllists use="no"/>
+        <systemlogs use="no"/>
+        <other>
+            <resource>
+                <name>Photos</name>
+                <use>yes</use>
+                <note></note>
+            </resource>
+            <resource>
+                <name>Notes</name>
+                <use>no</use>
+                <note></note>
+            </resource>
+        </other>
+        <results>
+            <status>Failed</status>
+            <comment></comment>
+        </results>      
+    </inforepositories>
+    
+    <excessprivileges ref="fdp_dec_ext.1.3">
+        <!-- list of privileges, must be a tag in either of the two sections or a name in other-->
+        <privilege>
+            <name>android.permission.ACCESS_FINE_LOCATION</name>
+            <complies>yes</complies>
+        </privilege>
+        <privilege>
+            <name>android.permission.READ_CONTACTS</name>
+            <complies>no</complies>
+        </privilege>
+        <results>
+            <status>Failed</status>
+            <comment>The app does not appear to need the Address Book permission, but all other permissions are within its expected function.</comment>
+        </results>
+    </excessprivileges>
+    
+    <storingdata>
+        <results>
+            <status></status>
+            <comment></comment>
+        </results>
+    </storingdata>
+    
     <testresults>
         <permissions>
             <req ref="fdp_dec_ext.1.3">
@@ -69,10 +145,8 @@
             <req ref="fdp_dec_ext.1.2">
                 <status>Did Not Test</status>
             </req>
-        </permissions>
-        <storingdata>
-            
-        </storingdata>
+        </permissions>            
+        
         <transmittingdata>
             
         </transmittingdata>
@@ -101,61 +175,11 @@
     
     </storedcredentials>
     
-    <hardwareresources ref="fdp_dec_ext.1.1">
-        <network use="yes"/>
-        <camera use="yes"/>
-        <microphone use="yes"/>
-        <locationservices use="yes" type="coarse"/>
-        <NFC use="no"/>
-        <bluetooth use="yes"/>
-        <other>
-            <resource>
-                <name>Phone dialer</name>
-                <use>yes</use>
-                <note></note>
-            </resource>
-            <resource>
-                <name>SMS</name>
-                <use>yes</use>
-                <note></note>
-            </resource>
-            <resource>
-                <name>Flux capacitor</name>
-                <use>yes</use>
-                <note></note>
-            </resource>
-        </other>
-    </hardwareresources>
+
     
-    <inforepositories ref="fdp_dec_ext.1.2">
-        <addressbook use="no"/>
-        <calendar use="no"/>
-        <calllists use="no"/>
-        <other>
-            <resource>
-                <name>Photos</name>
-                <use>yes</use>
-                <note></note>
-            </resource>
-            <resource>
-               <name>Notes</name>
-               <use>no</use>
-               <note></note>
-            </resource>
-        </other>
-    </inforepositories>
     
-    <excessprivileges ref="fdp_dec_ext.1.3">
-        <!-- list of privileges, must be a tag in either of the two sections or a name in other-->
-        <privilege>
-            <name>Phone dialer</name>
-            <note>The app requests permission to dial the phone, but there is no need to do so.</note>
-        </privilege>
-        <privilege>
-            <name>Flux capacitor</name>
-            <note>The app requests use of a flux capacitor, but has no need for time travel.</note>
-        </privilege>
-    </excessprivileges>
+    
+
     
     
     <networkcomms ref="fdp_dec_ext.1.4">
