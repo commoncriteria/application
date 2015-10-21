@@ -1195,7 +1195,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
 
 					<div class="reqelementtitle">
-						<span class="reqelementtitletext">Holding Area</span>
+						<span class="reqelementtitletext">Discussion Area</span>
 					</div>
 					<table class="results">
 						<tr>
@@ -1215,7 +1215,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td>
 								The application notifies the user of any access to other applications.<ul><li>List any Failure of notification of any access to other applications or information repositories</li><li>List any Successful notification of any access to other applications or information repositories</li></ul>
 							</td>
-							<td>
+							<td>This is dependent upon the underlying platform's semantics for sharing data between applications.
 							</td>
 						</tr>
 						<tr>
@@ -1230,7 +1230,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td>
 								Does the application write data to persistent memory accessible to other applications?<ul><li>List the shared file locations where the application write data to persistent memory</li></ul>
 							</td>
-							<td>
+							<td>This is handled by File Permissions - FMT_CFG_EXT.1.2.
 							</td>
 						</tr>
 						<tr>
@@ -1250,7 +1250,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td>
 								Sensitive data stored off the device is encrypted with FIPS 140-2 validated algorithms/modules.<ul><li>List encryption algorithms/modules used to encrypt data stored off the device</li></ul>
 							</td>
-							<td>
+							<td>This is out of scope.
 							</td>
 						</tr>
 						<tr>
@@ -1258,9 +1258,13 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td class="fail"></td>
 							<td class="notTested"></td>
 							<td>
-								Cloud storage used by App is explicitly referenced and complies with FedRAMP certification<ul><li>List Cloud storage provider(s)</li></ul>
+								Cloud storage used by App is explicitly
+								referenced and complies with FedRAMP
+								certification<ul><li>List Cloud storage
+								provider(s)</li></ul>
 							</td>
 							<td>
+							    
 							</td>
 						</tr>
 						<tr>
@@ -1270,7 +1274,11 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td>
 								The app removes temporary files when it is closed or removed.
 							</td>
-							<td>
+							<td>Removing all temporarily files when the application is removed is actually a requirement on the mobile platform.
+							Also, mobile platforms quite literally save the
+							entire application state when the application is
+							closed -- this is how apps resume when they are
+							started back up.
 							</td>
 						</tr>
 						<tr>
@@ -1285,7 +1293,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td>
 								The app verifies destination before transmitting data. <p>If the app fails this test, provide information on how it fails (i.e. certificate is not signed by a trusted CA or certificate is expired)</p>
 							</td>
-							<td>
+							<td>This is part of TLS connection setup.  This could be reworked into "Protecting Data in Transit".
 							</td>
 						</tr>
 						<tr>
@@ -1295,7 +1303,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td>
 								Does the behavior of encryption in transit change over different methods of communication? (i.e. Wi-Fi communications are encrypted but Cellular communications are not)<ul><li>List which communication channels were tested</li><li>If the app fails this test, provide information on how it fails</li></ul>
 							</td>
-							<td>
+							<td>This would be very odd/unlikely behavior.  Most apps are entirely unaware of the underlying transport, by design.
 							</td>
 						</tr>
 						<tr>
@@ -1305,7 +1313,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td>
 								Does the app perform certificate pinning?
 							</td>
-							<td>
+							<td>Do we have a specific use case, for where we want to require this?  If not, it's hard to demand it generally.
 							</td>
 						</tr>
 						<tr>
@@ -1315,8 +1323,21 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td class="pass"></td>
 							<td class="fail"></td>
 							<td class="notTested"></td>
-							<td>List the identity services used for authentication to access sensitive data<ul><li>List the identity services used for authentication to access sensitive data</li><li>Are the authentication methods prioritized (i.e. biometric is used before pin)</li><li>Provide the level of Assurance (LOA) of thr authentication</li></ul></td>
-							<td></td>
+							<td>List the identity services used for
+							authentication to access sensitive data<ul><li>List
+							the identity services used for authentication to
+							access sensitive data</li><li>Are the
+							authentication methods prioritized (i.e. biometric
+							is used before pin)</li><li>Provide the level of
+							Assurance (LOA) of thr
+							authentication
+							</li>
+							</ul>
+							</td>
+							<td>Exact LOA depends upon what the underlying platform is using for storage --- embedded hardware token, 
+							UICC, SDcard, software module, hardware-backed storage.  This will vary by platform (indeed, by platform version) 
+							and so it cannot be determined during app vetting.  
+							</td>
 						</tr>
 						<tr>
 							<td class="pass"></td>
@@ -1325,7 +1346,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td>
 								Requires authentication to store sensitive data on the mobile device
 							</td>
-							<td>
+							<td>This is handled by platform settings.  Apps cannot generally query whether the platform has password-protection enabled.
 							</td>
 						</tr>
 						<tr>
@@ -1336,6 +1357,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								Does not store hard-coded credentials<ul><li>List the hard-coded credentials</li><li>Describe what the hard-coded credentials are used for</li></ul>
 							</td>
 							<td>
+								This could be part of FMT_CFG_EXT.1.1.
 							</td>
 						</tr>
 						<tr>
@@ -1350,7 +1372,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td>
 								Provide a list of advertising networks accessed by the mobile application
 							</td>
-							<td>
+							<td>Handle in analysis portions of network connections and 3rd-party libraries.
 							</td>
 						</tr>
 						<tr>
@@ -1365,7 +1387,8 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td>
 								Does the App come with a crash reporting capability? (i.e. Does the app use something similar to Crashlytics)<ul><li>List crash reporting tool(s) used by the App</li><li>List remote locations where crash logs are sent</li></ul>
 							</td>
-							<td>
+							<td>Isn't the actual security goal to ensure that 3rd-party libraries are inventoried, and that files/logs do not
+							contain sensitive information?
 							</td>
 						</tr>
 						<tr>
@@ -1375,7 +1398,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td>
 								Code components can be scanned
 							</td>
-							<td>
+							<td>Something about AVA_VAN.1.1C.
 							</td>
 						</tr>
 						<tr>
@@ -1396,7 +1419,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td class="fail"></td>
 							<td class="notTested"></td>
 							<td>Audit logs capture security information</td>
-							<td></td>
+							<td>This is extremely difficult to define.</td>
 						</tr>
 						<tr>
 							<td class="pass"></td>
@@ -1405,7 +1428,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td>
 								Audit logs containing sensitive information are encrypted
 							</td>
-							<td>
+							<td>This can be put as part of analysis under Sensitive Application Data FDP_DAR_EXT.1.1.
 							</td>
 						</tr>
 						<tr>
@@ -1415,7 +1438,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td>
 								The Application does not log location information<p>List location information that is logged</p>
 							</td>
-							<td>
+							<td>This can be put as part of analysis under Sensitive Application Data FDP_DAR_EXT.1.1.
 							</td>
 						</tr>
 					</table>
