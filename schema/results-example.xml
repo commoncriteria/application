@@ -59,55 +59,77 @@
     </supplychain>
     
     <hardwareresources ref="fdp_dec_ext.1.1">
-        <network use="yes"/>
-        <camera use="yes"/>
-        <microphone use="no"/>
-        <locationservices use="yes" type="coarse"/>
-        <nfc use="yes"/>
-        <bluetooth use="yes"/>
+        <network>
+            <useraware>yes</useraware>
+        </network>
+        <camera>
+            <useraware>yes</useraware>
+        </camera>
+        <microphone>
+            <useraware>no</useraware>
+        </microphone>
+        <locationservices>
+            <useraware></useraware>
+        </locationservices>
+        <nfc>
+            <useraware>yes</useraware>
+        </nfc>
+        <bluetooth>
+            <useraware>yes</useraware>
+        </bluetooth>
         <other>
             <resource>
                 <name>Phone dialer</name>
-                <use>yes</use>
+                <useraware>yes</useraware>
                 <note></note>
             </resource>
             <resource>
                 <name>SMS</name>
-                <use>yes</use>
+                <useraware>yes</useraware>
                 <note></note>
             </resource>
             <resource>
                 <name>Flux capacitor</name>
-                <use>yes</use>
-                <note></note>
-            </resource>
-        </other>
-        <results>
-            <status>Passed</status>
-            <comment></comment>
-        </results>
-    </hardwareresources>
-    
-    <inforepositories ref="fdp_dec_ext.1.2">
-        <addressbook use="yes"/>
-        <calendar use="yes"/>
-        <calllists use="no"/>
-        <systemlogs use="no"/>
-        <other>
-            <resource>
-                <name>Photos</name>
-                <use>yes</use>
-                <note></note>
-            </resource>
-            <resource>
-                <name>Notes</name>
-                <use>no</use>
+                <useraware>yes</useraware>
                 <note></note>
             </resource>
         </other>
         <results>
             <status>Failed</status>
-            <comment></comment>
+            <analysis>The application does not provide user awareness of its intent to access the microphone.</analysis>
+            <notes></notes>
+        </results>
+    </hardwareresources>
+    
+    <inforepositories ref="fdp_dec_ext.1.2">
+        <addressbook>
+            <useraware>yes</useraware>
+        </addressbook>
+        <calendar>
+            <useraware>yes</useraware>
+        </calendar>
+        <calllists>
+            <useraware>no</useraware>
+        </calllists>
+        <systemlogs>
+            <useraware>no</useraware>
+        </systemlogs>
+        <other>
+            <resource>
+                <name>Photos</name>
+                <useraware>yes</useraware>
+                <note></note>
+            </resource>
+            <resource>
+                <name>Notes</name>
+                <useraware>no</useraware>
+                <note></note>
+            </resource>
+        </other>
+        <results>
+            <status>Failed</status>
+            <analysis>The application does not provide user awareness of its intent to access system logs and notes.</analysis>
+            <notes></notes>
         </results>      
     </inforepositories>
     
@@ -115,102 +137,135 @@
         <!-- list of privileges, must be a tag in either of the two sections or a name in other-->
         <privilege>
             <name>android.permission.ACCESS_FINE_LOCATION</name>
-            <complies>yes</complies>
         </privilege>
         <privilege>
             <name>android.permission.READ_CONTACTS</name>
-            <complies>no</complies>
         </privilege>
         <results>
-            <status>Failed</status>
-            <comment>The app does not appear to need the Address Book permission, but all other permissions are within its expected function.</comment>
+            <status>Passed</status>
+            <analysis>All of the permissions requested by the app appear to be within its expected fucntion.</analysis>
+            <notes></notes>
         </results>
     </excessprivileges>
     
     <storingdata>
         <results>
             <status></status>
-            <comment></comment>
+            <analysis></analysis>
+            <notes></notes>
         </results>
     </storingdata>
     
-    <testresults>
-        <permissions>
-            <req ref="fdp_dec_ext.1.3">
-                <status>Passed</status>
-            </req>
-            <req ref="fdp_dec_ext.1.1">
-                <status>Failed</status>
-            </req>
-            <req ref="fdp_dec_ext.1.2">
-                <status>Did Not Test</status>
-            </req>
-        </permissions>            
-        
-        <transmittingdata>
-            
-        </transmittingdata>
-        <networkconnections>
-            
-        </networkconnections>
-        <authentication>
-            
-        </authentication>
-        <privacy>
-            
-        </privacy>
-        <sourcecode>
-            
-        </sourcecode>
-        <resourceuse>
-            
-        </resourceuse>
-        <auditing>
-            
-        </auditing>
-    </testresults>
-    
-    
-    <storedcredentials ref="fcs_sto_ext.1.1">
-    
-    </storedcredentials>
-    
-
-    
-    
-    
-
-    
-    
     <networkcomms ref="fdp_dec_ext.1.4">
         <!-- open question: store whois info here, or just name/address/port? -->
-        <connections> 
+        <appinitiatedconnections> 
             <host>
                 <ipaddr>54.191.189.43</ipaddr>
                 <hostname>ec2-54-191-189-43.us-west-2.compute.amazonaws.com</hostname>
                 <port>80</port>
-                <usrouting>&#10004;</usrouting>
+                <protocol>HTTP</protocol>
             </host>    
-                
+            
             <host>
                 <ipaddr>173.194.121.3</ipaddr>
                 <hostname>iad23s25-in-f3.1e100.net</hostname>
                 <port>443</port>
-                <usrouting>&#10008;</usrouting>
+                <protocol>TLS 1.2</protocol>
             </host>
             
             <host>
                 <ipaddr>54.154.124.182</ipaddr>
                 <hostname>ec2-54-154-124-182.eu-west-1.compute.amazonaws.com</hostname>
                 <port>80</port>
-                <usrouting>&#10004;</usrouting>
+                <protocol>HTTP</protocol>
             </host>
-        </connections>
-        
-        <!-- <openports>
-        <port><number></number><protocol></protocol></port>
-        </openports> -->
+        </appinitiatedconnections>
+        <remotelyinitiatedconnections>
+            <host>
+                <ipaddr>54.191.189.43</ipaddr>
+                <hostname>ec2-54-191-189-43.us-west-2.compute.amazonaws.com</hostname>
+                <port>80</port>
+                <protocol>HTTP</protocol>
+            </host>    
+            
+            <host>
+                <ipaddr>173.194.121.3</ipaddr>
+                <hostname>iad23s25-in-f3.1e100.net</hostname>
+                <port>443</port>
+                <protocol>TLS 1.2</protocol>
+            </host>
+            
+            <host>
+                <ipaddr>54.154.124.182</ipaddr>
+                <hostname>ec2-54-154-124-182.eu-west-1.compute.amazonaws.com</hostname>
+                <port>80</port>
+                <protocol>HTTP</protocol>
+            </host>
+        </remotelyinitiatedconnections>
+        <results>
+            <status></status>
+            <analysis></analysis>
+            <notes></notes>
+        </results>
     </networkcomms>
+    
+    <files ref="fmt_cfg_ext.1.1">
+        <!-- list of app and its data files -->
+        <file>
+            <path>/data/data/app.samplecorp.sample/files/mydata</path>
+            <permissions>rwx------</permissions>
+        </file>
+        <file>
+            <path>/sdcard/Android/data/app.samplecorp.sample/files/myinadvertentlyshareddata</path>
+            <permissions>rwxrwxrwx</permissions>
+            <analysis>
+                <note>This permission leaves the file open to modification by other applications.
+                </note>
+                <sharedappdata/>
+            </analysis>
+        </file>
+        
+        <analysis>
+            <note>The file permissions for myinadvertentshareddata is permissive.</note>
+        </analysis>
+    </files>
+    
+    <libraries ref="fpt_lib_ext.1.1">
+        <library>
+            <name>AdMob</name>
+            <version>1.3</version>
+            <analysis>
+                <adnetworks use="yes"/>
+                <note>What could possibly go wrong?
+                </note>
+            </analysis>
+        </library>
+        
+        <library>
+            <name>OpenSSL</name>
+            <version>1.0.1f</version>
+            <analysis>
+                <vulnerablelib cve="2014-0160"/>
+            </analysis>
+        </library>
+        
+        <library>
+            <name>Appcelerator Titanium</name>
+            <version>3.2.2</version>
+            <analysis>
+            </analysis>
+        </library>
+    </libraries>
+
+
+
+
+
+
+
+    <storedcredentials ref="fcs_sto_ext.1.1">
+    
+    </storedcredentials>
     
     <piitransmitted ref="fdp_dec_ext.1.5">
         <emailaddr>
@@ -257,30 +312,6 @@
     <defaultcreds ref="fmt_cfg_ext.1.1">
     </defaultcreds>
     
-    
-    
-    <files ref="fmt_cfg_ext.1.1">
-        <!-- list of app and its data files -->
-        <file>
-            <path>/data/data/app.samplecorp.sample/files/mydata</path>
-            <permissions>rwx------</permissions>
-        </file>
-        <file>
-            <path>/sdcard/Android/data/app.samplecorp.sample/files/myinadvertentlyshareddata</path>
-            <permissions>rwxrwxrwx</permissions>
-            <analysis>
-                <note>This permission leaves the file open to modification by other applications.
-                </note>
-                <sharedappdata/>
-            </analysis>
-        </file>
-        
-        <analysis>
-        <note>The file permissions for myinadvertentshareddata is permissive.</note>
-        </analysis>
-    </files>
-    
-    
     <untrustedupdate ref="fpt_tud_ext.1.4">
     <!-- list of any changes to the executable files of the app -->
         <file>
@@ -296,32 +327,4 @@
             <source></source>
         </file>
     </untrustedupdate>
-    
-    
-    <libraries ref="fpt_lib_ext.1.1">
-       <library>
-        <name>AdMob</name>
-        <version>1.3</version>
-        <analysis>
-            <adnetworks use="yes"/>
-            <note>What could possibly go wrong?
-            </note>
-        </analysis>
-       </library>
-       
-       <library>
-        <name>OpenSSL</name>
-        <version>1.0.1f</version>
-        <analysis>
-            <vulnerablelib cve="2014-0160"/>
-        </analysis>
-       </library>
-       
-       <library>
-        <name>Appcelerator Titanium</name>
-        <version>3.2.2</version>
-        <analysis>
-        </analysis>
-       </library>
-    </libraries>
 </report>

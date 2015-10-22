@@ -511,24 +511,12 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</tr>
 							<tr>
 								<td>
-									Network
-								</td>
-								<td>
-									<xsl:call-template name="used">
-										<xsl:with-param name="used">
-											<xsl:value-of select="/rr:report/rr:hardwareresources/rr:network/@use"/>
-										</xsl:with-param>
-									</xsl:call-template>
-								</td>
-							</tr>
-							<tr>
-								<td>
 									Camera
 								</td>
 								<td>
-									<xsl:call-template name="used">
-										<xsl:with-param name="used">
-											<xsl:value-of select="/rr:report/rr:hardwareresources/rr:camera/@use"/>
+									<xsl:call-template name="checkmark">
+										<xsl:with-param name="check">
+											<xsl:value-of select="/rr:report/rr:hardwareresources/rr:camera/rr:useraware"/>
 										</xsl:with-param>
 									</xsl:call-template>
 								</td>
@@ -538,9 +526,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 									Microphone
 								</td>
 								<td>
-									<xsl:call-template name="used">
-										<xsl:with-param name="used">
-											<xsl:value-of select="/rr:report/rr:hardwareresources/rr:microphone/@use"/>
+									<xsl:call-template name="checkmark">
+										<xsl:with-param name="check">
+											<xsl:value-of select="/rr:report/rr:hardwareresources/rr:microphone/rr:useraware"/>
 										</xsl:with-param>
 									</xsl:call-template>
 								</td>
@@ -550,9 +538,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 									Location Services
 								</td>
 								<td>
-									<xsl:call-template name="used">
-										<xsl:with-param name="used">
-											<xsl:value-of select="/rr:report/rr:hardwareresources/rr:locationservices/@use"/>
+									<xsl:call-template name="checkmark">
+										<xsl:with-param name="check">
+											<xsl:value-of select="/rr:report/rr:hardwareresources/rr:locationservices/rr:useraware"/>
 										</xsl:with-param>
 									</xsl:call-template>
 								</td>
@@ -562,9 +550,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 									NFC
 								</td>
 								<td>
-									<xsl:call-template name="used">
-										<xsl:with-param name="used">
-											<xsl:value-of select="/rr:report/rr:hardwareresources/rr:nfc/@use"/>
+									<xsl:call-template name="checkmark">
+										<xsl:with-param name="check">
+											<xsl:value-of select="/rr:report/rr:hardwareresources/rr:nfc/rr:useraware"/>
 										</xsl:with-param>
 									</xsl:call-template>
 								</td>
@@ -574,28 +562,44 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 									Bluetooth
 								</td>
 								<td>
-									<xsl:call-template name="used">
-										<xsl:with-param name="used">
-											<xsl:value-of select="/rr:report/rr:hardwareresources/rr:bluetooth/@use"/>
+									<xsl:call-template name="checkmark">
+										<xsl:with-param name="check">
+											<xsl:value-of select="/rr:report/rr:hardwareresources/rr:bluetooth/rr:useraware"/>
 										</xsl:with-param>
 									</xsl:call-template>
 								</td>
 							</tr>
+							<xsl:for-each select="/rr:report/rr:hardwareresources/rr:other/rr:resource">
+								<tr>
+									<td>
+										<xsl:value-of select="rr:name"/>
+									</td>
+									<td>
+										<xsl:call-template name="checkmark">
+											<xsl:with-param name="check">
+												<xsl:value-of select="rr:useraware"/>
+											</xsl:with-param>
+										</xsl:call-template>
+									</td>
+								</tr>
+							</xsl:for-each>
 						</table>
 						<b>Results:</b>
 						<table class="results">
 							<tr>
 								<th colspan="3">Status</th>
-								<th rowspan="2">Analyst's Comment</th>
+								<th rowspan="2">Analysis</th>
+								<th rowspan="2">Notes</th>
 							</tr>
-							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
 										<xsl:value-of select="/rr:report/rr:hardwareresources/rr:results/rr:status"/>
 									</xsl:with-param>
 								</xsl:call-template>
-								<td><xsl:value-of select="/rr:report/rr:hardwareresources/rr:results/rr:comment"/></td>
+								<td><xsl:value-of select="/rr:report/rr:hardwareresources/rr:results/rr:analysis"/></td>
+								<td><xsl:value-of select="/rr:report/rr:hardwareresources/rr:results/rr:notes"/></td>
 							</tr>
 						</table>
 					</div>
@@ -622,9 +626,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 									Address Book
 								</td>
 								<td>
-									<xsl:call-template name="used">
-										<xsl:with-param name="used">
-											<xsl:value-of select="/rr:report/rr:inforepositories/rr:addressbook/@use"/>
+									<xsl:call-template name="checkmark">
+										<xsl:with-param name="check">
+											<xsl:value-of select="/rr:report/rr:inforepositories/rr:addressbook/rr:useraware"/>
 										</xsl:with-param>
 									</xsl:call-template>
 								</td>
@@ -634,9 +638,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 									Calendar
 								</td>
 								<td>
-									<xsl:call-template name="used">
-										<xsl:with-param name="used">
-											<xsl:value-of select="/rr:report/rr:inforepositories/rr:calendar/@use"/>
+									<xsl:call-template name="checkmark">
+										<xsl:with-param name="check">
+											<xsl:value-of select="/rr:report/rr:inforepositories/rr:calendar/rr:useraware"/>
 										</xsl:with-param>
 									</xsl:call-template>
 								</td>
@@ -646,9 +650,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 									Call Lists
 								</td>
 								<td>
-									<xsl:call-template name="used">
-										<xsl:with-param name="used">
-											<xsl:value-of select="/rr:report/rr:inforepositories/rr:calllist/@use"/>
+									<xsl:call-template name="checkmark">
+										<xsl:with-param name="check">
+											<xsl:value-of select="/rr:report/rr:inforepositories/rr:calllist/rr:useraware"/>
 										</xsl:with-param>
 									</xsl:call-template>
 								</td>
@@ -658,28 +662,44 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 									System Logs
 								</td>
 								<td>
-									<xsl:call-template name="used">
-										<xsl:with-param name="used">
-											<xsl:value-of select="/rr:report/rr:inforepositories/rr:systemlogs/@use"/>
+									<xsl:call-template name="checkmark">
+										<xsl:with-param name="check">
+											<xsl:value-of select="/rr:report/rr:inforepositories/rr:systemlogs/rr:useraware"/>
 										</xsl:with-param>
 									</xsl:call-template>
 								</td>
 							</tr>
+							<xsl:for-each select="/rr:report/rr:inforepositories/rr:other/rr:resource">
+								<tr>
+									<td>
+										<xsl:value-of select="rr:name"/>
+									</td>
+									<td>
+										<xsl:call-template name="checkmark">
+											<xsl:with-param name="check">
+												<xsl:value-of select="rr:useraware"/>
+											</xsl:with-param>
+										</xsl:call-template>
+									</td>
+								</tr>
+							</xsl:for-each>
 						</table>
 						<b>Results:</b>
 						<table class="results">
 							<tr>
 								<th colspan="3">Status</th>
-								<th rowspan="2">Analyst's Comment</th>
+								<th rowspan="2">Analysis</th>
+								<th rowspan="2">Notes</th>
 							</tr>
-							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
 										<xsl:value-of select="/rr:report/rr:inforepositories/rr:results/rr:status"/>
 									</xsl:with-param>
 								</xsl:call-template>
-								<td><xsl:value-of select="/rr:report/rr:inforepositories/rr:results/rr:comment"/></td>
+								<td><xsl:value-of select="/rr:report/rr:inforepositories/rr:results/rr:analysis"/></td>
+								<td><xsl:value-of select="/rr:report/rr:inforepositories/rr:results/rr:notes"/></td>
 							</tr>
 						</table>
 					</div>
@@ -695,11 +715,10 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						</span>
 					</div>
 					<div class="bodytext">
-						<p>List of application permissions and whether they comply with the applications stated function.</p>
+						<p>List of application permissions:</p>
 						<table>
 							<tr>
-								<th>Permission</th>
-								<th>Complies with Stated Function</th>
+								<th>Permissions</th>
 							</tr>
 							<xsl:call-template name="permissions"></xsl:call-template>
 						</table>
@@ -707,16 +726,18 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						<table class="results">
 							<tr>
 								<th colspan="3">Status</th>
-								<th rowspan="2">Analyst's Comment</th>
+								<th rowspan="2">Analysis</th>
+								<th rowspan="2">Notes</th>
 							</tr>
-							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
 										<xsl:value-of select="/rr:report/rr:excessprivileges/rr:results/rr:status"/>
 									</xsl:with-param>
 								</xsl:call-template>
-								<td><xsl:value-of select="/rr:report/rr:excessprivileges/rr:results/rr:comment"/></td>
+								<td><xsl:value-of select="/rr:report/rr:excessprivileges/rr:results/rr:analysis"/></td>
+								<td><xsl:value-of select="/rr:report/rr:excessprivileges/rr:results/rr:notes"/></td>
 							</tr>
 						</table>
 					</div>
@@ -735,16 +756,18 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						<table class="results">
 							<tr>
 								<th colspan="3">Status</th>
-								<th rowspan="2">Analyst's Comment</th>
+								<th rowspan="2">Analysis</th>
+								<th rowspan="2">Notes</th>
 							</tr>
-							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
 										<xsl:value-of select="/rr:report/rr:storingdata/rr:results/rr:status"/>
 									</xsl:with-param>
 								</xsl:call-template>
-								<td><xsl:value-of select="/rr:report/rr:storingdata/rr:results/rr:comment"/></td>
+								<td><xsl:value-of select="/rr:report/rr:storingdata/rr:results/rr:analysis"/></td>
+								<td><xsl:value-of select="/rr:report/rr:storingdata/rr:results/rr:notes"/></td>
 							</tr>
 						</table>
 					</div>
@@ -774,10 +797,10 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 									<b>Hostname</b>
 								</th>
 								<th>
-									<b>Routed within Continental United States</b>
+									<b>Protocol</b>
 								</th>
 							</tr>
-							<xsl:for-each select="//rr:networkcomms/rr:connections">
+							<xsl:for-each select="//rr:networkcomms/rr:appinitiatedconnections">
 								<xsl:for-each select="rr:host">
 	
 									<tr>
@@ -791,7 +814,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 											<xsl:value-of select="rr:hostname"/>
 										</td>
 										<td>
-											<xsl:value-of select="rr:usrouting"/>
+											<xsl:value-of select="rr:protocol"/>
 										</td>
 									</tr>
 								</xsl:for-each>
@@ -810,10 +833,10 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 									<b>Hostname</b>
 								</th>
 								<th>
-									<b>Routed within Countinental United States</b>
+									<b>Protocol</b>
 								</th>
 							</tr>
-							<xsl:for-each select="//rr:networkcomms/rr:connections">
+							<xsl:for-each select="/rr:report/rr:networkcomms/rr:remotelyinitiatedconnections">
 								<xsl:for-each select="rr:host">
 									
 									<tr>
@@ -827,7 +850,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 											<xsl:value-of select="rr:hostname"/>
 										</td>
 										<td>
-											<xsl:value-of select="rr:usrouting"/>
+											<xsl:value-of select="rr:protocol"/>
 										</td>
 									</tr>
 								</xsl:for-each>
@@ -837,22 +860,24 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						<table class="results">
 							<tr>
 								<th colspan="3">Status</th>
-								<th rowspan="2">Analyst's Comment</th>
+								<th rowspan="2">Analysis</th>
+								<th rowspan="2">Notes</th>
 							</tr>
-							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
-										<xsl:value-of select="/rr:report/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.2']/rr:status"/>
+										<xsl:value-of select="/rr:report/rr:networkcomms/rr:results/rr:status"/>
 									</xsl:with-param>
 								</xsl:call-template>
-								<td></td>
+								<td><xsl:value-of select="/rr:report/rr:networkcomms/rr:results/rr:analysis"/></td>
+								<td><xsl:value-of select="/rr:report/rr:networkcomms/rr:results/rr:notes"/></td>
 							</tr>
 						</table>
 					</div>
 				</div>
 
-				<div class="sectiontitle">Trusted Communication Path/Channels</div>
+<!--				<div class="sectiontitle">Trusted Communication Path/Channels</div>
 				<div class="reqelement">
 					<div class="reqelementtitle">
 						<span class="reqelementtitletext">Protecting Data in Transit</span>
@@ -879,9 +904,10 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						<table class="results">
 							<tr>
 								<th colspan="3">Status</th>
-								<th rowspan="2">Analyst's Comment</th>
+								<th rowspan="2">Analysis</th>
+								<th rowspan="2">Notes</th>
 							</tr>
-							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
@@ -889,11 +915,11 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 									</xsl:with-param>
 								</xsl:call-template>
 								<td></td>
+								<td></td>
 							</tr>
 						</table>
 					</div>
-					
-				</div>
+				</div>-->
 
 				<div class="sectiontitle">Security Configuration and Management</div>
 				<div class="reqelement">
@@ -933,9 +959,10 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						<table class="results">
 							<tr>
 								<th colspan="3">Status</th>
-								<th rowspan="2">Analyst's Comment</th>
+								<th rowspan="2">Analysis</th>
+								<th rowspan="2">Notes</th>
 							</tr>
-							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
@@ -943,6 +970,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 									</xsl:with-param>
 								</xsl:call-template>
 								<td><xsl:value-of select="//rr:files/rr:analysis/rr:note"/></td>
+								<td></td>
 							</tr>
 						</table>
 					</div>
@@ -989,15 +1017,17 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						<table class="results">
 							<tr>
 								<th colspan="3">Status</th>
-								<th rowspan="2">Analyst's Comment</th>
+								<th rowspan="2">Analysis</th>
+								<th rowspan="2">Notes</th>
 							</tr>
-							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
 										<xsl:value-of select="/rr:report/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.2']/rr:status"/>
 									</xsl:with-param>
 								</xsl:call-template>
+								<td></td>
 								<td></td>
 							</tr>
 						</table>
@@ -1020,15 +1050,17 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						<table class="results">
 							<tr>
 								<th colspan="3">Status</th>
-								<th rowspan="2">Analyst's Comment</th>
+								<th rowspan="2">Analysis</th>
+								<th rowspan="2">Notes</th>
 							</tr>
-							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
 										
 									</xsl:with-param>
 								</xsl:call-template>
+								<td></td>
 								<td></td>
 							</tr>
 						</table>
@@ -1064,15 +1096,17 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						<table class="results">
 							<tr>
 								<th colspan="3">Status</th>
-								<th rowspan="2">Analyst's Comment</th>
+								<th rowspan="2">Analysis</th>
+								<th rowspan="2">Notes</th>
 							</tr>
-							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
 										
 									</xsl:with-param>
 								</xsl:call-template>
+								<td></td>
 								<td></td>
 							</tr>
 						</table>
@@ -1093,15 +1127,17 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						<table class="results">
 							<tr>
 								<th colspan="3">Status</th>
-								<th rowspan="2">Analyst's Comment</th>
+								<th rowspan="2">Analysis</th>
+								<th rowspan="2">Notes</th>
 							</tr>
-							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
 										
 									</xsl:with-param>
 								</xsl:call-template>
+								<td></td>
 								<td></td>
 							</tr>
 						</table>
@@ -1158,15 +1194,17 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<table class="results">
 								<tr>
 									<th colspan="3">Status</th>
-									<th rowspan="2">Analyst's Comment</th>
+									<th rowspan="2">Analysis</th>
+									<th rowspan="2">Notes</th>
 								</tr>
-								<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+								<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
 								<tr>
 									<xsl:call-template name="status">
 										<xsl:with-param name="status">
 											
 										</xsl:with-param>
 									</xsl:call-template>
+									<td></td>
 									<td></td>
 								</tr>
 							</table>
@@ -1231,15 +1269,17 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						<table class="results">
 							<tr>
 								<th colspan="3">Status</th>
-								<th rowspan="2">Analyst's Comment</th>
+								<th rowspan="2">Analysis</th>
+								<th rowspan="2">Notes</th>
 							</tr>
-							<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
 							<tr>
 								<xsl:call-template name="status">
 									<xsl:with-param name="status">
 										
 									</xsl:with-param>
 								</xsl:call-template>
+								<td></td>
 								<td></td>
 							</tr>
 						</table>
@@ -1255,9 +1295,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<th rowspan="2">Category</th>
 							<th colspan="3">Status</th>
 							<th rowspan="2">Criteria</th>
-							<th rowspan="2">Analyst's Comment</th>
+							<th rowspan="2">Analysis</th>
 						</tr>
-						<tr><td style="background:#9BBB59;"><div class="vertical-text"><div class="vertical-text__inner">Passed</div></div></td><td style="background:#C0504D;"><div class="vertical-text"><div class="vertical-text__inner">Failed</div></div></td><td style="background:#959595;"><div class="vertical-text"><div class="vertical-text__inner">Did Not Test</div></div></td></tr>
+						<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
 						<tr>
 							<td>Permissions</td>
 							<xsl:call-template name="status">
@@ -1527,11 +1567,14 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 		</xsl:choose>
 	</xsl:template>
 	
-	<xsl:template name="used">
-		<xsl:param name="used"/>
+	<xsl:template name="checkmark">
+		<xsl:param name="check"/>
 		<xsl:choose>
-			<xsl:when test="$used='yes'">
+			<xsl:when test="$check='yes'">
 				&#10004;
+			</xsl:when>
+			<xsl:when test="$check='no'">
+				&#10008;
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
@@ -1540,16 +1583,6 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 		<xsl:for-each select="/rr:report/rr:excessprivileges/rr:privilege">
 			<tr>
 				<td><xsl:value-of select="rr:name"/></td>
-				<td>
-					<xsl:choose>
-						<xsl:when test="rr:complies='yes'">
-							&#10004;
-						</xsl:when>
-						<xsl:otherwise>
-							&#10008;
-						</xsl:otherwise>
-					</xsl:choose>
-				</td>
 			</tr>
 		</xsl:for-each>
 	</xsl:template>
