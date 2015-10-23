@@ -801,6 +801,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 					
 				</div>
 
+
 				<!--
 				<div class="reqelement">
 					<div class="reqelementtitle">
@@ -1005,6 +1006,22 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						</table>
 						<b>Results:</b>
 						<xsl:apply-templates select="/rr:report/rr:untrustedupdate/rr:results"/>
+
+					</div>
+				</div>
+
+
+				<div class="sectiontitle">Vulnerability Assessment</div>
+				<div class="reqelement">
+					<div class="reqelementtitle">
+						<span class="reqelementtitletext">Vulnerability Survey</span>
+						<span class="reqelementtitleppref">
+								<a class="ppreflink" href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#AVA_VAN_EXT.1.2E">AVA_VAN.1.2E</a>
+						</span>
+					</div>
+					<div class="bodytext">
+						<b>Results:</b>
+						<xsl:apply-templates select="/rr:report/rr:vulnsurvey/rr:results"/>
 
 					</div>
 				</div>
@@ -1225,7 +1242,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<td class="fail"></td>
 							<td class="notTested"></td>
 							<td>The application uses resources aligned with its stated function<ul><li>List resources tested</li><li>Describe how the Application failed to comply with this requirement</li></ul></td>
-							<td></td>
+							<td>This seems duplicative of the requirement that the app not access information repositories or hardware resources it doesn't need.</td>
 						</tr>
 						<tr>
 							<td rowspan="3">
