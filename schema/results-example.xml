@@ -25,7 +25,7 @@
         <hash type="sha1">09da1eefe30bc2cf2d548cfc8f3052c3feaf6ca4</hash>
         <signature type="sha1">3325d1ba02fafbf7feb3fdde655f9e6251f19e12</signature>
         <category>Samples</category>
-        <apptype>GOTS</apptype>
+        <apptype>Commercial</apptype>
         <filename>sampleapp.apk</filename>
     </appinfo>
 
@@ -47,14 +47,14 @@
 		<note>Used for capturing network traffic</note>
 		</analysistool>
 		<analysistool>
-		<name>SecureNow 1.2.3</name>
+		<name>SecureRightNow 1.2.3</name>
 		<description>Dynamic and Static Analysis Tool</description>
 		<note>Used for analysis of data files</note>
 		</analysistool>
 		<analysistool>
 		<name>Strengthify 4.5</name>
 		<description>Static Analysis Tool</description>
-		<note>Used for code scanning - report with CWE available separately</note>
+		<note>Used for code scanning - report with CWEs available separately</note>
 		</analysistool>
     </analysistools>
   
@@ -337,13 +337,19 @@
 		</api>
 	</apis>
 	<results>
-		<result>
-		<status></status>
-		<analysis></analysis>
-		<notes></notes>
+		<result status="passed">
+		<status>Not Tested</status>
+		<analysis>The application should only use supported APIs.</analysis>
+		<notes>The analyst was unable to determine whether all APIs used by the 
+		application are supported.</notes>
 		</result>
 	</results>
 	</supportedAPIs> 
+
+
+
+
+
 
     <networkcommsprotection ref="ftp_dit_ext.1.1">
         <!-- list of sensitive data that is transmitted, and which protocol protects it -->
@@ -414,9 +420,8 @@
 		<results>
 		<result status="failed">
 		<status>Failed</status>
-		<analysis>The application shall not download, modify, replace or update its own binary code.</analysis>
-		<note>The application updates portions of its own code, outside the cryptographically-verified update
-		process.</note>
+		<analysis>The application does not download, modify, replace or update its own binary code.</analysis>
+		<notes>The application updates its own executable files outside the cryptographically-validated update process.</notes>
 		</result>
 		</results>
     </untrustedupdate>

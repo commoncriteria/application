@@ -783,9 +783,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<th>File</th>
 								<th>Permissions</th>
 							</tr>
-							<xsl:for-each select="//rr:files">
-								<xsl:for-each select="rr:file">
-	
+							<xsl:for-each select="/rr:report/rr:files/rr:file">
 									<tr>
 										<td>
 											<xsl:value-of select="rr:path"/>
@@ -794,7 +792,6 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 											<xsl:value-of select="rr:permissions"/>
 										</td>
 									</tr>
-								</xsl:for-each>
 							</xsl:for-each>
 						</table>					
 						<b>Results:</b>
@@ -803,6 +800,8 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 					</div>
 					
 				</div>
+
+				<!--
 				<div class="reqelement">
 					<div class="reqelementtitle">
 						<span class="reqelementtitletext">Management Functions</span>
@@ -846,8 +845,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 					</div>
 					
 				</div>
+-->
 
-
+<!--
 				<div class="sectiontitle">Cryptographic Support</div>
 				<div class="reqelement">
 					<div class="reqelementtitle">
@@ -863,7 +863,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
 					</div>
 				</div>
-
+-->
 				<div class="sectiontitle">Protection of Security Functionality and Integrity</div>
 				
 				<div class="reqelement">
@@ -893,11 +893,11 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						</table>
 
 						<b>Results:</b>
-						<xsl:apply-templates select="/rr:report/rr:hardwareresources/rr:results"/>
+						<xsl:apply-templates select="/rr:report/rr:supportedAPIs/rr:results"/>
 
 					</div>
 				</div>
-				
+			
 				<div class="reqelement">
 					<div class="reqelementtitle">
 						<span class="reqelementtitletext">Anti-Exploitation Capabilities</span>
@@ -947,15 +947,6 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<td></td>
 							</tr>
 						</table>
-						List of FIPS Libraries and the algorithms/modules used:
-						<table>
-							<tr>
-								<th>FIPS Library</th>
-								<th>Version</th>
-								<th>Algorithms/modules</th>
-							</tr>
-							<tr><td>Samsung Kernel Cryptographic Module</td><td>SKC1.6</td><td>AES, ECDSA</td></tr>
-						</table>
 						<b>Results:</b>
 						<xsl:apply-templates select="/rr:report/rr:libraries/rr:results"/>
 
@@ -974,8 +965,6 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						</span>
 					</div>
 					<div class="bodytext">
-						<p>The application shall not download, modify, replace or update its own binary code.</p>
-						<p><b>Application Note:</b> This requirement applies to the code of the application; it does not apply to mobile code technologies that are designed for download and execution by the application.</p>
 						<table>
 							<tr>
 								<th>Executable File Changed</th>
@@ -1294,8 +1283,8 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						<xsl:value-of select="rr:status"/>
 					</xsl:with-param>
 				</xsl:call-template>
-				<td><xsl:value-of select="rr:analysis"/></td>
-				<td><xsl:value-of select="rr:notes"/></td>
+				<td style="text-align:left;"><xsl:value-of select="rr:analysis"/></td>
+				<td style="text-align:left;"><xsl:value-of select="rr:notes"/></td>
 			</tr>
 			</xsl:for-each>
 		</table>
