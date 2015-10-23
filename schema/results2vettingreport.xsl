@@ -61,7 +61,10 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			margin-left: 4%;
 			margin-bottom: 2em;
         }
-        
+        th
+		{
+			font-weight: bold;
+		}
         .results, .results th, .results td
         {
         border-collapse: collapse;
@@ -102,7 +105,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 		td.pass
 		{
 			background:#9BBB59;
-			texr-align:center;
+			text-align:center;
 		}
 		td.fail
 		{
@@ -256,7 +259,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						</tr>
 						<tr>
 							<td>
-								<b>Application Type (3rd party/GOTS)</b>
+								<b>Application Type (Commercial/Government)</b>
 							</td>
 							<td>
 								<xsl:value-of select="/rr:report/rr:appinfo/rr:apptype"/>
@@ -390,70 +393,40 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 					</div>
 					<table>
 						<tr>
-							<td>
-								<b>Was source code available?</b>
-							</td>
-							<td>
-								<xsl:value-of select="/rr:report/rr:analysistools/rr:sourceavailable"/>
-							</td>
+							<th>Tool</th>
+							<th>Tool Description</th>
+							<th>Notes</th>
 						</tr>
-						<tr>
-							<td>
-								<b>Static Analysis Tools Used</b>
-							</td>
-							<td>
-								<xsl:for-each select="/rr:report/rr:analysistools/rr:statictools/rr:tool">
-									<xsl:call-template name="tools"/>
-								</xsl:for-each>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<b>Dynamic Analysis Tools Used</b>
-							</td>
-							<td>
-								<xsl:for-each select="/rr:report/rr:analysistools/rr:dynamictools/rr:tool">
-									<xsl:call-template name="tools"/>
-								</xsl:for-each>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<b>Behavioral Analysis Tools Used</b>
-							</td>
-							<td>
-								<xsl:for-each select="/rr:report/rr:analysistools/rr:behaviortools/rr:tool">
-									<xsl:call-template name="tools"/>
-								</xsl:for-each>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<b>Was the app scanned for malware?</b>
-							</td>
-							<td>
-								<xsl:value-of select="/rr:report/rr:analysistools/rr:malwarescan"/>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<b>Was malware detected?</b>
-							</td>
-							<td>
-								<xsl:value-of select="/rr:report/rr:analysistools/rr:malwaredetected"/>
-							</td>
-						</tr>
+						<xsl:for-each select="/rr:report/rr:analysistools/rr:analysistool">
+							<xsl:call-template name="analysistool"/>
+						</xsl:for-each>
 					</table>
 				</div>
 				
 				<div class="reqelement" style="margin-left:25%; margin-right:25%; ">
 					<div class="reqelementtitle">
-						<span class="reqelementtitletext">Supply Chain Risk Management</span>
+						<span class="reqelementtitletext">Other Analyses Performed</span>
 					</div>
 					<table>
 						<tr>
 							<td>
-								<b>Has a Supply Chain Risk Management assessment been performed?</b>
+								<b>FIPS Certificate</b>
+							</td>
+							<td>
+								<xsl:value-of select="/rr:report/rr:productcertifications/rr:fips"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Common Criteria Certificate</b>
+							</td>
+							<td>
+								<xsl:value-of select="/rr:report/rr:productcertifications/rr:niap"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<b>Supply Chain Risk Analysis</b>
 							</td>
 							<td>
 								<xsl:value-of select="/rr:report/rr:supplychain/rr:riskassessment"/>
@@ -471,24 +444,20 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							Test Summary and Analyst Notes:
 						</th>
 						<tr>
-							<td></td>
+							<td><xsl:value-of select="/rr:report/rr:analystnotes/rr:summary"/></td>
 						</tr>
 					</table>
-				</div>
-				
-				<div class="reqelement" style="margin-left:25%; margin-right:25%; ">
-					<div class="reqelementtitle">
-						<span class="reqelementtitletext">Analyst's Concerns and Mitigation Recommendations</span>
-					</div>
+
 					<table>
 						<th>
 							Analyst's Concerns and Mitigation Recommendations:
 						</th>
 						<tr>
-							<td></td>
+							<td><xsl:value-of select="/rr:report/rr:analystnotes/rr:concerns"/></td>
 						</tr>
 					</table>
 				</div>
+				
 
 
 				<div class="sectiontitle"> User Data Protection </div>
@@ -503,11 +472,10 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						</span>
 					</div>
 					<div class="bodytext">
-						<p>The application provides user awareness of its intent to access:</p>
 						<table>
 							<tr>
 								<th>Hardware Resource</th>
-								<th>User Awareness</th>
+								<th>Accessed by App</th>
 							</tr>
 							<tr>
 								<td>
@@ -585,23 +553,10 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</xsl:for-each>
 						</table>
 						<b>Results:</b>
-						<table class="results">
-							<tr>
-								<th colspan="3">Status</th>
-								<th rowspan="2">Analysis</th>
-								<th rowspan="2">Notes</th>
-							</tr>
-							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
-							<tr>
-								<xsl:call-template name="status">
-									<xsl:with-param name="status">
-										<xsl:value-of select="/rr:report/rr:hardwareresources/rr:results/rr:status"/>
-									</xsl:with-param>
-								</xsl:call-template>
-								<td><xsl:value-of select="/rr:report/rr:hardwareresources/rr:results/rr:analysis"/></td>
-								<td><xsl:value-of select="/rr:report/rr:hardwareresources/rr:results/rr:notes"/></td>
-							</tr>
-						</table>
+
+						<xsl:apply-templates select="/rr:report/rr:hardwareresources/rr:results"/>
+
+
 					</div>
 				</div>
 				<div class="reqelement">
@@ -615,11 +570,10 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						</span>
 					</div>
 					<div class="bodytext">
-						<p>The application provides user awareness of its intent to access:</p>
 						<table>
 							<tr>
 								<th>Repository</th>
-								<th>User Awareness</th>
+								<th>Accessed by App</th>
 							</tr>
 							<tr>
 								<td>
@@ -685,64 +639,11 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</xsl:for-each>
 						</table>
 						<b>Results:</b>
-						<table class="results">
-							<tr>
-								<th colspan="3">Status</th>
-								<th rowspan="2">Analysis</th>
-								<th rowspan="2">Notes</th>
-							</tr>
-							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
-							<tr>
-								<xsl:call-template name="status">
-									<xsl:with-param name="status">
-										<xsl:value-of select="/rr:report/rr:inforepositories/rr:results/rr:status"/>
-									</xsl:with-param>
-								</xsl:call-template>
-								<td><xsl:value-of select="/rr:report/rr:inforepositories/rr:results/rr:analysis"/></td>
-								<td><xsl:value-of select="/rr:report/rr:inforepositories/rr:results/rr:notes"/></td>
-							</tr>
-						</table>
+						<xsl:apply-templates select="/rr:report/rr:inforepositories/rr:results"/>
+
 					</div>
 				</div>
 
-				<div class="reqelement">
-					<div class="reqelementtitle">
-						<span class="reqelementtitletext">Justified Access to Resources</span>
-						<span class="reqelementtitleppref">
-							<a class="ppreflink"
-								href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FDP_DEC_EXT.1.3"
-								>FDP_DEC_EXT.1.3</a>
-						</span>
-					</div>
-					<div class="bodytext">
-						<p>List of application permissions:</p>
-						<table>
-							<tr>
-								<th>Permissions</th>
-							</tr>
-							<xsl:call-template name="permissions"></xsl:call-template>
-						</table>
-						<b>Results:</b>
-						<table class="results">
-							<tr>
-								<th colspan="3">Status</th>
-								<th rowspan="2">Analysis</th>
-								<th rowspan="2">Notes</th>
-							</tr>
-							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
-							<tr>
-								<xsl:call-template name="status">
-									<xsl:with-param name="status">
-										<xsl:value-of select="/rr:report/rr:excessprivileges/rr:results/rr:status"/>
-									</xsl:with-param>
-								</xsl:call-template>
-								<td><xsl:value-of select="/rr:report/rr:excessprivileges/rr:results/rr:analysis"/></td>
-								<td><xsl:value-of select="/rr:report/rr:excessprivileges/rr:results/rr:notes"/></td>
-							</tr>
-						</table>
-					</div>
-				</div>
-				
 				<div class="reqelement">
 					<div class="reqelementtitle">
 						<span class="reqelementtitletext">Sensitive Application Data</span>
@@ -751,25 +652,21 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						</span>
 					</div>
 					<div class="bodytext">
-						<p>The application uses platform-provided encryption libraries for encrypting data and sensitive data (including credentials) stored on the device.</p>
+						<table>
+							<tr>
+								<th>Data File</th>
+								<th>Encryption</th>
+							</tr>
+							<xsl:for-each select="/rr:report/rr:filesencrypted/rr:files/rr:file">
+									<tr>
+										<td> <xsl:value-of select="rr:path"/> </td>
+										<td> <xsl:value-of select="rr:encryption"/> </td>
+									</tr>
+							</xsl:for-each>
+						</table>					
 						<b>Results:</b>
-						<table class="results">
-							<tr>
-								<th colspan="3">Status</th>
-								<th rowspan="2">Analysis</th>
-								<th rowspan="2">Notes</th>
-							</tr>
-							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
-							<tr>
-								<xsl:call-template name="status">
-									<xsl:with-param name="status">
-										<xsl:value-of select="/rr:report/rr:storingdata/rr:results/rr:status"/>
-									</xsl:with-param>
-								</xsl:call-template>
-								<td><xsl:value-of select="/rr:report/rr:storingdata/rr:results/rr:analysis"/></td>
-								<td><xsl:value-of select="/rr:report/rr:storingdata/rr:results/rr:notes"/></td>
-							</tr>
-						</table>
+						<xsl:apply-templates select="/rr:report/rr:filesencrypted/rr:results"/>
+
 					</div>
 				</div>
 
@@ -840,44 +737,21 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<xsl:for-each select="rr:host">
 									
 									<tr>
-										<td>
-											<xsl:value-of select="rr:ipaddr"/>
-										</td>
-										<td>
-											<xsl:value-of select="rr:port"/>
-										</td>
-										<td>
-											<xsl:value-of select="rr:hostname"/>
-										</td>
-										<td>
-											<xsl:value-of select="rr:protocol"/>
-										</td>
+										<td> <xsl:value-of select="rr:ipaddr"/> </td>
+										<td> <xsl:value-of select="rr:port"/> </td>
+										<td> <xsl:value-of select="rr:hostname"/> </td>
+										<td> <xsl:value-of select="rr:protocol"/> </td>
 									</tr>
 								</xsl:for-each>
 							</xsl:for-each>
 						</table>
 						<b>Results:</b>
-						<table class="results">
-							<tr>
-								<th colspan="3">Status</th>
-								<th rowspan="2">Analysis</th>
-								<th rowspan="2">Notes</th>
-							</tr>
-							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
-							<tr>
-								<xsl:call-template name="status">
-									<xsl:with-param name="status">
-										<xsl:value-of select="/rr:report/rr:networkcomms/rr:results/rr:status"/>
-									</xsl:with-param>
-								</xsl:call-template>
-								<td><xsl:value-of select="/rr:report/rr:networkcomms/rr:results/rr:analysis"/></td>
-								<td><xsl:value-of select="/rr:report/rr:networkcomms/rr:results/rr:notes"/></td>
-							</tr>
-						</table>
+						<xsl:apply-templates select="/rr:report/rr:networkcomms/rr:results"/>
+
 					</div>
 				</div>
 
-<!--				<div class="sectiontitle">Trusted Communication Path/Channels</div>
+				<div class="sectiontitle">Trusted Communication Path/Channels</div>
 				<div class="reqelement">
 					<div class="reqelementtitle">
 						<span class="reqelementtitletext">Protecting Data in Transit</span>
@@ -888,38 +762,10 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						</span>
 					</div>
 					<div class="bodytext">
-						<p>The application:</p>
-						<table>
-							<tr><td>does not transmit any data.</td><td></td></tr>
-							<tr><td>does not transmit any sensitive data.</td><td></td></tr>
-							<tr><td>encrypts all transmitted sensitive data with FIPS 140-2.</td><td>&#10004;</td></tr>
-							<tr><td>encrypts all transmitted data with FIPS 140-2.</td><td></td></tr>
-						</table>
-						<p>List of FIPS algorithms/modules used to encrypt transmitted data:</p>
-						<table>
-							<tr><th>Algorithms/Modules</th></tr>
-							<tr><td>TLS 1.2</td></tr>
-						</table>
 						<b>Results:</b>
-						<table class="results">
-							<tr>
-								<th colspan="3">Status</th>
-								<th rowspan="2">Analysis</th>
-								<th rowspan="2">Notes</th>
-							</tr>
-							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
-							<tr>
-								<xsl:call-template name="status">
-									<xsl:with-param name="status">
-										<xsl:value-of select="/rr:report/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.2']/rr:status"/>
-									</xsl:with-param>
-								</xsl:call-template>
-								<td></td>
-								<td></td>
-							</tr>
-						</table>
+						<xsl:apply-templates select="/rr:report/rr:networkcommsprotection/rr:results"/>
 					</div>
-				</div>-->
+				</div>
 
 				<div class="sectiontitle">Security Configuration and Management</div>
 				<div class="reqelement">
@@ -936,7 +782,6 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<tr>
 								<th>File</th>
 								<th>Permissions</th>
-								<th>Notes</th>
 							</tr>
 							<xsl:for-each select="//rr:files">
 								<xsl:for-each select="rr:file">
@@ -948,31 +793,13 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 										<td>
 											<xsl:value-of select="rr:permissions"/>
 										</td>
-										<td>
-											<xsl:value-of select="rr:analysis/rr:note"/>
-										</td>
 									</tr>
 								</xsl:for-each>
 							</xsl:for-each>
 						</table>					
 						<b>Results:</b>
-						<table class="results">
-							<tr>
-								<th colspan="3">Status</th>
-								<th rowspan="2">Analysis</th>
-								<th rowspan="2">Notes</th>
-							</tr>
-							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
-							<tr>
-								<xsl:call-template name="status">
-									<xsl:with-param name="status">
-										<xsl:value-of select="/rr:report/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.2']/rr:status"/>
-									</xsl:with-param>
-								</xsl:call-template>
-								<td><xsl:value-of select="//rr:files/rr:analysis/rr:note"/></td>
-								<td></td>
-							</tr>
-						</table>
+						<xsl:apply-templates select="/rr:report/rr:files/rr:results"/>
+
 					</div>
 					
 				</div>
@@ -1014,23 +841,8 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</tr>
 						</table>
 						<b>Results:</b>
-						<table class="results">
-							<tr>
-								<th colspan="3">Status</th>
-								<th rowspan="2">Analysis</th>
-								<th rowspan="2">Notes</th>
-							</tr>
-							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
-							<tr>
-								<xsl:call-template name="status">
-									<xsl:with-param name="status">
-										<xsl:value-of select="/rr:report/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.2']/rr:status"/>
-									</xsl:with-param>
-								</xsl:call-template>
-								<td></td>
-								<td></td>
-							</tr>
-						</table>
+						<xsl:apply-templates select="/rr:report/rr:hardwareresources/rr:results"/>
+
 					</div>
 					
 				</div>
@@ -1047,23 +859,8 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 					<div class="bodytext">
 						<p>The application shall invoke platform-provided deterministic random bit generation (DRBG) functionality for its cryptographic operations.</p>
 						<b>Results:</b>
-						<table class="results">
-							<tr>
-								<th colspan="3">Status</th>
-								<th rowspan="2">Analysis</th>
-								<th rowspan="2">Notes</th>
-							</tr>
-							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
-							<tr>
-								<xsl:call-template name="status">
-									<xsl:with-param name="status">
-										
-									</xsl:with-param>
-								</xsl:call-template>
-								<td></td>
-								<td></td>
-							</tr>
-						</table>
+						<xsl:apply-templates select="/rr:report/rr:hardwareresources/rr:results"/>
+
 					</div>
 				</div>
 
@@ -1076,40 +873,28 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<a class="ppreflink" href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FPT_API_EXT.1.1">FPT_API_EXT.1.1</a>
 						</span>
 					</div>
+
 					<div class="bodytext">
-						<p>The application makes use of the following APIs and SDKs:</p>
 						<table>
 							<tr>
 								<th>API</th>
 								<th>SDK</th>
 							</tr>
-							<tr>
-								<td>SharedPreferences getPreferences(int mode)</td>
-								<td>Android</td>
-							</tr>
-							<tr>
-								<td>PEMReader(Reader reader)</td>
-								<td>Spongy Castle</td>
-							</tr>
+							<xsl:for-each select="/rr:report/rr:supportedAPIs/rr:apis/rr:api">
+								<tr>
+									<td>
+										<xsl:value-of select="rr:api"/>
+									</td>
+									<td>
+										<xsl:value-of select="rr:sdk"/>
+									</td>
+								</tr>
+							</xsl:for-each>
 						</table>
+
 						<b>Results:</b>
-						<table class="results">
-							<tr>
-								<th colspan="3">Status</th>
-								<th rowspan="2">Analysis</th>
-								<th rowspan="2">Notes</th>
-							</tr>
-							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
-							<tr>
-								<xsl:call-template name="status">
-									<xsl:with-param name="status">
-										
-									</xsl:with-param>
-								</xsl:call-template>
-								<td></td>
-								<td></td>
-							</tr>
-						</table>
+						<xsl:apply-templates select="/rr:report/rr:hardwareresources/rr:results"/>
+
 					</div>
 				</div>
 				
@@ -1124,23 +909,8 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						<p>The application shall be compatible with security features provided by the platform vendor.</p>
 						<p><b>Application Note:</b> This requirement is designed to ensure that platform security features do not need to be disabled in order for the application to run.</p>
 						<b>Results:</b>
-						<table class="results">
-							<tr>
-								<th colspan="3">Status</th>
-								<th rowspan="2">Analysis</th>
-								<th rowspan="2">Notes</th>
-							</tr>
-							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
-							<tr>
-								<xsl:call-template name="status">
-									<xsl:with-param name="status">
-										
-									</xsl:with-param>
-								</xsl:call-template>
-								<td></td>
-								<td></td>
-							</tr>
-						</table>
+						<xsl:apply-templates select="/rr:report/rr:hardwareresources/rr:results"/>
+
 					</div>
 				</div>
 
@@ -1159,25 +929,21 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<tr>
 								<th>Library Name</th>
 								<th>Version</th>
-								<th>Allows Crash Reporting</th>
 								<th>Notes</th>
 							</tr>
 							<tr>
 								<td>OpenSSL</td>
 								<td>1.0.1f</td>
-								<td></td>
 								<td>What could possibly go wrong?</td>
 							</tr>
 							<tr>
 								<td>AdMob</td>
 								<td>1.3</td>
-								<td></td>
 								<td>Google's mobile advertising network.</td>
 							</tr>
 							<tr>
 								<td>Appcelerator Titanium</td>
 								<td>3.2.2</td>
-								<td></td>
 								<td></td>
 							</tr>
 						</table>
@@ -1190,24 +956,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</tr>
 							<tr><td>Samsung Kernel Cryptographic Module</td><td>SKC1.6</td><td>AES, ECDSA</td></tr>
 						</table>
-							<b>Results:</b>
-							<table class="results">
-								<tr>
-									<th colspan="3">Status</th>
-									<th rowspan="2">Analysis</th>
-									<th rowspan="2">Notes</th>
-								</tr>
-								<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
-								<tr>
-									<xsl:call-template name="status">
-										<xsl:with-param name="status">
-											
-										</xsl:with-param>
-									</xsl:call-template>
-									<td></td>
-									<td></td>
-								</tr>
-							</table>
+						<b>Results:</b>
+						<xsl:apply-templates select="/rr:report/rr:libraries/rr:results"/>
+
 					</div>
 
 				</div>
@@ -1266,23 +1017,8 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</xsl:for-each>
 						</table>
 						<b>Results:</b>
-						<table class="results">
-							<tr>
-								<th colspan="3">Status</th>
-								<th rowspan="2">Analysis</th>
-								<th rowspan="2">Notes</th>
-							</tr>
-							<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
-							<tr>
-								<xsl:call-template name="status">
-									<xsl:with-param name="status">
-										
-									</xsl:with-param>
-								</xsl:call-template>
-								<td></td>
-								<td></td>
-							</tr>
-						</table>
+						<xsl:apply-templates select="/rr:report/rr:untrustedupdate/rr:results"/>
+
 					</div>
 				</div>
 
@@ -1542,6 +1278,28 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 	</xsl:template>
 
 
+	<xsl:template match="rr:results">
+		<table class="results">
+			<tr>
+				<th colspan="3">Determination</th>
+				<th rowspan="2">Requirement</th>
+				<th rowspan="2">Analysis</th>
+			</tr>
+
+			<tr style="font-size:small; font-weight:bold; text-align:center;"><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
+			<xsl:for-each select="rr:result">
+			<tr>
+				<xsl:call-template name="status">
+					<xsl:with-param name="status">
+						<xsl:value-of select="rr:status"/>
+					</xsl:with-param>
+				</xsl:call-template>
+				<td><xsl:value-of select="rr:analysis"/></td>
+				<td><xsl:value-of select="rr:notes"/></td>
+			</tr>
+			</xsl:for-each>
+		</table>
+	</xsl:template>
 
 	<xsl:template match="cc:title">
 	      		<xsl:apply-templates />
@@ -1555,16 +1313,13 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 		</xsl:element>
 	</xsl:template>
 
-
-	<xsl:template match="cc:aactivity">
-		<xsl:apply-templates select="@*|node()" />
-	</xsl:template>
 	
-	<xsl:template name="tools">
-		<xsl:value-of select="."/>
-		<xsl:choose>
-			<xsl:when test="position() != last()">, </xsl:when>
-		</xsl:choose>
+	<xsl:template name="analysistool">
+	<tr>
+		<td><xsl:value-of select="rr:name"/></td>
+		<td><xsl:value-of select="rr:description"/></td>
+		<td><xsl:value-of select="rr:note"/></td>
+	</tr>
 	</xsl:template>
 	
 	<xsl:template name="checkmark">
@@ -1590,7 +1345,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 	<xsl:template name="status">
 		<xsl:param name="status"/>
 		<xsl:choose>
-			<xsl:when test="$status='Passed'">
+			<xsl:when test="$status='Passed'" >
 				<td class="pass">
 					&#10004;
 				</td>
