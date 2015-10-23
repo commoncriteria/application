@@ -906,10 +906,8 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						</span>
 					</div>
 					<div class="bodytext">
-						<p>The application shall be compatible with security features provided by the platform vendor.</p>
-						<p><b>Application Note:</b> This requirement is designed to ensure that platform security features do not need to be disabled in order for the application to run.</p>
 						<b>Results:</b>
-						<xsl:apply-templates select="/rr:report/rr:hardwareresources/rr:results"/>
+						<xsl:apply-templates select="/rr:report/rr:antiexploitcompatible/rr:results"/>
 
 					</div>
 				</div>
@@ -1020,7 +1018,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<th rowspan="2">Category</th>
 							<th colspan="3">Status</th>
 							<th rowspan="2">Criteria</th>
-							<th rowspan="2">Analysis</th>
+							<th rowspan="2">Notes</th>
 						</tr>
 						<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
 						<tr>
