@@ -880,7 +880,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<th>API</th>
 								<th>SDK</th>
 							</tr>
-							<xsl:for-each select="/rr:report/rr:supportedAPIs/rr:apis/rr:api">
+							<xsl:for-each select="/rr:report/rr:supportedapis/rr:apis/rr:api">
 								<tr>
 									<td>
 										<xsl:value-of select="rr:api"/>
@@ -893,7 +893,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						</table>
 
 						<b>Results:</b>
-						<xsl:apply-templates select="/rr:report/rr:supportedAPIs/rr:results"/>
+						<xsl:apply-templates select="/rr:report/rr:supportedapis/rr:results"/>
 
 					</div>
 				</div>
@@ -1023,9 +1023,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
 						<tr>
 							<td>Permissions</td>
-							<xsl:call-template name="status">
-								<xsl:with-param name="status">
-									<xsl:value-of select="/rr:report/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.2']/rr:status"/>
+							<xsl:call-template name="determination">
+								<xsl:with-param name="determination">
+									<xsl:value-of select="/rr:report/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.2']/rr:determination"/>
 								</xsl:with-param>
 							</xsl:call-template>
 							<td>
@@ -1276,9 +1276,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			<tr style="font-size:small; font-weight:bold; text-align:center;"><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
 			<xsl:for-each select="rr:result">
 			<tr>
-				<xsl:call-template name="status">
-					<xsl:with-param name="status">
-						<xsl:value-of select="rr:status"/>
+				<xsl:call-template name="determination">
+					<xsl:with-param name="determination">
+						<xsl:value-of select="rr:determination"/>
 					</xsl:with-param>
 				</xsl:call-template>
 				<td style="text-align:left;"><xsl:value-of select="rr:analysis"/></td>
@@ -1329,17 +1329,17 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 		</xsl:for-each>
 	</xsl:template>
 	
-	<xsl:template name="status">
-		<xsl:param name="status"/>
+	<xsl:template name="determination">
+		<xsl:param name="determination"/>
 		<xsl:choose>
-			<xsl:when test="$status='Passed'" >
+			<xsl:when test="$determination='Passed'" >
 				<td class="pass">
 					&#10004;
 				</td>
 				<td class="fail"/>
 				<td class="notTested"/>
 			</xsl:when>
-			<xsl:when test="'Failed' = $status">
+			<xsl:when test="'Failed' = $determination">
 				<td class="pass"/>
 				<td class="fail">
 					&#10004;

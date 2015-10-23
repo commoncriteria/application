@@ -57,7 +57,6 @@
 		<note>Used for code scanning - report with CWEs available separately</note>
 		</analysistool>
     </analysistools>
-  
     
     <supplychain>
         <riskassessment>Yes - available in separate report</riskassessment>
@@ -68,22 +67,18 @@
 		<niap>No - and this is not an IA-enabled product</niap>
     </productcertifications>
    
-
-
     <analystnotes>
-    <summary>The app did not exhibit any malicious activity and
-	is from a reputable firm.  The analyst recommends accepting
-	risks involved in use of the app.
-	</summary>
-
-	<concerns>The app required more permissions/access rights than are strictly required.  
-	The app used a 3rd-party library with a known vulnerability.
-	These issues have been reported to the developer and the commercial app store
-	for remediation.
-	</concerns>
+        <summary>The app did not exhibit any malicious activity and
+    	is from a reputable firm.  The analyst recommends accepting
+    	risks involved in use of the app.
+    	</summary>
+    
+    	<concerns>The app required more permissions/access rights than are strictly required.  
+    	The app used a 3rd-party library with a known vulnerability.
+    	These issues have been reported to the developer and the commercial app store
+    	for remediation.
+    	</concerns>
 	</analystnotes>
-
-
 
     <hardwareresources ref="fdp_dec_ext.1.1">
         <network>
@@ -121,11 +116,11 @@
                 <note></note>
             </resource>
         </other>
-        <results determination="failed">
+        <results>
 			<result>
-            <status>Failed</status>
-            <analysis>Access to hardware resources occurs only as necessary.</analysis>
-            <notes>Use of the microphone is not necessary by the app.</notes>
+                <determination>Failed</determination>
+                <analysis>Access to hardware resources occurs only as necessary.</analysis>
+                <notes>Use of the microphone is not necessary by the app.</notes>
 			</result>
         </results>      
     </hardwareresources>
@@ -155,11 +150,11 @@
                 <note></note>
             </resource>
         </other>
-        <results determination="failed">
+        <results>
 			<result>
-            <status>Failed</status>
-            <analysis>Access to sensitive information repositories occurs only as necessary.</analysis>
-            <notes>Accessing system logs and notes is not necessary for this app.</notes>
+                <determination>Failed</determination>
+                <analysis>Access to sensitive information repositories occurs only as necessary.</analysis>
+                <notes>Accessing system logs and notes is not necessary for this app.</notes>
 			</result>
         </results>      
     </inforepositories>
@@ -173,7 +168,7 @@
             <name>android.permission.READ_CONTACTS</name>
         </privilege>
         <results>
-            <status>Passed</status>
+            <determination>Passed</determination>
             <analysis>All of the permissions requested by the app appear to be within its expected fucntion.</analysis>
             <notes></notes>
         </results>
@@ -182,7 +177,7 @@
 
     <storingdata>
         <results>
-            <status></status>
+            <determination></determination>
             <analysis></analysis>
             <notes></notes>
         </results>
@@ -236,9 +231,9 @@
         </remotelyinitiatedconnections>
         <results>
 			<result>
-            <status>Passed</status>
-            <analysis>The application only engages in necessary network communications.</analysis>
-            <notes>All observed communications were related to legitimate application activities.</notes>
+                <determination>Passed</determination>
+                <analysis>The application only engages in necessary network communications.</analysis>
+                <notes>All observed communications were related to legitimate application activities.</notes>
 			</result>
 
         </results>
@@ -258,9 +253,9 @@
         
         <results>
 			<result>
-            <status>Failed</status>
-            <analysis>The application and its data have file permissions which protect it from unauthorized access.</analysis>
-            <notes>The file permissions for the file myinadvertentshareddata are permissive.</notes>
+                <determination>Failed</determination>
+                <analysis>The application and its data have file permissions which protect it from unauthorized access.</analysis>
+                <notes>The file permissions for the file myinadvertentshareddata are permissive.</notes>
 			</result>
         </results>
     </files>
@@ -291,17 +286,17 @@
             </analysis>
         </library>
         <results>
-			<result status="failed">
-            <status>Passed</status>
-            <analysis>The application uses only approved advertising networks.</analysis>
-            <notes>The AdMob advertising network is considered approved by agency of the originating analyst.</notes>
+			<result>
+                <determination>Passed</determination>
+                <analysis>The application uses only approved advertising networks.</analysis>
+                <notes>The AdMob advertising network is considered approved by agency of the originating analyst.</notes>
 			</result>
-			<result status="failed">
-            <status>Failed</status>
-            <analysis>The application uses only FIPS-approved cryptographic libraries.</analysis>
-            <notes>Although the application includes OpenSSL (some versions of which have FIPS validation), 
-			this is contingent upon the use of the OpenSSL FIPS Object Module.  There is no indication of this.
-			</notes>
+			<result>
+                <determination>Failed</determination>
+                <analysis>The application uses only FIPS-approved cryptographic libraries.</analysis>
+                <notes>Although the application includes OpenSSL (some versions of which have FIPS validation), 
+    			this is contingent upon the use of the OpenSSL FIPS Object Module.  There is no indication of this.
+    			</notes>
 			</result>
         </results>
     </libraries>
@@ -325,7 +320,7 @@
     </piitransmitted>
    
 
-	<supportedAPIs ref="fpt_api_ext.1.1"> 
+	<supportedapis ref="fpt_api_ext.1.1"> 
 	<apis>
 		<api>
 			<api>SharedPreferences getPreferences(int mode)</api>
@@ -337,24 +332,24 @@
 		</api>
 	</apis>
 	<results>
-		<result status="passed">
-		<status>Not Tested</status>
-		<analysis>The application should only use supported APIs.</analysis>
-		<notes>The analyst was unable to determine whether all APIs used by the 
-		application are supported.</notes>
+		<result>
+      		<determination>Not Tested</determination>
+      		<analysis>The application should only use supported APIs.</analysis>
+      		<notes>The analyst was unable to determine whether all APIs used by the 
+      		application are supported.</notes>
 		</result>
 	</results>
-	</supportedAPIs> 
+	</supportedapis> 
 
 
 	<antiexploitcompatible ref="fpt_aex_ext.1.3"> 
 	<results>
-		<result status="passed">
-		<status>Passed</status>
-		<analysis>The application should be compatible with the latest mobile OS version, and
-		not require disabling any security features.</analysis>
-		<notes>The analyst ran the application on Android 4.4 and it did not require disabling any security features.
-		</notes>
+		<result>
+      		<determination>Passed</determination>
+      		<analysis>The application should be compatible with the latest mobile OS version, and
+      		not require disabling any security features.</analysis>
+      		<notes>The analyst ran the application on Android 4.4 and it did not require disabling any security features.
+      		</notes>
 		</result>
 	</results>
 	</antiexploitcompatible> 
@@ -372,16 +367,16 @@
         </analysis>
         <results>
 			<result>
-            <status>Passed</status>
-            <analysis>The application only transmits sensitive data over encrypted channels.
-		    </analysis>
-            <notes>All transmissions of sensitive data occurred over TLS.</notes>
+                <determination>Passed</determination>
+                <analysis>The application only transmits sensitive data over encrypted channels.
+    		    </analysis>
+                <notes>All transmissions of sensitive data occurred over TLS.</notes>
 			</result>
 			<result>
-            <status>Passed</status>
-            <analysis>The application resists man-in-the-middle attacks.
-		    </analysis>
-            <notes>The application rejected invalid server certificates.</notes>
+                <determination>Passed</determination>
+                <analysis>The application resists man-in-the-middle attacks.
+    		    </analysis>
+                <notes>The application rejected invalid server certificates.</notes>
 			</result>
         </results>
     </networkcommsprotection>
@@ -400,10 +395,10 @@
        	</file>
 	</files>
 	<results>
-		<result status="failed">
-		<status>Failed</status>
-		<analysis>The application uses encryption to protect sensitive files.</analysis>
-		<notes>The application does not protect its sensitive files using platform encryption.</notes>
+		<result>
+      		<determination>Failed</determination>
+      		<analysis>The application uses encryption to protect sensitive files.</analysis>
+      		<notes>The application does not protect its sensitive files using platform encryption.</notes>
 		</result>
 	</results>
     </filesencrypted>
@@ -429,11 +424,11 @@
             <source></source>
         </file>
 		<results>
-		<result status="failed">
-		<status>Failed</status>
-		<analysis>The application does not download, modify, replace or update its own binary code.</analysis>
-		<notes>The application updates its own executable files outside the cryptographically-validated update process.</notes>
-		</result>
+      		<result>
+          		<determination>Failed</determination>
+          		<analysis>The application does not download, modify, replace or update its own binary code.</analysis>
+          		<notes>The application updates its own executable files outside the cryptographically-validated update process.</notes>
+      		</result>
 		</results>
     </untrustedupdate>
 </report>
