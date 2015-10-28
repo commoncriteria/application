@@ -1356,20 +1356,20 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 				<td class="fail"/>
 				<td class="notTested"/>
 			</xsl:when>
-			<xsl:when test="'Failed' = $determination">
+			<xsl:when test="$determination='Failed'">
 				<td class="pass"/>
 				<td class="fail">
 					&#10004;
 				</td>
 				<td class="notTested"/>
 			</xsl:when>
-			<xsl:otherwise>
+			<xsl:when test="$determination='Not Tested'">
 				<td class="pass"/>
 				<td class="fail"/>
 				<td class="notTested">
 					&#10004;
 				</td>
-			</xsl:otherwise>
+			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
 	
