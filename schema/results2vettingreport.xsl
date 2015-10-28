@@ -1037,7 +1037,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<th rowspan="2">Criteria</th>
 							<th rowspan="2">Notes</th>
 						</tr>
-						<tr><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
+						<tr><td style="background:#9BBB59;"><div><i>Yes</i></div></td><td style="background:#C0504D;"><div><i>No</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
 						<tr>
 							<td>Permissions</td>
 							<xsl:call-template name="determination">
@@ -1290,7 +1290,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 				<th rowspan="2">Analysis</th>
 			</tr>
 
-			<tr style="font-size:small; font-weight:bold; text-align:center;"><td style="background:#9BBB59;"><div><i>Passed</i></div></td><td style="background:#C0504D;"><div><i>Failed</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
+			<tr style="font-size:small; font-weight:bold; text-align:center;"><td style="background:#9BBB59;"><div><i>Yes</i></div></td><td style="background:#C0504D;"><div><i>No</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
 			<xsl:for-each select="rr:result">
 			<tr>
 				<xsl:call-template name="determination">
