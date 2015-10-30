@@ -268,7 +268,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			<xsl:value-of select="/rr:report/rr:appinfo/rr:name" /></title>
 		</head>
 			<body onLoad="init()">
-				<h1 class="title">Mobile App Security Vetting Reciprocity Report Visualization - Draft</h1>
+				<h1 class="title">Mobile App Security Vetting Reciprocity Report Visualization - <i>Generated from Schema</i></h1>
 				<div class="reqelement" style="margin-left:25%; margin-right:25%; ">
 					<div class="reqelementtitle">
 						<span class="reqelementtitletext">Application Information</span>
