@@ -268,7 +268,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 			<xsl:value-of select="/rr:report/rr:appinfo/rr:name" /></title>
 		</head>
 			<body onLoad="init()">
-				<h1 class="title">Mobile App Security Vetting Reciprocity Report Visualization</h1>
+				<h1 class="title">Mobile App Security Vetting Reciprocity Report Visualization - Draft</h1>
 				<div class="reqelement" style="margin-left:25%; margin-right:25%; ">
 					<div class="reqelementtitle">
 						<span class="reqelementtitletext">Application Information</span>
@@ -500,6 +500,26 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 					</table>
 				</div>
 				
+				<div class="sectiontitle">How To Use This Document</div>
+				<div class="reqelement">
+					<div class="bodytext">
+								The following sections of this document are organized according to
+								security functionality classes found in the Common Criteria, which
+								are used in the 
+								<a href="https://www.niap-ccevs.org/pp/PP_APP_v1.1/">Application Software Protection Profile</a>
+								and many other security
+								requirements documents.  Each heading refers to
+								security functionality classes used in the Common Criteria, around which individual 
+								requirements or analyses
+								can be organized.  Example are User Data Protection and Trusted Communication
+								Paths.  Within each individual section,
+								 data gathered by a tool or analyst is first presented.  This is shown
+								 in order to provide evidence about how the program achieves each security 
+								 functionality.  Next,
+								each section lists the relevant <b>Results</b> that is, the analysis carried 
+								out on this data, along with the analyst's determinations.
+					</div>
+				</div>
 
 
 				<div class="sectiontitle"> User Data Protection </div>
@@ -514,6 +534,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						</span>
 					</div>
 					<div class="bodytext">
+					The application accesses (or seeks permission to access) the following hardware resources:
 						<table>
 							<tr>
 								<th>Hardware Resource</th>
@@ -612,6 +633,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						</span>
 					</div>
 					<div class="bodytext">
+					The application accesses (or seeks permission to access) the following sensitive information repositories:
 						<table>
 							<tr>
 								<th>Repository</th>
@@ -694,6 +716,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						</span>
 					</div>
 					<div class="bodytext">
+					The application writes the following data files:
 						<table>
 							<tr>
 								<th>Data File</th>
@@ -812,6 +835,19 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 				<div class="sectiontitle">Security Configuration and Management</div>
 				<div class="reqelement">
 					<div class="reqelementtitle">
+						<span class="reqelementtitletext">Default Credentials</span>
+						<span class="reqelementtitleppref">
+							<a class="ppreflink"
+								href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#FMT_CFG_EXT.1.1"
+								>FMT_CFG_EXT.1.1</a>
+						</span>
+					</div>
+					<div class="bodytext">
+						<b>Results:</b>
+						<xsl:apply-templates select="/rr:report/rr:defaultcreds/rr:results"/>
+					</div>
+
+					<div class="reqelementtitle">
 						<span class="reqelementtitletext">File Permissions</span>
 						<span class="reqelementtitleppref">
 							<a class="ppreflink"
@@ -820,6 +856,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						</span>
 					</div>
 					<div class="bodytext">
+					The application writes the following files to local media, including removable storage:
 						<table>
 							<tr>
 								<th>File</th>
@@ -918,6 +955,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 					</div>
 
 					<div class="bodytext">
+					The application uses the following services and APIs:
 						<table>
 							<tr>
 								<th>API</th>
@@ -1006,9 +1044,10 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 						</span>
 					</div>
 					<div class="bodytext">
+					The application writes or overwrites the following executable files after initial installation:
 						<table>
 							<tr>
-								<th>Executable File Changed</th>
+								<th>Executable File</th>
 								<th>Metadata</th>
 							</tr>
 							<xsl:for-each select="//rr:untrustedupdate">
@@ -1056,6 +1095,18 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 				<div class="sectiontitle">Vulnerability Assessment</div>
 				<div class="reqelement">
 					<div class="reqelementtitle">
+						<span class="reqelementtitletext">Suitability for Testing</span>
+						<span class="reqelementtitleppref">
+								<a class="ppreflink" href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#AVA_VAN_EXT.1.2C">AVA_VAN.1.2C</a>
+						</span>
+					</div>
+					<div class="bodytext">
+						<b>Results:</b>
+						<xsl:apply-templates select="/rr:report/rr:suitability/rr:results"/>
+
+					</div>
+
+					<div class="reqelementtitle">
 						<span class="reqelementtitletext">Vulnerability Survey</span>
 						<span class="reqelementtitleppref">
 								<a class="ppreflink" href="https://www.niap-ccevs.org/pp/pp_app_v1.1_table.htm#AVA_VAN_EXT.1.2E">AVA_VAN.1.2E</a>
@@ -1068,40 +1119,18 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 					</div>
 				</div>
 
-
+<!--
 					<div class="reqelementtitle">
 						<span class="reqelementtitletext">Discussion Area</span>
 					</div>
 					<table class="results">
 						<tr>
-							<th rowspan="2">Category</th>
-							<th colspan="3">Status</th>
-							<th rowspan="2">Criteria</th>
-							<th rowspan="2">Notes</th>
+							<th>Criteria</th>
+							<th>Notes</th>
 						</tr>
-						<tr><td style="background:#9BBB59;"><div><i>Yes</i></div></td><td style="background:#C0504D;"><div><i>No</i></div></td><td style="background:#959595;"><div><i>Not Tested</i></div></td></tr>
+
+
 						<tr>
-							<td>Permissions</td>
-							<xsl:call-template name="determination">
-								<xsl:with-param name="determination">
-									<xsl:value-of select="/rr:report/rr:testresults/rr:permissions/rr:req[@ref='fdp_dec_ext.1.2']/rr:determination"/>
-								</xsl:with-param>
-							</xsl:call-template>
-							<td>
-								The application notifies the user of any access to other applications.<ul><li>List any Failure of notification of any access to other applications or information repositories</li><li>List any Successful notification of any access to other applications or information repositories</li></ul>
-							</td>
-							<td>This is dependent upon the underlying platform's semantics for sharing data between applications.
-							</td>
-						</tr>
-						<tr>
-							<td rowspan="6">
-								<b>Storing Data</b>
-							</td>
-						</tr>
-						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
 							<td>
 								Does the application write data to persistent memory accessible to other applications?<ul><li>List the shared file locations where the application write data to persistent memory</li></ul>
 							</td>
@@ -1109,72 +1138,21 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</td>
 						</tr>
 						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
 							<td>
-								Encryptes sensitive data (including credentials) stored off the device (e.g., removable media, Cloud Storage, Remote Access Sessions, etc.).
+								Encrypts sensitive data (including credentials) stored off the device (e.g., removable media, Cloud Storage, Remote Access Sessions, etc.).
 							</td>
 							<td>
 							</td>
 						</tr>
 						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
 							<td>
 								Sensitive data stored off the device is encrypted with FIPS 140-2 validated algorithms/modules.<ul><li>List encryption algorithms/modules used to encrypt data stored off the device</li></ul>
 							</td>
 							<td>This is out of scope.
 							</td>
 						</tr>
+
 						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
-							<td>
-								Cloud storage used by App is explicitly
-								referenced and complies with FedRAMP
-								certification<ul><li>List Cloud storage
-								provider(s)</li></ul>
-							</td>
-							<td>
-							    
-							</td>
-						</tr>
-						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
-							<td>
-								The app removes temporary files when it is closed or removed.
-							</td>
-							<td>Removing all temporarily files when the application is removed is actually a requirement on the mobile platform.
-							Also, mobile platforms quite literally save the
-							entire application state when the application is
-							closed -- this is how apps resume when they are
-							started back up.
-							</td>
-						</tr>
-						<tr>
-							<td rowspan="4">
-								<b>Transmitting Data</b>
-							</td>
-						</tr>
-						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
-							<td>
-								The app verifies destination before transmitting data. <p>If the app fails this test, provide information on how it fails (i.e. certificate is not signed by a trusted CA or certificate is expired)</p>
-							</td>
-							<td>This is part of TLS connection setup.  This could be reworked into "Protecting Data in Transit".
-							</td>
-						</tr>
-						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
 							<td>
 								Does the behavior of encryption in transit change over different methods of communication? (i.e. Wi-Fi communications are encrypted but Cellular communications are not)<ul><li>List which communication channels were tested</li><li>If the app fails this test, provide information on how it fails</li></ul>
 							</td>
@@ -1182,9 +1160,6 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</td>
 						</tr>
 						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
 							<td>
 								Does the app perform certificate pinning?
 							</td>
@@ -1192,12 +1167,6 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</td>
 						</tr>
 						<tr>
-							<td rowspan="3">
-								<b>Authentication</b>
-							</td>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
 							<td>List the identity services used for
 							authentication to access sensitive data<ul><li>List
 							the identity services used for authentication to
@@ -1209,56 +1178,20 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</li>
 							</ul>
 							</td>
-							<td>Exact LOA depends upon what the underlying platform is using for storage --- embedded hardware token, 
+							<td>Exact LOA depends upon what the underlying platform is using for storage - embedded hardware token, 
 							UICC, SDcard, software module, hardware-backed storage.  This will vary by platform (indeed, by platform version) 
 							and so it cannot be determined during app vetting.  
 							</td>
 						</tr>
 						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
 							<td>
 								Requires authentication to store sensitive data on the mobile device
 							</td>
 							<td>This is handled by platform settings.  Apps cannot generally query whether the platform has password-protection enabled.
 							</td>
 						</tr>
+
 						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
-							<td>
-								Does not store hard-coded credentials<ul><li>List the hard-coded credentials</li><li>Describe what the hard-coded credentials are used for</li></ul>
-							</td>
-							<td>
-								This could be part of FMT_CFG_EXT.1.1.
-							</td>
-						</tr>
-						<tr>
-							<td rowspan="2">
-								<b>Privacy</b>
-							</td>
-						</tr>
-						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
-							<td>
-								Provide a list of advertising networks accessed by the mobile application
-							</td>
-							<td>Handle in analysis portions of network connections and 3rd-party libraries.
-							</td>
-						</tr>
-						<tr>
-							<td rowspan="3">
-								<b>Source Code Analysis/Programming Logic</b>
-							</td>
-						</tr>
-						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
 							<td>
 								Does the App come with a crash reporting capability? (i.e. Does the app use something similar to Crashlytics)<ul><li>List crash reporting tool(s) used by the App</li><li>List remote locations where crash logs are sent</li></ul>
 							</td>
@@ -1266,40 +1199,12 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							contain sensitive information?
 							</td>
 						</tr>
+
 						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
-							<td>
-								Code components can be scanned
-							</td>
-							<td>Something about AVA_VAN.1.1C.
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<b>Resource Use</b>
-							</td>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
-							<td>The application uses resources aligned with its stated function<ul><li>List resources tested</li><li>Describe how the Application failed to comply with this requirement</li></ul></td>
-							<td>This seems duplicative of the requirement that the app not access information repositories or hardware resources it doesn't need.</td>
-						</tr>
-						<tr>
-							<td rowspan="3">
-								<b>Audit/Logging</b>
-							</td>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
 							<td>Audit logs capture security information</td>
 							<td>This is extremely difficult to define.</td>
 						</tr>
 						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
 							<td>
 								Audit logs containing sensitive information are encrypted
 							</td>
@@ -1307,9 +1212,6 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</td>
 						</tr>
 						<tr>
-							<td class="pass"></td>
-							<td class="fail"></td>
-							<td class="notTested"></td>
 							<td>
 								The Application does not log location information<p>List location information that is logged</p>
 							</td>
@@ -1317,7 +1219,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</td>
 						</tr>
 					</table>
-				
+			-->	
 
 			</body>
 		</html>
@@ -1328,7 +1230,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 		<table class="results">
 			<tr>
 				<th colspan="3">Determination</th>
-				<th rowspan="2">Requirement</th>
+				<th rowspan="2">Hypothesis</th>
 				<th rowspan="2">Analysis</th>
 			</tr>
 
