@@ -19,214 +19,255 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 
 	<xsl:template match="/rr:report">
 		<html>
-		<style type="text/css">
-
-        h1
-        {
-             text-align: left; font-size: 200%;  margin-top: 2em; margin-bottom: 2em;
-             font-family: verdana, arial, helvetica, sans-serif;
-             margin-bottom: 1.0em;
-        }
-        h1.title
-        {
-             text-align: center;
-        }
-        h2
-        {
-             font-size: 125%;
-             border-bottom: solid 1px gray; margin-bottom: 1.0em;
-             margin-top: 2em; margin-bottom: 0.75em; margin-left: 3em; margin-right: 3em; 
-             font-family: verdana, arial, helvetica, sans-serif;
-        }
-        tr.header
-        {
-             border-bottom: 3px solid gray; 
-             padding: 8px 8px;
-             text-align:left;
-             font-weight: bold;
-        }    
-      
-        table, th, td
-        {
-            border-collapse: collapse;
-            border: 1px solid #000000;
-            <!--border-left: none;
-            border-right: none;-->
-            vertical-align: top;
-            text-align: left;
-            padding: 2px;
-            font-family: verdana,arial,sans-serif;
-            font-size: normal;
-            padding-right: 20px;
-			margin-left: 4%;
-			margin-bottom: 2em;
-        }
-        th
-		{
-			font-weight: bold;
-		}
-        .results, .results th, .results td
-        {
-        border-collapse: collapse;
-        border: 1px solid #000000;
-			<!--border-left: none;
-            border-right: none;-->
-			vertical-align: middle;
-			text-align: center;
-			padding: 2px;
-			font-family: verdana,arial,sans-serif;
-			font-size: normal;
-			padding-right: 20px;
-			margin-left: 4%;
-			margin-bottom: 2em;
-			}
-
-
-		td.checkboxon
-		{
-		    background-color: white;
-			border: 3px solid black;
-			padding: 3px 3px;
-			border-spacing: 5px;
-			width: 20px;
-			height: 28px;
-			text-align: center;
-			font-weight: bold;
-		}
-		td.checkboxoff
-		{
-		    background-color: white;
-			border: 3px solid black;
-			padding: 3px 3px;
-			border-spacing: 5px;
-			width: 20px;
-		}
-		
-		td.pass
-		{
-			background:#9BBB59;
-			text-align:center;
-		}
-		td.fail
-		{
-			background:#C0504D;
-			text-align:center;
-		}
-		td.notTested
-		{
-			background:#959595;
-			text-align:center;
-		}
-
-        pre {
-            white-space: pre-wrap;
-            white-space: -moz-pre-wrap !important;
-            word-wrap:break-word;
-        }
-        table tr:nth-child(2n+2) { background-color: #f4f4f4; }
-        thead
-        {
-            display: table-header-group;
-            font-weight: bold;
-            background-color: #dedede;
-        }
-        div.title
-        {
-            text-align: center; font-size: xx-large; font-weight:bold;
-            font-family: verdana,arial,sans-serif;
-            margin-left: 8%; margin-right: 8%;
-        }
-        div.center
-        {
-            display: block; margin-left: auto; margin-right: auto; text-align:center;
-        }
-        div.bodytext
-        {
-            text-align: left; font-size: normal; font-weight: normal;
-            font-family: verdana,arial,sans-serif;
-            margin-left: 4%; margin-right: 12%;
-            padding-bottom: 1em;
-        }
-        div.sectiontitle
-        {
-            text-align: left; font-size: x-large; font-weight:bold; 
-            font-family: verdana,arial,sans-serif;
-            margin-top: 2em;
-			margin-left: 3em; 
-			margin-right: 3em; 
-            border-top: solid 2px gray;
-            border-bottom: solid 2px gray;
-            padding-bottom: 0.25em; padding-top: 0.25em;
-        }
-        div.reqelementtitle
-        {
-            overflow:auto; text-align: left; font-size: x-large; font-weight:bold; 
-            font-family: verdana,arial,sans-serif;
-            border-bottom: solid 2px gray;
-            padding-bottom: 0.25em; padding-top: 0.25em;
-			margin-bottom: 1em;
-        }
-        .reqelementtitletext
-        {
-            float: left;
-			font-size: large; font-weight:bold; 
-            font-family: verdana,arial,sans-serif;
-        }
-        .reqelementtitleppref
-        {
-            float: right;
-			text-decoration: none;
-			font-size: large; color: #666699;
-            font-family: verdana,arial,sans-serif;
-        }
-        .reqelement
-        {
-            text-align: left; font-size: large; font-weight:bold; 
-            font-family: verdana,arial,sans-serif;
-            margin-top: 2em;
-            padding-bottom: 0.25em; padding-top: 0.25em;
-			margin-left: 5em; 
-			margin-right: 3em; 
-        }
-        .vertical-text {
-        display: inline-block;
-        overflow: hidden;
-        width: 1.5em;
-        }
-        .vertical-text__inner {
-        display: inline-block;
-        white-space: nowrap;
-        line-height: 1.5;
-        transform: translate(0,100%) rotate(-90deg);
-        transform-origin: 0 0;
-        vertical-align: top;
-        }
-        /* This element stretches the parent to be square
-        by using the mechanics of vertical margins  */
-        .vertical-text__inner:after {
-        content: "";
-        display: block;
-        margin: -1.5em 0 100%;
-        }
-	a.abbr:link {color:black; text-decoration:none;}
-	a.abbr:visited {color:black; text-decoration:none;}
-	a.abbr:hover {color:blue; text-decoration:none;}
-	a.abbr:hover:visited {color:purple; text-decoration:none;}
-	a.abbr:active {color:red; text-decoration:none;}
-
-	a.ppreflink:link {color:#666699; text-decoration:none;}
-	a.ppreflink:visited {color:#666699; text-decoration:none;}
-	a.ppreflink:hover {color:blue; text-decoration:none;}
-	a.ppreflink:hover:visited {color:purple; text-decoration:none;}
-	a.ppreflink:active {color:red; text-decoration:none;}
-
-    	</style>
-
 		<head>
+			<script type="text/javascript">			
+				<!--
+                    Called on page load to parse URL parameters and perform actions on them. -->
+				function init(){
+				if(getQueryVariable("tags") == "on"){
+				showTags();
+				}
+				}
+				
+				<!--
+                    Pass a URL variable to this function and it will return it 's value -->
+				function getQueryVariable(variable)
+				{
+				var query = window.location.search.substring(1);
+				var vars = query.split("&amp;");
+				for (var i=0;i&lt;vars.length;i++) {
+				var pair = vars[i].split("=");
+				if(pair[0] == variable){return pair[1];}
+				}
+				return(false);
+				}
+				
+				<!--
+                    Shows all XML tags -->
+				function showTags(){  
+					var hidden_elements = document.getElementsByClassName('taghidden');
+					for (var i = hidden_elements.length - 1; i >= 0; --i) {
+					hidden_elements[i].className = (hidden_elements[i].className=='taghidden') ? 'tag':'taghidden';
+					}
+
+				}
+			</script>
+			<style type="text/css">
+				h1
+				{
+				text-align: left; font-size: 200%;  margin-top: 2em; margin-bottom: 2em;
+				font-family: verdana, arial, helvetica, sans-serif;
+				margin-bottom: 1.0em;
+				}
+				h1.title
+				{
+				text-align: center;
+				}
+				h2
+				{
+				font-size: 125%;
+				border-bottom: solid 1px gray; margin-bottom: 1.0em;
+				margin-top: 2em; margin-bottom: 0.75em; margin-left: 3em; margin-right: 3em; 
+				font-family: verdana, arial, helvetica, sans-serif;
+				}
+				tr.header
+				{
+				border-bottom: 3px solid gray; 
+				padding: 8px 8px;
+				text-align:left;
+				font-weight: bold;
+				}    
+				
+				table, th, td
+				{
+				border-collapse: collapse;
+				border: 1px solid #000000;
+				<!--border-left: none;
+            border-right: none;-->
+				vertical-align: top;
+				text-align: left;
+				padding: 2px;
+				font-family: verdana,arial,sans-serif;
+				font-size: normal;
+				padding-right: 20px;
+				margin-left: 4%;
+				margin-bottom: 2em;
+				}
+				th
+				{
+				font-weight: bold;
+				}
+				.results, .results th, .results td
+				{
+				border-collapse: collapse;
+				border: 1px solid #000000;
+				<!--border-left: none;
+            border-right: none;-->
+				vertical-align: middle;
+				text-align: center;
+				padding: 2px;
+				font-family: verdana,arial,sans-serif;
+				font-size: normal;
+				padding-right: 20px;
+				margin-left: 4%;
+				margin-bottom: 2em;
+				}
+				
+				
+				td.checkboxon
+				{
+				background-color: white;
+				border: 3px solid black;
+				padding: 3px 3px;
+				border-spacing: 5px;
+				width: 20px;
+				height: 28px;
+				text-align: center;
+				font-weight: bold;
+				}
+				td.checkboxoff
+				{
+				background-color: white;
+				border: 3px solid black;
+				padding: 3px 3px;
+				border-spacing: 5px;
+				width: 20px;
+				}
+				
+				td.pass
+				{
+				background:#9BBB59;
+				text-align:center;
+				}
+				td.fail
+				{
+				background:#C0504D;
+				text-align:center;
+				}
+				td.notTested
+				{
+				background:#959595;
+				text-align:center;
+				}
+				
+				pre {
+				white-space: pre-wrap;
+				white-space: -moz-pre-wrap !important;
+				word-wrap:break-word;
+				}
+				table tr:nth-child(2n+2) { background-color: #f4f4f4; }
+				thead
+				{
+				display: table-header-group;
+				font-weight: bold;
+				background-color: #dedede;
+				}
+				div.title
+				{
+				text-align: center; font-size: xx-large; font-weight:bold;
+				font-family: verdana,arial,sans-serif;
+				margin-left: 8%; margin-right: 8%;
+				}
+				div.center
+				{
+				display: block; margin-left: auto; margin-right: auto; text-align:center;
+				}
+				div.bodytext
+				{
+				text-align: left; font-size: normal; font-weight: normal;
+				font-family: verdana,arial,sans-serif;
+				margin-left: 4%; margin-right: 12%;
+				padding-bottom: 1em;
+				}
+				div.sectiontitle
+				{
+				text-align: left; font-size: x-large; font-weight:bold; 
+				font-family: verdana,arial,sans-serif;
+				margin-top: 2em;
+				margin-left: 3em; 
+				margin-right: 3em; 
+				border-top: solid 2px gray;
+				border-bottom: solid 2px gray;
+				padding-bottom: 0.25em; padding-top: 0.25em;
+				}
+				div.reqelementtitle
+				{
+				overflow:auto; text-align: left; font-size: x-large; font-weight:bold; 
+				font-family: verdana,arial,sans-serif;
+				border-bottom: solid 2px gray;
+				padding-bottom: 0.25em; padding-top: 0.25em;
+				margin-bottom: 1em;
+				}
+				.reqelementtitletext
+				{
+				float: left;
+				font-size: large; font-weight:bold; 
+				font-family: verdana,arial,sans-serif;
+				}
+				.reqelementtitleppref
+				{
+				float: right;
+				text-decoration: none;
+				font-size: large; color: #666699;
+				font-family: verdana,arial,sans-serif;
+				}
+				.reqelement
+				{
+				text-align: left; font-size: large; font-weight:bold; 
+				font-family: verdana,arial,sans-serif;
+				margin-top: 2em;
+				padding-bottom: 0.25em; padding-top: 0.25em;
+				margin-left: 5em; 
+				margin-right: 3em; 
+				}
+				.vertical-text {
+				display: inline-block;
+				overflow: hidden;
+				width: 1.5em;
+				}
+				.vertical-text__inner {
+				display: inline-block;
+				white-space: nowrap;
+				line-height: 1.5;
+				transform: translate(0,100%) rotate(-90deg);
+				transform-origin: 0 0;
+				vertical-align: top;
+				}
+				/* This element stretches the parent to be square
+				by using the mechanics of vertical margins  */
+				.vertical-text__inner:after {
+				content: "";
+				display: block;
+				margin: -1.5em 0 100%;
+				}
+				span.tag {
+				float:right;
+				font-size: small;
+				font-weight: bold;
+				}
+				span.taghidden {
+					float:right;
+					font-size: small;
+					font-weight: bold;
+					display: none;
+				}
+				
+				a.abbr:link {color:black; text-decoration:none;}
+				a.abbr:visited {color:black; text-decoration:none;}
+				a.abbr:hover {color:blue; text-decoration:none;}
+				a.abbr:hover:visited {color:purple; text-decoration:none;}
+				a.abbr:active {color:red; text-decoration:none;}
+				
+				a.ppreflink:link {color:#666699; text-decoration:none;}
+				a.ppreflink:visited {color:#666699; text-decoration:none;}
+				a.ppreflink:hover {color:blue; text-decoration:none;}
+				a.ppreflink:hover:visited {color:purple; text-decoration:none;}
+				a.ppreflink:active {color:red; text-decoration:none;}
+			</style>
 			<title>App Vetting Reciprocity Report for 
 			<xsl:value-of select="/rr:report/rr:appinfo/rr:name" /></title>
 		</head>
-			<body>
+			<body onLoad="init()">
 				<h1 class="title">Mobile App Security Vetting Reciprocity Report Visualization</h1>
 				<div class="reqelement" style="margin-left:25%; margin-right:25%; ">
 					<div class="reqelementtitle">
@@ -238,7 +279,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>App Name</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:report/rr:appinfo/rr:name"/>
+								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:name"/></span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:name)"/></span>
 							</td>
 						</tr>
 						<tr>
@@ -246,7 +287,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Description</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:report/rr:appinfo/rr:description"/>
+								<span style="float:left"><xsl:value-of select="/rr:report/rr:appinfo/rr:description"/></span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:description)"/></span>
 							</td>
 						</tr>
 						<tr>
@@ -254,7 +295,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Category/Genre</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:report/rr:appinfo/rr:category"/>
+								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:category"/></span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:category)"/></span>
 							</td>
 						</tr>
 						<tr>
@@ -262,7 +303,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Application Type (Commercial/Government)</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:report/rr:appinfo/rr:apptype"/>
+								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:apptype"/></span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:apptype)"/></span>
 							</td>
 						</tr>
 						<tr>
@@ -270,7 +311,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>URL/Filename</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:report/rr:appinfo/rr:filename"/>
+								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:filename"/></span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:filename)"/></span>
 							</td>
 						</tr>
 						<tr>
@@ -279,8 +320,8 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							</td>
 							<!-- insert SWID tags in here, should those become a thing -->
 							<td>
-								<xsl:value-of
-									select="/rr:report/rr:appinfo/rr:packageidentification"/>
+								<span><xsl:value-of
+									select="/rr:report/rr:appinfo/rr:packageidentification"/></span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:packageidentification)"/></span>
 							</td>
 						</tr>
 						<tr>
@@ -288,7 +329,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Version</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:report/rr:appinfo/rr:version"/>
+								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:version"/></span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:version)"/></span>
 							</td>
 						</tr>
 						<tr>
@@ -296,7 +337,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>SHA1 hash of package</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:report/rr:appinfo/rr:hash"/>
+								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:hash"/></span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:hash)"/></span>
 							</td>
 						</tr>
 						<tr>
@@ -304,7 +345,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Hash of package signature</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:report/rr:appinfo/rr:signature"/>
+								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:signature"/></span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:signature)"/></span>
 							</td>
 						</tr>
 						<tr>
@@ -312,15 +353,15 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>OS Platform and Version</b>
 							</td>
 							<td>
-								<xsl:apply-templates select="/rr:report/rr:appinfo/rr:platform"
-								/>
+								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:platform"/></span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:platform)"/></span>
+								
 							</td>
 						</tr>
 						<tr>
 							<td>
 								<b>Vendor</b>
 							</td>
-							<td>
+							<td><span>
 								<xsl:value-of select="/rr:report/rr:appinfo/rr:vendor/rr:name"/>
 								<p/>
 								<xsl:value-of
@@ -341,6 +382,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<xsl:value-of
 									select="/rr:report/rr:appinfo/rr:vendor/rr:address/rr:country"
 								/>
+							</span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:vendor)"/></span>
 							</td>
 						</tr>
 
