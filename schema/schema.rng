@@ -156,9 +156,6 @@
         <ref name="other"/>
         <ref name="results"/>
       </element>
-      <element name="storingdata">
-        <ref name="results"/>
-      </element>
       <element name="networkcomms">
         <attribute name="ref">
           <data type="NCName"/>
@@ -175,7 +172,6 @@
         </element>
         <ref name="results"/>
       </element>
-      <ref name="files"/>
       <element name="defaultcreds">
         <attribute name="ref">
           <value>fmt_cfg_ext.1.1</value>
@@ -185,14 +181,7 @@
         </oneOrMore>
         <ref name="results"></ref>
       </element>
-      <element name="storedcredentials">
-        <attribute name="ref">
-          <value>fcs_sto_ext.1.1</value>
-        </attribute>
-        <oneOrMore>
-          <ref name="cred"/>
-        </oneOrMore>
-      </element>
+      <ref name="files"/>
       <element name="libraries">
         <attribute name="ref">
           <value>fpt_lib_ext.1.1</value>
@@ -208,8 +197,11 @@
       </element>
       <element name="storedcredentials">
         <attribute name="ref">
-          <data type="NCName"/>
+          <value>fcs_sto_ext.1.1</value>
         </attribute>
+        <oneOrMore>
+          <ref name="cred"/>
+        </oneOrMore>
       </element>
       <element name="piitransmitted">
         <attribute name="ref">
@@ -260,19 +252,20 @@
           <data type="NCName"/>
         </attribute>
       </element>
-      <element name="defaultcreds">
-        <attribute name="ref">
-          <data type="NCName"/>
-        </attribute>
-      </element>
       <element name="untrustedupdate">
         <attribute name="ref">
-          <data type="NCName"/>
+          <value>fpt_tud_ext.1.4</value>
         </attribute>
         <oneOrMore>
           <ref name="file"/>
         </oneOrMore>
         <ref name="results"/>
+      </element>
+      <element name="vulnsurvey">
+        <attribute name="ref">
+          <value>ava_van.1.2E</value>
+        </attribute>
+        <ref name="results"></ref>
       </element>
       <element name="suitability">
         <attribute name="ref">
@@ -371,7 +364,32 @@
   </define>
   <define name="analysis">
     <element name="analysis">
-      <text></text>
+      <zeroOrMore>
+        <choice>
+          <text></text>
+          <element name="adnetworks">
+            <attribute name="use">
+              <choice>
+                <value>yes</value>
+                <value>no</value>
+              </choice>
+            </attribute>
+          </element>
+          <ref name="note"></ref>
+          <element name="vulnerablelib">
+            <attribute name="cve">
+            </attribute>
+          </element>
+          <element name="cloudstorage">
+            <attribute name="use">
+              <choice>
+                <value>yes</value>
+                <value>no</value>
+              </choice>
+            </attribute>
+          </element>
+        </choice>
+      </zeroOrMore>
     </element>
   </define>
   <define name="api">
