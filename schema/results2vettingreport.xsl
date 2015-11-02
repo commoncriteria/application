@@ -279,7 +279,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>App Name</b>
 							</td>
 							<td>
-								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:name"/></span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:name)"/></span>
+								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:name"/></span><span class="taghidden">&lt;<xsl:value-of select="name(/rr:report/rr:appinfo/rr:name)"/>&gt;</span>
 							</td>
 						</tr>
 						<tr>
@@ -287,7 +287,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Description</b>
 							</td>
 							<td>
-								<span style="float:left"><xsl:value-of select="/rr:report/rr:appinfo/rr:description"/></span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:description)"/></span>
+								<span style="float:left"><xsl:value-of select="/rr:report/rr:appinfo/rr:description"/></span><span class="taghidden">&lt;<xsl:value-of select="name(/rr:report/rr:appinfo/rr:description)"/>&gt;</span>
 							</td>
 						</tr>
 						<tr>
@@ -295,7 +295,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Category/Genre</b>
 							</td>
 							<td>
-								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:category"/></span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:category)"/></span>
+								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:category"/></span><span class="taghidden">&lt;<xsl:value-of select="name(/rr:report/rr:appinfo/rr:category)"/>&gt;</span>
 							</td>
 						</tr>
 						<tr>
@@ -303,7 +303,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Application Type (Commercial/Government)</b>
 							</td>
 							<td>
-								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:apptype"/></span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:apptype)"/></span>
+								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:apptype"/></span><span class="taghidden">&lt;<xsl:value-of select="name(/rr:report/rr:appinfo/rr:apptype)"/>&gt;</span>
 							</td>
 						</tr>
 						<tr>
@@ -311,7 +311,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>URL/Filename</b>
 							</td>
 							<td>
-								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:filename"/></span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:filename)"/></span>
+								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:filename"/></span><span class="taghidden">&lt;<xsl:value-of select="name(/rr:report/rr:appinfo/rr:filename)"/>&gt;</span>
 							</td>
 						</tr>
 						<tr>
@@ -321,7 +321,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							<!-- insert SWID tags in here, should those become a thing -->
 							<td>
 								<span><xsl:value-of
-									select="/rr:report/rr:appinfo/rr:packageidentification"/></span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:packageidentification)"/></span>
+									select="/rr:report/rr:appinfo/rr:packageidentification"/></span><span class="taghidden">&lt;<xsl:value-of select="name(/rr:report/rr:appinfo/rr:packageidentification)"/>&gt;</span>
 							</td>
 						</tr>
 						<tr>
@@ -329,7 +329,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Version</b>
 							</td>
 							<td>
-								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:version"/></span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:version)"/></span>
+								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:version"/></span><span class="taghidden">&lt;<xsl:value-of select="name(/rr:report/rr:appinfo/rr:version)"/>&gt;</span>
 							</td>
 						</tr>
 						<tr>
@@ -337,7 +337,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>SHA1 hash of package</b>
 							</td>
 							<td>
-								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:hash"/></span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:hash)"/></span>
+								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:hash"/></span><span class="taghidden">&lt;<xsl:value-of select="name(/rr:report/rr:appinfo/rr:hash)"/>&gt;</span>
 							</td>
 						</tr>
 						<tr>
@@ -345,7 +345,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Hash of package signature</b>
 							</td>
 							<td>
-								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:signature"/></span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:signature)"/></span>
+								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:signature"/></span><span class="taghidden">&lt;<xsl:value-of select="name(/rr:report/rr:appinfo/rr:signature)"/>&gt;</span>
 							</td>
 						</tr>
 						<tr>
@@ -353,7 +353,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>OS Platform and Version</b>
 							</td>
 							<td>
-								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:platform"/></span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:platform)"/></span>
+								<span><xsl:value-of select="/rr:report/rr:appinfo/rr:platform"/></span><span class="taghidden">&lt;<xsl:value-of select="name(/rr:report/rr:appinfo/rr:platform)"/>&gt;</span>
 								
 							</td>
 						</tr>
@@ -382,7 +382,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<xsl:value-of
 									select="/rr:report/rr:appinfo/rr:vendor/rr:address/rr:country"
 								/>
-							</span><span class="taghidden"><xsl:value-of select="name(/rr:report/rr:appinfo/rr:vendor)"/></span>
+							</span><span class="taghidden">&lt;<xsl:value-of select="name(/rr:report/rr:appinfo/rr:vendor)"/>&gt;</span>
 							</td>
 						</tr>
 
@@ -399,7 +399,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Name</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:report/rr:apptester/rr:name"/>
+								<span><xsl:value-of select="/rr:report/rr:apptester/rr:name"/></span><span class="taghidden">&lt;<xsl:value-of select="name(/rr:report/rr:apptester/rr:name)"/>&gt;</span>
 							</td>
 						</tr>
 						<tr>
@@ -407,7 +407,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>E-mail</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:report/rr:apptester/rr:email"/>
+								<span><xsl:value-of select="/rr:report/rr:apptester/rr:email"/></span><span class="taghidden">&lt;<xsl:value-of select="name(/rr:report/rr:apptester/rr:email)"/>&gt;</span>
 							</td>
 						</tr>
 						<tr>
@@ -415,7 +415,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Organization</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:report/rr:apptester/rr:organization"/>
+								<span><xsl:value-of select="/rr:report/rr:apptester/rr:organization"/></span><span class="taghidden">&lt;<xsl:value-of select="name(/rr:report/rr:apptester/rr:organization)"/>&gt;</span>
 							</td>
 						</tr>
 						<tr>
@@ -423,7 +423,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Date(s) App Tested</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:report/rr:apptester/rr:datestested"/>
+								<span><xsl:value-of select="/rr:report/rr:apptester/rr:datestested"/></span><span class="taghidden">&lt;<xsl:value-of select="name(/rr:report/rr:apptester/rr:datestested)"/>&gt;</span>
 							</td>
 						</tr>
 					</table>
@@ -455,7 +455,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>FIPS Certificate</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:report/rr:productcertifications/rr:fips"/>
+								<span><xsl:value-of select="/rr:report/rr:productcertifications/rr:fips"/></span><span class="taghidden">&lt;<xsl:value-of select="name(/rr:report/rr:productcertifications/rr:fips)"/>&gt;</span>
 							</td>
 						</tr>
 						<tr>
@@ -463,7 +463,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Common Criteria Certificate</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:report/rr:productcertifications/rr:niap"/>
+								<span><xsl:value-of select="/rr:report/rr:productcertifications/rr:niap"/></span><span class="taghidden">&lt;<xsl:value-of select="name(/rr:report/rr:productcertifications/rr:niap)"/>&gt;</span>
 							</td>
 						</tr>
 						<tr>
@@ -471,7 +471,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<b>Supply Chain Risk Analysis</b>
 							</td>
 							<td>
-								<xsl:value-of select="/rr:report/rr:supplychain/rr:riskassessment"/>
+								<span><xsl:value-of select="/rr:report/rr:supplychain/rr:riskassessment"/></span><span class="taghidden">&lt;<xsl:value-of select="name(/rr:report/rr:supplychain/rr:riskassessment)"/>&gt;</span>
 							</td>
 						</tr>
 					</table>
@@ -486,7 +486,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							Test Summary and Analyst Notes:
 						</th>
 						<tr>
-							<td><xsl:value-of select="/rr:report/rr:analystnotes/rr:summary"/></td>
+							<td><span><xsl:value-of select="/rr:report/rr:analystnotes/rr:summary"/></span><span class="taghidden">&lt;<xsl:value-of select="name(/rr:report/rr:analystnotes/rr:summary)"/>&gt;</span></td>
 						</tr>
 					</table>
 
@@ -495,7 +495,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 							Analyst's Concerns and Mitigation Recommendations:
 						</th>
 						<tr>
-							<td><xsl:value-of select="/rr:report/rr:analystnotes/rr:concerns"/></td>
+							<td><span><xsl:value-of select="/rr:report/rr:analystnotes/rr:concerns"/></span><span class="taghidden">&lt;<xsl:value-of select="name(/rr:report/rr:analystnotes/rr:concerns)"/>&gt;</span></td>
 						</tr>
 					</table>
 				</div>
@@ -1264,9 +1264,9 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 	
 	<xsl:template name="analysistool">
 	<tr>
-		<td><xsl:value-of select="rr:name"/></td>
-		<td><xsl:value-of select="rr:description"/></td>
-		<td><xsl:value-of select="rr:note"/></td>
+		<td><span><xsl:value-of select="rr:name"/></span><span class="taghidden">&lt;<xsl:value-of select="name(rr:name)"/>&gt;</span></td>
+		<td><span><xsl:value-of select="rr:description"/></span><span class="taghidden">&lt;<xsl:value-of select="name(rr:description)"/>&gt;</span></td>
+		<td><span><xsl:value-of select="rr:note"/></span><span class="taghidden">&lt;<xsl:value-of select="name(rr:note)"/>&gt;</span></td>
 	</tr>
 	</xsl:template>
 	
