@@ -1010,21 +1010,7 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 								<th>Version</th>
 								<th>Notes</th>
 							</tr>
-							<tr>
-								<td>OpenSSL</td>
-								<td>1.0.1f</td>
-								<td>What could possibly go wrong?</td>
-							</tr>
-							<tr>
-								<td>AdMob</td>
-								<td>1.3</td>
-								<td>Google's mobile advertising network.</td>
-							</tr>
-							<tr>
-								<td>Appcelerator Titanium</td>
-								<td>3.2.2</td>
-								<td></td>
-							</tr>
+							<xsl:call-template name="library"></xsl:call-template>
 						</table>
 						<b>Results:</b>
 						<xsl:apply-templates select="/rr:report/rr:libraries/rr:results"/>
@@ -1315,6 +1301,16 @@ xmlns:xhtml="http://www.w3.org/1999/xhtml">
 				</td>
 			</xsl:when>
 		</xsl:choose>
+	</xsl:template>
+	
+	<xsl:template name="library">
+		<xsl:for-each select="/rr:report/rr:libraries/rr:library">
+			<tr>
+				<td><xsl:value-of select="rr:name"/></td>
+				<td><xsl:value-of select="rr:version"/></td>
+				<td><xsl:value-of select="rr:analysis/rr:note"/></td>
+			</tr>
+		</xsl:for-each>
 	</xsl:template>
 	
 </xsl:stylesheet>
