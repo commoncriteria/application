@@ -576,13 +576,28 @@
               If <b>implement DRBG functionality</b> is selected, the evaluator shall ensure
 			  that additional <linkref linkend="FCS_RBG_EXT.2"/> elements are included in the <abbr linkend="ST"/>.
 			  <br/>
-			  If <b>invoke platform-provided DRBG functionality</b> is selected, 
-			  the evaluation activities will be performed as stated in the 
-              following requirements.
-              The evaluator shall verify that the <abbr linkend="TSS"/> identifies the calls used in acquiring
-              random from each instantiation of the RBG used for the application's cryptographic
-              functionality.  The evaluator shall ensure that random bits are acquired properly
-              from the platform. This varies on a per-platform basis:
+			        If <b>invoke platform-provided DRBG functionality</b> is selected, the evaluator 
+              performs the following activities.  The evaluator shall examine 
+              the <abbr linkend="TSS"/> to confirm that it identifies all functions (as described by the
+              SFRs included in the ST) that obtain random numbers from the platform RBG.  The evaluator 
+              shall determine that for each of these functions, the <abbr linkend="TSS"/> states which 
+              platform interface (API) is used to obtain the random numbers.  The evaluator shall confirm 
+              that each of these interfaces corresponds to the acceptable interfaces listed for each platform 
+              below.  The evaluator shall then decompile the application binary using an decompiler 
+              suitable for the application (TOE).  The evaluator shall search the output of the 
+              decompiler to determine that, for each API listed in the <abbr linkend="TSS"/>, that API 
+              appears in the output.  If the representation of the API does not correspond directly to 
+              the strings in the following list, the evaluator shall provide a mapping from the 
+              decompiled text to its corresponding API, with a description of why the API text does 
+              not directly correspond to the decompiled text and justification that the decompiled text 
+              correspond so the associated API. 
+              <br/>
+              It should be noted that there is no expectation that the evaluators attempt to confirm 
+              that the APIs are being used “correctly” for the functions identified in the TSS; 
+              the activity is to list the used APIs and then do an existence check via decompilation.
+              <br/>
+              The following are the per-platform list of acceptable APIs:
+              
               <subaactivity platform="blackberry">
                 The evaluator shall verify that the application invokes Security Builder Crypto GSE.
               </subaactivity>
