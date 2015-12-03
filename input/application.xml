@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xsl" href="..\transforms\pp2html.xsl"?>
 
-<PP xmlns="http://common-criteria.rhcloud.com/ns/cc" name="Application Software">
+<PP xmlns="http://common-criteria.rhcloud.com/ns/cc" 
+    xmlns:htm="http://www.w3.org/1999/xhtml"
+    name="Application Software">
   <PPReference title="PP Reference" id="ID003">
     <ReferenceTable>
       <PPTitle>Protection Profile for Application Software</PPTitle>
@@ -2867,8 +2869,11 @@ functionality (such as these)
               The tests described must be performed in conjunction with the other certificate 
               services assurance activities, including the functions in <linkref linkend="FIA_X509_EXT.2.1"/>. The tests 
               for the extendedKeyUsage rules are performed in conjunction with the uses that require 
-              those rules. The evaluator shall create a chain of at least four certificates: the 
+              those rules. If the application supports chains of length four or greater, 
+	      the evaluator shall create a chain of at least four certificates: the 
               node certificate to be tested, two Intermediate CAs, and the self-signed Root CA.
+	      If the application supports a maximum trust depth of two, then a chain with
+	      no Intermediate CA should instead be created.
               <testlist>
                 <test>
                   The evaluator shall demonstrate that validating a certificate without a valid 
@@ -2884,11 +2889,19 @@ functionality (such as these)
                 <test>
                   The evaluator shall test that the <abbr linkend="TOE"/> can properly handle 
                   revoked certificates-–conditional on whether CRL, OCSP, or OCSP Stapling is selected;
-                  if multiple methods are selected, then a test shall be performed for each method.
-                  The evaluator shall test 
-                  revocation of the node certificate and revocation of the intermediate CA 
-                  certificate (i.e. the intermediate CA certificate should be revoked by the root 
-                  CA). The evaluator shall ensure that a valid certificate is used, and that the 
+                  if multiple methods are selected, then the following tests shall be performed 
+		  for each method:
+		  <ul>
+		    <li>
+		      The evaluator shall test revocation of the node certificate. 
+		    </li>
+		    <li>
+		      The evaluator shall also test revocation of an intermediate CA certificate 
+		      (i.e. the intermediate CA certificate should be revoked by the root CA), 
+		      if intermediate CA certificates are supported. 
+		    </li>
+		  </ul>
+		  The evaluator shall ensure that a valid certificate is used, and that the 
                   validation function succeeds. The evaluator then attempts the test with a 
                   certificate that has been revoked (for each method chosen in the selection) to 
                   ensure when the certificate is no longer valid that the validation function fails.
@@ -2932,9 +2945,12 @@ functionality (such as these)
             </note>
             <aactivity>
               The tests described must be performed in conjunction with the other certificate 
-              services assurance activities, including the functions in <linkref linkend="FIA_X509_EXT.2.1"/>. The 
-              evaluator shall create a chain of at least four certificates: the node certificate to 
-              be tested, two Intermediate CAs, and the self-signed Root CA.
+              services assurance activities, including the functions in <linkref linkend="FIA_X509_EXT.2.1"/>. 
+	      If the application supports chains of length four or greater, 
+	      the evaluator shall create a chain of at least four certificates: the 
+              node certificate to be tested, two Intermediate CAs, and the self-signed Root CA.
+	      If the application supports a maximum trust depth of two, then a chain with
+	      no Intermediate CA should instead be created.
               <testlist>
                 <test>
                   The evaluator shall construct a certificate path, such that the certificate of the 
