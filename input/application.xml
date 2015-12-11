@@ -48,7 +48,7 @@
     </entry>
     <entry>
       <version>v .9</version>
-      <date>2014-010-20</date>
+      <date>2014-10-20</date>
       <subject>Fourth round of Technical Community feedback incorporated</subject>
     </entry>
   </RevisionHistory>
@@ -261,7 +261,7 @@
 		as possible. This will also enable certification of applications on
 		those platforms. 
 		<br/>	
-		Applications includes a diverse range of software such as office suites, thin
+		Applications include a diverse range of software such as office suites, thin
 		clients, <abbr title="Portable Document Format">PDF</abbr> readers,
 		and downloadable smartphone apps. The TOE includes any software in the
 		application installation package, even those pieces that may extend the
@@ -776,8 +776,8 @@
               appropriate number of bits of entropy that corresponds to the greatest security 
               strength of the algorithms included in the <abbr linkend="ST"/>. Security strength is defined in Tables 
               2 and 3 of NIST SP 800-57A. For example, if the implementation includes 2048-bit RSA 
-              (security strength of 112 bits), AES 128 (security strength 128 bits), and 
-              HMAC-SHA-256 (security strength 256 bits), then the <abbr linkend="ST"/> author would select 256 bits.
+              (security strength of 112 bits) and AES 256 (security strength 256 bits),
+	      then the <abbr linkend="ST"/> author would select 256 bits.
             </note>
             <aactivity>Documentation shall be produced - and the evaluator shall perform the
               activities - in accordance with <appref linkend="entropyappendix"/> and
@@ -1457,6 +1457,7 @@ functionality (such as these)
         <f-component id="fcs_cop.1(1)" name="Cryptographic Operation - Encryption/Decryption" status="sel-based">
           <f-element id="fcs_cop.1.1(1)" status="sel-based">
             <selection-depends req="fcs_tlsc_ext.1.1"/>
+	    <selection-depends req="fcs_sto_ext.1.1"/>
             <title>The application shall perform encryption/decryption in accordance with a specified 
         cryptographic algorithm  
 		<br/>
@@ -1858,7 +1859,7 @@ functionality (such as these)
               keys, PKI private keys, or passwords) are stored securely when not in use.  
               <br/>
               If <i>implement functionality to securely store</i> credentials is selected, then the
-              following requirements must be included in the <abbr linkend="ST"/>: <linkref linkend="FCS_COP.1(1)"/>.
+              following components must be included in the <abbr linkend="ST"/>: <linkref linkend="FCS_COP.1(1)"/>.
               If other cryptographic operations are used to implement the secure storage of credentials, 
               the corresponding requirements must be included in the ST.
             </note>
@@ -1873,7 +1874,7 @@ functionality (such as these)
                 uses the BlackBerry KeyStore and Security Builder APIs to store credentials.
               </subaactivity>
               <subaactivity platform="android">The evaluator shall verify that the application uses
-	      the Android <code>KeyStore</code> to store certificates.  
+	      the Android <code>KeyStore</code> or the Android <code>KeyChain</code> to store certificates.  
               </subaactivity>
               <subaactivity platform="windows">The evaluator shall verify that all certificates are
                 stored in the Windows Certificate Store. The evaluator shall verify that other
@@ -2474,9 +2475,12 @@ functionality (such as these)
                 are approved/denied and can be changed.
               </subaactivity>
               <subaactivity platform="android">
-                The evaluator shall install the application and
-                verify that the application displays the platform resources it would like to access.
-                This includes permissions such as ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION,
+		The evaluator shall extract the AndroidManifest.xml from the apk file and 
+		verify that it contains a &lt;uses-permission&gt; or 
+		&lt;uses-permission-sdk-23&gt; entry for each hardware resource the 
+		application intends to access.
+                The permission list of hardware resources includes permissions such as 
+		ACCESS_COARSE_LOCATION, ACCESS_FINE_LOCATION,
                 BLUETOOTH, CAMERA, INTERNET, NFC, READ_EXTERNAL_STORAGE, RECORD_AUDIO. 
                 A complete list of Android permissions can be found at: 
                 <ul><li>
@@ -3439,7 +3443,7 @@ functionality (such as these)
                 application can successfully run on the latest version of the BlackBerry OS. 
               </subaactivity>
               <subaactivity platform="android">The evaluator shall ensure that the application can
-                run with SE for Android enabled and enforcing.
+	      successfully run on the latest version of Android.
 	      </subaactivity>
               <subaactivity platform="windows">For both classic desktop and Windows Store
                 applications, the evaluator shall configure the latest version of Microsoft's
@@ -3783,7 +3787,31 @@ functionality (such as these)
             set by the evaluator is not found.
           </test>
         </testlist>
-	    </aactivity>
+        <subaactivity platform="android">
+          If "not transmit any data" is selected, the evaluator shall ensure that the application's
+          AndroidManifest.xml file does not contain a &lt;uses-permission&gt; or &lt;uses-permission-sdk-23&gt; tag
+          containing android:name="android.permission.INTERNET".
+          In this case,
+          it is not necessary to perform the above Tests 1, 2, or 3, as the platform will not allow the
+          application to perform any network communication.
+          <!-- TODO: The current wording here adds additional work when "encrypt all transmitted data"
+               is selected. It'd be preferable if we can instead simplify evaluation in that case, to encourage
+               app developers to select it, so this is commented out for now.
+               If "encrypt all transmitted data" is selected, the evaluator
+               shall ensure that the application's manifest declares usesCleartextTraffic="false". It is
+               still necessary to perform the above tests, as this manifest entry is only enforced on
+               a best effort basis by the platform. -->
+        </subaactivity>
+        <subaactivity platform="ios">
+          If "encrypt all transmitted data" is selected, the evaluator shall ensure that the
+          application's Info.plist file does not contain the NSAllowsArbitraryLoads or
+          NSExceptionAllowsInsecureHTTPLoads keys, as these keys disable iOS's Application
+          Transport Security feature.
+          <!-- TODO: Check the strength of iOS's App Transport Security enforcement (if apps
+               can't easily bypass it, then we can skip performing Tests 1, 2, 3 on iOS when
+               App Transport Security isn't explicitly disabled (assuming use of iOS 9 or greater)). -->
+        </subaactivity>
+      </aactivity>
           </f-element>
         </f-component>
       </subsection>
