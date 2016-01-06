@@ -58,7 +58,7 @@
     <entry>
       <version>v 1.2</version>
       <date>2016-01-06</date>
-      <subject>TRRT changes, clean up, and new requirements TLS Server</subject>
+      <subject>TRRT changes, clean up, and added TLS Server requirements</subject>
     </entry>
     <entry>
       <version>v 1.1</version>
@@ -2554,6 +2554,11 @@ functionality (such as these)
             <title>The application shall support mutual authentication of 
               TLS clients using X.509v3 certificates.
             </title>
+          </f-element>
+          <f-element id="fcs_tlss_ext.1.5">
+            <title>The application shall not establish a trusted channel 
+              if the peer certificate is invalid. 
+            </title>
             <note role="application">
               The use of X.509v3 certificates for TLS is addressed in FIA_X509_EXT.2.1. 
               This requirement adds that this use must include support for client-side 
@@ -2563,15 +2568,56 @@ functionality (such as these)
               with testing performed for FIA_X509_EXT.1. 
             </note>
             <aactivity>
-            
-            </aactivity>
-          </f-element>
-          <f-element id="fcs_tlss_ext.1.5">
-            <title>The application shall not establish a trusted channel 
-              if the peer certificate is invalid. 
-            </title>
-            <aactivity>
-              
+              The evaluator shall ensure that the TSS description required per FIA_X509_EXT.2.1 
+              includes the use of client-side certificates for TLS mutual authentication. 
+              <h:br /> 
+              The evaluator shall verify that the AGD guidance required per FIA_X509_EXT.2.1
+              includes instructions for configuring the client-side certificates for TLS mutual
+              authentication. 
+              <testlist>
+                <test>
+                  The evaluator shall configure the server to send a certificate request
+                  to the client and shall attempt a connection without sending a certificate from
+                  the client. The evaluator shall verify that the connection is denied.
+                </test>
+                <test>
+                  The evaluator shall configure the server to send a certificate request
+                  to the client without the supported_signature_algorithm used by the client’s
+                  certificate. The evaluator shall attempt a connection using the client
+                  certificate and verify that the connection is denied.
+                </test>
+                <test>
+                  The evaluator shall demonstrate that using a certificate without a
+                  valid certification path results in the function failing. Using the
+                  administrative guidance, the evaluator shall then load a certificate or
+                  certificates needed to validate the certificate to be used in the function, and
+                  demonstrate that the function succeeds. The evaluator then shall delete one
+                  of the certificates, and show that the function fails.
+                </test>
+                <test>
+                  The evaluator shall configure the client to send a certificate that does
+                  not chain to one of the Certificate Authorities (either a Root or Intermediate
+                  CA) in the server’s Certificate Request message. The evaluator shall verify
+                  that the attempted connection is denied.
+                </test>
+                <test>
+                  The evaluator shall configure the client to send a certificate with the
+                  Client Authentication purpose in the extendedKeyUsage field and verify that
+                  the server accepts the attempted connection. The evaluator shall repeat this
+                  test without the Client Authentication purpose and shall verify that the server
+                  denies the connection. Ideally, the two certificates should be identical except
+                  for the Client Authentication purpose.
+                </test>
+                <test>
+                  The evaluator shall perform the following modifications to the traffic:
+                  a) Configure the server to require mutual authentication and then
+                  modify a byte in the client’s certificate. The evaluator shall verify
+                  that the server rejects the connection.
+                  b) Configure the server to require mutual authentication and then
+                  modify a byte in the client’s Certificate Verify handshake message.
+                  The evaluator shall verify that the server rejects the connection.
+                </test>
+              </testlist>
             </aactivity>
           </f-element>
           <f-element id="fcs_tlss_ext.1.6">
