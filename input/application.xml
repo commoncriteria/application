@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xsl" href="..\transforms\pp2html.xsl"?>
 
+<?xml-model href="https://github.com/commoncriteria/transforms/raw/master/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <PP xmlns="http://common-criteria.rhcloud.com/ns/cc" 
     xmlns:h="http://www.w3.org/1999/xhtml"
     name="Application Software">
@@ -56,8 +57,8 @@
   <RevisionHistory role="final">
     <entry>
       <version>v 1.2</version>
-      <date>2015-12-02</date>
-      <subject>TRRT changes, clean up, and new requirements for Application updaters</subject>
+      <date>2016-01-06</date>
+      <subject>TRRT changes, clean up, and new requirements TLS Server</subject>
     </entry>
     <entry>
       <version>v 1.1</version>
@@ -616,7 +617,7 @@
               <subaactivity platform="windows">The evaluator shall verify
                that BCryptGenRandom or CryptGenRandom <h:abbr linkend="API"/> is used for classic
                 desktop applications. The evaluator shall verify that the
-                System.Random <h:abbr linkend="API"/> is used for Windows Store Applications. In
+                System.Random <h:abbr linkend="API"/> is used for Windows Universal Applications. In
                 future versions of this document, CryptGenRandom may be removed as an option as it is
                 no longer the preferred API per vendor documentation. </subaactivity>
               <subaactivity platform="ios"> 
@@ -1874,7 +1875,7 @@ functionality (such as these)
               <subaactivity platform="windows">The evaluator shall verify that all certificates are
                 stored in the Windows Certificate Store. The evaluator shall verify that other
                 secrets, like passwords, are stored in the Windows Credential Manager or stored 
-                using the Data Protection API (DPAPI). For Windows Store Apps, the evaluator shall 
+                using the Data Protection API (DPAPI). For Windows Universal Applications, the evaluator shall 
                 verify that the application is using the ProtectData class and storing credentials 
                 in IsolatedStorage.
               </subaactivity>
@@ -2220,9 +2221,7 @@ functionality (such as these)
             </aactivity>
           </f-element>
 	</f-component>
-
-
-	<f-component id="fcs_tlsc_ext.2" name="TLS Client Protocol" status="optional">
+        <f-component id="fcs_tlsc_ext.2" name="TLS Client Protocol" status="optional">
             <f-element id="fcs_tlsc_ext.2.1">
             <title>
               The application shall support mutual authentication using X.509v3 certificates.
@@ -2261,7 +2260,7 @@ functionality (such as these)
             </aactivity>
           </f-element>
 	</f-component>
-	<f-component id="fcs_tlsc_ext.3" name="TLS Client Protocol" status="objective">
+       	<f-component id="fcs_tlsc_ext.3" name="TLS Client Protocol" status="objective">
 	  <!-- 
 	       This component is objective but also selection-based, which means...? Okay, it's
 	       not a problem until we have a selection-based component that is also objective with a 
@@ -2310,6 +2309,308 @@ functionality (such as these)
             </aactivity>
           </f-element>
         </f-component>
+    
+        <f-component id="fcs_tlss_ext.1" name="TLS Server Protocol" status="sel-based">
+          <selection-depends req="ftp_dit_ext.1.1"/> 
+          <f-element id="fcs_tlss_ext.1.1">
+            <title> The application shall 
+              <selectables>
+                <selectable>invoke platform-provided <h:abbr title="Transport Layer Security">TLS</h:abbr> 1.2</selectable>
+                <selectable>implement <h:abbr title="Transport Layer Security">TLS</h:abbr> 1.2 (RFC 5246)
+                  <requires req="fcs_ckm.2.1"/>
+                </selectable>
+              </selectables> supporting the following cipher suites: <h:p/>Mandatory Cipher Suites:
+              TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246 <h:p/>Optional Cipher Suites:
+              <selectables linebreak="yes">
+                <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246</selectable>
+                <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
+                <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA as defined in RFC 5246</selectable>
+                <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
+                <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA as defined in RFC 4492</selectable>
+                <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
+                <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
+                <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA as defined in RFC 4492</selectable>
+                <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
+                <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>
+                <selectable>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA as defined in RFC 4492</selectable>
+                <selectable>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
+                <selectable>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
+                <selectable>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA as defined in RFC 4492</selectable>
+                <selectable>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
+                <selectable>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>
+                <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
+                <selectable>TLS_RSA_WITH_AES_256_CBC_SHA as defined in RFC 5246</selectable>
+                <selectable>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
+                <selectable>no other cipher suite</selectable>
+              </selectables>
+              .
+            </title>
+            <note role="application">The cipher suites to be tested in the evaluated configuration 
+              are limited by this requirement. The <h:abbr title="Security Target" linkend="ST">ST
+              </h:abbr> author should select the optional cipher suites that are supported; if there 
+              are no cipher suites supported other than the mandatory suites, then “None” should be 
+              selected. It is necessary to limit the cipher suites that can be used in an evaluated 
+              configuration administratively on the server in the test environment. The Suite B 
+              algorithms listed above (RFC 6460) are the preferred algorithms for implementation. 
+              TLS_RSA_WITH_AES_128_CBC_SHA is required in order to ensure compliance with RFC 5246. 
+              <h:br />
+              These requirements will be revisited as new 
+              <h:abbr title="Transport Layer Security">TLS</h:abbr> versions are standardized by the 
+              IETF.
+              <h:br />
+              If any cipher suites are selected using ECDHE, then 
+              <linkref linkend="FCS_TLSC_EXT.1.5"/> is required.
+              <h:br />
+              If <h:i>implement TLS 1.2 (RFC 5246)</h:i> is selected, then 
+              <linkref linkend="FCS_CKM.2.1"/>, 
+              <linkref linkend="FCS_COP.1.1(1)"/>, 
+              <linkref linkend="FCS_COP.1.1(2)"/>, 
+              <linkref linkend="FCS_COP.1.1(3)"/>, and
+              <linkref linkend="FCS_COP.1.1(4)"/>
+              are required.
+            </note>
+            <aactivity>
+              The evaluator shall check the description of the implementation of this protocol in 
+              the <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr> to ensure that 
+              the cipher suites supported are specified. The evaluator shall check the 
+              <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr> to ensure that the 
+              cipher suites specified include those listed for this component. The evaluator shall 
+              also check the operational guidance to ensure that it contains instructions on 
+              configuring the <h:abbr title="Target of Evaluation" linkend="TOE">TOE</h:abbr> so that 
+              TLS conforms to the description in the 
+              <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr>. The evaluator shall 
+              also perform the following tests:
+              <testlist>
+                <test>
+                  The evaluator shall establish a 
+                  <h:abbr title="Transport Layer Security">TLS</h:abbr> connection using each of the 
+                  cipher suites specified by the requirement. This connection may be established as 
+                  part of the establishment of a higher-level protocol, e.g., as part of an EAP 
+                  session. It is sufficient to observe the successful negotiation of a cipher suite 
+                  to satisfy the intent of the test; it is not necessary to examine the 
+                  characteristics of the encrypted traffic in an attempt to discern the cipher suite 
+                  being used (for example, that the cryptographic algorithm is 128-bit AES and not 
+                  256-bit AES).
+                </test>
+                <test>
+                  The evaluator shall send a Client Hello to the server with a list of
+                  ciphersuites that does not contain any of the ciphersuites in the server’s ST
+                  and verify that the server denies the connection. Additionally, the evaluator
+                  shall send a Client Hello to the server containing only the
+                  TLS_NULL_WITH_NULL_NULL ciphersuite and verify that the server
+                  denies the connection.
+                </test>
+                <test>
+                  The evaluator shall use a client to send a key exchange message in
+                  the TLS connection that does not match the server-selected ciphersuite
+                  (for example, send an ECDHE key exchange while using the
+                  TLS_RSA_WITH_AES_128_CBC_SHA ciphersuite or send a RSA key
+                  exchange while using one of the ECDSA ciphersuites.) The evaluator shall
+                  verify that the application disconnects after receiving the key exchange
+                  message.
+                </test>
+                <test>
+                  The evaluator shall perform the following modifications to the traffic: 
+                  <testlist>
+                    <test>
+                      Change the <h:abbr title="Transport Layer Security">TLS</h:abbr> version selected 
+                      by the server in the Server Hello to a non-supported 
+                      <h:abbr title="Transport Layer Security">TLS</h:abbr> version (for example 1.3 
+                      represented by the two bytes 03 04) and verify that the client rejects the 
+                      connection.
+                    </test>
+                    <test>
+                      Modify at least one byte in the client’s nonce in the Client Hello handshake 
+                      message, and verify that the server rejects the client's Certificate Verify handshake message
+                      (if using mutual authentication) or that the server denies the client's 
+                      Finished handshake message.
+                    </test>
+                    <test>
+                      Modify the signature block in the Client’s Key Exchange handshake message, and 
+                      verify that the server rejects the client's Certificate Verify handshake message
+                      (if using mutual authentication) or that the server denies the client's 
+                      Finished handshake message.
+                    </test>
+                    <test>
+                      Modify a byte in the Clint Finished handshake message, and verify that the
+                      server rejects the connection and does not send any application data. 
+                    </test>
+                    <test>
+                      After generating a fatal alert by sending a Finished message from teh client
+                      before the client send a ChangeCipherSpec message, send a Client Hello with 
+                      the session identifier from the previous test, and verify that the server 
+                      denies the connection. 
+                    </test>
+                    <test>
+                      Send an garbled message from the client after the client has issued the 
+                      ChangeCipherSpec message and verify that the Server denies the connection.
+                    </test>
+                  </testlist>
+                </test>
+              </testlist>
+            </aactivity>
+          </f-element>   
+          <f-element id="fcs_tlss_ext.1.2">
+            <title>The application shall deny connections from clients requesting 
+              SSL 1.0, SSL 2.0, SSL 3.0, TLS 1.0 and
+              <selectables>
+                <selectable>TLS 1.1</selectable>
+                <selectable>TLS 1.2</selectable>
+                <selectable>none</selectable>
+              </selectables>
+              .
+            </title>
+            <note role="application">All SSL version and TLS 1.0 are denied. Any TLS version 
+              not selected in <linkref linkend="FCS_TLSS_EXT.1.1"/> should be selected here.
+            </note>
+            <aactivity>
+              The evaluator shall verify that the TSS contains a description of the denial
+              of old SSL and TLS versions, and any configuration necessary to meet the 
+              requirement must be contained in the AGD guidance. 
+              <testlist>
+                <test>
+                  The evaluator shall send a Client Hello requesting a connection with 
+                  version SSL 1.0 and verify that the server denies the connection. The 
+                  evaluator shall repeat this test with SSL 2.0, SSL 3.0, TLS 1.0 and 
+                  any selected TLS versions. 
+                </test>
+              </testlist>
+            </aactivity>
+          </f-element>
+          <f-element id="fcs_tlss_ext.1.2">
+            <title>The application shall deny connections from clients requesting 
+              SSL 1.0, SSL 2.0, SSL 3.0, TLS 1.0 and
+              <selectables>
+                <selectable>TLS 1.1</selectable>
+                <selectable>TLS 1.2</selectable>
+                <selectable>none</selectable>
+              </selectables>
+              .
+            </title>
+            <note role="application">All SSL version and TLS 1.0 are denied. Any TLS version 
+              not selected in <linkref linkend="FCS_TLSS_EXT.1.1"/> should be selected here.
+            </note>
+            <aactivity>
+              The evaluator shall verify that the TSS contains a description of the denial
+              of old SSL and TLS versions, and any configuration necessary to meet the 
+              requirement must be contained in the AGD guidance. 
+              <testlist>
+                <test>
+                  The evaluator shall send a Client Hello requesting a connection with 
+                  version SSL 1.0 and verify that the server denies the connection. The 
+                  evaluator shall repeat this test with SSL 2.0, SSL 3.0, TLS 1.0 and 
+                  any selected TLS versions. 
+                </test>
+              </testlist>
+            </aactivity>
+          </f-element>
+          <f-element id="fcs_tlss_ext.1.3">
+            <title>The application shall generate key establishment parameters using RSA
+              with size 2048 bits and
+              <selectables>
+                <selectable>3072 bits</selectable>
+                <selectable>4096 bits</selectable>
+                <selectable>no other sizes</selectable>
+              </selectables>
+              and 
+              <selectables>
+                <selectable>over NIST curves 
+                  <selectables>
+                    <selectable>secp256r</selectable>
+                    <selectable>secp384r</selectable>
+                  </selectables> and no other curves</selectable>
+                <selectable>Diffe-Hellman parameters of size 2048 and
+                  <selectables>
+                    <selectable>3072 bits</selectable>
+                    <selectable>no other size</selectable>
+                  </selectables>
+                </selectable>
+                <selectable>no other</selectable>
+              </selectables>
+            </title>
+            <note role="application">
+              If the ST lists a DHE ciphersuite in <linkref linkend="FCS_TLSS_EXT.1.1"/>,
+              the ST must include the Diffie-Hellman selection in the requirement
+            </note>
+            <aactivity>
+              The evaluator shall verify that the TSS describes the key agreement parameters
+              of the server key exchange message. 
+              <h:br /> 
+              The evaluator shall verify that any configuration guidance necessary to meet 
+              the requirement must be contained in the AGD guidance. 
+              <testlist>
+                <test>
+                  The evaluator shall attempt a connection using an ECDHE ciphersuite and
+                  a configured curve and, using a packet analyzer, verify that the key 
+                  agreement parameters in the Key Exchange message are the ones configured. 
+                  (Determining that the size matches the expected size for the configured curve 
+                  is sufficient.) The evaluator shall repeat this test for each supported NIST 
+                  Elliptic Curve and each supported Diffie-Hellman key size.
+                </test>
+              </testlist>
+            </aactivity>
+          </f-element>
+          <f-element id="fcs_tlss_ext.1.4">
+            <title>The application shall support mutual authentication of 
+              TLS clients using X.509v3 certificates.
+            </title>
+            <note role="application">
+              The use of X.509v3 certificates for TLS is addressed in FIA_X509_EXT.2.1. 
+              This requirement adds that this use must include support for client-side 
+              certificates for TLS mutual authentication. Validity is determined by the 
+              certificate path, the expiration date, and the revocation status in 
+              accordance with RFC 5280. Certificate validity shall be tested in accordance 
+              with testing performed for FIA_X509_EXT.1. 
+            </note>
+            <aactivity>
+            
+            </aactivity>
+          </f-element>
+          <f-element id="fcs_tlss_ext.1.5">
+            <title>The application shall not establish a trusted channel 
+              if the peer certificate is invalid. 
+            </title>
+            <aactivity>
+              
+            </aactivity>
+          </f-element>
+          <f-element id="fcs_tlss_ext.1.6">
+            <title>The application shall not establish a trusted channel if 
+              the distinguished name (DN) or Subject Alternative Name (SAN) 
+              contained in a certificate does not match the expected identifier 
+              for the peer.  
+            </title>
+            <note role="application">
+              The peer identifier may be in the Subject field or the Subject 
+              Alternative Name extension of the certificate. The expected 
+              identifier may either be configured, may be compared to the 
+              Domain Name, IP address, username, or email address used by 
+              the peer, or may be passed to a directory server for comparison. 
+              Matching should be performed by a bit-wise comparison. 
+            </note>
+            <aactivity>
+              If the TOE implements mutual authentication, the evaluator shall 
+              verify that the TSS describes how the DN and SAN in the certificate 
+              is compared to the expected identifier. 
+              <h:br />
+              If the DN is not compared automatically to the Domain Name, 
+              IP address, username, or email address, the evaluator shall 
+              ensure that the AGD guidance includes configuration of the 
+              expected identifier or the directory server for the connection. 
+              <testlist>
+                <test>
+                  The evaluator shall send a client certificate with an 
+                  identifier that does not match an expected identifier 
+                  and verify that the server denies the connection. 
+                </test>
+              </testlist>
+             
+            </aactivity>
+          </f-element>
+          
+        </f-component>
+
+        
         <f-component id="fcs_dtls_ext.1" name="DTLS Implementation" status="sel-based">
           <selection-depends req="ftp_dit_ext.1.1"/>
           <f-element id="fcs_dtls_ext.1.1">
@@ -2494,7 +2795,7 @@ functionality (such as these)
                   </h:a>
                 </h:li></h:ul>
               </subaactivity>
-              <subaactivity platform="windows">For Windows Store Apps the evaluator shall check the
+              <subaactivity platform="windows">For Windows Universal Applications the evaluator shall check the
                 WMAppManifest.xml file for a list of required hardware capabilities. The evaluator
                 shall verify that the user is made aware of the required hardware capabilities when
                 the application is first installed. This includes permissions such as
@@ -2575,7 +2876,7 @@ functionality (such as these)
                   </h:a>
                 </h:li></h:ul>
               </subaactivity>
-              <subaactivity platform="windows">For Windows Store Apps the evaluator shall check the
+              <subaactivity platform="windows">For Windows Universal Applications the evaluator shall check the
                 WMAppManifest.xml file for a list of required capabilities. The evaluator shall
                 verify that the user is made aware of the required information repositories when the
                 application is first installed. This includes permissions such as
@@ -3096,7 +3397,7 @@ functionality (such as these)
 		of the application.
 	      </subaactivity>
               <subaactivity platform="windows">The evaluator shall determine and verify that Windows
-                Store App applications use either the Windows.UI.ApplicationSettings namespace or
+                Universal Applications use either the Windows.UI.ApplicationSettings namespace or
                 the IsolatedStorageSettings namespace for storing application specific settings.
                 For Classic Desktop applications, the evaluator shall run the application while 
 		monitoring it with the SysInternal tool <util>ProcMon</util> and 
@@ -3198,8 +3499,8 @@ functionality (such as these)
                 Process Monitor and Access Check (or tools of equivalent capability, like 
                 icacls.exe) for Classic Desktop applications to verify that files written to disk 
                 during an applications installation have the correct file permissions, such that a 
-                standard user cannot modify the application or its data files. For Windows Store 
-                Apps the evaluator shall consider the requirement met because of the AppContainer 
+                standard user cannot modify the application or its data files. For Windows Universal 
+                Applications the evaluator shall consider the requirement met because of the AppContainer 
                 sandbox.
               </subaactivity>
               <subaactivity platform="ios">The evaluator shall determine whether the application
@@ -3445,8 +3746,8 @@ functionality (such as these)
               <subaactivity platform="android">The evaluator shall ensure that the application can
 	      successfully run on the latest version of Android.
 	      </subaactivity>
-              <subaactivity platform="windows">For both classic desktop and Windows Store
-                applications, the evaluator shall configure the latest version of Microsoft's
+              <subaactivity platform="windows">For both classic desktop and Windows Universal 
+                Applications, the evaluator shall configure the latest version of Microsoft's
                 Enhanced Mitigation Experience Toolkit (EMET) to protect the application. The
                 evaluator shall then run the application and verify that the application does not 
                 crash while protected by EMET. 
@@ -3487,7 +3788,7 @@ functionality (such as these)
 		The evaluator shall run the program, mimicking normal usage, and note where all files are written. 
 		The evaluator shall ensure that there are no executable files stored under <path>/data/data/<i>package</i>/</path> where <h:i>package</h:i> is the Java package of the application.
               </subaactivity>
-              <subaactivity platform="windows">For Windows Store Apps the evaluator shall consider
+              <subaactivity platform="windows">For Windows Universal Applications the evaluator shall consider
                 the requirement met because the platform forces applications to write all data
                 within the application working directory (sandbox). For Windows Desktop Applications
                 the evaluator shall run the program, mimicking normal usage, and note where all
@@ -3606,7 +3907,7 @@ functionality (such as these)
               <subaactivity platform="windows"> The evaluator shall ensure that the application is
                 packaged in the standard Windows Installer (.MSI) format, the Windows Application 
                 Software (.EXE) format signed using the Microsoft Authenticode process, or the 
-                Windows Universal Store package (.APPX) format. See 
+                Windows Universal Application package (.APPX) format. See 
                 https://msdn.microsoft.com/en-us/library/ms537364(v=vs.85).aspx for details 
                 regarding Authenticode signing.  
               </subaactivity>
@@ -4576,7 +4877,7 @@ functionality (such as these)
       </entry>
        <entry>
         <term>APPX</term>
-         <description>Windows Store Application Package</description>
+         <description>Windows Universal Application Package</description>
       </entry>
        <entry>
         <term>API</term>
