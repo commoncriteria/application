@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<grammar ns="http://common-criteria.rhcloud.com/ns/cc" 
+	 xmlns="http://relaxng.org/ns/structure/1.0" 
+	 datatypeLibrary="http://www.w3.org/2001/XMLSchema-datatypes"
+	 xmlns:htm="http://www.w3.org/1999/xhtml"
+	 xmlns:a="http://relaxng.org/ns/compatibility/annotations/1.0"
+	 >
+  <include href="transforms/schemas/CCProtectionProfile.rng">
+
+  <define name="aactivity">
+    <element name="aactivity">
+      <a:documentation>Element containing an Assurance Activity.</a:documentation>
+      <oneOrMore>
+        <choice>
+      	  <ref name="subaactivity"/>
+          <ref name="basic-content"/>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+
+
+  <!-- ######################### -->
+  <!-- Section should be removed -->
+  <!-- ######################### -->
+  <define name="subaactivity">
+    <element name="subaactivity">
+      <attribute name="platform">
+        <choice>
+          <value>android</value>
+          <value>blackberry</value>
+          <value>ios</value>
+          <value>linux</value>
+          <value>OS X</value>
+          <value>Solaris</value>
+          <value>windows</value>
+        </choice>
+      </attribute>
+      <oneOrMore>
+        <choice>
+          <ref name="basic-content"></ref>
+          <element name="path">
+            <oneOrMore>
+              <choice>
+                <text></text>
+                <element name="i"><text/></element>
+              </choice>
+            </oneOrMore>
+          </element>
+          <element name="util">
+            <text></text>
+          </element>
+        </choice>
+      </oneOrMore>
+    </element>
+  </define>
+
+  </include>
+</grammar>
