@@ -1872,7 +1872,11 @@ functionality (such as these)
               </selectables>
                to non-volatile memory.</title>
             <note role="application">This requirement ensures that persistent credentials (secret 
-              keys, PKI private keys, or passwords) are stored securely when not in use.  
+              keys, PKI private keys, or passwords) are stored securely.  
+              <h:br/>
+			  The assurance activity implicitly restricts which selections can be made, on per-platform basis.  
+			  For example, if a platform provides hardware-backed protection for credential storage, then
+			  the third selection cannot be indicated.
               <h:br/>
               If <h:i>implement functionality to securely store</h:i> credentials is selected, then the
               following components must be included in the <abbr linkend="ST"/>: <linkref linkend="FCS_COP.1(1)"/>.
@@ -1900,7 +1904,13 @@ functionality (such as these)
                 in IsolatedStorage.
               </subaactivity>
               <subaactivity platform="ios">The evaluator shall verify that all credentials are stored
-                within a <h:code>Keychain</h:code>.</subaactivity>
+                within a <h:code>Keychain</h:code>.  
+				<p/>
+				Alternatively, the evaluator shall verify that:
+				all credentials are stored in a manner that leverages the Data Protection API; the
+				credentials cannot be backed up locally (to a Mac or PC) or to iCloud; and the credentials 
+				cannot be recovered through the use of escrow keybags.
+				</subaactivity>
               <subaactivity platform="linux"> 
 		The evaluator shall verify that all keys are stored using Linux 
 		<h:code>keyrings</h:code>.
