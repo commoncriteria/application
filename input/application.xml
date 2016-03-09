@@ -2455,15 +2455,14 @@ functionality (such as these)
           </f-element>   
           <f-element id="fcs_tlss_ext.1.2">
             <title>The application shall deny connections from clients requesting 
-              SSL 2.0, SSL 3.0, TLS 1.0 and
+              SSL 2.0, SSL 3.0, TLS 1.0, TLS 1.1, and
               <selectables>
-                <selectable>TLS 1.1</selectable>
                 <selectable>TLS 1.2</selectable>
                 <selectable>none</selectable>
               </selectables>
               .
             </title>
-            <note role="application">All SSL versions and TLS 1.0 are denied. Any TLS version 
+            <note role="application">All SSL versions and TLS 1.0 and 1.1 are denied. Any TLS version 
               not selected in <linkref linkend="FCS_TLSS_EXT.1.1"/> should be selected here.
             </note>
             <aactivity>
@@ -2474,8 +2473,8 @@ functionality (such as these)
                 <test>
                   The evaluator shall send a Client Hello requesting a connection with 
                   version SSL 2.0 and verify that the server denies the connection. The 
-                  evaluator shall repeat this test with SSL 3.0, TLS 1.0 and 
-                  any selected TLS versions. 
+                  evaluator shall repeat this test with SSL 3.0, TLS 1.0, TLS 1.1, and
+                  TLS 1.2 if it was selected. 
                 </test>
               </testlist>
             </aactivity>
@@ -2536,12 +2535,13 @@ functionality (such as these)
               if the peer certificate is invalid. 
             </title>
             <note role="application">
-              The use of X.509v3 certificates for TLS is addressed in FIA_X509_EXT.2.1. 
+              The use of X.509v3 certificates for TLS is addressed in 
+	      <linkref linkend="FIA_X509_EXT.2.1"/>
               This requirement adds that this use must include support for client-side 
               certificates for TLS mutual authentication. Validity is determined by the 
               certificate path, the expiration date, and the revocation status in 
               accordance with RFC 5280. Certificate validity shall be tested in accordance 
-              with testing performed for FIA_X509_EXT.1. 
+              with testing performed for <linkref linkend="FIA_X509_EXT.1"/>.
             </note>
             <aactivity>
               The evaluator shall ensure that the TSS description required per FIA_X509_EXT.2.1 
@@ -3162,8 +3162,10 @@ functionality (such as these)
               </ul>
             </title>
             <note role="application">
-              FIA_X509_EXT.1.1 lists the rules for validating certificates. The <abbr linkend="ST"/> author shall 
-              select whether revocation status is verified using OCSP or CRLs. <linkref linkend="FIA_X509_EXT.2"/> 
+	      <linkref linkend="FIA_X509_EXT.1.1"/> 
+	      lists the rules for validating certificates.
+	      The <abbr linkend="ST"/> author shall select whether revocation status is verified using OCSP or CRLs. 
+	      <linkref linkend="FIA_X509_EXT.2"/> 
               requires that certificates are used for HTTPS, TLS and DTLS; this use requires that the 
               extendedKeyUsage rules are verified.
               <h:br />
@@ -4017,7 +4019,7 @@ functionality (such as these)
 	    </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fpt_idv_ext.1" name="Software Identification and Versions" status="objective" targetdate="2015-07-01">
+        <f-component id="fpt_idv_ext.1" name="Software Identification and Versions" status="objective">
           <f-element id="fpt_idv_ext.1.1">
             <title>The application shall include <abbr title="Software Identification">SWID</abbr>
               tags that comply with the minimum requirements for
