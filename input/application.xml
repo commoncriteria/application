@@ -257,7 +257,7 @@
   	  more specific PPs, which may be expressed as Extended Packages of this PP.
   	  Such applications are subject to the requirements of both this PP and the
   	  Extended Package that addresses their special functionality.  PPs for some 
-	  particularly specialized applications may not be expressed as EPs at this time,
+	  particularly specialized applications may not be expressed as Extended Packages at this time,
 	  though the requirements in this document should be seen as objectives for those 
 	  highly specialized applications.
 	  <h:br/> 
@@ -266,11 +266,9 @@
 	  determine when formal Common Criteria evaluation is expected for a
 	  particular type of application.  This may vary depending upon the nature
 	  of the security functionality of the application.
-	 <subsection title="TOE Boundary" id="TOEboundary"> An application is
-		defined as software that runs on a platform and performs tasks on
-		behalf of the user or owner of the platform.  
-		The application consists of
-		the software provided by its vendor and which is installed onto the
+	 <subsection title="TOE Boundary" id="TOEboundary">
+		The application, which consists of the software provided by its vendor,
+		is installed onto the
 		filesystem provided by the operating system.  It executes on the platform, which
 		may be an operating system (Figure 1), an execution environment,
 		or some combination of these (Figure
@@ -454,7 +452,7 @@
       </assumptions>
     </section>
     <section title="Organizational Security Policies" id="OSPs">
-      There are no OSPs for the application.
+      There are no Organizational Security Policies for the application.
    <!--   <OSPs>
         <OSP id="P.ENTERPRISE">
           <description>The configuration of the application software must be capable of adhering to
@@ -617,7 +615,7 @@
               the strings in the following list, the evaluator shall provide a mapping from the 
               decompiled text to its corresponding API, with a description of why the API text does 
               not directly correspond to the decompiled text and justification that the decompiled text 
-              correspond so the associated API. 
+              corresponds to the associated API. 
               <h:br/>
               It should be noted that there is no expectation that the evaluators attempt to confirm 
               that the APIs are being used “correctly” for the functions identified in the TSS; 
@@ -2817,10 +2815,10 @@ functionality (such as these)
 		  </h:a>
 		</h:li></h:ul>
 		For Windows Desktop Applications the evaluator shall verify that either the
-                application or the documentation provide the user with a list of the required
+                application or the documentation provides the user with a list of the required
                 hardware resources.</subaactivity>
                 <subaactivity platform="ios">The evaluator shall verify that either the
-                  application or the documentation provide the user with a list of the required
+                  application or the documentation provides the user with a list of the required
                   hardware resources. </subaactivity>
               <subaactivity platform="linux"> The evaluator shall verify that either the
                 application software or its documentation provides the user with a list of the required
@@ -2885,7 +2883,7 @@ functionality (such as these)
                     http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx
 		  </h:a>
 		</h:li></h:ul> 
-		For Windows Desktop Application the evaluator shall verify that either the
+		For Windows Desktop Applications the evaluator shall verify that either the
                 application software or its documentation provides the user with a list of the required
                 sensitive information repositories. </subaactivity>
               <subaactivity platform="ios">The evaluator shall verify that either the application
@@ -3453,7 +3451,7 @@ functionality (such as these)
 	    </note>
             <aactivity>
              The evaluator shall check the TSS to determine if the application requires any type
-             of credentials and if the applications installs with default credentials. If the
+             of credentials and if the application installs with default credentials. If the
              application uses any default credentials the evaluator shall run the following tests.
              <testlist>
                 <test>
@@ -3649,9 +3647,11 @@ functionality (such as these)
                 such as Microsoft's BinScope Binary Analyzer to confirm that the application has
                 ASLR enabled.
               </subaactivity>
-              <subaactivity platform="ios">The evaluator shall perform a static analysis to search
+              <subaactivity platform="ios">
+		The evaluator shall perform a static analysis to search
                 for any mmap calls (or <abbr linkend="API"/> calls that call mmap), and ensure that
-                no arguments are provided that request a mapping at a fixed address</subaactivity>
+                no arguments are provided that request a mapping at a fixed address.
+	      </subaactivity>
               <subaactivity platform="linux"> 
 		The evaluator shall run the same application on two different Linux systems. 
 		The evaluator shall then compare their memory maps using 
@@ -3830,9 +3830,12 @@ functionality (such as these)
               describes the compiler flag used to enable stack-based buffer overflow protection in
               the application. The evaluator shall perform a static analysis to verify that
               stack-based buffer overflow protection is present. The method of doing so varies per
-              platform: <subaactivity platform="blackberry"> The evaluator shall ensure that the
-                -fstack-protector-strong or -fstack-protector-all flags are used. The
-                -fstack-protector-all flag is preferred but -fstack-protector-strong is acceptable. 
+              platform: 
+	      <subaactivity platform="blackberry"> The evaluator shall ensure that the
+              <h:code>-fstack-protector-strong</h:code> or <h:code>-fstack-protector-all</h:code>
+	      flags are used. 
+	      The <h:code>-fstack-protector-all</h:code> flag is preferred but 
+	      <h:code>-fstack-protector-strong</h:code> is acceptable. 
               </subaactivity>
               <subaactivity platform="android"> Applications that are entirely Java run in the Java
                 machine and do not need traditional stack protection. For applications using Java
@@ -4604,7 +4607,7 @@ functionality (such as these)
 	  </group>
         </a-component>
       </subsection>
-      <subsection id="ava" title="Class AVA: Vulnerability Assessment">For the first generation of
+      <subsection id="ava" title="Class AVA: Vulnerability Assessment">For the current generation of
         this protection profile, the evaluation lab is expected to survey open sources to discover
         what vulnerabilities have been discovered in these types of products. In most cases, these
         vulnerabilities will require sophistication beyond that of a basic attacker. Until
