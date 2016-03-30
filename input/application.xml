@@ -3576,12 +3576,12 @@ functionality (such as these)
       <subsection title="Protection of the TSF (FPT)" id="fpt">
         <f-component id="fpt_api_ext.1" name="Use of Supported Services and APIs" status="threshold">
           <f-element id="fpt_api_ext.1.1">
-            <title>The application shall use only supported platform <abbr linkend="API"
+            <title>The application shall use only documented platform <abbr linkend="API"
             />s.</title>
             <note role="application">
-              The definition of <h:i>supported</h:i> may vary depending upon whether the application is provided by
+              The definition of <h:i>documented</h:i> may vary depending upon whether the application is provided by
               a third party (who relies upon documented platform APIs) or by a platform vendor 
-              who may be able to guarantee support for platform APIs which are not externally documented.
+              who may be able to guarantee support for platform APIs.
 	    </note>
             <aactivity>
               The evaluator shall verify that the TSS lists the platform <abbr linkend="API"/>s 
@@ -4052,6 +4052,7 @@ functionality (such as these)
             <selectable><abbr title="Hypertext Transfer Protocol Secure">HTTPS</abbr></selectable>
 		        <selectable><abbr title="Transport Layer Security">TLS</abbr></selectable>
 		        <selectable><abbr title="Datagram Transport Layer Security">DTLS</abbr></selectable>
+      			<selectable>SSH as conforming to the <h:a href="https://www.niap-ccevs.org/pp/"><h:i>Extended Package for Secure Shell</h:i></h:a></selectable>
 		      </selectables>
         </selectable>
         <selectable>encrypt all transmitted data with
@@ -4059,6 +4060,7 @@ functionality (such as these)
             <selectable><abbr title="Hypertext Transfer Protocol Secure">HTTPS</abbr></selectable>
             <selectable><abbr title="Transport Layer Security">TLS</abbr></selectable>
             <selectable><abbr title="Datagram Transport Layer Security">DTLS</abbr></selectable>
+            <selectable><abbr title="Secure Shell">SSH</abbr></selectable>
 		      </selectables>
         </selectable>
       </selectables>
@@ -4068,12 +4070,21 @@ functionality (such as these)
 	      Extended packages may override this requirement to provide for other protocols.
 	      Encryption is not required for applications transmitting data that is not sensitive. 
 		  <h:br/>
+		  <h:p>
 		  If <h:i>TLS</h:i> is selected, then evaluation of elements from 
-		  <linkref linkend="FCS_TLSC_EXT.1"/> is required.<h:p/>
+		  <linkref linkend="FCS_TLSC_EXT.1"/> is required.</h:p>
+		  <h:p>
 		  If <h:i>HTTPS</h:i> is selected, then evaluation of elements from 
-		  <linkref linkend="FCS_HTTPS_EXT.1"/> is required.<h:p/> 
-		  If <h:i>DTLS</h:i> is selected, then evaluation of elements from 
+		  <linkref linkend="FCS_HTTPS_EXT.1"/> is required.</h:p> 
+		  <h:p>
+		    If <h:i>DTLS</h:i> is selected, then evaluation of elements from 
 		  <linkref linkend="FCS_DTLS_EXT.1"/> is required.
+		  </h:p>
+		  <h:p>
+		    If <h:i>SSH</h:i> is selected, the TSF shall be validated against the <h:i>Extended Package
+      		    for Secure Shell</h:i>.
+		  </h:p>
+
 	    </note>  
       <aactivity>
         The evaluator shall perform the following tests.
