@@ -2904,7 +2904,10 @@ functionality (such as these)
                 sensitive information repositories.</subaactivity>
             </aactivity>
           </f-element>
-          <f-element id="fdp__ext.1.4">
+        </f-component>
+
+        <f-component id="fdp_net_ext.1" name="Network Communications" status="threshold">
+          <f-element id="fdp_net_ext.1.1">
             <title>The application shall restrict network communication to 
               <selectables linebreak="yes">
                 <selectable>no network communication</selectable>
@@ -2951,49 +2954,10 @@ functionality (such as these)
             </subaactivity>
 	    </aactivity>
 	  </f-element>
-          <f-element id="fdp_dec_ext.1.5">
-            <title>
-	      The application shall 
-	      <selectables linebreak="yes">
-		<selectable>
-		  not transmit <abbr linkend="PII"/> over a network
-		</selectable>
-		<selectable>
-		  require user approval before executing
-		  <assignable> 
-		    list of functions that transmit <abbr linkend="PII"/> over a network
-		  </assignable>
-		</selectable>
-	      </selectables>
-	      .
-	    </title>
-            <note role="application">
-	      This requirement applies only to PII that is specifically requested by the application;
-	      it does not apply if the user volunteers PII without prompting from the application 
-	      into a general (or inappropriate) data field.
-	      A dialog box that declares intent to send PII presented to the user 
-	      at the time the application is started is sufficient to meet this requirement. 
-	    </note>
-            <aactivity>The evaluator shall inspect the TSS documentation to identify functionality in the
-              application where PII can be transmitted, and perform the following tests.
-              <testlist>
-                <test>
-                  The evaluator shall run the application and exercise the functionality responsibly
-                  for transmitting PII and verify that user approval is required before transmission
-                  of the PII.
-                </test>
-                <!-- Removing this test for now. 
-                <test>
-                  The evaluator shall sniff network traffic while running the application 
-                  and verify that no PII is transmitted without user approval.
-		              If the application communicates over TLS, the evaluator shall use
-		              man-in-the-middle tools to expose encrypted traffic before sniffing.
-                </test>
-                -->
-              </testlist>
-           </aactivity>
-          </f-element>
-        </f-component>
+      </f-component>
+
+
+
         <f-component id="fdp_dar_ext.1" name="Encryption Of Sensitive Application Data" status="threshold">
           <f-element id="fdp_dar_ext.1.1">
             <title>The application shall 
@@ -3565,6 +3529,54 @@ functionality (such as these)
           </f-element>
         </f-component>
       </subsection>
+
+      <subsection title="Privacy" id="fpr">
+      <f-component id="fpr_ano_ext.1" name="User Consent for Transmission of Personally Identifiable Information" status="threshold">
+          <f-element id="fpr_ano_ext.1.1">
+            <title>
+	      The application shall 
+	      <selectables linebreak="yes">
+		<selectable>
+		  not transmit <abbr linkend="PII"/> over a network
+		</selectable>
+		<selectable>
+		  require user approval before executing
+		  <assignable> 
+		    list of functions that transmit <abbr linkend="PII"/> over a network
+		  </assignable>
+		</selectable>
+	      </selectables>
+	      .
+	    </title>
+            <note role="application">
+	      This requirement applies only to PII that is specifically requested by the application;
+	      it does not apply if the user volunteers PII without prompting from the application 
+	      into a general (or inappropriate) data field.
+	      A dialog box that declares intent to send PII presented to the user 
+	      at the time the application is started is sufficient to meet this requirement. 
+	    </note>
+            <aactivity>The evaluator shall inspect the TSS documentation to identify functionality in the
+              application where PII can be transmitted, and perform the following tests.
+              <testlist>
+                <test>
+                  The evaluator shall run the application and exercise the functionality responsibly
+                  for transmitting PII and verify that user approval is required before transmission
+                  of the PII.
+                </test>
+                <!-- Removing this test for now. 
+                <test>
+                  The evaluator shall sniff network traffic while running the application 
+                  and verify that no PII is transmitted without user approval.
+		              If the application communicates over TLS, the evaluator shall use
+		              man-in-the-middle tools to expose encrypted traffic before sniffing.
+                </test>
+                -->
+              </testlist>
+           </aactivity>
+          </f-element>
+        </f-component>
+      </subsection>
+
       <subsection title="Protection of the TSF (FPT)" id="fpt">
         <f-component id="fpt_api_ext.1" name="Use of Supported Services and APIs" status="threshold">
           <f-element id="fpt_api_ext.1.1">
