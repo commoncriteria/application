@@ -2785,23 +2785,25 @@ functionality (such as these)
 			  persistent storage devices provided by the platform.
             </note>
             <aactivity>
-                The evaluator shall install and run the application and inspect its user
+                The evaluator shall perform the platform-specific actions below and inspect user
                 documentation to determine the application's access to hardware
-                resources.  The method of doing so varies per platform.
+                resources.  The evaluator shall ensure that this is consistent with the selections
+				indicated.  The evaluator shall review documentation provided by the application
+	            developer and for each resource which it accesses, identify the
+	            justification as to why access is required.  
               <subaactivity platform="blackberry">
                 The evaluator shall install the
                 application and run it for the first time. The evaluator shall verify that the
-                application displays all platform resources it would like to access. Note: If the
+                selection captures all hardware resources it would like to access. Note: If the
                 user goes to: <h:code>App permissions > Settings > Security and Privacy > Application
                 Permissions > Select application in question</h:code>, it will list which platform resource
                 are approved/denied and can be changed.
               </subaactivity>
               <subaactivity platform="android">
-                The evaluator shall consider the requirement met because the 
-                platform notifies the user of permissions at 
-                install time (Android 5.1 and below) or on-access 
+                The evaluator shall inspect permissions presented at 
+                installation time (Android 5.1 and below) or on-access 
                 (Android 6.0 and above) for each hardware resource an app intends 
-                to access.
+                to access.  
               </subaactivity>
               <subaactivity platform="windows">For Windows Universal Applications the evaluator shall check the
                 WMAppManifest.xml file for a list of required hardware capabilities. The evaluator
@@ -2816,20 +2818,21 @@ functionality (such as these)
                     http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx
 		  </h:a>
 		</h:li></h:ul>
-		For Windows Desktop Applications the evaluator shall verify that either the
-                application or the documentation provides the user with a list of the required
-                hardware resources.</subaactivity>
+		        For Windows Desktop Applications the evaluator shall identify in either the
+                application software or its documentation the list of the required
+                sensitive information repositories. 
+                </subaactivity>
                 <subaactivity platform="ios">The evaluator shall verify that either the
-                  application or the documentation provides the user with a list of the required
+                  application or the documentation provides a list of the required
                   hardware resources. </subaactivity>
               <subaactivity platform="linux"> The evaluator shall verify that either the
-                application software or its documentation provides the user with a list of the required
+                application software or its documentation provides a list of the required
                 hardware resources. </subaactivity>
               <subaactivity platform="Solaris"> The evaluator shall verify that either the
-                application software or its documentation provides the user with a list of the required
+                application software or its documentation provides a list of the required
                 hardware resources. </subaactivity>
               <subaactivity platform="OS X"> The evaluator shall verify that either the application
-                software or its documentation provides the user with a list of the required hardware
+                software or its documentation provides a list of the required hardware
                 resources. </subaactivity>
             </aactivity>
           </f-element>
@@ -2853,31 +2856,25 @@ functionality (such as these)
               of these would ordinarily require access.
 	    </note>
             <aactivity>
-              The evaluator shall ensure that the selection captures all
-              sensitive information repositories which the application is intended to 
-              access. The evaluator shall install and run the application software and inspect its user
-              documentation to verify that the user is informed of any need to access these repositories.
-	      
-		  The evaluator shall review documentation provided by the application
-	      developer and for each resource which it requests access to, identify the
-	      justification as to why access is required. 
-
-	      The method of doing so varies per platform.
+                The evaluator shall perform the platform-specific actions below and inspect user
+                documentation to determine the application's access to sensitive information
+				repositories.  The evaluator shall ensure that this is consistent with the selections
+				indicated.  The evaluator shall review documentation provided by the application
+	            developer and for each sensitive information respository which it accesses, identify the
+	            justification as to why access is required.  
 	      <subaactivity platform="blackberry">The evaluator shall
-                install the application and run it for the first time. The evaluator shall verify
-                that the application displays all platform resources it would like to
-                access.
+                install the application and run it for the first time. The evaluator shall identify
+                the sensitive information repositories it would like to access.
 	      </subaactivity>
               <subaactivity platform="android">
-                The evaluator shall consider the requirement met because the 
-                platform notifies the user of permissions at 
-                install time (Android 5.1 and below) or on-access 
-                (Android 6.0 and above) for each sensitive information 
-                repository an app intends to access.
+                The evaluator shall inspect permissions presented at 
+                installation time (Android 5.1 and below) or on-access 
+                (Android 6.0 and above) for each sensitive information repository an app intends 
+                to access.  
               </subaactivity>
               <subaactivity platform="windows">For Windows Universal Applications the evaluator shall check the
                 WMAppManifest.xml file for a list of required capabilities. The evaluator shall
-                verify that the user is made aware of the required information repositories when the
+                identify the required information repositories when the
                 application is first installed. This includes permissions such as
                 ID_CAP_CONTACTS,ID_CAP_APPOINTMENTS,ID_CAP_MEDIALIB and so on. A complete list of
                 Windows App permissions can be found at: 
@@ -2886,9 +2883,10 @@ functionality (such as these)
                     http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx
 		  </h:a>
 		</h:li></h:ul> 
-		For Windows Desktop Applications the evaluator shall verify that either the
-                application software or its documentation provides a list of the required
-                sensitive information repositories. </subaactivity>
+		        For Windows Desktop Applications the evaluator shall identify in either the
+                application software or its documentation the list of 
+                sensitive information repositories it accesses. 
+			  </subaactivity>
               <subaactivity platform="ios">The evaluator shall verify that either the application
                 software or its documentation provides a list of
                 the required sensitive information repositories.</subaactivity>
@@ -3513,8 +3511,8 @@ functionality (such as these)
               .
             </title>
             <note role="application">
-	      This requirement stipulates that an application needs to provide the ability to 
-	      enable/disable only those functions that it actually implements. The application
+	      this requirement stipulates that an application needs to provide the ability to 
+	      enable/disable only those functions that it actually implements. the application
 	      is not responsible for controlling the behavior of the platform or other applications.
 	    </note>
             <aactivity>The evaluator shall verify that every management function 
