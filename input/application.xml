@@ -3832,67 +3832,51 @@ functionality (such as these)
                 wrote. </subaactivity>
             </aactivity></f-element>
           <f-element id="fpt_aex_ext.1.5">
-            <title>The application shall be compiled with stack-based buffer overflow protection
+            <title>The application shall be built with stack-based buffer overflow protection
               enabled.</title>
-            <aactivity>The evaluator shall ensure that the <abbr linkend="TSS"/> section of the <abbr linkend="ST"/>
+            <aactivity>
+	      The evaluator shall ensure that the <abbr linkend="TSS"/> section of the <abbr linkend="ST"/>
               describes the compiler flag used to enable stack-based buffer overflow protection in
-              the application. The evaluator shall perform a static analysis to verify that
-              stack-based buffer overflow protection is present. The method of doing so varies per
-              platform: 
-	      <subaactivity platform="blackberry"> The evaluator shall ensure that the
-              <h:code>-fstack-protector-strong</h:code> or <h:code>-fstack-protector-all</h:code>
-	      flags are used. 
-	      The <h:code>-fstack-protector-all</h:code> flag is preferred but 
-	      <h:code>-fstack-protector-strong</h:code> is acceptable. 
-              </subaactivity>
-              <subaactivity platform="android"> Applications that are entirely Java run in the Java
-                machine and do not need traditional stack protection. For applications using Java
-                Native Interface (JNI), the evaluator shall ensure that the
-                  <h:code>-fstack-protector-strong</h:code> or <h:code>-fstack-protector-all</h:code> flags
-                are used. The <h:code>-fstack-protector-all</h:code> flag is preferred but
-                  <h:code>-fstack-protector-strong</h:code> is acceptable. </subaactivity>
-              <subaactivity platform="windows">The evaluator shall review the TSS and verify that
-                the <h:code>/GS</h:code> flag was used during compilation. The evaluator shall run a tool,
-                like <util>BinScope</util>, that can verify the correct usage of <h:code>/GS</h:code>
-              </subaactivity>
-              <subaactivity platform="ios">
-                If the application is compiled using GCC or Xcode, the
-                evaluator shall ensure that the <h:code>-fstack-protector-strong</h:code> or
-                <h:code>-fstack-protector-all</h:code> flags are used. The
-                <h:code>-fstack-protector-all</h:code> flag is preferred but
-                <h:code>-fstack-protector-strong</h:code> is acceptable.
-    If the application is built using any other compiler, then the evaluator shall determine that 
-    appropriate stack-protection has been used during the build process.
-              </subaactivity>
-              <subaactivity platform="linux">
-		If the application is compiled using GCC, the
-                evaluator shall ensure that the <h:code>-fstack-protector-strong</h:code> or
-                <h:code>-fstack-protector-all</h:code> flags are used. The
-                <h:code>-fstack-protector-all</h:code> flag is preferred but
-                <h:code>-fstack-protector-strong</h:code> is acceptable. If the application is built
-                using clang, it must be compiled and linked with the
-                <h:code>-fsanitize=address</h:code> flag.
-		If the application is built using any other compiler, then the evaluator shall determine that appropriate stack-protection has been used during the build process.
-	      </subaactivity>
-              <subaactivity platform="Solaris">
-	      	If the application is compiled using GCC, the
-                evaluator shall ensure that the <h:code>-fstack-protector-strong</h:code> or
-                <h:code>-fstack-protector-all</h:code> flags are used. The
-                <h:code>-fstack-protector-all</h:code> flag is preferred but
-                <h:code>-fstack-protector-strong</h:code> is acceptable. If the application is built
-                using clang, it must be compiled and linked with the
-                <h:code>-fsanitize=address</h:code> flag.
-		If the application is built using any other compiler, then the evaluator shall determine that appropriate stack-protection has been used during the build process.
-	      </subaactivity>
-              <subaactivity platform="OS X">
-                If the application is compiled using GCC or Xcode, the
-                evaluator shall ensure that the <h:code>-fstack-protector-strong</h:code> or
-                <h:code>-fstack-protector-all</h:code> flags are used. The
-                <h:code>-fstack-protector-all</h:code> flag is preferred but
-                <h:code>-fstack-protector-strong</h:code> is acceptable.
-    If the application is built using any other compiler, then the evaluator shall determine that 
-    appropriate stack-protection has been used during the build process.
-              </subaactivity>
+              the application. 
+	      The evaluator shall analyze each executable to verify that
+              stack-based buffer overflow protection is present.
+	      The method of doing so varies per language/compiler:
+	      <h:div class="subaact"> <h:i><h:b>For GCC:</h:b></h:i>
+	      The evaluator shall verify that the 
+              <h:code>-fstack-protector-strong</h:code> or <h:code>-fstack-protector-all</h:code> flags
+              are used. The <h:code>-fstack-protector-all</h:code> flag is preferred but
+              <h:code>-fstack-protector-strong</h:code> is acceptable. </h:div>
+
+	      <h:div class="subaact"> <h:i><h:b>For IBM Compiler:</h:b></h:i>
+	      The evaluator shall verify that the 
+              <h:code>-qstackprotect</h:code> argument is used.</h:div>
+
+	      <h:div class="subaact"> <h:i><h:b>For Visual Studio:</h:b></h:i>
+	      The evaluator shall verify that the <h:code>/GS</h:code> flag was used during compilation or
+	      the evaluator shall run a tool,like <h:span class="util">BinScope</h:span>, that can verify the correct usage of <h:code>/GS</h:code></h:div>
+
+	      <h:div class="subaact"><h:i><h:b>For Clang/LLVM:</h:b></h:i>
+              The evaluator shall inspect the <abbr linkend="TSS"/> and ensure that the executable is compiled and linked with the
+              <h:code>-fsanitize=address</h:code> flag.</h:div>
+
+	      <h:div class="subaact"><h:i><h:b>For Swift, Rust, Go, D:</h:b></h:i>
+	      Executables based on these languages inherently satisfy this requirement.
+	      </h:div>
+
+	      <h:div class="subaact"> <h:i><h:b>For interpreted languages, such as JRE-based languages (e.g., Java, Groovy, Scala), JavaScript, Lua, Python, Ruby, and shell scripts:</h:b></h:i>
+	      Executables of these types inherently satisfy this requirement, as 
+	      the interpreter that executes them is responsible 
+	      for ensuring stack integrity.</h:div>
+
+	      <h:div class="subaact"><h:i><h:b>For other compilers:</h:b></h:i>
+	      If the application is built using any other compiler, then the evaluator shall determine that appropriate stack-protection has been used during the build process.
+	      </h:div>
+	      
+	      <h:div class="subaact"><h:i><h:b>For executables built from assembly:</h:b></h:i>
+	      The evaluator shall inspect the TSS and ensure that it describes adequate stack-protection mechanisms that were developed as part of the larger executable.
+	      </h:div>
+	      
+	      
             </aactivity>
           </f-element>
         </f-component>
