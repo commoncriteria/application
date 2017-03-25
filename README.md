@@ -10,9 +10,7 @@ Protection Profile for Application Software
 [Protection Profile for Application Software](http://common-criteria.rhcloud.com/application/output/application-release.html)
 
 ## Release Version
-[Protection Profile for Application Software v1.2](https://www.niap-ccevs.org/Profile/Info.cfm?id=394) 04/25/2016
-
-## Change Log
+[Protection Profile for Application Software v1.2](https://www.niap-ccevs.org/Profile/Info.cfm?id=394)
 
 ## Quickstart
 To clone this project along with its _transforms_ submodule run:
