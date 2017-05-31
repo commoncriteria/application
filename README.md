@@ -35,4 +35,3 @@ To pull updates from the upstream _transforms_ submodule and commit them run:
 * transforms - Points to the transform subproject which is really a repository for resources shared amongst many CC projects.
 * local - Resources that are specific to this project. They often modify or extend functionality from the transforms subproject.
 * vetting-output-format - Files in this directory defines the format for output derived from evaluting an application.
-
