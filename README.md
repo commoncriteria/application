@@ -1,4 +1,4 @@
-Application
+Application [![Build Status](https://jenkins-criteria.rhcloud.com/buildStatus/icon?job=protection-profiles/application)](https://jenkins-criteria.rhcloud.com/job/protection-profiles/application)
 ===========
 
 Protection Profile for Application Software
