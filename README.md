@@ -1,6 +1,6 @@
 Protection Profile for Application Software
 ===========
-[![Build Status](https://jenkins-criteria.rhcloud.com/buildStatus/icon?job=protection-profiles/application)](https://jenkins-criteria.rhcloud.com/job/protection-profiles/job/application/)  [![](https://img.shields.io/github/issues/commoncriteria/application.svg)]() ![license](https://img.shields.io/badge/license-Unlicensed-blue.svg)
+[![Build Status](https://jenkins-criteria.rhcloud.com/buildStatus/icon?job=protection-profiles/application)](https://jenkins-criteria.rhcloud.com/job/protection-profiles/job/application/)   [![GitHub issues Open](https://img.shields.io/github/issues/commoncriteria/application.svg?maxAge=2592000)](https://github.com/commoncriteria/application/issues) ![license](https://img.shields.io/badge/license-Unlicensed-blue.svg)
 
 This repository hosts the draft version of the Protection Profile for Application Software based on the 
 [Essential Security Requirements (ESR)](http://common-criteria.rhcloud.com/application/output/application-esr.html) for this technology class of 
