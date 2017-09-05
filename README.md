@@ -9,8 +9,8 @@ See the [release](#Release-Version) section if you are looking for the officiall
 
 ## Draft Version
 
-* [Protection Profile for Application Software](http://common-criteria.rhcloud.com/application/output/application-release.html) (html)
-* [Protection Profile for Application Software](http://common-criteria.rhcloud.com/application/output/application-release.pdf) (pdf)
+* [Protection Profile for Application Software](https://commoncriteria.github.io/pp/application/application-release.html) (html)
+* [Protection Profile for Application Software](https://commoncriteria.github.io/pp/application/application-release.pdf) (pdf)
 
 ## Release Version
 * [Protection Profile for Application Software v1.2](https://www.niap-ccevs.org/Profile/Info.cfm?id=394)
