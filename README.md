@@ -3,7 +3,7 @@ Protection Profile for Application Software
 [![Build Status](https://travis-ci.org/commoncriteria/application.svg?branch=master)](https://travis-ci.org/commoncriteria/application) [![GitHub issues Open](https://img.shields.io/github/issues/commoncriteria/application.svg?maxAge=2592000)](https://github.com/commoncriteria/application/issues) ![license](https://img.shields.io/badge/license-Unlicensed-blue.svg)
 
 This repository hosts the draft version of the Protection Profile for Application Software based on the 
-[Essential Security Requirements (ESR)](http://common-criteria.rhcloud.com/application/output/application-esr.html) for this technology class of 
+[Essential Security Requirements (ESR)](https://commoncriteria.github.io/pp/application/application-esr.html) for this technology class of 
 products. This repository is used to facilitate collaboration and development on the draft document. 
 See the [release](#Release-Version) section if you are looking for the officially released version for evaluations. A list of products that have passed evaluation against this Protection Profile can be found [here](https://www.niap-ccevs.org/Product/PCL.cfm?ID624=74).
 
