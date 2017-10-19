@@ -2,7 +2,7 @@
 <?xml-stylesheet type="text/xsl" href="..\transforms\pp2html.xsl"?>
 
 <?xml-model href="https://github.com/commoncriteria/transforms/raw/master/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
-<PP xmlns="http://common-criteria.rhcloud.com/ns/cc" 
+<PP xmlns="https://niap-ccevs.org/cc/v1"
     xmlns:h="http://www.w3.org/1999/xhtml"
     name="Application Software">
   <PPReference title="PP Reference" id="ID003">
@@ -105,9 +105,7 @@
       has been the natural response to improvements in operating system security and development
       processes. As a result, it is paramount that the security of applications be improved to
       reduce the risk of compromise.</section>
-    <section title="Terms" id="glossary">The following sections provide both Common Criteria and
-      technology terms used in this Protection Profile. <subsection title="Common Criteria Terms"
-        id="ccterms">
+    <section title="Glossary" id="glos">
         <glossary>
           <entry>
             <term><abbr title="Common Criteria">CC</abbr></term> 
@@ -154,10 +152,6 @@
             <description>A requirement to assure the security of the <abbr linkend="TOE"/>.
             </description>
           </entry>
-        </glossary>
-      </subsection>
-      <subsection title="Technology Terms" id="techterms">
-        <glossary>
           <entry>
             <term><abbr title="Address Space Layout Randomization">ASLR</abbr></term>
             <description>An anti-exploitation feature which loads memory mappings into unpredictable
@@ -252,7 +246,7 @@
               updating application software.</description>
           </entry>
         </glossary>
-      </subsection></section>
+      </section>
     <section title="Compliant Targets of Evaluation" id="TOEdescription">The requirements in this
   	  document apply to application software which runs on mobile devices ("apps"), as well as on
   	  desktop and server platforms. Some application types are covered by
@@ -638,12 +632,12 @@
                 </h:code> or <h:code>/dev/urandom</h:code>.
               </subaactivity>
               <subaactivity platform="windows">The evaluator shall verify
-               that BCryptGenRandom or CryptGenRandom <abbr linkend="API"/> is used for classic
+                that rand_s, RtlGenRandom, BCryptGenRandom, or CryptGenRandom <abbr linkend="API"/> is used for classic
                 desktop applications. The evaluator shall verify that the
-
-                System.Random <abbr linkend="API"/> is used for Windows Universal Applications. In
+                System.Random <abbr linkend="API"/> is used for Windows Universal Applications. It is only required that 
+                the <abbr linkend="API"/> is called/invoked, there is no requirement that the <abbr linkend="API"/> be used directly. In
                 future versions of this document, CryptGenRandom may be removed as an option as it is
-                no longer the preferred API per vendor documentation. </subaactivity>
+                no longer the preferred <abbr linkend="API"/> per vendor documentation. </subaactivity>
               <subaactivity platform="ios"> 
                 The evaluator shall verify that the application invokes 
                 <h:code>SecRandomCopyBytes</h:code> or uses <h:code>/dev/random</h:code> directly to acquire random.
@@ -917,9 +911,6 @@
                     <selectable>
                       <h:b>FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.3</h:b>
                     </selectable>
-                    <selectable>
-                      <h:b>ANSI X9.31-1998, Section 4.1</h:b>
-                    </selectable>
                   </selectables>
                 </selectable>
                 <selectable>
@@ -948,11 +939,6 @@
               <h:br />
               If the <abbr linkend="TOE"/> acts as a receiver in the RSA key establishment scheme, 
               the <abbr linkend="TOE"/> does not need to implement RSA key generation. 
-              <h:br />
-              The ANSI X9.31-1998 option will be removed from the selection in a future publication 
-              of this document. Presently, the selection is not exclusively limited to the FIPS PUB 
-              186-4 options in order to allow industry some further time to complete the transition 
-              to the modern FIPS PUB 186-4 standard.
             </note>
             <aactivity>
               The evaluator shall ensure that the <abbr linkend="TSS"/> identifies the key sizes 
@@ -1026,30 +1012,6 @@
                 <h:li>q &#x2265; 2<h:sup>nlen/2 -1/2</h:sup>,</h:li>
                 <h:li>2<h:sup>(nlen/2)</h:sup> &lt; d &lt; LCM(p-1,q-1),</h:li>
                 <h:li>e&#x22c5;d = 1 mod LCM(p-1,q-1).</h:li>
-              </h:ul>
-              <h:b>Key Generation for ANSI X9.31-1998 RSA Schemes</h:b><h:p/>
-              If the <abbr linkend="TSF"/> implements the ANSI X9.31-1998 scheme, the evaluator 
-              shall check to ensure that the <abbr linkend="TSS"/> describes how the key-pairs are 
-              generated. In order to show that the <abbr linkend="TSF"/> 
-              implementation complies with ANSI X9.31-1998, the evaluator shall ensure that the 
-              <abbr linkend="TSS"/> contains the following information: 
-              <h:ul>
-                <h:li>
-                  The <abbr linkend="TSS"/> shall list all sections of the standard to which the 
-                  <abbr linkend="TOE"/> complies;</h:li>
-                <h:li>
-                  For each applicable section listed in the <abbr linkend="TSS"/>, for all 
-                  statements that are not "shall" (that is, "shall not", "should", and "should not")
-                  , if the <abbr linkend="TOE"/> implements such options it shall be described in 
-                  the <abbr linkend="TSS"/>. If the included functionality is indicated as "shall 
-                  not" or "should not" in the standard, the <abbr linkend="TSS"/> shall provide a 
-                  rationale for why this will not adversely affect the security policy implemented 
-                  by the <abbr linkend="TOE"/>;
-                </h:li>
-                <h:li>
-                  For each applicable section of Appendix B, any omission of functionality related 
-                  to "shall" or “should” statements shall be described.
-                </h:li>
               </h:ul>
               <h:b>Key Generation for Elliptic Curve Cryptography (ECC)</h:b><h:p/>
               FIPS 186-4 ECC Key Generation Test
@@ -1860,14 +1822,18 @@ functionality (such as these)
               </selectables>
                to non-volatile memory.</title>
             <note role="application">This requirement ensures that persistent credentials (secret 
-              keys, PKI private keys, or passwords) are stored securely.  
+              keys, PKI private keys, or passwords) are stored securely, and never persisted in cleartext form.  
               <h:br/>
-			  The assurance activity implicitly restricts which selections can be made, on per-platform basis.  
-			  For example, if a platform provides hardware-backed protection for credential storage, then
-			  the third selection cannot be indicated.
+        Application developers are encouraged to use platform mechanisms for the secure storage of credentials.
+        Depending on the platform that may include hardware-backed protection for credential storage. Application 
+        developers must choose a selection, or multiple selections, based on all credentials that the application 
+        stores.
               <h:br/>
-              If <h:i>implement functionality to securely store</h:i> credentials is selected, then the
-              following components must be included in the <abbr linkend="ST"/>: <linkref linkend="FCS_COP.1(1)"/>.
+              If <h:i>not store any credentials</h:i> is selected, then the application must not store any credentials.
+              If <h:i>invoke the functionality provided by the platform to securely store</h:i> is selected then the 
+              Application developer must closely review the AA for their platform and provide documentation indicating 
+              which platform mechanisms are used to store credentials. If <h:i>implement functionality to securely store credentials</h:i>
+              is selected, then the following components must be included in the <abbr linkend="ST"/>: <linkref linkend="FCS_COP.1(1)"/>. 
               If other cryptographic operations are used to implement the secure storage of credentials, 
               the corresponding requirements must be included in the ST.
             </note>
@@ -1919,21 +1885,22 @@ functionality (such as these)
               </selectables> supporting the following cipher suites: <h:p/>Mandatory Cipher Suites:
               TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246 <h:p/>Optional Cipher Suites:
                 <selectables linebreak="yes">
-                <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
-                <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
-                <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
-                <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
-                <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
-                <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>
-                <selectable>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
-                <selectable>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
-                <selectable>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
-                <selectable>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>
-                <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
-                <selectable>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
-                <selectable>no other cipher suite</selectable>
+                  <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 524</selectable>
+                  <selectable>TLS_RSA_WITH_AES_256_CBC_ SHA256 as defined in RFC 5246</selectable>
+                  <selectable>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
+                  <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_ SHA256 as defined in RFC 5246</selectable>
+                  <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_ SHA256 as defined in RFC 5246</selectable>
+                  <selectable>TLS_DHE_RSA_WITH_AES_256_GCM_ SHA384 as defined in RFC 5288</selectable>
+                  <selectable>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
+                  <selectable>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
+                  <selectable>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
+                  <selectable>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>
+                  <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
+                  <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
+                  <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
+                  <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>
+                <selectable>no other cipher suite.</selectable>
               </selectables>
-	           .
             </title>
             <note role="application">The cipher suites to be tested in the evaluated configuration 
               are limited by this requirement. The <abbr title="Security Target" linkend="ST">ST
@@ -2028,9 +1995,9 @@ functionality (such as these)
                       after receiving the Server Hello.
                     </test>
                     <test>
-                      Modify the signature block in the Server’s Key Exchange handshake message, and 
-                      verify that the client rejects the connection after receiving the Server Key 
-                      Exchange message.
+                      [conditional] If an ECDHE or DHE ciphersuite is selected, modify the signature 
+                      block in the Server’s Key Exchange handshake message, and verify that the 
+                      client rejects the connection after receiving the Server Key Exchange message.
                     </test>
                     <test>
                       Modify a byte in the Server Finished handshake message, and verify that the 
@@ -2419,23 +2386,16 @@ functionality (such as these)
                   The evaluator shall perform the following modifications to the traffic: 
                   <testlist>
                     <test>
-                      Change the <h:abbr title="Transport Layer Security">TLS</h:abbr> version selected 
-                      by the server in the Server Hello to a non-supported 
-                      <h:abbr title="Transport Layer Security">TLS</h:abbr> version (for example 1.3 
-                      represented by the two bytes 03 04) and verify that the client rejects the 
-                      connection.
-                    </test>
-                    <test>
                       Modify at least one byte in the client’s nonce in the Client Hello handshake 
                       message, and verify that the server rejects the client's Certificate Verify handshake message
                       (if using mutual authentication) or that the server denies the client's 
                       Finished handshake message.
                     </test>
                     <test>
-                      Modify the signature block in the Client’s Key Exchange handshake message, and 
-                      verify that the server rejects the client's Certificate Verify handshake message
-                      (if using mutual authentication) or that the server denies the client's 
-                      Finished handshake message.
+                      [conditional] If an ECDHE or DHE ciphersuite is selected, modify the signature block in the 
+                      Client’s Key Exchange handshake message, and verify that the server rejects the client's 
+                      Certificate Verify handshake message  (if using mutual authentication) or that the server 
+                      denies the client's Finished handshake message.
                     </test>
                     <test>
                       Modify a byte in the Clint Finished handshake message, and verify that the
@@ -2449,7 +2409,7 @@ functionality (such as these)
 		      implementation that does not support session IDs.
                     </test>
                     <test>
-                      Send an garbled message from the client after the client has issued the 
+                      Send angarbled message from the client after the client has issued the 
                       ChangeCipherSpec message and verify that the Server denies the connection.
                     </test>
                   </testlist>
@@ -2711,10 +2671,19 @@ functionality (such as these)
           </f-element>
           <f-element id="fcs_https_ext.1.2">
             <title>The application shall implement HTTPS using 
-              <abbr title="Transport Layer Security">TLS</abbr> (<linkref linkend="FCS_TLSC_EXT.1"/>).
+              <abbr title="Transport Layer Security">TLS</abbr> in accordance with 
+              <selectables>
+                <selectable>
+                  <linkref linkend="FCS_TLSC_EXT.1"/>
+                </selectable>
+                <selectable>
+                  <linkref linkend="FCS_TLSS_EXT.1"/>
+                </selectable>
+              </selectables>
             </title>
             <aactivity>
-              Other tests are performed in conjunction with <linkref linkend="FCS_TLSC_EXT.1"/>.
+              Other tests are performed in conjunction with <linkref linkend="FCS_TLSC_EXT.1"/> and/or 
+              <linkref linkend="FCS_TLSS_EXT.1"/>.
             </aactivity>
           </f-element>
           <f-element id="fcs_https_ext.1.3">
@@ -3070,6 +3039,9 @@ functionality (such as these)
                   <selectables>
                     <selectable>
                       the Online Certificate Status Protocol (OCSP) as specified in RFC 2560
+                    </selectable>
+                    <selectable>
+                      a Certificate Revocation List (CRL) as specified in RFS 5280 Section 6.3
                     </selectable>
                     <selectable>
                       a Certificate Revocation List (CRL) as specified in RFC 5759
@@ -3763,12 +3735,13 @@ functionality (such as these)
               <subaactivity platform="android">The evaluator shall ensure that the application can
 	      successfully run on the latest version of Android.
 	      </subaactivity>
-              <subaactivity platform="windows">For both classic desktop and Windows Universal 
-                Applications, the evaluator shall configure the latest version of Microsoft's
-                Enhanced Mitigation Experience Toolkit (EMET) to protect the application. The
-                evaluator shall then run the application and verify that the application does not 
-                crash while protected by EMET. 
-              </subaactivity>
+              <subaactivity platform="windows">For Windows 7 through Windows 10 version 1607, the 
+                evaluator shall configure the latest version of Microsoft's Enhanced Mitigation 
+                Experience Toolkit (EMET) to protect the application. The evaluator shall then run 
+                the application and verify that the application does not crash while protected by EMET. 
+                For Windows 10 version 1703 or later,  the evaluator shall run the application on Windows, 
+                without changing any of the default security settings,  and verify the application can 
+                successfully run, as EMET is no longer supported on newer versions. </subaactivity>
               <subaactivity platform="ios">The evaluator shall ensure that the application can
                 successfully run on the latest version of iOS. </subaactivity>
               <subaactivity platform="linux"> The evaluator shall ensure that the application can
@@ -3802,35 +3775,35 @@ functionality (such as these)
                 (sandbox).
 	      </subaactivity>
               <subaactivity platform="android"> 
-		The evaluator shall run the program, mimicking normal usage, and note where all files are written. 
+		The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. 
 		The evaluator shall ensure that there are no executable files stored under <path>/data/data/<i>package</i>/</path> where <h:i>package</h:i> is the Java package of the application.
               </subaactivity>
               <subaactivity platform="windows">For Windows Universal Applications the evaluator shall consider
                 the requirement met because the platform forces applications to write all data
                 within the application working directory (sandbox). For Windows Desktop Applications
-                the evaluator shall run the program, mimicking normal usage, and note where all
+                the evaluator shall run the program, mimicking normal usage, and note where all user-modifiable
                 files are written. The evaluator shall ensure that there are no executable files
-                stored in the same directories to which the application wrote and no data files
+                stored in the same directories to which the application wrote user-modifiable files and no data files
                 in the application’s install directory.</subaactivity>
               <subaactivity platform="ios">The evaluator shall consider the requirement met because
                 the platform forces applications to write all data within the application working
                 directory (sandbox).</subaactivity>
               <subaactivity platform="linux"> 
 		The evaluator shall run the program, mimicking normal usage, 
-		and note where all files are written. 
+		and note where all user-modifiable files are written. 
 		The evaluator shall ensure that there are no executable files stored in the 
-		same directories to which the application wrote.
+		same directories to which the application wrote user-modifiable files.
 	      </subaactivity>
               <subaactivity platform="Solaris">
 		The evaluator shall run the program, mimicking normal usage, 
-		and note where all files are written. 
+		and note where all user-modifiable files are written. 
 		The evaluator shall ensure that there are no executable files stored in the 
-		same directories to which the application wrote.
+		same directories to which the application wrote user-modifiable files.
 	      </subaactivity>
               <subaactivity platform="OS X"> The evaluator shall run the program, mimicking normal
-                usage, and note where all files are written. The evaluator shall ensure that there
+                usage, and note where all user-modifiable files are written. The evaluator shall ensure that there
                 are no executable files stored in the same directories to which the application
-                wrote. </subaactivity>
+                wrote user-modifiable files. </subaactivity>
             </aactivity></f-element>
           <f-element id="fpt_aex_ext.1.5">
             <title>The application shall be built with stack-based buffer overflow protection
@@ -3936,13 +3909,14 @@ functionality (such as these)
               subject to this requirement if the user is unable to remove the application through
               means provided by the OS.</note>
             <aactivity>
-	      The evaluator shall record the path of every file on the entire 
-	      filesystem prior to installation of the application, and 
-	      then install and run the application.
-	      Afterwards, the evaluator shall then uninstall the application, and
-	      compare the resulting filesystem to the initial record to verify 
-	      that no files, other than configuration,
-	      output, and audit/log files, have been added to the filesystem.
+              <subaactivity platform="ios">The evaluator shall consider the requirement met because 
+                the platform forces applications to write all data within the application working 
+                directory (sandbox).</subaactivity>
+              <subaactivity platform="other">The evaluator shall record the path of every 
+                file on the entire filesystem prior to installation of the application, and then install 
+                and run the application. Afterwards, the evaluator shall then uninstall the application, 
+                and compare the resulting filesystem to the initial record to verify that no files, 
+                other than configuration, output, and audit/log files, have been added to the filesystem.</subaactivity>
             </aactivity>
           </f-element>
           <f-element id="fpt_tud_ext.1.4">
@@ -4064,8 +4038,8 @@ functionality (such as these)
 	      Encryption is not required for applications transmitting data that is not sensitive. 
 		  <h:br/>
 		  <h:p>
-		  If <h:i>TLS</h:i> is selected, then evaluation of elements from 
-		  <linkref linkend="FCS_TLSC_EXT.1"/> is required.</h:p>
+		  If <h:i>TLS</h:i> is selected, then evaluation of elements from  either
+		  <linkref linkend="FCS_TLSC_EXT.1"/> or <linkref linkend="FCS_TLSS_EXT.1"/> is required.</h:p>
 		  <h:p>
 		  If <h:i>HTTPS</h:i> is selected, then evaluation of elements from 
 		  <linkref linkend="FCS_HTTPS_EXT.1"/> is required.</h:p> 
