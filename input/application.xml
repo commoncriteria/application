@@ -2531,10 +2531,13 @@ functionality (such as these)
                   of the certificates, and show that the function fails.
                 </test>
                 <test>
-                  The evaluator shall configure the client to send a certificate that does
-                  not chain to one of the Certificate Authorities (either a Root or Intermediate
-                  CA) in the server’s Certificate Request message. The evaluator shall verify
-                  that the attempted connection is denied.
+                  If the <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> supports sending a non-empty 
+                  Certificate Authorities list in its Certificate Request message, the evaluator shall configure 
+                  the client to send a certificate that does not chain to one of the Certificate Authorities 
+                  (either a Root or Intermediate CA) in the server's Certificate Request message. The evaluator shall 
+                  verify that the attempted connection is denied. If the <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> 
+                  doesn't support sending a non-empty Certificate Authorities list in its Certificate Request message, 
+                  this test shall be omitted.
                 </test>
                 <test>
                   The evaluator shall configure the client to send a certificate with the
@@ -3735,13 +3738,9 @@ functionality (such as these)
               <subaactivity platform="android">The evaluator shall ensure that the application can
 	      successfully run on the latest version of Android.
 	      </subaactivity>
-              <subaactivity platform="windows">For Windows 7 through Windows 10 version 1607, the 
-                evaluator shall configure the latest version of Microsoft's Enhanced Mitigation 
-                Experience Toolkit (EMET) to protect the application. The evaluator shall then run 
-                the application and verify that the application does not crash while protected by EMET. 
-                For Windows 10 version 1703 or later,  the evaluator shall run the application on Windows, 
-                without changing any of the default security settings,  and verify the application can 
-                successfully run, as EMET is no longer supported on newer versions. </subaactivity>
+              <subaactivity platform="windows">The evaluator shall ensure that the application can 
+                successfully run on the latest version of Microsoft Windows without disabling 
+                any default security settings.</subaactivity>
               <subaactivity platform="ios">The evaluator shall ensure that the application can
                 successfully run on the latest version of iOS. </subaactivity>
               <subaactivity platform="linux"> The evaluator shall ensure that the application can
