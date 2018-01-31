@@ -1884,7 +1884,8 @@ functionality (such as these)
               </selectables> supporting the following cipher suites: <h:p/>Mandatory Cipher Suites:
               TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246 <h:p/>Optional Cipher Suites:
                 <selectables linebreak="yes">
-                  <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 524</selectable>
+                  <selectable>TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246</selectable>
+                  <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
                   <selectable>TLS_RSA_WITH_AES_256_CBC_ SHA256 as defined in RFC 5246</selectable>
                   <selectable>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
                   <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_ SHA256 as defined in RFC 5246</selectable>
@@ -1900,19 +1901,14 @@ functionality (such as these)
                   <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>
                 <selectable>no other cipher suite.</selectable>
               </selectables>
+              This requirement depends upon selection in FTP_DIT_EXT1.1.
             </title>
             <note role="application">The cipher suites to be tested in the evaluated configuration 
-              are limited by this requirement. The <abbr title="Security Target" linkend="ST">ST
-              </abbr> author should select the optional cipher suites that are supported; if there 
-              are no cipher suites supported other than the mandatory suites, then “None” should be 
-              selected. It is necessary to limit the cipher suites that can be used in an evaluated 
-              configuration administratively on the server in the test environment. The Suite B 
-              algorithms listed above (RFC 6460) are the preferred algorithms for implementation. 
-              TLS_RSA_WITH_AES_128_CBC_SHA is required in order to ensure compliance with RFC 5246. 
-             <h:br />
-              These requirements will be revisited as new 
-              <abbr title="Transport Layer Security">TLS</abbr> versions are standardized by the 
-              IETF.
+              are limited by this requirement. It is necessary to limit the cipher suites that can be used in an evaluated
+              configuration administratively on the server in the test environment. The Suite B algorithms listed above (RFC 6460)
+              are the preferred algorithms for implementation. TLS_RSA_WITH_AES_128_CBC_SHA is mandatory in RFC 5246, but has been moved 
+              to the selection based ciphersuites for this Protection Profile. These requirements will be revisted as new <abbr title="Transport Layer Security">TLS</abbr>
+              versions are standardized by the IETF.
              <h:br />
               If any cipher suites are selected using ECDHE, then 
 			  <linkref linkend="FCS_TLSC_EXT.4"/> is required.
@@ -1925,6 +1921,14 @@ functionality (such as these)
 			  <linkref linkend="FCS_COP.1(3)"/>, and
 			  <linkref linkend="FCS_COP.1(4)"/>
 			  are required.
+			       <h:br />
+              When "invoke platform-provided TLS 1.2" is selected, it may be the case that the application is being claimed to run on more
+              than one platform, and the underlying platforms support different sets of ciphersuites that are subsets of the ciphersuites 
+              listed in the select for the SFR. In this case, it is expected that the <abbr title="Security Target" linkend="ST">ST
+              </abbr> author iterate this requirement for each platform or set of platforms; each iteration would have the set of 
+              ciphersuites implemented by the platform(s). Note this is only necessary if the application wants to make
+              a distinction; otherwise, the least common set of ciphersuites can be specified in the single SFR. Also note that the testing 
+              requirements would be applied to each iteration (meaning application/platform combination) during the evaluation.
             </note>
             <aactivity>
               The evaluator shall check the description of the implementation of this protocol in 
@@ -2298,30 +2302,31 @@ functionality (such as these)
               </selectables> supporting the following cipher suites: <h:p/>Mandatory Cipher Suites:
               TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246 <h:p/>Optional Cipher Suites:
               <selectables linebreak="yes">
+                <selectable>TLS_RSA_WITH_AES_128_CBC_SHA as defined in RFC 5246</selectable>
+                <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
+                <selectable>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
+                <selectable>TLS_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5288</selectable>
                 <selectable>TLS_DHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
                 <selectable>TLS_DHE_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
-                <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
-                <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
-                <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
-                <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>
+                <selectable>TLS_DHE_RSA_WITH_AES_256_CGCM_SHA384 as defined in RFC 5288</selectable>
                 <selectable>TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
                 <selectable>TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
                 <selectable>TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
                 <selectable>TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>
-                <selectable>TLS_RSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5246</selectable>
-                <selectable>TLS_RSA_WITH_AES_256_CBC_SHA256 as defined in RFC 5246</selectable>
+                <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA256 as defined in RFC 5289</selectable>
+                <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384 as defined in RFC 5289</selectable>
+                <selectable>TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256 as defined in RFC 5289</selectable>
+                <selectable>TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384 as defined in RFC 5289</selectable>
                 <selectable>no other cipher suite</selectable>
               </selectables>
-              .
+              This requirement depends upon selection in FTP_DIT_EXT.1.1.
             </title>
             <note role="application">The cipher suites to be tested in the evaluated configuration 
-              are limited by this requirement. The <h:abbr title="Security Target" linkend="ST">ST
-              </h:abbr> author should select the optional cipher suites that are supported; if there 
-              are no cipher suites supported other than the mandatory suites, then “None” should be 
-              selected. It is necessary to limit the cipher suites that can be used in an evaluated 
+              are limited by this requirement. It is necessary to limit the cipher suites that can be used in an evaluated
               configuration administratively on the server in the test environment. The Suite B 
               algorithms listed above (RFC 6460) are the preferred algorithms for implementation. 
-              TLS_RSA_WITH_AES_128_CBC_SHA is required in order to ensure compliance with RFC 5246. 
+              TLS_RSA_WITH_AES_128_CBC_SHA is mandatory in RFC 5246 but has been moved to the selection based ciphersuites 
+              for this Protection Profile. 
               <h:br />
               These requirements will be revisited as new 
               <h:abbr title="Transport Layer Security">TLS</h:abbr> versions are standardized by the 
@@ -2337,6 +2342,14 @@ functionality (such as these)
               <linkref linkend="FCS_COP.1.1(3)"/>, and
               <linkref linkend="FCS_COP.1.1(4)"/>
               are required.
+              <h:br />
+              When "invoke platform-provided TLS 1.2" is selected, it may be the case that the application is being claimed to run on more
+              than one platform, and the underlying platforms support different sets of ciphersuites that are subsets of the ciphersuites 
+              listed in the select for the SFR. In this case, it is expected that the <abbr title="Security Target" linkend="ST">ST
+              </abbr> author iterate this requirement for each platform or set of platforms; each iteration would have the set of 
+              ciphersuites implemented by the platform(s). Note this is only necessary if the application wants to make
+              a distinction; otherwise, the least common set of ciphersuites can be specified in the single SFR. Also note that the testing 
+              requirements would be applied to each iteration (meaning application/platform combination) during the evaluation.
             </note>
             <aactivity>
               The evaluator shall check the description of the implementation of this protocol in 
@@ -2531,10 +2544,13 @@ functionality (such as these)
                   of the certificates, and show that the function fails.
                 </test>
                 <test>
-                  The evaluator shall configure the client to send a certificate that does
-                  not chain to one of the Certificate Authorities (either a Root or Intermediate
-                  CA) in the server’s Certificate Request message. The evaluator shall verify
-                  that the attempted connection is denied.
+                  If the <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> supports sending a non-empty 
+                  Certificate Authorities list in its Certificate Request message, the evaluator shall configure 
+                  the client to send a certificate that does not chain to one of the Certificate Authorities 
+                  (either a Root or Intermediate CA) in the server's Certificate Request message. The evaluator shall 
+                  verify that the attempted connection is denied. If the <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> 
+                  doesn't support sending a non-empty Certificate Authorities list in its Certificate Request message, 
+                  this test shall be omitted.
                 </test>
                 <test>
                   The evaluator shall configure the client to send a certificate with the
@@ -3735,13 +3751,9 @@ functionality (such as these)
               <subaactivity platform="android">The evaluator shall ensure that the application can
 	      successfully run on the latest version of Android.
 	      </subaactivity>
-              <subaactivity platform="windows">For Windows 7 through Windows 10 version 1607, the 
-                evaluator shall configure the latest version of Microsoft's Enhanced Mitigation 
-                Experience Toolkit (EMET) to protect the application. The evaluator shall then run 
-                the application and verify that the application does not crash while protected by EMET. 
-                For Windows 10 version 1703 or later,  the evaluator shall run the application on Windows, 
-                without changing any of the default security settings,  and verify the application can 
-                successfully run, as EMET is no longer supported on newer versions. </subaactivity>
+              <subaactivity platform="windows">The evaluator shall ensure that the application can 
+                successfully run on the latest version of Microsoft Windows without disabling 
+                any default security settings.</subaactivity>
               <subaactivity platform="ios">The evaluator shall ensure that the application can
                 successfully run on the latest version of iOS. </subaactivity>
               <subaactivity platform="linux"> The evaluator shall ensure that the application can
