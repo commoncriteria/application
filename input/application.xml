@@ -123,6 +123,14 @@
               of products.</description>
           </entry>
           <entry>
+            <term><abbr title="Protection Profile Module">PP-Module</abbr></term>
+            <description>
+An implementation-independent set of security requirements for a specific subset of products described, formerly known as <h:i>Extended Packages</h:i>.
+At the time of the release of this <abbr linkend="PP"/>, some Extended Packages had yet to be updated to PP-Modules; therefore, the term <h:i>PP-Modules</h:i> should be interpreted as also applying to any EP that has yet to be re-released as a Module.
+	    </description>
+          </entry>
+
+          <entry>
             <term><abbr title="Security Target">ST</abbr></term>
             <description>A set of implementation-dependent security requirements for a specific
               product.</description>
@@ -250,10 +258,10 @@
     <section title="Compliant Targets of Evaluation" id="TOEdescription">The requirements in this
   	  document apply to application software which runs on mobile devices ("apps"), as well as on
   	  desktop and server platforms. Some application types are covered by
-  	  more specific PPs, which may be expressed as Extended Packages of this PP.
+  	  more specific PPs, which may be expressed as Modules of this PP.
   	  Such applications are subject to the requirements of both this PP and the
-  	  Extended Package that addresses their special functionality.  PPs for some 
-	  particularly specialized applications may not be expressed as Extended Packages at this time,
+  	  Module that addresses their special functionality.  PPs for some 
+	  particularly specialized applications may not be expressed as Module at this time,
 	  though the requirements in this document should be seen as objectives for those 
 	  highly specialized applications.
 	  <h:br/> 
@@ -299,8 +307,8 @@
     <section title="Use Cases" id="usecases">Requirements in this Protection Profile are designed to
       address the security problem in the following use cases. These use cases are intentionally
       very broad, as many specific use cases exist for application software. Many applications may
-      be used in combinations of these broad use cases, and evaluation against Extended
-	  Packages of this PP, when available, may be most appropriate for some application types. <usecases>
+      be used in combinations of these broad use cases, and evaluation against Module
+      of this PP, when available, may be most appropriate for some application types. <usecases>
         <usecase title="Content Creation" id="contentcreation">
           <description>The application allows a user to create content, saving it to either local or
             remote storage.  Example content includes text documents, presentations, and images.
@@ -2956,7 +2964,7 @@ functionality (such as these)
             <note role="application">
 			  If <h:i>implement functionality to encrypt sensitive data</h:i> is selected, then
               evaluation is required against the 
-              <h:a href="https://www.niap-ccevs.org/pp/"><h:i>Application Software Protection Profile Extended Package: File Encryption</h:i></h:a>.
+              <h:a href="https://www.niap-ccevs.org/pp/"><h:i>Application Software Protection Profile Module: File Encryption</h:i></h:a>.
 			  <h:br/>
               Any file that may potentially contain sensitive data (to include temporary files)
               shall be protected.  The only exception is if the user intentionally exports the sensitive data
@@ -2974,7 +2982,7 @@ functionality (such as these)
 			  <h:br/>
 			  If <h:b>implement functionality to encrypt sensitive data</h:b> is selected, then
               evaluation is required against the 
-              <h:b><h:i>Application Software Protection Profile Extended Package: File Encryption</h:i></h:b>. The evaluator
+              <h:b><h:i>Application Software Protection Profile Module: File Encryption</h:i></h:b>. The evaluator
               shall ensure that such evaluation is underway.
               <h:br/>
               If <h:b>leverage platform-provided functionality</h:b> is selected, the
@@ -4029,31 +4037,32 @@ functionality (such as these)
         <selectable>encrypt all transmitted sensitive data with
           <selectables atleastone="yes">
             <selectable id="sel_all_https"><abbr title="Hypertext Transfer Protocol Secure">HTTPS</abbr></selectable>
-	    <selectable id="sel_all_tlsc"><abbr title="Transport Layer Security">TLS</abbr> (as the client)</selectable>
-	    <selectable id="sel_all_tlss"><abbr title="Transport Layer Security">TLS</abbr> (as the server)</selectable>
+	    <selectable id="sel_all_tlsc"><abbr title="Transport Layer Security">TLS</abbr> (as client)</selectable>
+	    <selectable id="sel_all_tlss"><abbr title="Transport Layer Security">TLS</abbr> (as server)</selectable>
 	    <selectable id="sel_all_dtls"><abbr title="Datagram Transport Layer Security">DTLS</abbr></selectable>
-      	    <selectable>SSH as conforming to the <h:a href="https://www.niap-ccevs.org/pp/"><h:i>Extended Package for Secure Shell</h:i></h:a></selectable>
+      	    <selectable>SSH as conforming to the <h:a href="https://www.niap-ccevs.org/pp/"><h:i>Secure Shell Module</h:i></h:a></selectable>
 	  </selectables>
         </selectable>
         <selectable>encrypt all transmitted data with
           <selectables atleastone="yes">
             <selectable id="sel_sen_https"><abbr title="Hypertext Transfer Protocol Secure">HTTPS</abbr></selectable>
-	    <selectable id="sel_sen_tlsc"><abbr title="Transport Layer Security">TLS</abbr> (as the client)</selectable>
-	    <selectable id="sel_sen_tlss"><abbr title="Transport Layer Security">TLS</abbr> (as the server)</selectable>
+	    <selectable id="sel_sen_tlsc"><abbr title="Transport Layer Security">TLS</abbr> (as client)</selectable>
+	    <selectable id="sel_sen_tlss"><abbr title="Transport Layer Security">TLS</abbr> (as server)</selectable>
             <selectable id="sel_sen_dtls"><abbr title="Datagram Transport Layer Security">DTLS</abbr></selectable>
-            <selectable><abbr title="Secure Shell">SSH</abbr></selectable>
+      	    <selectable>SSH as conforming to the <h:a href="https://www.niap-ccevs.org/pp/"><h:i>Secure Shell Module</h:i></h:a></selectable>
 	  </selectables>
         </selectable>
       </selectables>
 	    between itself and another trusted IT product.
 	    </title>
       <note role="application">
-	      Extended packages may override this requirement to provide for other protocols.
+	      Modules may override this requirement to provide for other protocols.
 	      Encryption is not required for applications transmitting data that is not sensitive. 
 		  <h:br/>
-		  <h:p>
-		  If <h:i>TLS</h:i> is selected, then evaluation of elements from  either
-		  <linkref linkend="FCS_TLSC_EXT.1"/> or <linkref linkend="FCS_TLSS_EXT.1"/> is required.</h:p>
+		  <h:p> If <h:i>TLS (as client)</h:i> is selected, then evaluation of elements from 
+		  <linkref linkend="FCS_TLSC_EXT.1"/> is required.</h:p>
+		  <h:p> If <h:i>TLS (as server)</h:i> is selected, then evaluation of elements from 
+		  <linkref linkend="FCS_TLSS_EXT.1"/> is required.</h:p>
 		  <h:p>
 		  If <h:i>HTTPS</h:i> is selected, then evaluation of elements from 
 		  <linkref linkend="FCS_HTTPS_EXT.1"/> is required.</h:p> 
@@ -4062,8 +4071,7 @@ functionality (such as these)
 		  <linkref linkend="FCS_DTLS_EXT.1"/> is required.
 		  </h:p>
 		  <h:p>
-		    If <h:i>SSH</h:i> is selected, the TSF shall be validated against the <h:i>Extended Package
-      		    for Secure Shell</h:i>.
+		    If <h:i>SSH</h:i> is selected, the TSF shall be validated against the <h:i>Secure Shell Module</h:i>.
 		  </h:p>
 
 	    </note>  
