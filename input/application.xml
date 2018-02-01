@@ -248,7 +248,7 @@
           </entry>
         </glossary>
       </section>
-    <section title="Compliant Targets of Evaluation" id="TOEdescription">The requirements in this
+    <section title="Compliant Targets of Evaluation" id="TOEdescription"><h:p>The requirements in this
   	  document apply to application software which runs on mobile devices ("apps"), as well as on
   	  desktop and server platforms. Some application types are covered by
   	  more specific PPs, which may be expressed as Extended Packages of this PP.
@@ -257,13 +257,15 @@
 	  particularly specialized applications may not be expressed as Extended Packages at this time,
 	  though the requirements in this document should be seen as objectives for those 
 	  highly specialized applications.
-	  <h:br/> 
+	  </h:p><h:p> 
 	  Although the requirements in this document apply to a wide range of application
 	  software, consult guidance from the relevant national schemes to
 	  determine when formal Common Criteria evaluation is expected for a
 	  particular type of application.  This may vary depending upon the nature
 	  of the security functionality of the application.
-	 <subsection title="TOE Boundary" id="TOEboundary">
+	</h:p>
+	  <subsection title="TOE Boundary" id="TOEboundary">
+	    <h:p>
 		The application, which consists of the software provided by its vendor,
 		is installed onto the
 		filesystem provided by the operating system.  It executes on the platform, which
@@ -276,7 +278,7 @@
 		vendors so that coverage across platforms is as complete and accurate
 		as possible. This will also enable certification of applications on
 		those platforms. 
-		<h:br/>	
+		</h:p><h:p>	
 		Applications include a diverse range of software such as office suites, thin
 		clients, <abbr title="Portable Document Format">PDF</abbr> readers,
 		and downloadable smartphone apps. The TOE includes any software in the
@@ -296,7 +298,8 @@
 		Application Running in an Execution Environment Plus Native Code"
 		id="toe-as-apponee" />
 
-    </subsection></section>
+	      </h:p>
+	      </subsection></section>
     <section title="Use Cases" id="usecases">Requirements in this Protection Profile are designed to
       address the security problem in the following use cases. These use cases are intentionally
       very broad, as many specific use cases exist for application software. Many applications may
@@ -596,13 +599,13 @@
               operations include all cryptographic key generation/derivation/agreement, IVs (for
               certain modes), as well as protocol-specific random values. </note>
             <aactivity>
-              If <h:b>use no DRBG functionality</h:b> is selected, the evaluator shall inspect the 
+              If <h:b>use no DRBG functionality</h:b><h:p> is selected, the evaluator shall inspect the 
 			  application and its developer documentation and verify that the application needs no
               random bit generation services. 
-			  <h:br/>
+			  </h:p><h:p>
               If <h:b>implement DRBG functionality</h:b> is selected, the evaluator shall ensure
 			  that additional <linkref linkend="FCS_RBG_EXT.2"/> elements are included in the <abbr linkend="ST"/>.
-			  <h:br/>
+			   </h:p><h:p>
 			        If <h:b>invoke platform-provided DRBG functionality</h:b> is selected, the evaluator 
               performs the following activities.  The evaluator shall examine 
               the <abbr linkend="TSS"/> to confirm that it identifies all functions (as described by the
@@ -618,14 +621,15 @@
               decompiled text to its corresponding API, with a description of why the API text does 
               not directly correspond to the decompiled text and justification that the decompiled text 
               corresponds to the associated API. 
-              <h:br/>
+	    </h:p><h:p>
               It should be noted that there is no expectation that the evaluators attempt to confirm 
               that the APIs are being used “correctly” for the functions identified in the TSS; 
               the activity is to list the used APIs and then do an existence check via decompilation.
-              <h:br/>
+              </h:p><h:p>
               The following are the per-platform list of acceptable APIs:
               
-              <subaactivity platform="blackberry">
+            </h:p>
+	      <subaactivity platform="blackberry">
                 The evaluator shall verify that the application invokes Security Builder Crypto GSE.
               </subaactivity>
               <subaactivity platform="android"> The evaluator shall verify
@@ -937,27 +941,34 @@
               the <abbr linkend="TOE"/> does not need to implement RSA key generation. 
             </note>
             <aactivity>
-              The evaluator shall ensure that the <abbr linkend="TSS"/> identifies the key sizes 
-              supported by the <abbr linkend="TOE"/>. If the <abbr linkend="ST"/> specifies more 
-              than one scheme, the evaluator shall examine the <abbr linkend="TSS"/> to verify that 
-              it identifies the usage for each scheme.
-              <h:br />
-              The evaluator shall verify that the AGD guidance instructs the administrator how to 
-              configure the <abbr linkend="TOE"/> to use the selected key generation scheme(s) and 
-              key size(s) for all uses defined in this PP.
-              <h:br />
-              If the application <h:b>invokes platform-provided functionality for asymmetric key generation</h:b>,
-			  then the evaluator shall examine the TSS to verify that it describes 
-			  how the key generation functionality is invoked.
-			  <h:br/> 
-			  If the application <h:b>implements asymmetric key generation</h:b>, then the following test
-			  activities shall be carried out.
-              <h:br/>
+	      <h:p>
+		The evaluator shall ensure that the <abbr linkend="TSS"/> identifies the key sizes 
+		supported by the <abbr linkend="TOE"/>. If the <abbr linkend="ST"/> specifies more 
+		than one scheme, the evaluator shall examine the <abbr linkend="TSS"/> to verify that 
+		it identifies the usage for each scheme.
+	      </h:p>
+	      <h:p>
+		The evaluator shall verify that the AGD guidance instructs the administrator how to 
+		configure the <abbr linkend="TOE"/> to use the selected key generation scheme(s) and 
+		key size(s) for all uses defined in this PP.
+	      </h:p>
+	      <h:p>
+		If the application <h:b>invokes platform-provided functionality for asymmetric key generation</h:b>,
+		then the evaluator shall examine the TSS to verify that it describes 
+		how the key generation functionality is invoked.
+	      </h:p>
+	      <h:p> 
+		If the application <h:b>implements asymmetric key generation</h:b>, then the following test
+		activities shall be carried out.
+	      </h:p>
+	      <h:p>
               Assurance Activity Note: The following tests may require the developer to provide access 
               to a developer environment that provides the evaluator with tools that are typically available
 			  to end-users of the application.
-              <h:br />
-              <h:b>Key Generation for FIPS PUB 186-4 RSA Schemes</h:b><h:p/>
+	      </h:p>
+	      <h:p>
+              <h:b>Key Generation for FIPS PUB 186-4 RSA Schemes</h:b>
+	      </h:p><h:p>
               The evaluator shall verify the implementation of RSA Key Generation by the 
               <abbr linkend="TOE"/> using the Key Generation test. This test verifies the ability of 
               the <abbr linkend="TSF"/> to correctly produce values for the key components including 
@@ -992,7 +1003,8 @@
               correctness of the <abbr linkend="TSF"/>’s implementation by comparing values 
               generated by the <abbr linkend="TSF"/> with those generated from a known good 
               implementation.
-              <h:br />
+	      </h:p>
+	      <h:p>
               If possible, the Random Probable primes method should also be verified against a 
               known good implementation as described above. Otherwise, the evaluator shall have 
               the <abbr linkend="TSF"/> generate 10 keys pairs for each supported key length nlen 
@@ -1016,14 +1028,16 @@
               The private key shall be generated using an approved random bit generator (RBG). To 
               determine correctness, the evaluator shall submit the generated key pairs to the 
               public key verification (PKV) function of a known good implementation.
-              <h:br />
+	      </h:p>
+	      <h:p>
               FIPS 186-4 Public Key Verification (PKV) Test
               For each supported NIST curve, i.e., P-256, P-384 and P-521, the evaluator shall
               generate 10 private/public key pairs using the key generation function of a known 
               good implementation and modify five of the public key values so that they are 
               incorrect, leaving five values unchanged (i.e., correct). The evaluator shall obtain 
               in response a set of 10 PASS/FAIL values.
-              <h:br />
+	      </h:p>
+	      <h:p>
               <h:b>Key Generation for Finite-Field Cryptography (FFC)</h:b><h:p/>
               The evaluator shall verify the implementation of the Parameters Generation and the 
               Key Generation for FFC by the <abbr linkend="TOE"/> using the Parameter Generation and 
@@ -1032,7 +1046,9 @@
               p-1), the cryptographic group generator g, and the calculation of the private key x 
               and public key y. The Parameter generation specifies 2 ways (or methods) to generate 
               the cryptographic prime q and the field prime p:
-              <h:br />Cryptographic and Field Primes:
+	      </h:p>
+	      <h:p>
+	      Cryptographic and Field Primes:
               <h:ul>
                 <h:li>Primes q and p shall both be provable primes</h:li>
                 <h:li>Primes q and field prime p shall both be probable primes</h:li>
@@ -1069,6 +1085,7 @@
                 <h:li>g<h:sup>x</h:sup> mod p = y</h:li>
               </h:ul>
               for each FFC parameter set and key pair.
+	      </h:p>
             </aactivity>
           </f-element>
         </f-component>
