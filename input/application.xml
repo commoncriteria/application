@@ -834,91 +834,21 @@ At the time of the release of this <abbr linkend="PP"/>, some Extended Packages 
           </f-element>
         </f-component>
 
-<!-- Just in case we need this.  I suspect we do not.
-
-        <f-component id="fcs_ckm_ext.4" name="Cryptographic Key Zeroization">
-          <f-element id="fcs_ckm_ext.4.1" status="sel-based">
-            <title>The application shall zeroize all plaintext secret and private cryptographic keys and
-			    cryptographic service providers when no longer required.
-            </title>
-			<note role="application">Any security related information (such as
-            keys, authentication data, and passwords) must be zeroized when no
-            longer in use to prevent the disclosure or modification of security
-            critical data.  The zeroization indicated above applies to each
-            intermediate storage area for plaintext key and cryptographic
-            service provider (CSP) (i.e., any storage, such as memory buffers,
-            that is included in the path of such data) upon the transfer of the
-            key/CSP to another location.
-            </note>
-            <aactivity>
-			  The evaluator shall check to ensure the TSS describes each of the
-			  secret keys (keys used for symmetric encryption) and private
-			  keys, as well as the CSPs used to generate key; when the keys are
-			  zeroized (for example, immediately after use, on system shutdown,
-			  etc.); and the type of zeroization procedure that is performed
-			  (overwrite with zeros, overwrite three times with random pattern,
-			  etc.). If different types of memory are used to store the
-			  materials to be protected, the evaluator shall check to ensure
-			  that the TSS describes the zeroization procedure in terms of the
-			  memory in which the data are stored (for example, "secret keys
-			  stored in volatile memory are zeroized by overwriting once with
-			  zeros, while secret keys stored on non-volatile storage are
-			  zeroized by overwriting three times with a random pattern that is
-			  changed before each write"). If a read-back is done to verify the
-			  zeroization, this shall be described as well.
-              <br/>
-			  For each key clearing situation described in the TSS the evaluator
-			  shall repeat the following test.
-              <testlist>￼￼￼￼
-			  <test>The evaluator shall utilize appropriate combinations of
-			  specialized operational environment and development tools
-			  (debuggers, simulators, etc.) for the TOE and instrumented TOE
-			  builds to test that keys are cleared correctly, including all
-			  intermediate copies of the key that may have been created
-			  internally by the TOE during normal cryptographic processing with
-			  that key.  Cryptographic TOE implementations in software shall be
-			  loaded and exercised under a debugger to perform such tests. The
-			  evaluator shall perform the following test for each key subject
-			  to clearing, including intermediate copies of keys that are
-			  persisted encrypted by the TOE:
-
-              <ul>
-                <li>Load the instrumented TOE build in a debugger.</li>
-                <li>Record the value of the key in the TOE subject to clearing.</li>
-                <li>Cause the TOE to perform a normal cryptographic processing with the key from #1.</li>
-                <li>Cause the TOE to clear the key.</li>
-                <li>Cause the TOE to stop the execution but not exit.</li>
-                <li>Cause the TOE to dump the entire memory footprint of the TOE into a binary file.</li>
-                <li>Search the content of the binary file created in #4 for instances of the known key value from #1.</li>
-              </ul>
-			  The test succeeds if no copies of the key from #1 are found in
-			  step #7 above and fails otherwise.  The evaluator shall perform
-			  this test on all keys, including those that persist in encrypted
-			  form, to ensure intermediate copies are cleared.
-              </test>
-			  <test>In cases where the TOE is implemented in firmware and
-			  operates in a limited operating environment that does not allow
-			  the use of debuggers, the evaluator shall utilize a simulator
-			  for the TOE on a general purpose operating system. The evaluator
-			  shall provide a rationale explaining the instrumentation of the
-			  simulated test environment and justifying the obtained test
-			  results.
-			  </test>
-              </testlist>
-            </aactivity>
-          </f-element>
-        </f-component>
--->
-
         <f-component id="fcs_ckm.1(1)" name="Cryptographic Asymmetric Key Generation" status="sel-based">
           <selection-depends req="fcs_ckm_ext.1.1" ids="sel_invoke_genkey,sel_impl_genkey"/>
           <f-element id="fcs_ckm.1.1(1)">
             <title>
-              The application shall generate asymmetric cryptographic keys in accordance 
-              with a specified cryptographic key generation algorithm
+              The application shall <selectables linebreak="yes">
+                <selectable>invoke platform-provided functionality</selectable>
+                <selectable>implement functionality</selectable>
+              </selectables>
+               to generate asymmetric cryptographic keys in accordance with a specified cryptocraphic key generation algorithm
               <selectables linebreak="yes">
                 <selectable>
-                  <h:b>[RSA schemes]</h:b> using cryptographic key sizes of <h:b>[2048-bit or greater]</h:b> that meet <h:b>FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.3</h:b>
+                  <h:b>[RSA schemes]</h:b> using cryptographic key sizes of <h:b>[2048-bit or greater]</h:b> that meet the following 
+                  <h:b><selectables>
+                    <selection>FIPS PUB 186-4, "Digital Signature Standard (DSS), Appendix B.3</selection>
+                  </selectables></h:b>
                 </selectable>
                 <selectable>
                   <h:b>[ECC schemes]</h:b> using <h:b>[“NIST curves” P-256, P-384 and
