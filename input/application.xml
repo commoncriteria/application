@@ -81,16 +81,6 @@
           <h:br/>Refactored FDP_DEC_EXT.1 into separate components
           </subject>
     </entry>
-    <entry>
-      <version>v 1.1</version>
-      <date>2014-11-05</date>
-      <subject>Addition to TLS cipher suite selections</subject>
-    </entry>
-    <entry>
-      <version>v 1.0</version>
-      <date>2014-10-20</date>
-      <subject>Initial release</subject>
-    </entry>
   </RevisionHistory>
 
   <chapter title="Introduction" id="int">
@@ -2031,9 +2021,12 @@ functionality (such as these)
                   supported SAN type.
                 </test>
                 <test>
-                  The evaluator shall present a server certificate that contains a CN that matches 
-                  the reference identifier and does not contain the SAN extension. The evaluator 
-                  shall verify that the connection succeeds.
+                  [conditional] If the <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> 
+                  does not mandate the presence of the SAN extension, the evaluator shall present a 
+                  server certificate that contains a CN that matches the reference identifier and does 
+                  not contain the SAN extension. The evaluator shall verify that the connection succeeds. 
+                  If the <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> does not mandate the 
+                  presence of the SAN extension, this Test shall be ommitted.
                 </test>
                 <test>
                   The evaluator shall present a server certificate that contains a CN that does not 
@@ -2138,18 +2131,21 @@ functionality (such as these)
               includes instructions for configuring the client-side certificates for 
               <h:abbr title="Transport Layer Security">TLS</h:abbr> mutual authentication.
              <h:br />
-              The evaluator shall also perform the following test:
+              The evaluator shall also perform the following tests:
               <testlist>
                 <test>
-                  The evaluator shall perform the following modification to the traffic:
-                  <h:ul>
-                    <h:li>
-                      Configure the server to require mutual authentication and then modify a byte 
-                      in a CA field in the Server’s Certificate Request handshake message. The 
-                      modified CA field must not be the CA used to sign the client’s certificate. 
-                      The evaluator shall verify the connection is unsuccessful.
-                    </h:li>
-                  </h:ul>
+                  Establish a connection to a peer server that is not configured for mutual authentication 
+                  (i.e. does not send Server's Certificate Request (type 13) message). The evaluator observes 
+                  negotiation of a <h:abbr title="Transport Layer Security">TLS</h:abbr> channel and confirms 
+                  that the <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> did not send Client's Certificate 
+                  message (type 11) during handshake.
+                </test>
+                <test>
+                  Establish a connection to a peer server with a shared trusted root that is configured for 
+                  mutual authentication (i.e. it sends Server's Certificate Request (type 13) message). The 
+                  evaluator observes negotiation of a <h:abbr title="Transport Layer Security">TLS</h:abbr> channel 
+                  and confirms that the <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> responds with a 
+                  non-empty Client's Certificate message (type 11) and Certificate Verify (type 15) messages.
                 </test>
               </testlist>
             </aactivity>
@@ -2655,8 +2651,17 @@ functionality (such as these)
             </aactivity>
           </f-element>
           <f-element id="fcs_https_ext.1.3">
-            <title> The application shall notify the user and 
+            <title> The application shall 
               <selectables>
+                <selectable>
+                  notify the user
+                </selectable>
+                <selectable>
+                  take no action
+                </selectable>
+              </selectables>
+              and
+              <selectables >
                 <selectable>
                   not establish the connection
                 </selectable>
@@ -2664,14 +2669,16 @@ functionality (such as these)
                   request application authorization to establish the connection
                 </selectable>
                 <selectable>
-                  no other action
+                  no other action 
                 </selectable>
               </selectables>
-                if the peer certificate is deemed invalid. 
-            </title>
+              if the peer certificate is deemed invalid.
+              This requirement depends upon selection in <linkref linkend="FTP_DIT_EXT.1.1"/>.
+            </title>    
             <note role="application">
               Validity is determined by the certificate path, the expiration date, and the 
-              revocation status in accordance with RFC 5280.
+              revocation status in accordance with RFC 5280. If the communication is user-initiated, 
+              the application must select to notify the user.
             </note>
             <aactivity>
               Certificate validity shall be tested in accordance with testing performed for 
@@ -3685,14 +3692,6 @@ functionality (such as these)
               </subaactivity>
             </aactivity>
           </f-element>
-          <!--      <f-element id="fpt_aex_ext.1.3">
-        <title>The application shall not implement its own dynamic memory allocation
-        functionality, unless that functionality also includes corruption
-        detection.</title>
-      </f-element> 
-       Note: We have no AA, nor much traction here - and push-back from vendors.
-       Maybe this is best considered for a future version.
--->
           <f-element id="fpt_aex_ext.1.3">
             <title>The application shall be compatible with security features provided by the
               platform vendor.</title>
@@ -3704,12 +3703,13 @@ functionality (such as these)
 	      <subaactivity platform="blackberry">The evaluator shall ensure that the
                 application can successfully run on the latest version of the BlackBerry OS. 
               </subaactivity>
-              <subaactivity platform="android">The evaluator shall ensure that the application can
-	      successfully run on the latest version of Android.
+              <subaactivity platform="android">Applications running on Android cannot disable Android 
+                security features, therefore this requirement is met and no assurance activity is required.
 	      </subaactivity>
-              <subaactivity platform="windows">The evaluator shall ensure that the application can 
-                successfully run on the latest version of Microsoft Windows without disabling 
-                any default security settings.</subaactivity>
+              <subaactivity platform="windows">If the OS platform supports Windows Defender Exploit Guard, then 
+              the evaluator shall ensure that the application can run successfully with Windows Defender Exploit Guard 
+              configured and enabled. If the OS platform supports EMET, then the evaluator shall ensure that the application 
+              can run successfully with EMET configured and enabled.</subaactivity>
               <subaactivity platform="ios">The evaluator shall ensure that the application can
                 successfully run on the latest version of iOS. </subaactivity>
               <subaactivity platform="linux"> The evaluator shall ensure that the application can
