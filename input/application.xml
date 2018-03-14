@@ -3780,48 +3780,21 @@ functionality (such as these)
             <title>The application shall be built with stack-based buffer overflow protection
               enabled.</title>
             <aactivity>
-	      The evaluator shall ensure that the <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> section of the <abbr title="Security Target" linkend="ST">ST</abbr>
-              describes the compiler flag used to enable stack-based buffer overflow protection in
-              the application. 
-	      The evaluator shall analyze each executable to verify that
-              stack-based buffer overflow protection is present.
-	      The method of doing so varies per language/compiler:
-	      <h:div class="subaact"> <h:i><h:b>For GCC:</h:b></h:i>
-	      The evaluator shall verify that the 
-              <h:code>-fstack-protector-strong</h:code> or <h:code>-fstack-protector-all</h:code> flags
-              are used. The <h:code>-fstack-protector-all</h:code> flag is preferred but
-              <h:code>-fstack-protector-strong</h:code> is acceptable. </h:div>
-
-	      <h:div class="subaact"> <h:i><h:b>For IBM Compiler:</h:b></h:i>
-	      The evaluator shall verify that the 
-              <h:code>-qstackprotect</h:code> argument is used.</h:div>
-
-	      <h:div class="subaact"> <h:i><h:b>For Visual Studio:</h:b></h:i>
-	      The evaluator shall verify that the <h:code>/GS</h:code> flag was used during compilation or
-	      the evaluator shall run a tool,like <h:span class="util">BinScope</h:span>, that can verify the correct usage of <h:code>/GS</h:code></h:div>
-
-	      <h:div class="subaact"><h:i><h:b>For Clang/LLVM:</h:b></h:i>
-              The evaluator shall inspect the <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> and ensure that the executable is compiled and linked with the
-              <h:code>-fsanitize=address</h:code> flag.</h:div>
-
-	      <h:div class="subaact"><h:i><h:b>For Swift, Rust, Go, D:</h:b></h:i>
-	      Executables based on these languages inherently satisfy this requirement.
+	      The evaluator will inspect every native executable included in the TOE to ensure that stack-based buffer overflow protection is present.
+	      <h:div class="subaact"> <h:i><h:b>For <abbr title="Portable Executables">PE</abbr> executables</h:b></h:i>
+, the evaluator will disassemble each and ensure the following sequence appears:<h:br/>
+<h:table class="code-table">
+<h:tr><h:td>mov rcx, QWORD PTR [rsp+<h:i>(...)</h:i>]</h:td></h:tr>
+<h:tr><h:td>xor rcx, <h:i>(...)</h:i></h:td></h:tr>
+<h:tr><h:td>call <h:i>(...)</h:i></h:td></h:tr>
+</h:table>.
 	      </h:div>
-
-	      <h:div class="subaact"> <h:i><h:b>For interpreted languages, such as JRE-based languages (e.g., Java, Groovy, Scala), JavaScript, Lua, Python, Ruby, and shell scripts:</h:b></h:i>
-	      Executables of these types inherently satisfy this requirement, as 
-	      the interpreter that executes them is responsible 
-	      for ensuring stack integrity.</h:div>
-
-	      <h:div class="subaact"><h:i><h:b>For other compilers:</h:b></h:i>
-	      If the application is built using any other compiler, then the evaluator shall determine that appropriate stack-protection has been used during the build process.
+	      <h:div class="subaact"> <h:i><h:b>For <abbr title="Executable and Linkable Format">ELF</abbr> executables</h:b></h:i>, the evaluator will ensure that each contains references to the symbol <h:b>__stack_chk_fail</h:b>.
 	      </h:div>
-	      
-	      <h:div class="subaact"><h:i><h:b>For executables built from assembly:</h:b></h:i>
-	      The evaluator shall inspect the TSS and ensure that it describes adequate stack-protection mechanisms that were developed as part of the larger executable.
-	      </h:div>
-	      
-	      
+	      <h:br/>
+	      <h:p>
+		Tools such as <h:a href="https://github.com/commoncriteria/canary-detector">Canary Detector</h:a> may help automate these activities.
+	      </h:p>
             </aactivity>
           </f-element>
         </f-component>
@@ -5060,6 +5033,10 @@ functionality (such as these)
         <description>Portable Document Format</description>
       </entry>
       <entry>
+	<term>PE</term>
+	<description>Portable Executable</description>
+      </entry>
+      <entry>
         <term>PID</term>
         <description>Process Identifier</description>
       </entry>
@@ -5169,6 +5146,23 @@ functionality (such as these)
       </entry>
     </acronyms>
   </appendix>
+  <extra-css>
+    table.code-table td {
+       font-family: monospace;
+       font-style: normal;
+       padding:0px;
+       background-color: #DDDDDD;
+    }
+
+    span.code-wildcard::after {
+       content: "(...)";
+    }
+    span.code-wildcard {
+       font-style: italics;
+    }
+       
+       
+  </extra-css>
 </PP>
 
 
