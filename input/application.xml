@@ -649,7 +649,7 @@ An implementation-independent set of security requirements for a specific subset
 	      <subaactivity platform="Solaris">
                 The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>.
 	      </subaactivity>
-              <subaactivity platform="OS X">
+              <subaactivity platform="mac">
                 The evaluator shall verify that the application uses <h:code>/dev/random</h:code> to
 				acquire random.
 	      </subaactivity>
@@ -1808,7 +1808,7 @@ functionality (such as these)
             		The evaluator shall verify that all keys are stored using Solaris 
             		<h:code>Key Management Framework (KMF)</h:code>.
               </subaactivity>
-              <subaactivity platform="OS X">The evaluator shall verify that all credentials are 
+              <subaactivity platform="mac">The evaluator shall verify that all credentials are 
                 stored within <h:code>Keychain</h:code>.</subaactivity>
             </aactivity>
           </f-element>
@@ -1847,7 +1847,7 @@ functionality (such as these)
               are limited by this requirement. It is necessary to limit the cipher suites that can be used in an evaluated
               configuration administratively on the server in the test environment. The Suite B algorithms listed above (RFC 6460)
               are the preferred algorithms for implementation. TLS_RSA_WITH_AES_128_CBC_SHA is mandatory in RFC 5246, but has been moved 
-              to the selection based ciphersuites for this Protection Profile. These requirements will be revisted as new <h:abbr title="Transport Layer Security">TLS</h:abbr>
+              to the selection based ciphersuites for this Protection Profile. These requirements will be revisited as new <h:abbr title="Transport Layer Security">TLS</h:abbr>
               versions are standardized by the IETF.
              <h:br />
               If any cipher suites are selected using ECDHE, then 
@@ -2021,7 +2021,7 @@ functionality (such as these)
                   server certificate that contains a CN that matches the reference identifier and does 
                   not contain the SAN extension. The evaluator shall verify that the connection succeeds. 
                   If the <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> does not mandate the 
-                  presence of the SAN extension, this Test shall be ommitted.
+                  presence of the SAN extension, this Test shall be omitted.
                 </test>
                 <test>
                   The evaluator shall present a server certificate that contains a CN that does not 
@@ -2776,7 +2776,7 @@ functionality (such as these)
               <subaactivity platform="Solaris"> The evaluator shall verify that either the
                 application software or its documentation provides a list of the
                 hardware resources it accesses. </subaactivity>
-              <subaactivity platform="OS X"> The evaluator shall verify that either the application
+              <subaactivity platform="mac"> The evaluator shall verify that either the application
                 software or its documentation provides a list of the hardware
                 resources it accesses.</subaactivity>
             </aactivity>
@@ -2805,7 +2805,7 @@ functionality (such as these)
                 documentation to determine the application's access to sensitive information
 				repositories.  The evaluator shall ensure that this is consistent with the selections
 				indicated.  The evaluator shall review documentation provided by the application
-	            developer and for each sensitive information respository which it accesses, identify the
+	            developer and for each sensitive information repository which it accesses, identify the
 	            justification as to why access is required.  
 	      <subaactivity platform="blackberry">The evaluator shall
                 install the application and run it for the first time. The evaluator shall identify
@@ -2842,7 +2842,7 @@ functionality (such as these)
               <subaactivity platform="Solaris">The evaluator shall verify that either the
                 application software or its documentation provides a list of
                 sensitive information repositories it accesses. </subaactivity>
-              <subaactivity platform="OS X">The evaluator shall verify that either the application
+              <subaactivity platform="mac">The evaluator shall verify that either the application
                 software or its documentation provides a list of
                 sensitive information repositories it accesses.</subaactivity>
             </aactivity>
@@ -2976,8 +2976,8 @@ functionality (such as these)
                the Operational User Guidance makes the need to activate platform encryption clear 
                to the end user.
 	      </subaactivity>
-              <subaactivity platform="OS X">
-               The Mac OS X platform currently does not provide data-at-rest encryption services which depend
+              <subaactivity platform="mac">
+               The Mac mac platform currently does not provide data-at-rest encryption services which depend
                upon invocation by application developers.  The evaluator shall verify that
                the Operational User Guidance makes the need to activate platform encryption clear
                to the end user.
@@ -3321,7 +3321,7 @@ functionality (such as these)
                 Universal Applications use either the Windows.UI.ApplicationSettings namespace or
                 the IsolatedStorageSettings namespace for storing application specific settings.
                 For Classic Desktop applications, the evaluator shall run the application while 
-		monitoring it with the SysInternal tool <util>ProcMon</util> and 
+		monitoring it with the SysInternals tool <util>ProcMon</util> and 
 		make changes to its configuration. 
 		The evaluator shall verify that <util>ProcMon</util> logs show corresponding changes to the
 		the Windows Registry.
@@ -3345,7 +3345,7 @@ functionality (such as these)
 		files that reside in /etc (for system-specific configuration) or 
 		in the user's home directory(for user-specific configuration).
 	      </subaactivity>
-              <subaactivity platform="OS X">
+              <subaactivity platform="mac">
                The evaluator shall verify that the application stores and retrieves settings
                using the <h:code>NSUserDefaults</h:code> class.
 	      </subaactivity>
@@ -3441,7 +3441,7 @@ functionality (such as these)
 		world-accessible (either read, write, or execute). 
 		The command should not print any files.
 	      </subaactivity>
-              <subaactivity platform="OS X">
+              <subaactivity platform="mac">
 		The evaluator shall run the command <h:code>find . -perm +007</h:code> inside
 		the application's data directories to ensure that all files are not world-accessible 
 		(either read, write, or execute).
@@ -3605,7 +3605,7 @@ functionality (such as these)
               <subaactivity platform="windows"> The evaluator shall run the same application on two
                 different Windows systems and run a tool that will list all memory mapped addresses
                 for the application. The evaluator shall then verify the two different instances
-                share no mapping locations. The Microsoft sysinternals tool, VMMap, could be used to
+                share no mapping locations. The Microsoft SysInternals tool, VMMap, could be used to
                 view memory addresses of a running application.  The evaluator shall use a tool
                 such as Microsoft's BinScope Binary Analyzer to confirm that the application has
                 ASLR enabled.
@@ -3627,8 +3627,8 @@ functionality (such as these)
 		<h:code>pmap -x <h:i>PID</h:i> </h:code>
 		to ensure the two different instances share no mapping locations.
 	      </subaactivity>
-              <subaactivity platform="OS X">
-		The evaluator shall run the same application on two different Mac OS X systems. 
+              <subaactivity platform="mac">
+		The evaluator shall run the same application on two different Mac mac systems. 
 		The evaluator shall then compare their memory maps using 
 		<h:code>vmmap <h:i>PID</h:i></h:code>
 		to ensure the two different instances share no mapping locations.
@@ -3690,7 +3690,7 @@ functionality (such as these)
                     and </h:li>
                   <h:li> mprotect is never invoked with the PROT_EXEC permission.</h:li>
                 </h:ul></subaactivity>
-              <subaactivity platform="OS X"> The evaluator shall perform static analysis on the
+              <subaactivity platform="mac"> The evaluator shall perform static analysis on the
                 application to verify that mprotect is never invoked with the PROT_EXEC permission.
               </subaactivity>
             </aactivity>
@@ -3722,8 +3722,8 @@ functionality (such as these)
 		The evaluator shall ensure that the application can run with 
 		Solaris Trusted Extensions enabled and enforcing.
 	      </subaactivity>
-              <subaactivity platform="OS X"> The evaluator shall ensure that the application can
-                successfully run on the latest version of OS X. </subaactivity>
+              <subaactivity platform="mac"> The evaluator shall ensure that the application can
+                successfully run on the latest version of mac. </subaactivity>
             </aactivity>
           </f-element>
           <f-element id="fpt_aex_ext.1.4">
@@ -3771,7 +3771,7 @@ functionality (such as these)
 		The evaluator shall ensure that there are no executable files stored in the 
 		same directories to which the application wrote user-modifiable files.
 	      </subaactivity>
-              <subaactivity platform="OS X"> The evaluator shall run the program, mimicking normal
+              <subaactivity platform="mac"> The evaluator shall run the program, mimicking normal
                 usage, and note where all user-modifiable files are written. The evaluator shall ensure that there
                 are no executable files stored in the same directories to which the application
                 wrote user-modifiable files. </subaactivity>
@@ -3868,7 +3868,7 @@ functionality (such as these)
                 derivatives shall be packaged in <h:code>deb</h:code> format. </subaactivity>
               <subaactivity platform="Solaris"> The evaluator shall ensure that the application is
                 packaged in the PKG format. </subaactivity>
-              <subaactivity platform="OS X"> The evaluator shall ensure that application is packaged
+              <subaactivity platform="mac"> The evaluator shall ensure that application is packaged
                 in the DMG format, the PKG format, or the MPKG format. </subaactivity>
             </aactivity>
           </f-element>
