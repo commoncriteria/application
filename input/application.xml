@@ -2649,22 +2649,13 @@ functionality (such as these)
             <title> The application shall 
               <selectables>
                 <selectable>
-                  notify the user
-                </selectable>
-                <selectable>
-                  take no action
-                </selectable>
-              </selectables>
-              and
-              <selectables >
-                <selectable>
                   not establish the connection
                 </selectable>
                 <selectable>
-                  request application authorization to establish the connection
+                  notify the user and not establish the connection
                 </selectable>
                 <selectable>
-                  no other action 
+                  notify the user and request authorization to establish the connection
                 </selectable>
               </selectables>
               if the peer certificate is deemed invalid.
@@ -2681,12 +2672,14 @@ functionality (such as these)
               <testlist>
                 <test>
                   The evaluator shall demonstrate that using a certificate without a valid 
-                  certification path results in an application notification. Using the 
-                  administrative guidance, the evaluator shall then load a certificate or 
+                  certification path results in the selected action in the SFR. If "notify the user" is selected 
+                  in the SFR, then the evaluator shall also determine that the user is notified of the certificate validation 
+                  failure. Using the administrative guidance, the evaluator shall then load a certificate or 
                   certificates to the Trust Anchor Database needed to validate the certificate to be 
                   used in the function, and demonstrate that the function succeeds. The evaluator 
-                  then shall delete one of the certificates, and show that the application is 
-                  notified of the validation failure.
+                  then shall delete one of the certificates, and show that again, using a certificate without a valid 
+                  certification path results in the selected action in the SFR, and if "notify the user" was selected 
+                  in the SFR, the user is notified of the validation failure.
                 </test>
               </testlist>
             </aactivity>
