@@ -2900,7 +2900,7 @@ functionality (such as these)
 	      <selectables linebreak="yes">
                 <selectable>leverage platform-provided functionality to encrypt sensitive data</selectable>
                 <selectable>implement functionality to encrypt sensitive data</selectable>
-	        <selectable>protect sensitive data in accordance with <linkref linkend="FCS_STO_EXT.1"/></selectable>
+	              <selectable>protect sensitive data in accordance with <linkref linkend="FCS_STO_EXT.1"/></selectable>
                 <selectable>not store any sensitive data</selectable>
               </selectables>
               in non-volatile memory.
@@ -2909,37 +2909,36 @@ functionality (such as these)
 			  If <h:i>implement functionality to encrypt sensitive data</h:i> is selected, then
               evaluation is required against the 
               <h:a href="https://www.niap-ccevs.org/pp/"><h:i>Application Software Protection Profile Module: File Encryption</h:i></h:a>. 
-              ST authors should select <h:i>protect sensitive data in accordance with <linkref linkend="FCS_STO_EXT.1"/></h:i> for the 
-              sensitive data that is covered by the <linkref linkend="FCS_STO_EXT.1"/> SFR.
 			  <h:br/>
               Any file that may potentially contain sensitive data (to include temporary files)
               shall be protected.  The only exception is if the user intentionally exports the sensitive data
-              to non-protected files. 
+              to non-protected files. ST authors should select <h:i>protect sensitive data in accordance with 
+              <linkref linkend="FCS_STO_EXT.1"/></h:i> for the 
+              sensitive data that is covered by the <linkref linkend="FCS_STO_EXT.1"/> SFR.
 	    </note>
-            <!-- this language is intentionally different from the MDPP's FDP_DAR -->
-            <aactivity>The evaluator shall examine the TSS to ensure that it describes the sensitive data
-              processed by the application. The evaluator shall then ensure that the following activities 
-              cover all of the sensitive data identified in the TSS. The evaluator shall inventory the 
-              filesystem locations where the application
-			  may write data.  The evaluator shall run the application and attempt to store sensitive data.
-              The evaluator shall then inspect those areas of the filesystem to note where
-			  data was stored (if any), and determine whether it has been encrypted. 
-			        <h:br/>
-              The assurance activities (after the identification of the sensitive data) are to be performed on all 
-              sensitive data listed that is not covered by <linkref linkend="FCS_STO_EXT.1"/>.
+            <aactivity>
+              The evaluator shall inventory the filesystem locations where the application may write data. 
+              The evaluator shall run the application and attempt to store sensitive data. The evaluator shall 
+              then inspect those areas of the filesystem to note where data was stored (if any), and determine 
+              whether it has been encrypted.
               <h:br/>
-              If <h:b>not store any sensitive data</h:b> is selected, the evaluator shall inspect the TSS and
-              ensure that it describes how sensitive data cannot be written to non-volatile memory.  The evaluator
-              shall also ensure that this is consistent with the filesystem test above.
-			  <h:br/>
-			  If <h:b>implement functionality to encrypt sensitive data</h:b> is selected, then
-              evaluation is required against the 
-              <h:b><h:i>Application Software Protection Profile Module: File Encryption</h:i></h:b>. The evaluator
-              shall ensure that such evaluation is underway.
+              If <h:b>not store any sensitive data</h:b> is selected, the evaluator shall inspect the TSS to ensure 
+              that it describes how sensitive data cannot be written to non-volatile memory. The evaluator shall also 
+              ensure that this is consistent with the filesystem test above.
               <h:br/>
-              If <h:b>leverage platform-provided functionality</h:b> is selected, the
-              evaluation activities will be performed as stated in the following
-              requirements, which vary on a per-platform basis:
+              If <h:b>implement functionality to encrypt sensitive data</h:b> is selected, then evaluation is required 
+              against <h:a href="https://www.niap-ccevs.org/pp/"><h:i>Application Software Protection Profile Module: File Encryption</h:i></h:a>. 
+              The evaluator shall ensure that such evaluation is underway.
+              <h:br/>
+              The evaluator shall examine the TSS to ensure that it describes the sensitive data processed by the application. 
+              The evaluator shall then ensure that the following activities cover all of the sensitive data identified in the TSS.
+              <h:br/>
+              Assurance activities (after the identification of the sensitive data) are to be performed on all sensitive data listed 
+              that are not covered by <linkref linkend="FCS_STO_EXT.1"/>.
+              <h:br/>
+              If <h:b>leverage platform-provided functionality</h:b> is selected, the evaluation activities will be performed as 
+              stated in the following requirements, which vary on a per-platform basis:
+
 			  <subaactivity platform="blackberry">The evaluator shall inspect the TSS and ensure that it describes how
                 the application 
                 uses the Advanced Data at Rest Protection <abbr title="Application Programming Interface" linkend="API">API</abbr> and how the application
@@ -2970,7 +2969,7 @@ functionality (such as these)
                to the end user.
 	      </subaactivity>
               <subaactivity platform="mac">
-               The Mac mac platform currently does not provide data-at-rest encryption services which depend
+               The Mac OS X platform currently does not provide data-at-rest encryption services which depend
                upon invocation by application developers.  The evaluator shall verify that
                the Operational User Guidance makes the need to activate platform encryption clear
                to the end user.
