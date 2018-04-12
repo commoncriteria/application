@@ -623,9 +623,6 @@ An implementation-independent set of security requirements for a specific subset
               The following are the per-platform list of acceptable APIs:
               
             </h:p>
-	      <subaactivity platform="blackberry">
-                The evaluator shall verify that the application invokes Security Builder Crypto GSE.
-              </subaactivity>
               <subaactivity platform="android"> The evaluator shall verify
                 that the application uses at least one of <h:code>javax.crypto.KeyGenerator</h:code> 
                 class or the <h:code>java.security.SecureRandom</h:code> class or <h:code>/dev/random
@@ -770,7 +767,7 @@ An implementation-independent set of security requirements for a specific subset
             <title>The deterministic RBG shall be seeded by an entropy source that accumulates
               entropy from a platform-based DRBG and <selectables linebreak="yes">
                 <selectable>a software-based noise source</selectable>
-                <selectable>no other noise source</selectable>
+                <selectable exclusive='yes'>no other noise source</selectable>
               </selectables> with a minimum of <selectables linebreak="yes">
                 <selectable>128 bits</selectable>
                 <selectable>256 bits</selectable>
@@ -1783,9 +1780,6 @@ functionality (such as these)
               <h:br/>
               For all credentials for which the application invokes platform-provided
               functionality, the evaluator shall perform the following actions which vary per platform.
-              <subaactivity platform="blackberry">The evaluator shall verify that the application 
-                uses the BlackBerry KeyStore and Security Builder APIs to store credentials.
-              </subaactivity>
               <subaactivity platform="android">The evaluator shall verify that the application uses
 	      the Android <h:code>KeyStore</h:code> or the Android <h:code>KeyChain</h:code> to store certificates.  
               </subaactivity>
@@ -2729,14 +2723,6 @@ functionality (such as these)
 				indicated.  The evaluator shall review documentation provided by the application
 	            developer and for each resource which it accesses, identify the
 	            justification as to why access is required.  
-              <subaactivity platform="blackberry">
-                The evaluator shall install the
-                application and run it for the first time. The evaluator shall verify that the
-                selection captures all hardware resources it would like to access. Note: If the
-                user goes to: <h:code>App permissions > Settings > Security and Privacy > Application
-                Permissions > Select application in question</h:code>, it will list which platform resource
-                are approved/denied and can be changed.
-              </subaactivity>
               <subaactivity platform="android">
                 The evaluator shall inspect permissions presented at 
                 installation time (Android 5.1 and below) or on-access 
@@ -2800,11 +2786,7 @@ functionality (such as these)
 				indicated.  The evaluator shall review documentation provided by the application
 	            developer and for each sensitive information repository which it accesses, identify the
 	            justification as to why access is required.  
-	      <subaactivity platform="blackberry">The evaluator shall
-                install the application and run it for the first time. The evaluator shall identify
-                the sensitive information repositories to which it solicits access.
-	      </subaactivity>
-              <subaactivity platform="android">
+	                    <subaactivity platform="android">
                 The evaluator shall inspect permissions presented at 
                 installation time (Android 5.1 and below) or on-access 
                 (Android 6.0 and above) for each sensitive information repository an app intends 
@@ -2939,11 +2921,7 @@ functionality (such as these)
               If <h:b>leverage platform-provided functionality</h:b> is selected, the evaluation activities will be performed as 
               stated in the following requirements, which vary on a per-platform basis:
 
-			  <subaactivity platform="blackberry">The evaluator shall inspect the TSS and ensure that it describes how
-                the application 
-                uses the Advanced Data at Rest Protection <abbr title="Application Programming Interface" linkend="API">API</abbr> and how the application
-                uses the appropriate domain to store and protect each data file.</subaactivity>
-              <subaactivity platform="android">
+			                <subaactivity platform="android">
 		        The evaluator shall inspect the TSS and verify that it describes how files containing sensitive data are 
                 stored with the <h:code>MODE_PRIVATE</h:code> flag set.
 	          </subaactivity>
@@ -3295,12 +3273,7 @@ functionality (such as these)
               supported by the platform. At a minimum the TSS shall list settings related to any SFRs
               and any settings that are mandated in the operational guidance in response to an SFR.
               The method of doing so varies per platform. 
-	      <subaactivity platform="blackberry">
-		The evaluator shall run the application and make security-related changes to its configuration.
-		The evaluator shall check that at least one file in the app folder of the application 
-		working directory was modified to reflect the change made.
-              </subaactivity>
-              <subaactivity platform="android">
+	                    <subaactivity platform="android">
 		The evaluator shall run the application and make security-related changes to its configuration.
 		The evaluator shall check that at least one XML file at location
 		<path>/data/data/<i>package</i>/shared_prefs/</path>
@@ -3390,16 +3363,7 @@ functionality (such as these)
               inspect the filesystem of the platform (to the extent possible) for any files created
               by the application and ensure that their permissions are adequate to protect them.
               The method of doing so varies per platform.
-              <subaactivity platform="blackberry">
-		The evaluator shall run 
-        	<h:code>ls -alR|grep -E '^.......(r|-w|--x)'</h:code> inside the application's 
-		data directories to ensure that all files are not world-accessible 
-		(either read, write, or execute).
-		The command should not print any files.
-		The evaluator shall also verify that no sensitive data is written to
-                external storage which could be read/modified by any other application.
-                </subaactivity>
-              <subaactivity platform="android">
+                            <subaactivity platform="android">
 		The evaluator shall run 
         	<h:code>ls -alR|grep -E '^.......(r|-w|--x)'</h:code> inside the application's 
 		data directories to ensure that all files are not world-accessible 
@@ -3587,11 +3551,7 @@ functionality (such as these)
               application is compiled. The evaluator shall perform either a static or dynamic
               analysis to determine that no memory mappings are placed at an explicit and
               consistent address. The method of doing so varies per platform. 
-	      <subaactivity platform="blackberry"> The evaluator shall run
-                the same application on two different BlackBerry systems and run a tool that will
-                list all memory mapped addresses for the application. The evaluator shall then
-                verify the two different instances share no mapping locations. </subaactivity>
-              <subaactivity platform="android">The evaluator shall run the same application on two
+	                    <subaactivity platform="android">The evaluator shall run the same application on two
                 different Android systems. Connect via ADB and inspect /proc/PID/maps. Ensure the
                 two different instances share no mapping locations.</subaactivity>
               <subaactivity platform="windows"> The evaluator shall run the same application on two
@@ -3648,15 +3608,7 @@ functionality (such as these)
             <aactivity> 
 	      The evaluator shall verify that no memory mapping requests are made with write and execute permissions.
 	      The method of doing so varies per platform.
-              <subaactivity platform="blackberry">
-                The evaluator shall perform static analysis on the
-                application to verify that <h:ul>
-                  <h:li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions,
-                    and </h:li>
-                  <h:li> mprotect is never invoked.</h:li>
-                </h:ul> 
-              </subaactivity>
-              <subaactivity platform="android"> The evaluator shall perform static analysis on the
+                            <subaactivity platform="android"> The evaluator shall perform static analysis on the
                 application to verify that <h:ul>
                   <h:li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions,
                     and </h:li>
@@ -3695,10 +3647,7 @@ functionality (such as these)
             <aactivity>
 	      The evaluator shall configure the platform in the ascribed manner and 
 	      carry out one of the prescribed tests:
-	      <subaactivity platform="blackberry">The evaluator shall ensure that the
-                application can successfully run on the latest version of the BlackBerry OS. 
-              </subaactivity>
-              <subaactivity platform="android">Applications running on Android cannot disable Android 
+	                    <subaactivity platform="android">Applications running on Android cannot disable Android 
                 security features, therefore this requirement is met and no assurance activity is required.
 	      </subaactivity>
               <subaactivity platform="windows">If the OS platform supports Windows Defender Exploit Guard, then 
@@ -3732,12 +3681,7 @@ functionality (such as these)
 	      For files where the user does not choose the destination, the evaluator shall 
 	      check whether the destination directory contains executable files.
 	      This varies per platform: 
-	      <subaactivity platform="blackberry">
-		The evaluator shall consider the requirement met because the platform forces
-                applications to write all data within the application working directory
-                (sandbox).
-	      </subaactivity>
-              <subaactivity platform="android"> 
+	                    <subaactivity platform="android"> 
 		The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. 
 		The evaluator shall ensure that there are no executable files stored under <path>/data/data/<i>package</i>/</path> where <h:i>package</h:i> is the Java package of the application.
               </subaactivity>
@@ -3812,10 +3756,8 @@ functionality (such as these)
             <title>The application shall be distributed using the format of the platform-supported
               package manager. </title>
             <aactivity> The evaluator shall verify that application updates are distributed in the
-              format supported by the platform. This varies per platform: <subaactivity
-                platform="blackberry"> The evaluator shall ensure that the application is packaged
-                in the Blackberry (BAR) format. </subaactivity>
-              <subaactivity platform="android"> The evaluator shall ensure that the application is
+              format supported by the platform. This varies per platform:               
+	      <subaactivity platform="android"> The evaluator shall ensure that the application is
                 packaged in the Android application package (APK) format. </subaactivity>
               <subaactivity platform="windows"> The evaluator shall ensure that the application is
                 packaged in the standard Windows Installer (.MSI) format, the Windows Application 
@@ -3877,7 +3819,7 @@ functionality (such as these)
             </aactivity>
           </f-element>
           <f-element id="fpt_tud_ext.1.5">
-            <title>The application shall <selectables atleastone="yes">
+            <title>The application shall <selectables>
                 <selectable>provide the ability</selectable>
                 <selectable>leverage the platform</selectable>
               </selectables>
@@ -3955,7 +3897,7 @@ functionality (such as these)
         <selectable>not transmit any data</selectable>
         <selectable>not transmit any sensitive data</selectable>
         <selectable>encrypt all transmitted sensitive data with
-          <selectables atleastone="yes">
+          <selectables>
             <selectable id="sel_all_https"><h:abbr title="Hypertext Transfer Protocol Secure">HTTPS</h:abbr></selectable>
 	    <selectable id="sel_all_tlsc"><h:abbr title="Transport Layer Security">TLS</h:abbr> (as client)</selectable>
 	    <selectable id="sel_all_tlss"><h:abbr title="Transport Layer Security">TLS</h:abbr> (as server)</selectable>
@@ -3964,7 +3906,7 @@ functionality (such as these)
 	  </selectables>
         </selectable>
         <selectable>encrypt all transmitted data with
-          <selectables atleastone="yes">
+          <selectables>
             <selectable id="sel_sen_https"><h:abbr title="Hypertext Transfer Protocol Secure">HTTPS</h:abbr></selectable>
 	    <selectable id="sel_sen_tlsc"><h:abbr title="Transport Layer Security">TLS</h:abbr> (as client)</selectable>
 	    <selectable id="sel_sen_tlss"><h:abbr title="Transport Layer Security">TLS</h:abbr> (as server)</selectable>
@@ -4811,10 +4753,6 @@ functionality (such as these)
       <entry>
         <term>ASLR</term>
         <description>Address Space Layout Randomization</description>
-      </entry>
-       <entry>
-        <term>BAR</term>
-         <description>Blackberry Application Package</description>
       </entry>
        <entry>
         <term>BIOS</term>
