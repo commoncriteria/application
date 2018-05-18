@@ -647,8 +647,7 @@ An implementation-independent set of security requirements for a specific subset
                 The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>.
 	      </subaactivity>
               <subaactivity platform="mac">
-                The evaluator shall verify that the application uses <h:code>/dev/random</h:code> to
-				acquire random.
+                The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>.
 	      </subaactivity>
 		        If invocation of platform-provided functionality is achieved in another way, the evaluator 
 				shall ensure the TSS describes how this is carried out, and how it is equivalent to the 
@@ -1753,21 +1752,29 @@ functionality (such as these)
                 </selectable>
               </selectables>
                to non-volatile memory.</title>
-            <note role="application">This requirement ensures that persistent credentials (secret 
-              keys, PKI private keys, or passwords) are stored securely, and never persisted in cleartext form.  
-              <h:br/>
-        Application developers are encouraged to use platform mechanisms for the secure storage of credentials.
-        Depending on the platform that may include hardware-backed protection for credential storage. Application 
-        developers must choose a selection, or multiple selections, based on all credentials that the application 
-        stores.
-              <h:br/>
+            <note role="application">
+	      <h:p>
+		This requirement ensures that persistent credentials (secret 
+		keys, PKI private keys, or passwords) are stored securely, and never persisted in cleartext form.  
+	      </h:p>
+
+	      <h:p>
+		If the platform provides mechanisms for secure storage, application developers are encouraged to use them.
+		Depending on the platform that may include hardware-backed protection for credential storage.
+		Application developers must choose a selection, or multiple selections, 
+		based on all credentials that the application stores.
+		If the platform does not provide a secure storage mechanism,
+		the application must select <h:i>implement functionality to securely store</h:i> all credentials.
+	      </h:p>
+	      <h:p>
               If <h:i>not store any credentials</h:i> is selected, then the application must not store any credentials.
               If <h:i>invoke the functionality provided by the platform to securely store</h:i> is selected then the 
-              Application developer must closely review the AA for their platform and provide documentation indicating 
+              application developer must closely review the AA for their platform and provide documentation indicating 
               which platform mechanisms are used to store credentials. If <h:i>implement functionality to securely store credentials</h:i>
               is selected, then the following components must be included in the <abbr title="Security Target" linkend="ST">ST</abbr>: <linkref linkend="FCS_COP.1(1)"/>. 
               If other cryptographic operations are used to implement the secure storage of credentials, 
               the corresponding requirements must be included in the ST.
+	      </h:p>
             </note>
             <aactivity>The evaluator shall check the TSS to ensure that it lists all persistent 
               credentials (secret keys, PKI private keys, or passwords) needed to meet the 
@@ -1794,9 +1801,11 @@ functionality (such as these)
 		The evaluator shall verify that all credentials are stored
                 within a <h:code>Keychain</h:code>.  
 	      </subaactivity>
-              <subaactivity platform="linux"> 
-		The evaluator shall verify that all keys are stored using Linux 
-		<h:code>keyrings</h:code>.
+              <subaactivity platform="linux">
+Some Linux-based platforms do not provide secure storage mechanisms.
+If the application runs on any of these, this requirement is considered met.
+If it runs runs on platforms that provide a secure storage mechanism, such as Gnome Keyring or KDE KWallet, the application
+should utilize the mechanism to store credentials.
 	      </subaactivity>
               <subaactivity platform="Solaris">
             		The evaluator shall verify that all keys are stored using Solaris 
@@ -3772,7 +3781,7 @@ functionality (such as these)
                 packaged in the format of the package management infrastructure of the chosen
                 distribution. For example, applications running on Red Hat and Red Hat derivatives
                 shall be packaged in <h:code>RPM</h:code> format. Applications running on Debian and Debian
-                derivatives shall be packaged in <h:code>DEB</h:code> format.</subaactivity>
+                derivatives shall be packaged in <h:code>DEB</h:code> format. </subaactivity>
               <subaactivity platform="Solaris"> The evaluator shall ensure that the application is
                 packaged in the PKG format. </subaactivity>
               <subaactivity platform="mac"> The evaluator shall ensure that application is packaged
