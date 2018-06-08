@@ -3653,10 +3653,20 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
 	                    <subaactivity platform="android">Applications running on Android cannot disable Android 
                 security features, therefore this requirement is met and no assurance activity is required.
 	      </subaactivity>
-              <subaactivity platform="windows">If the OS platform supports Windows Defender Exploit Guard, then 
-              the evaluator shall ensure that the application can run successfully with Windows Defender Exploit Guard 
-              configured and enabled. If the OS platform supports EMET, then the evaluator shall ensure that the application 
-              can run successfully with EMET configured and enabled.</subaactivity>
+              <subaactivity platform="windows">If the OS platform supports Windows Defender Exploit Guard 
+                (Windows 10 version 1709 or later), then the evaluator shall ensure that the application can 
+                run successfully with Windows Defender Exploit Guard Exploit Protection configured with the 
+                following minimum mitigations enabled; Control Flow Guard (CFG), Randomize memory allocations 
+                (Bottom-Up ASLR), Export address filtering (EAF), Import address filtering (IAF), and
+                Data Execution Prevention (DEP). The following link describes how to enable Exploit Protection, 
+                https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-exploit-guard/customize-exploit-protection.
+                <br/>
+                If the OS platform supports the Enhanced Mitigation Experience Toolkit (EMET) which can be 
+                installed on Windows 10 version 1703 and earlier, then the evaluator shall ensure that 
+                the application can run successfully with EMET configured with the following minimum 
+                mitigations enabled; Memory Protection Check, Randomize memory allocations (Bottom-Up ASLR), 
+                Export address filtering (EAF), and Data Execution Prevention (DEP).
+              </subaactivity>
               <subaactivity platform="ios">The evaluator shall ensure that the application can
                 successfully run on the latest version of iOS. </subaactivity>
               <subaactivity platform="linux"> The evaluator shall ensure that the application can
