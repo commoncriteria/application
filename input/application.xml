@@ -495,6 +495,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
           <component-refer ref="fmt_mec_ext.1"/>
           <component-refer ref="fpt_api_ext.1"/>
           <component-refer ref="fpt_lib_ext.1"/>
+          <component-refer ref="fpt_tud_ext.2"/>
         </SO>
         <SO id="O.MANAGEMENT">
           <description>To facilitate management by users and the enterprise, conformant <abbr
@@ -505,7 +506,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
             includes providing control to the user regarding disclosure of any PII.</description>
           <component-refer ref="fmt_smf.1"/>
           <component-refer ref="fpt_idv_ext.1"/>
-          <component-refer ref="fpt_tud_ext.1.5"/>
+          <component-refer ref="fpt_tud_ext.1.2"/>
           <component-refer ref="fpr_ano_ext.1"/>
         </SO>
         <SO id="O.PROTECTED_STORAGE">
@@ -3748,7 +3749,7 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
           </f-element>
         </f-component>
         <f-component id="fpt_tud_ext.1" name="Integrity for Installation and Update">
-          <!-- TO DO: Cite references. -->
+
           <f-element id="fpt_tud_ext.1.1">
             <title>The application shall <selectables>
                 <selectable>provide the ability</selectable>
@@ -3766,11 +3767,91 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
             </aactivity>
           </f-element>
           <f-element id="fpt_tud_ext.1.2">
+            <title>The application shall <selectables>
+              <selectable>provide the ability</selectable>
+              <selectable>leverage the platform</selectable>
+            </selectables>
+              to query the current version of the application software.
+            </title>
+            <aactivity>The evaluator shall query the application for the current version of the software
+              according to the operational user guidance (AGD_OPE.1). Guidance must specify how to check the 
+              version via the application or the platform. The evaluator shall then verify that the 
+              current version matches that of the documented and installed version.
+            </aactivity>
+          </f-element>
+          <f-element id="fpt_tud_ext.1.3">
+            <title> The application shall not download, modify, replace or update its own binary
+              code. </title>
+            <note role="application">This requirement applies to the code of the application; it
+              does not apply to mobile code technologies that are designed for download and
+              execution by the application. </note>
+            <aactivity>The evaluator shall verify that the application's executable files are
+              not changed by the application. The evaluator shall complete the following test:
+              <testlist>
+                <test>The evaluator shall install the application and then
+                locate all of its executable files.  The evaluator shall then,
+                for each file, save off either a hash of the file or a copy of
+                the file itself.  The evaluator shall then run the application
+                and exercise all features of the application as described in
+                the TSS. The evaluator shall then compare each executable file
+                with the either the saved hash or the saved copy of the files.
+                The evaluator shall verify that these are identical.
+                </test>
+              </testlist>
+            </aactivity>
+          </f-element>
+          <f-element id="fpt_tud_ext.1.4">
+            <title> 
+			  The application installation package and its updates shall be digitally signed 
+			  such that its platform can cryptographically verify them prior to installation.
+            </title>
+            <note role="application">The specifics of the verification of installation packages
+			  and updates involves requirements on the platform (and not the
+              application), so these are not fully specified here. </note>
+            <aactivity>
+			  The evaluator shall verify that the TSS identifies how the application
+			  installation package and updates to it  
+			  are signed by an authorized source. The definition of an
+			  authorized source must be contained in the TSS.
+			  The evaluator shall also ensure that the TSS (or the operational
+			  guidance) describes how candidate updates are obtained.
+            </aactivity>
+          </f-element>
+          <f-element id="fpt_tud_ext.1.5">
+            <title> 
+              The application is distributed 
+              <selectables>
+                <selectable id="sel_with_plat">with the platform <h:abbr title="Operating System">OS</h:abbr>                 
+                </selectable>
+                <selectable id="sel_add_plat">as an additional software package to the platform 
+                  <h:abbr title="Operating System">OS</h:abbr>
+                </selectable>
+              </selectables>
+            </title>
+            <note role="application">
+              Application software that is distributed as part of the platform operating system is not 
+              required to be package for installation or uninstallation. If "as an additional software
+              package to the OS" is selected the requirements from <linkref linkend="fpt_tud_ext.2"/> 
+              must be included in the ST.
+            </note>
+            <aactivity>
+              The evaluator shall verify that the TSS identifies how the application
+              is distributed. If "with the platform" is selected the evaluated shall perform
+              a clean installation or factory reset to confirm that TOE software is included
+              as part of the platform OS. If "as an additional package" is selected the evaluator
+              shall perform the tests in <linkref linkend="fpt_tud_ext.2"/>.
+            </aactivity>
+          </f-element>
+        </f-component>
+       
+        <f-component id="fpt_tud_ext.2" name="Integrity for Installation and Update" status="sel-based">
+          <selection-depends req="ftp_tub_ext.1.5" ids="sel_with_plat,sel_add_plat"/>
+          <f-element id="fpt_tud_ext.2.1">
             <title>The application shall be distributed using the format of the platform-supported
               package manager. </title>
             <aactivity> The evaluator shall verify that application updates are distributed in the
               format supported by the platform. This varies per platform:               
-	      <subaactivity platform="android"> The evaluator shall ensure that the application is
+              <subaactivity platform="android"> The evaluator shall ensure that the application is
                 packaged in the Android application package (APK) format. </subaactivity>
               <subaactivity platform="windows"> The evaluator shall ensure that the application is
                 packaged in the standard Windows Installer (.MSI) format, the Windows Application 
@@ -3792,12 +3873,12 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
                 in the DMG format, the PKG format, or the MPKG format. </subaactivity>
             </aactivity>
           </f-element>
-          <f-element id="fpt_tud_ext.1.3">
+          <f-element id="fpt_tud_ext.2.2">
             <title>The application shall be packaged such that its removal results in the deletion 
               of all traces of the application, with the exception of configuration settings, output
               files, and audit/log events.</title>
-            <note role="application">Applications bundled with the system/firmware image are not
-              subject to this requirement if the user is unable to remove the application through
+            <note role="application">Applications software bundled with the system/firmware image 
+              are not subject to this requirement if the user is unable to remove the application through
               means provided by the OS.</note>
             <aactivity>
               <subaactivity platform="android">The evaluator shall consider the requirement met because 
@@ -3813,58 +3894,8 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
                 other than configuration, output, and audit/log files, have been added to the filesystem.</subaactivity>
             </aactivity>
           </f-element>
-          <f-element id="fpt_tud_ext.1.4">
-            <title> The application shall not download, modify, replace or update its own binary
-              code. </title>
-            <note role="application">This requirement applies to the code of the application; it
-              does not apply to mobile code technologies that are designed for download and
-              execution by the application. </note>
-            <aactivity>The evaluator shall verify that the application's executable files are
-              not changed by the application. The evaluator shall complete the following test:
-              <testlist>
-                <test>The evaluator shall install the application and then
-                locate all of its executable files.  The evaluator shall then,
-                for each file, save off either a hash of the file or a copy of
-                the file itself.  The evaluator shall then run the application
-                and exercise all features of the application as described in
-                the TSS. The evaluator shall then compare each executable file
-                with the either the saved hash or the saved copy of the files.
-                The evaluator shall verify that these are identical.
-                </test>
-              </testlist>
-            </aactivity>
-          </f-element>
-          <f-element id="fpt_tud_ext.1.5">
-            <title>The application shall <selectables>
-                <selectable>provide the ability</selectable>
-                <selectable>leverage the platform</selectable>
-              </selectables>
-              to query the current version of the application software.
-            </title>
-            <aactivity>The evaluator shall query the application for the current version of the software
-              according to the operational user guidance (AGD_OPE.1). Guidance must specify how to check the 
-              version via the application or the platform. The evaluator shall then verify that the 
-              current version matches that of the documented and installed version.
-            </aactivity>
-          </f-element>
-          <f-element id="fpt_tud_ext.1.6">
-            <title> 
-			  The application installation package and its updates shall be digitally signed 
-			  such that its platform can cryptographically verify them prior to installation.
-            </title>
-            <note role="application">The specifics of the verification of installation packages
-			  and updates involves requirements on the platform (and not the
-              application), so these are not fully specified here. </note>
-            <aactivity>
-			  The evaluator shall verify that the TSS identifies how the application
-			  installation package and updates to it  
-			  are signed by an authorized source. The definition of an
-			  authorized source must be contained in the TSS.
-			  The evaluator shall also ensure that the TSS (or the operational
-			  guidance) describes how candidate updates are obtained.
-            </aactivity>
-          </f-element>
         </f-component>
+       
         <f-component id="fpt_lib_ext.1" name="Use of Third Party Libraries">
           <f-element id="fpt_lib_ext.1.1">
             <title> The application shall be packaged with only
