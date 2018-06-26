@@ -3884,24 +3884,35 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
 	    </aactivity>
           </f-element>
         </f-component>
-        <f-component id="fpt_idv_ext.1" name="Software Identification and Versions" status="objective">
+        <f-component id="fpt_idv_ext.1" name="Software Identification and Versions">
           <f-element id="fpt_idv_ext.1.1">
-            <title>The application shall include <h:abbr title="Software Identification">SWID</h:abbr>
-              tags that comply with the minimum requirements for
-              <h:abbr title="Software Identification">SWID</h:abbr> tag from ISO/IEC 19770-2:2015
-              standard.</title>
-            <!-- "Also, we might want to add a reference to DoD Instruction 8500.01 in an App Note. The Instruction requires that DoD IT 
-              comply with SCAP standards. And that SWID tags are part of SCAP, as per the NIST. And maybe we should set a date for this 
-              requirement moving from Objective to Threshold." -->
-            <note role="application">Valid SWID tags must contain a SoftwareIdentity
-              element and an Entity element as defined in the ISO/IEC 19770-2:2015
-              standard. SWID tags must be stored with a .swidtag file
-              extensions as defined in the ISO/IEC 19770-2:2015.
+            <title>The application shall be versioned with
+              <selectables>
+                <selectable><h:abbr title="Software Identification">SWID</h:abbr> tags 
+                  that comply with minimum requirements from ISO/IEC 19770-2:2015                 
+                </selectable>
+                <selectable><assignable>other version information</assignable></selectable>
+              </selectables>
+              .
+            </title>
+            <note role="application">The use of SWID tag to identify application software
+              is a requirement for DOD IT based on DoD Instruction 8500.01 which requires
+              the use of SCAP which includes SWID tags per the NIST standard. The PP selection
+              of "other version information" will be removed in the next major release of
+              this protection profile. Vendors should begin to version software with valid SWID tags.
+              <h: br />
+              <h: br />
+              Valid SWID tags must contain a SoftwareIdentity element and an Entity element as 
+              defined in the ISO/IEC 19770-2:2015 standard. SWID tags must be stored with a .swidtag 
+              file extensions as defined in the ISO/IEC 19770-2:2015.
             </note>
             <aactivity>The evaluator shall install the application, then check for the
-              existence of SWID tags in a .swidtag file. The evaluator shall open the
-              file and verify that is contains at least a SoftwareIdentity element and
-              an Entity element.</aactivity>
+              existence of version information. If SWID tags is selected the evaluator shall 
+              check for a .swidtag file. The evaluator shall open the file and verify that 
+              is contains at least a SoftwareIdentity element and an Entity element. If 
+              "other version information" is selected the evaluator shall verify that the 
+              application has versioning information matching that described in the TSS.
+            </aactivity>
           </f-element>
         </f-component>
       </subsection>
