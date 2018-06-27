@@ -221,7 +221,7 @@ An implementation-independent set of security requirements for a specific subset
               an operating system, or some combination of these.
             </description>
           </entry>
-          <entry>
+          <entry id="sen_data">
             <term>Sensitive Data</term>
             <description> 
               Sensitive data may include all user or enterprise data or may be
@@ -1107,7 +1107,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
               RSA key generation.
               <h:br />
               The elliptic curves used for the key establishment scheme shall correlate with the curves 
-              specified in <linkref linkend="FCS_CKM.1.1(1)"/>. 
+              specified in <linkref linkend="FCS_CKM.1.1(1)"/>.
               <h:br />
               The domain parameters used for the finite field-based key establishment scheme are specified 
               by the key generation according to <linkref linkend="FCS_CKM.1.1(1)"/>.
@@ -1787,8 +1787,8 @@ functionality (such as these)
               confirm that the TSS lists for what purpose it is used, and how it is stored. 
               <h:br/>
               For all credentials for which the application implements functionality, the evaluator shall 
-              verify credentials are encrypted according to FCS_COP.1(1) or conditioned according to 
-              FCS_CKM.1.1(A) and FCS_CKM.1.2(A).
+              verify credentials are encrypted according to <linkref linkend="FCS_COP.1(1)"/> or conditioned according to 
+              <linkref linkend="FCS_CKM.1(1)"/> and <linkref linkend="FCS_CKM.1(2)"/>.
               <h:br/>
               For all credentials for which the application invokes platform-provided
               functionality, the evaluator shall perform the following actions which vary per platform.
@@ -3274,7 +3274,7 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
 	    </title>
             <note role="application"> 
 	      Configuration options that are stored remotely are not subject to this requirement. 
-	      <xref linkend="Sensitive Data"/> is generally not considered part of configuration options
+	      <xref linkend="sen_data"/> is generally not considered part of configuration options
 	      and should be stored according to <linkref linkend="fdp_dar_ext.1"/> or 
 	      <linkref linkend="fcs_sto_ext.1"/>.
 	    </note>
@@ -3852,7 +3852,7 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
         </f-component>
        
         <f-component id="fpt_tud_ext.2" name="Integrity for Installation and Update" status="sel-based">
-          <selection-depends req="ftp_tub_ext.1.5" ids="sel_with_plat,sel_add_plat"/>
+          <selection-depends req="fpt_tud_ext.1.5" ids="sel_with_plat,sel_add_plat"/>
           <f-element id="fpt_tud_ext.2.1">
             <title>The application shall be distributed using the format of the platform-supported
               package manager. </title>

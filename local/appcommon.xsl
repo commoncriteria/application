@@ -10,7 +10,6 @@
     <xsl:param name="osname"/>
     <xsl:choose>
       <xsl:when test="$osname='windows'">Windows</xsl:when>
-      <xsl:when test="$osname='blackberry'">BlackBerry</xsl:when>
       <xsl:when test="$osname='ios'">iOS</xsl:when>
       <xsl:when test="$osname='android'">Android</xsl:when>
       <xsl:when test="$osname='linux'">Linux</xsl:when>
