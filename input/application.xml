@@ -217,8 +217,8 @@ An implementation-independent set of security requirements for a specific subset
           <entry>
             <term>Platform</term>
             <description>The environment in which application software runs. 
-              The platform can be an operating system, an execution environment which runs atop 
-              an operating system, or some combination of these.
+              The platform can be an operating system, hardware enviroment, an software based execution environment, 
+		    or some combination of these.  These types platforms may also run atop other platforms.
             </description>
           </entry>
           <entry id="sen_data">
@@ -246,11 +246,10 @@ An implementation-independent set of security requirements for a specific subset
         </glossary>
       </section>
     <section title="Compliant Targets of Evaluation" id="TOEdescription"><h:p>The requirements in this
-  	  document apply to application software which runs on mobile devices ("apps"), as well as on
-  	  desktop, server, and cloud platforms.
+  	  document apply to application software which runs on any type of platform.
 Some application types are covered by more specific PPs, which may be expressed as Modules of this PP.
   	  Such applications are subject to the requirements of both this PP and the
-  	  Module that addresses their special functionality.  PPs for some 
+  	  Module(s) that addresses their special functionality.  PPs for some 
 	  particularly specialized applications may not be expressed as Module at this time,
 	  though the requirements in this document should be seen as objectives for those 
 	  highly specialized applications.
@@ -264,23 +263,25 @@ Some application types are covered by more specific PPs, which may be expressed 
 	  <subsection title="TOE Boundary" id="TOEboundary">
 	    <h:p>
 		The application, which consists of the software provided by its vendor,
-		is installed onto the
-		filesystem provided by the operating system.  It executes on the platform, which
-		may be an operating system (<figref refid="toe-as-apponos"/>), 
-		an execution environment,
-		or some combination of these (<figref refid="toe-as-apponee"/>).
+		is installed onto the platform(s) it operates on.  It executes on the platform, which
+		may be an operating system (<figref refid="toe-as-apponos"/>), hardware enviroment, 
+		    a software based execution environment, 
+		    or some combination of these (<figref refid="toe-as-apponee"/>). Those platforms may themselves run within other
+		    environments, such as virtual machines or operating systems, that completely abstract away the underlying hardware
+		    from the application. The TOE is not accountable for security functionality that is implemented by 
+		    platform layers that are abstracted away.
 		Some assurance activities are specific to the particular platform
 		on which the application runs, in order to provide precision and
-		repeatability. Test activities are actively sought from platform
-		vendors so that coverage across platforms is as complete and accurate
-		as possible. This will also enable certification of applications on
-		those platforms. 
+		repeatability. The only platforms currently recognized by the SWApp PP are those specified in SFR Evaluation Activities.
+		    To test on a platform for which there are no EAs, a Vendor should contact NIAP with recommended EAs.
+		    NIAP will determine if the proposed platform is appropriate for the PP and accept, reject,
+		    or develop EAs as necessary in coordination with the technical community.
 		</h:p><h:p>	
 		Applications include a diverse range of software such as office suites, thin
 		clients, <h:abbr title="Portable Document Format">PDF</h:abbr> readers, downloadable
 		smartphone apps, and apps running in a cloud container. The TOE includes 
 		any software in the application installation package, even those pieces that may 
-		extend the functionality of the underlying platform, such as kernel drivers.  
+		extend or modify the functionality of the underlying platform, such as kernel drivers.  
 		Many platforms come bundled with applications
 		such as web browsers, email clients and media players and these too
 		should be considered subject to the requirements defined in this
