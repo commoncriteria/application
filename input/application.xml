@@ -3577,9 +3577,12 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
               application is compiled. The evaluator shall perform either a static or dynamic
               analysis to determine that no memory mappings are placed at an explicit and
               consistent address. The method of doing so varies per platform. 
-	                    <subaactivity platform="android">The evaluator shall run the same application on two
-                different Android systems. Connect via ADB and inspect /proc/PID/maps. Ensure the
-                two different instances share no mapping locations.</subaactivity>
+	            <subaactivity platform="android">The evaluator shall run the same application on two
+                different Android systems. Both devices do not need to be evaluated, as the second device is acting only as a tool. 
+                Connect via ADB and inspect /proc/PID/maps. Ensure the two different instances share no memory mappings made by the 
+                application at the same location. Alternatively, the evaluator may use the same device. After collecting the first 
+	            instance of mappings, the evaluator must uninstall the application, reboot the device, and reinstall the application to 
+	            collect the second instance of mappings.</subaactivity>
               <subaactivity platform="windows"> The evaluator shall run the same application on two
                 different Windows systems and run a tool that will list all memory mapped addresses
                 for the application. The evaluator shall then verify the two different instances
