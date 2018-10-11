@@ -716,7 +716,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
                   value being incremented by 1 on each iteration, and the new seed for the 
                   subsequent iteration produced as specified in NIST-Recommended Random Number 
                   Generator Based on ANSI X9.31 Appendix A.2.4 Using the 3-Key Triple DES and AES 
-                  Algorithms, Section 3. The evaluators ensure that the 10,000th value produced 
+                  Algorithms, Section E.3. The evaluators ensure that the 10,000th value produced 
                   matches the expected value.
                 </test>
               </testlist>
@@ -2117,6 +2117,12 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
               The evaluator shall run the application and attempt to store sensitive data. The evaluator shall 
               then inspect those areas of the filesystem to note where data was stored (if any), and determine 
               whether it has been encrypted.
+		    <h:br/>
+              The evaluator shall examine the TSS to ensure that it describes the sensitive data processed by the application. 
+              The evaluator shall then ensure that the following activities cover all of the sensitive data identified in the TSS.
+              <h:br/>
+              Evaluation activities (after the identification of the sensitive data) are to be performed on all sensitive data listed 
+              that are not covered by <linkref linkend="FCS_STO_EXT.1"/>.
               <h:br/>
               If <h:b>not store any sensitive data</h:b> is selected, the evaluator shall inspect the TSS to ensure 
               that it describes how sensitive data cannot be written to non-volatile memory. The evaluator shall also 
@@ -2125,12 +2131,7 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
               If <h:b>implement functionality to encrypt sensitive data</h:b> is selected, then evaluation is required 
               against <h:a href="https://www.niap-ccevs.org/pp/"><h:i>Application Software Protection Profile Module: File Encryption</h:i></h:a>. 
               The evaluator shall ensure that such evaluation is underway.
-              <h:br/>
-              The evaluator shall examine the TSS to ensure that it describes the sensitive data processed by the application. 
-              The evaluator shall then ensure that the following activities cover all of the sensitive data identified in the TSS.
-              <h:br/>
-              evaluation activities (after the identification of the sensitive data) are to be performed on all sensitive data listed 
-              that are not covered by <linkref linkend="FCS_STO_EXT.1"/>.
+              
               <h:br/>
               If <h:b>leverage platform-provided functionality</h:b> is selected, the evaluation activities will be performed as 
               stated in the following requirements, which vary on a per-platform basis:
