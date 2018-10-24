@@ -801,9 +801,9 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
               activities - in accordance with <appref linkend="entropyappendix"/> and
               the <h:a href="https://www.niap-ccevs.org/Documents_and_Guidance/ccevs/Entropy%20Documentation%20and%20Assessment%20Clarification.pdf">Clarification to the Entropy Documentation and Assessment Annex</h:a>.
               <h:br />
-              <Guidance/>In the future, specific statistical testing (in line with NIST SP 800-90B) will 
+              <Guidance/>None.
+              <Tests/> In the future, specific statistical testing (in line with NIST SP 800-90B) will 
               be required to verify the entropy estimates.
-              <Tests/> None.
             </aactivity>
           </f-element>
         </f-component>
@@ -881,30 +881,30 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
 		than one scheme, the evaluator shall examine the <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> to verify that 
 		it identifies the usage for each scheme.
 	      </h:p>
-	      <h:p>
-		The evaluator shall verify that the AGD guidance instructs the administrator how to 
-		configure the <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> to use the selected key generation scheme(s) and 
-		key size(s) for all uses defined in this PP.
-	      </h:p>
+		
+	      
 	      <h:p>
 		If the application <h:b>invokes platform-provided functionality for asymmetric key generation</h:b>,
 		then the evaluator shall examine the TSS to verify that it describes 
 		how the key generation functionality is invoked.
 	      </h:p>
-	      <h:p> 
-		If the application <h:b>implements asymmetric key generation</h:b>, then the following test
-		activities shall be carried out.
-	      </h:p>
-	      <h:p>
-              Assurance Activity Note: The following tests may require the developer to provide access 
-              to a developer environment that provides the evaluator with tools that are typically available
-			  to end-users of the application.
-	      </h:p>
-              <Guidance/> None.
+	       
+		
+              <Guidance/> The evaluator shall verify that the AGD guidance instructs the administrator how to 
+		configure the <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> to use the selected key generation scheme(s) and 
+		key size(s) for all uses defined in this PP.
 	      <h:p>
               <Tests/><h:b>Key Generation for FIPS PUB 186-4 RSA Schemes</h:b>
 	      </h:p><h:p>
-              The evaluator shall verify the implementation of RSA Key Generation by the 
+              If the application <h:b>implements asymmetric key generation</h:b>, then the following test
+		activities shall be carried out.
+	      
+		    Assurance Activity Note: The following tests may require the developer to provide access 
+              to a developer environment that provides the evaluator with tools that are typically available
+			  to end-users of the application.
+	      
+		    
+		    The evaluator shall verify the implementation of RSA Key Generation by the 
               <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> using the Key Generation test. This test verifies the ability of 
               the <abbr title="TOE Security Functionality" linkend="TSF">TSF</abbr> to correctly produce values for the key components including 
               the public verification exponent e, the private prime factors p and q, the public 
@@ -1128,11 +1128,12 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
               key generation schemes identified in FCS_CKM.1.1. If the ST specifies more than one 
               scheme, the evaluator shall examine the TSS to verify that it identifies the usage for each 
               scheme.
-              <h:br /> 
-              The evaluator shall verify that the AGD guidance instructs the administrator how to configure 
+              <Guidance/> The evaluator shall verify that the AGD guidance instructs the administrator how to configure 
               the TOE to use the selected key establishment scheme(s).
-              <h:br />
-              Assurance Activity Note: The following tests require the developer to provide access to a test 
+              
+              <indent>
+                <Tests/>
+		      Assurance Activity Note: The following tests require the developer to provide access to a test 
               platform that provides the evaluator with tools that are typically not found on factory 
               products.
               <h:br />
@@ -1151,9 +1152,8 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
               been implemented correctly, using the test procedures described below. This includes the 
               parsing of the DKM, the generation of MACdata and the calculation of MACtag.
               <h:br />
-              <Guidance/> None.
-              <indent>
-                <Tests/><h:b>Function Test</h:b><h:p/>
+              
+		      <h:b>Function Test</h:b><h:p/>
                 The Function test verifies the ability of the TOE to implement the key agreement 
                 schemes correctly. To conduct this test the evaluator shall generate or obtain test vectors 
                 from a known good implementation of the TOE supported schemes. For each supported 
@@ -1391,17 +1391,18 @@ functionality (such as these)
                 For the first selection, the ST author should choose
                 the mode or modes in which AES operates. For the second selection, the ST author should
                 choose the key sizes that are supported by this functionality. 128-bit key size 
-                is required in order to comply with certain TLS implimentations.
+                is required in order to comply with certain TLS implementations.
 				<h:br/>
             </note>
             <aactivity>
-			<TSS/>The evaluator checks the AGD documents to determine that any configuration that 
+			<TSS/> None.
+			<Guidance/> The evaluator checks the AGD documents to determine that any configuration that 
 			is required to be done to configure the functionality for the required modes
-			and key sizes is present. The evaluator shall perform all of the 
+			and key sizes is present.
+      <Tests/>
+		    The evaluator shall perform all of the 
 			following tests for each algorithm implemented by the TSF and used to
 			satisfy the requirements of this PP:
-			<Guidance/> None.
-      <Tests/>
 			<h:br/>
               <h:b>AES-CBC Known Answer Tests</h:b>
               <h:p />There are four Known Answer Tests (KATs), described below. In
@@ -1584,7 +1585,7 @@ functionality (such as these)
               	longer allowed, and SHA-1 for verification of digital signatures is strongly discouraged as
               	there may be risk in accepting these signatures.
               	<h:br/>
-                SHA-1 is currently inlcuded in order to comply with the TLS. If
+                SHA-1 is currently included in order to comply with the TLS. If
                 the TLS package is included in the ST, the hashing algorithms selection for FCS_COP.1(2)
                 must match the hashing algorithms used in the mandatory and selected cipher suites of
                 the TLS package. Vendors are strongly encouraged to implement updated protocols that
@@ -1600,6 +1601,8 @@ functionality (such as these)
             application cryptographic functions (for example, the digital signature verification
             function) is documented in the TSS.
             <h:br/>
+              <Guidance/> None.
+            <Tests/>
             The <abbr title="TOE Security Functionality" linkend="TSF">TSF</abbr> hashing functions can be implemented in one of two 
             modes. The first mode is the byte-oriented mode. In this mode the <abbr title="TOE Security Functionality" linkend="TSF">TSF</abbr> 
             hashes only messages that are an integral number of bytes in length; i.e., the length 
@@ -1610,9 +1613,8 @@ functionality (such as these)
             shall perform all of the following tests for each hash algorithm implemented by the 
             <abbr title="TOE Security Functionality" linkend="TSF">TSF</abbr> and used to satisfy the requirements of this PP.
             <h:br/>
-              <Guidance/> None.
-            <Tests/>
-            The following tests require the developer to provide access to a test application
+            
+		    The following tests require the developer to provide access to a test application
             that provides the evaluator with tools that are typically not found in the production
             application.
                <testlist>
@@ -1677,9 +1679,9 @@ functionality (such as these)
 		to specify the functionality. For the algorithm chosen, the ST author should make the
 		appropriate assignments/selections to specify the parameters that are implemented for that
 		algorithm.</note>
-            <aactivity><TSS/>The evaluator shall perform the following activities based on the selections
+            <aactivity>The evaluator shall perform the following activities based on the selections
               in the <abbr title="Security Target" linkend="ST">ST</abbr>.
-            <h:br/>
+            <TSS/>
               <Guidance/>
               <Tests/>
             The following tests require the developer to provide access to a test application
@@ -1762,9 +1764,9 @@ functionality (such as these)
 			  should be consistent with the overall strength of the algorithm
 			  used for <linkref linkend="FCS_COP.1(1)"/>.
             </note>
-            <aactivity><TSS/>The evaluator shall perform the following activities based on the selections
+            <aactivity>The evaluator shall perform the following activities based on the selections
               in the <abbr title="Security Target" linkend="ST">ST</abbr>.
-            <h:br/>
+            <TSS/>
               <Guidance/> None.
             <Tests/>For each of the supported parameter sets, the evaluator shall compose 15 sets of test data.
 			Each set shall consist of a key and message data.  The evaluator shall have the TSF generate
@@ -2304,7 +2306,8 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
               validity of the certificates takes place. The evaluator ensures the 
               <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> also provides a description of the certificate path validation 
               algorithm.
-              <h:br /> 
+              <Guidance/> None.
+              <Tests/>
               The tests described must be performed in conjunction with the other certificate 
               services evaluation activities, including the functions in <linkref linkend="FIA_X509_EXT.2.1"/>. The tests 
               for the extendedKeyUsage rules are performed in conjunction with the uses that require 
@@ -2313,9 +2316,8 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
               node certificate to be tested, two Intermediate CAs, and the self-signed Root CA.
 	      If the application supports a maximum trust depth of two, then a chain with
 	      no Intermediate CA should instead be created.
-	      <Guidance/>
-              <Tests/>
-              <testlist>
+	      
+		    <testlist>
                 <test>
                   The evaluator shall demonstrate that validating a certificate without a valid 
                   certification path results in the function failing. The evaluator shall then load 
@@ -2384,15 +2386,17 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
               certificates.
             </note>
             <aactivity>
-              <TSS/>The tests described must be performed in conjunction with the other certificate 
+              <TSS/>None.
+		    <Guidance/>None.
+              <Tests/>
+		    The tests described must be performed in conjunction with the other certificate 
               services evaluation activities, including the functions in <linkref linkend="FIA_X509_EXT.2.1"/>. 
 	      If the application supports chains of length four or greater, 
 	      the evaluator shall create a chain of at least four certificates: the 
               node certificate to be tested, two Intermediate CAs, and the self-signed Root CA.
 	      If the application supports a maximum trust depth of two, then a chain with
 	      no Intermediate CA should instead be created.
-	      <Guidance/>
-              <Tests/>
+	      
               <testlist>
                 <test>
                   The evaluator shall construct a certificate path, such that the certificate of the 
@@ -2794,13 +2798,14 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
         application.
 	    </note>
             <aactivity>
-	      <TSS/>None.
-              <Guidance/>The evaluator shall verify that the TSS lists the IANA MIME media types
+	      <TSS/>The evaluator shall verify that the TSS lists the IANA MIME media types
 	      (as described by <h:a href='http://www.iana.org/assignments/media-types'>
 	      http://www.iana.org/assignments/media-types</h:a> )
 	      for all formats the application processes
 	      and that it maps those formats to parsing services provided by the platform.
-	      <Tests/>None.
+	      
+              <Guidance/>None.
+		    <Tests/>None.
 	    </aactivity>
           </f-element>
         </f-component>
@@ -4407,14 +4412,14 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
         <tag>CC</tag>
         <description>Common Criteria for Information Technology Security Evaluation - <h:ul>
             <h:li><h:a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART1V3.1R4.pdf">Part
-                1: Introduction and General Model</h:a>, CCMB-2012-09-001, Version 3.1 Revision 4,
-              September 2012.</h:li>
+                1: Introduction and General Model</h:a>, CCMB-2017-04-001, Version 3.1 Revision 2,
+              April 2017.</h:li>
             <h:li><h:a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART2V3.1R4.pdf">Part
-                2: Security Functional Components</h:a>, CCMB-2012-09-002, Version 3.1 Revision 4,
-              September 2012.</h:li>
+                2: Security Functional Components</h:a>, CCMB-2017-04-002, Version 3.1 Revision 2,
+              April 2017.</h:li>
             <h:li><h:a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART3V3.1R4.pdf">Part
-                3: Security Assurance Components</h:a>, CCMB-2012-09-003, Version 3.1 Revision 4,
-              September 2012.</h:li>
+                3: Security Assurance Components</h:a>, CCMB-2017-04-003, Version 3.1 Revision 2,
+              April 2017.</h:li>
           </h:ul></description>
       </entry>
       <entry id="bibCEM">
@@ -4577,6 +4582,11 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
         <term>DSS</term>
         <description>Digital Signature Standard</description>
       </entry>
+	    
+      <entry>
+        <term>ELF</term>
+        <description>Executable and Linkable Format</description>
+      </entry>
       <entry>
         <term>GPS</term>
         <description>Global Positioning System</description>
@@ -4592,10 +4602,6 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
       <entry>
         <term>HTTPS</term>
         <description>Hypertext Transfer Protocol Secure</description>
-      </entry>
-      <entry>
-        <term>DSS</term>
-        <description>Digital Signature Standard</description>
       </entry>
       <entry>
         <term>IANA</term>
