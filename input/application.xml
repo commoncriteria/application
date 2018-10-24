@@ -2585,10 +2585,10 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
 	      <linkref linkend="FCS_RBG_EXT.1"/> are not by definition default credentials.
 	    </note>
             <aactivity>
-             <TSS/>None.
+             <TSS/>The evaluator shall check the TSS to determine if the application requires any type
+             of credentials and if the application installs with default credentials. 
               <Guidance/>None.
-              <Tests/>The evaluator shall check the TSS to determine if the application requires any type
-             of credentials and if the application installs with default credentials. If the
+              <Tests/>If the
              application uses any default credentials the evaluator shall run the following tests.
              <testlist>
                 <test>
@@ -2625,7 +2625,7 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
                             
               <subaactivity platform="android">The evaluator shall run 
                 <h:code>ls -alR|grep -E '^........w.'</h:code> inside the application's 
-		            data directories to ensure that all files are not world-writable 
+		            data directories to ensure that all files are not world-writable. 
 		            The command should not print any files.
 		            The evaluator shall also verify that no sensitive data is written to
                 external storage which could be read/modified by any application containing the 
@@ -2690,11 +2690,11 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
 	      enable/disable only those functions that it actually implements. The application
 	      is not responsible for controlling the behavior of the platform or other applications.
 	    </note>
-            <aactivity><TSS/>The evaluator shall verify that every management function 
+            <aactivity><TSS/>None.
+              <Guidance/>The evaluator shall verify that every management function 
               mandated by the PP is described in the operational guidance and that the description 
               contains the information required to perform the management duties associated with the 
-              management function.
-              <Guidance/>None. 
+              management function. 
               <Tests/>The evaluator shall test the application's ability to provide the 
               management functions by configuring the application and testing each option selected 
               from above. The evaluator is expected to test these functions in all the ways in which 
@@ -2730,10 +2730,10 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
 	      A dialog box that declares intent to send PII presented to the user 
 	      at the time the application is started is sufficient to meet this requirement. 
 	    </note>
-            <aactivity><TSS/>None.
+            <aactivity><TSS/>The evaluator shall inspect the TSS documentation to identify functionality in the
+              application where PII can be transmitted.
               <Guidance/>None.
-              <Tests/>The evaluator shall inspect the TSS documentation to identify functionality in the
-              application where PII can be transmitted, and perform the following tests.
+              <Tests/>
               <testlist>
                 <test>
                   The evaluator shall run the application and exercise the functionality responsibly
@@ -2764,10 +2764,10 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
               who may be able to guarantee support for platform APIs.
 	    </note>
             <aactivity>
-              <TSS/>None.
-              <Guidance/>None.
-              <Tests/>The evaluator shall verify that the TSS lists the platform <abbr title="Application Programming Interface" linkend="API">API</abbr>s 
+              <TSS/>The evaluator shall verify that the TSS lists the platform <abbr title="Application Programming Interface" linkend="API">API</abbr>s 
               used in the application.
+              <Guidance/>None.
+              <Tests/>
               The evaluator shall then compare the list with the supported <abbr title="Application Programming Interface" linkend="API">API</abbr>s
               (available through e.g. developer accounts, platform developer groups) and ensure that all 
               <abbr title="Application Programming Interface" linkend="API">API</abbr>s listed in the TSS are supported.
@@ -2812,11 +2812,11 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
             <note role="application"> Requesting a memory mapping at an explicit address
             subverts address space layout randomization (<abbr title="Address Space Layout Randomization" linkend="ASLR">ASLR</abbr>). </note>
 
-            <aactivity> <TSS/>None.
-              <Guidance/>None.
-              <Tests/>The evaluator shall ensure that the <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> 
+            <aactivity> <TSS/>The evaluator shall ensure that the <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> 
               describes the compiler flags used to enable <abbr title="Address Space Layout Randomization" linkend="ASLR">ASLR</abbr> when the
-              application is compiled. The evaluator shall perform either a static or dynamic
+              application is compiled.
+              <Guidance/>None.
+              <Tests/> The evaluator shall perform either a static or dynamic
               analysis to determine that no memory mappings are placed at an explicit and
               consistent address. The method of doing so varies per platform. 
 	            <subaactivity platform="android">The evaluator shall run the same application on two
@@ -2851,7 +2851,7 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
 		to ensure the two different instances share no mapping locations.
 	      </subaactivity>
               <subaactivity platform="mac">
-		The evaluator shall run the same application on two different Mac mac systems. 
+		The evaluator shall run the same application on two different Mac systems. 
 		The evaluator shall then compare their memory maps using 
 		<h:code>vmmap <h:i>PID</h:i></h:code>
 		to ensure the two different instances share no mapping locations.
@@ -3006,10 +3006,10 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
             <aactivity>
 	      The evaluator will inspect every native executable included in the TOE to ensure that stack-based buffer overflow protection is present.
               <subaactivity platform="windows">Applications that run as Managed Code in the .NET Framework do not require these stack protections.
-               Applications deveolped in Object Pascal using the Delphi IDE compiled with RangeChecking enabled comply with this element. For other code, 
-              the evaluator shall review the TSS and verify that the /GS flag was used during copilation. The evaluator shall run a tool like, BinScope, 
+               Applications developed in Object Pascal using the Delphi IDE compiled with RangeChecking enabled comply with this element. For other code, 
+              the evaluator shall review the TSS and verify that the /GS flag was used during compilation. The evaluator shall run a tool like, BinScope, 
               that can verify the correct usage of /GS.</subaactivity>
-	      <h:div class="subaact"> <h:i><h:b>For <abbr title="Portable Executables">PE</abbr> executables</h:b></h:i>
+	      <h:div class="subaact"> <h:i><h:b>For <abbr title="Portable Executables">PE</abbr></h:b></h:i>
 , the evaluator will disassemble each and ensure the following sequence appears:<h:br/>
 <h:table class="code-table">
 <h:tr><h:td>mov rcx, QWORD PTR [rsp+<h:i>(...)</h:i>]</h:td></h:tr>
