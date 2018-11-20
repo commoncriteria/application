@@ -842,7 +842,14 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
           <selection-depends req="fcs_ckm_ext.1.1" ids="sel_invoke_genkey,sel_impl_genkey"/>
           <f-element id="fcs_ckm.1.1(1)">
             <title>
-              The application shall <selectables linebreak="yes">
+              Refinement: A password/passphrase shall perform [Password-based Key Derivation Functions] in accordance with a specified 
+              cryptographic algorithm as specified in <linkref linkend="FCS_COP.1(4)"/>, with [assignment: positive integer of 1,000 or more] iterations,
+              and output cryptographic key sizes <selectables>
+                <selectable>128</selectable>
+                <selectable>256</selectable>
+              </selectables>
+              that meet the following <h:b>[NIST SP 800-132]</h:b>.              
+              <!-- The application shall <selectables linebreak="yes">
                 <selectable>invoke platform-provided functionality</selectable>
                 <selectable>implement functionality</selectable>
               </selectables>
@@ -866,7 +873,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
                   that meet the following: 
                   <h:b>[FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.1]</h:b>
                 </selectable>
-              </selectables>.
+              </selectables>. -->
             </title>
             <note role="application">
               The <abbr title="Security Target" linkend="ST">ST</abbr> author shall select all key generation schemes used for key 
@@ -1027,6 +1034,39 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
 	      </h:p>
             </aactivity>
           </f-element>
+          <!--Bobby's insert. Hope this is in the right place... -->
+          <f-element id="FCS_CKM.1.2(1)">
+            <title>The <abbr title="TOE Security Functionality" linkend="TSF">TSF</abbr> shall generate salts using a RBG that meets 
+            <linkref linkend="FCS_RGB_EXT.1"/> (from the AS PP) and with entrophy corresponding to the security strength selected for 
+            PBKDF in <linkref linkend="FCS_CKM.1.1(1)"/>.
+            </title>
+            <note role="application">Conditioning can be performed using one of the identified hash functions or the process described 
+              in NIST SP 800-132; the method used is selected by the ST Author. SP 800-132 requires the use of a pseudo-random 
+              function (PRF) consisting of HMAC with an approved hash function. The ST author selects the hash function used, 
+              also includes the appropriate requirements for HMAC and the hash function. 
+            <h:br/>
+              Appendix A of SP 800-132 recommends setting the iteration count in order to increase the computation needed to derive a 
+              key from a password and, therefore, increase the workload of performing a password recovery attack. A significantly higher 
+              value is recommended to ensure optimal security. This value is expected to increase to a minimum of 10,000 in a future 
+              iteration based on SP800-63.</note>
+            <aactivity>
+              <TSS/> Support for PBKDF: The evaluator shall examine the password hierarchy <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr> to ensure that the formation of all password 
+              based derived keys is described and that the key sizes match that described by the <abbr title="Security Target" linkend="ST">ST</abbr> author. 
+              The evaluator shall check that the <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr> describes the method by which the password/passphrase is first encoded and then fed to 
+              the SHA algorithm. The settings for the algorithm (padding, blocking, etc.) shall be described, and the evaluator shall verify 
+              that these are supported by the selections in this component as well as the selections concerning the hash function itself. 
+              The evaluator shall verify that the <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr> contains a description of how the output of the hash function is used to form the 
+              submask that will be input into the function.
+              For the NIST SP 800-132-based conditioning of the password/passphrase, the required assurance activities will be performed when 
+              doing the assurance activities for the appropriate requirements (<linkref linkend="FCS_COP.1.1(4)"/>). 
+              No explicit testing of the formation of the submask from the input password is required. 
+              <linkref linkend="FCS_CKM.1.2(1)"/>: The <abbr title="Security Target" linkend="ST">ST</abbr> author shall provide a description in the <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr> regarding the salt generation. 
+              The evaluator shall confirm that the salt is generated using an RBG described in <linkref linkend="FCS_RBG_EXT.1"/>.
+              <Guidance/> There is no associated guidance with this activity.
+              <Tests/> Conditioning: No explicit testing of the formation of the authorization factor from the input password/passphrase is required.
+            </aactivity>
+          </f-element>
+          <!-- End Bobby's Insert -->
         </f-component>
 
         <f-component id="FCS_CKM.1(2)" name="Cryptographic Symmetric Key Generation" status="optional">
@@ -1793,32 +1833,12 @@ functionality (such as these)
               </selectables>
                to non-volatile memory.</title>
             <note role="application">
-	      <h:p>
-		This requirement ensures that persistent credentials (secret 
-		keys, PKI private keys, or passwords) are stored securely, and never persist in cleartext form. 
-	      </h:p>
-
-	      <h:p>
-		If the platform provides mechanisms for secure storage, application developers are encouraged to use them.
-		This could include storage to cloud platforms as many provide a secure storage mechanisms for credentials.
-		Depending on the platform that may include hardware-backed protection for credential storage.
-		
-		Application developers must choose a selection, or multiple selections, 
-		based on all credentials that the application stores.
-		If the platform does not provide a secure storage mechanism,
-		the application must select <h:i>implement functionality to securely store</h:i> all credentials.
-	        
-	        For Linux two popular options were included in the Evaluation Activities, other options may also be acceptable and could be added if requested.
-	      </h:p>
-	      <h:p>
-              If <h:i>not store any credentials</h:i> is selected, then the application must not store any credentials.
-              If <h:i>invoke the functionality provided by the platform to securely store</h:i> is selected then the 
-              application developer must closely review the AA for their platform and provide documentation indicating 
-              which platform mechanisms are used to store credentials. If <h:i>implement functionality to securely store credentials</h:i>
-              is selected, then the following components must be included in the <abbr title="Security Target" linkend="ST">ST</abbr>: <linkref linkend="FCS_COP.1(1)"/>. 
-              If other cryptographic operations are used to implement the secure storage of credentials, 
-              the corresponding requirements must be included in the ST.
-	      </h:p>
+		This requirement ensures that persistent credentials (secret keys, PKI private keys, or passwords) are stored securely.
+		The assurance activity implicity restricts which selections can be made, on per-platform basis. For example, if a platform 
+		provides hardware-backed protection for credential storage, then the third selection cannot be indicated.
+    If implement functionality to securely store credentials is selected, then the following components must be included in 
+    the <abbr title="Security Target" linkend="ST">ST</abbr>: <linkref linkend="FCS_COP.1(1)"/> or [<linkref linkend="FCS_CKM.1.1(1)"/> and <linkref linkend="FCS_CKM.1.2(1)"/>].
+	  If other cryptographic operations are used to implement the secure storage of credentials, the corresponding requirements must be include in the <abbr title="Security Target" linkend="ST">ST</abbr>.       
             </note>
             <aactivity><TSS/>The evaluator shall check the TSS to ensure that it lists all persistent 
               credentials (secret keys, PKI private keys, or passwords) needed to meet the 
@@ -1826,7 +1846,8 @@ functionality (such as these)
               confirm that the TSS lists for what purpose it is used, and how it is stored. 
               <h:br/>
               For all credentials for which the application implements functionality, the evaluator shall 
-              verify credentials are encrypted according to <linkref linkend="FCS_COP.1(1)"/>.
+              verify credentials are encrypted according to <linkref linkend="FCS_COP.1(1)"/> or conditioned according to
+              <linkref linkend="FCS_CKM.1.1(1)"/> and <linkref linkend="FCS_CKM.1.2(1)"/>.
               <h:br/>
               <Guidance/> None.
               <Tests/>For all credentials for which the application invokes platform-provided
@@ -1846,7 +1867,7 @@ functionality (such as these)
                 within a <h:code>Keychain</h:code>.  
 	      </subaactivity>
               <subaactivity platform="linux">
-The evaluator will verify that all credentials are stored with Gnome Keyring or KDE KWallet.
+The evaluator shall verify that all keys are stored using Linux keyrings.
 	      </subaactivity>
               <subaactivity platform="Solaris">
             		The evaluator shall verify that all keys are stored using Solaris 
