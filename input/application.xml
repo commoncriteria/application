@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xsl" href="..\transforms\pp2html.xsl"?>
-
-<?xml-model href="https://github.com/commoncriteria/transforms/raw/master/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/commoncriteria/transforms/master/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
 <PP xmlns="https://niap-ccevs.org/cc/v1"
     xmlns:h="http://www.w3.org/1999/xhtml"
-    name="Application Software">
+    name="Application Software" type="PP"
+    boilerplate="yes">
   <PPReference>
     <ReferenceTable>
       <PPTitle>Protection Profile for Application Software</PPTitle>
       <PPVersion>1.3</PPVersion>
       <PPAuthor>National Information Assurance Partnership</PPAuthor>
-      <PPPubDate>2018-10-12</PPPubDate>
+      <PPPubDate>2018-11-26</PPPubDate>
       <Keywords>application; software</Keywords>
     </ReferenceTable>
   </PPReference>
@@ -69,11 +69,13 @@
   <RevisionHistory>
     <entry>
           <version>v 1.3</version>
-          <date>2018-06-27</date>
+          <date>2018-11-16</date>
           <subject>Incorporated available TDs
             <h:br/>Refactored FPT_TUD 
             <h:br/>Added a selection to FTP_DIT
             <h:br/>Moved SWID Tags requirement
+            <h:br/>Incorporated TLS Package
+            <h:br/>Added equivalency section
           </subject>
     </entry>
   </RevisionHistory>
@@ -90,7 +92,8 @@
       has been the natural response to improvements in operating system security and development
       processes. As a result, it is paramount that the security of applications be improved to
       reduce the risk of compromise.</section>
-    <section title="Glossary" id="glos">
+    <section title="Terms" id="glos">
+      <subsection title="Common Criteria Terms">
         <glossary>
           <entry>
             <term><abbr title="Common Criteria">CC</abbr></term> 
@@ -144,6 +147,10 @@ An implementation-independent set of security requirements for a specific subset
             <description>A requirement to assure the security of the <abbr linkend="TOE"/>.
             </description>
           </entry>
+	</glossary>
+      </subsection>
+      <subsection title="Technical Terms">
+	<glossary>
           <entry>
             <term><abbr title="Address Space Layout Randomization">ASLR</abbr></term>
             <description>An anti-exploitation feature which loads memory mappings into unpredictable
@@ -211,7 +218,7 @@ An implementation-independent set of security requirements for a specific subset
           <entry>
             <term>Platform</term>
             <description>The environment in which application software runs. 
-              The platform can be an operating system, hardware enviroment, an software based execution environment, 
+              The platform can be an operating system, hardware environment, a software based execution environment, 
 		    or some combination of these.  These types platforms may also run atop other platforms.
             </description>
           </entry>
@@ -238,13 +245,14 @@ An implementation-independent set of security requirements for a specific subset
               updating application software.</description>
           </entry>
         </glossary>
+      </subsection>
       </section>
     <section title="Compliant Targets of Evaluation" id="TOEdescription"><h:p>The requirements in this
   	  document apply to application software which runs on any type of platform.
 Some application types are covered by more specific PPs, which may be expressed as Modules of this PP.
   	  Such applications are subject to the requirements of both this PP and the
   	  Module(s) that addresses their special functionality.  PPs for some 
-	  particularly specialized applications may not be expressed as Module at this time,
+	  particularly specialized applications may not be expressed as Modules at this time,
 	  though the requirements in this document should be seen as objectives for those 
 	  highly specialized applications.
 	  </h:p><h:p> 
@@ -258,7 +266,7 @@ Some application types are covered by more specific PPs, which may be expressed 
 	    <h:p>
 		The application, which consists of the software provided by its vendor,
 		is installed onto the platform(s) it operates on.  It executes on the platform, which
-		may be an operating system (<figref refid="toe-as-apponos"/>), hardware enviroment, 
+		may be an operating system (<figref refid="toe-as-apponos"/>), hardware environment, 
 		    a software based execution environment, 
 		    or some combination of these (<figref refid="toe-as-apponee"/>). Those platforms may themselves run within other
 		    environments, such as virtual machines or operating systems, that completely abstract away the underlying hardware
@@ -317,42 +325,42 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
         </usecase>
       </usecases></section>
   </chapter>
-  <chapter title="Conformance Claims" id="ccl">
-    <cclaims>
-      <cclaim id="Conformance Statement">
-        <description>
-      To be conformant to this PP, a <abbr title="Security Target" linkend="ST">ST</abbr> must demonstrate 
-      Exact Conformance, a subset of Strict Conformance as defined in <cite linkend="bibCC"/> Part 1 
-      (ASE_CCL). The <abbr title="Security Target" linkend="ST">ST</abbr> must include all components in this PP that are:
-      <h:ul>
-          <h:li>unconditional (which are always required)</h:li>
-          <h:li>selection-based (which are required when certain <h:i>selections</h:i> are chosen in the unconditional requirements)</h:li>
-      </h:ul>and may include components that are
-      <h:ul>
-          <h:li>optional or</h:li>
-          <h:li>objective.</h:li>
-      </h:ul>
-	  <InsertAppendixExplainer/>
-	  The <abbr title="Security Target" linkend="ST">ST</abbr> may iterate any of these components, but it must not include any additional 
-	  component (e.g. from CC Part 2 or 3 or a PP not conformant with this one, or extended by the <abbr title="Security Target" linkend="ST">ST</abbr>) 
-	  not defined in this PP or a PP conformant to this one.
-	  See <secref linkend="TOEdescription"/> regarding more-specific PPs that may extend this one.
-	</description>
-      </cclaim>
-      <cclaim id="CC Conformance Claims">
-        <description>This PP is conformant to Parts 2 (extended) and 3 (extended) of Common Criteria
-          Version 3.1, Revision 5. <cite linkend="bibCC"/>.</description>
-      </cclaim>
-      <cclaim id="PP Claim">
-        <description>This PP does not claim conformance to any other Protection
-          Profile.</description>
-      </cclaim>
-      <cclaim id="Package Claim">
-        <description>This PP does not claim conformance to any packages.</description>
-      </cclaim>
-    </cclaims>
-  </chapter>
-  <chapter title="Security Problem Definition" id="spd">The security problem is described in terms
+  <chapter title="Conformance Claims" id="ccl"/>
+  <!--   <cclaims> -->
+  <!--     <cclaim id="Conformance Statement"> -->
+  <!--       <description> -->
+  <!--     To be conformant to this PP, a <abbr title="Security Target" linkend="ST">ST</abbr> must demonstrate  -->
+  <!--     Exact Conformance, a subset of Strict Conformance as defined in <cite linkend="bibCC"/> Part 1  -->
+  <!--     (ASE_CCL). The <abbr title="Security Target" linkend="ST">ST</abbr> must include all components in this PP that are: -->
+  <!--     <h:ul> -->
+  <!--         <h:li>unconditional (which are always required)</h:li> -->
+  <!--         <h:li>selection-based (which are required when certain <h:i>selections</h:i> are chosen in the unconditional requirements)</h:li> -->
+  <!--     </h:ul>and may include components that are -->
+  <!--     <h:ul> -->
+  <!--         <h:li>optional or</h:li> -->
+  <!--         <h:li>objective.</h:li> -->
+  <!--     </h:ul> -->
+  <!-- 	  <InsertAppendixExplainer/> -->
+  <!-- 	  The <abbr title="Security Target" linkend="ST">ST</abbr> may iterate any of these components, but it must not include any additional  -->
+  <!-- 	  component (e.g. from CC Part 2 or 3 or a PP not conformant with this one, or extended by the <abbr title="Security Target" linkend="ST">ST</abbr>)  -->
+  <!-- 	  not defined in this PP or a PP conformant to this one. -->
+  <!-- 	  See <secref linkend="TOEdescription"/> regarding more specific PPs that may extend this one. -->
+  <!-- 	</description> -->
+  <!--     </cclaim> -->
+  <!--     <cclaim id="CC Conformance Claims"> -->
+  <!--       <description>This PP is conformant to Parts 2 (extended) and 3 (extended) of Common Criteria -->
+  <!--         Version 3.1, Revision 5. <cite linkend="bibCC"/>.</description> -->
+  <!--     </cclaim> -->
+  <!--     <cclaim id="PP Claim"> -->
+  <!--       <description>This PP does not claim conformance to any other Protection -->
+  <!--         Profile.</description> -->
+  <!--     </cclaim> -->
+  <!--     <cclaim id="Package Claim"> -->
+  <!--       <description>This PP does not claim conformance to any packages.</description> -->
+  <!--     </cclaim> -->
+  <!--   </cclaims> -->
+  <!-- </chapter> -->
+  <chapter title="Security Problem Description" id="spd">The security problem is described in terms
     of the threats that the <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> is expected to address, assumptions about the
     operational environment, and any organizational security policies that the <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr>
     is expected to enforce.
@@ -438,7 +446,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
         </assumption>
         <assumption id="A.PROPER_ADMIN">
           <description>The administrator of the application software is not careless, willfully
-            negligent or hostile, and administers the software within compliance of the applied
+            negligent or hostile, and administers the software in compliance with the applied
             enterprise security policy.</description>
           <objective-refer ref="OE.PROPER_ADMIN">
             <rationale>The operational environment objective OE.PROPER_ADMIN 
@@ -493,8 +501,10 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
           </description>
           <component-refer ref="fmt_mec_ext.1"/>
           <component-refer ref="fpt_api_ext.1"/>
+          <component-refer ref="fpt_api_ext.2"/>
           <component-refer ref="fpt_lib_ext.1"/>
           <component-refer ref="fpt_tud_ext.2"/>
+          <component-refer ref="fcs_ckm.1(1)"/>
         </SO>
         <SO id="O.MANAGEMENT">
           <description>To facilitate management by users and the enterprise, conformant <abbr
@@ -505,8 +515,9 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
             includes providing control to the user regarding disclosure of any PII.</description>
           <component-refer ref="fmt_smf.1"/>
           <component-refer ref="fpt_idv_ext.1"/>
-          <component-refer ref="fpt_tud_ext.1.2"/>
+          <component-refer ref="fpt_tud_ext.1"/>
           <component-refer ref="fpr_ano_ext.1"/>
+          <component-refer ref="fcs_cop.1(3)"/>
         </SO>
         <SO id="O.PROTECTED_STORAGE">
           <description>
@@ -520,6 +531,11 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
           <component-refer ref="fdp_dar_ext.1"/>
           <component-refer ref="fcs_sto_ext.1"/>
           <component-refer ref="fcs_rbg_ext.1"/>
+          <component-refer ref="fcs_ckm.1(2)"/>
+          <component-refer ref="fcs_ckm.1(3)"/>
+          <component-refer ref="fcs_cop.1(1)"/>
+          <component-refer ref="fcs_cop.1(2)"/>
+          <component-refer ref="fcs_cop.1(4)"/>
         </SO>
         <SO id="O.PROTECTED_COMMS">
           <description> To address both passive (eavesdropping) and active (packet modification)
@@ -529,6 +545,12 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
           </description>
           <component-refer ref="ftp_dit_ext.1"/>
           <component-refer ref="fcs_rbg_ext.1"/>
+          <component-refer ref="fcs_rbg_ext.2"/>
+          <component-refer ref="fcs_ckm_ext.1"/>
+          <component-refer ref="fcs_ckm.2"/>
+          <component-refer ref="fcs_https_ext.1"/>
+          <component-refer ref="fdp_net_ext.1"/>
+          <component-refer ref="fia_x509_ext.1"/>
         </SO>
       </SOs>
     </section>
@@ -554,30 +576,10 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
       </SOEs></section>
     <section title="Security Objectives Rationale" id="SOR">This section describes how the
       assumptions, threats, and organizational security policies map to the security objectives.
-      <InsertSPDCorrespondence/></section>
+    </section>
   </chapter>
-  <chapter title="Security Requirements" id="req">This chapter describes the security requirements
-    which have to be fulfilled by the <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr>. Those requirements comprise functional
-    components from Part 2 and assurance components from Part 3 of <cite linkend="bibCC"/>. The
-    following notations are used: <h:ul>
-      <h:li>
-        <h:b>Refinement</h:b> operation (denoted by <h:b>bold text</h:b>): is used to add details to a
-        requirement, and thus further restricts a requirement.</h:li>
-      <h:li>
-        <h:b>Selection</h:b> (denoted by <h:i>italicized text</h:i>): is used to select one or more options
-        provided by the [CC] in stating a requirement.</h:li>
-      <h:li>
-        <h:b>Assignment</h:b> operation (denoted by <h:span class="assignable-content">italicized text</h:span>): is used to assign a
-        specific value to an unspecified parameter, such as the length of a password. Showing the
-        value in square brackets indicates assignment.</h:li>
-      <h:li>
-        <h:b>Iteration</h:b> operation: are identified with a number inside parentheses (e.g.
-        "(1)")</h:li>
-    </h:ul>
-    <section title="Security Functional Requirements" id="SFRs">The Security Functional Requirements
-      included in this section are derived from Part 2 of the Common Criteria for Information
-      Technology Security Evaluation, Version 3.1, Revision 4, with additional extended functional
-      components. 
+  <chapter title="Security Requirements" id="req">
+    <section title="Security Functional Requirements" id="SFRs">
       <subsection title="Cryptographic Support (FCS)" id="fcs">
         <f-component id="fcs_rbg_ext.1" name="Random Bit Generation Services">
           <f-element id="fcs_rbg_ext.1.1">
@@ -614,7 +616,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
               shall determine that for each of these functions, the <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr> states which 
               platform interface (API) is used to obtain the random numbers.  The evaluator shall confirm 
               that each of these interfaces corresponds to the acceptable interfaces listed for each platform 
-              below.  The evaluator shall then decompile the application binary using an decompiler 
+              below.  The evaluator shall then decompile the application binary using a decompiler 
               suitable for the application (TOE).  The evaluator shall search the output of the 
               decompiler to determine that, for each API listed in the <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr>, that API 
               appears in the output.  If the representation of the API does not correspond directly to 
@@ -834,12 +836,12 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
         <f-component id="fcs_ckm.1(1)" name="Cryptographic Asymmetric Key Generation" status="sel-based">
           <selection-depends req="fcs_ckm_ext.1.1" ids="sel_invoke_genkey,sel_impl_genkey"/>
           <f-element id="fcs_ckm.1.1(1)">
-            <title>
+            <title>            
               The application shall <selectables linebreak="yes">
                 <selectable>invoke platform-provided functionality</selectable>
                 <selectable>implement functionality</selectable>
               </selectables>
-               to generate asymmetric cryptographic keys in accordance with a specified cryptocraphic key generation algorithm
+               to generate asymmetric cryptographic keys in accordance with a specified cryptographic key generation algorithm
               <selectables linebreak="yes">
                 <selectable>
                   <h:b>[RSA schemes]</h:b> using cryptographic key sizes of <h:b>[2048-bit or greater]</h:b> that meet the following <h:b>
@@ -1070,6 +1072,55 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
           </f-element>
         </f-component>
 
+        <f-component name="Password Conditioning" id="fcs_ckm.1(3)" status="sel-based">
+  <selection-depends req="FCS_STO_EXT.1.1" ids="sel_impl_sto"/>
+  <f-element id="FCS_CKM.1.1(3)">
+    <title>
+    Refinement: A password/passphrase shall perform [Password-based Key Derivation Functions] in accordance with a specified 
+    cryptographic algorithm as specified in <linkref linkend="FCS_COP.1(4)"/>, with [assignment: positive integer of 1,000 or more] iterations,
+    and output cryptographic key sizes <selectables>
+      <selectable>128</selectable>
+      <selectable>256</selectable>
+    </selectables>
+      that meet the following <h:b>[NIST SP 800-132]</h:b>.  </title>
+  </f-element>
+  
+  <f-element id="FCS_CKM.1.2(3)">
+    <title>The <abbr title="TOE Security Functionality" linkend="TSF">TSF</abbr> shall generate salts using a RBG that meets 
+      <linkref linkend="FCS_RGB_EXT.1"/> (from the AS PP) and with entropy corresponding to the security strength selected for 
+      PBKDF in <linkref linkend="FCS_CKM.1.1(1)"/>.
+    </title>
+    
+    
+    <note role="application">Conditioning can be performed using one of the identified hash functions or the process described 
+      in NIST SP 800-132; the method used is selected by the ST Author. SP 800-132 requires the use of a pseudo-random 
+      function (PRF) consisting of HMAC with an approved hash function. The ST author selects the hash function used, 
+      also includes the appropriate requirements for HMAC and the hash function. 
+      <h:br/>
+      Appendix A of SP 800-132 recommends setting the iteration count in order to increase the computation needed to derive a 
+      key from a password and, therefore, increase the workload of performing a password recovery attack. A significantly higher 
+      value is recommended to ensure optimal security. This value is expected to increase to a minimum of 10,000 in a future 
+      iteration based on SP800-63.</note>
+    
+    
+    <aactivity>
+      <TSS/> Support for PBKDF: The evaluator shall examine the password hierarchy <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr> to ensure that the formation of all password 
+      based derived keys is described and that the key sizes match that described by the <abbr title="Security Target" linkend="ST">ST</abbr> author. 
+      The evaluator shall check that the <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr> describes the method by which the password/passphrase is first encoded and then fed to 
+      the SHA algorithm. The settings for the algorithm (padding, blocking, etc.) shall be described, and the evaluator shall verify 
+      that these are supported by the selections in this component as well as the selections concerning the hash function itself. 
+      The evaluator shall verify that the <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr> contains a description of how the output of the hash function is used to form the 
+      submask that will be input into the function.
+      For the NIST SP 800-132-based conditioning of the password/passphrase, the required assurance activities will be performed when 
+      doing the assurance activities for the appropriate requirements (<linkref linkend="FCS_COP.1.1(4)"/>). 
+      No explicit testing of the formation of the submask from the input password is required. 
+      <linkref linkend="FCS_CKM.1.2(1)"/>: The <abbr title="Security Target" linkend="ST">ST</abbr> author shall provide a description in the <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr> regarding the salt generation. 
+      The evaluator shall confirm that the salt is generated using an RBG described in <linkref linkend="FCS_RBG_EXT.1"/>.
+      <Guidance/> There is no associated guidance with this activity.
+      <Tests/> Conditioning: No explicit testing of the formation of the authorization factor from the input password/passphrase is required.
+    </aactivity>
+  </f-element>
+</f-component>
 
         <f-component id="fcs_ckm.2" name="Cryptographic Key Establishment" status="sel-based">
 	  <selection-depends req="fpt_dit_ext.1.1" ids="sel_all_tlsc"/>
@@ -1782,42 +1833,34 @@ functionality (such as these)
                 </selectable>
                 <selectable id="sel_impl_sto">implement functionality to securely store
                   <assignable>list of credentials</assignable>
+                  according to
+                  <selectables>
+                    <selectable>FCS_COP.1(1)</selectable>
+                    <selectable>FCS_CKM.1(3)</selectable>
+                  </selectables>
                 </selectable>
               </selectables>
                to non-volatile memory.</title>
             <note role="application">
-	      <h:p>
-		This requirement ensures that persistent credentials (secret 
-		keys, PKI private keys, or passwords) are stored securely, and never persisted in cleartext form. 
-	      </h:p>
-
-	      <h:p>
-		If the platform provides mechanisms for secure storage, application developers are encouraged to use them.
-		This could include storage to a cloud platforms as many provide a secure storage mechanisms for credentials.
-		Depending on the platform that may include hardware-backed protection for credential storage.
-		
-		Application developers must choose a selection, or multiple selections, 
-		based on all credentials that the application stores.
-		If the platform does not provide a secure storage mechanism,
-		the application must select <h:i>implement functionality to securely store</h:i> all credentials.
-	      </h:p>
-	      <h:p>
-              If <h:i>not store any credentials</h:i> is selected, then the application must not store any credentials.
-              If <h:i>invoke the functionality provided by the platform to securely store</h:i> is selected then the 
-              application developer must closely review the AA for their platform and provide documentation indicating 
-              which platform mechanisms are used to store credentials. If <h:i>implement functionality to securely store credentials</h:i>
-              is selected, then the following components must be included in the <abbr title="Security Target" linkend="ST">ST</abbr>: <linkref linkend="FCS_COP.1(1)"/>. 
-              If other cryptographic operations are used to implement the secure storage of credentials, 
-              the corresponding requirements must be included in the ST.
-	      </h:p>
+              This requirement ensures that persistent credentials (secret keys, PKI private keys, passwords, etc) are stored securely, and never persisted in cleartext form. 
+              Application developers are encouraged to use platform mechanisms for the secure storage of credentials. 
+              Depending on the platform that may include hardware-backed protection for credential storage. Application developers must choose a selection, 
+              or multiple selections, based on all credentials that the application stores. If not store any credentials is selected then the application must not store any credentials.
+              If invoke the functionality provided by the platform to securely store is selected then the Application developer must closely review the AA for their 
+              platform and provide documentation indicating which platform mechanisms are used to store credentials. 
+    If implement functionality to securely store credentials is selected, then the following components must be included in 
+    the <abbr title="Security Target" linkend="ST">ST</abbr>: <linkref linkend="FCS_COP.1(1)"/> or [<linkref linkend="FCS_CKM.1(3)"/>].
+	  If other cryptographic operations are used to implement the secure storage of credentials, the corresponding requirements must be include in the <abbr title="Security Target" linkend="ST">ST</abbr>.       
             </note>
+            
             <aactivity><TSS/>The evaluator shall check the TSS to ensure that it lists all persistent 
               credentials (secret keys, PKI private keys, or passwords) needed to meet the 
               requirements in the <abbr title="Security Target" linkend="ST">ST</abbr>. For each of these items, the evaluator shall 
               confirm that the TSS lists for what purpose it is used, and how it is stored. 
               <h:br/>
               For all credentials for which the application implements functionality, the evaluator shall 
-              verify credentials are encrypted according to <linkref linkend="FCS_COP.1(1)"/>.
+              verify credentials are encrypted according to <linkref linkend="FCS_COP.1(1)"/> or conditioned according to
+              <linkref linkend="FCS_CKM.1.1(1)"/> and <linkref linkend="FCS_CKM.1.2(1)"/>.
               <h:br/>
               <Guidance/> None.
               <Tests/>For all credentials for which the application invokes platform-provided
@@ -1837,7 +1880,7 @@ functionality (such as these)
                 within a <h:code>Keychain</h:code>.  
 	      </subaactivity>
               <subaactivity platform="linux">
-The evaluator will verify that all credentials are stored with Gnome Keyring or KDE KWallet.
+The evaluator shall verify that all keys are stored using Linux keyrings.
 	      </subaactivity>
               <subaactivity platform="Solaris">
             		The evaluator shall verify that all keys are stored using Solaris 
@@ -1878,13 +1921,13 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
             <title> The application shall 
               <selectables>
                 <selectable>
-                  not establish the connection
+                  not establish the application-initiated connection
                 </selectable>
                 <selectable>
-                  notify the user and not establish the connection
+                  notify the user and not establish the user-initiated connection
                 </selectable>
                 <selectable>
-                  notify the user and request authorization to establish the connection
+                  notify the user and request authorization to establish the user-initiated connection
                 </selectable>
               </selectables>
               if the peer certificate is deemed invalid.
@@ -1892,8 +1935,7 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
             </title>    
             <note role="application">
               Validity is determined by the certificate path, the expiration date, and the 
-              revocation status in accordance with RFC 5280. If the communication is user-initiated, 
-              the application must select to notify the user.
+              revocation status in accordance with RFC 5280. 
             </note>
             <aactivity>
               <TSS/>None.
@@ -3042,7 +3084,7 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
             </note>
             <aactivity>
 	      <TSS/>None.
-	      <Guidance/>The evaluator shall check to ensure the guidence includes a description of how updates are performed.
+	      <Guidance/>The evaluator shall check to ensure the guidance includes a description of how updates are performed.
               <Tests/>The evaluator shall check for an update using procedures described in either the application documentation 
 	      or the platform documentation and verify that the application does not issue an error.
 	      If it is updated or if it reports that no update is available this requirement is considered to be met.
@@ -3254,11 +3296,16 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
         <selectable>encrypt all transmitted sensitive data with
           <selectables>
             <selectable id="sel_all_https"><h:abbr title="Hypertext Transfer Protocol Secure">HTTPS</h:abbr></selectable>
-	    <selectable id="sel_all_tlsc"><h:abbr title="Transport Layer Security">TLS</h:abbr> (as client)</selectable>
-	    <selectable id="sel_all_tlss"><h:abbr title="Transport Layer Security">TLS</h:abbr> (as server)</selectable>
-	    <selectable id="sel_all_dtls"><h:abbr title="Datagram Transport Layer Security">DTLS</h:abbr></selectable>
-      	    <selectable>SSH as conforming to the <h:a href="https://www.niap-ccevs.org/pp/"><h:i>Secure Shell Module</h:i></h:a></selectable>
-	  </selectables>
+      	    <selectable id="sel_all_tlsc"><h:abbr title="Transport Layer Security">TLS</h:abbr> (as client)</selectable>
+      	    <selectable id="sel_all_tlss"><h:abbr title="Transport Layer Security">TLS</h:abbr> (as server)</selectable>
+      	    <selectable id="sel_all_dtls"><h:abbr title="Datagram Transport Layer Security">DTLS</h:abbr></selectable>
+            <selectable>SSH as conforming to the <h:a href="https://www.niap-ccevs.org/pp/"><h:i>Secure Shell Module</h:i></h:a></selectable>
+          </selectables>
+            between itself and
+          <selectables  linebreak="yes">
+              <selectable>another trusted IT product</selectable>
+              <selectable>another TOE component</selectable>
+            </selectables>.
         </selectable>
         <selectable>encrypt all transmitted data with
           <selectables>
@@ -3268,14 +3315,13 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
             <selectable id="sel_sen_dtls"><h:abbr title="Datagram Transport Layer Security">DTLS</h:abbr></selectable>
       	    <selectable>SSH as conforming to the <h:a href="https://www.niap-ccevs.org/pp/"><h:i>Secure Shell Module</h:i></h:a></selectable>
 	  </selectables>
-        </selectable>
+        </selectable> 
+	      between itself and
+	      <selectables linebreak="yes">
+	        <selectable>another trusted IT product</selectable>
+	        <selectable>another TOE component</selectable>
+	      </selectables>.
       </selectables>
-        between itself and
-         <selectables>
-            <selectable>another trusted IT product</selectable>
-            <selectable>another TOE component</selectable>
-        </selectables>
-        .
 	    </title>
       <note role="application">
 	      Modules may override this requirement to provide for other protocols.
@@ -4166,7 +4212,7 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
           <h:td valign="top">Guidance</h:td>
         </h:tr>
         <h:tr>
-          <h:td rowspan="2" valign="top">PP-Specified Funtionality</h:td>
+          <h:td rowspan="2" valign="top">PP-Specified Functionality</h:td>
           <h:td valign="top">Same</h:td>
           <h:td valign="top">If the differences between Models affect only non-PP-specified functionality, then the Models are equivalent. </h:td>
         </h:tr>
@@ -4203,7 +4249,7 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
           <h:td valign="top">Versions of different Product Models are not equivalent unless the Models are equivalent as defined in Section 3.</h:td>
         </h:tr>
         <h:tr>
-          <h:td rowspan="2" valign="top">PP-Specified Funtionality</h:td>
+          <h:td rowspan="2" valign="top">PP-Specified Functionality</h:td>
           <h:td valign="top">Same</h:td>
           <h:td valign="top">If the differences affect only non-PP-specified functionality, then the Versions are equivalent. </h:td>
         </h:tr>
@@ -4266,7 +4312,7 @@ The evaluator will verify that all credentials are stored with Gnome Keyring or 
             <h:td valign="top">Platforms that present different processor architectures and instruction sets to the application are not equivalent.</h:td>
           </h:tr>
           <h:tr>
-            <h:td valign="top">PP-Specified Funtionality</h:td>
+            <h:td valign="top">PP-Specified Functionality</h:td>
             <h:td valign="top">Same</h:td>
             <h:td valign="top">For platforms with the same processor architecture, the platforms are equivalent with
               respect to the application if execution of all PP-specified security functionality follows the same code path on both platforms.</h:td>
