@@ -602,20 +602,27 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
               shall determine that for each of these functions, the <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr> states which 
               platform interface (API) is used to obtain the random numbers.  The evaluator shall confirm 
               that each of these interfaces corresponds to the acceptable interfaces listed for each platform 
-              below.  The evaluator shall then decompile the application binary using a decompiler 
+              below.  
+	    </h:p><h:p>
+              <Guidance/>It should be noted that there is no expectation that the evaluators attempt to confirm 
+              that the APIs are being used “correctly” for the functions identified in the TSS; 
+              the activity is to list the used APIs and then do an existence check via decompilation.
+              </h:p><h:p>
+              <Tests/>
+		     If <h:b>implement DRBG functionality</h:b> is selected, the following tests shall be performed: <h:br/> <h:br/>
+		    
+		The evaluator shall then decompile the application binary using a decompiler 
               suitable for the application (TOE).  The evaluator shall search the output of the 
               decompiler to determine that, for each API listed in the <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr>, that API 
               appears in the output.  If the representation of the API does not correspond directly to 
               the strings in the following list, the evaluator shall provide a mapping from the 
               decompiled text to its corresponding API, with a description of why the API text does 
               not directly correspond to the decompiled text and justification that the decompiled text 
-              corresponds to the associated API. 
-	    </h:p><h:p>
-              <Guidance/>It should be noted that there is no expectation that the evaluators attempt to confirm 
-              that the APIs are being used “correctly” for the functions identified in the TSS; 
-              the activity is to list the used APIs and then do an existence check via decompilation.
-              </h:p><h:p>
-              <Tests/>The following are the per-platform list of acceptable APIs:
+              corresponds to the associated API. <h:br/>    <h:br/> 
+		    
+		    
+		    
+		    The following are the per-platform list of acceptable APIs:
               
             </h:p>
               <subaactivity platform="android"> The evaluator shall verify
@@ -755,6 +762,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
                   <h:b>Additional input:</h:b> the additional input bit lengths have the same defaults 
                   and restrictions as the personalization string lengths.
                 </test>
+		      
               </testlist>
             </aactivity>
           </f-element>
