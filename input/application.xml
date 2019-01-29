@@ -3280,54 +3280,49 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	    <selectables linebreak="yes">
         <selectable>not transmit any data</selectable>
         <selectable>not transmit any sensitive data</selectable>
-        <selectable>encrypt all transmitted sensitive data with
+		    
+        <selectable>encrypt all transmitted 
+		<selectables>
+			<selectable>sensitive data</selectable>
+			<selectable>data</selectable>
+		</selectables> with
           <selectables>
-            <selectable id="sel_all_https"><h:abbr title="Hypertext Transfer Protocol Secure">HTTPS</h:abbr></selectable>
-      	    <selectable id="sel_all_tlsc"><h:abbr title="Transport Layer Security">TLS</h:abbr> (as client)</selectable>
-      	    <selectable id="sel_all_tlss"><h:abbr title="Transport Layer Security">TLS</h:abbr> (as server)</selectable>
-      	    <selectable id="sel_all_dtls"><h:abbr title="Datagram Transport Layer Security">DTLS</h:abbr></selectable>
-            <selectable>SSH as conforming to the <h:a href="https://www.niap-ccevs.org/pp/"><h:i>Secure Shell Module</h:i></h:a></selectable>
+            <selectable id="sel_all_https"><h:abbr title="Hypertext Transfer Protocol Secure">HTTPS</h:abbr> in accordance with FCS_HTTPS_EXT.1</selectable>
+      	    <selectable id="sel_all_tlsc"><h:abbr title="Transport Layer Security">TLS</h:abbr> as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=426&id=426"><h:i>TLS Package</h:i></h:a></selectable>
+      	    <selectable id="sel_all_dtls"><h:abbr title="Datagram Transport Layer Security">DTLS</h:abbr> as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=426&id=426"><h:i>TLS Package</h:i></h:a></selectable>
+            <selectable>SSH as defined in the EP for <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&id=389"><h:i>Secure Shell</h:i></h:a></selectable>
           </selectables>
-            between itself and
-          <selectables  linebreak="yes">
-              <selectable>another trusted IT product</selectable>
-              <selectable>another TOE component</selectable>
-            </selectables>.
+            between itself and another trusted IT product.
         </selectable>
-        <selectable>encrypt all transmitted data with
+ 
+	 <selectable>invoke platform-provided functionality to encrypt all transmitted 
+		<selectables>
+			<selectable>sensitive data</selectable>
+			<selectable>data</selectable>
+		</selectables> with
           <selectables>
-            <selectable id="sel_sen_https"><h:abbr title="Hypertext Transfer Protocol Secure">HTTPS</h:abbr></selectable>
-	    <selectable id="sel_sen_tlsc"><h:abbr title="Transport Layer Security">TLS</h:abbr> (as client)</selectable>
-	    <selectable id="sel_sen_tlss"><h:abbr title="Transport Layer Security">TLS</h:abbr> (as server)</selectable>
-            <selectable id="sel_sen_dtls"><h:abbr title="Datagram Transport Layer Security">DTLS</h:abbr></selectable>
-      	    <selectable>SSH as conforming to the <h:a href="https://www.niap-ccevs.org/pp/"><h:i>Secure Shell Module</h:i></h:a></selectable>
-	  </selectables>
-        </selectable> 
-	      between itself and
-	      <selectables linebreak="yes">
-	        <selectable>another trusted IT product</selectable>
-	        <selectable>another TOE component</selectable>
-	      </selectables>.
+            <selectable id="sel_all_https"><h:abbr title="Hypertext Transfer Protocol Secure">HTTPS</h:abbr> in accordance with FCS_HTTPS_EXT.1</selectable>
+      	    <selectable id="sel_all_tlsc"><h:abbr title="Transport Layer Security">TLS</h:abbr></selectable>
+      	    <selectable id="sel_all_dtls"><h:abbr title="Datagram Transport Layer Security">DTLS</h:abbr></selectable>
+            <selectable>SSH</selectable>
+          </selectables>
+            between itself and another trusted IT product.
+        </selectable>	    
+		    
       </selectables>
 	    </title>
       <note role="application">
 	      Encryption is not required for applications transmitting data that is not sensitive. 
 		  <h:br/>
-		  <h:p> If <h:i>TLS (as client)</h:i> is selected, the TSF shall be validated against the TLS package.</h:p>
-		  <h:p> If <h:i>TLS (as server)</h:i> is selected, the TSF shall be validated against the TLS package.</h:p>
-		  <h:p>
-		  If <h:i>HTTPS</h:i> is selected, then evaluation of elements from 
-		  <linkref linkend="FCS_HTTPS_EXT.1"/> is required.</h:p> 
-		  <h:p>
-		    If <h:i>DTLS</h:i> is selected, the TSF shall be validated against the TLS package.
-		  </h:p>
-		  <h:p>
-		    If <h:i>SSH</h:i> is selected, the TSF shall be validated against the <h:i>Secure Shell Module</h:i>.
+	      <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>HTTPS</h:i> is selected, <linkref linkend="FCS_HTTPS_EXT.1"/> is required.</h:p> 
+	      <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>TLS</h:i> or <h:i>DTLS</h:i> is selected, the TSF shall be validated against requirements from the Package for Transport Layer Security.</h:p>
+		<h:p>
+		    If <h:i>encrypt all transmitted</h:i> is selected and <h:i>SSH</h:i> is selected, the TSF shall be validated against the <h:i>EP for Secure Shell</h:i>.
 		  </h:p>
 
 	    </note>  
       <aactivity>
-        <TSS/>None.
+        <TSS/>For platform-provided functionality, the evaluator shall verify the TSS contains the calls to the platform that TOE is leveraging to invoke the functionality.
         <Guidance/>None.
         <Tests/>The evaluator shall perform the following tests.
         <testlist>
