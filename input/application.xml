@@ -114,7 +114,7 @@
             <term><abbr title="Protection Profile Module">PP-Module</abbr></term>
             <description>
 An implementation-independent set of security requirements for a specific subset of products described, formerly known as <h:i>Extended Packages</h:i>.
-              At the time of the release of this <abbr linkend="PP"/>, some Extended Packages had yet to be updated to PP-Modules; therefore, the term <h:i>PP-Modules</h:i> should be interpreted as also applying to any EP that has yet to be re-released as a Module.
+              At the time of the release of this <abbr linkend="PP"/>, some Extended Packages had yet to be updated to PP-Modules; therefore, the term <h:i>PP-Modules</h:i> should be interpreted as also applying to any EP that has yet to be re-released as a PP-Module.
 	    </description>
           </entry>
 
@@ -249,10 +249,10 @@ An implementation-independent set of security requirements for a specific subset
       </section>
     <section title="Compliant Targets of Evaluation" id="TOEdescription"><h:p>The requirements in this
   	  document apply to application software which runs on any type of platform.
-Some application types are covered by more specific PPs, which may be expressed as Modules of this PP.
+Some application types are covered by more specific PPs, which may be expressed as PP-Modules of this PP.
   	  Such applications are subject to the requirements of both this PP and the
-  	  Module(s) that addresses their special functionality.  PPs for some 
-	  particularly specialized applications may not be expressed as Modules at this time,
+  	  PP-Module that addresses their special functionality.  PPs for some 
+	  particularly specialized applications may not be expressed as PP-Modules at this time,
 	  though the requirements in this document should be seen as objectives for those 
 	  highly specialized applications.
 	  </h:p><h:p> 
@@ -274,7 +274,7 @@ Some application types are covered by more specific PPs, which may be expressed 
 		    platform layers that are abstracted away.
 		Some evaluation activities are specific to the particular platform
 		on which the application runs, in order to provide precision and
-		repeatability. The only platforms currently recognized by the SWApp PP are those specified in SFR Evaluation Activities.
+		repeatability. The only platforms currently recognized by the AppPP are those specified in SFR Evaluation Activities.
 		    To test on a platform for which there are no EAs, a Vendor should contact NIAP with recommended EAs.
 		    NIAP will determine if the proposed platform is appropriate for the PP and accept, reject,
 		    or develop EAs as necessary in coordination with the technical community.
@@ -306,7 +306,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
     <section title="Use Cases" id="usecases">Requirements in this Protection Profile are designed to
       address the security problem in the following use cases. These use cases are intentionally
       very broad, as many specific use cases exist for application software. Many applications may
-      be used in combinations of these broad use cases, and evaluation against Module
+      be used in combinations of these broad use cases, and evaluation against PP-Modules
       of this PP, when available, may be most appropriate for some application types. <usecases>
         <usecase title="Content Creation" id="contentcreation">
           <description>The application allows a user to create content, saving it to either local or
@@ -513,11 +513,10 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
 	    <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> in order to prevent unauthorized access to this data.  This also
         includes unnecessary network communications whose consequence may be the loss of data.
           </description>
-          <component-refer ref="fdp_dar_ext.1"/>
+          
           <component-refer ref="fdp_dar_ext.1"/>
           <component-refer ref="fcs_sto_ext.1"/>
           <component-refer ref="fcs_rbg_ext.1"/>
-          <component-refer ref="fcs_ckm.1(2)"/>
           <component-refer ref="fcs_ckm.1(3)"/>
           <component-refer ref="fcs_cop.1(1)"/>
           <component-refer ref="fcs_cop.1(2)"/>
@@ -603,15 +602,18 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
               platform interface (API) is used to obtain the random numbers.  The evaluator shall confirm 
               that each of these interfaces corresponds to the acceptable interfaces listed for each platform 
               below.  
-	    </h:p><h:p>
-              <Guidance/>It should be noted that there is no expectation that the evaluators attempt to confirm 
-              that the APIs are being used “correctly” for the functions identified in the TSS; 
+			     <h:br/>
+			     <h:br/>
+              It should be noted that there is no expectation that the evaluators attempt to confirm 
+              that the APIs are being used correctly for the functions identified in the TSS; 
               the activity is to list the used APIs and then do an existence check via decompilation.
+	    </h:p><h:p>
+              <Guidance/> None.
               </h:p><h:p>
               <Tests/>
 		     If <h:b>implement DRBG functionality</h:b> is selected, the following tests shall be performed: <h:br/> <h:br/>
 		    
-		The evaluator shall then decompile the application binary using a decompiler 
+		The evaluator shall decompile the application binary using a decompiler 
               suitable for the application (TOE).  The evaluator shall search the output of the 
               decompiler to determine that, for each API listed in the <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr>, that API 
               appears in the output.  If the representation of the API does not correspond directly to 
@@ -801,8 +803,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
         </f-component>
 
 
-        <f-component id="fcs_ckm_ext.1" name="Cryptographic Key Generation Services" status="sel-based">
-	  <selection-depends req="FTP_DIT_EXT.1.1" ids="sel_all_tlsc"/>
+        <f-component id="fcs_ckm_ext.1" name="Cryptographic Key Generation Services">
           <f-element id="fcs_ckm_ext.1.1">
             <title>The application shall <selectables linebreak="yes">
 	        <selectable>generate no asymmetric cryptographic keys</selectable>
@@ -1083,12 +1084,14 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
   
   <f-element id="FCS_CKM.1.2(3)">
     <title>The <abbr title="TOE Security Functionality" linkend="TSF">TSF</abbr> shall generate salts using a RBG that meets 
-      <linkref linkend="FCS_RGB_EXT.1"/> (from the AS PP) and with entropy corresponding to the security strength selected for 
-      PBKDF in <linkref linkend="FCS_CKM.1.1(1)"/>.
+      <linkref linkend="FCS_RGB_EXT.1"/> and with entropy corresponding to the security strength selected for 
+      PBKDF in <linkref linkend="FCS_CKM.1.1(3)"/>.
     </title>
     
     
-    <note role="application">Conditioning can be performed using one of the identified hash functions or the process described 
+    <note role="application">
+      This should be included if selected in FCS_STO_EXT.1<h:br/>
+      Conditioning can be performed using one of the identified hash functions or the process described 
       in NIST SP 800-132; the method used is selected by the ST Author. SP 800-132 requires the use of a pseudo-random 
       function (PRF) consisting of HMAC with an approved hash function. The ST author selects the hash function used, 
       also includes the appropriate requirements for HMAC and the hash function. 
@@ -1110,16 +1113,16 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
       For the NIST SP 800-132-based conditioning of the password/passphrase, the required evaluation activities will be performed when 
       doing the evaluation activities for the appropriate requirements (<linkref linkend="FCS_COP.1.1(4)"/>). 
       No explicit testing of the formation of the submask from the input password is required. 
-      <linkref linkend="FCS_CKM.1.2(1)"/>: The <abbr title="Security Target" linkend="ST">ST</abbr> author shall provide a description in the <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr> regarding the salt generation. 
+      <linkref linkend="FCS_CKM.1.1(3)"/>: The <abbr title="Security Target" linkend="ST">ST</abbr> author shall provide a description in the <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr> regarding the salt generation. 
       The evaluator shall confirm that the salt is generated using an RBG described in <linkref linkend="FCS_RBG_EXT.1"/>.
-      <Guidance/> There is no associated guidance with this activity.
-      <Tests/> Conditioning: No explicit testing of the formation of the authorization factor from the input password/passphrase is required.
+      <Guidance/> None.
+      <Tests/> None.
     </aactivity>
   </f-element>
 </f-component>
 
         <f-component id="fcs_ckm.2" name="Cryptographic Key Establishment" status="sel-based">
-	  <selection-depends req="fpt_dit_ext.1.1" ids="sel_all_tlsc"/>
+	  <selection-depends req="FTP_DIT_ext.1.1" ids="sel_all_tlsc"/>
           <f-element id="fcs_ckm.2.1">
             <title>
               The application shall
@@ -1414,7 +1417,7 @@ functionality (such as these)
         </f-component>
 -->
         <f-component id="fcs_cop.1(1)" name="Cryptographic Operation - Encryption/Decryption" status="sel-based">
-          <selection-depends req="fpt_dit_ext.1.1" ids="sel_all_tlsc"/>
+          <selection-depends req="FTP_DIT_ext.1.1" ids="sel_all_tlsc"/>
 	  <selection-depends req="fcs_sto_ext.1.1" ids="sel_impl_sto"/>
           <f-element id="fcs_cop.1.1(1)">
             <title>The <h:b>application</h:b> shall perform <h:i>encryption/decryption</h:i> in accordance with a specified 
@@ -1432,6 +1435,7 @@ functionality (such as these)
 		.
 		</title>
             <note role="application">
+              This is dependent on implimenting cryptographic functionality, as in FTP_DIT_EXT.1.<h:br/>
                 For the first selection, the ST author should choose
                 the mode or modes in which AES operates. For the second selection, the ST author should
                 choose the key sizes that are supported by this functionality. 128-bit key size 
@@ -1605,7 +1609,7 @@ functionality (such as these)
           </f-element>
         </f-component> 
         <f-component id="fcs_cop.1(2)" name="Cryptographic Operation - Hashing" status="sel-based">
-          <selection-depends req="fpt_dit_ext.1.1" ids="sel_all_tlsc"/>
+          <selection-depends req="FTP_DIT_ext.1.1" ids="sel_all_tlsc"/>
           <f-element id="fcs_cop.1.1(2)">
             <title>The <h:b>application</h:b> shall perform <h:i>cryptographic hashing</h:i> services in accordance with a specified 
         cryptographic algorithm 
@@ -1625,6 +1629,7 @@ functionality (such as these)
               </selectables> bits that meet the following: FIPS Pub 180-4.
             </title>
             <note role="application">
+              This is dependent on implimenting cryptographic functionality, as in FTP_DIT_EXT.1.<h:br/>
               	Per NIST SP 800-131A, SHA-1 for generating digital signatures is no
               	longer allowed, and SHA-1 for verification of digital signatures is strongly discouraged as
               	there may be risk in accepting these signatures.
@@ -1699,7 +1704,7 @@ functionality (such as these)
           </f-element>
         </f-component> 
         <f-component id="fcs_cop.1(3)" name="Cryptographic Operation - Signing"  status="sel-based">
-          <selection-depends req="fpt_dit_ext.1.1" ids="sel_all_tlsc"/>
+          <selection-depends req="FTP_DIT_ext.1.1" ids="sel_all_tlsc"/>
           <f-element id="fcs_cop.1.1(3)">
             <title>The <h:b>application</h:b> shall perform <h:i>cryptographic signature services (generation and
               verification)</h:i> in accordance with a specified cryptographic algorithm <selectables linebreak="yes">
@@ -1717,6 +1722,7 @@ functionality (such as these)
               .
             </title>
             <note role="application">
+              This is dependent on implimenting cryptographic functionality, as in FTP_DIT_EXT.1.<h:br/>
             	The ST Author should choose the algorithm implemented to perform
 		digital signatures; if more than one algorithm is available, this requirement should be iterated
 		to specify the functionality. For the algorithm chosen, the ST author should make the
@@ -1773,9 +1779,9 @@ functionality (such as these)
           </f-element>
           </f-component> 
         <f-component id="fcs_cop.1(4)" name="Cryptographic Operation - Keyed-Hash Message Authentication" status="sel-based">
-          <selection-depends req="fpt_dit_ext.1.1" ids="sel_all_tlsc"/>
+          <selection-depends req="FTP_DIT_ext.1.1" ids="sel_all_tlsc"/>
           <f-element id="fcs_cop.1.1(4)">
-            <title>The <h:b>application</h:b>shall perform <h:i>keyed-hash message authentication</h:i> in accordance with a 
+            <title>The <h:b>application</h:b> shall perform <h:i>keyed-hash message authentication</h:i> in accordance with a 
 			specified cryptographic algorithm
 			<h:ul>
 			<h:li>HMAC-SHA-256</h:li>
@@ -1799,6 +1805,7 @@ functionality (such as these)
 			and FIPS Pub 180-4 <h:i>Secure Hash Standard</h:i>.
             </title>
             <note role="application">
+              This is dependent on implimenting cryptographic functionality, as in FTP_DIT_EXT.1.<h:br/>
 			  The intent of this requirement is to specify the keyed-hash
 			  message authentication function used for key
 			  establishment purposes for the various cryptographic protocols
@@ -1844,7 +1851,7 @@ functionality (such as these)
               If <h:i>invoke the functionality provided by the platform to securely store</h:i> is selected then the Application developer must closely review the EA for their 
               platform and provide documentation indicating which platform mechanisms are used to store credentials. 
     If <h:i>implement functionality to securely store credentials</h:i> is selected, then the following components must be included in 
-    the <abbr title="Security Target" linkend="ST">ST</abbr>: <linkref linkend="FCS_COP.1(1)"/>.
+              the <abbr title="Security Target" linkend="ST">ST</abbr>: <linkref linkend="FCS_COP.1(1)"/> or <linkref linkend="FCS_CKM.1(3)"/>.
 	  If other cryptographic operations are used to implement the secure storage of credentials, the corresponding requirements must be included in the <abbr title="Security Target" linkend="ST">ST</abbr>.
               If the OS is Linux and Java KeyStores are used to store credentials, <h:i>implement functionality to securely store credentials</h:i> must be selected.
             </note>
@@ -1854,12 +1861,16 @@ functionality (such as these)
               requirements in the <abbr title="Security Target" linkend="ST">ST</abbr>. For each of these items, the evaluator shall 
               confirm that the TSS lists for what purpose it is used, and how it is stored. 
               <h:br/>
-              For all credentials for which the application implements functionality, the evaluator shall 
-              verify credentials are encrypted according to <linkref linkend="FCS_COP.1(1)"/> or conditioned according to
-              <linkref linkend="FCS_CKM.1.1(1)"/> and <linkref linkend="FCS_CKM.1.2(1)"/>.
+             
               <h:br/>
               <Guidance/> None.
-              <Tests/>For all credentials for which the application invokes platform-provided
+              
+              <Tests/>
+              For all credentials for which the application implements functionality, the evaluator shall 
+              verify credentials are encrypted according to <linkref linkend="FCS_COP.1(1)"/> or conditioned according to
+              <linkref linkend="FCS_CKM.1.1(1)"/> and <linkref linkend="FCS_CKM.1(3)"/>.
+              
+              For all credentials for which the application invokes platform-provided
               functionality, the evaluator shall perform the following actions which vary per platform.
               <subaactivity platform="android">The evaluator shall verify that the application uses
 	      the Android <h:code>KeyStore</h:code> or the Android <h:code>KeyChain</h:code> to store certificates.  
@@ -1905,7 +1916,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           </f-element>
           <f-element id="fcs_https_ext.1.2">
             <title>The application shall implement HTTPS using 
-              <h:abbr title="Transport Layer Security">TLS</h:abbr> in accordance with the TLS package.
+              <h:abbr title="Transport Layer Security">TLS</h:abbr> as defined in the TLS package.
             </title>
             <aactivity>
               <TSS/>None.
@@ -1926,7 +1937,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
                   notify the user and request authorization to establish the user-initiated connection
                 </selectable>
               </selectables>
-              if the peer certificate is deemed invalid."/>.
+              if the peer certificate is deemed invalid.
             </title>    
             <note role="application">
               Validity is determined by the certificate path, the expiration date, and the 
@@ -1991,13 +2002,13 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 			  persistent storage devices provided by the platform.
             </note>
             <aactivity>
-                <TSS/>The evaluator shall perform the platform-specific actions below and inspect user
-                documentation to determine the application's access to hardware
-                resources.  The evaluator shall ensure that this is consistent with the selections
-				indicated.  The evaluator shall review documentation provided by the application
-	            developer and for each resource which it accesses, identify the
-	            justification as to why access is required.  
-	            <Guidance/>None.
+                <TSS/>None.
+              <Guidance/>The evaluator shall perform the platform-specific actions below and inspect user
+              documentation to determine the application's access to hardware
+              resources.  The evaluator shall ensure that this is consistent with the selections
+              indicated.  The evaluator shall review documentation provided by the application
+              developer and for each resource which it accesses, identify the
+              justification as to why access is required.  
               <Tests/>
               <subaactivity platform="android">
                 The evaluator shall inspect permissions presented at 
@@ -2056,13 +2067,13 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               of these would ordinarily require access.
 	    </note>
             <aactivity>
-                <TSS/>The evaluator shall perform the platform-specific actions below and inspect user
-                documentation to determine the application's access to sensitive information
-				repositories.  The evaluator shall ensure that this is consistent with the selections
-				indicated.  The evaluator shall review documentation provided by the application
-	            developer and for each sensitive information repository which it accesses, identify the
-	            justification as to why access is required.
-	            <Guidance/>None.
+                <TSS/>None.
+              <Guidance/>The evaluator shall perform the platform-specific actions below and inspect user
+              documentation to determine the application's access to sensitive information
+              repositories.  The evaluator shall ensure that this is consistent with the selections
+              indicated.  The evaluator shall review documentation provided by the application
+              developer and for each sensitive information repository which it accesses, identify the
+              justification as to why access is required.
               <Tests/>
 	                    <subaactivity platform="android">
                 The evaluator shall inspect permissions presented at 
@@ -2180,26 +2191,31 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               sensitive data that is covered by the <linkref linkend="FCS_STO_EXT.1"/> SFR.
 	    </note>
             <aactivity>
-              <TSS/>The evaluator shall inventory the filesystem locations where the application may write data. 
-              The evaluator shall run the application and attempt to store sensitive data. The evaluator shall 
-              then inspect those areas of the filesystem to note where data was stored (if any), and determine 
-              whether it has been encrypted.
-		    <h:br/>
+              <TSS/>
               The evaluator shall examine the TSS to ensure that it describes the sensitive data processed by the application. 
               The evaluator shall then ensure that the following activities cover all of the sensitive data identified in the TSS.
               <h:br/>
+             If <h:b>not store any sensitive data</h:b> is selected, the evaluator shall inspect the TSS to ensure 
+              that it describes how sensitive data cannot be written to non-volatile memory. The evaluator shall also 
+              ensure that this is consistent with the filesystem test below.
+              <h:br/><h:br/>
+        
+              <Guidance/> None. <h:br/><h:br/>   
+              <Tests/><h:br/>
               Evaluation activities (after the identification of the sensitive data) are to be performed on all sensitive data listed 
               that are not covered by <linkref linkend="FCS_STO_EXT.1"/>.
               <h:br/>
-              If <h:b>not store any sensitive data</h:b> is selected, the evaluator shall inspect the TSS to ensure 
-              that it describes how sensitive data cannot be written to non-volatile memory. The evaluator shall also 
-              ensure that this is consistent with the filesystem test above.
-             
+              
+              
+              The evaluator shall inventory the filesystem locations where the application may write data. 
+              The evaluator shall run the application and attempt to store sensitive data. The evaluator shall 
+              then inspect those areas of the filesystem to note where data was stored (if any), and determine 
+              whether it has been encrypted.
+              
               <h:br/>
               If <h:b>leverage platform-provided functionality</h:b> is selected, the evaluation activities will be performed as 
               stated in the following requirements, which vary on a per-platform basis.
-              <Guidance/> None.    
-              <Tests/>
+              <h:br/>
 			                <subaactivity platform="android">
 		        The evaluator shall inspect the TSS and verify that it describes how files containing sensitive data are 
                 stored with the <h:code>MODE_PRIVATE</h:code> flag set.
@@ -2767,12 +2783,14 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	    </note>
             <aactivity>
 		    <TSS/>The evaluator shall inspect the TSS documentation to identify functionality in the
-              application where PII can be transmitted.
-              <Guidance/>None.
+              application where PII can be transmitted.<h:br/>
+              <Guidance/>None.<h:br/>
               <Tests/>
+             
+
               <!--<testlist>
                 <test>-->
-                  The evaluator shall run the application and exercise the functionality responsibly
+              If require user approval before executing is selected, the evaluator shall run the application and exercise the functionality responsibly
                   for transmitting PII and verify that user approval is required before transmission
                   of the PII.
                  <!--</test>
@@ -3269,7 +3287,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               file extensions as defined in the ISO/IEC 19770-2:2015.
             </note>
             <aactivity><TSS/> If "other version information" is selected the evaluator shall verify that the 
-              application has versioning information matching that described in the TSS.
+              TSS contains an explaination of the versioning methodology.
               <Guidance/>None.
               <Tests/>The evaluator shall install the application, then check for the
 /              existence of version information. If SWID tags is selected the evaluator shall 
@@ -3298,7 +3316,6 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
       	    <selectable id="sel_all_dtls"><h:abbr title="Datagram Transport Layer Security">DTLS</h:abbr> as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=426&amp;id=426"><h:i>TLS Package</h:i></h:a></selectable>
             <selectable>SSH as defined in the EP for <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389"><h:i>Secure Shell</h:i></h:a></selectable>
           </selectables>
-            between itself and another trusted IT product.
         </selectable>
  
 	 <selectable>invoke platform-provided functionality to encrypt all transmitted 
@@ -3312,10 +3329,10 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
       	    <selectable><h:abbr title="Datagram Transport Layer Security">DTLS</h:abbr></selectable>
             <selectable>SSH</selectable>
           </selectables>
-            between itself and another trusted IT product.
         </selectable>	    
 		    
-      </selectables>
+	    </selectables>
+              between itself and another trusted IT product.
 	    </title>
       <note role="application">
 	      The X509 requirements are invoked based on the selections in FTP_DIT_EXT.1; if you select a protocol that uses certificates,
@@ -3341,8 +3358,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             by connecting to remote systems or websites) while capturing packets from the 
             application. The evaluator shall verify from the packet capture that the traffic is 
             encrypted with <h:abbr title="Hypertext Transfer Protocol Secure">HTTPS</h:abbr>, 
-            <h:abbr title="Transport Layer Security">TLS</h:abbr> or 
-            <h:abbr title="Datagram Transport Layer Security">DTLS</h:abbr> in accordance with the 
+            <h:abbr title="Transport Layer Security">TLS</h:abbr>, 
+            <h:abbr title="Datagram Transport Layer Security">DTLS</h:abbr>, or <h:abbr title="Secure Shell">SSH</h:abbr> in accordance with the 
             selection in the <abbr title="Security Target" linkend="ST">ST</abbr>.
           </test>
           <test>
@@ -3398,12 +3415,12 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
       (<abbr title="Security Assurance Requirement" linkend="SAR">SAR</abbr>s) to frame the
       extent to which the evaluator assesses the documentation applicable for the evaluation and
       performs independent testing.
-      <h:br/>
+      <h:br/> <h:br/>
       This section lists the set of <abbr title="Security Assurance Requirement" linkend="SAR">SAR</abbr>s from CC part 3 that are required in
       evaluations against this
       PP. Individual Evaluation Activities (EAs) to be performed are specified both
       in <secref linkend="req"/> as well as in this section.
-      <h:br/>
+      <h:br/><h:br/>
       The general model for evaluation of <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr>s against STs written to conform to
       this PP is as follows:
       <h:br/>
@@ -3716,7 +3733,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
                 linkend="TSF"/> manufacturer’s development and configuration management process.
               This is not meant to diminish the critical role that a developer’s practices play in
               contributing to the overall trustworthiness of a product; rather, it’s a reflection on
-              the information to be made available for evaluation. <h:br/> The evaluator shall ensure
+              the information to be made available for evaluation. <h:br/> <h:br/> 
+              <Guidance/>The evaluator shall ensure
               that the developer has identified (in guidance documentation for application
               developers concerning the targeted platform) one or more development environments
               appropriate for use in developing applications for the developer’s platform. For each
@@ -3728,8 +3746,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               <abbr title="TOE Security Functionality" linkend="TSF">TSF</abbr> is uniquely identified (with respect to other products from the 
               <abbr title="TOE Security Functionality" linkend="TSF">TSF</abbr> vendor), and that documentation provided by the developer in 
               association with the requirements in the <abbr title="Security Target" linkend="ST">ST</abbr> is associated with the 
-              <abbr title="TOE Security Functionality" linkend="TSF">TSF</abbr> using this unique identification.
-            <Guidance/>None.
+              <abbr title="TOE Security Functionality" linkend="TSF">TSF</abbr> using this unique identification. <h:br/> <h:br/> 
             <Tests/>None.</aactivity>
           </a-element>
 	  
@@ -3811,7 +3828,9 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
         family. At the assurance level specified in this PP, testing is based on advertised
         functionality and interfaces with dependency on the availability of design information. One
         of the primary outputs of the evaluation process is the test report as specified in the
-        following requirements. <a-component id="ate_ind.1"
+        following requirements. 
+        
+        <a-component id="ate_ind.1"
           name="Independent Testing – Conformance (ATE_IND.1)"> Testing is performed to confirm the
           functionality described in the <abbr title="TOE Summary Specification" linkend="TSS">TSS</abbr> as well as the administrative
           (including configuration and operational) documentation provided. The focus of the testing
@@ -3847,7 +3866,9 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               that the <abbr title="TOE Security Functionality" linkend="TSF">TSF</abbr> operates as specified.</title>
             <note role="application">The evaluator shall test the application on the most current
               fully patched version of the platform.</note>
-            <aactivity><TSS/>The evaluator shall prepare a test plan and report documenting the testing
+            <aactivity><TSS/>None.
+            <Guidance/>None.
+              <Tests/>The evaluator shall prepare a test plan and report documenting the testing
               aspects of the system, including any application crashes during testing. The evaluator
               shall determine the root cause of any application crashes and include that information
               in the report. The test plan covers all of the testing actions contained in
@@ -3885,9 +3906,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               a cumulative account, so if there was a test run that resulted in a failure; a fix
               installed; and then a successful re-run of the test, the report would show a “fail”
               and “pass” result (and the supporting details), and not just the “pass”
-              result.
-            <Guidance/>None.
-            <Tests/>None.</aactivity>
+              result.</aactivity>
           </a-element>
 	  
         </a-component>
@@ -3931,14 +3950,16 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <title>The evaluator shall conduct penetration testing, based on the identified
               potential vulnerabilities, to determine that the <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr> is resistant to
               attacks performed by an attacker possessing Basic attack potential.</title>
-            <aactivity><TSS/>The evaluator shall generate a report to document their
+            <aactivity><TSS/>None.
+            <Guidance/>None.
+              <Tests/>The evaluator shall generate a report to document their
               findings with respect to this requirement. This report could physically be part of the
               overall test report mentioned in ATE_IND, or a separate document. The evaluator
               performs a search of public information to find vulnerabilities that have been found
               in similar applications with a particular focus on network protocols the application
               uses and document formats it parses. 
-	          The evaluator shall also run a virus scanner with the most current virus 
-	          definitions against the application files and verify that no files are flagged as malicious.
+              The evaluator shall also run a virus scanner with the most current virus 
+              definitions against the application files and verify that no files are flagged as malicious.
               The evaluator documents the sources consulted and
               the vulnerabilities found in the report. 
               <h:br/>
@@ -3948,9 +3969,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               vulnerability, if suitable. Suitability is determined by assessing the attack vector
               needed to take advantage of the vulnerability. If exploiting the vulnerability
               requires expert skills and an electron microscope, for instance, then a test would not
-              be suitable and an appropriate justification would be formulated.
-            <Guidance/>None.
-            <Tests/>None.</aactivity>
+              be suitable and an appropriate justification would be formulated.</aactivity>
           </a-element>
       
         </a-component>
@@ -4134,7 +4153,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
       <h:br /><h:br />
       When performing equivalency analysis, the Evaluator/Vendor should first use the factors and guidelines for Product
       Model equivalence to determine the set of Product Models to be evaluated. In general, Product Models that do not differ 
-      in PP-specified security functionality are considered equivalent for purposes of evaluation against the SWApp PP.
+      in PP-specified security functionality are considered equivalent for purposes of evaluation against the AppPP.
       <h:br /><h:br />
       If multiple revision levels of Product Models are to be evaluated—or to determine whether a revision of an evaluated 
       product needs re-evaluation—the Evaluator/Vendor and Validator should use the factors and guidelines for Product 
@@ -4439,7 +4458,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
         <description>
           <h:a href="http://www.commoncriteriaportal.org/files/ccfiles/CEMV3.1R4.pdf">Common
             Evaluation Methodology for Information Technology Security - Evaluation Methodology</h:a>,
-          CCMB-2012-09-004, Version 3.1, Revision 5, April 2017. </description>
+          CCMB-2017-04-004, Version 3.1, Revision 5, April 2017. </description>
       </entry>
       <entry id="bibCESG">
         <tag>CESG</tag>
