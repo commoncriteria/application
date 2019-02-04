@@ -1195,12 +1195,21 @@ Unconditional requirements are found in the main body of the document, while the
               to perform cryptographic key establishment in accordance with a specified 
               cryptographic key establishment method:<h:p/>
               <selectables linebreak="yes">
+		      <selectable><h:b>[Key establishment scheme using Diffie-Hellman group 14]</h:b>
+			      that meets the following: 
+			      <h:b>RFC 3526, Section 3</h:b>
+		      </selectable>
                 <selectable>
                   <h:b>[RSA-based key establishment schemes]</h:b> that meets the following: <h:b>[NIST 
                     Special Publication 800-56B, “Recommendation for Pair-Wise Key Establishment 
                     Schemes Using Integer Factorization Cryptography”]</h:b>
                 </selectable>
-                <selectable>
+		      <selectable><h:b>[RSA-based key establishment schemes]</h:b>
+			      that meet the following: 
+			      <h:b>RSAES-PKCS1-v1_5 as specified in Section 7.2 of RFC 8017,
+				      “Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1”</h:b>
+		      </selectable>
+			      <selectable>
                   <h:b>[Elliptic curve-based key establishment schemes]</h:b> that meets the 
                   following: <h:b>[NIST Special Publication 800-56A, “Recommendation for Pair-Wise Key Establishment 
                   Schemes Using Discrete Logarithm Cryptography”]</h:b>
@@ -1210,6 +1219,16 @@ Unconditional requirements are found in the main body of the document, while the
                   <h:b>[NIST Special Publication 800-56A, “Recommendation for Pair-Wise Key 
                   Establishment Schemes Using Discrete Logarithm Cryptography”]</h:b>
                 </selectable>
+		      <selectable><h:b>[FFC Schemes using “safe-prime” groups]</h:b>
+			      that meet the following: 
+			      <h:b>‘NIST Special Publication 800-56A Revision 3,
+				      “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”</h:b>
+				      and 
+			      <selectables>
+				      <selectable>RFC 3526</selectable>
+				      <selectable>RFC 7919</selectable>
+			      </selectables>.
+		      </selectable>
               </selectables>.
             </title>
             <note role="application">
@@ -1367,6 +1386,22 @@ Unconditional requirements are found in the main body of the document, while the
               values that trigger each of the three decryption error checks described in NIST Special 
               Publication 800-56B section 7.2.3.3, ensure that each decryption attempt results in an error, 
               and ensure that any outputted or logged error message is identical for each.
+		    
+		    
+		    
+              <h:br />
+              <h:b>RSA-based key establishment</h:b><h:p/>
+		The evaluator shall verify the correctness of the TSF’s implementation of RSAES-PKCS1-v1_5 by using a known good implementation for each protocol selected in FTP_TRP.1/Admin, FTP_TRP.1/Join, FTP_ITC.1 and FPT_ITT.1 that uses RSAES-PKCS1-v1_5.    
+		    
+		    
+              <h:br />
+              <h:b>Diffie-Hellman Group 14</h:b><h:p/>
+		 The evaluator shall verify the correctness of the TSF’s implementation of Diffie-Hellman group 14 by using a known good implementation for each protocol selected in FTP_DIT_EXT.1 that uses Diffie-Hellman group 14.   
+		    
+		    
+              <h:br />
+              <h:b>FFC Schemes using “safe-prime” groups</h:b><h:p/>
+		    The evaluator shall verify the correctness of the TSF’s implementation of safe-prime groups by using a known good implementation for each protocol selected in FTP_DIT_EXT.1 that uses safe-prime groups. This test must be performed for each safe-prime group that each protocol uses.
             </aactivity>
           </f-element>
         </f-component>
