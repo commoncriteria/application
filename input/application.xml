@@ -3395,50 +3395,57 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           <f-element id="ftp_dit_ext.1.1">
             <title>The application shall 
 	    <selectables linebreak="yes">
-        <selectable>not transmit any data</selectable>
-        <selectable>not transmit any sensitive data</selectable>
-		    
-        <selectable>encrypt all transmitted 
-		<selectables>
-			<selectable>sensitive data</selectable>
-			<selectable>data</selectable>
-		</selectables> with
+        <selectable>not transmit any 
+          <selectables>
+            <selectable>data</selectable>
+            <selectable>sensitive data</selectable>
+          </selectables>
+        </selectable>
+      <selectable>encrypt all transmitted 
+		    <selectables>
+			     <selectable>sensitive data</selectable>
+			     <selectable>data</selectable>
+	      </selectables> with
           <selectables>
             <selectable id="sel_all_https"><h:abbr title="Hypertext Transfer Protocol Secure">HTTPS</h:abbr> in accordance with FCS_HTTPS_EXT.1</selectable>
       	    <selectable id="sel_all_tlsc"><h:abbr title="Transport Layer Security">TLS</h:abbr> as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=426&amp;id=426"><h:i>TLS Package</h:i></h:a></selectable>
       	    <selectable id="sel_all_dtls"><h:abbr title="Datagram Transport Layer Security">DTLS</h:abbr> as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=426&amp;id=426"><h:i>TLS Package</h:i></h:a></selectable>
-            <selectable>SSH as defined in the EP for <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389"><h:i>Secure Shell</h:i></h:a></selectable>
+            <selectable>SSH as conforming to the Extended Package for <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389"><h:i>Secure Shell</h:i></h:a></selectable>
           </selectables>
         </selectable>
  
-	 <selectable>invoke platform-provided functionality to encrypt all transmitted 
-		<selectables>
-			<selectable>sensitive data</selectable>
-			<selectable>data</selectable>
-		</selectables> with
-          <selectables>
-            <selectable><h:abbr title="Hypertext Transfer Protocol Secure">HTTPS</h:abbr></selectable>
-      	    <selectable><h:abbr title="Transport Layer Security">TLS</h:abbr></selectable>
-      	    <selectable><h:abbr title="Datagram Transport Layer Security">DTLS</h:abbr></selectable>
-            <selectable>SSH</selectable>
-          </selectables>
-        </selectable>	    
+	 <selectable>invoke platform-provided functionality to encrypt all transmitted sensitive data with
+      <selectables>
+        <selectable><h:abbr title="Hypertext Transfer Protocol Secure">HTTPS</h:abbr></selectable>
+        <selectable><h:abbr title="Transport Layer Security">TLS</h:abbr></selectable>
+        <selectable><h:abbr title="Datagram Transport Layer Security">DTLS</h:abbr></selectable>
+        <selectable>SSH</selectable>
+      </selectables>
+    </selectable>	    
+	      
+    <selectable>invoke platform-provided functionality to encrypt all transmitted data with
+      <selectables>
+        <selectable><h:abbr title="Hypertext Transfer Protocol Secure">HTTPS</h:abbr></selectable>
+        <selectable><h:abbr title="Transport Layer Security">TLS</h:abbr></selectable>
+        <selectable><h:abbr title="Datagram Transport Layer Security">DTLS</h:abbr></selectable>
+        <selectable>SSH</selectable>
+      </selectables>
+    </selectable>	    
 		    
 	    </selectables>
               between itself and another trusted IT product.
 	    </title>
       <note role="application">
-	      The X509 requirements are invoked based on the selections in FTP_DIT_EXT.1; if you select a protocol that uses certificates,
+	      <!--The X509 requirements are invoked based on the selections in FTP_DIT_EXT.1; if you select a protocol that uses certificates,
 	      then you must include the SFRs that address the certificates.   
 	      X509 SFRs shall be included if selections for HTTPS, TLS, or DTLS are included (FCS_HTTPS, FCS_TLSC, FCS_TLSS, FCS_DTLS).
-	       <h:br/> <h:br/>
+	       <h:br/> <h:br/>-->
 	      Encryption is not required for applications transmitting data that is not sensitive. 
 		  <h:br/>
+        <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>TLS</h:i> is selected, then evaluation of elements from either <linkref linkend="FCS_TLSC_EXT.1"/> or <linkref linkend="FCS_TLSS_EXT.1"/> is required.</h:p>
 	      <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>HTTPS</h:i> is selected, <linkref linkend="FCS_HTTPS_EXT.1"/> is required.</h:p> 
-	      <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>TLS</h:i> or <h:i>DTLS</h:i> is selected, the TSF shall be validated against requirements from the Package for Transport Layer Security.</h:p>
-		<h:p>
-		    If <h:i>encrypt all transmitted</h:i> is selected and <h:i>SSH</h:i> is selected, the TSF shall be validated against the <h:i>EP for Secure Shell</h:i>.
-		  </h:p>
+        <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>DTLS</h:i> is selected, <linkref linkend="FCS_DTLS_EXT.1"/> is required.</h:p>
+        <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>SSH</h:i> is selected, the TSF shall be validated against the <h:i>Extended Package for <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389">Secure Shell</h:a></h:i>.</h:p>
 <h:p>
 		    If <h:i>encrypt all transmitted</h:i> is selected the corresponding FCS_COP.1 requirements will be included.
 		  </h:p>
