@@ -1178,10 +1178,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
               to perform cryptographic key establishment in accordance with a specified 
               cryptographic key establishment method:<h:p/>
               <selectables linebreak="yes">
-		      <selectable><h:b>[Key establishment scheme using Diffie-Hellman group 14]</h:b>
-			      that meets the following: 
-			      <h:b>RFC 3526, Section 3</h:b>
-		      </selectable>
+		    
                 <selectable>
                   <h:b>[RSA-based key establishment schemes]</h:b> that meets the following: <h:b>[NIST 
                     Special Publication 800-56B, “Recommendation for Pair-Wise Key Establishment 
@@ -1202,6 +1199,10 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
                   <h:b>[NIST Special Publication 800-56A, “Recommendation for Pair-Wise Key 
                   Establishment Schemes Using Discrete Logarithm Cryptography”]</h:b>
                 </selectable>
+		        <selectable><h:b>[Key establishment scheme using Diffie-Hellman group 14]</h:b>
+			      that meets the following: 
+			      <h:b>RFC 3526, Section 3</h:b>
+		      </selectable>
 		      <selectable><h:b>[FFC Schemes using “safe-prime” groups]</h:b>
 			      that meet the following: 
 			      <h:b>‘NIST Special Publication 800-56A Revision 3,
@@ -1234,20 +1235,20 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
               <TSS/>The evaluator shall ensure that the supported key establishment schemes correspond to the 
               key generation schemes identified in FCS_CKM.1.1. If the ST specifies more than one 
               scheme, the evaluator shall examine the TSS to verify that it identifies the usage for each 
-              scheme.
+              scheme.<h:br/>
               <Guidance/> The evaluator shall verify that the AGD guidance instructs the administrator how to configure 
               the TOE to use the selected key establishment scheme(s).
               
-              <indent>
+             <h:br/>
                 <Tests/>
 		      Evaluation Activity Note: The following tests require the developer to provide access to a test 
               platform that provides the evaluator with tools that are typically not found on factory 
               products.
-              <h:br />
+              <h:br/><h:br/>
               <h:b>Key Establishment Schemes</h:b><h:p/>
               The evaluator shall verify the implementation of the key establishment schemes supported by 
               the TOE using the applicable tests below. 
-              <h:br />
+              <h:br /><h:br/>
               <h:b>SP800-56A Key Establishment Schemes</h:b><h:p/>
               The evaluator shall verify a TOE's implementation of SP800-56A key agreement schemes 
               using the following Function and Validity tests. These validation tests for each key agreement 
@@ -1258,7 +1259,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
               is supported, the evaluator shall also verify that the components of key confirmation have 
               been implemented correctly, using the test procedures described below. This includes the 
               parsing of the DKM, the generation of MACdata and the calculation of MACtag.
-              <h:br />
+              <h:br /><h:br/>
               
 		      <h:b>Function Test</h:b><h:p/>
                 The Function test verifies the ability of the TOE to implement the key agreement 
@@ -1284,7 +1285,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
                 <h:br />
                 If key confirmation is supported, the TSF shall perform the above for each implemented 
                 approved MAC algorithm.
-                <h:br />
+                <h:br /><h:br/>
                 <h:b>Validity Test</h:b><h:p/>
                 The Validity test verifies the ability of the TOE to recognize another party’s valid and 
                 invalid key agreement results with or without key confirmation. To conduct this test, the 
@@ -1310,8 +1311,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
                 using the corresponding parameters. The evaluator shall compare the TOE’s results with 
                 the results using a known good implementation verifying that the TOE detects these 
                 errors.
-                <h:br />
-              </indent>
+                <h:br /><h:br/>
               <h:b>SP800-56B Key Establishment Schemes</h:b><h:p/>
               The evaluator shall verify that the TSS describes whether the TOE acts as a sender, a 
               recipient, or both for RSA-based key establishment schemes.
@@ -1372,17 +1372,17 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
 		    
 		    
 		    
-              <h:br />
+              <h:br /><h:br/>
               <h:b>RSA-based key establishment</h:b><h:p/>
 		The evaluator shall verify the correctness of the TSF’s implementation of RSAES-PKCS1-v1_5 by using a known good implementation for each protocol selected in FTP_TRP.1/Admin, FTP_TRP.1/Join, FTP_ITC.1 and FPT_ITT.1 that uses RSAES-PKCS1-v1_5.    
 		    
 		    
-              <h:br />
+              <h:br /><h:br/>
               <h:b>Diffie-Hellman Group 14</h:b><h:p/>
 		 The evaluator shall verify the correctness of the TSF’s implementation of Diffie-Hellman group 14 by using a known good implementation for each protocol selected in FTP_DIT_EXT.1 that uses Diffie-Hellman group 14.   
 		    
 		    
-              <h:br />
+              <h:br /><h:br/>
               <h:b>FFC Schemes using “safe-prime” groups</h:b><h:p/>
 		    The evaluator shall verify the correctness of the TSF’s implementation of safe-prime groups by using a known good implementation for each protocol selected in FTP_DIT_EXT.1 that uses safe-prime groups. This test must be performed for each safe-prime group that each protocol uses.
             </aactivity>
