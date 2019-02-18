@@ -1,4 +1,4 @@
-DAFF_TAGS=v1.2
+DIFF_TAGS=v1.2
 TRANS?=transforms
 # Application PP requires slightly different transforms, which is specified below.
 PP2HTML_XSL=local/pp2html.xsl
