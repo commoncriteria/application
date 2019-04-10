@@ -39,6 +39,7 @@ To pull updates from the upstream _transforms_ submodule and commit them run:
 
 ### Development Info
 [Help working with Transforms Submodule](https://github.com/commoncriteria/transforms/wiki/Working-with-Transforms-as-a-Submodule)
+[PP Development Wiki](https://github.com/commoncriteria/pp-template/wiki)
 
 ## Repository Content
 * hooks - Contains scripts to be run when certain git events happen
