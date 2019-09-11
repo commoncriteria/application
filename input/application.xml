@@ -2514,15 +2514,11 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               The application shall use X.509v3 certificates as defined by RFC 5280 to support 
               authentication for 
               <selectables>
-                 <selectable>
-                  HTTPS
-                </selectable>
-                <selectable>
-                  TLS
-                </selectable>
-                <selectable>
-                  DTLS
-                </selectable>
+                <selectable>HTTPS</selectable>
+                <selectable>TLS</selectable>
+                <selectable>DTLS</selectable>
+                <selectable>SSH</selectable>
+                <selectable>IPsec</selectable>
               </selectables>. 
             </title>
             <note role="application">
@@ -3375,6 +3371,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <selectable id="sel_all_tlsc"><h:abbr title="Transport Layer Security">TLS</h:abbr> as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><h:i>TLS Package</h:i></h:a></selectable>
             <selectable id="sel_all_dtls"><h:abbr title="Datagram Transport Layer Security">DTLS</h:abbr> as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><h:i>TLS Package</h:i></h:a></selectable>
             <selectable>SSH as conforming to the Extended Package for <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389"><h:i>Secure Shell</h:i></h:a></selectable>
+            <selectable>IPsec as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=419&id=419"><h:i>PP-Module for VPN Client</h:i></h:a></selectable>
           </selectables>
         </selectable>
  
@@ -3410,9 +3407,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>HTTPS</h:i> is selected, <linkref linkend="FCS_HTTPS_EXT.1"/> is required.</h:p> 
         <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>DTLS</h:i> is selected, <linkref linkend="FCS_DTLS_EXT.1"/> is required.</h:p>
         <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>SSH</h:i> is selected, the TSF shall be validated against the <h:i>Extended Package for <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389">Secure Shell</h:a></h:i>.</h:p>
-<h:p>
-		    If <h:i>encrypt all transmitted</h:i> is selected the corresponding FCS_COP.1 requirements will be included.
-		  </h:p>
+        <h:p> If <h:i>encrypt all trasnmitted</h:i> is selected and <h:i>IPsec</h:i> is selected, the TSF must claim conformance to a <h:i>PP-Configuration that includes the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=419&id=419">VPN Client PP-Module</h:a></h:i></h:p>
+        <h:p> If <h:i>encrypt all transmitted</h:i> is selected the corresponding FCS_COP.1 requirements will be included.</h:p>
 	    </note>  
       <aactivity>
         <TSS/>For platform-provided functionality, the evaluator shall verify the TSS contains the calls to the platform that TOE is leveraging to invoke the functionality.
@@ -3425,7 +3421,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             application. The evaluator shall verify from the packet capture that the traffic is 
             encrypted with <h:abbr title="Hypertext Transfer Protocol Secure">HTTPS</h:abbr>, 
             <h:abbr title="Transport Layer Security">TLS</h:abbr>, 
-            <h:abbr title="Datagram Transport Layer Security">DTLS</h:abbr>, or <h:abbr title="Secure Shell">SSH</h:abbr> in accordance with the 
+            <h:abbr title="Datagram Transport Layer Security">DTLS</h:abbr>, or <h:abbr title="Secure Shell">SSH</h:abbr>, or IPsec in accordance with the 
             selection in the <abbr title="Security Target" linkend="ST">ST</abbr>.
           </test>
           <test>
