@@ -1,7 +1,7 @@
 DIFF_TAGS=v1.2
 TRANS?=transforms
 # Application PP requires slightly different transforms, which is specified below.
-PP2HTML_XSL?OD=local/pp2html.xsl
+PP2HTML_XSL?=local/pp2html.xsl
 PP2SIMPLIFIED_XSL?=local/pp2simplified.xsl
 PP2TABLE_XSL?=local/pp2table.xsl
 RNG_FILE?=local/Application.rng
@@ -16,3 +16,4 @@ include $(TRANS)/Helper.make
 #all: $(APP_RECIPROCITY_WORKSHEET)
 #$(APP_RECIPROCITY_WORKSHEET): schema/results2vettingreport.xsl schema/results-example.xml
 #	xsltproc -o $(APP_RECIPROCITY_WORKSHEET) schema/results2vettingreport.xsl schema/results-example.xml
+
