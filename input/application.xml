@@ -3063,6 +3063,14 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               executable files unless explicitly directed by the user to do so.
 	    </title>
 	    <note role="application">
+	      The purpose of this requirement is to help ensure the integrity of application binaries by supporting file protection
+	      mechanisms such as directory-level file permissions and application whitelisting.
+	      
+	      A user-modifiable file for purposes of this requirement is a file that is writable by an unprivileged user of the application -- either 
+	      directly through application execution or independently of the application. If the application runs in the context of the application user, 
+	      then the application should not be able to write to the directory containing the application binaries -- regardless of whether the files 
+	      are configuration data, audit data, or temporary files.
+	      
 	      Executables and user-modifiable files may not share the same parent directory, but
 	      may share directories above the parent.
 	    </note>
@@ -3080,8 +3088,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
                 within the application working directory (sandbox). For Windows Desktop Applications
                 the evaluator shall run the program, mimicking normal usage, and note where all user-modifiable
                 files are written. The evaluator shall ensure that there are no executable files
-                stored in the same directories to which the application wrote user-modifiable files and no data files
-                in the application’s install directory.</subaactivity>
+                stored in the same directories to which the application wrote user-modifiable files.</subaactivity>
               <subaactivity platform="ios">The evaluator shall consider the requirement met because
                 the platform forces applications to write all data within the application working
                 directory (sandbox).</subaactivity>
