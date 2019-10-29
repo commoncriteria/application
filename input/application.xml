@@ -290,21 +290,21 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
   </chapter>
     <chapter title="Conformance Claims" id="ccl">
     <cclaims>
-      <cclaim id="Conformance Statement">
+      <cclaim title="Conformance Statement">
         <description>An ST must claim exact conformance to this PP, as defined in the CC and CEM addenda for Exact Conformance, 
 		 Selection-Based SFRs, and Optional SFRs (dated May 2017).</description>
       </cclaim>
-      <cclaim id="CC Conformance Claims">
+      <cclaim title="CC Conformance Claims">
         <description>This PP is conformant to Parts 2 (extended) and 3 (extended) of Common Criteria Version 3.1, Revision 5.</description>
       </cclaim>
-      <cclaim id="PP Claim">
+      <cclaim title="PP Claim">
         <description>This PP does not claim conformance to any other Protection Profile.
 	       <h:br/><h:br/>
 	       The following PPs and PP-Modules are allowed to be specified in a PP-Configuration with this PP. 
 		 <h:br/>
 		<indent><h:li>PP-Module for VPN Client, Version 2.1</h:li></indent></description>
       </cclaim>
-      <cclaim id="Package Claim">
+      <cclaim title="Package Claim">
         <description>This PP is TLS Package Version 1.1 Conformant.</description>
       </cclaim>
     </cclaims>
@@ -474,7 +474,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
           <component-refer ref="FPT_API_EXT.2"/>
           <component-refer ref="FPT_LIB_EXT.1"/>
           <component-refer ref="FPT_TUD_EXT.2"/>
-          <component-refer ref="FCS_CKM.1(1)"/>
+          <component-refer ref="FCS_CKM.1" iteration="1"/>
         </SO>
         <SO id="O.MANAGEMENT">
           <description>To facilitate management by users and the enterprise, conformant <abbr
@@ -487,7 +487,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
           <component-refer ref="FPT_IDV_EXT.1"/>
           <component-refer ref="FPT_TUD_EXT.1"/>
           <component-refer ref="FPR_ANO_EXT.1"/>
-          <component-refer ref="FCS_COP.1(3)"/>
+          <component-refer ref="FCS_COP.1" iteration="3"/>
         </SO>
         <SO id="O.PROTECTED_STORAGE">
           <description>
@@ -501,10 +501,10 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
           <component-refer ref="FDP_DAR_EXT.1"/>
           <component-refer ref="FCS_STO_EXT.1"/>
           <component-refer ref="FCS_RBG_EXT.1"/>
-          <component-refer ref="FCS_CKM.1(3)"/>
-          <component-refer ref="FCS_COP.1(1)"/>
-          <component-refer ref="FCS_COP.1(2)"/>
-          <component-refer ref="FCS_COP.1(4)"/>
+          <component-refer ref="FCS_CKM.1" iteration="3"/>
+          <component-refer ref="FCS_COP.1" iteration="1"/>
+          <component-refer ref="FCS_COP.1" iteration="2"/>
+          <component-refer ref="FCS_COP.1" iteration="4"/>
         </SO>
         <SO id="O.PROTECTED_COMMS">
           <description> To address both passive (eavesdropping) and active (packet modification)
@@ -805,7 +805,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
           </f-element>
         </f-component>
 
-        <f-component id="fcs_ckm.1(1)" name="Cryptographic Asymmetric Key Generation" status="sel-based">
+        <f-component id="fcs_ckm.1" name="Cryptographic Asymmetric Key Generation" status="sel-based" iteration="1">
           <selection-depends req="fcs_ckm_ext.1.1" ids="sel_invoke_genkey,sel_impl_genkey"/>
           <f-element>
             <title>            
@@ -1021,7 +1021,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
           </f-element>
         </f-component>
 
-        <f-component id="FCS_CKM.1(2)" name="Cryptographic Symmetric Key Generation" status="optional">
+        <f-component id="fcs_ckm.1" iteration="2" name="Cryptographic Symmetric Key Generation" status="optional">
           <f-element>
             <title>The <h:b>application</h:b> shall generate <h:b>symmetric</h:b> cryptographic keys <h:b>using a Random Bit
               Generator as specified in <linkref linkend="FCS_RBG_EXT.1"/></h:b>  and specified
@@ -1068,7 +1068,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
           </f-element>
         </f-component>
 
-        <f-component name="Password Conditioning" id="fcs_ckm.1(3)" status="sel-based">
+        <f-component name="Password Conditioning" id="fcs_ckm.1" iteration="3" status="sel-based">
   <selection-depends req="FCS_STO_EXT.1.1" ids="sel_impl_sto"/>
   <f-element>
     <title>
@@ -1447,7 +1447,7 @@ functionality (such as these)
           </f-element>
         </f-component>
 -->
-        <f-component id="fcs_cop.1(1)" name="Cryptographic Operation - Encryption/Decryption" status="sel-based">
+        <f-component id="fcs_cop.1" iteration="1" name="Cryptographic Operation - Encryption/Decryption" status="sel-based">
           <selection-depends req="FTP_DIT_ext.1.1" ids="sel_all_tlsc"/>
 	  <selection-depends req="fcs_sto_ext.1.1" ids="sel_impl_sto"/>
           <f-element>
@@ -1640,7 +1640,7 @@ functionality (such as these)
             </aactivity>
           </f-element>
         </f-component> 
-        <f-component id="fcs_cop.1(2)" name="Cryptographic Operation - Hashing" status="sel-based">
+        <f-component id="fcs_cop.1" iteration="2" name="Cryptographic Operation - Hashing" status="sel-based">
           <selection-depends req="FTP_DIT_ext.1.1" ids="sel_all_tlsc"/>
           <f-element>
             <title>The <h:b>application</h:b> shall perform <h:i>cryptographic hashing</h:i> services in accordance with a specified 
@@ -1735,7 +1735,7 @@ functionality (such as these)
             </aactivity>
           </f-element>
         </f-component> 
-        <f-component id="fcs_cop.1(3)" name="Cryptographic Operation - Signing"  status="sel-based">
+        <f-component id="fcs_cop.1" iteration="3" name="Cryptographic Operation - Signing"  status="sel-based">
           <selection-depends req="FTP_DIT_ext.1.1" ids="sel_all_tlsc"/>
           <f-element>
             <title>The <h:b>application</h:b> shall perform <h:i>cryptographic signature services (generation and
@@ -1809,7 +1809,7 @@ functionality (such as these)
             </aactivity>
           </f-element>
           </f-component> 
-        <f-component id="fcs_cop.1(4)" name="Cryptographic Operation - Keyed-Hash Message Authentication" status="sel-based">
+        <f-component id="fcs_cop.1" iteration="4" name="Cryptographic Operation - Keyed-Hash Message Authentication" status="sel-based">
           <selection-depends req="FTP_DIT_ext.1.1" ids="sel_all_tlsc"/>
           <f-element>
             <title>The <h:b>application</h:b> shall perform <h:i>keyed-hash message authentication</h:i> in accordance with a 
