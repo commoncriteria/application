@@ -2452,20 +2452,16 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      
               <testlist>
                 <test>
-                  The evaluator shall construct a certificate path, such that the certificate of the 
-                  CA issuing the TOE's certificate does not contain the 
-                  basicConstraints extension. The validation of the certificate path fails.
+                  The evaluator shall ensure that the certificate of at least one of the CAs in the chain does not contain the 
+		  basicConstraints extension. The evaluator shall confirm that validation of the certificate path 
+		  fails (i) as part of the validation of the peer certificate belonging to this chain; and/or 
+		  (ii) when attempting to add the CA certificate without the basicConstraints extension to the TOE's trust store.
                 </test>
                 <test>
-                  The evaluator shall construct a certificate path, such that the certificate of the 
-                  CA issuing the TOE's certificate has the CA flag in the 
-                  basicConstraints extension not set. The validation of the certificate path fails.
-                </test>
-                <test>
-                  The evaluator shall construct a certificate path, such that the certificate of the 
-                  CA issuing the TOE's certificate has the CA flag in the 
-                  basicConstraints extension set to TRUE. The validation of the certificate path 
-                  succeeds.
+                  The evaluator shall ensure that the certificate of at least one of the CAs in the chain has the CA flag in the 
+		  basicConstraints extension not set (or set to FALSE). The evaluator shall confirm that validation of the certificate 
+		  path fails (i) as part of the validation of the peer certificate belonging to this chain; and/or (ii) when attempting 
+		  to add the CA certificate with the CA flag not set (or set to FALSE) in the basicConstraints extension to the TOE's trust store.
                 </test>
               </testlist>
 	      </Tests>
