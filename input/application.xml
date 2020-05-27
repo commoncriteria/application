@@ -793,7 +793,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
           </f-element>
         </f-component>
 
-        <f-component id="fcs_ckm.1" name="Cryptographic Asymmetric Key Generation" status="sel-based" iteration="1">
+        <f-component id="fcom_asym_key_gen" name="Cryptographic Asymmetric Key Generation" status="sel-based" iteration="1">
           <selection-depends req="fel-asym-key-gen" ids="sel_invoke_genkey,sel_impl_genkey"/>
           <f-element>
             <title>            
@@ -1009,7 +1009,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
           </f-element>
         </f-component>
 
-        <f-component id="fcs_ckm.1" iteration="2" name="Cryptographic Symmetric Key Generation" status="optional">
+        <f-component id="fcom_sym_key_gen" iteration="2" name="Cryptographic Symmetric Key Generation" status="optional">
           <f-element>
             <title>The <h:b>application</h:b> shall generate <h:b>symmetric</h:b> cryptographic keys <h:b>using a Random Bit
               Generator as specified in FCS_RBG_EXT.1</h:b>  and specified
@@ -1056,7 +1056,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
           </f-element>
         </f-component>
 
-        <f-component name="Password Conditioning" id="fcs_ckm.1" iteration="3" status="sel-based">
+        <f-component name="Password Conditioning" id="fcom_pass" iteration="3" status="sel-based">
   <selection-depends req="fel-store-creds" ids="sel_impl_sto"/>
   <f-element>
     <title>
@@ -1435,7 +1435,7 @@ functionality (such as these)
           </f-element>
         </f-component>
 -->
-        <f-component id="fcs_cop.1" iteration="1" name="Cryptographic Operation - Encryption/Decryption" status="sel-based">
+        <f-component id="fcom_crypto" iteration="1" name="Cryptographic Operation - Encryption/Decryption" status="sel-based">
           <selection-depends req="fel-transmit" ids="sel_all_tlsc"/>
 	  <selection-depends req="fel-store-creds" ids="sel_impl_sto"/>
           <f-element>
@@ -1628,7 +1628,7 @@ functionality (such as these)
             </aactivity>
           </f-element>
         </f-component> 
-        <f-component id="fcs_cop.1" iteration="2" name="Cryptographic Operation - Hashing" status="sel-based">
+        <f-component id="fcom_hash" iteration="2" name="Cryptographic Operation - Hashing" status="sel-based">
           <selection-depends req="fel-transmit" ids="sel_all_tlsc"/>
           <f-element>
             <title>The <h:b>application</h:b> shall perform <h:i>cryptographic hashing</h:i> services in accordance with a specified 
@@ -1723,7 +1723,7 @@ functionality (such as these)
             </aactivity>
           </f-element>
         </f-component> 
-        <f-component id="fcs_cop.1" iteration="3" name="Cryptographic Operation - Signing"  status="sel-based">
+        <f-component id="fcom_sign" iteration="3" name="Cryptographic Operation - Signing"  status="sel-based">
           <selection-depends req="fel-transmit" ids="sel_all_tlsc"/>
           <f-element>
             <title>The <h:b>application</h:b> shall perform <h:i>cryptographic signature services (generation and
@@ -1797,7 +1797,7 @@ functionality (such as these)
             </aactivity>
           </f-element>
           </f-component> 
-        <f-component id="fcs_cop.1" iteration="4" name="Cryptographic Operation - Keyed-Hash Message Authentication" status="sel-based">
+        <f-component id="fcom_key_hash" iteration="4" name="Cryptographic Operation - Keyed-Hash Message Authentication" status="sel-based">
           <selection-depends req="fel-transmit" ids="sel_all_tlsc"/>
           <f-element>
             <title>The <h:b>application</h:b> shall perform <h:i>keyed-hash message authentication</h:i> in accordance with a 
@@ -2572,8 +2572,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	    </title>
             <note role="application"> 
 	      Configuration options that are stored remotely are not subject to this requirement. 
-	      <xref linkend="sen_data"/> is generally not considered part of configuration options
-	      and should be stored according to fdp_dar_ext.1 or fcs_sto_ext.1.
+	      Sensitive Data is generally not considered part of configuration options
+	      and should be stored according to FDP_DAR_EXT.1 or FCS_STO_EXT.1.
 	    </note>
             <aactivity>
               <TSS>The evaluator shall review the TSS to identify the application's configuration options
