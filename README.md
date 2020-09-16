@@ -47,7 +47,8 @@ To pull updates from the upstream _transforms_ submodule and commit them run:
 * output - The output directory where the html is placed after transformation.
 * output/images - The directory where images are stored
 * transforms - Points to the transform subproject which is really a repository for resources shared amongst many Common Criteria projects.
-* local - Resources that are specific to this project. They often modify or extend functionality from the transforms subproject.
+* local - Resources that are specific to this project.
+  They often modify or extend functionality from the transforms subproject.
 * vetting-output-format - Files in this directory defines the format for output derived from evaluating an application.
 
 ## Links 
