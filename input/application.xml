@@ -598,8 +598,8 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
                 future versions of this document, CryptGenRandom may be removed as an option as it is
                 no longer the preferred API per vendor documentation. </subaactivity>
               <subaactivity platform="ios"> 
-                The evaluator shall verify that the application invokes 
-                <h:code>SecRandomCopyBytes</h:code> or uses <h:code>/dev/random</h:code> directly to acquire random.
+                The evaluator shall verify that the application invokes either
+                <h:code>SecRandomCopyBytes</h:code>, <h:code>CCRandomGenerateBytes</h:code>, or <h:code>CCRandomCopyBytes</h:code>, or uses <h:code>/dev/random</h:code> directly to acquire random.
 				</subaactivity>
               <subaactivity platform="linux"> 
                 The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>
@@ -609,7 +609,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
                 The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>.
 	      </subaactivity>
               <subaactivity platform="mac">
-                The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>.
+                The evaluator shall verify that the application invokes either <h:code>CCRandomGenerateBytes</h:code> or <h:code>CCRandomCopyBytes</h:code>, or collects random from <h:code>/dev/random</h:code>.
 	      </subaactivity>
 		        If invocation of platform-provided functionality is achieved in another way, the evaluator 
 				shall ensure the TSS describes how this is carried out, and how it is equivalent to the 
