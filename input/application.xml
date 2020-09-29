@@ -2649,8 +2649,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 		of the application.
 	      </subaactivity>
               <subaactivity platform="windows">The evaluator shall determine and verify that Windows
-                Universal Applications use either the Windows.UI.ApplicationSettings namespace or
-                the IsolatedStorageSettings namespace for storing application specific settings.
+                Universal Applications use either the Windows.Storage namespace, Windows.UI.ApplicationSettings namespace,
+                or the IsolatedStorageSettings namespace for storing application specific settings.
                 For .NET applications, the evaluator shall determine and verify that the application 
                 uses one of the locations listed in <h:a href='https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/'>
                 https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/</h:a> for storing application specific settings.
@@ -2943,13 +2943,15 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	    </TSS>
               <Tests> The evaluator shall perform either a static or dynamic
               analysis to determine that no memory mappings are placed at an explicit and
-              consistent address. The method of doing so varies per platform. 
+              consistent address. The method of doing so varies per platform. For those platforms 
+              requiring the same application running on two different systems, the evaluator may 
+              alternatively use the same device. After collecting the first instance of mappings, 
+              the evaluator must uninstall the application, reboot the device, and reinstall the application 
+              to collect the second instance of mappings.
 	            <subaactivity platform="android">The evaluator shall run the same application on two
                 different Android systems. Both devices do not need to be evaluated, as the second device is acting only as a tool. 
                 Connect via ADB and inspect /proc/PID/maps. Ensure the two different instances share no memory mappings made by the 
-                application at the same location. Alternatively, the evaluator may use the same device. After collecting the first 
-	            instance of mappings, the evaluator must uninstall the application, reboot the device, and reinstall the application to 
-	            collect the second instance of mappings.</subaactivity>
+                application at the same location.</subaactivity>
               <subaactivity platform="windows"> The evaluator shall run the same application on two
                 different Windows systems and run a tool that will list all memory mapped addresses
                 for the application. The evaluator shall then verify the two different instances
