@@ -2017,10 +2017,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      </Guidance>
               <Tests>
               <subaactivity platform="android">
-                The evaluator shall inspect permissions presented at 
-                installation time (Android 5.1 and below) or on-access 
-                (Android 6.0 and above) for each hardware resource an app intends 
-                to access.  
+                The evaluator shall verify that each <h:code>uses-permission</h:code> entry in the AndroidManifest.xml file 
+                for access to a hardware resource is reflected in the selection.
               </subaactivity>
               <subaactivity platform="windows">For Windows Universal Applications the evaluator shall check the
                 WMAppManifest.xml file for a list of required hardware capabilities. The evaluator
@@ -2083,10 +2081,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      </Guidance>
               <Tests>
 	                    <subaactivity platform="android">
-                The evaluator shall inspect permissions presented at 
-                installation time (Android 5.1 and below) or on-access 
-                (Android 6.0 and above) for each sensitive information repository an app intends 
-                to access.  
+	                      The evaluator shall verify that each <h:code>uses-permission</h:code> entry in the AndroidManifest.xml file 
+	                      for access to a sensitive information repository is reflected in the selection.  
               </subaactivity>
               <subaactivity platform="windows">For Windows Universal Applications the evaluator shall check the
                 WMAppManifest.xml file for a list of required capabilities. The evaluator shall
@@ -2283,13 +2279,13 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
                 <h:li>
                   The application shall validate a certificate path by ensuring the presence of the 
                   basicConstraints extension and that the CA flag is set to TRUE for all CA 
-                  certificates.
+                  certificates, and that any path constraints are met.
                 </h:li>
                 <h:li>
                   The application shall validate the revocation status of the certificate using 
                   <selectables>
                     <selectable>
-                      the Online Certificate Status Protocol (OCSP) as specified in RFC 2560
+                      the Online Certificate Status Protocol (OCSP) as specified in RFC 6960
                     </selectable>
                     <selectable>
                       a Certificate Revocation List (CRL) as specified in RFC 5280 Section 6.3
@@ -2300,11 +2296,14 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
                     <selectable>
                      an OCSP TLS Status Request Extension (i.e., OCSP stapling) as specified in RFC 6066
                     </selectable>
+                    <selectable>
+                      an OCSP TLS Multi-Certificate Status Request Extension (i.e OCSP Multi-Stapling) as specified in RFC 6961
+                    </selectable>
                   </selectables>
                   .
                 </h:li>
                 <h:li>
-                  The application shall validate the extendedKeyUsage field according to the 
+                  The application shall validate the extendedKeyUsage (EKU) field according to the 
                   following rules:
                   <h:ul>
                     <h:li>
@@ -2345,8 +2344,12 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <note role="application">
 	      FIA_X509_EXT.1.1  lists the rules for validating certificates.
 	      The ST author shall select whether revocation status is verified using OCSP or CRLs. 
-	      FIA_X509_EXT.2  requires that certificates are used for HTTPS, TLS and DTLS; 
-              this use requires that the extendedKeyUsage rules are verified.
+	      FIA_X509_EXT.2 requires that certificates are used for HTTPS, TLS and DTLS; 
+              this use requires that the extendedKeyUsage rules are verified. If OCSP is not supported, 
+              the EKU provision for checking the OCSP Signing purpose is met by default.
+              <h:br />
+              OCSP stapling and OCSP multi-stapling only support TLS server certificate validation. If other certificate types 
+              are validated, either OCSP or CRL should be claimed.
               <h:br />
               Regardless of the selection of <h:i>implement functionality</h:i> or <h:i>invoke platform-provided functionality</h:i>,
               the validation is expected to end in a trusted root CA certificate in a root 
@@ -2370,38 +2373,37 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      
 		    <testlist>
                 <test>
-                  The evaluator shall demonstrate that validating a certificate without a valid 
-                  certification path results in the function failing. The evaluator shall then load 
-                  a certificate or certificates as trusted CAs needed to validate the certificate to 
-                  be used in the function, and demonstrate that the function succeeds. The evaluator 
-                  shall then delete one of the certificates, and show that the function fails.
+                  The evaluator shall demonstrate that validating a certificate without a valid certification path 
+                  results in the function failing, for each of the following reasons, in turn:
+                  <h:ul>
+                    <h:li>by establishing a certificate path in which one of the issuing certificates is not a CA certificate,</h:li>
+                    <h:li>by omitting the basicConstraints field in one of the issuing certificates,</h:li>
+                    <h:li>by setting the basicConstraints field in an issuing certificate to have CA=False,</h:li>
+                    <h:li>by omitting the CA signing bit of the key usage field in an issuing certificate, and</h:li>
+                    <h:li>by setting the path length field of a valid CA field to a value strictly less than the certificate path.</h:li>
+                  </h:ul>
+                  The evaluator shall then establish a valid certificate path consisting of valid CA certificates, and demonstrate that the function 
+                  succeeds. The evaluator shall then remove trust in one of the CA certificates, and show that the function fails.
                 </test>
-                <test>
-                  The evaluator shall demonstrate that validating an expired certificate results in 
-                  the function failing.
-                </test>
+		            <test>
+		              The evaluator shall demonstrate that validating an expired certificate results in the function failing.
+		            </test>
                 <test>
                   The evaluator shall test that the TOE can properly handle 
-                  revoked certificates-–conditional on whether CRL, OCSP, or OCSP Stapling is selected;
-                  if multiple methods are selected, then the following tests shall be performed 
-		  for each method:
-		  <h:ul>
-		    <h:li>
-		      The evaluator shall test revocation of the node certificate. 
-		    </h:li>
-		    <h:li>
-		      The evaluator shall also test revocation of an intermediate CA certificate 
-		      (i.e. the intermediate CA certificate should be revoked by the root CA), 
-		      if intermediate CA certificates are supported. 
-		    </h:li>
-		  </h:ul>
-		  The evaluator shall ensure that a valid certificate is used, and that the 
-                  validation function succeeds. The evaluator then attempts the test with a 
-                  certificate that has been revoked (for each method chosen in the selection) to 
-                  ensure when the certificate is no longer valid that the validation function fails.
+                  revoked certificates-"conditional on whether CRL, OCSP, OCSP Stapling, or OCSP Multi-stapling is selected;
+                  if multiple methods are selected, then the following tests shall be performed for each method:\
+		            <h:ul>
+         		     <h:li>The evaluator shall test revocation of the node certificate.</h:li>
+         		     <h:li>The evaluator shall also test revocation of an intermediate CA certificate 
+         		      (i.e. the intermediate CA certificate should be revoked by the root CA), 
+         		      if intermediate CA certificates are supported. If OCSP stapling per RFC 6066 is the only supported revocation method, this test is omitted.</h:li>
+         		     <h:li>The evaluator shall ensure that a valid certificate is used, and that the validation function succeeds. The evaluator then 
+         		       attempts the test with a certificate that has been revoked (for each method chosen in the selection) 
+         		       to ensure when the certificate is no longer valid that the validation function fails.</h:li>
+		            </h:ul>
                 </test>
                 <test>
-                  If OCSP is selected, the evaluator shall configure the OCSP server or use a 
+                  If OCSP option is selected, the evaluator shall configure the OCSP server or use a 
                   man-in-the-middle tool to present a certificate that does not have the OCSP 
                   signing purpose and verify that validation of the OCSP response fails. If CRL is 
                   selected, the evaluator shall configure the CA to sign a CRL with a certificate 
@@ -2422,6 +2424,19 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
                   The evaluator shall modify any byte in the public key of the certificate and 
                   demonstrate that the certificate fails to validate. (The signature on the 
                   certificate will not validate.)
+                </test>
+		            <test>
+		              (Conditional on support for EC certificates as indicated in FCS_COP.1(3)). The evaluator shall establish a valid, trusted certificate chain 
+		              consisting of an EC leaf certificate, an EC Intermediate CA certificate not designated as a trust anchor, and an EC certificate designated as 
+		              a trusted anchor, where the elliptic curve parameters are specified as a named curve. 
+		              The evaulator shall confirm that the TOE validates the certificate chain.
+		            </test>
+                <test>
+                  (Conditional on support for EC certificates as indicated in FCS_COP.1(3)). The evaluator shall replace the intermediate certificate in 
+                  the certificate chain for Test 8a with a modified certificate, where the modified intermediate CA has a public key information field 
+                  where the EC parameters uses an explicit format version of the Elliptic Curve parameters in the public key information field of the 
+                  intermediate CA certificate from Test 8a, and the modified Intermediate CA certificate is signed by the trusted EC root CA, but having no
+                  other changes. The evaluator shall confirm the TOE treats the certificate as invalid.
                 </test>
 		    </testlist>
 	      </Tests>
@@ -2688,13 +2703,9 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               by the application and ensure that their permissions are adequate to protect them.
               The method of doing so varies per platform.
                             
-              <subaactivity platform="android">The evaluator shall run 
-                <h:code>ls -alR|grep -E '^........w.'</h:code> inside the application's 
-		            data directories to ensure that all files are not world-writable. 
-		            The command should not print any files.
-		            The evaluator shall also verify that no sensitive data is written to
-                external storage which could be read/modified by any application containing the 
-                READ_EXTERNAL_STORAGE and/or WRITE_EXTERNAL_STORAGE permissions.
+              <subaactivity platform="android">The evaluator shall run the command <h:code>find -L . -perm /002</h:code> 
+                inside the application's data directories to ensure that all files are not world-writable. The command 
+                should not print any files.
               </subaactivity>
               <subaactivity platform="windows">The evaluator shall run the SysInternals tools,
                 Process Monitor and Access Check (or tools of equivalent capability, like 
