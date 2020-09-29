@@ -1439,6 +1439,7 @@ functionality (such as these)
 		  <selectable>AES-CBC (as defined in NIST SP 800-38A) mode</selectable>
 		  <selectable>AES-GCM (as defined in NIST SP 800-38D) mode</selectable>
 		  <selectable>AES-XTS (as defined in NIST SP 800-38E) mode</selectable>
+		  <selectable>AES-CCM (as defined in NIST SP 800-38C) mode</selectable>
 	    </selectables>
             and cryptographic key sizes 
 		<selectables>
@@ -1618,6 +1619,46 @@ functionality (such as these)
 	<h:br /><h:br />The evaluator shall test the decrypt functionality of XTS-AES using the same test as
 	for encrypt, replacing plaintext values with ciphertext values and XTS-AES encrypt
 	with XTS-AES decrypt.
+	<h:br />
+        <h:b>AES-CCM Tests</h:b>
+        <h:p />Is is not recommended that the evaluators use values obtained from static sources such as 
+        <h:a href="http://csrc.nist.gov/groups/STM/cavp/documents/mac/ccmtestvectors.zip"> http://csrc.nist.gov/groups/STM/cavp/documents/mac/ccmtestvectors.zip</h:a>
+        or use values not generated expressly to exercise the AES-CCM implementation.
+        <h:br />
+        The evaluator shall test the generation-encryption and decryption-verification functionality of AES-CCM 
+        for the following input parameter and tag lengths:
+        <h:ul>
+          <h:li>Keys: All supported and selected key sizes (e.g., 128, 256 bits).</h:li>
+          <h:li>Associated Data: Two or three values for associated data length: The minimum (&lt;= 0 bytes) and maximum (&gt;= 32 bytes) 
+          supported associated data lengths, and 2^16 (65536) bytes, if supported.</h:li>
+          <h:li>Payload: Two values for payload length: The minimum (&lt;= 0 bytes) and maximum (&gt;= 32 bytes) supported payload lengths.</h:li>
+          <h:li>Nonces: All supported tag lengths (7, 8, 9, 10, 11, 12, 13) in bytes.</h:li>
+          <h:li>Tag: All supported tag lengths (4, 6, 8, 10, 12, 14, 16) in bytes.</h:li>
+        </h:ul>
+        <h:br />
+        The testing for CCM consists of five tests. To determine correctness in each of the below tests, the evaluator shall compare the ciphertext 
+        with the result of encryption of the same inputs with a known good implementation.
+        <h:br /><h:br />
+        Variable Associated Data Test
+        For each supported key size and associated data length, and any supported payload length, nonce length, and tag length, 
+        the evaluator shall supply one key value, one nonce value, and 10 pairs of associated data and payload values, and obtain the resulting ciphertext.
+        <h:br /><h:br />
+        Variable Payload Test
+        For each supported key size and payload length, and any supported associated data length, nonce length, and tag length,
+        the evaluator shall supply one key value, one nonce value, and 10 pairs of associated data and payload values, and obtain the resulting ciphertext.
+        <h:br /><h:br />
+        Variable Nonce Test
+        For each supported keysize and nonce length, and any supported associated data length, payload length, and tag length, 
+        the evaluator shall supply one key key value, one nonce value, and 10 pairs of associated data and payload values, and obtain the resulting ciphertext.
+        <h:br /><h:br />
+        Variable Tag Test
+        For each supported key size and tag length, and any supported associated data length, payload length, and tag length, 
+        the evaluator shall supply one key value, one nonce value, and 10 pairs of associated data and payload values, and obtain the resulting ciphertext.
+        <h:br /><h:br />
+        Decryption-Verification Process Test
+        To test the decryption-verification functionality of AES-CCM, for each combination of supported associated data length, payload length, 
+        nonce length, and tag length, the evaluator shall supply a key value and 15 sets of input plus ciphertext, and obtain the decrypted payload. 
+        Ten of the 15 input sets supplied should fail verification and five should pass.
       </Tests>
             </aactivity>
           </f-element>
@@ -2433,9 +2474,9 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 		            </test>
                 <test>
                   (Conditional on support for EC certificates as indicated in FCS_COP.1(3)). The evaluator shall replace the intermediate certificate in 
-                  the certificate chain for Test 8a with a modified certificate, where the modified intermediate CA has a public key information field 
+                  the certificate chain for Test 8 with a modified certificate, where the modified intermediate CA has a public key information field 
                   where the EC parameters uses an explicit format version of the Elliptic Curve parameters in the public key information field of the 
-                  intermediate CA certificate from Test 8a, and the modified Intermediate CA certificate is signed by the trusted EC root CA, but having no
+                  intermediate CA certificate from Test 8, and the modified Intermediate CA certificate is signed by the trusted EC root CA, but having no
                   other changes. The evaluator shall confirm the TOE treats the certificate as invalid.
                 </test>
 		    </testlist>
