@@ -48,6 +48,12 @@
     </entry>
   </RevisionHistory>
 
+  <include-pkg product="TLS" name="Network Encryption" short="TLS"  version="1.1"
+			 url="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"
+			 xmlurl="https://raw.githubusercontent.com/commoncriteria/tls/ed2d9042c27f7793d1f96e08e47bd12b04970977/input/tls.xml">
+	  <depends on="selection">  <ref-id>sel_all_tlsc</ref-id><ref-id>sel_all_dtls</ref-id> </depends>
+  </include-pkg>
+	
   <chapter title="Introduction" id="int">
     <!-- TO DO: Distinguish citations from cross-references. Mark up each appropriately. 
                         Pick an attribute other than id to refer to the linked element. Transform 
@@ -620,7 +626,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
         </f-component>
          <f-component cc-id="fcs_rbg_ext.2" name="Random Bit Generation from Application" status="sel-based">
            <selection-depends req="fel-rbg" ids="drbg"/>
-          <f-element>
+          <f-element id="fel-drbg-how">
             <title> The application shall perform all deterministic random bit generation (DRBG)
               services in accordance with 
                 NIST Special Publication 800-90A using <selectables>
@@ -728,7 +734,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
 	      </Tests>
             </aactivity>
           </f-element>
-          <f-element>
+          <f-element id="fel-drbg-seed">
             <title>The deterministic RBG shall be seeded by an entropy source that accumulates
               entropy from a platform-based DRBG and <selectables linebreak="yes">
                 <selectable>a software-based noise source</selectable>
@@ -789,7 +795,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
 
         <f-component cc-id="fcs_ckm.1" id="fcom_asym_key_gen" name="Cryptographic Asymmetric Key Generation" status="sel-based" iteration="1">
           <selection-depends req="fel-asym-key-gen" ids="sel_invoke_genkey,sel_impl_genkey"/>
-          <f-element>
+          <f-element id="fel-asym-key-gen">
             <title>            
               The <h:b>application</h:b> shall <selectables linebreak="yes">
                 <selectable>invoke platform-provided functionality</selectable>
@@ -1004,7 +1010,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
         </f-component>
 
         <f-component cc-id="fcs_ckm.1" id="fcom_sym_key_gen" iteration="2" name="Cryptographic Symmetric Key Generation" status="optional">
-          <f-element>
+          <f-element id="fel-sym-key-gen">
             <title>The <h:b>application</h:b> shall generate <h:b>symmetric</h:b> cryptographic keys <h:b>using a Random Bit
               Generator as specified in FCS_RBG_EXT.1</h:b>  and specified
               cryptographic key sizes <selectables linebreak="yes">
@@ -1052,10 +1058,10 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
 
 	<f-component name="Password Conditioning" cc-id="fcs_ckm.1" id="fcom_pass" iteration="3" status="sel-based">
   <selection-depends req="fel-store-creds" ids="sel_impl_sto"/>
-  <f-element>
+  <f-element id="fel-pass">
     <title>
-    Refinement: A password/passphrase shall perform [Password-based Key Derivation Functions] in accordance with a specified 
-    cryptographic algorithm as specified in FCS_COP.1/4, with [assignment: positive integer of 1,000 or more] iterations,
+    A password/passphrase shall perform <assignable>Password-based Key Derivation Functions</assignable> in accordance with a specified 
+    cryptographic algorithm as specified in FCS_COP.1/4, with <assignable>positive integer of 1,000 or more</assignable> iterations,
     and output cryptographic key sizes <selectables>
       <selectable>128</selectable>
       <selectable>256</selectable>
@@ -1063,7 +1069,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
       that meet the following <h:b>[NIST SP 800-132]</h:b>.  </title>
   </f-element>
   
-  <f-element>
+  <f-element id="fel-gen-salts">
     <title>The TSF shall generate salts using a RBG that meets 
       FCS_RGB_EXT.1 and with entropy corresponding to the security strength selected for 
       PBKDF in FCS_CKM.1.1/3
@@ -1103,7 +1109,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
 
         <f-component cc-id="fcs_ckm.2" name="Cryptographic Key Establishment" status="sel-based">
 	  <selection-depends req="fel-transmit" ids="sel_all_tlsc"/>
-          <f-element>
+          <f-element id="fel-key-est">
             <title>
               The application shall 
               <selectables>
@@ -1332,7 +1338,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
 Commenting out: the fundamental question is how to handle requirements for more general
 functionality (such as these)
         <f-component cc-id="fcs_cop_ext.1" name="Encryption/Decryption Services">
-          <f-element>
+          <f-element id="fel-">
             <title>The application shall <selectables linebreak="yes">
                 <selectable>perform no encryption/decryption</selectable>
                 <selectable>invoke platform-provided encryption/decryption functionality</selectable>
@@ -1364,7 +1370,7 @@ functionality (such as these)
         </f-component>
 
         <f-component cc-id="fcs_cop_ext.2" name="Cryptographic Hashing Services">
-          <f-element>
+          <f-element id="fel-">
             <title>The application shall <selectables linebreak="yes">
                 <selectable>perform no cryptographic hashing</selectable>
                 <selectable>invoke platform-provided cryptographic hashing</selectable>
@@ -1397,7 +1403,7 @@ functionality (such as these)
         </f-component>
 
         <f-component cc-id="fcs_cop_ext.3" name="Cryptographic Signing Services">
-          <f-element>
+          <f-element id="fel-">
             <title>The application shall 
 			  <selectables linebreak="yes">
                 <selectable>perform no cryptographic signing</selectable>
@@ -1432,7 +1438,7 @@ functionality (such as these)
         <f-component cc-id="fcs_cop.1" id="fcom_crypto" iteration="1" name="Cryptographic Operation - Encryption/Decryption" status="sel-based">
           <selection-depends req="fel-transmit" ids="sel_all_tlsc"/>
 	  <selection-depends req="fel-store-creds" ids="sel_impl_sto"/>
-          <f-element>
+          <f-element id="fel-sym-encrypt">
             <title>The <h:b>application</h:b> shall perform <h:i>encryption/decryption</h:i> in accordance with a specified 
         cryptographic algorithm  
 		<selectables linebreak="yes">
@@ -1624,7 +1630,7 @@ functionality (such as these)
         </f-component> 
         <f-component cc-id="fcs_cop.1" id="fcom_hash" iteration="2" name="Cryptographic Operation - Hashing" status="sel-based">
           <selection-depends req="fel-transmit" ids="sel_all_tlsc"/>
-          <f-element>
+          <f-element id="fel-crypt-hash">
             <title>The <h:b>application</h:b> shall perform <h:i>cryptographic hashing</h:i> services in accordance with a specified 
         cryptographic algorithm 
 	      <selectables linebreak="yes">
@@ -1719,7 +1725,7 @@ functionality (such as these)
         </f-component> 
         <f-component cc-id="fcs_cop.1" id="fcom_sign" iteration="3" name="Cryptographic Operation - Signing"  status="sel-based">
           <selection-depends req="fel-transmit" ids="sel_all_tlsc"/>
-          <f-element>
+          <f-element id="fel-sign">
             <title>The <h:b>application</h:b> shall perform <h:i>cryptographic signature services (generation and
               verification)</h:i> in accordance with a specified cryptographic algorithm <selectables linebreak="yes">
                 <selectable><h:b>RSA schemes</h:b> using cryptographic key sizes of 2048-bit or greater that meet the 
@@ -1793,7 +1799,7 @@ functionality (such as these)
           </f-component> 
         <f-component cc-id="fcs_cop.1" id="fcom_key_hash" iteration="4" name="Cryptographic Operation - Keyed-Hash Message Authentication" status="sel-based">
           <selection-depends req="fel-transmit" ids="sel_all_tlsc"/>
-          <f-element>
+          <f-element id="fel-keyed-hash">
             <title>The <h:b>application</h:b> shall perform <h:i>keyed-hash message authentication</h:i> in accordance with a 
 			specified cryptographic algorithm
 			<h:ul>
@@ -1910,7 +1916,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
         
         <f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol" status="sel-based">
           <selection-depends req="fel-transmit" ids="sel_all_https,sel_sen_https"/>
-          <f-element>
+          <f-element id="fel-https-wath">
             <title>
               The application shall implement the HTTPS protocol that complies with RFC 2818.
             </title>
@@ -1922,7 +1928,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      </Tests>
             </aactivity>
           </f-element>
-          <f-element>
+          <f-element id="fel-https-how">
             <title>The application shall implement HTTPS using 
               TLS as defined in the TLS package.
             </title>
@@ -1931,7 +1937,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      </Tests>
             </aactivity>
           </f-element>
-          <f-element>
+          <f-element id="fel-https-who">
             <title> The application shall 
               <selectables>
                 <selectable>
@@ -1974,7 +1980,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 
       <subsection title="User Data Protection (FDP)" id="fdp">
         <f-component cc-id="fdp_dec_ext.1" name="Access to Platform Resources">
-          <f-element>
+          <f-element id="fel-hardware-access">
             <title> The application shall restrict its access to
               <selectables linebreak="yes">
                 <selectable>no hardware resources</selectable>
@@ -2054,7 +2060,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      </Tests>
             </aactivity>
           </f-element>
-          <f-element>
+          <f-element id="fel-info-access">
             <title>The application shall restrict its access to
                 <selectables linebreak="yes">
                 <selectable>no sensitive information repositories</selectable>
@@ -2122,7 +2128,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
         </f-component>
 
         <f-component cc-id="fdp_net_ext.1" name="Network Communications">
-          <f-element>
+          <f-element id="fel-network-access">
             <title>The application shall restrict network communication to 
               <selectables linebreak="yes">
                 <selectable>no network communication</selectable>
@@ -2177,7 +2183,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 
 
         <f-component cc-id="fdp_dar_ext.1" name="Encryption Of Sensitive Application Data">
-          <f-element>
+          <f-element id="fel-dar-how">
             <title>The application shall 
 	      <selectables linebreak="yes">
                 <selectable>leverage platform-provided functionality to encrypt sensitive data</selectable>
@@ -2261,7 +2267,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
       <subsection title="Identification and Authentication (FIA)" id="fia">
         <f-component cc-id="fia_x509_ext.1" name="X.509 Certificate Validation" status="sel-based">
           <selection-depends req="fel-transmit" ids="sel_all_https,sel_all_tlsc,sel_all_tlss,sel_all_dtls,sel_sen_https,sel_sen_tlsc,sel_sen_tlss,sel_sen_dtls"/>
-          <f-element>
+          <f-element id="fel-certauth-how">
             <title>
               The application shall 
               <selectables>
@@ -2427,7 +2433,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      </Tests>
             </aactivity>
           </f-element>
-          <f-element>
+          <f-element id="fel-ca-who">
             <title>
               The application shall treat a certificate as a CA certificate only if the 
               basicConstraints extension is present and the CA flag is set to TRUE.
@@ -2467,7 +2473,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
         </f-component>
         <f-component cc-id="fia_x509_ext.2" name="X.509 Certificate Authentication" status="sel-based">
           <selection-depends req="fel-transmit" ids="sel_all_https,sel_all_tlsc,sel_all_tlss,sel_all_dtls,sel_sen_https,sel_sen_tlsc,sel_sen_tlss,sel_sen_dtls"/>
-          <f-element>
+          <f-element id="fel-certs-who">
             <title>
               The application shall use X.509v3 certificates as defined by RFC 5280 to support 
               authentication for 
@@ -2489,7 +2495,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             </aactivity>
             -->
           </f-element>
-          <f-element>
+          <f-element id="fel-cert-fail">
             <title>
               When the application cannot establish a connection to determine the validity of a 
               certificate, the application shall  
@@ -2556,7 +2562,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
       </subsection>
       <subsection title="Security Management (FMT)" id="fmt">
         <f-component cc-id="fmt_mec_ext.1" name="Supported Configuration Mechanism">
-          <f-element>
+          <f-element id="fel-config-store">
             <title>
               The application shall
               <selectables>
@@ -2638,7 +2644,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           </f-element>
         </f-component>
         <f-component cc-id="fmt_cfg_ext.1" name="Secure by Default Configuration">
-          <f-element>
+          <f-element id="fel-default-config">
             <title>
 	      The application shall provide only enough functionality to set new credentials when 
               configured with default credentials or no credentials.
@@ -2674,7 +2680,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	     </Tests>
 	    </aactivity>
           </f-element>
-          <f-element>
+          <f-element id="fel-file-perms">
             <title>The application shall be configured by default with file permissions which protect
               the application binaries and data files from modification by normal unprivileged users.</title>
             <note role="application">
@@ -2731,7 +2737,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           </f-element>
         </f-component>
         <f-component cc-id="fmt_smf.1" name="Specification of Management Functions">
-          <f-element>
+          <f-element id="fel-management-funcs">
             <title> The TSF shall be capable of performing the following
               management functions 
               <selectables linebreak="yes">
@@ -2775,7 +2781,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 
       <subsection title="Privacy (FPR)" id="fpr">
       <f-component cc-id="fpr_ano_ext.1" name="User Consent for Transmission of Personally Identifiable Information">
-          <f-element>
+          <f-element id="fel-transmit-pii">
             <title>
 	      The application shall 
 	      <selectables linebreak="yes">
@@ -2829,7 +2835,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 
       <subsection title="Protection of the TSF (FPT)" id="fpt">
         <f-component cc-id="fpt_api_ext.1" name="Use of Supported Services and APIs">
-          <f-element>
+          <f-element id="fel-api-what">
             <title>The application shall use only documented platform APIs.</title>
             <note role="application">
               The definition of <h:i>documented</h:i> may vary depending upon whether the application is provided by
@@ -2849,7 +2855,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           </f-element>
 	</f-component>
         <f-component cc-id="fpt_api_ext.2" name="Use of Supported Services and APIs" status="objective">
-          <f-element>
+          <f-element id="fel-api-parsers">
             <title> The application 
               <selectables>
                 <selectable>shall use platform-provided libraries</selectable>
@@ -2878,7 +2884,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           </f-element>
         </f-component>
         <f-component cc-id="fpt_aex_ext.1" name="Anti-Exploitation Capabilities">
-          <f-element>
+          <f-element id="fel-aslr">
             <title> The application shall not request to map memory at an explicit address
               except for <assignable>list of explicit exceptions</assignable>.
             </title>
@@ -2932,7 +2938,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      </Tests>
             </aactivity>
           </f-element>
-          <f-element>
+          <f-element id="fel-nwx">
             <title>
 	      The application shall 
 	      <selectables linebreak="yes">
@@ -2985,7 +2991,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      </Tests>
             </aactivity>
           </f-element>
-          <f-element>
+          <f-element id="fel-plays-nice">
             <title>The application shall be compatible with security features provided by the
               platform vendor.</title>
             <note role="application">This requirement is designed to ensure that platform security 
@@ -3025,7 +3031,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      </Tests>
             </aactivity>
           </f-element>
-          <f-element>
+          <f-element id="fel-ro-exe">
             <title>
               The application shall not write user-modifiable files to directories that contain 
               executable files unless explicitly directed by the user to do so.
@@ -3079,7 +3085,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      </Tests>
               </aactivity>
 	    </f-element>
-          <f-element>
+          <f-element id="fel-stackcookies">
             <title>The application shall be built with stack-based buffer overflow protection
               enabled.</title>
             <aactivity><Tests>
@@ -3107,7 +3113,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           </f-element>
         </f-component>
         <f-component cc-id="fpt_tud_ext.1" name="Integrity for Installation and Update">
-          <f-element>
+          <f-element id="fel-update-check">
             <title>The application shall <selectables>
                 <selectable>provide the ability</selectable>
                 <selectable>leverage the platform</selectable>
@@ -3125,7 +3131,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      </Tests>
             </aactivity>
           </f-element>
-          <f-element>
+          <f-element id="fel-version-check">
             <title>The application shall <selectables>
               <selectable>provide the ability</selectable>
               <selectable>leverage the platform</selectable>
@@ -3140,7 +3146,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      </Tests>
             </aactivity>
           </f-element>
-          <f-element>
+          <f-element id="fel-nomod-exe">
             <title> The application shall not download, modify, replace or update its own binary
               code. </title>
             <note role="application">This requirement applies to the code of the application; it
@@ -3163,7 +3169,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      </Tests>
             </aactivity>
           </f-element>
-          <f-element>
+          <f-element id="fel-patch-sign">
             <title> 
 			  The application installation package and its updates shall be digitally signed 
 			  such that its platform can cryptographically verify them prior to installation.
@@ -3212,7 +3218,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
        
         <f-component cc-id="fpt_tud_ext.2" name="Integrity for Installation and Update" status="sel-based">
           <selection-depends req="fel-distro" ids="sel_with_plat,sel_add_plat"/>
-          <f-element>
+          <f-element id="fel-patch-native">
             <title>The application shall be distributed using the format of the platform-supported
               package manager. </title>
             <aactivity>
@@ -3241,7 +3247,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      </Tests>
             </aactivity>
           </f-element>
-          <f-element>
+          <f-element id="fel-removal">
             <title>The application shall be packaged such that its removal results in the deletion 
               of all traces of the application, with the exception of configuration settings, output
               files, and audit/log events.</title>
@@ -3267,7 +3273,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
         </f-component>
        
         <f-component cc-id="fpt_lib_ext.1" name="Use of Third Party Libraries">
-          <f-element>
+          <f-element id="fel-thirdparty-libs">
             <title> The application shall be packaged with only
 	      <assignable>list of third-party libraries</assignable>. 
 	    </title>
@@ -3287,7 +3293,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           </f-element>
         </f-component>
         <f-component cc-id="fpt_idv_ext.1" name="Software Identification and Versions">
-          <f-element>
+          <f-element id="fel-swid">
             <title>The application shall be versioned with
               <selectables>
                 <selectable>SWID tags 
