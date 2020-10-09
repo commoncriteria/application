@@ -604,8 +604,8 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
                 future versions of this document, CryptGenRandom may be removed as an option as it is
                 no longer the preferred API per vendor documentation. </subaactivity>
               <subaactivity platform="ios"> 
-                The evaluator shall verify that the application invokes 
-                <h:code>SecRandomCopyBytes</h:code> or uses <h:code>/dev/random</h:code> directly to acquire random.
+                The evaluator shall verify that the application invokes either
+                <h:code>SecRandomCopyBytes</h:code>, <h:code>CCRandomGenerateBytes</h:code>, or <h:code>CCRandomCopyBytes</h:code>, or uses <h:code>/dev/random</h:code> directly to acquire random.
 				</subaactivity>
               <subaactivity platform="linux"> 
                 The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>
@@ -615,7 +615,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
                 The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>.
 	      </subaactivity>
               <subaactivity platform="mac">
-                The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>.
+                The evaluator shall verify that the application invokes either <h:code>CCRandomGenerateBytes</h:code> or <h:code>CCRandomCopyBytes</h:code>, or collects random from <h:code>/dev/random</h:code>.
 	      </subaactivity>
 		        If invocation of platform-provided functionality is achieved in another way, the evaluator 
 				shall ensure the TSS describes how this is carried out, and how it is equivalent to the 
@@ -1445,6 +1445,7 @@ functionality (such as these)
 		  <selectable>AES-CBC (as defined in NIST SP 800-38A) mode</selectable>
 		  <selectable>AES-GCM (as defined in NIST SP 800-38D) mode</selectable>
 		  <selectable>AES-XTS (as defined in NIST SP 800-38E) mode</selectable>
+		  <selectable>AES-CCM (as defined in NIST SP 800-38C) mode</selectable>
 	    </selectables>
             and cryptographic key sizes 
 		<selectables>
@@ -1624,6 +1625,46 @@ functionality (such as these)
 	<h:br /><h:br />The evaluator shall test the decrypt functionality of XTS-AES using the same test as
 	for encrypt, replacing plaintext values with ciphertext values and XTS-AES encrypt
 	with XTS-AES decrypt.
+	<h:br />
+        <h:b>AES-CCM Tests</h:b>
+        <h:p />Is is not recommended that the evaluators use values obtained from static sources such as 
+        <h:a href="http://csrc.nist.gov/groups/STM/cavp/documents/mac/ccmtestvectors.zip"> http://csrc.nist.gov/groups/STM/cavp/documents/mac/ccmtestvectors.zip</h:a>
+        or use values not generated expressly to exercise the AES-CCM implementation.
+        <h:br />
+        The evaluator shall test the generation-encryption and decryption-verification functionality of AES-CCM 
+        for the following input parameter and tag lengths:
+        <h:ul>
+          <h:li>Keys: All supported and selected key sizes (e.g., 128, 256 bits).</h:li>
+          <h:li>Associated Data: Two or three values for associated data length: The minimum (&lt;= 0 bytes) and maximum (&gt;= 32 bytes) 
+          supported associated data lengths, and 2^16 (65536) bytes, if supported.</h:li>
+          <h:li>Payload: Two values for payload length: The minimum (&lt;= 0 bytes) and maximum (&gt;= 32 bytes) supported payload lengths.</h:li>
+          <h:li>Nonces: All supported tag lengths (7, 8, 9, 10, 11, 12, 13) in bytes.</h:li>
+          <h:li>Tag: All supported tag lengths (4, 6, 8, 10, 12, 14, 16) in bytes.</h:li>
+        </h:ul>
+        <h:br />
+        The testing for CCM consists of five tests. To determine correctness in each of the below tests, the evaluator shall compare the ciphertext 
+        with the result of encryption of the same inputs with a known good implementation.
+        <h:br /><h:br />
+        Variable Associated Data Test
+        For each supported key size and associated data length, and any supported payload length, nonce length, and tag length, 
+        the evaluator shall supply one key value, one nonce value, and 10 pairs of associated data and payload values, and obtain the resulting ciphertext.
+        <h:br /><h:br />
+        Variable Payload Test
+        For each supported key size and payload length, and any supported associated data length, nonce length, and tag length,
+        the evaluator shall supply one key value, one nonce value, and 10 pairs of associated data and payload values, and obtain the resulting ciphertext.
+        <h:br /><h:br />
+        Variable Nonce Test
+        For each supported keysize and nonce length, and any supported associated data length, payload length, and tag length, 
+        the evaluator shall supply one key key value, one nonce value, and 10 pairs of associated data and payload values, and obtain the resulting ciphertext.
+        <h:br /><h:br />
+        Variable Tag Test
+        For each supported key size and tag length, and any supported associated data length, payload length, and tag length, 
+        the evaluator shall supply one key value, one nonce value, and 10 pairs of associated data and payload values, and obtain the resulting ciphertext.
+        <h:br /><h:br />
+        Decryption-Verification Process Test
+        To test the decryption-verification functionality of AES-CCM, for each combination of supported associated data length, payload length, 
+        nonce length, and tag length, the evaluator shall supply a key value and 15 sets of input plus ciphertext, and obtain the decrypted payload. 
+        Ten of the 15 input sets supplied should fail verification and five should pass.
       </Tests>
             </aactivity>
           </f-element>
@@ -2023,10 +2064,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      </Guidance>
               <Tests>
               <subaactivity platform="android">
-                The evaluator shall inspect permissions presented at 
-                installation time (Android 5.1 and below) or on-access 
-                (Android 6.0 and above) for each hardware resource an app intends 
-                to access.  
+                The evaluator shall verify that each <h:code>uses-permission</h:code> entry in the AndroidManifest.xml file 
+                for access to a hardware resource is reflected in the selection.
               </subaactivity>
               <subaactivity platform="windows">For Windows Universal Applications the evaluator shall check the
                 WMAppManifest.xml file for a list of required hardware capabilities. The evaluator
@@ -2089,10 +2128,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      </Guidance>
               <Tests>
 	                    <subaactivity platform="android">
-                The evaluator shall inspect permissions presented at 
-                installation time (Android 5.1 and below) or on-access 
-                (Android 6.0 and above) for each sensitive information repository an app intends 
-                to access.  
+	                      The evaluator shall verify that each <h:code>uses-permission</h:code> entry in the AndroidManifest.xml file 
+	                      for access to a sensitive information repository is reflected in the selection.  
               </subaactivity>
               <subaactivity platform="windows">For Windows Universal Applications the evaluator shall check the
                 WMAppManifest.xml file for a list of required capabilities. The evaluator shall
@@ -2289,13 +2326,13 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
                 <h:li>
                   The application shall validate a certificate path by ensuring the presence of the 
                   basicConstraints extension and that the CA flag is set to TRUE for all CA 
-                  certificates.
+                  certificates, and that any path constraints are met.
                 </h:li>
                 <h:li>
                   The application shall validate the revocation status of the certificate using 
                   <selectables>
                     <selectable>
-                      the Online Certificate Status Protocol (OCSP) as specified in RFC 2560
+                      the Online Certificate Status Protocol (OCSP) as specified in RFC 6960
                     </selectable>
                     <selectable>
                       a Certificate Revocation List (CRL) as specified in RFC 5280 Section 6.3
@@ -2306,11 +2343,14 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
                     <selectable>
                      an OCSP TLS Status Request Extension (i.e., OCSP stapling) as specified in RFC 6066
                     </selectable>
+                    <selectable>
+                      an OCSP TLS Multi-Certificate Status Request Extension (i.e OCSP Multi-Stapling) as specified in RFC 6961
+                    </selectable>
                   </selectables>
                   .
                 </h:li>
                 <h:li>
-                  The application shall validate the extendedKeyUsage field according to the 
+                  The application shall validate the extendedKeyUsage (EKU) field according to the 
                   following rules:
                   <h:ul>
                     <h:li>
@@ -2351,8 +2391,12 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <note role="application">
 	      FIA_X509_EXT.1.1  lists the rules for validating certificates.
 	      The ST author shall select whether revocation status is verified using OCSP or CRLs. 
-	      FIA_X509_EXT.2  requires that certificates are used for HTTPS, TLS and DTLS; 
-              this use requires that the extendedKeyUsage rules are verified.
+	      FIA_X509_EXT.2 requires that certificates are used for HTTPS, TLS and DTLS; 
+              this use requires that the extendedKeyUsage rules are verified. If OCSP is not supported, 
+              the EKU provision for checking the OCSP Signing purpose is met by default.
+              <h:br />
+              OCSP stapling and OCSP multi-stapling only support TLS server certificate validation. If other certificate types 
+              are validated, either OCSP or CRL should be claimed.
               <h:br />
               Regardless of the selection of <h:i>implement functionality</h:i> or <h:i>invoke platform-provided functionality</h:i>,
               the validation is expected to end in a trusted root CA certificate in a root 
@@ -2376,38 +2420,37 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      
 		    <testlist>
                 <test>
-                  The evaluator shall demonstrate that validating a certificate without a valid 
-                  certification path results in the function failing. The evaluator shall then load 
-                  a certificate or certificates as trusted CAs needed to validate the certificate to 
-                  be used in the function, and demonstrate that the function succeeds. The evaluator 
-                  shall then delete one of the certificates, and show that the function fails.
+                  The evaluator shall demonstrate that validating a certificate without a valid certification path 
+                  results in the function failing, for each of the following reasons, in turn:
+                  <h:ul>
+                    <h:li>by establishing a certificate path in which one of the issuing certificates is not a CA certificate,</h:li>
+                    <h:li>by omitting the basicConstraints field in one of the issuing certificates,</h:li>
+                    <h:li>by setting the basicConstraints field in an issuing certificate to have CA=False,</h:li>
+                    <h:li>by omitting the CA signing bit of the key usage field in an issuing certificate, and</h:li>
+                    <h:li>by setting the path length field of a valid CA field to a value strictly less than the certificate path.</h:li>
+                  </h:ul>
+                  The evaluator shall then establish a valid certificate path consisting of valid CA certificates, and demonstrate that the function 
+                  succeeds. The evaluator shall then remove trust in one of the CA certificates, and show that the function fails.
                 </test>
-                <test>
-                  The evaluator shall demonstrate that validating an expired certificate results in 
-                  the function failing.
-                </test>
+		            <test>
+		              The evaluator shall demonstrate that validating an expired certificate results in the function failing.
+		            </test>
                 <test>
                   The evaluator shall test that the TOE can properly handle 
-                  revoked certificates-–conditional on whether CRL, OCSP, or OCSP Stapling is selected;
-                  if multiple methods are selected, then the following tests shall be performed 
-		  for each method:
-		  <h:ul>
-		    <h:li>
-		      The evaluator shall test revocation of the node certificate. 
-		    </h:li>
-		    <h:li>
-		      The evaluator shall also test revocation of an intermediate CA certificate 
-		      (i.e. the intermediate CA certificate should be revoked by the root CA), 
-		      if intermediate CA certificates are supported. 
-		    </h:li>
-		  </h:ul>
-		  The evaluator shall ensure that a valid certificate is used, and that the 
-                  validation function succeeds. The evaluator then attempts the test with a 
-                  certificate that has been revoked (for each method chosen in the selection) to 
-                  ensure when the certificate is no longer valid that the validation function fails.
+                  revoked certificates-"conditional on whether CRL, OCSP, OCSP Stapling, or OCSP Multi-stapling is selected;
+                  if multiple methods are selected, then the following tests shall be performed for each method:\
+		            <h:ul>
+         		     <h:li>The evaluator shall test revocation of the node certificate.</h:li>
+         		     <h:li>The evaluator shall also test revocation of an intermediate CA certificate 
+         		      (i.e. the intermediate CA certificate should be revoked by the root CA), 
+         		      if intermediate CA certificates are supported. If OCSP stapling per RFC 6066 is the only supported revocation method, this test is omitted.</h:li>
+         		     <h:li>The evaluator shall ensure that a valid certificate is used, and that the validation function succeeds. The evaluator then 
+         		       attempts the test with a certificate that has been revoked (for each method chosen in the selection) 
+         		       to ensure when the certificate is no longer valid that the validation function fails.</h:li>
+		            </h:ul>
                 </test>
                 <test>
-                  If OCSP is selected, the evaluator shall configure the OCSP server or use a 
+                  If OCSP option is selected, the evaluator shall configure the OCSP server or use a 
                   man-in-the-middle tool to present a certificate that does not have the OCSP 
                   signing purpose and verify that validation of the OCSP response fails. If CRL is 
                   selected, the evaluator shall configure the CA to sign a CRL with a certificate 
@@ -2428,6 +2471,19 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
                   The evaluator shall modify any byte in the public key of the certificate and 
                   demonstrate that the certificate fails to validate. (The signature on the 
                   certificate will not validate.)
+                </test>
+		            <test>
+		              (Conditional on support for EC certificates as indicated in FCS_COP.1(3)). The evaluator shall establish a valid, trusted certificate chain 
+		              consisting of an EC leaf certificate, an EC Intermediate CA certificate not designated as a trust anchor, and an EC certificate designated as 
+		              a trusted anchor, where the elliptic curve parameters are specified as a named curve. 
+		              The evaulator shall confirm that the TOE validates the certificate chain.
+		            </test>
+                <test>
+                  (Conditional on support for EC certificates as indicated in FCS_COP.1(3)). The evaluator shall replace the intermediate certificate in 
+                  the certificate chain for Test 8 with a modified certificate, where the modified intermediate CA has a public key information field 
+                  where the EC parameters uses an explicit format version of the Elliptic Curve parameters in the public key information field of the 
+                  intermediate CA certificate from Test 8, and the modified Intermediate CA certificate is signed by the trusted EC root CA, but having no
+                  other changes. The evaluator shall confirm the TOE treats the certificate as invalid.
                 </test>
 		    </testlist>
 	      </Tests>
@@ -2599,8 +2655,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 		of the application.
 	      </subaactivity>
               <subaactivity platform="windows">The evaluator shall determine and verify that Windows
-                Universal Applications use either the Windows.UI.ApplicationSettings namespace or
-                the IsolatedStorageSettings namespace for storing application specific settings.
+                Universal Applications use either the Windows.Storage namespace, Windows.UI.ApplicationSettings namespace,
+                or the IsolatedStorageSettings namespace for storing application specific settings.
                 For .NET applications, the evaluator shall determine and verify that the application 
                 uses one of the locations listed in <h:a href='https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/'>
                 https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/</h:a> for storing application specific settings.
@@ -2694,13 +2750,9 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               by the application and ensure that their permissions are adequate to protect them.
               The method of doing so varies per platform.
                             
-              <subaactivity platform="android">The evaluator shall run 
-                <h:code>ls -alR|grep -E '^........w.'</h:code> inside the application's 
-		            data directories to ensure that all files are not world-writable. 
-		            The command should not print any files.
-		            The evaluator shall also verify that no sensitive data is written to
-                external storage which could be read/modified by any application containing the 
-                READ_EXTERNAL_STORAGE and/or WRITE_EXTERNAL_STORAGE permissions.
+              <subaactivity platform="android">The evaluator shall run the command <h:code>find -L . -perm /002</h:code> 
+                inside the application's data directories to ensure that all files are not world-writable. The command 
+                should not print any files.
               </subaactivity>
               <subaactivity platform="windows">The evaluator shall run the SysInternals tools,
                 Process Monitor and Access Check (or tools of equivalent capability, like 
@@ -2897,13 +2949,15 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	    </TSS>
               <Tests> The evaluator shall perform either a static or dynamic
               analysis to determine that no memory mappings are placed at an explicit and
-              consistent address. The method of doing so varies per platform. 
+              consistent address. The method of doing so varies per platform. For those platforms 
+              requiring the same application running on two different systems, the evaluator may 
+              alternatively use the same device. After collecting the first instance of mappings, 
+              the evaluator must uninstall the application, reboot the device, and reinstall the application 
+              to collect the second instance of mappings.
 	            <subaactivity platform="android">The evaluator shall run the same application on two
                 different Android systems. Both devices do not need to be evaluated, as the second device is acting only as a tool. 
                 Connect via ADB and inspect /proc/PID/maps. Ensure the two different instances share no memory mappings made by the 
-                application at the same location. Alternatively, the evaluator may use the same device. After collecting the first 
-	            instance of mappings, the evaluator must uninstall the application, reboot the device, and reinstall the application to 
-	            collect the second instance of mappings.</subaactivity>
+                application at the same location.</subaactivity>
               <subaactivity platform="windows"> The evaluator shall run the same application on two
                 different Windows systems and run a tool that will list all memory mapped addresses
                 for the application. The evaluator shall then verify the two different instances
@@ -3155,11 +3209,14 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               <aactivity>
 		<Tests>The evaluator shall verify that the application's executable files are
               not changed by the application. The evaluator shall complete the following test:
-              <testlist>
-                <test>The evaluator shall install the application and then
-                locate all of its executable files.  The evaluator shall then,
+		  <subaactivity platform="ios">The evaluator shall consider the requirement met 
+		    because the platform forces applications to write all data within the application 
+		    working directory (sandbox).</subaactivity>        
+		  <testlist>
+                <test>For all other platforms: The evaluator shall install the application and then
+                locate all of its executable files. The evaluator shall then,
                 for each file, save off either a hash of the file or a copy of
-                the file itself.  The evaluator shall then run the application
+                the file itself. The evaluator shall then run the application
                 and exercise all features of the application as described in
                 the ST. The evaluator shall then compare each executable file
                 with the either the saved hash or the saved copy of the files.
@@ -3317,10 +3374,10 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <aactivity>
 	      <TSS>
 		If "other version information" is selected the evaluator shall verify that the 
-		TSS contains an explaination of the versioning methodology.
+		TSS contains an explanation of the versioning methodology.
 	      </TSS>
               <Tests>The evaluator shall install the application, then check for the
-/              existence of version information. If SWID tags is selected the evaluator shall 
+              existence of version information. If SWID tags is selected the evaluator shall 
               check for a .swidtag file. The evaluator shall open the file and verify that 
               is contains at least a SoftwareIdentity element and an Entity element.
 	      </Tests>
