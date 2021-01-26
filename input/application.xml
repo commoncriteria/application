@@ -3307,16 +3307,13 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           </f-element>
           <f-element id="fel-patch-sign">
             <title> 
-			  The application installation package and its updates shall be digitally signed 
-			  such that its platform can cryptographically verify them prior to installation.
+			  Application updates shall be digitally signed such that the application platform can cryptographically verify them prior to installation.
             </title>
-            <note role="application">The specifics of the verification of installation packages
-			  and updates involves requirements on the platform (and not the
+            <note role="application">The specifics of the verification of updates involves requirements on the platform (and not the
               application), so these are not fully specified here. </note>
             <aactivity>
 	      <TSS>
-		The evaluator shall verify that the TSS identifies how the application
-		installation package and updates to it  
+		The evaluator shall verify that the TSS identifies how updates to the application  
 		are signed by an authorized source. The definition of an
 		authorized source must be contained in the TSS.
 		The evaluator shall also ensure that the TSS (or the operational
@@ -3404,6 +3401,17 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
                 and compare the resulting filesystem to the initial record to verify that no files, 
               other than configuration, output, and audit/log files, have been added to the filesystem.</subaactivity>
 	      </Tests>
+            </aactivity>
+          </f-element>
+          
+          <f-element id="fel-verify"> <!-- Not sure what to put for the f-element id. 2.3 is added here per TD0561 -->
+            <title>The application installation package shall be digitally signed such that its platform can 
+              cryptographically verify them prior to installation</title>
+            <note role="application"> The specifics of the verification of installation packages involves 
+            requirements on the platform (and not the application), so these are not fully specified here.</note>
+            <aactivity>
+              <TSS>The evaluator shall verify that the TSS identifies how the application installation package 
+                is signed by an authorized source. The definition of an authorized source must be contained in the TSS.</TSS>
             </aactivity>
           </f-element>
         </f-component>
