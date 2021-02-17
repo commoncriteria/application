@@ -1,7 +1,8 @@
 Protection Profile for Application Software
 ===========
 
-[![Build Status](https://travis-ci.com/commoncriteria/application.svg?branch=master)](https://travis-ci.com/commoncriteria/application) [![GitHub issues Open](https://img.shields.io/github/issues/commoncriteria/application.svg?maxAge=2592000)](https://github.com/commoncriteria/application/issues) ![license](https://img.shields.io/badge/license-Unlicensed-blue.svg)
+![Build](https://github.com/commoncriteria/application/workflows/Build/badge.svg)
+[![GitHub issues Open](https://img.shields.io/github/issues/commoncriteria/application.svg?maxAge=2592000)](https://github.com/commoncriteria/application/issues) ![license](https://img.shields.io/badge/license-Unlicensed-blue.svg)
 
 This repository hosts the draft version of the Protection Profile for Application Software based on the 
 [Essential Security Requirements (ESR)](https://commoncriteria.github.io/pp/application/application-esr.html) for this technology class of 
