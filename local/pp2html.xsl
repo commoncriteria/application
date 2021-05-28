@@ -12,7 +12,7 @@
   xmlns:htm="http://www.w3.org/1999/xhtml"  
   version="1.0">
 
-  <xsl:import href="../transforms/pp2html.xsl"/>
+  <xsl:import href="../transforms/xsl/pp2html.xsl"/>
   <xsl:import href="appcommon.xsl"/>
 
   <!-- release variable, overridden to "final" for release versions -->
