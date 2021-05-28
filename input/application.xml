@@ -109,7 +109,7 @@
                         them more intelligently. Better yet, use standard markup with tool support. 
                       -->
     <section title="Overview" id="ppoverview">The scope of this Protection Profile (PP) is to
-      describe the security functionality of application software in terms of <xref to="bibCC"
+      describe the security functionality of application software in terms of <xref g="CC"
       /> and to define functional and assurance requirements for such software. In recent years,
       software attacks have shifted from targeting operating systems to targeting applications. This
       has been the natural response to improvements in operating system security and development
@@ -536,7 +536,7 @@ Some application types are covered by more specific PPs, which may be expressed 
     <sec:SFRs title="Security Functional Requirements">
 	
       <section title="Cryptographic Support (FCS)" id="fcs">
-        <f-component cc-id="fcs_rbg_ext.1" name="Random Bit Generation Services">
+        <f-component id="fc_rbg_serv" cc-id="fcs_rbg_ext.1" name="Random Bit Generation Services">
           <f-element id="fcs-rbg-ext-1e1">
             <title> The application shall
 			  <selectables linebreak="yes">
@@ -549,7 +549,7 @@ Some application types are covered by more specific PPs, which may be expressed 
 		    that may then call the platform's DRBG are not directly using DRBG functionality  and should
 		    select <h:i>use no DRBG functionality</h:i>. <h:br /> 
 		    
-		    If <h:i>implement DRBG functionality</h:i> is chosen, then additional <xref to="FCS_RBG_EXT.2"/>
+		    If <h:i>implement DRBG functionality</h:i> is chosen, then additional FCS_RBG_EXT.2
               elements shall be included in the ST. <h:br /> 
 		    
               In this requirement, cryptographic operations include all cryptographic key generation/derivation/agreement, IVs (for
@@ -636,7 +636,7 @@ Some application types are covered by more specific PPs, which may be expressed 
                   </selectables>
             </title>
             <note role="application">This requirement shall be included in STs in which 
-			  <h:i>implement DRBG functionality</h:i> is chosen in <xref to="FCS_RBG_EXT.1.1"/>. 
+			  <h:i>implement DRBG functionality</h:i> is chosen in FCS_RBG_EXT.1.1. 
 			  The ST author 
               should select the standard to which the RBG services comply (either SP 800-90A or FIPS 
               140-2 Annex C). 
@@ -749,7 +749,7 @@ Some application types are covered by more specific PPs, which may be expressed 
               </selectables> of entropy at least equal to the greatest security strength (according
               to NIST SP 800-57) of the keys and hashes that it will generate. </title>
             <note role="application">This requirement shall be included in STs in which 
-			  <h:i>implement DRBG functionality</h:i> is chosen in <xref to="FCS_RBG_EXT.1.1"/>. For the first
+			  <h:i>implement DRBG functionality</h:i> is chosen in FCS_RBG_EXT.1.1. For the first
               selection in this requirement, the ST author selects 'software-based noise source' if 
               any additional noise sources are used as input to the application's DRBG. Note that 
               the application must use the platform's DRBG to seed its DRBG. 
@@ -764,7 +764,7 @@ Some application types are covered by more specific PPs, which may be expressed 
               activities - in accordance with <appref linkend="entropyappendix"/> and
               the <h:a href="https://www.niap-ccevs.org/Documents_and_Guidance/ccevs/Entropy%20Documentation%20and%20Assessment%20Clarification.pdf">Clarification to the Entropy Documentation and Assessment Annex</h:a>.
               <h:br />
-              <TSS>
+              </TSS>
 				<Guidance>None.
               </Guidance>
 	<Tests> In the future, specific statistical testing (in line with NIST SP 800-90B) will 
@@ -785,7 +785,7 @@ Some application types are covered by more specific PPs, which may be expressed 
             </title>
             <note role="application">If <h:i>implement asymmetric key generation</h:i> or 
 			  <h:i>invoke platform-provided functionality for asymmetric key generation</h:i> is chosen, then
-              additional <xref to="FCS_CKM.1(1)"/> elements shall be included in the ST.
+              additional <xref to="fc-crypto-asym-key-gen"/> elements shall be included in the ST.
             </note>
             <aactivity>
               <TSS>The evaluator shall inspect the application and its developer documentation 
@@ -802,7 +802,7 @@ Some application types are covered by more specific PPs, which may be expressed 
           </f-element>
         </f-component>
 
-        <f-component cc-id="fcs_ckm.1" iteration="1" name="Cryptographic Asymmetric Key Generation" status="sel-based">
+        <f-component id="fc-crypto-asym-key-gen" cc-id="fcs_ckm.1" iteration="1" name="Cryptographic Asymmetric Key Generation" status="sel-based">
           <depends on-sel="sel_invoke_genkey"/>
 		  <depends on-sel="sel_impl_genkey"/>
           <f-element id="fcs-ckm-1e1-1">
@@ -851,7 +851,7 @@ Some application types are covered by more specific PPs, which may be expressed 
             <note role="application">
               The ST author shall select all key generation schemes used for key 
               establishment and entity authentication. When key generation is used for key 
-              establishment, the schemes in <xref to="FCS_CKM.2.1"/> and selected cryptographic protocols must 
+              establishment, the schemes in <xref to="fcs-ckm-2e1"/> and selected cryptographic protocols must 
               match the selection. When key generation is used for entity authentication, the public 
               key is expected to be associated with an X.509v3 certificate.
               <h:br />
@@ -859,8 +859,9 @@ Some application types are covered by more specific PPs, which may be expressed 
               the TOE does not need to implement RSA key generation. 
             </note>
             <aactivity>
-	      <h:p>
-		<TSS>The evaluator shall ensure that the TSS identifies the key sizes 
+	      		<TSS>
+ <h:p>
+The evaluator shall ensure that the TSS identifies the key sizes 
 		supported by the TOE. If the ST specifies more 
 		than one scheme, the evaluator shall examine the TSS to verify that 
 		it identifies the usage for each scheme.
@@ -878,7 +879,6 @@ Some application types are covered by more specific PPs, which may be expressed 
 	<Guidance> The evaluator shall verify that the AGD guidance instructs the administrator how to 
 		configure the TOE to use the selected key generation scheme(s) and 
 		key size(s) for all uses defined in this PP.
-	      <h:p>
               </Guidance>
 	<Tests>
 		      If the application <h:b>implements asymmetric key generation</h:b>, then the following test
@@ -891,7 +891,7 @@ Some application types are covered by more specific PPs, which may be expressed 
 	<h:b>Key Generation for FIPS PUB 186-4 RSA Schemes</h:b><h:br/><h:br/>
 	      
               
-	      
+	     <h:p> 
 		    
 		    The evaluator shall verify the implementation of RSA Key Generation by the 
               TOE using the Key Generation test. This test verifies the ability of 
@@ -1023,7 +1023,7 @@ Some application types are covered by more specific PPs, which may be expressed 
         <f-component cc-id="fcs_ckm.1" iteration="2" name="Cryptographic Symmetric Key Generation" status="optional">
           <f-element id="fcs_ckm-1e1-2">
             <title>The <h:b>application</h:b> shall generate <h:b>symmetric</h:b> cryptographic keys <h:b>using a Random Bit
-              Generator as specified in <xref to="FCS_RBG_EXT.1"/></h:b>  and specified
+              Generator as specified in <xref to="fc_rbg_serv"/></h:b>  and specified
               cryptographic key sizes <selectables linebreak="yes">
                 <selectable>128 bit</selectable>
                 <selectable>256 bit</selectable>
@@ -1071,12 +1071,12 @@ Some application types are covered by more specific PPs, which may be expressed 
           </f-element>
         </f-component>
 
-        <f-component cc-id="fcs_ckm.1" iteration="3" name="Password Conditioning" status="sel-based">
+        <f-component id="fc_password" cc-id="fcs_ckm.1" iteration="3" name="Password Conditioning" status="sel-based">
   <depends on-sel="sel_impl_sto"/>
   <f-element id="fcs-ckm-1e1-3">
     <title>
     Refinement: A password/passphrase shall perform [Password-based Key Derivation Functions] in accordance with a specified 
-    cryptographic algorithm as specified in <xref to="FCS_COP.1(4)"/>, with [assignment: positive integer of 1,000 or more] iterations,
+    cryptographic algorithm as specified in <xref to="fc_keyed_hash"/>, with [assignment: positive integer of 1,000 or more] iterations,
     and output cryptographic key sizes <selectables>
       <selectable>128</selectable>
       <selectable>256</selectable>
@@ -1086,8 +1086,8 @@ Some application types are covered by more specific PPs, which may be expressed 
   
   <f-element id="fcs-ckm-1e2-3">
     <title>The TSF shall generate salts using a RBG that meets 
-      <xref to="FCS_RGB_EXT.1"/> and with entropy corresponding to the security strength selected for 
-      PBKDF in <xref to="FCS_CKM.1.1(3)"/>.
+      <xref to="fc_rbg_serv"/> and with entropy corresponding to the security strength selected for 
+      PBKDF in <xref to="fcs-ckm-1e1-3"/>.
     </title>
     
     
@@ -1113,10 +1113,10 @@ Some application types are covered by more specific PPs, which may be expressed 
       The evaluator shall verify that the TSS contains a description of how the output of the hash function is used to form the 
       submask that will be input into the function.
       For the NIST SP 800-132-based conditioning of the password/passphrase, the required evaluation activities will be performed when 
-      doing the evaluation activities for the appropriate requirements (<xref to="FCS_COP.1.1(4)"/>). 
+      doing the evaluation activities for the appropriate requirements (<xref to="fcs-cop-1e1-4"/>). 
       No explicit testing of the formation of the submask from the input password is required. 
-      <xref to="FCS_CKM.1.1(3)"/>: The ST author shall provide a description in the TSS regarding the salt generation. 
-      The evaluator shall confirm that the salt is generated using an RBG described in <xref to="FCS_RBG_EXT.1"/>.
+      <xref to="fcs-ckm-1e1-3"/>: The ST author shall provide a description in the TSS regarding the salt generation. 
+      The evaluator shall confirm that the salt is generated using an RBG described in <xref to="fc_rbg_serv"/>.
       </TSS>
 	<Guidance> None.
       </Guidance>
@@ -1186,10 +1186,10 @@ Some application types are covered by more specific PPs, which may be expressed 
               RSA key generation.
               <h:br />
               The elliptic curves used for the key establishment scheme shall correlate with the curves 
-              specified in <xref to="FCS_CKM.1.1(1)"/>.
+              specified in <xref to="fcs-ckm-1e1-1"/>.
               <h:br />
               The domain parameters used for the finite field-based key establishment scheme are specified 
-              by the key generation according to <xref to="FCS_CKM.1.1(1)"/>.
+              by the key generation according to <xref to="fcs-ckm-1e1-1"/>.
             </note>
             <aactivity>
               <TSS>The evaluator shall ensure that the supported key establishment schemes correspond to the 
@@ -1370,7 +1370,7 @@ functionality (such as these)
 			  The selection <i>invoke platform-provided encryption/decryption services</i> is to be
               chosen in cases where the application uses platform APIs to perform these operations.
               If <i>implement encryption/decryption functionality</i> is selected, then
-              additional requirements from <xref to="FCS_COP.1(1)"/> shall be included in
+              additional requirements from <xref to="fc_encrypt"/> shall be included in
               the ST.  
             </note>
             <aactivity>
@@ -1379,7 +1379,7 @@ functionality (such as these)
               encryption/decryption services. 
 			  <br/>
               If <b>implement encryption/decryption functionality</b> is selected, the evaluator shall ensure
-			  that additional <xref to="FCS_COP.1(1)"/> elements are included in the ST.
+			  that additional <xref to="fc_encrypt"/> elements are included in the ST.
 			  <br/>
 			  If <b>invoke platform-provided encryption/decryption functionality </b> is selected, 
 			  the evaluator shall examine the TSS of the
@@ -1458,7 +1458,7 @@ functionality (such as these)
           </f-element>
         </f-component>
 -->
-        <f-component cc-id="fcs_cop.1" iteration="1" name="Cryptographic Operation - Encryption/Decryption" status="sel-based">
+        <f-component id="fc_encrypt" cc-id="fcs_cop.1" iteration="1" name="Cryptographic Operation - Encryption/Decryption" status="sel-based">
           <depends on-sel="sel_all_tlsc"/>
 			<depends on-sel="sel_impl_sto"/>
           <f-element id="fcs-cop-1e1-1">
@@ -1750,7 +1750,7 @@ functionality (such as these)
 		</aactivity>
           </f-element>
         </f-component> 
-        <f-component cc-id="fcs_cop.1" iteration="3" name="Cryptographic Operation - Signing"  status="sel-based">
+        <f-component id="fc_sign" cc-id="fcs_cop.1" iteration="3" name="Cryptographic Operation - Signing"  status="sel-based">
           <depends on-sel="sel_all_tlsc"/>
           <f-element id="fcs-cop-1e1-3">
             <title>The <h:b>application</h:b> shall perform <h:i>cryptographic signature services (generation and
@@ -1828,7 +1828,7 @@ functionality (such as these)
 		</aactivity>
           </f-element>
           </f-component> 
-        <f-component cc-id="fcs_cop.1" iteration="4" name="Cryptographic Operation - Keyed-Hash Message Authentication" status="sel-based">
+        <f-component id="fc_keyed_hash" cc-id="fcs_cop.1" iteration="4" name="Cryptographic Operation - Keyed-Hash Message Authentication" status="sel-based">
           <depends on-sel="sel_all_tlsc"/>
           <f-element id="fcs-cop-1e1-4">
             <title>The <h:b>application</h:b> shall perform <h:i>keyed-hash message authentication</h:i> in accordance with a 
@@ -1862,7 +1862,7 @@ functionality (such as these)
 			  used by the application (e.g., trusted channel). The hash selection must
 			  support the message digest size selection. The hash selection
 			  should be consistent with the overall strength of the algorithm
-			  used for <xref to="FCS_COP.1(1)"/>.
+			  used for <xref to="fc_encrypt"/>.
             </note>
             <aactivity>The evaluator shall perform the following activities based on the selections
               in the ST.
@@ -1904,7 +1904,7 @@ functionality (such as these)
               If <h:i>invoke the functionality provided by the platform to securely store</h:i> is selected then the Application developer must closely review the EA for their 
               platform and provide documentation indicating which platform mechanisms are used to store credentials. 
     If <h:i>implement functionality to securely store credentials</h:i> is selected, then the following components must be included in 
-              the ST: <xref to="FCS_COP.1(1)"/> or <xref to="FCS_CKM.1(3)"/>.
+              the ST: <xref to="fc_encrypt"/> or <xref to="fc_sign"/>.
 	  If other cryptographic operations are used to implement the secure storage of credentials, the corresponding requirements must be included in the ST.
               If the OS is Linux and Java KeyStores are used to store credentials, <h:i>implement functionality to securely store credentials</h:i> must be selected.
             </note>
@@ -1922,8 +1922,8 @@ functionality (such as these)
               </Guidance>
 	<Tests>
               For all credentials for which the application implements functionality, the evaluator shall 
-              verify credentials are encrypted according to <xref to="FCS_COP.1(1)"/> or conditioned according to
-              <xref to="FCS_CKM.1.1(1)"/> and <xref to="FCS_CKM.1(3)"/>.
+              verify credentials are encrypted according to <xref to="fc_encrypt"/> or conditioned according to
+              <xref to="fc-crypto-asym-key-gen"/> and <xref to="fc_password"/>.
               
               For all credentials for which the application invokes platform-provided
               functionality, the evaluator shall perform the following actions which vary per platform.
@@ -2012,7 +2012,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	<Guidance>None.
               </Guidance>
 	<Tests>Certificate validity shall be tested in accordance with testing performed for 
-              <xref to="FIA_X509_EXT.1"/>, and the evaluator shall perform the following test:
+              FIA_X509_EXT.1, and the evaluator shall perform the following test:
               <testlist>
                 <test>
                   The evaluator shall demonstrate that using a certificate without a valid 
@@ -2249,7 +2249,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      <selectables linebreak="yes">
                 <selectable>leverage platform-provided functionality to encrypt sensitive data</selectable>
                 <selectable>implement functionality to encrypt sensitive data as defined in the EP for File Encryption</selectable>
-	              <selectable>protect sensitive data in accordance with <xref to="FCS_STO_EXT.1"/></selectable>
+	              <selectable>protect sensitive data in accordance with FCS_STO_EXT.1</selectable>
                 <selectable>not store any sensitive data</selectable>
               </selectables>
               in non-volatile memory.
@@ -2261,8 +2261,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               Any file that may potentially contain sensitive data (to include temporary files)
               shall be protected.  The only exception is if the user intentionally exports the sensitive data
               to non-protected files. ST authors should select <h:i>protect sensitive data in accordance with 
-              <xref to="FCS_STO_EXT.1"/></h:i> for the 
-              sensitive data that is covered by the <xref to="FCS_STO_EXT.1"/> SFR.
+              FCS_STO_EXT.1</h:i> for the 
+              sensitive data that is covered by the FCS_STO_EXT.1 SFR.
 	    </note>
             <aactivity>
               <TSS>
@@ -2279,7 +2279,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               </Guidance>
 	<Tests><h:br/>
               Evaluation activities (after the identification of the sensitive data) are to be performed on all sensitive data listed 
-              that are not covered by <xref to="FCS_STO_EXT.1"/>.
+              that are not covered by FCS_STO_EXT.1.
               <h:br/>
               
               
@@ -2420,10 +2420,10 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               </h:ul>
             </title>
             <note role="application">
-	      <xref to="FIA_X509_EXT.1.1"/> 
+	      <xref to="fia-x509-ext-1e1"/> 
 	      lists the rules for validating certificates.
 	      The ST author shall select whether revocation status is verified using OCSP or CRLs. 
-	      <xref to="FIA_X509_EXT.2"/> 
+	      FIA_X509_EXT.2
               requires that certificates are used for HTTPS, TLS and DTLS; this use requires that the 
               extendedKeyUsage rules are verified.
               <h:br />
@@ -2441,7 +2441,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               </Guidance>
 	<Tests>
               The tests described must be performed in conjunction with the other certificate 
-              services evaluation activities, including the functions in <xref to="FIA_X509_EXT.2.1"/>. The tests 
+              services evaluation activities, including the functions in <xref to="fia-x509-ext-2e1"/>. The tests 
               for the extendedKeyUsage rules are performed in conjunction with the uses that require 
               those rules. If the application supports chains of length four or greater, 
 	      the evaluator shall create a chain of at least four certificates: the 
@@ -2525,7 +2525,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               </Guidance>
 	<Tests>
 		    The tests described must be performed in conjunction with the other certificate 
-              services evaluation activities, including the functions in <xref to="FIA_X509_EXT.2.1"/>. 
+              services evaluation activities, including the functions in <xref to="fia-x509-ext-2e1"/>. 
 	      If the application supports chains of length four or greater, 
 	      the evaluator shall create a chain of at least four certificates: the 
               node certificate to be tested, two Intermediate CAs, and the self-signed Root CA.
@@ -2581,7 +2581,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             </title>
             <note role="application">
               The ST author's selection shall match the selection in 
-              <xref to="FTP_DIT_EXT.1.1"/>.
+              <xref to="ftp-dit-ext-1e1"/>.
             </note>
             <!-- 
             <aactivity>
@@ -2611,10 +2611,10 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               status of a certificate - either to download a CRL or to perform OCSP. The selection 
               is used to describe the behavior in the event that such a connection cannot be 
               established (for example, due to a network error). If the TOE has 
-              determined the certificate valid according to all other rules in <xref to="FIA_X509_EXT.1"/>, 
+              determined the certificate valid according to all other rules in FIA_X509_EXT.1, 
               the behavior indicated in the selection shall determine the validity. The 
               TOE must not accept the certificate if it fails any of the other 
-              validation rules in <xref to="FIA_X509_EXT.1"/>.
+              validation rules in FIA_X509_EXT.1.
             </note>
             <aactivity>
               <TSS>The evaluator shall check the TSS to ensure that it describes how 
@@ -2642,7 +2642,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
                   communicating with a non-TOE IT entity. The evaluator shall then 
                   manipulate the environment so that the TOE is unable to verify 
                   the validity of the certificate, and observe that the action selected in 
-                  <xref to="FIA_X509_EXT.2.2"/> is performed. If the selected action is 
+                  <xref to="fia-x509-ext-2e2"/> is performed. If the selected action is 
                   administrator-configurable, then the evaluator shall follow the operational 
                   guidance to determine that all supported administrator-configurable options behave 
                   in their documented manner.
@@ -2668,8 +2668,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <note role="application"> 
 	      Configuration options that are stored remotely are not subject to this requirement. 
 	      <xref linkend="sen_data"/> is generally not considered part of configuration options
-	      and should be stored according to <xref to="fdp_dar_ext.1"/> or 
-	      <xref to="fcs_sto_ext.1"/>.
+	      and should be stored according to FDP_DAR_EXT.1 or FCS_STO_EXT.1.
 	    </note>
             <aactivity>
               <TSS>The evaluator shall review the TSS to identify the application's configuration options
@@ -2737,7 +2736,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      Default credentials are credentials (e.g., passwords, keys) that are automatically 
 	      (without user interaction) loaded onto the platform during application installation.
 	      Credentials that are generated during installation using requirements laid out in 
-	      <xref to="FCS_RBG_EXT.1"/> are not by definition default credentials.
+	      FCS_RBG_EXT.1 are not by definition default credentials.
 	    </note>
             <aactivity>
              <TSS>The evaluator shall check the TSS to determine if the application requires any type
@@ -3193,6 +3192,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <title>The application shall be built with stack-based buffer overflow protection
               enabled.</title>
             <aactivity>
+              <Tests>
 	      The evaluator will inspect every native executable included in the TOE to ensure that stack-based buffer overflow protection is present.
               <subaactivity platform="windows">Applications that run as Managed Code in the .NET Framework do not require these stack protections.
                Applications developed in Object Pascal using the Delphi IDE compiled with RangeChecking enabled comply with this element. For other code, 
@@ -3318,7 +3318,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <note role="application">
               Application software that is distributed as part of the platform operating system is not 
               required to be package for installation or uninstallation. If "as an additional software
-              package to the OS" is selected the requirements from <xref to="fpt_tud_ext.2"/> 
+              package to the OS" is selected the requirements from FPT_TUD_EXT.2
               must be included in the ST.
             </note>
             <aactivity>
@@ -3326,7 +3326,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               is distributed. If "with the platform" is selected the evaluated shall perform
               a clean installation or factory reset to confirm that TOE software is included
               as part of the platform OS. If "as an additional package" is selected the evaluator
-              shall perform the tests in <xref to="fpt_tud_ext.2"/>.
+              shall perform the tests in FPT_TUD_EXT.2.
               </TSS>
 	<Guidance>None.
               </Guidance>
@@ -3512,9 +3512,9 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	       <h:br/> <h:br/>-->
 	      Encryption is not required for applications transmitting data that is not sensitive. 
 		  <h:br/>
-        <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>TLS</h:i> is selected, then evaluation of elements from either <xref to="FCS_TLSC_EXT.1"/> or <xref to="FCS_TLSS_EXT.1"/> is required.</h:p>
-	      <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>HTTPS</h:i> is selected, <xref to="FCS_HTTPS_EXT.1"/> is required.</h:p> 
-        <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>DTLS</h:i> is selected, <xref to="FCS_DTLS_EXT.1"/> is required.</h:p>
+        <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>TLS</h:i> is selected, then evaluation of elements from either FCS_TLSC_EXT.1 or FCS_TLSS_EXT.1 is required.</h:p>
+	      <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>HTTPS</h:i> is selected, FCS_HTTPS_EXT.1 is required.</h:p> 
+        <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>DTLS</h:i> is selected, FCS_DTLS_EXT.1 is required.</h:p>
         <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>SSH</h:i> is selected, the TSF shall be validated against the <h:i>Extended Package for <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389">Secure Shell</h:a></h:i>.</h:p>
 <h:p>
 		    If <h:i>encrypt all transmitted</h:i> is selected the corresponding FCS_COP.1 requirements will be included.
@@ -3584,8 +3584,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
     </sec:SFRs>
 	
     <section title="Security Assurance Requirements" id="SARs">The Security Objectives for the TOE
-	in <xref to="req"/> were constructed to address threats identified in
-      <xref to="threats"/>. The Security Functional Requirements (SFRs)
+	in <xref to="Security_Requirements"/> were constructed to address threats identified in
+      <xref to="Threats"/>. The Security Functional Requirements (SFRs)
       in <xref to="SFRs"/> are a formal
       instantiation of the Security Objectives. The PP identifies the Security Assurance Requirements
       (SARs) to frame the
@@ -3595,7 +3595,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
       This section lists the set of SARs from CC part 3 that are required in
       evaluations against this
       PP. Individual Evaluation Activities (EAs) to be performed are specified both
-      in <xref to="req"/> as well as in this section.
+      in <xref to="Security_Requirements"/> as well as in this section.
       <h:br/><h:br/>
       The general model for evaluation of TOEs against STs written to conform to
       this PP is as follows:
@@ -3605,10 +3605,10 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
       TOE, supporting
       environmental IT, and the administrative/user guides for the TOE. The CCTL is expected to
       perform actions mandated by the Common Evaluation Methodology (CEM) for the ASE and
-      ALC SARs. The CCTL also performs the evaluation activities contained within <xref to="req"/>,
+      ALC SARs. The CCTL also performs the evaluation activities contained within <xref to="Security_Requirements"/>,
       which are intended to be an interpretation of the other CEM assurance requirements as they
       apply to the specific technology instantiated in the TOE. The evaluation activities that are
-      captured in <xref to="req"/> also provide clarification as to what the developer needs
+      captured in <xref to="Security_Requirements"/> also provide clarification as to what the developer needs
       to provide to demonstrate the TOE is compliant with the PP. The results of these activities will be documented
 	    and presented (along with the administrative guidance used) for validation.
      
@@ -4635,24 +4635,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 
   <appendix title="References" id="biblio">
     <bibliography>
-	<entry id="bibCC">
-        <tag>CC</tag>
-        <description>Common Criteria for Information Technology Security Evaluation -
-          <h:ul>
-            <h:li>
-              <h:a href="http://www.commoncriteriaportal.org/cc">Part 1:
-                Introduction and General Model</h:a>, CCMB-2017-04-001, Version 3.1 Revision 5, April 2017.
-			</h:li>
-            <h:li>
-              <h:a href="http://www.commoncriteriaportal.org/cc">Part 2:
-                Security Functional Components</h:a>, CCMB-2017-04-002, Version 3.1 Revision 5, April 2017.
-			</h:li>
-            <h:li>
-              <h:a href="http://www.commoncriteriaportal.org/cc">Part 3:
-                Security Assurance Components</h:a>, CCMB-2017-04-003, Version 3.1 Revision 5, April 2017.
-              </h:li>
-          </h:ul></description>
-      </entry>
+      <cc-entry/>
       <entry id="bibCEM">
         <tag>CEM</tag>
         <description>
