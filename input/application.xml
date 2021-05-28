@@ -851,7 +851,7 @@ Some application types are covered by more specific PPs, which may be expressed 
             <note role="application">
               The ST author shall select all key generation schemes used for key 
               establishment and entity authentication. When key generation is used for key 
-              establishment, the schemes in <xref to="fcs-ckm-2e1"/> and selected cryptographic protocols must 
+              establishment, the schemes in FCS_CKM.2.1 and selected cryptographic protocols must 
               match the selection. When key generation is used for entity authentication, the public 
               key is expected to be associated with an X.509v3 certificate.
               <h:br />
@@ -1087,7 +1087,7 @@ The evaluator shall ensure that the TSS identifies the key sizes
   <f-element id="fcs-ckm-1e2-3">
     <title>The TSF shall generate salts using a RBG that meets 
       <xref to="fc_rbg_serv"/> and with entropy corresponding to the security strength selected for 
-      PBKDF in <xref to="fcs-ckm-1e1-3"/>.
+      PBKDF in FCS_CKM.1/3.
     </title>
     
     
@@ -1113,9 +1113,9 @@ The evaluator shall ensure that the TSS identifies the key sizes
       The evaluator shall verify that the TSS contains a description of how the output of the hash function is used to form the 
       submask that will be input into the function.
       For the NIST SP 800-132-based conditioning of the password/passphrase, the required evaluation activities will be performed when 
-      doing the evaluation activities for the appropriate requirements (<xref to="fcs-cop-1e1-4"/>). 
+      doing the evaluation activities for the appropriate requirements (FCS_COP.1/4). 
       No explicit testing of the formation of the submask from the input password is required. 
-      <xref to="fcs-ckm-1e1-3"/>: The ST author shall provide a description in the TSS regarding the salt generation. 
+      FCS_CKM.1/3: The ST author shall provide a description in the TSS regarding the salt generation. 
       The evaluator shall confirm that the salt is generated using an RBG described in <xref to="fc_rbg_serv"/>.
       </TSS>
 	<Guidance> None.
@@ -1186,10 +1186,10 @@ The evaluator shall ensure that the TSS identifies the key sizes
               RSA key generation.
               <h:br />
               The elliptic curves used for the key establishment scheme shall correlate with the curves 
-              specified in <xref to="fcs-ckm-1e1-1"/>.
+              specified in FCS_CKM.1/1.
               <h:br />
               The domain parameters used for the finite field-based key establishment scheme are specified 
-              by the key generation according to <xref to="fcs-ckm-1e1-1"/>.
+              by the key generation according to FCS_CKM.1/1.
             </note>
             <aactivity>
               <TSS>The evaluator shall ensure that the supported key establishment schemes correspond to the 
@@ -1336,17 +1336,20 @@ The evaluator shall ensure that the TSS identifies the key sizes
 		    
               <h:br /><h:br/>
               <h:b>RSA-based key establishment</h:b><h:p/>
-		The evaluator shall verify the correctness of the TSF’s implementation of RSAES-PKCS1-v1_5 by using a known good implementation for each protocol selected in FTP_DIT_EXT.1 that uses RSAES-PKCS1-v1_5.    
+		The evaluator shall verify the correctness of the TSF’s implementation of RSAES-PKCS1-v1_5 by using a known good implementation for each protocol selected in
+		FTP_DIT_EXT.1 that uses RSAES-PKCS1-v1_5.    
 		    
 		    
               <h:br /><h:br/>
               <h:b>Diffie-Hellman Group 14</h:b><h:p/>
-		 The evaluator shall verify the correctness of the TSF’s implementation of Diffie-Hellman group 14 by using a known good implementation for each protocol selected in FTP_DIT_EXT.1 that uses Diffie-Hellman group 14.   
+		 The evaluator shall verify the correctness of the TSF’s implementation of Diffie-Hellman group 14 by using a known good implementation for each protocol
+		selected in FTP_DIT_EXT.1 that uses Diffie-Hellman group 14.   
 		    
 		    
               <h:br /><h:br/>
               <h:b>FFC Schemes using “safe-prime” groups</h:b><h:p/>
-		    The evaluator shall verify the correctness of the TSF’s implementation of safe-prime groups by using a known good implementation for each protocol selected in FTP_DIT_EXT.1 that uses safe-prime groups. This test must be performed for each safe-prime group that each protocol uses.
+		    The evaluator shall verify the correctness of the TSF’s implementation of safe-prime groups by using a known good implementation for each protocol
+		selected in FTP_DIT_EXT.1 that uses safe-prime groups. This test must be performed for each safe-prime group that each protocol uses.
             </Tests>
 		</aactivity>
           </f-element>
@@ -2420,8 +2423,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               </h:ul>
             </title>
             <note role="application">
-	      <xref to="fia-x509-ext-1e1"/> 
-	      lists the rules for validating certificates.
+	      FIA_X509_EXT.1 lists the rules for validating certificates.
 	      The ST author shall select whether revocation status is verified using OCSP or CRLs. 
 	      FIA_X509_EXT.2
               requires that certificates are used for HTTPS, TLS and DTLS; this use requires that the 
@@ -2441,7 +2443,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               </Guidance>
 	<Tests>
               The tests described must be performed in conjunction with the other certificate 
-              services evaluation activities, including the functions in <xref to="fia-x509-ext-2e1"/>. The tests 
+              services evaluation activities, including the functions in FIA_X509_EXT.2.1. The tests 
               for the extendedKeyUsage rules are performed in conjunction with the uses that require 
               those rules. If the application supports chains of length four or greater, 
 	      the evaluator shall create a chain of at least four certificates: the 
@@ -2525,7 +2527,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               </Guidance>
 	<Tests>
 		    The tests described must be performed in conjunction with the other certificate 
-              services evaluation activities, including the functions in <xref to="fia-x509-ext-2e1"/>. 
+              services evaluation activities, including the functions in FIA_X509_EXT.2.1. 
 	      If the application supports chains of length four or greater, 
 	      the evaluator shall create a chain of at least four certificates: the 
               node certificate to be tested, two Intermediate CAs, and the self-signed Root CA.
@@ -2580,8 +2582,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               </selectables>. 
             </title>
             <note role="application">
-              The ST author's selection shall match the selection in 
-              <xref to="ftp-dit-ext-1e1"/>.
+              The ST author's selection shall match the selection in FTP_DIT_EXT.1.1.
             </note>
             <!-- 
             <aactivity>
@@ -2642,7 +2643,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
                   communicating with a non-TOE IT entity. The evaluator shall then 
                   manipulate the environment so that the TOE is unable to verify 
                   the validity of the certificate, and observe that the action selected in 
-                  <xref to="fia-x509-ext-2e2"/> is performed. If the selected action is 
+                  FIA_X509_EXT.2.2 is performed. If the selected action is 
                   administrator-configurable, then the evaluator shall follow the operational 
                   guidance to determine that all supported administrator-configurable options behave 
                   in their documented manner.
@@ -3512,10 +3513,12 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	       <h:br/> <h:br/>-->
 	      Encryption is not required for applications transmitting data that is not sensitive. 
 		  <h:br/>
-        <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>TLS</h:i> is selected, then evaluation of elements from either FCS_TLSC_EXT.1 or FCS_TLSS_EXT.1 is required.</h:p>
+        <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>TLS</h:i> is selected, then evaluation of elements from either FCS_TLSC_EXT.1 or FCS_TLSS_EXT.1 is
+		required.</h:p>
 	      <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>HTTPS</h:i> is selected, FCS_HTTPS_EXT.1 is required.</h:p> 
         <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>DTLS</h:i> is selected, FCS_DTLS_EXT.1 is required.</h:p>
-        <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>SSH</h:i> is selected, the TSF shall be validated against the <h:i>Extended Package for <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389">Secure Shell</h:a></h:i>.</h:p>
+        <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>SSH</h:i> is selected, the TSF shall be validated against the <h:i>Extended Package for 
+		<h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389">Secure Shell</h:a></h:i>.</h:p>
 <h:p>
 		    If <h:i>encrypt all transmitted</h:i> is selected the corresponding FCS_COP.1 requirements will be included.
 		  </h:p>
