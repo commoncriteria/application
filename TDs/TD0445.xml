@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<technical-decisions  xmlns:h="http://www.w3.org/1999/xhtml" 
+		      xmlns="https://niap-ccevs.org/cc/v1">
+  <bunch>
+    <applies-to max-inclusive="1.3" name="Protection Profile for Application Software"/>
+
+    <decision id='0445'>
+    	<notes>User Modifiable File Definition</notes>
+
+        <change xpath=".//f-element[@id='fpt_aex_ext.1.4']" mode="replace">
+          <f-element id="fpt_aex_ext.1.4">
+            <title>
+              The application shall not write user-modifiable files to directories that contain 
+              executable files unless explicitly directed by the user to do so.
+	    </title>
+	    <note role="application">
+	      The purpose of this requirement is to help ensure the integrity of application binaries by supporting file protection mechanisms such as directory-level file permissions and application whitelisting.
+
+A user-modifiable file for purposes of this requirement is a file that is writable by an unprivileged user of the application--either directly through application execution or independently of the application. If the application runs in the context of the application user, then the application should not be able to write to the directory containing the application binaries--regardless of whether the files are configuration data, audit data, or temporary files. 
+
+Executables and user-modifiable files may not share the same parent directory, but
+	      may share directories above the parent.
+	    </note>
+            <aactivity>
+	      <TSS/>None.
+              <Guidance/>None.
+              <Tests/>The evaluator shall run the application and determine where it writes its files.
+	      For files where the user does not choose the destination, the evaluator shall 
+	      check whether the destination directory contains executable files.
+	      This varies per platform: 
+	                    <subaactivity platform="android"> 
+		The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. 
+		The evaluator shall ensure that there are no executable files stored under <path>/data/data/<i>package</i>/</path> where <h:i>package</h:i> is the Java package of the application.
+              </subaactivity>
+              <subaactivity platform="windows">For Windows Universal Applications the evaluator shall consider
+                the requirement met because the platform forces applications to write all data
+                within the application working directory (sandbox). For Windows Desktop Applications
+                the evaluator shall run the program, mimicking normal usage, and note where all user-modifiable
+                files are written. The evaluator shall ensure that there are no executable files
+                stored in the same directories to which the application wrote user-modifiable files.</subaactivity>
+              <subaactivity platform="ios">The evaluator shall consider the requirement met because
+                the platform forces applications to write all data within the application working
+                directory (sandbox).</subaactivity>
+              <subaactivity platform="linux"> 
+		The evaluator shall run the program, mimicking normal usage, 
+		and note where all user-modifiable files are written. 
+		The evaluator shall ensure that there are no executable files stored in the 
+		same directories to which the application wrote user-modifiable files.
+	      </subaactivity>
+              <subaactivity platform="Solaris">
+		The evaluator shall run the program, mimicking normal usage, 
+		and note where all user-modifiable files are written. 
+		The evaluator shall ensure that there are no executable files stored in the 
+		same directories to which the application wrote user-modifiable files.
+	      </subaactivity>
+              <subaactivity platform="mac"> The evaluator shall run the program, mimicking normal
+                usage, and note where all user-modifiable files are written. The evaluator shall ensure that there
+                are no executable files stored in the same directories to which the application
+                wrote user-modifiable files. </subaactivity>
+            </aactivity>
+          </f-element>
+	</change>
+    </decision>
+  </bunch>
+</technical-decisions>

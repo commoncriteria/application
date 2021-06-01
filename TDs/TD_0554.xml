@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../transforms/pp2html.xsl"?>
+<?xml-model href="CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<technical-decisions xmlns="https://niap-ccevs.org/cc/v1" xmlns:h="http://www.w3.org/1999/xhtml"> <bunch> <applies-to name="Protection Profile for Application Software" max-inclusive="1.3">  </applies-to><decision id="0554"> <notes> iOS/iPadOS/Android AppSW Virus Scan </notes><change xpath=".//a-component[@id='ava_van.1']" mode="replace"> <a-component id="ava_van.1" name="Vulnerability Survey (AVA_VAN.1)"> 
+          <h:h4> Developer action elements: </h:h4>
+          <a-element id="ava_van.1.1d"> 
+            <title> 
+              The developer shall provide the 
+              <abbr linkend="TOE" title="Target of Evaluation"> TOE </abbr>
+              for testing.
+             </title> </a-element>
+          <h:h4> Content and presentation elements: </h:h4>
+          <a-element id="ava_van.1.1c"> 
+            <title> 
+              The application shall be suitable for testing.
+             </title>
+            <note role="application"> 
+              Suitability for testing means not being obfuscated or packaged in such a way as to disrupt
+              either static or dynamic analysis by the evaluator.
+             </note> </a-element>
+          <h:h4> Evaluator action elements: </h:h4>
+          <a-element id="ava_van.1.1e"> 
+            <title> 
+              The evaluator shall confirm that the information provided meets all requirements for content
+              and presentation of evidence.
+             </title> </a-element>
+          <a-element id="ava_van.1.2e"> 
+            <title> 
+              The evaluator shall perform a search of public domain sources to identify potential
+              vulnerabilities in the 
+              <abbr linkend="TOE" title="Target of Evaluation"> TOE </abbr>
+              .
+             </title>
+            <note role="application"> 
+              Public domain sources include the Common Vulnerabilities and Exposures (CVE) dictionary for
+              publicly known vulnerabilities. Public domain sources also include sites which provide free
+              checking of files for viruses.
+             </note> </a-element>
+          <a-element id="ava_van.1.3e"> 
+            <title> 
+              The evaluator shall conduct penetration testing, based on the identified potential
+              vulnerabilities, to determine that the 
+              <abbr linkend="TOE" title="Target of Evaluation"> TOE </abbr>
+              is resistant to attacks performed by an attacker possessing Basic attack potential.
+             </title>
+            <aactivity> 
+              <TSS> None. </TSS><Guidance> None. </Guidance><Tests> 
+                The evaluator shall generate a report to document their findings with respect to this
+                requirement. This report could physically be part of the overall test report mentioned in
+                ATE_IND, or a separate document. The evaluator performs a search of public information to find
+                vulnerabilities that have been found in similar applications with a particular focus on
+                network protocols the application uses and document formats it parses. The evaluator shall
+                also run a virus scanner with the most current virus definitions against the application files
+                and verify that no files are flagged as malicious. The evaluator documents the sources
+                consulted and the vulnerabilities found in the report. 
+                <h:br>  </h:br>
+                For each vulnerability found, the evaluator either provides a rationale with respect to its
+                non-applicability, or the evaluator formulates a test (using the guidelines provided in
+                ATE_IND) to confirm the vulnerability, if suitable. Suitability is determined by assessing
+                the attack vector needed to take advantage of the vulnerability. If exploiting the
+                vulnerability requires expert skills and an electron microscope, for instance, then a test
+                would not be suitable and an appropriate justification would be formulated.
+  <h:br>  </h:br>
+  <h:b>For Windows, Linux, macOS and Solaris: </h:b>
+The evaluator shall also run a virus scanner with the most current virus definitions against the application files and verify that no files are flagged as malicious.   </Tests> </aactivity> </a-element>
+         </a-component> </change> </decision> </bunch> </technical-decisions>

@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<technical-decisions  xmlns:h="http://www.w3.org/1999/xhtml" 
+		      xmlns="https://niap-ccevs.org/cc/v1">
+  <bunch>
+    <applies-to max-inclusive="1.3" name="Protection Profile for Application Software"/>
+
+    <decision id='0416'>
+    	<notes>Correction to FCS_RBG_EXT.1 Test Activity</notes>
+
+        <change xpath=".//f-element[@id='fcs_rbg_ext.1.1']" mode="replace">
+          <f-element id="fcs_rbg_ext.1.1">
+            <title> The application shall
+			  <selectables linebreak="yes">
+                <selectable exclusive="yes">use no DRBG functionality</selectable>
+                <selectable>invoke platform-provided DRBG functionality</selectable>
+                <selectable id="drbg">implement DRBG functionality</selectable>
+              </selectables> for its cryptographic operations. </title>
+            <note role="application"> The selection <h:i>invoke platform-provided DRBG functionality</h:i>
+		    should only be chosen for direct invocations of the platform DRBG, calls to platform protocols
+		    that may then call the platform's DRBG are not directly using DRBG functionality  and should
+		    select <h:i>use no DRBG functionality</h:i>. <h:br /> 
+		    
+		    If <h:i>implement DRBG functionality</h:i> is chosen, then additional <linkref linkend="FCS_RBG_EXT.2"/>
+              elements shall be included in the <abbr title="Security Target" linkend="ST">ST</abbr>. <h:br /> 
+		    
+              In this requirement, cryptographic operations include all cryptographic key generation/derivation/agreement, IVs (for
+              certain modes), as well as protocol-specific random values. Cryptographic operations in this requirement refer to
+		    the other cryptographic requirements in this PP, not additional functionality that is not in scope.
+		  </note>
+            <aactivity>
+              <TSS/><h:p>If <h:b>use no DRBG functionality</h:b> is selected, the evaluator shall inspect the application 
+		    and its developer documentation and verify that the application needs no random bit generation services. 
+			  </h:p><h:p>
+              If <h:b>implement DRBG functionality</h:b> is selected, the evaluator shall ensure
+			    that additional <linkref linkend="FCS_RBG_EXT.2"/> elements are included in the <abbr title="Security Target" linkend="ST">ST</abbr>.
+			   </h:p><h:p>
+			        If <h:b>invoke platform-provided DRBG functionality</h:b> is selected, the evaluator 
+              performs the following activities.  The evaluator shall examine 
+              the <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr> to confirm that it identifies all functions (as described by the
+              SFRs included in the ST) that obtain random numbers from the platform RBG.  The evaluator 
+              shall determine that for each of these functions, the <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr> states which 
+              platform interface (API) is used to obtain the random numbers.  The evaluator shall confirm 
+              that each of these interfaces corresponds to the acceptable interfaces listed for each platform 
+              below.  
+			     <h:br/>
+			     <h:br/>
+              It should be noted that there is no expectation that the evaluators attempt to confirm 
+              that the APIs are being used correctly for the functions identified in the TSS; 
+              the activity is to list the used APIs and then do an existence check via decompilation.
+	    </h:p><h:p>
+              <Guidance/> None.
+              </h:p><h:p>
+              <Tests/>
+		     If <h:b>invoke platform-provided DRBG functionality</h:b> is selected, the following tests shall be performed: <h:br/> <h:br/>
+		    
+		The evaluator shall decompile the application binary using a decompiler 
+              suitable for the application (TOE).  The evaluator shall search the output of the 
+              decompiler to determine that, for each API listed in the <h:abbr title="TOE Summary Specification" linkend="TSS">TSS</h:abbr>, that API 
+              appears in the output.  If the representation of the API does not correspond directly to 
+              the strings in the following list, the evaluator shall provide a mapping from the 
+              decompiled text to its corresponding API, with a description of why the API text does 
+              not directly correspond to the decompiled text and justification that the decompiled text 
+              corresponds to the associated API. <h:br/>    <h:br/> 
+		    
+		    
+		    
+		    The following are the per-platform list of acceptable APIs:
+              
+            </h:p>
+              <subaactivity platform="android"> The evaluator shall verify
+                that the application uses at least one of <h:code>javax.crypto.KeyGenerator</h:code> 
+                class or the <h:code>java.security.SecureRandom</h:code> class or <h:code>/dev/random
+                </h:code> or <h:code>/dev/urandom</h:code>.
+              </subaactivity>
+              <subaactivity platform="windows">The evaluator shall verify
+                that rand_s, RtlGenRandom, BCryptGenRandom, or CryptGenRandom <abbr title="Application Programming Interface" linkend="API">API</abbr> is used for classic
+                desktop applications. The evaluator shall verify the application uses the RNGCryptoServiceProvider class or derives a class from System.Security.Cryptography.RandomNumberGenerator <abbr title="Application Programming Interface" linkend="API">API</abbr> for Windows Universal Applications. It is only required that 
+                the <abbr title="Application Programming Interface" linkend="API">API</abbr> is called/invoked, there is no requirement that the <abbr title="Application Programming Interface" linkend="API">API</abbr> be used directly. In
+                future versions of this document, CryptGenRandom may be removed as an option as it is
+                no longer the preferred <abbr title="Application Programming Interface" linkend="API">API</abbr> per vendor documentation. </subaactivity>
+              <subaactivity platform="ios"> 
+                The evaluator shall verify that the application invokes 
+                <h:code>SecRandomCopyBytes</h:code> or uses <h:code>/dev/random</h:code> directly to acquire random.
+				</subaactivity>
+              <subaactivity platform="linux"> 
+                The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>
+				or <h:code>/dev/urandom</h:code>.
+	      </subaactivity>
+	      <subaactivity platform="Solaris">
+                The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>.
+	      </subaactivity>
+              <subaactivity platform="mac">
+                The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>.
+	      </subaactivity>
+		        If invocation of platform-provided functionality is achieved in another way, the evaluator 
+				shall ensure the TSS describes how this is carried out, and how it is equivalent to the 
+				methods listed here (e.g. higher-level API invokes identical low-level API).
+            </aactivity>
+          </f-element>
+	</change>
+    </decision>
+  </bunch>
+</technical-decisions>

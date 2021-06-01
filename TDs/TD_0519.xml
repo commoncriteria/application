@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../transforms/pp2html.xsl"?>
+<?xml-model href="CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<technical-decisions xmlns="https://niap-ccevs.org/cc/v1" xmlns:h="http://www.w3.org/1999/xhtml"> <bunch> <applies-to name="Protection Profile for Application Software" max-inclusive="1.3">  </applies-to><decision id="0519"> <notes> Linux symbolic links and FMT_CFG_EXT.1 </notes><change xpath=".//f-element[@id='fmt_cfg_ext.1.2']" mode="replace"> 
+          <f-element id="fmt_cfg_ext.1.2"> 
+            <title> 
+              The application shall be configured by default with file permissions which protect the
+              application binaries and data files from modification by normal unprivileged users.
+             </title>
+            <note role="application"> 
+              The precise expectations for file permissions vary per platform but the general intention is
+              that a trust boundary protects the application and its data.
+             </note>
+            <aactivity> 
+              <TSS> None. </TSS><Guidance> None. </Guidance><Tests> 
+                The evaluator shall install and run the application. The evaluator shall inspect the
+                filesystem of the platform (to the extent possible) for any files created by the application
+                and ensure that their permissions are adequate to protect them. The method of doing so varies
+                per platform. 
+                <h:p> 
+                  <depends on="selection"> <ref-id> android </ref-id> </depends>
+                  The evaluator shall run 
+                  <h:code> ls -alR|grep -E '^........w.' </h:code>
+                  inside the application's data directories to ensure that all files are not world-writable.
+                  The command should not print any files. The evaluator shall also verify that no sensitive data
+                  is written to external storage which could be read/modified by any application containing the
+                  READ_EXTERNAL_STORAGE and/or WRITE_EXTERNAL_STORAGE permissions.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> windows </ref-id> </depends>
+                  The evaluator shall run the SysInternals tools, Process Monitor and Access Check (or tools of
+                  equivalent capability, like icacls.exe) for Classic Desktop applications to verify that
+                  files written to disk during an application's installation have the correct file
+                  permissions, such that a standard user cannot modify the application or its data files. For
+                  Windows Universal Applications the evaluator shall consider the requirement met because of
+                  the AppContainer sandbox.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> ios </ref-id> </depends>
+                  The evaluator shall determine whether the application leverages the appropriate Data
+                  Protection Class for each data file stored locally.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> linux </ref-id> </depends>
+                  The evaluator shall run the command 
+                  <h:code> find -L . -perm /002 </h:code>
+                  inside the application's data directories to ensure that all files are not world-writable.
+                  The command should not print any files.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> Solaris </ref-id> </depends>
+                  The evaluator shall run the command 
+                  <h:code> find . \( -perm -002 \) </h:code>
+                  inside the application's data directories to ensure that all files are not world-writable.
+                  The command should not print any files.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> mac </ref-id> </depends>
+                  The evaluator shall run the command 
+                  <h:code> find . -perm +002 </h:code>
+                  inside the application's data directories to ensure that all files are not world-writable.
+                  The command should not print any files.
+                 </h:p>
+               </Tests> </aactivity> </f-element> </change> </decision> </bunch> </technical-decisions>

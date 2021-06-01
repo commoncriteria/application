@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../transforms/pp2html.xsl"?>
+<?xml-model href="CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<technical-decisions xmlns="https://niap-ccevs.org/cc/v1" xmlns:h="http://www.w3.org/1999/xhtml"> <bunch> <applies-to name="Protection Profile for Application Software" max-inclusive="1.3">  </applies-to><decision id="0561"> <notes> Signature verification update </notes>
+<change 
+xpath=".//f-element[@id='fpt_tud_ext.1.4']" mode="replace"> 
+          <f-element id="fpt_tud_ext.1.4"> 
+            <title> 
+              Application updates shall be digitally signed such that the application 
+              platform can cryptographically verify them prior to installation.
+             </title>
+            <note role="application"> 
+              The specifics of the verification of updates involves
+              requirements on the platform (and not the application), so these are not fully specified here.
+             </note>
+            <aactivity> 
+              <TSS> 
+                The evaluator shall verify that the TSS identifies how updates to the application are signed by an authorized source. The definition of an authorized source
+                must be contained in the TSS. The evaluator shall also ensure that the TSS (or the operational
+                guidance) describes how candidate updates are obtained.
+               </TSS><Guidance> None. </Guidance><Tests> None. </Tests> </aactivity> </f-element> 
+</change> 
+
+<change 
+xpath=".//f-component[@id='fpt_tud_ext.2']" mode="add"> 
+          <f-element id="fpt_tud_ext.2.3"> 
+            <title> 
+              Application installation package shall be digitally signed such that its 
+              platform can cryptographically verify them prior to installation.
+             </title>
+            <note role="application"> 
+              The specifics of the verification of installation packages involves
+              requirements on the platform (and not the application), so these are not fully specified here.
+             </note>
+            <aactivity> 
+              <TSS> 
+                The evaluator shall verify that the TSS identifies how the application installation package is signed by an authorized source. The definition of an authorized source
+                must be contained in the TSS. 
+               </TSS><Guidance> None. </Guidance><Tests> None. </Tests> </aactivity> </f-element> 
+</change> 
+</decision> 
+</bunch> </technical-decisions>
