@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../transforms/pp2html.xsl"?>
+<?xml-model href="CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<technical-decisions xmlns="https://niap-ccevs.org/cc/v1" xmlns:h="http://www.w3.org/1999/xhtml"> <bunch> <applies-to name="Protection Profile for Application Software" max-inclusive="1.3">  </applies-to><decision id="0543"> <notes> FMT_MEC_EXT.1 evaluation activity update </notes><change xpath=".//f-element[@id='fmt_mec_ext.1.1']" mode="replace"> 
+          <f-element id="fmt_mec_ext.1.1"> 
+            <title> 
+              The application shall 
+              <selectables linebreak="yes"> 
+                <selectable> 
+                  invoke the mechanisms recommended by the platform vendor for storing and setting
+                  configuration options.
+                 </selectable>
+                <selectable> 
+                  implement functionality to encrypt and store configuration options as defined by 
+                  <linkref linkend="fdp_prt_ext.1">  </linkref>
+                  in the PP-Module for File Encryption.
+                 </selectable> </selectables>
+             </title>
+            <note role="application"> 
+              Configuration options that are stored remotely are not subject to this requirement. 
+              <xref linkend="sen_data">  </xref>
+              is generally not considered part of configuration options and should be stored according to 
+              <linkref linkend="fdp_dar_ext.1">  </linkref>
+              or 
+              <linkref linkend="fcs_sto_ext.1">  </linkref>. 
+              <h:br>  </h:br>
+              If “implement functionality to encrypt and store configuration options as defined by 
+              <linkref linkend="fdp_prt_ext.1">  </linkref>
+              in the PP-Module for File Encryption" is selected, the TSF must claim conformance to a
+              PP-Configuration that includes the PP-Module for File Encryption.
+             </note>
+            <aactivity> 
+              <TSS> 
+                The evaluator shall review the TSS to identify the application's configuration options (e.g.
+                settings) and determine whether these are stored and set using the mechanisms supported by the
+                platform or implemented by the application in accordance with the PP-Module for File
+                Encryption. At a minimum the TSS shall list settings related to any SFRs and any settings that
+                are mandated in the operational guidance in response to an SFR. Conditional: If "implement
+                functionality to encrypt and store configuration options as defined by FDP_PRT_EXT.1 in the
+                PP-Module for File Encryption" is selected, the evaluator shall ensure that the TSS
+                identifies those options, as well as indicates where the encrypted representation of these
+                options is stored.
+               </TSS>
+              <Guidance> None. </Guidance>
+              <Tests> 
+                If “invoke the mechanisms recommended by the platform vendor for storing and setting
+                configuration options” is chosen, the method of testing varies per platform. 
+                <h:p> 
+                  <depends on="selection"> <ref-id> android </ref-id> </depends>
+                  The evaluator shall run the application and make security-related changes to its
+                  configuration. The evaluator shall check that at least one XML file at location 
+                  <h:path> 
+                    /data/data/<h:i> package </h:i>/shared_prefs/
+                   </h:path>
+                  reflects the changes made to the configuration to verify that the application used 
+                  <h:code> SharedPreferences </h:code>
+                  and/or 
+                  <h:code> PreferenceActivity </h:code>
+                  classes for storing configuration data, where 
+                  <h:i> package </h:i>
+                  is the Java package of the application.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> windows </ref-id> </depends>
+                  The evaluator shall determine and verify that Windows Universal Applications use either the Windows.Storage namespace, 
+                  Windows.UI.ApplicationSettings namespace or the IsolatedStorageSettings namespace for
+                  storing application specific settings. For .NET applications, the evaluator shall
+                  determine and verify that the application uses one of the locations listed in
+                  https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/ for storing
+                  application specific settings. For Classic Desktop applications, the evaluator shall run
+                  the application while monitoring it with the SysInternals tool 
+                  <h:strong> ProcMon </h:strong>
+                  and make changes to its configuration. The evaluator shall verify that 
+                  <h:strong> ProcMon </h:strong>
+                  logs show corresponding changes to the the Windows Registry or C:\ProgramData\ directory.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> ios </ref-id> </depends>
+                  The evaluator shall verify that the app uses the 
+                  <h:code> user defaults system </h:code>
+                  or 
+                  <h:code> key-value store </h:code>
+                  for storing all settings.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> linux </ref-id> </depends>
+                  The evaluator shall run the application while monitoring it with the utility 
+                  <h:strong> strace </h:strong>. The evaluator shall make security-related changes to its configuration. The evaluator
+                  shall verify that 
+                  <h:strong> strace </h:strong>
+                  logs corresponding changes to configuration files that reside in /etc (for system-specific
+                  configuration), in the user's home directory (for user-specific configuration), or
+                  /var/lib/ (for configurations controlled by UI and not intended to be directly modified by an
+                  administrator).
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> Solaris </ref-id> </depends>
+                  The evaluator shall run the application while monitoring it with the utility 
+                  <h:strong> dtrace </h:strong>. The evaluator shall make security-related changes to its configuration. The evaluator
+                  shall verify that 
+                  <h:strong> dtrace </h:strong>
+                  logs corresponding changes to configuration files that reside in /etc (for system-specific
+                  configuration) or in the user's home directory(for user-specific configuration).
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> mac </ref-id> </depends>
+                  The evaluator shall verify that the application stores and retrieves settings using the 
+                  <h:code> NSUserDefaults </h:code>
+                  class.
+                 </h:p>
+                If "implement functionality to encrypt and store configuration options as defined by
+                FDP_PRT_EXT.1 in the PP-Module for File Encryption” is selected, for all configuration
+                options listed in the TSS as being stored and protected using encryption, the evaluator shall
+                examine the contents of the configuration option storage (identified in the TSS) to determine
+                that the options have been encrypted.
+               </Tests> </aactivity> </f-element> </change> </decision> </bunch> </technical-decisions>

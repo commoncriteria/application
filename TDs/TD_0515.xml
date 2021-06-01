@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../transforms/pp2html.xsl"?>
+<?xml-model href="CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<technical-decisions xmlns="https://niap-ccevs.org/cc/v1" xmlns:h="http://www.w3.org/1999/xhtml"> <bunch> <applies-to name="Protection Profile for Application Software" max-inclusive="1.3">  </applies-to><decision id="0515"> <notes> Use Android APK manifest in test </notes>
+<change xpath=".//f-element[@id='fdp_dec_ext.1.1']" mode="replace"> 
+          <f-element id="fdp_dec_ext.1.1"> 
+            <title> 
+              The application shall restrict its access to 
+              <selectables linebreak="yes"> 
+                <selectable> no hardware resources </selectable>
+                <selectable> network connectivity </selectable>
+                <selectable> camera </selectable>
+                <selectable> microphone </selectable>
+                <selectable> location services </selectable>
+                <selectable> 
+                  <h:abbr title="Near-Field Communication"> NFC </h:abbr>
+                 </selectable>
+                <selectable> 
+                  <h:abbr title="Universal Serial Bus"> USB </h:abbr>
+                 </selectable>
+                <selectable> Bluetooth </selectable>
+                <selectable> 
+                  <assignable> list of additional hardware resources </assignable>
+                 </selectable> </selectables>
+              .
+             </title>
+            <note role="application"> 
+              The intent is for the evaluator to ensure that the selection captures all hardware resources
+              which the application accesses, and that these are restricted to those which are justified. On
+              some platforms, the application must explicitly solicit permission in order to access
+              hardware resources. Seeking such permissions, even if the application does not later make use
+              of the hardware resource, should still be considered access. Selections should be expressed
+              in a manner consistent with how the application expresses its access needs to the underlying
+              platform. For example, the platform may provide 
+              <h:i> location services </h:i>
+              which implies the potential use of a variety of hardware resources (e.g. satellite receivers,
+              WiFi, cellular radio) yet 
+              <h:i> location services </h:i>
+              is the proper selection. This is because use of these resources can be inferred, but also
+              because the actual usage may vary based on the particular platform. Resources that do not need
+              to be explicitly identified are those which are ordinarily used by any application such as
+              central processing units, main memory, displays, input devices (e.g. keyboards, mice), and
+              persistent storage devices provided by the platform.
+             </note>
+            <aactivity> 
+              <TSS> None. </TSS>
+              <Guidance> 
+                The evaluator shall perform the platform-specific actions below and inspect user
+                documentation to determine the application's access to hardware resources. The evaluator
+                shall ensure that this is consistent with the selections indicated. The evaluator shall
+                review documentation provided by the application developer and for each resource which it
+                accesses, identify the justification as to why access is required.
+               </Guidance>
+              <Tests> 
+                <h:p> 
+                  <depends on="selection"> <ref-id> android </ref-id> </depends>
+                  The evaluator shall verify that each <uses-permission>entry in the AndroidManifest.xml file for access to a hardware resource is reflected in the selection.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> windows </ref-id> </depends>
+                  For Windows Universal Applications the evaluator shall check the WMAppManifest.xml file for
+                  a list of required hardware capabilities. The evaluator shall verify that the user is made
+                  aware of the required hardware capabilities when the application is first installed. This
+                  includes permissions such as ID_CAP_ISV_CAMERA, ID_CAP_LOCATION, ID_CAP_NETWORKING,
+                  ID_CAP_MICROPHONE, ID_CAP_PROXIMITY and so on. A complete list of Windows App permissions
+                  can be found at: 
+                  <h:ul> 
+                    <h:li> 
+                      <h:a href="http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx"> 
+                        http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx
+                       </h:a>
+                     </h:li>
+                   </h:ul>
+                  For Windows Desktop Applications the evaluator shall identify in either the application
+                  software or its documentation the list of the required hardware resources.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> ios </ref-id> </depends>
+                  The evaluator shall verify that either the application or the documentation provides a list of
+                  the hardware resources it accesses.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> linux </ref-id> </depends>
+                  The evaluator shall verify that either the application software or its documentation
+                  provides a list of the hardware resources it accesses.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> Solaris </ref-id> </depends>
+                  The evaluator shall verify that either the application software or its documentation
+                  provides a list of the hardware resources it accesses.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> mac </ref-id> </depends>
+                  The evaluator shall verify that either the application software or its documentation
+                  provides a list of the hardware resources it accesses.
+                 </h:p>
+               </Tests> </aactivity> </f-element> </change> 
+
+<change xpath=".//f-element[@id='fdp_dec_ext.1.2']" mode="replace"> 
+          <f-element id="fdp_dec_ext.1.2"> 
+            <title> 
+              The application shall restrict its access to 
+              <selectables linebreak="yes"> 
+                <selectable> no sensitive information repositories </selectable>
+                <selectable> address book </selectable>
+                <selectable> calendar </selectable>
+                <selectable> call lists </selectable>
+                <selectable> system logs </selectable>
+                <selectable> 
+                  <assignable> 
+                    list of additional sensitive information repositories
+                   </assignable>
+                 </selectable> </selectables>
+              .
+             </title>
+            <note role="application"> 
+              <h:i> Sensitive information repositories </h:i>
+              are defined as those collections of sensitive data that could be expected to be shared among
+              some applications, users, or user roles, but to which not all of these would ordinarily require
+              access.
+             </note>
+            <aactivity> 
+              <TSS> None. </TSS><Guidance> 
+                The evaluator shall perform the platform-specific actions below and inspect user
+                documentation to determine the application's access to sensitive information
+                repositories. The evaluator shall ensure that this is consistent with the selections
+                indicated. The evaluator shall review documentation provided by the application developer
+                and for each sensitive information repository which it accesses, identify the justification
+                as to why access is required.
+               </Guidance><Tests> 
+                <h:p> 
+                  <depends on="selection"> <ref-id> android </ref-id> </depends>
+                  The evaluator shall verify that each <uses-permission>entry in the AndroidManifest.xml file for access to a sensitive information repository is reflected in the selection.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> windows </ref-id> </depends>
+                  For Windows Universal Applications the evaluator shall check the WMAppManifest.xml file for
+                  a list of required capabilities. The evaluator shall identify the required information
+                  repositories when the application is first installed. This includes permissions such as
+                  ID_CAP_CONTACTS,ID_CAP_APPOINTMENTS,ID_CAP_MEDIALIB and so on. A complete list of
+                  Windows App permissions can be found at: 
+                  <h:ul> 
+                    <h:li> 
+                      <h:a href="http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx"> 
+                        http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx
+                       </h:a>
+                     </h:li>
+                   </h:ul>
+                  For Windows Desktop Applications the evaluator shall identify in either the application
+                  software or its documentation the list of sensitive information repositories it accesses.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> ios </ref-id> </depends>
+                  The evaluator shall verify that either the application software or its documentation
+                  provides a list of the sensitive information repositories it accesses.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> linux </ref-id> </depends>
+                  The evaluator shall verify that either the application software or its documentation
+                  provides a list of sensitive information repositories it accesses.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> Solaris </ref-id> </depends>
+                  The evaluator shall verify that either the application software or its documentation
+                  provides a list of sensitive information repositories it accesses.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> mac </ref-id> </depends>
+                  The evaluator shall verify that either the application software or its documentation
+                  provides a list of sensitive information repositories it accesses.
+                 </h:p>
+               </Tests> </aactivity> </f-element> </change>
+</decision> </bunch> </technical-decisions>

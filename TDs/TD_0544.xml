@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="../transforms/pp2html.xsl"?>
+<?xml-model href="CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<technical-decisions xmlns="https://niap-ccevs.org/cc/v1" xmlns:h="http://www.w3.org/1999/xhtml"> <bunch> <applies-to name="Protection Profile for Application Software" max-inclusive="1.3">  </applies-to><decision id="0544"> <notes> Alternative testing methods for FPT_AEX_EXT.1.1 </notes><change xpath=".//f-element[@id='fpt_aex_ext.1.1']" mode="replace"> 
+          <f-element id="fpt_aex_ext.1.1"> 
+            <title> 
+              The application shall not request to map memory at an explicit address except for 
+              <assignable> list of explicit exceptions </assignable>
+              .
+             </title>
+            <note role="application"> 
+              Requesting a memory mapping at an explicit address subverts address space layout
+              randomization ( 
+              <abbr linkend="ASLR" title="Address Space Layout Randomization"> ASLR </abbr>
+              ).
+             </note>
+            <aactivity> 
+              <TSS> 
+                The evaluator shall ensure that the 
+                <abbr linkend="TSS" title="TOE Summary Specification"> TSS </abbr>
+                describes the compiler flags used to enable 
+                <abbr linkend="ASLR" title="Address Space Layout Randomization"> ASLR </abbr>
+                when the application is compiled.
+               </TSS><Guidance> None. </Guidance><Tests> 
+                The evaluator shall perform either a static or dynamic analysis to determine that no memory
+                mappings are placed at an explicit and consistent address. The method of doing so varies per
+                platform. For those platforms requiring the same application running on two different systems, the evaluator may alternatively use the same device. After collecting the first instance of mappings, the evaluator must uninstall the application, reboot the device, and reinstall the application to collect the second instance of mappings.
+                <h:p> 
+                  <depends on="selection"> <ref-id> android </ref-id> </depends>
+                  The evaluator shall run the same application on two different Android systems. Both devices do
+                  not need to be evaluated, as the second device is acting only as a tool. Connect via ADB and
+                  inspect /proc/PID/maps. Ensure the two different instances share no memory mappings made by
+                  the application at the same location. 
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> windows </ref-id> </depends>
+                  The evaluator shall run the same application on two different Windows systems and run a tool
+                  that will list all memory mapped addresses for the application. The evaluator shall then
+                  verify the two different instances share no mapping locations. The Microsoft SysInternals
+                  tool, VMMap, could be used to view memory addresses of a running application. The evaluator
+                  shall use a tool such as Microsoft's BinScope Binary Analyzer to confirm that the application
+                  has ASLR enabled.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> ios </ref-id> </depends>
+                  The evaluator shall perform a static analysis to search for any mmap calls (or 
+                  <abbr title="Application Programming Interface" linkend="API"> API </abbr>
+                  calls that call mmap), and ensure that no arguments are provided that request a mapping at a
+                  fixed address.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> linux </ref-id> </depends>
+                  The evaluator shall run the same application on two different Linux systems. The evaluator
+                  shall then compare their memory maps using 
+                  <h:code> pmap -x 
+                    <h:i> PID </h:i> </h:code>
+                  to ensure the two different instances share no mapping locations.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> Solaris </ref-id> </depends>
+                  The evaluator shall run the same application on two different Solaris systems. The evaluator
+                  shall then compare their memory maps using 
+                  <h:code> pmap -x 
+                    <h:i> PID </h:i> </h:code>
+                  to ensure the two different instances share no mapping locations.
+                 </h:p>
+                <h:p> 
+                  <depends on="selection"> <ref-id> mac </ref-id> </depends>
+                  The evaluator shall run the same application on two different Mac systems. The evaluator shall
+                  then compare their memory maps using 
+                  <h:code> vmmap 
+                    <h:i> PID </h:i> </h:code>
+                  to ensure the two different instances share no mapping locations.
+                 </h:p>
+               </Tests> </aactivity> </f-element> </change> </decision> </bunch> </technical-decisions>
