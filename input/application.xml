@@ -703,6 +703,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
 	    </aactivity>
           </f-element>
         </f-component>
+	      
          <f-component cc-id="fcs_rbg_ext.2" name="Random Bit Generation from Application" status="sel-based">
            <depends on="drbg"/>
           <f-element id="fel-drbg-how">
@@ -728,7 +729,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
               SHA-256, SHA-384, SHA-512) are allowed for Hash_DRBG or HMAC_DRBG, only AES-based 
               implementations for CTR_DRBG are allowed.
             </note>
-            <aactivity>
+            <aactivity level="element">
               <Tests>The evaluator shall perform the following tests, depending on the standard
               to which the RBG conforms. 
               <h:br />
@@ -836,7 +837,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
               (security strength of 112 bits) and AES 256 (security strength 256 bits),
 	      then the ST author would select 256 bits.
             </note>
-            <aactivity>
+            <aactivity level="element">
 	      <TSS>Documentation shall be produced - and the evaluator shall perform the
               activities - in accordance with <xref to="entropyappendix"/> and
               the
@@ -1750,6 +1751,7 @@ functionality (such as these)
             </aactivity>
           </f-element>
         </f-component> 
+	      
         <f-component cc-id="fcs_cop.1" id="fcom_hash" iteration="2" name="Cryptographic Operation - Hashing" status="sel-based">
           <depends on="sel_all_tlsc"/>
           <f-element id="fel-crypt-hash">
@@ -1845,6 +1847,8 @@ functionality (such as these)
             </aactivity>
           </f-element>
         </f-component> 
+	      
+	      
         <f-component cc-id="fcs_cop.1" id="fcom_sign" iteration="3" name="Cryptographic Operation - Signing"  status="sel-based">
           <depends on="sel_all_tlsc"/>
           <f-element id="fel-sign">
@@ -1918,7 +1922,9 @@ functionality (such as these)
 	      </Tests>
             </aactivity>
           </f-element>
-          </f-component> 
+          </f-component>
+	      
+	      
         <f-component cc-id="fcs_cop.1" id="fcom_key_hash" iteration="4" name="Cryptographic Operation - Keyed-Hash Message Authentication" status="sel-based">
           <depends on="sel_all_tlsc"/>
           <f-element id="fel-keyed-hash">
@@ -1965,6 +1971,8 @@ functionality (such as these)
             </aactivity>
           </f-element>
           </f-component> 
+	      
+	      
         <f-component cc-id="fcs_sto_ext.1" name="Storage of Credentials">
           <f-element id="fel-store-creds">
             <title>The application shall 
@@ -2042,7 +2050,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <title>
               The application shall implement the HTTPS protocol that complies with RFC 2818.
             </title>
-            <aactivity>
+            <aactivity level="element">
               <Tests>The evaluator shall attempt to establish an HTTPS connection with a webserver, 
               observe the traffic with a packet analyzer, and verify that the connection succeeds 
               and that the traffic is identified as 
@@ -2054,7 +2062,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <title>The application shall implement HTTPS using 
               TLS as defined in the TLS package.
             </title>
-            <aactivity>
+            <aactivity level="element">
               <Tests>Other tests are performed in conjunction with the TLS package.
 	      </Tests>
             </aactivity>
@@ -2078,7 +2086,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               Validity is determined by the certificate path, the expiration date, and the 
               revocation status in accordance with RFC 5280. 
             </note>
-            <aactivity>
+            <aactivity level="element">
               <Tests>Certificate validity shall be tested in accordance with testing performed for 
               FIA_X509_EXT.1, and the evaluator shall perform the following test:
               <testlist>
@@ -2135,7 +2143,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 			  main memory, displays, input devices (e.g. keyboards, mice), and
 			  persistent storage devices provided by the platform.
             </note>
-            <aactivity>
+            <aactivity level="element">
               <Guidance>The evaluator shall perform the platform-specific actions below and inspect user
               documentation to determine the application's access to hardware
               resources.  The evaluator shall ensure that this is consistent with the selections
@@ -2199,7 +2207,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               could be expected to be shared among some applications, users, or user roles, but to which not all
               of these would ordinarily require access.
 	    </note>
-            <aactivity>
+            <aactivity level="element">
               <Guidance>The evaluator shall perform the platform-specific actions below and inspect user
               documentation to determine the application's access to sensitive information
               repositories.  The evaluator shall ensure that this is consistent with the selections
@@ -2382,6 +2390,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           </f-element>
         </f-component>
       </section>
+	    
+	    
       <section title="Identification and Authentication (FIA)" id="fia">
         <f-component cc-id="fia_x509_ext.1" name="X.509 Certificate Validation" status="sel-based">
           <depends on1="sel_all_https" on2="sel_all_tlsc" on3="sel_all_tlss" on4="sel_all_dtls" on5="sel_sen_https" on6="sel_sen_tlsc" on7="sel_sen_tlss" on8="sel_sen_dtls"/>
@@ -2483,7 +2493,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               the validation is expected to end in a trusted root CA certificate in a root 
               store managed by the platform.
             </note>
-            <aactivity>
+            <aactivity level="element">
               <TSS>The evaluator shall ensure the TSS describes where the check of 
               validity of the certificates takes place. The evaluator ensures the 
               TSS also provides a description of the certificate path validation 
@@ -2580,7 +2590,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               TSF and restricts the certificates that may be added as trusted CA 
               certificates.
             </note>
-            <aactivity>
+            <aactivity level="element">
               <Tests>
 		    The tests described must be performed in conjunction with the other certificate 
               services evaluation activities, including the functions in FIA_X509_EXT.2.1.
@@ -2608,6 +2618,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             </aactivity>
           </f-element>
         </f-component>
+	      
+	      
         <f-component cc-id="fia_x509_ext.2" name="X.509 Certificate Authentication" status="sel-based">
           <depends on1="sel_all_https" on2="sel_all_tlsc" on3="sel_all_tlss" on4="sel_all_dtls" on5="sel_sen_https" on6="sel_sen_tlsc" on7="sel_sen_tlss" on8="sel_sen_dtls"/>
           <f-element id="fel-certs-who">
@@ -2697,6 +2709,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           </f-element>
         </f-component>
       </section>
+	    
+	    
       <section title="Security Management (FMT)" id="fmt">
         <f-component cc-id="fmt_mec_ext.1" name="Supported Configuration Mechanism">
           <f-element id="fel-config-store">
@@ -2780,6 +2794,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             </aactivity>
           </f-element>
         </f-component>
+	      
+	      
         <f-component cc-id="fmt_cfg_ext.1" name="Secure by Default Configuration">
           <f-element id="fel-default-config">
             <title>
@@ -2792,7 +2808,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      Credentials that are generated during installation using requirements laid out in 
 	      FCS_RBG_EXT.1 are not by definition default credentials.
 	    </note>
-            <aactivity>
+            <aactivity level="element">
              <TSS>The evaluator shall check the TSS to determine if the application requires any type
              of credentials and if the application installs with default credentials.
 	     </TSS>
@@ -2825,7 +2841,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               but the general intention is that a trust boundary protects the application and its
               data.
 	    </note>
-            <aactivity>
+            <aactivity level="element">
               <Tests>The evaluator shall install and run the application. The evaluator shall
               inspect the filesystem of the platform (to the extent possible) for any files created
               by the application and ensure that their permissions are adequate to protect them.
@@ -2869,6 +2885,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             </aactivity>
           </f-element>
         </f-component>
+	      
+	      
         <f-component cc-id="fmt_smf.1" name="Specification of Management Functions">
           <f-element id="fel-management-funcs">
             <title> The TSF shall be capable of performing the following
@@ -2987,6 +3005,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             </aactivity>
           </f-element>
 	</f-component>
+	      
+	      
         <f-component cc-id="fpt_api_ext.2" name="Use of Supported Services and APIs" status="objective">
           <f-element id="fel-api-parsers">
             <title> The application 
@@ -3016,6 +3036,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	    </aactivity>
           </f-element>
         </f-component>
+	      
+	      
         <f-component cc-id="fpt_aex_ext.1" name="Anti-Exploitation Capabilities">
           <f-element id="fel-aslr">
             <title> The application shall not request to map memory at an explicit address
@@ -3024,7 +3046,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <note role="application"> Requesting a memory mapping at an explicit address
             subverts address space layout randomization (ASLR). </note>
 
-            <aactivity> <TSS>The evaluator shall ensure that the TSS 
+            <aactivity level="element"> <TSS>The evaluator shall ensure that the TSS 
               describes the compiler flags used to enable ASLR when the
               application is compiled.
 	    </TSS>
@@ -3091,7 +3113,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               permissions subverts the platform protection provided by DEP. 
 	      If the application performs no just-in-time compiling, then the first selection must be chosen.
 	    </note>
-            <aactivity> 
+            <aactivity level="element"> 
               <Tests>The evaluator shall verify that no memory mapping requests are made with write and execute permissions.
 	      The method of doing so varies per platform.
                             <subaactivity platform="android"> The evaluator shall perform static analysis on the
@@ -3131,7 +3153,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               platform vendor.</title>
             <note role="application">This requirement is designed to ensure that platform security 
               features do not need to be disabled in order for the application to run.</note>
-            <aactivity>
+            <aactivity level="element">
               <Tests>The evaluator shall configure the platform in the ascribed manner and 
 	      carry out one of the prescribed tests:
 	                    <subaactivity platform="android">Applications running on Android cannot disable Android 
@@ -3183,7 +3205,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      Executables and user-modifiable files may not share the same parent directory, but
 	      may share directories above the parent.
 	    </note>
-            <aactivity>
+            <aactivity level="element">
               <Tests>The evaluator shall run the application and determine where it writes its files.
 	      For files where the user does not choose the destination, the evaluator shall 
 	      check whether the destination directory contains executable files.
@@ -3223,7 +3245,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           <f-element id="fel-stackcookies">
             <title>The application shall be built with stack-based buffer overflow protection
               enabled.</title>
-            <aactivity><Tests>
+            <aactivity level="element"><Tests>
 	      The evaluator will inspect every native executable included in the TOE to ensure that stack-based buffer overflow protection is present.
               <subaactivity platform="windows">Applications that run as Managed Code in the .NET Framework do not require these stack protections.
                Applications developed in Object Pascal using the Delphi IDE compiled with RangeChecking enabled comply with this element. For other code, 
@@ -3247,6 +3269,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             </aactivity>
           </f-element>
         </f-component>
+	      
+	      
         <f-component cc-id="fpt_tud_ext.1" name="Integrity for Installation and Update">
           <f-element id="fel-update-check">
             <title>The application shall <selectables>
@@ -3258,7 +3282,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               is intended to ensure that the application can check for updates provided by the vendor,
               as updates provided by another source may contain malicious code.
             </note>
-            <aactivity>
+            <aactivity level="element">
 	      <Guidance>The evaluator shall check to ensure the guidance includes a description of how updates are performed.</Guidance>
               <Tests>The evaluator shall check for an update using procedures described in either the application documentation 
 	      or the platform documentation and verify that the application does not issue an error.
@@ -3273,7 +3297,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             </selectables>
               to query the current version of the application software.
             </title>
-            <aactivity>
+            <aactivity level="element">
               <Guidance> The evaluator shall verify guidance includes a description of how to query the current version of the application.</Guidance>
               <Tests> The evaluator shall query the application for the current version of the software
               according to the operational user guidance. The evaluator shall then verify that the 
@@ -3287,7 +3311,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <note role="application">This requirement applies to the code of the application; it
               does not apply to mobile code technologies that are designed for download and
               execution by the application. </note>
-              <aactivity>
+              <aactivity level="element">
 		<Tests>The evaluator shall verify that the application's executable files are
               not changed by the application. The evaluator shall complete the following test:
 		  <subaactivity platform="ios">The evaluator shall consider the requirement met 
@@ -3313,7 +3337,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             </title>
             <note role="application">The specifics of the verification of updates involves requirements on the platform (and not the
               application), so these are not fully specified here. </note>
-            <aactivity>
+            <aactivity level="element">
 	      <TSS>
 		The evaluator shall verify that the TSS identifies how updates to the application  
 		are signed by an authorized source. The definition of an
@@ -3340,7 +3364,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               package to the OS" is selected the requirements from FPT_TUD_EXT.2 
               must be included in the ST.
             </note>
-            <aactivity>
+            <aactivity level="element">
               <TSS>The evaluator shall verify that the TSS identifies how the application
               is distributed. If "with the platform" is selected the evaluated shall perform
               a clean installation or factory reset to confirm that TOE software is included
@@ -3356,7 +3380,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           <f-element id="fel-patch-native">
             <title>The application shall be distributed using the format of the platform-supported
               package manager. </title>
-            <aactivity>
+            <aactivity level="element">
               <Tests>The evaluator shall verify that application updates are distributed in the
               format supported by the platform. This varies per platform:               
               <subaactivity platform="android"> The evaluator shall ensure that the application is
@@ -3389,7 +3413,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <note role="application">Applications software bundled with the system/firmware image 
               are not subject to this requirement if the user is unable to remove the application through
               means provided by the OS.</note>
-            <aactivity>
+            <aactivity level="element">
               <Tests>
               <subaactivity platform="android">The evaluator shall consider the requirement met because 
                 the platform forces applications to write all data within the application working 
@@ -3411,7 +3435,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               cryptographically verify them prior to installation</title>
             <note role="application"> The specifics of the verification of installation packages involves 
             requirements on the platform (and not the application), so these are not fully specified here.</note>
-            <aactivity>
+            <aactivity level="element">
               <TSS>The evaluator shall verify that the TSS identifies how the application installation package 
                 is signed by an authorized source. The definition of an authorized source must be contained in the TSS.</TSS>
             </aactivity>
@@ -3438,6 +3462,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	    </aactivity>
           </f-element>
         </f-component>
+	      
+	      
         <f-component cc-id="fpt_idv_ext.1" name="Software Identification and Versions">
           <f-element id="fel-swid">
             <title>The application shall be versioned with
@@ -3474,6 +3500,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           </f-element>
         </f-component>
       </section>
+	    
+	    
       <section title="Trusted Path/Channel (FTP)" id="ftp">
         <f-component cc-id="ftp_dit_ext.1" name="Protection of Data in Transit">
           <f-element id="fel-transmit">
@@ -3592,6 +3620,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
         </f-component>
       </section>
     </sec:SFRs>
+	  
+	  
     <section title="Security Assurance Requirements" id="SARs">The Security Objectives for the TOE in
       <xref to="req"/> were constructed to address threats identified in
       <xref to="Threats"/>. The Security Functional Requirements (SFRs)
