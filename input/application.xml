@@ -2,7 +2,7 @@
 <?xml-stylesheet type="text/xsl" href="..\transforms\pp2html.xsl"?>
 
 <!--
-<?xml-model href="https://raw.githubusercontent.com/commoncriteria/transforms/master/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/commoncriteria/transforms/master/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>f
 -->
 
 <PP boilerplate="yes" target-products="Application Software"
@@ -651,7 +651,7 @@ Some application types are covered by more specific PPs, which may be expressed 
               SHA-256, SHA-384, SHA-512) are allowed for Hash_DRBG or HMAC_DRBG, only AES-based 
               implementations for CTR_DRBG are allowed.
             </note>
-            <aactivity><TSS> None.
+            <aactivity level="element"><TSS> None.
               </TSS>
 	<Guidance> None.
               </Guidance>
@@ -762,7 +762,8 @@ Some application types are covered by more specific PPs, which may be expressed 
               (security strength of 112 bits) and AES 256 (security strength 256 bits),
 	      then the ST author would select 256 bits.
             </note>
-            <aactivity><TSS>Documentation shall be produced - and the evaluator shall perform the
+            <aactivity level="element">
+		    <TSS>Documentation shall be produced - and the evaluator shall perform the
               activities - in accordance with <xref to="entropyappendix"/> and
               the <h:a href="https://www.niap-ccevs.org/Documents_and_Guidance/ccevs/Entropy%20Documentation%20and%20Assessment%20Clarification.pdf">Clarification to the Entropy Documentation and Assessment Annex</h:a>.
               <h:br />
@@ -1755,6 +1756,7 @@ functionality (such as these)
 		</aactivity>
           </f-element>
         </f-component> 
+	      
         <f-component id="fc_sign" cc-id="fcs_cop.1" iteration="3" name="Cryptographic Operation - Signing"  status="sel-based">
           <depends on-sel="sel_all_tlsc"/>
           <f-element id="fcs-cop-1e1-3">
@@ -1833,6 +1835,7 @@ functionality (such as these)
 		</aactivity>
           </f-element>
           </f-component> 
+	      
         <f-component id="fc_keyed_hash" cc-id="fcs_cop.1" iteration="4" name="Cryptographic Operation - Keyed-Hash Message Authentication" status="sel-based">
           <depends on-sel="sel_all_tlsc"/>
           <f-element id="fcs-cop-1e1-4">
@@ -1883,6 +1886,7 @@ functionality (such as these)
 		</aactivity>
           </f-element>
           </f-component> 
+	      
         <f-component cc-id="fcs_sto_ext.1" name="Storage of Credentials">
           <f-element id="fcs-sto-ext-1e1">
             <title>The application shall 
@@ -1967,7 +1971,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <title>
               The application shall implement the HTTPS protocol that complies with RFC 2818.
             </title>
-            <aactivity>
+            <aactivity level="element">
               <TSS>None.
               </TSS>
 	<Guidance>None.
@@ -1983,7 +1987,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <title>The application shall implement HTTPS using 
               TLS as defined in the TLS package.
             </title>
-            <aactivity>
+            <aactivity level="element">
               <TSS>None.
               </TSS>
 	<Guidance>None.
@@ -2011,7 +2015,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               Validity is determined by the certificate path, the expiration date, and the 
               revocation status in accordance with RFC 5280. 
             </note>
-            <aactivity>
+            <aactivity level="element">
               <TSS>None.
               </TSS>
 	<Guidance>None.
@@ -2072,7 +2076,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 			  main memory, displays, input devices (e.g. keyboards, mice), and
 			  persistent storage devices provided by the platform.
             </note>
-            <aactivity>
+            <aactivity level="element">
                 <TSS>None.
               </TSS>
 	<Guidance>The evaluator shall perform the platform-specific actions below and inspect user
@@ -2140,7 +2144,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               could be expected to be shared among some applications, users, or user roles, but to which not all
               of these would ordinarily require access.
 	    </note>
-            <aactivity>
+            <aactivity level="element">
                 <TSS>None.
               </TSS>
 	<Guidance>The evaluator shall perform the platform-specific actions below and inspect user
@@ -2333,6 +2337,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           </f-element>
         </f-component>
       </section>
+	    
       <section title="Identification and Authentication (FIA)" id="fia">
         <f-component cc-id="fia_x509_ext.1" name="X.509 Certificate Validation" status="sel-based">
           <depends on-sel="sel_all_https"/>
@@ -2558,6 +2563,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 		</aactivity>
           </f-element>
         </f-component>
+	      
         <f-component cc-id="fia_x509_ext.2" name="X.509 Certificate Authentication" status="sel-based">
           <depends on-sel="sel_all_https"/>
 		  <depends on-sel="sel_all_tlsc"/>
@@ -2660,7 +2666,9 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 		</aactivity>
           </f-element>
         </f-component>
+	      
       </section>
+	    
       <section title="Security Management (FMT)" id="fmt">
         <f-component cc-id="fmt_mec_ext.1" name="Supported Configuration Mechanism">
           <f-element id="fmt-mec-ext-1e1">
@@ -2729,6 +2737,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 		</aactivity>
           </f-element>
         </f-component>
+	      
         <f-component cc-id="fmt_cfg_ext.1" name="Secure by Default Configuration">
           <f-element id="fmt-cfg-ext-1e1">
             <title>
@@ -2741,7 +2750,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      Credentials that are generated during installation using requirements laid out in 
 	      FCS_RBG_EXT.1 are not by definition default credentials.
 	    </note>
-            <aactivity>
+            <aactivity level="element">
              <TSS>The evaluator shall check the TSS to determine if the application requires any type
              of credentials and if the application installs with default credentials. 
               </TSS>
@@ -2776,7 +2785,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               but the general intention is that a trust boundary protects the application and its
               data.
 	    </note>
-            <aactivity><TSS>None.
+            <aactivity level="element"><TSS>None.
               </TSS>
 	<Guidance>None.
               </Guidance>
@@ -2827,6 +2836,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 		</aactivity>
           </f-element>
         </f-component>
+	      
         <f-component cc-id="fmt_smf.1" name="Specification of Management Functions">
           <f-element id="fmt-smf-1e1">
             <title> The TSF shall be capable of performing the following
@@ -2949,6 +2959,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 		</aactivity>
           </f-element>
 	</f-component>
+	      
         <f-component cc-id="fpt_api_ext.2" name="Use of Supported Services and APIs" status="objective">
           <f-element id="fpt-api-ext-2e1">
             <title> The application 
@@ -2983,6 +2994,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 		</aactivity>
           </f-element>
         </f-component>
+	      
         <f-component cc-id="fpt_aex_ext.1" name="Anti-Exploitation Capabilities">
           <f-element id="fpt-aex-ext-1e1">
             <title> The application shall not request to map memory at an explicit address
@@ -2991,7 +3003,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <note role="application"> Requesting a memory mapping at an explicit address
             subverts address space layout randomization (ASLR). </note>
 
-            <aactivity> <TSS>The evaluator shall ensure that the TSS 
+            <aactivity level="element"> <TSS>The evaluator shall ensure that the TSS 
               describes the compiler flags used to enable ASLR when the
               application is compiled.
               </TSS>
@@ -3058,7 +3070,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               permissions subverts the platform protection provided by DEP. 
 	      If the application performs no just-in-time compiling, then the first selection must be chosen.
 	    </note>
-            <aactivity> 
+            <aactivity level="element"> 
 	      <TSS>None.
               </TSS>
 	<Guidance>None.
@@ -3102,7 +3114,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               platform vendor.</title>
             <note role="application">This requirement is designed to ensure that platform security 
               features do not need to be disabled in order for the application to run.</note>
-            <aactivity>
+            <aactivity level="element">
 	      <TSS>None.
               </TSS>
 	<Guidance>None.
@@ -3150,7 +3162,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      Executables and user-modifiable files may not share the same parent directory, but
 	      may share directories above the parent.
 	    </note>
-            <aactivity>
+            <aactivity level="element">
 	      <TSS>None.
               </TSS>
 	<Guidance>None.
@@ -3194,7 +3206,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           <f-element id="fpt-aex-ext-1e5">
             <title>The application shall be built with stack-based buffer overflow protection
               enabled.</title>
-            <aactivity>
+            <aactivity level="element">
               <Tests>
 	      The evaluator will inspect every native executable included in the TOE to ensure that stack-based buffer overflow protection is present.
               <subaactivity platform="windows">Applications that run as Managed Code in the .NET Framework do not require these stack protections.
@@ -3231,7 +3243,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               is intended to ensure that the application can check for updates provided by the vendor,
               as updates provided by another source may contain malicious code.
             </note>
-            <aactivity>
+            <aactivity level="element">
 	      <TSS>None.
 	      </TSS>
 	<Guidance>The evaluator shall check to ensure the guidance includes a description of how updates are performed.
@@ -3249,7 +3261,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             </selectables>
               to query the current version of the application software.
             </title>
-            <aactivity><TSS> None.
+            <aactivity level="element"><TSS> None.
               </TSS>
 	<Guidance> The evaluator shall verify guidance includes a description of how to query the current version of the application.
               </Guidance>
@@ -3265,7 +3277,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <note role="application">This requirement applies to the code of the application; it
               does not apply to mobile code technologies that are designed for download and
               execution by the application. </note>
-            <aactivity><TSS>None.
+            <aactivity level="element"><TSS>None.
               </TSS>
 	<Guidance>None.
               </Guidance>
@@ -3293,7 +3305,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <note role="application">The specifics of the verification of installation packages
 			  and updates involves requirements on the platform (and not the
               application), so these are not fully specified here. </note>
-            <aactivity>
+            <aactivity level="element">
 			  <TSS>The evaluator shall verify that the TSS identifies how the application
 			  installation package and updates to it  
 			  are signed by an authorized source. The definition of an
@@ -3324,7 +3336,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               package to the OS" is selected the requirements from FPT_TUD_EXT.2
               must be included in the ST.
             </note>
-            <aactivity>
+            <aactivity level="element">
               <TSS>The evaluator shall verify that the TSS identifies how the application
               is distributed. If "with the platform" is selected the evaluated shall perform
               a clean installation or factory reset to confirm that TOE software is included
@@ -3345,7 +3357,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           <f-element id="fpt-tud-ext-2e1">
             <title>The application shall be distributed using the format of the platform-supported
               package manager. </title>
-            <aactivity> <TSS>None.
+            <aactivity level="element"> <TSS>None.
               </TSS>
 	<Guidance>None.
               </Guidance>
@@ -3381,7 +3393,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <note role="application">Applications software bundled with the system/firmware image 
               are not subject to this requirement if the user is unable to remove the application through
               means provided by the OS.</note>
-            <aactivity>
+            <aactivity level="element">
               <TSS>None.
               </TSS>
 	<Guidance>None.
@@ -3427,6 +3439,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 		</aactivity>
           </f-element>
         </f-component>
+	      
         <f-component cc-id="fpt_idv_ext.1" name="Software Identification and Versions">
           <f-element id="fpt-idv-ext-1e1">
             <title>The application shall be versioned with
@@ -3463,6 +3476,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           </f-element>
         </f-component>
       </section>
+	    
       <section title="Trusted Path/Channel (FTP)" id="ftp">
         <f-component cc-id="ftp_dit_ext.1" name="Protection of Data in Transit">
           <f-element id="ftp-dit-ext-1e1">
