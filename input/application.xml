@@ -4,7 +4,7 @@
 <PP xmlns="https://niap-ccevs.org/cc/v1"
     xmlns:h="http://www.w3.org/1999/xhtml"
     xmlns:sec="https://niap-ccevs.org/cc/v1/section"
-    name="Application Software" 
+    target-products="Application Software" 
     boilerplate="yes">
   <PPReference>
     <ReferenceTable>
@@ -48,10 +48,19 @@
           </subject>
     </entry>
   </RevisionHistory>
-
-  <include-pkg product="TLS" name="Network Encryption" short="TLS"  version="1.1"
-			 url="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"
-			 xmlurl="https://raw.githubusercontent.com/commoncriteria/tls/ed2d9042c27f7793d1f96e08e47bd12b04970977/input/tls.xml">
+  <subaactivity-decl>
+     <val id="android" full="Android-based Platform"></val>
+     <val id="windows" full="Microsoft Windows Platform"></val>
+     <val id="ios" full="Apple iOS Platform"></val>
+     <val id="linux" full="Linux-based Platform"></val>
+     <val id="Solaris" full="Oracle Solaris Platform"></val>
+     <val id="mac" full="Apple macOS Platform"></val>
+  </subaactivity-decl> 
+  <include-pkg id="p-tls">
+	  <raw-url>
+		 https://raw.githubusercontent.com/commoncriteria/tls/ed2d9042c27f7793d1f96e08e47bd12b04970977/input/tls.xml
+	  </raw-url>
+	  <url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439</url>
 	  <depends on="sel_all_tlsc" also="sel_all_dtls"/>
   </include-pkg>
 	
@@ -670,30 +679,30 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
               not directly correspond to the decompiled text and justification that the decompiled text 
               corresponds to the associated API. <h:br/>    <h:br/> 
 		    The following are the per-platform list of acceptable APIs:
-              <subaactivity platform="android"> The evaluator shall verify
+              <subaactivity ref="android"> The evaluator shall verify
                 that the application uses at least one of <h:code>javax.crypto.KeyGenerator</h:code> 
                 class or the <h:code>java.security.SecureRandom</h:code> class or <h:code>/dev/random
                 </h:code> or <h:code>/dev/urandom</h:code>.
               </subaactivity>
-              <subaactivity platform="windows">The evaluator shall verify
+              <subaactivity ref="windows">The evaluator shall verify
                 that rand_s, RtlGenRandom, BCryptGenRandom, or CryptGenRandom API is used for classic
                 desktop applications. The evaluator shall verify the application uses the RNGCryptoServiceProvider class or derives a class from System.Security.Cryptography.RandomNumberGenerator API
 		for Windows Universal Applications. It is only required that 
                 the API is called/invoked, there is no requirement that the API be used directly. In
                 future versions of this document, CryptGenRandom may be removed as an option as it is
                 no longer the preferred API per vendor documentation. </subaactivity>
-              <subaactivity platform="ios"> 
+              <subaactivity ref="ios"> 
                 The evaluator shall verify that the application invokes either
                 <h:code>SecRandomCopyBytes</h:code>, <h:code>CCRandomGenerateBytes</h:code>, or <h:code>CCRandomCopyBytes</h:code>, or uses <h:code>/dev/random</h:code> directly to acquire random.
 				</subaactivity>
-              <subaactivity platform="linux"> 
+              <subaactivity ref="linux"> 
                 The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>
 				or <h:code>/dev/urandom</h:code>.
 	      </subaactivity>
-	      <subaactivity platform="Solaris">
+	      <subaactivity ref="Solaris">
                 The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>.
 	      </subaactivity>
-              <subaactivity platform="mac">
+              <subaactivity ref="mac">
                 The evaluator shall verify that the application invokes either <h:code>CCRandomGenerateBytes</h:code> or <h:code>CCRandomCopyBytes</h:code>, or collects random from <h:code>/dev/random</h:code>.
 	      </subaactivity>
 		        If invocation of platform-provided functionality is achieved in another way, the evaluator 
@@ -728,7 +737,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
               SHA-256, SHA-384, SHA-512) are allowed for Hash_DRBG or HMAC_DRBG, only AES-based 
               implementations for CTR_DRBG are allowed.
             </note>
-            <aactivity>
+            <aactivity level="element">
               <Tests>The evaluator shall perform the following tests, depending on the standard
               to which the RBG conforms. 
               <h:br />
@@ -836,7 +845,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
               (security strength of 112 bits) and AES 256 (security strength 256 bits),
 	      then the ST author would select 256 bits.
             </note>
-            <aactivity>
+            <aactivity level="element">
 	      <TSS>Documentation shall be produced - and the evaluator shall perform the
               activities - in accordance with <xref to="entropyappendix"/> and
               the
@@ -863,7 +872,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
 			  <h:i>invoke platform-provided functionality for asymmetric key generation</h:i> is chosen, then
               additional FCS_CKM.1/1 elements shall be included in the ST.
             </note>
-            <aactivity>
+            <aactivity level="element">
               <TSS>The evaluator shall inspect the application and its developer documentation 
               to determine if the application needs asymmetric key generation services. If not, the 
               evaluator shall verify the <h:b>generate no asymmetric cryptographic keys</h:b> selection is present 
@@ -929,7 +938,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
               If the TOE acts as a receiver in the RSA key establishment scheme, 
               the TOE does not need to implement RSA key generation. 
             </note>
-            <aactivity>
+            <aactivity level="element">
 	      <TSS>
 		<h:p>The evaluator shall ensure that the TSS identifies the key sizes 
 		supported by the TOE. If the ST specifies more 
@@ -1253,7 +1262,7 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
               The domain parameters used for the finite field-based key establishment scheme are specified 
               by the key generation according to FCS_CKM.1.1/1.
             </note>
-            <aactivity>
+            <aactivity level="element">
               <TSS>The evaluator shall ensure that the supported key establishment schemes correspond to the 
               key generation schemes identified in FCS_CKM.1.1. If the ST specifies more than one 
               scheme, the evaluator shall examine the TSS to verify that it identifies the usage for each 
@@ -2008,28 +2017,28 @@ functionality (such as these)
               
               For all credentials for which the application invokes platform-provided
               functionality, the evaluator shall perform the following actions which vary per platform.
-              <subaactivity platform="android">The evaluator shall verify that the application uses
+              <subaactivity ref="android">The evaluator shall verify that the application uses
 	      the Android <h:code>KeyStore</h:code> or the Android <h:code>KeyChain</h:code> to store certificates.  
               </subaactivity>
-              <subaactivity platform="windows">The evaluator shall verify that all certificates are
+              <subaactivity ref="windows">The evaluator shall verify that all certificates are
                 stored in the Windows Certificate Store. The evaluator shall verify that other
                 credentials, like passwords, are stored in the Windows Credential Manager or stored 
                 using the Data Protection API (DPAPI). For Windows Universal Applications, the evaluator shall 
                 verify that the application is using the ProtectData class and storing credentials 
                 in IsolatedStorage.
               </subaactivity>
-              <subaactivity platform="ios">
+              <subaactivity ref="ios">
 		The evaluator shall verify that all credentials are stored
                 within a <h:code>Keychain</h:code>.  
 	      </subaactivity>
-              <subaactivity platform="linux">
+              <subaactivity ref="linux">
 The evaluator shall verify that all keys are stored using Linux keyrings.
 	      </subaactivity>
-              <subaactivity platform="Solaris">
+              <subaactivity ref="Solaris">
             		The evaluator shall verify that all keys are stored using Solaris 
             		<h:code>Key Management Framework (KMF)</h:code>.
               </subaactivity>
-              <subaactivity platform="mac">The evaluator shall verify that all credentials are 
+              <subaactivity ref="mac">The evaluator shall verify that all credentials are 
               stored within <h:code>Keychain</h:code>.</subaactivity>
 	      </Tests>
             </aactivity>
@@ -2042,7 +2051,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <title>
               The application shall implement the HTTPS protocol that complies with RFC 2818.
             </title>
-            <aactivity>
+            <aactivity level="element">
               <Tests>The evaluator shall attempt to establish an HTTPS connection with a webserver, 
               observe the traffic with a packet analyzer, and verify that the connection succeeds 
               and that the traffic is identified as 
@@ -2054,7 +2063,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <title>The application shall implement HTTPS using 
               TLS as defined in the TLS package.
             </title>
-            <aactivity>
+            <aactivity level="element">
               <Tests>Other tests are performed in conjunction with the TLS package.
 	      </Tests>
             </aactivity>
@@ -2078,7 +2087,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               Validity is determined by the certificate path, the expiration date, and the 
               revocation status in accordance with RFC 5280. 
             </note>
-            <aactivity>
+            <aactivity level="element">
               <Tests>Certificate validity shall be tested in accordance with testing performed for 
               FIA_X509_EXT.1, and the evaluator shall perform the following test:
               <testlist>
@@ -2135,7 +2144,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 			  main memory, displays, input devices (e.g. keyboards, mice), and
 			  persistent storage devices provided by the platform.
             </note>
-            <aactivity>
+            <aactivity level="element">
               <Guidance>The evaluator shall perform the platform-specific actions below and inspect user
               documentation to determine the application's access to hardware
               resources.  The evaluator shall ensure that this is consistent with the selections
@@ -2144,11 +2153,11 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               justification as to why access is required.
 	      </Guidance>
               <Tests>
-              <subaactivity platform="android">
+              <subaactivity ref="android">
                 The evaluator shall verify that each <h:code>uses-permission</h:code> entry in the AndroidManifest.xml file 
                 for access to a hardware resource is reflected in the selection.
               </subaactivity>
-              <subaactivity platform="windows">For Windows Universal Applications the evaluator shall check the
+              <subaactivity ref="windows">For Windows Universal Applications the evaluator shall check the
                 WMAppManifest.xml file for a list of required hardware capabilities. The evaluator
                 shall verify that the user is made aware of the required hardware capabilities when
                 the application is first installed. This includes permissions such as
@@ -2165,16 +2174,16 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
                 application software or its documentation the list of the required
                 hardware resources. 
                 </subaactivity>
-                <subaactivity platform="ios">The evaluator shall verify that either the
+                <subaactivity ref="ios">The evaluator shall verify that either the
                   application or the documentation provides a list of the
                   hardware resources it accesses. </subaactivity>
-              <subaactivity platform="linux"> The evaluator shall verify that either the
+              <subaactivity ref="linux"> The evaluator shall verify that either the
                 application software or its documentation provides a list of the
                 hardware resources it accesses. </subaactivity>
-              <subaactivity platform="Solaris"> The evaluator shall verify that either the
+              <subaactivity ref="Solaris"> The evaluator shall verify that either the
                 application software or its documentation provides a list of the
                 hardware resources it accesses. </subaactivity>
-              <subaactivity platform="mac"> The evaluator shall verify that either the application
+              <subaactivity ref="mac"> The evaluator shall verify that either the application
                 software or its documentation provides a list of the hardware
               resources it accesses.</subaactivity>
 	      </Tests>
@@ -2199,7 +2208,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               could be expected to be shared among some applications, users, or user roles, but to which not all
               of these would ordinarily require access.
 	    </note>
-            <aactivity>
+            <aactivity level="element">
               <Guidance>The evaluator shall perform the platform-specific actions below and inspect user
               documentation to determine the application's access to sensitive information
               repositories.  The evaluator shall ensure that this is consistent with the selections
@@ -2208,11 +2217,11 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               justification as to why access is required.
 	      </Guidance>
               <Tests>
-	                    <subaactivity platform="android">
+	                    <subaactivity ref="android">
 	                      The evaluator shall verify that each <h:code>uses-permission</h:code> entry in the AndroidManifest.xml file 
 	                      for access to a sensitive information repository is reflected in the selection.  
               </subaactivity>
-              <subaactivity platform="windows">For Windows Universal Applications the evaluator shall check the
+              <subaactivity ref="windows">For Windows Universal Applications the evaluator shall check the
                 WMAppManifest.xml file for a list of required capabilities. The evaluator shall
                 identify the required information repositories when the
                 application is first installed. This includes permissions such as
@@ -2227,17 +2236,17 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
                 application software or its documentation the list of 
                 sensitive information repositories it accesses. 
 			  </subaactivity>
-              <subaactivity platform="ios">The evaluator shall verify that either the application
+              <subaactivity ref="ios">The evaluator shall verify that either the application
                 software or its documentation provides a list of
                 the sensitive information repositories it accesses.</subaactivity>
-              <subaactivity platform="linux"> The evaluator shall verify that either the 
+              <subaactivity ref="linux"> The evaluator shall verify that either the 
                 application software or its documentation provides a list of 
                 sensitive information repositories it accesses.
               </subaactivity>
-              <subaactivity platform="Solaris">The evaluator shall verify that either the
+              <subaactivity ref="Solaris">The evaluator shall verify that either the
                 application software or its documentation provides a list of
                 sensitive information repositories it accesses. </subaactivity>
-              <subaactivity platform="mac">The evaluator shall verify that either the application
+              <subaactivity ref="mac">The evaluator shall verify that either the application
                 software or its documentation provides a list of
               sensitive information repositories it accesses.</subaactivity>
 	      </Tests>
@@ -2284,7 +2293,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 		(e.g. UDP).
 	      </test>
 	    </testlist>
-            <subaactivity platform="android">
+            <subaactivity ref="android">
               If "no network communication" is selected, the evaluator shall ensure that the application's
               AndroidManifest.xml file does not contain a uses-permission or uses-permission-sdk-23 tag
               containing android:name="android.permission.INTERNET".
@@ -2346,32 +2355,32 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               If <h:b>leverage platform-provided functionality</h:b> is selected, the evaluation activities will be performed as 
               stated in the following requirements, which vary on a per-platform basis.
               <h:br/>
-			                <subaactivity platform="android">
+			                <subaactivity ref="android">
 		        The evaluator shall inspect the TSS and verify that it describes how files containing sensitive data are 
                 stored with the <h:code>MODE_PRIVATE</h:code> flag set.
 	          </subaactivity>
-              <subaactivity platform="windows">The Windows platform currently does not provide data-at-rest
+              <subaactivity ref="windows">The Windows platform currently does not provide data-at-rest
                 encryption services which depend upon invocation by application developers. The evaluator shall
                 verify that the Operational User Guidance makes the need to activate platform encryption, 
                 such as BitLocker or Encrypting File System (EFS), clear to the end user.
               </subaactivity>
-              <subaactivity platform="ios">The evaluator shall inspect the TSS and ensure that it describes how the 
+              <subaactivity ref="ios">The evaluator shall inspect the TSS and ensure that it describes how the 
                 application uses the Complete Protection, Protected Unless Open, or Protected Until 
                 First User Authentication Data Protection Class for each data file stored locally. 
               </subaactivity>
-              <subaactivity platform="linux">
+              <subaactivity ref="linux">
                The Linux platform currently does not provide data-at-rest encryption services which depend
                upon invocation by application developers.  The evaluator shall verify that
                the Operational User Guidance makes the need to activate platform encryption clear 
                to the end user.
 	      </subaactivity>
-              <subaactivity platform="Solaris">
+              <subaactivity ref="Solaris">
                The Solaris platform currently does not provide data-at-rest encryption services which depend
                upon invocation by application developers.  The evaluator shall verify that
                the Operational User Guidance makes the need to activate platform encryption clear 
                to the end user.
 	      </subaactivity>
-              <subaactivity platform="mac">
+              <subaactivity ref="mac">
                The macOS platform currently does not provide data-at-rest encryption services which depend
                upon invocation by application developers.  The evaluator shall verify that
                the Operational User Guidance makes the need to activate platform encryption clear
@@ -2483,7 +2492,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               the validation is expected to end in a trusted root CA certificate in a root 
               store managed by the platform.
             </note>
-            <aactivity>
+            <aactivity level="element">
               <TSS>The evaluator shall ensure the TSS describes where the check of 
               validity of the certificates takes place. The evaluator ensures the 
               TSS also provides a description of the certificate path validation 
@@ -2580,7 +2589,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               TSF and restricts the certificates that may be added as trusted CA 
               certificates.
             </note>
-            <aactivity>
+            <aactivity level="element">
               <Tests>
 		    The tests described must be performed in conjunction with the other certificate 
               services evaluation activities, including the functions in FIA_X509_EXT.2.1.
@@ -2726,48 +2735,48 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               <Tests>
               If "invoke the mechanisms recommended by the platform vendor for storing and setting configuration options" is chosen,
               the method of testing varies per platform as follows: 
-	                    <subaactivity platform="android">
+	                    <subaactivity ref="android">
 		The evaluator shall run the application and make security-related changes to its configuration.
 		The evaluator shall check that at least one XML file at location
-		<path>/data/data/<i>package</i>/shared_prefs/</path>
+		<h:span style="path">/data/data/<h:i>package</h:i>/shared_prefs/</h:span>
 		reflects the changes made to the configuration to verify that the application used
 		<h:code>SharedPreferences</h:code> and/or <h:code>PreferenceActivity</h:code> classes
                 for storing configuration data, where <h:i>package</h:i> is the Java package
 		of the application.
 	      </subaactivity>
-              <subaactivity platform="windows">The evaluator shall determine and verify that Windows
+              <subaactivity ref="windows">The evaluator shall determine and verify that Windows
                 Universal Applications use either the Windows.Storage namespace, Windows.UI.ApplicationSettings namespace,
                 or the IsolatedStorageSettings namespace for storing application specific settings.
                 For .NET applications, the evaluator shall determine and verify that the application 
                 uses one of the locations listed in <h:a href='https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/'>
                 https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/</h:a> for storing application specific settings.
                 For Classic Desktop applications, the evaluator shall run the application while 
-		            monitoring it with the SysInternals tool <util>ProcMon</util> and 
+		            monitoring it with the SysInternals tool <h:span class="util">ProcMon</h:span> and 
 		            make changes to its configuration. 
-            		The evaluator shall verify that <util>ProcMon</util> logs show corresponding changes to the
+            		The evaluator shall verify that <h:span class="util">ProcMon</h:span> logs show corresponding changes to the
             		the Windows Registry or C:\ProgramData\ directory.
 	      </subaactivity>
-              <subaactivity platform="ios">The evaluator shall verify that the app uses the
+              <subaactivity ref="ios">The evaluator shall verify that the app uses the
                   <h:code>user defaults system</h:code> or <h:code>key-value store</h:code> for storing all
                 settings.</subaactivity>
-              <subaactivity platform="linux"> 
-		The evaluator shall run the application while monitoring it with the utility <util>strace</util>.
+              <subaactivity ref="linux"> 
+		The evaluator shall run the application while monitoring it with the utility <h:span class="util">strace</h:span>.
 		The evaluator shall make security-related changes to its configuration.
-		The evaluator shall verify that <util>strace</util> logs corresponding changes to configuration 
+		The evaluator shall verify that <h:span class="util">strace</h:span> logs corresponding changes to configuration 
 		files that reside in /etc (for system-specific configuration), 
 		in the user's home directory (for user-specific configuration), or /var/lib/ (for configurations 
 		controlled by UI and not intended to be directly modified by an administrator).
 	      </subaactivity>
-              <subaactivity platform="Solaris">
+              <subaactivity ref="Solaris">
 		The evaluator shall run the application while monitoring it with the utility 
-		<util>dtrace</util>.
+		<h:span class="util">dtrace</h:span>.
 		The evaluator shall make security-related changes to its configuration.
-		The evaluator shall verify that <util>dtrace</util> logs corresponding changes to 
+		The evaluator shall verify that <h:span class="util">dtrace</h:span> logs corresponding changes to 
 		configuration 
 		files that reside in /etc (for system-specific configuration) or 
 		in the user's home directory(for user-specific configuration).
 	      </subaactivity>
-              <subaactivity platform="mac">
+              <subaactivity ref="mac">
                The evaluator shall verify that the application stores and retrieves settings
                using the <h:code>NSUserDefaults</h:code> class.
 	      </subaactivity>
@@ -2792,7 +2801,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      Credentials that are generated during installation using requirements laid out in 
 	      FCS_RBG_EXT.1 are not by definition default credentials.
 	    </note>
-            <aactivity>
+            <aactivity level="element">
              <TSS>The evaluator shall check the TSS to determine if the application requires any type
              of credentials and if the application installs with default credentials.
 	     </TSS>
@@ -2825,17 +2834,17 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               but the general intention is that a trust boundary protects the application and its
               data.
 	    </note>
-            <aactivity>
+            <aactivity level="element">
               <Tests>The evaluator shall install and run the application. The evaluator shall
               inspect the filesystem of the platform (to the extent possible) for any files created
               by the application and ensure that their permissions are adequate to protect them.
               The method of doing so varies per platform.
                             
-              <subaactivity platform="android">The evaluator shall run the command <h:code>find -L . -perm /002</h:code> 
+              <subaactivity ref="android">The evaluator shall run the command <h:code>find -L . -perm /002</h:code> 
                 inside the application's data directories to ensure that all files are not world-writable. The command 
                 should not print any files.
               </subaactivity>
-              <subaactivity platform="windows">The evaluator shall run the SysInternals tools,
+              <subaactivity ref="windows">The evaluator shall run the SysInternals tools,
                 Process Monitor and Access Check (or tools of equivalent capability, like 
                 icacls.exe) for Classic Desktop applications to verify that files written to disk 
                 during an application's installation have the correct file permissions, such that a 
@@ -2843,24 +2852,24 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
                 Applications the evaluator shall consider the requirement met because of the AppContainer 
                 sandbox.
               </subaactivity>
-              <subaactivity platform="ios">The evaluator shall determine whether the application
+              <subaactivity ref="ios">The evaluator shall determine whether the application
                 leverages the appropriate Data Protection Class for each data file stored
                 locally.</subaactivity>
-              <subaactivity platform="linux"> 
+              <subaactivity ref="linux"> 
             		The evaluator shall run the command 
                 <h:code>find . -perm /002</h:code> 
             		inside the application's data directories to ensure that all files are 
             		not world-writable.
             		The command should not print any files.
 	            </subaactivity>
-              <subaactivity platform="Solaris">
+              <subaactivity ref="Solaris">
             		The evaluator shall run the command
                 <h:code>find . \( -perm -002 \)</h:code>
             		inside the application's data directories to ensure that all files are not 
             		world-writable. 
             		The command should not print any files.
 	            </subaactivity>
-              <subaactivity platform="mac">
+              <subaactivity ref="mac">
                 The evaluator shall run the command <h:code>find . -perm +002</h:code> inside
             		the application's data directories to ensure that all files are not world-writable.
             		The command should not print any files.
@@ -2895,7 +2904,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      enable/disable only those functions that it actually implements. The application
 	      is not responsible for controlling the behavior of the platform or other applications.
 	    </note>
-            <aactivity>
+            <aactivity level="element">
               <Guidance>The evaluator shall verify that every management function 
               mandated by the PP is described in the operational guidance and that the description 
               contains the information required to perform the management duties associated with the 
@@ -3024,7 +3033,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <note role="application"> Requesting a memory mapping at an explicit address
             subverts address space layout randomization (ASLR). </note>
 
-            <aactivity> <TSS>The evaluator shall ensure that the TSS 
+            <aactivity level="element"> <TSS>The evaluator shall ensure that the TSS 
               describes the compiler flags used to enable ASLR when the
               application is compiled.
 	    </TSS>
@@ -3035,11 +3044,11 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               alternatively use the same device. After collecting the first instance of mappings, 
               the evaluator must uninstall the application, reboot the device, and reinstall the application 
               to collect the second instance of mappings.
-	            <subaactivity platform="android">The evaluator shall run the same application on two
+	            <subaactivity ref="android">The evaluator shall run the same application on two
                 different Android systems. Both devices do not need to be evaluated, as the second device is acting only as a tool. 
                 Connect via ADB and inspect /proc/PID/maps. Ensure the two different instances share no memory mappings made by the 
                 application at the same location.</subaactivity>
-              <subaactivity platform="windows"> The evaluator shall run the same application on two
+              <subaactivity ref="windows"> The evaluator shall run the same application on two
                 different Windows systems and run a tool that will list all memory mapped addresses
                 for the application. The evaluator shall then verify the two different instances
                 share no mapping locations. The Microsoft SysInternals tool, VMMap, could be used to
@@ -3047,24 +3056,24 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
                 such as Microsoft's BinScope Binary Analyzer to confirm that the application has
                 ASLR enabled.
               </subaactivity>
-              <subaactivity platform="ios">
+              <subaactivity ref="ios">
 		The evaluator shall perform a static analysis to search
                 for any mmap calls (or API calls that call mmap), and ensure that
                 no arguments are provided that request a mapping at a fixed address.
 	      </subaactivity>
-              <subaactivity platform="linux"> 
+              <subaactivity ref="linux"> 
 		The evaluator shall run the same application on two different Linux systems. 
 		The evaluator shall then compare their memory maps using 
 		<h:code>pmap -x <h:i>PID</h:i> </h:code>
 		to ensure the two different instances share no mapping locations.
 	      </subaactivity>
-              <subaactivity platform="Solaris">
+              <subaactivity ref="Solaris">
 		The evaluator shall run the same application on two different Solaris systems. 
 		The evaluator shall then compare their memory maps using 
 		<h:code>pmap -x <h:i>PID</h:i> </h:code>
 		to ensure the two different instances share no mapping locations.
 	      </subaactivity>
-              <subaactivity platform="mac">
+              <subaactivity ref="mac">
 		The evaluator shall run the same application on two different Mac systems. 
 		The evaluator shall then compare their memory maps using 
 		<h:code>vmmap <h:i>PID</h:i></h:code>
@@ -3091,36 +3100,36 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               permissions subverts the platform protection provided by DEP. 
 	      If the application performs no just-in-time compiling, then the first selection must be chosen.
 	    </note>
-            <aactivity> 
+            <aactivity level="element"> 
               <Tests>The evaluator shall verify that no memory mapping requests are made with write and execute permissions.
 	      The method of doing so varies per platform.
-                            <subaactivity platform="android"> The evaluator shall perform static analysis on the
+                            <subaactivity ref="android"> The evaluator shall perform static analysis on the
                 application to verify that <h:ul>
                   <h:li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions,
                     and </h:li>
                   <h:li> mprotect is never invoked.</h:li>
                 </h:ul> </subaactivity>
-              <subaactivity platform="windows"> The evaluator shall use a tool such as Microsoft's 
+              <subaactivity ref="windows"> The evaluator shall use a tool such as Microsoft's 
                 BinScope Binary Analyzer to confirm that the application passes the NXCheck. The 
                 evaluator may also ensure that the <h:code>/NXCOMPAT</h:code> flag was used during 
                 compilation to verify that DEP protections are enabled for the application. 
               </subaactivity>
-              <subaactivity platform="ios"> The evaluator shall perform static analysis on the
+              <subaactivity ref="ios"> The evaluator shall perform static analysis on the
                 application to verify that mprotect is never invoked with the PROT_EXEC permission. 
               </subaactivity>
-              <subaactivity platform="linux"> The evaluator shall perform static analysis on the
+              <subaactivity ref="linux"> The evaluator shall perform static analysis on the
                 application to verify that both <h:ul>
                   <h:li> mmap is never be invoked with both the PROT_WRITE and PROT_EXEC permissions,
                     and </h:li>
                   <h:li> mprotect is never invoked with the PROT_EXEC permission.</h:li>
                 </h:ul>  </subaactivity>
-              <subaactivity platform="Solaris"> The evaluator shall perform static analysis on the
+              <subaactivity ref="Solaris"> The evaluator shall perform static analysis on the
                 application to verify that both <h:ul>
                   <h:li> mmap is never be invoked with both the PROT_WRITE and PROT_EXEC permissions,
                     and </h:li>
                   <h:li> mprotect is never invoked with the PROT_EXEC permission.</h:li>
                 </h:ul></subaactivity>
-              <subaactivity platform="mac"> The evaluator shall perform static analysis on the
+              <subaactivity ref="mac"> The evaluator shall perform static analysis on the
                 application to verify that mprotect is never invoked with the PROT_EXEC permission.
               </subaactivity>
 	      </Tests>
@@ -3131,13 +3140,13 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               platform vendor.</title>
             <note role="application">This requirement is designed to ensure that platform security 
               features do not need to be disabled in order for the application to run.</note>
-            <aactivity>
+            <aactivity level="element">
               <Tests>The evaluator shall configure the platform in the ascribed manner and 
 	      carry out one of the prescribed tests:
-	                    <subaactivity platform="android">Applications running on Android cannot disable Android 
+	                    <subaactivity ref="android">Applications running on Android cannot disable Android 
                 security features, therefore this requirement is met and no evaluation activity is required.
 	      </subaactivity>
-              <subaactivity platform="windows">If the OS platform supports Windows Defender Exploit Guard 
+              <subaactivity ref="windows">If the OS platform supports Windows Defender Exploit Guard 
                 (Windows 10 version 1709 or later), then the evaluator shall ensure that the application can 
                 run successfully with Windows Defender Exploit Guard Exploit Protection configured with the 
                 following minimum mitigations enabled; Control Flow Guard (CFG), Randomize memory allocations 
@@ -3151,17 +3160,17 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
                 mitigations enabled; Memory Protection Check, Randomize memory allocations (Bottom-Up ASLR), 
                 Export address filtering (EAF), and Data Execution Prevention (DEP).
               </subaactivity>
-              <subaactivity platform="ios">Applications running on iOS cannot disable
+              <subaactivity ref="ios">Applications running on iOS cannot disable
                 security features, therefore this requirement is met and no evaluation activity is required.
               </subaactivity>
-              <subaactivity platform="linux"> The evaluator shall ensure that the application can
+              <subaactivity ref="linux"> The evaluator shall ensure that the application can
                 successfully run on a system with either SELinux or AppArmor enabled and in enforce mode.
 	      </subaactivity>
-              <subaactivity platform="Solaris">
+              <subaactivity ref="Solaris">
 		The evaluator shall ensure that the application can run with 
 		Solaris Trusted Extensions enabled and enforcing.
 	      </subaactivity>
-              <subaactivity platform="mac"> The evaluator shall ensure that the application can
+              <subaactivity ref="mac"> The evaluator shall ensure that the application can
               successfully run on macOS without disabling any security features. </subaactivity>
 	      </Tests>
             </aactivity>
@@ -3183,37 +3192,37 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      Executables and user-modifiable files may not share the same parent directory, but
 	      may share directories above the parent.
 	    </note>
-            <aactivity>
+            <aactivity level="element">
               <Tests>The evaluator shall run the application and determine where it writes its files.
 	      For files where the user does not choose the destination, the evaluator shall 
 	      check whether the destination directory contains executable files.
 	      This varies per platform: 
-	                    <subaactivity platform="android"> 
+	                    <subaactivity ref="android"> 
 		The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. 
-		The evaluator shall ensure that there are no executable files stored under <path>/data/data/<i>package</i>/</path> where <h:i>package</h:i> is the Java package of the application.
+		The evaluator shall ensure that there are no executable files stored under <h:span style="path">/data/data/<h:i>package</h:i>/</h:span> where <h:i>package</h:i> is the Java package of the application.
               </subaactivity>
-              <subaactivity platform="windows">For Windows Universal Applications the evaluator shall consider
+              <subaactivity ref="windows">For Windows Universal Applications the evaluator shall consider
                 the requirement met because the platform forces applications to write all data
                 within the application working directory (sandbox). For Windows Desktop Applications
                 the evaluator shall run the program, mimicking normal usage, and note where all user-modifiable
                 files are written. The evaluator shall ensure that there are no executable files
                 stored in the same directories to which the application wrote user-modifiable files.</subaactivity>
-              <subaactivity platform="ios">The evaluator shall consider the requirement met because
+              <subaactivity ref="ios">The evaluator shall consider the requirement met because
                 the platform forces applications to write all data within the application working
                 directory (sandbox).</subaactivity>
-              <subaactivity platform="linux"> 
+              <subaactivity ref="linux"> 
 		The evaluator shall run the program, mimicking normal usage, 
 		and note where all user-modifiable files are written. 
 		The evaluator shall ensure that there are no executable files stored in the 
 		same directories to which the application wrote user-modifiable files.
 	      </subaactivity>
-              <subaactivity platform="Solaris">
+              <subaactivity ref="Solaris">
 		The evaluator shall run the program, mimicking normal usage, 
 		and note where all user-modifiable files are written. 
 		The evaluator shall ensure that there are no executable files stored in the 
 		same directories to which the application wrote user-modifiable files.
 	      </subaactivity>
-              <subaactivity platform="mac"> The evaluator shall run the program, mimicking normal
+              <subaactivity ref="mac"> The evaluator shall run the program, mimicking normal
                 usage, and note where all user-modifiable files are written. The evaluator shall ensure that there
                 are no executable files stored in the same directories to which the application
               wrote user-modifiable files. </subaactivity>
@@ -3223,9 +3232,9 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           <f-element id="fel-stackcookies">
             <title>The application shall be built with stack-based buffer overflow protection
               enabled.</title>
-            <aactivity><Tests>
+            <aactivity level="element"><Tests>
 	      The evaluator will inspect every native executable included in the TOE to ensure that stack-based buffer overflow protection is present.
-              <subaactivity platform="windows">Applications that run as Managed Code in the .NET Framework do not require these stack protections.
+              <subaactivity ref="windows">Applications that run as Managed Code in the .NET Framework do not require these stack protections.
                Applications developed in Object Pascal using the Delphi IDE compiled with RangeChecking enabled comply with this element. For other code, 
               the evaluator shall review the TSS and verify that the /GS flag was used during compilation. The evaluator shall run a tool like, BinScope, 
               that can verify the correct usage of /GS.</subaactivity>
@@ -3258,7 +3267,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               is intended to ensure that the application can check for updates provided by the vendor,
               as updates provided by another source may contain malicious code.
             </note>
-            <aactivity>
+            <aactivity level="element">
 	      <Guidance>The evaluator shall check to ensure the guidance includes a description of how updates are performed.</Guidance>
               <Tests>The evaluator shall check for an update using procedures described in either the application documentation 
 	      or the platform documentation and verify that the application does not issue an error.
@@ -3273,7 +3282,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             </selectables>
               to query the current version of the application software.
             </title>
-            <aactivity>
+            <aactivity level="element">
               <Guidance> The evaluator shall verify guidance includes a description of how to query the current version of the application.</Guidance>
               <Tests> The evaluator shall query the application for the current version of the software
               according to the operational user guidance. The evaluator shall then verify that the 
@@ -3287,14 +3296,13 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <note role="application">This requirement applies to the code of the application; it
               does not apply to mobile code technologies that are designed for download and
               execution by the application. </note>
-              <aactivity>
+              <aactivity level="element">
 		<Tests>The evaluator shall verify that the application's executable files are
               not changed by the application. The evaluator shall complete the following test:
-		  <subaactivity platform="ios">The evaluator shall consider the requirement met 
+		  <subaactivity ref="ios">The evaluator shall consider the requirement met 
 		    because the platform forces applications to write all data within the application 
 		    working directory (sandbox).</subaactivity>        
-		  <testlist>
-                <test>For all other platforms: The evaluator shall install the application and then
+                <subaactivity>The evaluator shall install the application and then
                 locate all of its executable files. The evaluator shall then,
                 for each file, save off either a hash of the file or a copy of
                 the file itself. The evaluator shall then run the application
@@ -3302,8 +3310,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
                 the ST. The evaluator shall then compare each executable file
                 with the either the saved hash or the saved copy of the files.
                 The evaluator shall verify that these are identical.
-                </test>
-              </testlist>
+                </subaactivity>
 	      </Tests>
             </aactivity>
           </f-element>
@@ -3313,7 +3320,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             </title>
             <note role="application">The specifics of the verification of updates involves requirements on the platform (and not the
               application), so these are not fully specified here. </note>
-            <aactivity>
+            <aactivity level="element">
 	      <TSS>
 		The evaluator shall verify that the TSS identifies how updates to the application  
 		are signed by an authorized source. The definition of an
@@ -3340,7 +3347,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               package to the OS" is selected the requirements from FPT_TUD_EXT.2 
               must be included in the ST.
             </note>
-            <aactivity>
+            <aactivity level="element">
               <TSS>The evaluator shall verify that the TSS identifies how the application
               is distributed. If "with the platform" is selected the evaluated shall perform
               a clean installation or factory reset to confirm that TOE software is included
@@ -3356,28 +3363,28 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           <f-element id="fel-patch-native">
             <title>The application shall be distributed using the format of the platform-supported
               package manager. </title>
-            <aactivity>
+            <aactivity level="element">
               <Tests>The evaluator shall verify that application updates are distributed in the
               format supported by the platform. This varies per platform:               
-              <subaactivity platform="android"> The evaluator shall ensure that the application is
+              <subaactivity ref="android"> The evaluator shall ensure that the application is
                 packaged in the Android application package (APK) format. </subaactivity>
-              <subaactivity platform="windows"> The evaluator shall ensure that the application is
+              <subaactivity ref="windows"> The evaluator shall ensure that the application is
                 packaged in the standard Windows Installer (.MSI) format, the Windows Application 
                 Software (.EXE) format signed using the Microsoft Authenticode process, or the 
                 Windows Universal Application package (.APPX) format. See 
                 https://msdn.microsoft.com/en-us/library/ms537364(v=vs.85).aspx for details 
                 regarding Authenticode signing.  
               </subaactivity>
-              <subaactivity platform="ios"> The evaluator shall ensure that the application is
+              <subaactivity ref="ios"> The evaluator shall ensure that the application is
                 packaged in the IPA format. </subaactivity>
-              <subaactivity platform="linux"> The evaluator shall ensure that the application is
+              <subaactivity ref="linux"> The evaluator shall ensure that the application is
                 packaged in the format of the package management infrastructure of the chosen
                 distribution. For example, applications running on Red Hat and Red Hat derivatives
                 shall be packaged in <h:code>RPM</h:code> format. Applications running on Debian and Debian
                 derivatives shall be packaged in <h:code>DEB</h:code> format. </subaactivity>
-              <subaactivity platform="Solaris"> The evaluator shall ensure that the application is
+              <subaactivity ref="Solaris"> The evaluator shall ensure that the application is
                 packaged in the PKG format. </subaactivity>
-              <subaactivity platform="mac"> The evaluator shall ensure that application is packaged
+              <subaactivity ref="mac"> The evaluator shall ensure that application is packaged
               in the DMG format, the PKG format, or the MPKG format. </subaactivity>
 	      </Tests>
             </aactivity>
@@ -3389,15 +3396,15 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <note role="application">Applications software bundled with the system/firmware image 
               are not subject to this requirement if the user is unable to remove the application through
               means provided by the OS.</note>
-            <aactivity>
+            <aactivity level="element">
               <Tests>
-              <subaactivity platform="android">The evaluator shall consider the requirement met because 
+              <subaactivity ref="android">The evaluator shall consider the requirement met because 
                 the platform forces applications to write all data within the application working 
                 directory (sandbox).</subaactivity>
-              <subaactivity platform="ios">The evaluator shall consider the requirement met because 
+              <subaactivity ref="ios">The evaluator shall consider the requirement met because 
                 the platform forces applications to write all data within the application working 
                 directory (sandbox).</subaactivity>
-              <subaactivity platform="other">The evaluator shall record the path of every 
+              <subaactivity ref="other">The evaluator shall record the path of every 
                 file on the entire filesystem prior to installation of the application, and then install 
                 and run the application. Afterwards, the evaluator shall then uninstall the application, 
                 and compare the resulting filesystem to the initial record to verify that no files, 
@@ -3411,7 +3418,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               cryptographically verify them prior to installation</title>
             <note role="application"> The specifics of the verification of installation packages involves 
             requirements on the platform (and not the application), so these are not fully specified here.</note>
-            <aactivity>
+            <aactivity level="element">
               <TSS>The evaluator shall verify that the TSS identifies how the application installation package 
                 is signed by an authorized source. The definition of an authorized source must be contained in the TSS.</TSS>
             </aactivity>
@@ -3562,7 +3569,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             set by the evaluator is not found.
           </test>
         </testlist>
-        <subaactivity platform="android">
+        <subaactivity ref="android">
           If "not transmit any data" is selected, the evaluator shall ensure that the application's
           AndroidManifest.xml file does not contain a uses-permission or uses-permission-sdk-23 tag
           containing android:name="android.permission.INTERNET".
@@ -3577,7 +3584,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
                still necessary to perform the above tests, as this manifest entry is only enforced on
                a best effort basis by the platform. -->
         </subaactivity>
-        <subaactivity platform="ios">
+        <subaactivity ref="ios">
           If "encrypt all transmitted data" is selected, the evaluator shall ensure that the
           application's Info.plist file does not contain the NSAllowsArbitraryLoads or
           NSExceptionAllowsInsecureHTTPLoads keys, as these keys disable iOS's Application
@@ -4595,8 +4602,8 @@ The evaluator shall also run a virus scanner with the most current virus definit
     </section>
   </appendix>
 
-  <appendix title="References" id="biblio">
     <bibliography>
+	  <cc-entry/>
       <entry id="bibCEM">
         <tag>CEM</tag>
         <description>
@@ -4614,11 +4621,7 @@ The evaluator shall also run a virus scanner with the most current virus definit
           12, 2006. </description>
       </entry>
     </bibliography>
-  </appendix>
-
-  <appendix title="Acronyms" id="acronyms">
-    <acronyms/>
-  </appendix>
+ 
   <extra-css>
     table.code-table td {
        font-family: monospace;
