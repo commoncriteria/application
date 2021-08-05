@@ -48,6 +48,18 @@
           </subject>
     </entry>
   </RevisionHistory>
+  
+  <!-- TDs incorporated: 
+	TD0465:  Configuration Storage for .NET Apps
+	TD0445:  User Modifiable File Definition
+    TD0437:  Supported Configuration Mechanism
+	TD0435:  Alternative to SELinux for FPT_AEX_EXT.1.3 
+	TD0434:  Windows Desktop Applications Test	
+	TD0427:  Reliable Time Source 
+	TD0416:  Correction to FCS_RBG_EXT.1 Test Activity
+   -->
+  
+  
 <!--
   <subaactivity-decl>
      <val id="sad-android" full="Android-based Platform"></val>
@@ -635,95 +647,101 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
     </sec:Security_Objectives_for_the_Operational_Environment>
     <sec:Security_Objectives_Rationale/>
   </sec:Security_Objectives>
-  <sec:req title="Security Requirements">
-    <sec:SFRs title="Security Functional Requirements">
-      <section title="Cryptographic Support (FCS)" id="fcs">
+  
+  
+<sec:req title="Security Requirements">
+  
+	<sec:SFRs title="Security Functional Requirements">
+	
+		<section title="Cryptographic Support (FCS)" id="fcs">
+	  
+		<!-- FCS_RBG_EXT.1  -->
+		<!-- TD416 incorporated -->
         <f-component cc-id="fcs_rbg_ext.1" name="Random Bit Generation Services">
-          <f-element id="fel-rbg">
-            <title> The application shall
-			  <selectables linebreak="yes">
-                <selectable exclusive="yes">use no DRBG functionality</selectable>
-                <selectable>invoke platform-provided DRBG functionality</selectable>
-                <selectable id="drbg">implement DRBG functionality</selectable>
-              </selectables> for its cryptographic operations. </title>
-            <note role="application"> The selection <h:i>invoke platform-provided DRBG functionality</h:i>
-		    should only be chosen for direct invocations of the platform DRBG, calls to platform protocols
-		    that may then call the platform's DRBG are not directly using DRBG functionality  and should
-		    select <h:i>use no DRBG functionality</h:i>. <h:br /> 
-		    
-		    If <h:i>implement DRBG functionality</h:i> is chosen, then additional FCS_RBG_EXT.2
-              elements shall be included in the ST.<h:br />
-		    
-              In this requirement, cryptographic operations include all cryptographic key generation/derivation/agreement, IVs (for
-              certain modes), as well as protocol-specific random values. Cryptographic operations in this requirement refer to
-		    the other cryptographic requirements in this PP, not additional functionality that is not in scope.
-		  </note>
-            <aactivity>
-              <TSS><h:p>If <h:b>use no DRBG functionality</h:b> is selected, the evaluator shall inspect the application 
-		    and its developer documentation and verify that the application needs no random bit generation services. 
-			  </h:p><h:p>
-              If <h:b>implement DRBG functionality</h:b> is selected, the evaluator shall ensure
-			    that additional FCS_RBG_EXT.2 elements are included in the ST.
-			   </h:p><h:p>
-			        If <h:b>invoke platform-provided DRBG functionality</h:b> is selected, the evaluator 
-              performs the following activities.  The evaluator shall examine 
-              the TSS to confirm that it identifies all functions (as described by the
-              SFRs included in the ST) that obtain random numbers from the platform RBG.  The evaluator 
-              shall determine that for each of these functions, the TSS states which 
-              platform interface (API) is used to obtain the random numbers.  The evaluator shall confirm 
-              that each of these interfaces corresponds to the acceptable interfaces listed for each platform 
-              below.  
-			     <h:br/>
-			     <h:br/>
-              It should be noted that there is no expectation that the evaluators attempt to confirm 
-              that the APIs are being used correctly for the functions identified in the TSS; 
-              the activity is to list the used APIs and then do an existence check via decompilation.
-	    </h:p>
-	      </TSS>
-              <Tests>
-		     If <h:b>invoke platform-provided DRBG functionality</h:b> is selected, the following tests shall be performed: <h:br/> <h:br/>
-		    
-		The evaluator shall decompile the application binary using a decompiler 
-              suitable for the application (TOE).  The evaluator shall search the output of the 
-              decompiler to determine that, for each API listed in the TSS, that API 
-              appears in the output.  If the representation of the API does not correspond directly to 
-              the strings in the following list, the evaluator shall provide a mapping from the 
-              decompiled text to its corresponding API, with a description of why the API text does 
-              not directly correspond to the decompiled text and justification that the decompiled text 
-              corresponds to the associated API. <h:br/>    <h:br/> 
-		    The following are the per-platform list of acceptable APIs:
-              <h:div><depends ref="android"/> The evaluator shall verify
-                that the application uses at least one of <h:code>javax.crypto.KeyGenerator</h:code> 
-                class or the <h:code>java.security.SecureRandom</h:code> class or <h:code>/dev/random
-                </h:code> or <h:code>/dev/urandom</h:code>.
-              </h:div>
-              <h:div><depends ref="windows"/>The evaluator shall verify
-                that rand_s, RtlGenRandom, BCryptGenRandom, or CryptGenRandom API is used for classic
-                desktop applications. The evaluator shall verify the application uses the RNGCryptoServiceProvider class or derives a class from System.Security.Cryptography.RandomNumberGenerator API
-		for Windows Universal Applications. It is only required that 
-                the API is called/invoked, there is no requirement that the API be used directly. In
-                future versions of this document, CryptGenRandom may be removed as an option as it is
-                no longer the preferred API per vendor documentation. </h:div>
-              <h:div><depends ref="ios"/> 
-                The evaluator shall verify that the application invokes either
-                <h:code>SecRandomCopyBytes</h:code>, <h:code>CCRandomGenerateBytes</h:code>, or <h:code>CCRandomCopyBytes</h:code>, or uses <h:code>/dev/random</h:code> directly to acquire random.
-				</h:div>
-              <h:div><depends ref="linux"/> 
-                The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>
-				or <h:code>/dev/urandom</h:code>.
-	      </h:div>
-	      <h:div><depends ref="Solaris"/>
-                The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>.
-	      </h:div>
-              <h:div><depends ref="mac"/>
-                The evaluator shall verify that the application invokes either <h:code>CCRandomGenerateBytes</h:code> or <h:code>CCRandomCopyBytes</h:code>, or collects random from <h:code>/dev/random</h:code>.
-	      </h:div>
-		        If invocation of platform-provided functionality is achieved in another way, the evaluator 
-				shall ensure the TSS describes how this is carried out, and how it is equivalent to the 
-				methods listed here (e.g. higher-level API invokes identical low-level API).
-	      </Tests>
-	    </aactivity>
-          </f-element>
+			<f-element id="fel-rbg">
+				<title> The application shall
+					<selectables linebreak="yes">
+						<selectable exclusive="yes">use no DRBG functionality</selectable>
+						<selectable>invoke platform-provided DRBG functionality</selectable>
+						<selectable id="drbg">implement DRBG functionality</selectable>
+					</selectables> for its cryptographic operations. 
+				</title>
+				<note role="application"> The selection <h:i>invoke platform-provided DRBG functionality</h:i>
+					should only be chosen for direct invocations of the platform DRBG, calls to platform protocols
+					that may then call the platform's DRBG are not directly using DRBG functionality  and should
+					select <h:i>use no DRBG functionality</h:i>. <h:p/> 
+					If <h:i>implement DRBG functionality</h:i> is chosen, then additional FCS_RBG_EXT.2
+					elements shall be included in the ST.<h:p/>
+					In this requirement, cryptographic operations include all cryptographic key generation/derivation/agreement, IVs (for
+					certain modes), as well as protocol-specific random values. Cryptographic operations in this requirement refer to
+					the other cryptographic requirements in this PP, not additional functionality that is not in scope.
+				</note>
+				<aactivity>
+					<TSS>
+						If <h:b>use no DRBG functionality</h:b> is selected, the evaluator shall inspect the application 
+						and its developer documentation and verify that the application needs no random bit generation services. 
+						<h:p/>
+						If <h:b>implement DRBG functionality</h:b> is selected, the evaluator shall ensure
+						that additional FCS_RBG_EXT.2 elements are included in the ST.
+						<h:p/>
+						If <h:b>invoke platform-provided DRBG functionality</h:b> is selected, the evaluator 
+						performs the following activities.  The evaluator shall examine 
+						the TSS to confirm that it identifies all functions (as described by the
+						SFRs included in the ST) that obtain random numbers from the platform RBG.  The evaluator 
+						shall determine that for each of these functions, the TSS states which 
+						platform interface (API) is used to obtain the random numbers.  The evaluator shall confirm 
+						that each of these interfaces corresponds to the acceptable interfaces listed for each platform 
+						below.  <h:p/>
+						It should be noted that there is no expectation that the evaluators attempt to confirm 
+						that the APIs are being used correctly for the functions identified in the TSS; 
+						the activity is to list the used APIs and then do an existence check via decompilation.
+						<h:p/>
+					</TSS>
+					<Tests>
+						If <h:b>invoke platform-provided DRBG functionality</h:b> is selected, the following tests shall be performed: <h:p/>
+						The evaluator shall decompile the application binary using a decompiler 
+						suitable for the application (TOE).  The evaluator shall search the output of the 
+						decompiler to determine that, for each API listed in the TSS, that API 
+						appears in the output.  If the representation of the API does not correspond directly to 
+						the strings in the following list, the evaluator shall provide a mapping from the 
+						decompiled text to its corresponding API, with a description of why the API text does 
+						not directly correspond to the decompiled text and justification that the decompiled text 
+						corresponds to the associated API. <h:p/>
+						The following are the per-platform list of acceptable APIs:
+						<h:div><depends ref="android"/> 
+							The evaluator shall verify that the application uses at least one of <h:code>javax.crypto.KeyGenerator</h:code> 
+							class or the <h:code>java.security.SecureRandom</h:code> class or <h:code>/dev/random
+							</h:code> or <h:code>/dev/urandom</h:code>.
+						</h:div>
+						<h:div><depends ref="windows"/>
+							The evaluator shall verify that rand_s, RtlGenRandom, BCryptGenRandom, or 
+							CryptGenRandom API is used for classic desktop applications. The evaluator shall 
+							verify the application uses the RNGCryptoServiceProvider class or derives a class 
+							from System.Security.Cryptography.RandomNumberGenerator API for Windows Universal
+							Applications. It is only required that the API is called/invoked, there is no 
+							requirement that the API be used directly. In future versions of this document, 
+							CryptGenRandom may be removed as an option as it is no longer the preferred API per
+							vendor documentation. </h:div>
+						<h:div><depends ref="ios"/> 
+							The evaluator shall verify that the application invokes either
+							<h:code>SecRandomCopyBytes</h:code>, <h:code>CCRandomGenerateBytes</h:code>, or <h:code>CCRandomCopyBytes</h:code>, or uses <h:code>/dev/random</h:code> directly to acquire random.
+						</h:div>
+						<h:div><depends ref="linux"/> 
+							The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>
+							or <h:code>/dev/urandom</h:code>.
+						</h:div>
+						<h:div><depends ref="Solaris"/>
+							The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>.
+						</h:div>
+						<h:div><depends ref="mac"/>
+							The evaluator shall verify that the application invokes either <h:code>CCRandomGenerateBytes</h:code> or <h:code>CCRandomCopyBytes</h:code>, or collects random from <h:code>/dev/random</h:code>.
+						</h:div>
+						<h:p/>If invocation of platform-provided functionality is achieved in another way, the evaluator 
+						shall ensure the TSS describes how this is carried out, and how it is equivalent to the 
+						methods listed here (e.g. higher-level API invokes identical low-level API).
+					</Tests>
+				</aactivity>
+			</f-element>
         </f-component>
 	      
          <f-component cc-id="fcs_rbg_ext.2" name="Random Bit Generation from Application" status="sel-based">
@@ -2131,6 +2149,10 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
       </section>
 
       <section title="User Data Protection (FDP)" id="fdp">
+	  
+	  
+		<!-- FDR_DEC_EXT.1 -->
+		<!-- Incorporates TD434 -->
         <f-component cc-id="fdp_dec_ext.1" name="Access to Platform Resources">
           <f-element id="fel-hardware-access">
             <title> The application shall restrict its access to
@@ -2178,13 +2200,13 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
                 The evaluator shall verify that each <h:code>uses-permission</h:code> entry in the AndroidManifest.xml file 
                 for access to a hardware resource is reflected in the selection.
               </h:div>
-              <h:div><depends ref="windows"/>For Windows Universal Applications the evaluator shall check the
-                WMAppManifest.xml file for a list of required hardware capabilities. The evaluator
+              <h:div><depends ref="windows"/>For Windows Universal Applications the evaluator shall check 
+				the WMAppManifest.xml file for a list of required hardware capabilities. The evaluator
                 shall verify that the user is made aware of the required hardware capabilities when
                 the application is first installed. This includes permissions such as
                 ID_CAP_ISV_CAMERA, ID_CAP_LOCATION, ID_CAP_NETWORKING, ID_CAP_MICROPHONE,
                 ID_CAP_PROXIMITY and so on.
-		A complete list of Windows App permissions can be found
+				A complete list of Windows App permissions can be found
                 at: 
 		<h:ul><h:li>
 		  <h:a href="http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx">
@@ -2734,6 +2756,10 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	    
 	    
       <section title="Security Management (FMT)" id="fmt">
+	  
+		<!-- FMT_MEC_EXT.1 -->
+		<!-- as replaced in TD437 -->
+		<!-- incorporates TD465 -->
         <f-component cc-id="fmt_mec_ext.1" name="Supported Configuration Mechanism">
           <f-element id="fel-config-store">
             <title>
@@ -3059,174 +3085,201 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           </f-element>
         </f-component>
 	      
-	      
+	     
+		 <!-- FPT_AEX_EXT.1 -->
+		 <!-- Incorporates TD436 -->
+		 <!-- Incorporates TD445 -->
         <f-component cc-id="fpt_aex_ext.1" name="Anti-Exploitation Capabilities">
-          <f-element id="fel-aslr">
-            <title> The application shall not request to map memory at an explicit address
-              except for <assignable>list of explicit exceptions</assignable>.
-            </title>
-            <note role="application"> Requesting a memory mapping at an explicit address
-            subverts address space layout randomization (ASLR). </note>
-
-            <aactivity level="element"> <TSS>The evaluator shall ensure that the TSS 
-              describes the compiler flags used to enable ASLR when the
-              application is compiled.
-	    </TSS>
-              <Tests> The evaluator shall perform either a static or dynamic
-              analysis to determine that no memory mappings are placed at an explicit and
-              consistent address. The method of doing so varies per platform. For those platforms 
-              requiring the same application running on two different systems, the evaluator may 
-              alternatively use the same device. After collecting the first instance of mappings, 
-              the evaluator must uninstall the application, reboot the device, and reinstall the application 
-              to collect the second instance of mappings.
-	            <h:div><depends ref="android"/>The evaluator shall run the same application on two
-                different Android systems. Both devices do not need to be evaluated, as the second device is acting only as a tool. 
-                Connect via ADB and inspect /proc/PID/maps. Ensure the two different instances share no memory mappings made by the 
-                application at the same location.</h:div>
-              <h:div><depends ref="windows"/> The evaluator shall run the same application on two
-                different Windows systems and run a tool that will list all memory mapped addresses
-                for the application. The evaluator shall then verify the two different instances
-                share no mapping locations. The Microsoft SysInternals tool, VMMap, could be used to
-                view memory addresses of a running application.  The evaluator shall use a tool
-                such as Microsoft's BinScope Binary Analyzer to confirm that the application has
-                ASLR enabled.
-              </h:div>
-              <h:div><depends ref="ios"/>
-		The evaluator shall perform a static analysis to search
-                for any mmap calls (or API calls that call mmap), and ensure that
-                no arguments are provided that request a mapping at a fixed address.
-	      </h:div>
-              <h:div><depends ref="linux"/> 
-		The evaluator shall run the same application on two different Linux systems. 
-		The evaluator shall then compare their memory maps using 
-		<h:code>pmap -x <h:i>PID</h:i> </h:code>
-		to ensure the two different instances share no mapping locations.
-	      </h:div>
-              <h:div><depends ref="Solaris"/>
-		The evaluator shall run the same application on two different Solaris systems. 
-		The evaluator shall then compare their memory maps using 
-		<h:code>pmap -x <h:i>PID</h:i> </h:code>
-		to ensure the two different instances share no mapping locations.
-	      </h:div>
-              <h:div><depends ref="mac"/>
-		The evaluator shall run the same application on two different Mac systems. 
-		The evaluator shall then compare their memory maps using 
-		<h:code>vmmap <h:i>PID</h:i></h:code>
-		to ensure the two different instances share no mapping locations.
-	      </h:div>
-	      </Tests>
-            </aactivity>
-          </f-element>
-          <f-element id="fel-nwx">
-            <title>
-	      The application shall 
-	      <selectables linebreak="yes">
-		<selectable> 
-		  not allocate any memory region with both write and execute permissions 
-	        </selectable>
-		<selectable>
-		  allocate memory regions with write and execute permissions for only
-		  <assignable> list of functions performing just-in-time compilation</assignable>
-		</selectable>
-	      </selectables>
-	      .
-	    </title>
-            <note role="application"> Requesting a memory mapping with both write and execute
-              permissions subverts the platform protection provided by DEP. 
-	      If the application performs no just-in-time compiling, then the first selection must be chosen.
-	    </note>
-            <aactivity level="element"> 
-              <Tests>The evaluator shall verify that no memory mapping requests are made with write and execute permissions.
-	      The method of doing so varies per platform.
-                            <h:div><depends ref="android"/> The evaluator shall perform static analysis on the
-                application to verify that <h:ul>
-                  <h:li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions,
-                    and </h:li>
-                  <h:li> mprotect is never invoked.</h:li>
-                </h:ul> </h:div>
-              <h:div><depends ref="windows"/> The evaluator shall use a tool such as Microsoft's 
-                BinScope Binary Analyzer to confirm that the application passes the NXCheck. The 
-                evaluator may also ensure that the <h:code>/NXCOMPAT</h:code> flag was used during 
-                compilation to verify that DEP protections are enabled for the application. 
-              </h:div>
-              <h:div><depends ref="ios"/> The evaluator shall perform static analysis on the
-                application to verify that mprotect is never invoked with the PROT_EXEC permission. 
-              </h:div>
-              <h:div><depends ref="linux"/> The evaluator shall perform static analysis on the
-                application to verify that both <h:ul>
-                  <h:li> mmap is never be invoked with both the PROT_WRITE and PROT_EXEC permissions,
-                    and </h:li>
-                  <h:li> mprotect is never invoked with the PROT_EXEC permission.</h:li>
-                </h:ul>  </h:div>
-              <h:div><depends ref="Solaris"/> The evaluator shall perform static analysis on the
-                application to verify that both <h:ul>
-                  <h:li> mmap is never be invoked with both the PROT_WRITE and PROT_EXEC permissions,
-                    and </h:li>
-                  <h:li> mprotect is never invoked with the PROT_EXEC permission.</h:li>
-                </h:ul></h:div>
-              <h:div><depends ref="mac"/> The evaluator shall perform static analysis on the
-                application to verify that mprotect is never invoked with the PROT_EXEC permission.
-              </h:div>
-	      </Tests>
-            </aactivity>
-          </f-element>
-          <f-element id="fel-plays-nice">
-            <title>The application shall be compatible with security features provided by the
-              platform vendor.</title>
-            <note role="application">This requirement is designed to ensure that platform security 
-              features do not need to be disabled in order for the application to run.</note>
-            <aactivity level="element">
-              <Tests>The evaluator shall configure the platform in the ascribed manner and 
-	      carry out one of the prescribed tests:
-	                    <h:div><depends ref="android"/>Applications running on Android cannot disable Android 
-                security features, therefore this requirement is met and no evaluation activity is required.
-	      </h:div>
-              <h:div><depends ref="windows"/>If the OS platform supports Windows Defender Exploit Guard 
-                (Windows 10 version 1709 or later), then the evaluator shall ensure that the application can 
-                run successfully with Windows Defender Exploit Guard Exploit Protection configured with the 
-                following minimum mitigations enabled; Control Flow Guard (CFG), Randomize memory allocations 
-                (Bottom-Up ASLR), Export address filtering (EAF), Import address filtering (IAF), and
-                Data Execution Prevention (DEP). The following link describes how to enable Exploit Protection, 
-                https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-exploit-guard/customize-exploit-protection.
-                <h:br/>
-                If the OS platform supports the Enhanced Mitigation Experience Toolkit (EMET) which can be 
-                installed on Windows 10 version 1703 and earlier, then the evaluator shall ensure that 
-                the application can run successfully with EMET configured with the following minimum 
-                mitigations enabled; Memory Protection Check, Randomize memory allocations (Bottom-Up ASLR), 
-                Export address filtering (EAF), and Data Execution Prevention (DEP).
-              </h:div>
-              <h:div><depends ref="ios"/>Applications running on iOS cannot disable
-                security features, therefore this requirement is met and no evaluation activity is required.
-              </h:div>
-              <h:div><depends ref="linux"/> The evaluator shall ensure that the application can
-                successfully run on a system with either SELinux or AppArmor enabled and in enforce mode.
-	      </h:div>
-              <h:div><depends ref="Solaris"/>
-		The evaluator shall ensure that the application can run with 
-		Solaris Trusted Extensions enabled and enforcing.
-	      </h:div>
-              <h:div><depends ref="mac"/> The evaluator shall ensure that the application can
-              successfully run on macOS without disabling any security features. </h:div>
-	      </Tests>
-            </aactivity>
-          </f-element>
-          <f-element id="fel-ro-exe">
-            <title>
-              The application shall not write user-modifiable files to directories that contain 
-              executable files unless explicitly directed by the user to do so.
-	    </title>
-	    <note role="application">
-	      The purpose of this requirement is to help ensure the integrity of application binaries by supporting file 
-	      protection mechanisms such as directory-level file permissions and application whitelisting.
-	      
-	      A user-modifiable file for purposes of this requirement is a file that is writable by an unprivileged user of the application -- either 
-	      directly through application execution or independently of the application. If the application runs in the context of the application user, 
-	      then the application should not be able to write to the directory containing the application binaries -- regardless of whether the files 
-	      are configuration data, audit data, or temporary files.
-	      
-	      Executables and user-modifiable files may not share the same parent directory, but
-	      may share directories above the parent.
-	    </note>
+			<f-element id="fel-aslr">
+				<title> 
+					The application shall not request to map memory at an explicit address
+					except for <assignable>list of explicit exceptions</assignable>.
+				</title>
+				<note role="application"> Requesting a memory mapping at an explicit address
+					subverts address space layout randomization (ASLR). 
+				</note>
+				<aactivity level="element"> 
+					<TSS>
+						The evaluator shall ensure that the TSS describes the compiler flags used to 
+						enable ASLR when the application is compiled.
+					</TSS>
+					<Tests> 
+						The evaluator shall perform either a static or dynamic
+						analysis to determine that no memory mappings are placed at an explicit and
+						consistent address. The method of doing so varies per platform. For those platforms 
+						requiring the same application running on two different systems, the evaluator may 
+						alternatively use the same device. After collecting the first instance of mappings, 
+						the evaluator must uninstall the application, reboot the device, and reinstall the application 
+						to collect the second instance of mappings.
+						<h:div><depends ref="android"/>
+							The evaluator shall run the same application on two
+							different Android systems. Both devices do not need to be evaluated, as the second device is acting only as a tool. 
+							Connect via ADB and inspect /proc/PID/maps. Ensure the two different instances share no memory mappings made by the 
+							application at the same location.
+						</h:div>
+						<h:div><depends ref="windows"/> 
+							The evaluator shall run the same application on two
+							different Windows systems and run a tool that will list all memory mapped addresses
+							for the application. The evaluator shall then verify the two different instances
+							share no mapping locations. The Microsoft SysInternals tool, VMMap, could be used to
+							view memory addresses of a running application.  The evaluator shall use a tool
+							such as Microsoft's BinScope Binary Analyzer to confirm that the application has
+							ASLR enabled.
+						</h:div>
+						<h:div><depends ref="ios"/>
+							The evaluator shall perform a static analysis to search
+							for any mmap calls (or API calls that call mmap), and ensure that
+							no arguments are provided that request a mapping at a fixed address.
+						</h:div>
+						<h:div><depends ref="linux"/> 
+							The evaluator shall run the same application on two different Linux systems. 
+							The evaluator shall then compare their memory maps using 
+							<h:code>pmap -x <h:i>PID</h:i> </h:code>
+							to ensure the two different instances share no mapping locations.
+						</h:div>
+						<h:div><depends ref="Solaris"/>
+							The evaluator shall run the same application on two different Solaris systems. 
+							The evaluator shall then compare their memory maps using 
+							<h:code>pmap -x <h:i>PID</h:i> </h:code>
+							to ensure the two different instances share no mapping locations.
+						</h:div>
+						<h:div><depends ref="mac"/>
+							The evaluator shall run the same application on two different Mac systems. 
+							The evaluator shall then compare their memory maps using 
+							<h:code>vmmap <h:i>PID</h:i></h:code>
+							to ensure the two different instances share no mapping locations.
+						</h:div>
+					</Tests>
+				</aactivity>
+			</f-element>
+			<f-element id="fel-nwx">
+				<title>
+					The application shall 
+					<selectables linebreak="yes">
+						<selectable>not allocate any memory region with both write and execute permissions</selectable>
+						<selectable>allocate memory regions with write and execute permissions for only
+							<assignable> list of functions performing just-in-time compilation</assignable>
+						</selectable>
+					</selectables>.
+				</title>
+				<note role="application"> 
+					Requesting a memory mapping with both write and execute permissions subverts the
+					platform protection provided by DEP.  If the application performs no just-in-time 
+					compiling, then the first selection must be chosen.
+				</note>
+				<aactivity level="element"> 
+					<Tests>
+						The evaluator shall verify that no memory mapping requests are made with write and
+						execute permissions. The method of doing so varies per platform.
+                        <h:div><depends ref="android"/> 
+							The evaluator shall perform static analysis on the application to verify that <h:ul>
+								<h:li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions,
+									and </h:li>
+								<h:li> mprotect is never invoked.</h:li>
+							</h:ul> 
+						</h:div>
+						<h:div><depends ref="windows"/> 
+							The evaluator shall use a tool such as Microsoft's 
+							BinScope Binary Analyzer to confirm that the application passes the NXCheck. The 
+							evaluator may also ensure that the <h:code>/NXCOMPAT</h:code> flag was used during 
+							compilation to verify that DEP protections are enabled for the application. 
+						</h:div>
+						<h:div><depends ref="ios"/> 
+							The evaluator shall perform static analysis on the
+							application to verify that mprotect is never invoked with the PROT_EXEC permission. 
+						</h:div>
+						<h:div><depends ref="linux"/> 
+							The evaluator shall perform static analysis on the
+							application to verify that both <h:ul>
+								<h:li> mmap is never be invoked with both the PROT_WRITE and PROT_EXEC permissions,
+									and </h:li>
+							<h:li> mprotect is never invoked with the PROT_EXEC permission.</h:li>
+							</h:ul>  
+						</h:div>
+						<h:div><depends ref="Solaris"/> 
+							The evaluator shall perform static analysis on the
+							application to verify that both <h:ul>
+								<h:li> mmap is never be invoked with both the PROT_WRITE and PROT_EXEC permissions,
+									and </h:li>
+								<h:li> mprotect is never invoked with the PROT_EXEC permission.</h:li>
+							</h:ul>
+						</h:div>
+						<h:div><depends ref="mac"/> 
+							The evaluator shall perform static analysis on the
+							application to verify that mprotect is never invoked with the PROT_EXEC permission.
+						</h:div>
+					</Tests>
+				</aactivity>
+			</f-element>
+			<f-element id="fel-plays-nice">
+				<title>
+					The application shall be compatible with security features provided by the
+					platform vendor.
+				</title>
+				<note role="application">
+					This requirement is designed to ensure that platform security 
+					features do not need to be disabled in order for the application to run.
+				</note>
+				<aactivity level="element">
+					<Tests>
+						The evaluator shall configure the platform in the ascribed manner and 
+						carry out one of the prescribed tests:
+	                    <h:div><depends ref="android"/>
+							Applications running on Android cannot disable Android 
+							security features, therefore this requirement is met and no evaluation activity is required.
+						</h:div>
+						<h:div><depends ref="windows"/>
+							If the OS platform supports Windows Defender Exploit Guard 
+							(Windows 10 version 1709 or later), then the evaluator shall ensure that the application can 
+							run successfully with Windows Defender Exploit Guard Exploit Protection configured with the 
+							following minimum mitigations enabled; Control Flow Guard (CFG), Randomize memory allocations 
+							(Bottom-Up ASLR), Export address filtering (EAF), Import address filtering (IAF), and
+							Data Execution Prevention (DEP). The following link describes how to enable Exploit Protection, 
+							https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-exploit-guard/customize-exploit-protection.
+							<h:p/>
+							If the OS platform supports the Enhanced Mitigation Experience Toolkit (EMET) which can be 
+							installed on Windows 10 version 1703 and earlier, then the evaluator shall ensure that 
+							the application can run successfully with EMET configured with the following minimum 
+							mitigations enabled; Memory Protection Check, Randomize memory allocations (Bottom-Up ASLR), 
+							Export address filtering (EAF), and Data Execution Prevention (DEP).
+						</h:div>
+						<h:div><depends ref="ios"/>
+							Applications running on iOS cannot disable
+							security features, therefore this requirement is met and no evaluation activity is required.
+						</h:div>
+						<h:div><depends ref="linux"/> 
+							The evaluator shall ensure that the application can
+							successfully run on a system with either SELinux or AppArmor enabled and in enforce mode.
+						</h:div>
+						<h:div><depends ref="Solaris"/>
+							The evaluator shall ensure that the application can run with 
+							Solaris Trusted Extensions enabled and enforcing.
+						</h:div>
+						<h:div><depends ref="mac"/> 
+							The evaluator shall ensure that the application can
+							successfully run on macOS without disabling any security features. 
+						</h:div>
+					</Tests>
+				</aactivity>
+			</f-element>
+			<f-element id="fel-ro-exe">
+				<title>
+					The application shall not write user-modifiable files to directories that contain 
+					executable files unless explicitly directed by the user to do so.
+				</title>
+				<note role="application">
+					The purpose of this requirement is to help ensure the integrity of application binaries
+					by supporting file protection mechanisms such as directory-level file permissions and 
+					application whitelisting.<h:p/>
+					A user-modifiable file for purposes of this requirement is a file that is writable by
+					an unprivileged user of the application -- either directly through application 
+					execution or independently of the application. If the application runs in the context 
+					of the application user, then the application should not be able to write to the 
+					directory containing the application binaries -- regardless of whether the files 
+					are configuration data, audit data, or temporary files.<h:p/>
+					Executables and user-modifiable files may not share the same parent directory, but
+					may share directories above the parent.
+				</note>
             <aactivity level="element">
               <Tests>The evaluator shall run the application and determine where it writes its files.
 	      For files where the user does not choose the destination, the evaluator shall 
