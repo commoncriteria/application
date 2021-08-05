@@ -2405,7 +2405,11 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           </f-element>
         </f-component>
       </subsection>
+	  
+	  
       <subsection title="Identification and Authentication (FIA)" id="fia">
+	  
+	  
         <f-component id="fia_x509_ext.1" name="X.509 Certificate Validation" status="sel-based">
           <selection-depends req="ftp_dit_ext.1.1" ids="sel_all_https,sel_all_tlsc,sel_all_tlss,sel_all_dtls,sel_sen_https,sel_sen_tlsc,sel_sen_tlss,sel_sen_dtls"/>
           <f-element id="fia_x509_ext.1.1">
@@ -2589,32 +2593,31 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               <TSS/>None.
 		    <Guidance/>None.
               <Tests/>
-		    The tests described must be performed in conjunction with the other certificate 
-              services evaluation activities, including the functions in <linkref linkend="FIA_X509_EXT.2.1"/>. 
-	      If the application supports chains of length four or greater, 
-	      the evaluator shall create a chain of at least four certificates: the 
-              node certificate to be tested, two Intermediate CAs, and the self-signed Root CA.
-	      If the application supports a maximum trust depth of two, then a chain with
-	      no Intermediate CA should instead be created.
+				The tests described must be performed in conjunction with the other certificate 
+				services evaluation activities, including the functions in <linkref linkend="FIA_X509_EXT.2.1"/>. 
+				If the application supports chains of length four or greater, 
+				the evaluator shall create a chain of at least four certificates: the 
+				node certificate to be tested, two Intermediate CAs, and the self-signed Root CA.
+				If the application supports a maximum trust depth of two, then a chain with
+				no Intermediate CA should instead be created.
 	      
-              <testlist>
-                <test>
-                  The evaluator shall construct a certificate path, such that the certificate of the 
-                  CA issuing the <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr>'s certificate does not contain the 
-                  basicConstraints extension. The validation of the certificate path fails.
-                </test>
-                <test>
-                  The evaluator shall construct a certificate path, such that the certificate of the 
-                  CA issuing the <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr>'s certificate has the CA flag in the 
-                  basicConstraints extension not set. The validation of the certificate path fails.
-                </test>
-                <test>
-                  The evaluator shall construct a certificate path, such that the certificate of the 
-                  CA issuing the <abbr title="Target of Evaluation" linkend="TOE">TOE</abbr>'s certificate has the CA flag in the 
-                  basicConstraints extension set to TRUE. The validation of the certificate path 
-                  succeeds.
-                </test>
-              </testlist> 
+				<testlist>
+					<test>
+						The evaluator shall ensure that the certificate of at least one of the CAs in the chain does
+						not contain the basicConstraints extension. The evaluator shall confirm that validation of the
+						certificate path fails (i) as part of the validation of the peer certificate belonging to this
+						chain; and/or (ii) when attempting to add the CA certificate without the basicConstraints
+						extension to the TOE's trust store.
+					</test>
+					<test>
+						The evaluator shall ensure that the certificate of at least one of the CAs in the chain
+						has the CA flag in the basicConstraints extension not set (or set to FALSE). The evaluator 
+						shall confirm that validation of the certificate path fails (i) as part of the validation of 
+						the peer certificate belonging to this chain; and/or (ii) when attempting to add the CA 
+						certificate with the CA flag not set (or set to FALSE) in the basicConstraints extension to
+						the TOE's trust store.
+					</test>
+				</testlist> 
             </aactivity>
           </f-element>
         </f-component>
