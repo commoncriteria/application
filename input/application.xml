@@ -1982,22 +1982,25 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           </f-element>
         </f-component>
         
-        <f-component id="fcs_https_ext.1" name="HTTPS Protocol" status="sel-based">
+        <f-component id="fcs_https_ext.1/Client" name="HTTPS Protocol" status="sel-based">
           <selection-depends req="ftp_dit_ext.1.1" ids="sel_all_https,sel_sen_https"/>
-          <f-element id="fcs_https_ext.1.1">
+          <f-element id="fcs_https_ext/Client.1.1">
             <title>
               The application shall implement the HTTPS protocol that complies with RFC 2818.
             </title>
             <aactivity>
-              <TSS/>None.
-              <Guidance/>None.
-              <Tests/>The evaluator shall attempt to establish an HTTPS connection with a webserver, 
-              observe the traffic with a packet analyzer, and verify that the connection succeeds 
-              and that the traffic is identified as 
-              <h:abbr title="Transport Layer Security">TLS</h:abbr> or HTTPS.
+              <TSS/>
+				The evaluator shall examine the TSS and determine that enough detail is provided to explain how the
+				implementation complies with RFC 2818.
+              <Guidance/>
+				None.
+              <Tests/>
+				The evaluator shall attempt to establish an HTTPS connection with a webserver, 
+				observe the traffic with a packet analyzer, and verify that the connection succeeds 
+				and that the traffic is identified as <h:abbr title="Transport Layer Security">TLS</h:abbr> or HTTPS.
             </aactivity>
           </f-element>
-          <f-element id="fcs_https_ext.1.2">
+          <f-element id="fcs_https_ext.1.2/Client">
             <title>The application shall implement HTTPS using 
               <h:abbr title="Transport Layer Security">TLS</h:abbr> as defined in the TLS package.
             </title>
@@ -2007,7 +2010,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               <Tests/>Other tests are performed in conjunction with the TLS package.
             </aactivity>
           </f-element>
-          <f-element id="fcs_https_ext.1.3">
+          <f-element id="fcs_https_ext.1.3/Client">
             <title> The application shall 
               <selectables>
                 <selectable>
@@ -2033,20 +2036,88 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
               <linkref linkend="FIA_X509_EXT.1"/>, and the evaluator shall perform the following test:
               <testlist>
                 <test>
-                  The evaluator shall demonstrate that using a certificate without a valid 
-                  certification path results in the selected action in the SFR. If "notify the user" is selected 
-                  in the SFR, then the evaluator shall also determine that the user is notified of the certificate validation 
-                  failure. Using the administrative guidance, the evaluator shall then load a certificate or 
-                  certificates to the Trust Anchor Database needed to validate the certificate to be 
-                  used in the function, and demonstrate that the function succeeds. The evaluator 
-                  then shall delete one of the certificates, and show that again, using a certificate without a valid 
-                  certification path results in the selected action in the SFR, and if "notify the user" was selected 
-                  in the SFR, the user is notified of the validation failure.
+                  The evaluator shall demonstrate that using a certificate without a valid certification path results 
+				  in the selected action in the SFR. If "notify the user" isselected in the SFR, then the evaluator 
+				  shall also determine that the user isnotified of the certificate validation failure. Using the
+				  administrative guidance, the evaluator shall then load a certificate or certificates to the Trust 
+				  Anchor Database needed to validate the certificate to be used in the function, and demonstrate that
+				  the function succeeds. The evaluator then shall delete one of the certificates, and show that again,
+				  using a certificate without a valid certification path results in the selected action in the SFR,
+				  and if "notify the user" was selected in the SFR, the user is notified of the validation failure.
                 </test>
               </testlist>
             </aactivity>
           </f-element>
         </f-component>
+
+        <f-component id="fcs_https_ext.1/Server" name="HTTPS Protocol" status="sel-based">
+          <selection-depends req="ftp_dit_ext.1.1" ids="sel_all_https,sel_sen_https"/>
+          <f-element id="fcs_https_ext/Server.1.1">
+            <title>
+              The application shall implement the HTTPS protocol that complies with RFC 2818.
+            </title>
+            <aactivity>
+              <TSS/>
+				The evaluator shall examine the TSS and determine that enough detail is provided to explain how the
+				implementation complies with RFC 2818.
+              <Guidance/>
+				None.
+              <Tests/>
+				The evaluator shall attempt to establish an HTTPS connection to the TOE using a client, observe 
+				the traffic with a packet analyzer, and verify that the connection succeeds and that the traffic
+				is identified as TLS or HTTPS.
+            </aactivity>
+          </f-element>
+          <f-element id="fcs_https_ext.1.2/Server">
+            <title>The application shall implement HTTPS using 
+              <h:abbr title="Transport Layer Security">TLS</h:abbr> as defined in the TLS package.
+            </title>
+            <aactivity>
+              <TSS/>None.
+              <Guidance/>None.
+              <Tests/>Other tests are performed in conjunction with the TLS package.
+            </aactivity>
+          </f-element>
+        </f-component>
+
+        <f-component id="fcs_https_ext.2" name="HTTPS Protocol with Mutual Authentication" status="sel-based">
+          <selection-depends req="ftp_dit_ext.1.1" ids="sel_all_https,sel_sen_https"/>
+          <f-element id="fcs_https_ext.2.1">
+            <title>
+				 The application shall 
+				 <selectables>
+					<selectable>not establish the connection</selectable>
+					<selectable>establish or not establish the connection based on an administrative or user setting</selectable>
+				</selectables> if the peer certificate is deemed invalid.
+            </title>
+			<note role="application">
+				Validity is determined by the certificate path, the expiration date, and the revocation status in accordance with
+				RFC 5280.
+			</note>
+            <aactivity>
+              <TSS/>
+				None.
+              <Guidance/>
+				None.
+              <Tests/>
+				Certificate validity shall be tested in accordance with testing performed for FIA_X509_EXT.1, and 
+				the evaluator shall perform the following test:<h:p/>
+				<testlist>
+					<test>
+						The evaluator shall demonstrate that using a certificate without a valid certification path
+						results in the selected action in the SFR. Using the administrative guidance, the evaluator
+						shall then load a certificate or certificates to the Trust Anchor Database needed to validate 
+						the certificate to be used in the function, and demonstrate that the function succeeds. The
+						evaluator then shall delete one of the certificates, and show that again, using a certificate
+						without a valid certification path results in the selected action in the SFR.
+					</test>
+				</testlist>
+            </aactivity>
+          </f-element>
+        </f-component>
+
+
+
       </subsection>
 
       <subsection title="User Data Protection (FDP)" id="fdp">
@@ -3407,7 +3478,11 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           </f-element>
         </f-component>
       </subsection>
+	  
+	  
       <subsection title="Trusted Path/Channel (FTP)" id="ftp">
+	  
+	  
         <f-component id="ftp_dit_ext.1" name="Protection of Data in Transit">
           <f-element id="ftp_dit_ext.1.1">
             <title>The application shall 
@@ -3457,15 +3532,23 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      then you must include the SFRs that address the certificates.   
 	      X509 SFRs shall be included if selections for HTTPS, TLS, or DTLS are included (FCS_HTTPS, FCS_TLSC, FCS_TLSS, FCS_DTLS).
 	       <h:br/> <h:br/>-->
-	      Encryption is not required for applications transmitting data that is not sensitive. 
-		  <h:br/>
-        <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>TLS</h:i> is selected, then evaluation of elements from either <linkref linkend="FCS_TLSC_EXT.1"/> or <linkref linkend="FCS_TLSS_EXT.1"/> is required.</h:p>
-	      <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>HTTPS</h:i> is selected, <linkref linkend="FCS_HTTPS_EXT.1"/> is required.</h:p> 
-        <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>DTLS</h:i> is selected, <linkref linkend="FCS_DTLS_EXT.1"/> is required.</h:p>
-        <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>SSH</h:i> is selected, the TSF shall be validated against the <h:i>Extended Package for <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389">Secure Shell</h:a></h:i>.</h:p>
-<h:p>
-		    If <h:i>encrypt all transmitted</h:i> is selected the corresponding FCS_COP.1 requirements will be included.
-		  </h:p>
+			Encryption is not required for applications transmitting data that is not sensitive. 
+			<h:br/>
+			<h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>TLS</h:i> is selected, then evaluation of 
+				elements from either <linkref linkend="FCS_TLSC_EXT.1"/> or <linkref linkend="FCS_TLSS_EXT.1"/> is required.</h:p>
+			<h:p> If <h:i>encrypt all transmitted</h:i> is selected, <h:i>HTTPS</h:i> is selected, and the TOE acts as a client,
+				FCS_HTTPS_EXT.1/Client is required. If <h:i>encrypt all transmitted</h:i> is selected, <h:i>HTTPS</h:i> is selected,
+				and the TOE acts as a server, FCS_HTTPS_EXT.1/Server is required. If the TOE acts as a server and if mutual authentication 
+				is selected in the TLS Package, then FCS_HTTPS_EXT.2 is also required.</h:p> 
+			<h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>DTLS</h:i> is selected, 
+				<linkref linkend="FCS_DTLS_EXT.1"/> is required.</h:p>
+			<h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>SSH</h:i> is selected, the TSF shall be
+				validated against the <h:i>Extended Package for
+				<h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389">Secure Shell</h:a></h:i>.
+				</h:p>
+			<h:p>If <h:i>encrypt all transmitted</h:i> is selected the corresponding FCS_COP.1 requirements will be
+				included.
+			</h:p>
 	    </note>  
       <aactivity>
         <TSS/>For platform-provided functionality, the evaluator shall verify the TSS contains the calls to the platform that TOE is leveraging to invoke the functionality.
