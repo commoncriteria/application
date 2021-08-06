@@ -82,6 +82,7 @@
 
 	FCS_CKM.1/1 (a.k.a FCS_CKM.1/ALGO) is renamed FCS_CKM.1/AK 
 	FCS_CKM.1/2 is renamed FCS_CKM.1/SK 
+	FCS_CKM.1/3 is renamed FCS_CKM.1/PBKDF 
 	
    -->
   
@@ -591,7 +592,7 @@
 				<addressed-by>FCS_STO_EXT.1</addressed-by><rationale>The PP includes FCS_STO_EXT.1 to define the mechanism that the TSF uses or relies upon to protect stored credential data.</rationale>
 				<addressed-by>FDP_DAR_EXT.1</addressed-by><rationale>The PP includes FDP_DAR_EXT.1 to define the mechanism that the TSF uses or relies upon to protect sensitive data at rest.</rationale>
 				<addressed-by>FCS_CKM.1/SK (optional)</addressed-by><rationale>The PP includes FCS_CKM.1/SK to define the TOE’s capability to generate symmetric keys. These keys may subsequently be used to encrypt stored credential data based on the claims made in FCS_STO_EXT.1.</rationale>
-				<addressed-by>FCS_CKM.1/3 (selection-based)</addressed-by><rationale>The PP includes FCS_CKM.1/3 to define the password-based key derivation function that may be used to encrypt stored credential data based on the claims made in FCS_STO_EXT.1.</rationale>
+				<addressed-by>FCS_CKM.1/PBKDF (selection-based)</addressed-by><rationale>The PP includes FCS_CKM.1/PBKDF to define the password-based key derivation function that may be used to encrypt stored credential data based on the claims made in FCS_STO_EXT.1.</rationale>
 				<addressed-by>FCS_COP.1/1 (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/1 to define the AES cryptographic algorithm that may be used to encrypt stored credential data based on the claims made in FCS_STO_EXT.1.</rationale>
 				<addressed-by>FCS_COP.1/2 (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/2 to define integrity mechanisms that may be used by the TOE as part of ensuring that data at rest is protected.</rationale>
 				<addressed-by>FCS_COP.1/4 (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/4 to define HMAC mechanisms that may be used by the TOE as part of ensuring that data at rest is protected.</rationale>
@@ -1138,56 +1139,55 @@
 			</f-element>
         </f-component>
 
-	<f-component name="Password Conditioning" cc-id="fcs_ckm.1" id="fcom_pass" iteration="3" status="sel-based">
-	  <depends on="sel_impl_sto"/>
-  <f-element id="fel-pass">
-    <title>
-    A password/passphrase shall perform <assignable>Password-based Key Derivation Functions</assignable> in accordance with a specified 
-    cryptographic algorithm as specified in FCS_COP.1/4, with <assignable>positive integer of 1,000 or more</assignable> iterations,
-    and output cryptographic key sizes <selectables>
-      <selectable>128</selectable>
-      <selectable>256</selectable>
-    </selectables>
-      that meet the following <h:b>[NIST SP 800-132]</h:b>.  </title>
-  </f-element>
-  
-  <f-element id="fel-gen-salts">
-    <title>The TSF shall generate salts using a RBG that meets 
-      FCS_RGB_EXT.1 and with entropy corresponding to the security strength selected for 
-      PBKDF in FCS_CKM.1.1/3
-    </title>
-    
-    
-    <note role="application">
-      This should be included if selected in FCS_STO_EXT.1<h:br/>
-      Conditioning can be performed using one of the identified hash functions or the process described 
-      in NIST SP 800-132; the method used is selected by the ST Author. SP 800-132 requires the use of a pseudo-random 
-      function (PRF) consisting of HMAC with an approved hash function. The ST author selects the hash function used, 
-      also includes the appropriate requirements for HMAC and the hash function. 
-      <h:br/>
-      Appendix A of SP 800-132 recommends setting the iteration count in order to increase the computation needed to derive a 
-      key from a password and, therefore, increase the workload of performing a password recovery attack. A significantly higher 
-      value is recommended to ensure optimal security. This value is expected to increase to a minimum of 10,000 in a future 
-      iteration based on SP800-63.</note>
-    
-    
-    <aactivity>
-      <TSS> Support for PBKDF: The evaluator shall examine the password hierarchy TSS to ensure that the formation of all password 
-      based derived keys is described and that the key sizes match that described by the ST author. 
-      The evaluator shall check that the TSS describes the method by which the password/passphrase is first encoded and then fed to 
-      the SHA algorithm. The settings for the algorithm (padding, blocking, etc.) shall be described, and the evaluator shall verify 
-      that these are supported by the selections in this component as well as the selections concerning the hash function itself. 
-      The evaluator shall verify that the TSS contains a description of how the output of the hash function is used to form the 
-      submask that will be input into the function.
-      For the NIST SP 800-132-based conditioning of the password/passphrase, the required evaluation activities will be performed when 
-      doing the evaluation activities for the appropriate requirements (FCS_COP.1.1/4).
-      No explicit testing of the formation of the submask from the input password is required. 
-      FCS_CKM.1.1/3: The ST author shall provide a description in the TSS regarding the salt generation. 
-      The evaluator shall confirm that the salt is generated using an RBG described in FCS_RBG_EXT.1.
-      </TSS>
-    </aactivity>
-  </f-element>
-</f-component>
+		<!-- FCS_CKM.1/PBKDF (formerly FCS_CKM.1/3) -->
+		<f-component name="Password Conditioning" cc-id="fcs_ckm.1" id="fcom_pass" iteration="PBKDF" status="sel-based">
+			<depends on="sel_impl_sto"/>
+			<f-element id="fel-pass">
+				<title>
+					A password/passphrase shall perform <assignable>Password-based Key Derivation Functions</assignable> 
+					in accordance with a specified cryptographic algorithm as specified in FCS_COP.1/4, with <assignable>positive 
+					integer of 1,000 or more</assignable> iterations, and output cryptographic key sizes <selectables>
+						<selectable>128</selectable>
+						<selectable>256</selectable>
+					</selectables>
+					that meet the following <h:b>[NIST SP 800-132]</h:b>.  
+				</title>
+			</f-element>
+			<f-element id="fel-gen-salts">
+				<title>
+					The TSF shall generate salts using a RBG that meets FCS_RGB_EXT.1 and with entropy corresponding
+					to the security strength selected for PBKDF in FCS_CKM.1.1/PBKDF.
+				</title>
+				<note role="application">
+					This should be included if selected in FCS_STO_EXT.1<h:p/>
+					Conditioning can be performed using one of the identified hash functions or the process described 
+					in NIST SP 800-132; the method used is selected by the ST Author. SP 800-132 requires the use of a pseudo-random 
+					function (PRF) consisting of HMAC with an approved hash function. The ST author selects the hash function used, 
+					also includes the appropriate requirements for HMAC and the hash function. <h:p/>
+					Appendix A of SP 800-132 recommends setting the iteration count in order to increase the computation needed to derive a 
+					key from a password and, therefore, increase the workload of performing a password recovery attack. A significantly higher 
+					value is recommended to ensure optimal security. This value is expected to increase to a minimum of 10,000 in a future 
+					iteration based on SP800-63.
+				</note>
+				<aactivity>
+					<TSS> 
+						Support for PBKDF: The evaluator shall examine the password hierarchy TSS to ensure that 
+						the formation of all password based derived keys is described and that the key sizes match that 
+						described by the ST author. 
+						The evaluator shall check that the TSS describes the method by which the password/passphrase is first encoded and then fed to 
+						the SHA algorithm. The settings for the algorithm (padding, blocking, etc.) shall be described, and the evaluator shall verify 
+						that these are supported by the selections in this component as well as the selections concerning the hash function itself. 
+						The evaluator shall verify that the TSS contains a description of how the output of the hash function is used to form the 
+						submask that will be input into the function.
+						For the NIST SP 800-132-based conditioning of the password/passphrase, the required evaluation activities will be performed when 
+						doing the evaluation activities for the appropriate requirements (FCS_COP.1.1/4).
+						No explicit testing of the formation of the submask from the input password is required. 
+						FCS_CKM.1.1/PBKDF: The ST author shall provide a description in the TSS regarding the salt generation. 
+						The evaluator shall confirm that the salt is generated using an RBG described in FCS_RBG_EXT.1.
+					</TSS>
+				</aactivity>
+			</f-element>
+		</f-component>
 
         <f-component cc-id="fcs_ckm.2" name="Cryptographic Key Establishment" status="sel-based">
 	  <depends on="sel_all_tlsc"/>
@@ -2035,7 +2035,7 @@ functionality (such as these)
                   according to
                   <selectables>
                     <selectable>FCS_COP.1/1</selectable>
-                    <selectable>FCS_CKM.1/3</selectable>
+                    <selectable>FCS_CKM.1/PBKDF</selectable>
                   </selectables>
                 </selectable>
               </selectables>
@@ -2048,7 +2048,7 @@ functionality (such as these)
               If <h:i>invoke the functionality provided by the platform to securely store</h:i> is selected then the Application developer must closely review the EA for their 
               platform and provide documentation indicating which platform mechanisms are used to store credentials. 
     If <h:i>implement functionality to securely store credentials</h:i> is selected, then the following components must be included in 
-              the ST: FCS_COP.1/1 or FCS_CKM.1/3.
+              the ST: FCS_COP.1/1 or FCS_CKM.1/PBKDF.
 	  If other cryptographic operations are used to implement the secure storage of credentials, the corresponding requirements must be included in the ST.
               If the OS is Linux and Java KeyStores are used to store credentials, <h:i>implement functionality to securely store credentials</h:i> must be selected.
             </note>
@@ -2061,7 +2061,7 @@ functionality (such as these)
               <Tests>
               For all credentials for which the application implements functionality, the evaluator shall 
               verify credentials are encrypted according to FCS_COP.1/1 or conditioned according to
-              FCS_CKM.1.1/AK and FCS_CKM.1/3.
+              FCS_CKM.1.1/AK and FCS_CKM.1/PBKDF.
               
               For all credentials for which the application invokes platform-provided
               functionality, the evaluator shall perform the following actions which vary per platform.
