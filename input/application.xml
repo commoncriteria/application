@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xsl" href="..\transforms\pp2html.xsl"?>
 <?xml-model href="https://raw.githubusercontent.com/commoncriteria/transforms/master/schemas/CCProtectionProfile.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+
 <PP xmlns="https://niap-ccevs.org/cc/v1"
     xmlns:h="http://www.w3.org/1999/xhtml"
     xmlns:sec="https://niap-ccevs.org/cc/v1/section"
     target-products="Application Software" 
     boilerplate="yes">
+	
   <PPReference>
     <ReferenceTable>
       <PPTitle>Protection Profile for Application Software</PPTitle>
@@ -15,7 +17,6 @@
       <Keywords>application; software</Keywords>
     </ReferenceTable>
   </PPReference>
-	
 
   <RevisionHistory>
     <entry>
@@ -78,271 +79,278 @@
 	  <depends on="sel_all_tlsc" also="sel_all_dtls"/>
   </include-pkg>
 	
-  <sec:Introduction>
-    <sec:Overview>The scope of this Protection Profile (PP) is to
-      describe the security functionality of application software in terms of <xref g="CC"/>
-	  and to define functional and assurance requirements for such software. In recent years,
-      software attacks have shifted from targeting operating systems to targeting applications. This
-      has been the natural response to improvements in operating system security and development
-      processes. As a result, it is paramount that the security of applications be improved to
-      reduce the risk of compromise.</sec:Overview>
-    <tech-terms>
-      <term full="Address Space Layout Randomization" abbr="ASLR">
-            An anti-exploitation feature which loads memory mappings into unpredictable
-              locations. ASLR makes it more difficult for an attacker to redirect control to code
-              that they have introduced into the address space of an application
-      process.</term>
-            <term abbr="ADB" full="Android Debug Bridge"/>
+	<!-- 1.0 Introdiction -->
+	<sec:Introduction>
 
-            <term abbr="AES" full="Advanced Encryption Standard"/>
-            <term abbr="ANSI" full="American National Standards Institute"/>
-            <term abbr="APK" full="Android Application Package"/>
-            <term full="Application" abbr="app">
+	<!-- 1.1 Overview -->
+    <sec:Overview>The scope of this Protection Profile (PP) is to
+		describe the security functionality of application software in terms of <xref g="CC"/>
+		and to define functional and assurance requirements for such software. In recent years,
+		software attacks have shifted from targeting operating systems to targeting applications. This
+		has been the natural response to improvements in operating system security and development
+		processes. As a result, it is paramount that the 
+		security of applications be improved to
+		reduce the risk of compromise.
+	</sec:Overview>
+	
+	<!-- 1.2 Terms -->
+	<!-- 1.2.1 Common Criteria Terms -->
+	<!-- 1.2.2 Technical Terms -->
+    <tech-terms>
+		<term full="Address Space Layout Randomization" abbr="ASLR">
+            An anti-exploitation feature which loads memory mappings into unpredictable
+            locations. ASLR makes it more difficult for an attacker to redirect control to code
+            that they have introduced into the address space of an application process.</term>
+        <term abbr="ADB" full="Android Debug Bridge"/>
+        <term abbr="AES" full="Advanced Encryption Standard"/>
+        <term abbr="ANSI" full="American National Standards Institute"/>
+        <term abbr="APK" full="Android Application Package"/>
+        <term full="Application" abbr="app">
             Software that runs on a platform and performs tasks on behalf of
-              the user or owner of the platform, as well as its supporting documentation. The 
-              terms <h:i>TOE</h:i> and <h:i>application</h:i> are interchangeable in this document.
-              </term>
-            <term full="Application Programming Interface" abbr="API">
+            the user or owner of the platform, as well as its supporting documentation. The 
+            terms <h:i>TOE</h:i> and <h:i>application</h:i> are interchangeable in this document.
+        </term>
+        <term full="Application Programming Interface" abbr="API">
             A specification of routines, data structures, object classes, and variables
-              that allows an application to make use of services provided by another software
-              component, such as a library. APIs are often provided for a set of libraries included
-              with the platform.</term>
-              <term abbr="APPX" full="Windows Universal Application Package"/>
-              <term abbr="BIOS" full="Basic Input/Output System"/>
-              <term abbr="CMC" full="Certificate Management over CMS"/>
-              <term full="Credential">
-		Data that establishes the identity of a user, e.g. a cryptographic key or
-              password.</term>
-              <term abbr="CMS" full="Cryptographic Message Syntax"/>
-              <term abbr="CN" full="Common Names"/>
-              <term abbr="CRL" full="Certificate Revocation List"/>
-              <term abbr="CSA" full="Computer Security Act"/>
-            <term full="Data Execution Prevention" abbr="DEP">
+            that allows an application to make use of services provided by another software
+            component, such as a library. APIs are often provided for a set of libraries included
+            with the platform.</term>
+        <term abbr="APPX" full="Windows Universal Application Package"/>
+        <term abbr="BIOS" full="Basic Input/Output System"/>
+        <term abbr="CMC" full="Certificate Management over CMS"/>
+        <term full="Credential">
+			Data that establishes the identity of a user, e.g. a cryptographic key or password.</term>
+        <term abbr="CMS" full="Cryptographic Message Syntax"/>
+        <term abbr="CN" full="Common Names"/>
+        <term abbr="CRL" full="Certificate Revocation List"/>
+        <term abbr="CSA" full="Computer Security Act"/>
+        <term full="Data Execution Prevention" abbr="DEP">
             An anti-exploitation feature of modern operating systems executing on
-              modern computer hardware, which enforces a non-execute permission on pages of memory.
-              DEP prevents pages of memory from containing both data and instructions, which makes
-              it more difficult for an attacker to introduce and execute code.</term>
-              <term abbr="DES" full="Data Encryption Standard"/>
-              <term full="Developer">
+            modern computer hardware, which enforces a non-execute permission on pages of memory.
+            DEP prevents pages of memory from containing both data and instructions, which makes
+            it more difficult for an attacker to introduce and execute code.</term>
+        <term abbr="DES" full="Data Encryption Standard"/>
+        <term full="Developer">
             An entity that writes application software. For the purposes of this
-              document, vendors and developers are the same.</term>
-              <term abbr="DHE" full="Diffie-Hellman Ephemeral"/>
-              <term abbr="DMG" full="Apple Disk Image"/>
-              <term abbr="DNS" full="Domain Name System"/>
-              <term abbr="DPAPI" full="Data Protection Application Programming Interface"/>
-              <term abbr="DRBG" full="Deterministic Random Bit Generator"/>
-              <term abbr="DSS" full="Digital Signature Standard"/>
-              <term abbr="DT" full="Date/Time Vector"/>
-              <term abbr="DTLS" full="Datagram Transport Layer Security"/>
-              <term abbr="EAP" full="Extensible Authentication Protocol"/>
-              <term abbr="ECDHE" full="Elliptic Curve Diffie-Hellman Ephemeral"/>
-              <term abbr="ECDSA" full="Elliptic Curve Digital Signature Algorithm"/>
-              <term abbr="EMET" full="Enhanced Mitigation Experience Toolkit"/>
-              <term abbr="EST" full="Enrollment over Secure Transport"/>
-              <term abbr="FIPS" full="Federal Information Processing Standards"/>
-              <term abbr="ELF" full="Executable and Linkable Format"/>
-              <term abbr="GPS" full="Global Positioning System"/>
-              <term abbr="HMAC" full="Hash-based Message Authentication Code"/>
-              <term abbr="HTTP" full="Hypertext Transfer Protocol"/>
-              <term abbr="HTTPS" full="Hypertext Transfer Protocol Secure"/>
-              <term abbr="IANA" full="Internet Assigned Number Authority"/>
-              <term abbr="IEC" full="International Electrotechnical Commission"/>
-              <term abbr="IETF" full="Internet Engineering Task Force"/>
-              <term abbr="IP" full="Internet Protocol"/>
-              <term abbr="IPA" full="iOS Package archive"/>
-              <term abbr="IR" full="Intermediate Integer"/>
-              <term abbr="ISO" full="International Organization for Standardization"/>
-              <term abbr="IT" full="Information Technology"/>
-              <term abbr="ITSEF" full="Information Technology Security Evaluation Facility"/>
-              <term abbr="JNI" full="Java Native Interface"/>
-              <term abbr="LDAP" full="Lightweight Directory Access Protocol"/>
-	      <term full="Mobile Code">
-		Software transmitted from a remote system for
-		execution within a limited execution environment on the local system.
-		Typically, there is no persistent installation and
-		execution begins without the user's consent or even notification.
-		Examples of mobile code technologies include JavaScript, Java applets, Adobe Flash, 
-		and Microsoft Silverlight.
-	      </term>
-              <term abbr="MIME" full="Multi-purpose Internet Mail Extensions"/>
-              <term abbr="MPKG" full="Meta Package"/>
-              <term abbr="MSI" full="Microsoft Installer"/>
-              <term abbr="NFC" full="Near Field Communication"/>
-              <term abbr="NIAP" full="National Information Assurance Partnership"/>
-              <term abbr="NIST" full="National Institute of Standards and Technology"/>
-              <term abbr="OCSP" full="Online Certificate Status Protocol"/>
-              <term abbr="OID" full="Object Identifier"/>
-              <term abbr="OMB" full="Office of Management and Budget"/>
-	      
-            <term full="Operating System" abbr="OS">
+            document, vendors and developers are the same.</term>
+        <term abbr="DHE" full="Diffie-Hellman Ephemeral"/>
+        <term abbr="DMG" full="Apple Disk Image"/>
+        <term abbr="DNS" full="Domain Name System"/>
+        <term abbr="DPAPI" full="Data Protection Application Programming Interface"/>
+        <term abbr="DRBG" full="Deterministic Random Bit Generator"/>
+        <term abbr="DSS" full="Digital Signature Standard"/>
+        <term abbr="DT" full="Date/Time Vector"/>
+        <term abbr="DTLS" full="Datagram Transport Layer Security"/>
+        <term abbr="EAP" full="Extensible Authentication Protocol"/>
+        <term abbr="ECDHE" full="Elliptic Curve Diffie-Hellman Ephemeral"/>
+        <term abbr="ECDSA" full="Elliptic Curve Digital Signature Algorithm"/>
+        <term abbr="EMET" full="Enhanced Mitigation Experience Toolkit"/>
+        <term abbr="EST" full="Enrollment over Secure Transport"/>
+        <term abbr="FIPS" full="Federal Information Processing Standards"/>
+        <term abbr="ELF" full="Executable and Linkable Format"/>
+        <term abbr="GPS" full="Global Positioning System"/>
+        <term abbr="HMAC" full="Hash-based Message Authentication Code"/>
+        <term abbr="HTTP" full="Hypertext Transfer Protocol"/>
+        <term abbr="HTTPS" full="Hypertext Transfer Protocol Secure"/>
+        <term abbr="IANA" full="Internet Assigned Number Authority"/>
+        <term abbr="IEC" full="International Electrotechnical Commission"/>
+        <term abbr="IETF" full="Internet Engineering Task Force"/>
+        <term abbr="IP" full="Internet Protocol"/>
+        <term abbr="IPA" full="iOS Package archive"/>
+        <term abbr="IR" full="Intermediate Integer"/>
+        <term abbr="ISO" full="International Organization for Standardization"/>
+        <term abbr="IT" full="Information Technology"/>
+        <term abbr="ITSEF" full="Information Technology Security Evaluation Facility"/>
+        <term abbr="JNI" full="Java Native Interface"/>
+        <term abbr="LDAP" full="Lightweight Directory Access Protocol"/>
+		<term full="Mobile Code">
+			Software transmitted from a remote system for
+			execution within a limited execution environment on the local system.
+			Typically, there is no persistent installation and
+			execution begins without the user's consent or even notification.
+			Examples of mobile code technologies include JavaScript, Java applets, Adobe Flash, 
+			and Microsoft Silverlight.
+		</term>
+        <term abbr="MIME" full="Multi-purpose Internet Mail Extensions"/>
+        <term abbr="MPKG" full="Meta Package"/>
+        <term abbr="MSI" full="Microsoft Installer"/>
+        <term abbr="NFC" full="Near Field Communication"/>
+        <term abbr="NIAP" full="National Information Assurance Partnership"/>
+        <term abbr="NIST" full="National Institute of Standards and Technology"/>
+        <term abbr="OCSP" full="Online Certificate Status Protocol"/>
+        <term abbr="OID" full="Object Identifier"/>
+        <term abbr="OMB" full="Office of Management and Budget"/>
+        <term full="Operating System" abbr="OS">
             Software that manages hardware resources and provides services for
             applications.</term>
-            <term full="Personally Identifiable Information" abbr="PII">
+        <term full="Personally Identifiable Information" abbr="PII">
             Any information about an individual maintained by an agency, including, but
-              not limited to, education, financial transactions, medical history, and criminal or
-              employment history and information which can be used to distinguish or trace an
-              individual's identity, such as their name, social security number, date and place of
-              birth, mother’s maiden name, biometric records, etc., including any other personal
-              information which is linked or linkable to an individual. <xref to="bibOMB"/></term>
-
-              <term full="Platform">
+            not limited to, education, financial transactions, medical history, and criminal or
+            employment history and information which can be used to distinguish or trace an
+            individual's identity, such as their name, social security number, date and place of
+            birth, mother’s maiden name, biometric records, etc., including any other personal
+            information which is linked or linkable to an individual. <xref to="bibOMB"/></term>
+        <term full="Platform">
             The environment in which application software runs. 
-              The platform can be an operating system, hardware environment, a software based execution environment, 
+            The platform can be an operating system, hardware environment, a software based execution environment, 
 		    or some combination of these.  These types platforms may also run atop other platforms.
-              </term>
-            <term abbr="PDF" full="Portable Document Format"/>
+        </term>
+        <term abbr="PDF" full="Portable Document Format"/>
 	    <term abbr="PE" full="Portable Executable"/>
-            <term abbr="PID" full="Process Identifier"/>
-            <term abbr="PKG" full="Package file"/>
-            <term abbr="PKI" full="Public Key Infrastructure"/>
-            <term abbr="RBG" full="Random Bit Generator"/>
-            <term abbr="RFC" full="Request for Comment"/>
-            <term abbr="RNG" full="Random Number Generator"/>
-            <term abbr="RNGVS" full="Random Number Generator Validation System"/>
-            <term abbr="SE" full="Security Enhancements"/>
-            <term abbr="SHA" full="Secure Hash Algorithm"/>
-            <term abbr="S/MIME" full="Secure/Multi-purpose Internet Mail Extensions"/>
-            <term abbr="SSH" full="Secure Shell"/>
-            <term abbr="SIP" full="Session Initiation Protocol"/>
-            <term full="Sensitive Data">
-              Sensitive data may include all user or enterprise data or may be
-              specific application data such as emails, messaging, documents,
-              calendar items, and contacts.  Sensitive data must minimally include
-              PII, credentials, and keys.  Sensitive data shall be identified in
-              the application’s TSS by the ST author. 
+        <term abbr="PID" full="Process Identifier"/>
+        <term abbr="PKG" full="Package file"/>
+        <term abbr="PKI" full="Public Key Infrastructure"/>
+        <term abbr="RBG" full="Random Bit Generator"/>
+        <term abbr="RFC" full="Request for Comment"/>
+        <term abbr="RNG" full="Random Number Generator"/>
+        <term abbr="RNGVS" full="Random Number Generator Validation System"/>
+        <term abbr="SE" full="Security Enhancements"/>
+        <term abbr="SHA" full="Secure Hash Algorithm"/>
+        <term abbr="S/MIME" full="Secure/Multi-purpose Internet Mail Extensions"/>
+        <term abbr="SSH" full="Secure Shell"/>
+        <term abbr="SIP" full="Session Initiation Protocol"/>
+        <term full="Sensitive Data">
+            Sensitive data may include all user or enterprise data or may be
+            specific application data such as emails, messaging, documents,
+            calendar items, and contacts.  Sensitive data must minimally include
+            PII, credentials, and keys.  Sensitive data shall be identified in
+            the application’s TSS by the ST author. 
  	    </term>
-            <term abbr="SP" full="Special Publication"/>
-            <term abbr="SWID" full="Software Identification"/>
-            <term full="Stack Cookie">
+        <term abbr="SP" full="Special Publication"/>
+        <term abbr="SWID" full="Software Identification"/>
+        <term full="Stack Cookie">
             An anti-exploitation feature that places a value on the stack at the start
-              of a function call, and checks that the value is the same at the end of the function
+            of a function call, and checks that the value is the same at the end of the function
             call. This is also referred to as Stack Guard, or Stack Canaries.</term>
-            <term abbr="SAN" full="Subject Alternative Name"/>
-            <term abbr="TLS" full="Transport Layer Security"/>
-            <term abbr="UI" full="User Interface"/>
-            <term abbr="URI" full="Uniform Resource Identifier"/>
-            <term abbr="URL" full="Uniform Resource Locator"/>
-            <term abbr="USB" full="Universal Serial Bus"/>
-            <term full="Vendor">
+        <term abbr="SAN" full="Subject Alternative Name"/>
+        <term abbr="TLS" full="Transport Layer Security"/>
+        <term abbr="UI" full="User Interface"/>
+        <term abbr="URI" full="Uniform Resource Identifier"/>
+        <term abbr="URL" full="Uniform Resource Locator"/>
+        <term abbr="USB" full="Universal Serial Bus"/>
+        <term full="Vendor">
             An entity that sells application software. For purposes of this document,
-              vendors and developers are the same. Vendors are responsible for maintaining and
+            vendors and developers are the same. Vendors are responsible for maintaining and
             updating application software.</term>
-            <term abbr="XCCDF" full="eXtensible Configuration Checklist Description Format"/>
-            <term abbr="XOR" full="Exclusive Or"/>
+        <term abbr="XCCDF" full="eXtensible Configuration Checklist Description Format"/>
+        <term abbr="XOR" full="Exclusive Or"/>
     </tech-terms>
-    <section title="Compliant Targets of Evaluation" id="TOEdescription"><h:p>The requirements in this
-  	  document apply to application software which runs on any type of platform.
-Some application types are covered by more specific PPs, which may be expressed as PP-Modules of this PP.
-  	  Such applications are subject to the requirements of both this PP and the
-  	  PP-Module that addresses their special functionality.  PPs for some 
-	  particularly specialized applications may not be expressed as PP-Modules at this time,
-	  though the requirements in this document should be seen as objectives for those 
-	  highly specialized applications.
-	  </h:p><h:p> 
-	  Although the requirements in this document apply to a wide range of application
-	  software, consult guidance from the relevant national schemes to
-	  determine when formal Common Criteria evaluation is expected for a
-	  particular type of application.  This may vary depending upon the nature
-	  of the security functionality of the application.
-	</h:p>
-	  <sec:TOE_Boundary>
-	    <h:p>
+	
+	<!-- 1.3 Compliant Targets of Evaluation -->
+    <section title="Compliant Targets of Evaluation" id="TOEdescription">
+	
+		The requirements in this document apply to application software which runs on any type of 
+		platform. Some application types are covered by more specific PPs, which may be expressed as
+		PP-Modules of this PP. Such applications are subject to the requirements of both this PP and the
+		PP-Module that addresses their special functionality.  PPs for some 
+		particularly specialized applications may not be expressed as PP-Modules at this time,
+		though the requirements in this document should be seen as objectives for those 
+		highly specialized applications.<h:p/>
+		Although the requirements in this document apply to a wide range of application
+		software, consult guidance from the relevant national schemes to
+		determine when formal Common Criteria evaluation is expected for a
+		particular type of application.  This may vary depending upon the nature
+		of the security functionality of the application.
+
+	<!-- 1.3.1 TOE Boundary -->
+	<sec:TOE_Boundary>
+
 		The application, which consists of the software provided by its vendor,
 		is installed onto the platform(s) it operates on.  It executes on the platform, which
 		may be an operating system (<xref to="toe-as-apponos"/>), hardware environment, 
-		    a software based execution environment, 
-		    or some combination of these (<xref to="toe-as-apponee"/>). Those platforms may themselves run within other
-		    environments, such as virtual machines or operating systems, that completely abstract away the underlying hardware
-		    from the application. The TOE is not accountable for security functionality that is implemented by 
-		    platform layers that are abstracted away.
-		Some evaluation activities are specific to the particular platform
+	    a software based execution environment, or some combination of these (<xref to="toe-as-apponee"/>). 
+		Those platforms may themselves run within other environments, such as virtual machines or operating 
+		systems, that completely abstract away the underlying hardware from the application. The TOE is not 
+		accountable for security functionality that is implemented by platform layers that are abstracted 
+		away. Some evaluation activities are specific to the particular platform
 		on which the application runs, in order to provide precision and
 		repeatability. The only platforms currently recognized by the AppPP are those specified in SFR Evaluation Activities.
-		    To test on a platform for which there are no EAs, a Vendor should contact NIAP with recommended EAs.
-		    NIAP will determine if the proposed platform is appropriate for the PP and accept, reject,
-		    or develop EAs as necessary in coordination with the technical community.
-		</h:p><h:p>	
-		Applications include a diverse range of software such as office suites, thin
-		clients, PDF readers, downloadable
+		To test on a platform for which there are no EAs, a Vendor should contact NIAP with recommended EAs.
+		NIAP will determine if the proposed platform is appropriate for the PP and accept, reject,
+		or develop EAs as necessary in coordination with the technical community.<h:p/>	
+		Applications include a diverse range of software such as office suites, thin clients, PDF readers, downloadable
 		smartphone apps, and apps running in a cloud container. The TOE includes 
 		any software in the application installation package, even those pieces that may 
 		extend or modify the functionality of the underlying platform, such as kernel drivers.  
-		Many platforms come bundled with applications
-		such as web browsers, email clients and media players and these too
-	should be considered subject to the requirements defined in this
-		document although the expectation of formal Common Criteria evaluation
+		Many platforms come bundled with applications such as web browsers, email clients and media players and these too
+		should be considered subject to the requirements defined in this document although the expectation of formal Common Criteria evaluation
 		depends upon the national scheme.  BIOS and other firmware, the operating system kernel,
-		and other systems software (and drivers) provided as part of the
-		platform are outside the scope of this document.  
-		<figure	entity="images/toe.png" 
-title="TOE as an Application and Kernel Module Running on an Operating System" 
-id="toe-as-apponos"
-/>
-		<figure entity="images/toeruntime.png" 
-title="TOE as an Application Running in an Execution Environment Plus Native Code"
-		id="toe-as-apponee"
-		/>
-
-	      </h:p>
-	  </sec:TOE_Boundary>
+		and other systems software (and drivers) provided as part of the platform are outside the scope
+		of this document.  
+		<figure	entity="images/toe.png" title="TOE as an Application and Kernel Module Running on an Operating System" id="toe-as-apponos"/>
+		<figure entity="images/toeruntime.png" title="TOE as an Application Running in an Execution Environment Plus Native Code" id="toe-as-apponee"/>
+	</sec:TOE_Boundary>
+	
+	</section>  <!-- 1.3 Compliant Targets of Evaluation -->
+	
+	<!-- 1.4 Use Cases -->
+    <sec:Use_Cases>
+		Requirements in this Protection Profile are designed to
+		address the security problem in the following use cases. These use cases are intentionally
+		very broad, as many specific use cases exist for application software. Many applications may
+		be used in combinations of these broad use cases, and evaluation against PP-Modules
+		of this PP, when available, may be most appropriate for some application types. 
+		<usecases>
+			<usecase title="Content Creation" id="contentcreation">
+				<description>The application allows a user to create content, saving it to either local or
+					remote storage.  Example content includes text documents, presentations, and images.
+				</description>
+			</usecase>
+			<usecase title="Content Consumption" id="contentconsumption">
+				<description>The application allows a user to consume content, retrieving it from either
+					local or remote storage.  Example content includes web pages and video.</description>
+			</usecase>
+			<usecase title="Communication" id="interactivecomms">
+				<description>The application allows for communication interactively or
+					non-interactively with other users or applications over a communications channel.
+					Example communications include instant messages, email, and voice.
+				</description>
+			</usecase>
+		</usecases>
+	</sec:Use_Cases>
+	
+	<!-- 1.5 Supported Platforms -->
+	<section title="Supported Platforms" id="sec-platforms">
+	    <choice prefix="Platforms:" >
+			This PP supports the following application platforms:
+			<selectables linebreak="yes">
+				<selectable id="android">Android-based Platform</selectable>
+				<selectable id="windows">Microsoft Windows Platform</selectable>
+				<selectable id="ios">Apple iOS Platform</selectable>
+				<selectable id="linux">Linux-based Platform</selectable>
+				<selectable id="Solaris">Oracle Solaris Platform</selectable>
+				<selectable id="mac">Apple macOS Platform</selectable>
+			</selectables> 
+		</choice>
 	</section>
-    <sec:Use_Cases>Requirements in this Protection Profile are designed to
-      address the security problem in the following use cases. These use cases are intentionally
-      very broad, as many specific use cases exist for application software. Many applications may
-      be used in combinations of these broad use cases, and evaluation against PP-Modules
-      of this PP, when available, may be most appropriate for some application types. <usecases>
-        <usecase title="Content Creation" id="contentcreation">
-          <description>The application allows a user to create content, saving it to either local or
-            remote storage.  Example content includes text documents, presentations, and images.
-			</description>
-        </usecase>
-        <usecase title="Content Consumption" id="contentconsumption">
-          <description>The application allows a user to consume content, retrieving it from either
-            local or remote storage.  Example content includes web pages and video.</description>
-        </usecase>
-        <usecase title="Communication" id="interactivecomms">
-          <description>The application allows for communication interactively or
-            non-interactively with other users or applications over a communications channel.
-			      Example communications include instant messages, email, and voice.
-          </description>
-        </usecase>
-      </usecases></sec:Use_Cases>
-	  <section title="Supported Platforms" id="sec-platforms">
-		    <choice prefix="Platforms:" >This PP supports the following application platforms:
-			  <selectables linebreak="yes">
-	<selectable id="android">Android-based Platform</selectable>
-     <selectable id="windows">Microsoft Windows Platform</selectable>
-     <selectable id="ios">Apple iOS Platform</selectable>
-     <selectable id="linux">Linux-based Platform</selectable>
-     <selectable id="Solaris">Oracle Solaris Platform</selectable>
-     <selectable id="mac">Apple macOS Platform</selectable>
-			  </selectables> </choice>
-		  </section>
+	
   </sec:Introduction>
-  <sec:Conformance_Claims  boilerplate="no">
-    <cclaims>
-      <cclaim name="Conformance Statement">
-        <description>An ST must claim exact conformance to this PP, as defined in the CC and CEM addenda for Exact Conformance, 
-		 Selection-Based SFRs, and Optional SFRs (dated May 2017).</description>
-      </cclaim>
-      <cclaim name="CC Conformance Claims">
-        <description>This PP is conformant to Parts 2 (extended) and 3 (extended) of Common Criteria Version 3.1, Revision 5.</description>
-      </cclaim>
-      <cclaim name="PP Claim">
-        <description>This PP does not claim conformance to any other Protection Profile.
-	       <h:br/><h:br/>
-	       The following PPs and PP-Modules are allowed to be specified in a PP-Configuration with this PP. 
-		 <h:br/>
-		<h:div class="indent">
-		        <h:li>PP-Module for File Encryption, Version 1.0</h:li>
-		        <h:li>PP-Module for File Encryption Enterprise Management, Version 1.0</h:li>
-		</h:div></description>
-      </cclaim>
-      <cclaim name="Package Claim">
-        <description>This PP is TLS Package Version 1.1 Conformant.</description>
-      </cclaim>
-    </cclaims>
-  </sec:Conformance_Claims>
+  
+	<!-- 2.0 Conformance Claims -->
+	<sec:Conformance_Claims  boilerplate="no">
+		<cclaims>
+			<cclaim name="Conformance Statement">
+				<description>An ST must claim exact conformance to this PP, as defined in the CC and CEM addenda for Exact Conformance, 
+					Selection-Based SFRs, and Optional SFRs (dated May 2017).</description>
+			</cclaim>
+			<cclaim name="CC Conformance Claims">
+				<description>This PP is conformant to Parts 2 (extended) and 3 (extended) of Common Criteria Version 3.1, Revision 5.</description>
+			</cclaim>
+			<cclaim name="PP Claim">
+				<description>This PP does not claim conformance to any other Protection Profile.<h:p/>
+					The following PPs and PP-Modules are allowed to be specified in a PP-Configuration with this PP. 
+					<h:br/>
+					<h:div class="indent">
+						<h:li>PP-Module for File Encryption, Version 1.0</h:li>
+						<h:li>PP-Module for File Encryption Enterprise Management, Version 1.0</h:li>
+					</h:div>
+				</description>
+			</cclaim>
+			<cclaim name="Package Claim">
+				<description>This PP is TLS Package Version 1.1 Conformant.</description>
+			</cclaim>
+		</cclaims>
+	</sec:Conformance_Claims>
   
   <!--   <cclaims> -->
   <!--     <cclaim id="Conformance Statement"> -->
@@ -364,104 +372,113 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
   <!--     </cclaim> -->
   <!--   </cclaims> -->
   <!-- </chapter> -->
-  <sec:Security_Problem_Description>The security problem is described in terms
-    of the threats that the TOE is expected to address, assumptions about the
-    operational environment, and any organizational security policies that the TOE
-    is expected to enforce.
+  
+	<!-- 3.0 Security Problem Description -->
+	<sec:Security_Problem_Description>
+		The security problem is described in terms
+		of the threats that the TOE is expected to address, assumptions about the
+		operational environment, and any organizational security policies that the TOE
+		is expected to enforce.
+		
+	<!-- 3.1 Threats -->	
     <sec:Threats>
-      <threats>
-        <threat name="T.NETWORK_ATTACK">
-          <description>An attacker is positioned on a communications channel or elsewhere on the
-            network infrastructure. Attackers may engage in communications with the application
-            software or alter communications between the application software and other endpoints in
-            order to compromise it.</description>
-          <objective-refer ref="O.PROTECTED_COMMS">
-            <rationale>The threat T.NETWORK_ATTACK is countered by O.PROTECTED_COMMS as this
-              provides for integrity of transmitted data.</rationale>
-          </objective-refer>
-          <objective-refer ref="O.INTEGRITY">
-            <rationale>The threat T.NETWORK_ATTACK is countered by O.INTEGRITY as this provides
-              for integrity of software that is installed onto the system from the
-              network.</rationale>
-          </objective-refer>
-          <objective-refer ref="O.MANAGEMENT">
-            <rationale>The threat T.NETWORK_ATTACK is countered by O.MANAGEMENT as this
-              provides for the ability to configure the application to defend against network attack.</rationale>
-          </objective-refer>
-        </threat>
-        <threat name="T.NETWORK_EAVESDROP">
-          <description>An attacker is positioned on a communications channel or elsewhere on the
-            network infrastructure. Attackers may monitor and gain access to data exchanged between
-            the application and other endpoints.</description>
-          <objective-refer ref="O.PROTECTED_COMMS">
-            <rationale>The threat T.NETWORK_EAVESDROP is countered by O.PROTECTED_COMMS as this
-              provides for confidentiality of transmitted data.</rationale>
-          </objective-refer>
-          <objective-refer ref="O.QUALITY">
-            <rationale>The objective O.QUALITY ensures use of mechanisms that provide 
-              protection against network-based attack.</rationale>
-          </objective-refer>
-          <objective-refer ref="O.MANAGEMENT">
-            <rationale>The threat T.NETWORK_EAVESDROP is countered by O.MANAGEMENT as this
-              provides for the ability to configure the application to protect the
-              confidentiality of its transmitted data.</rationale>
-          </objective-refer>
-        </threat>
-        <threat name="T.LOCAL_ATTACK">
-          <description>An attacker can act through unprivileged software on the same computing
-            platform on which the application executes. Attackers may provide maliciously formatted
-            input to the application in the form of files or other local
-            communications.</description>
-          <objective-refer ref="O.QUALITY">
-			<rationale>The objective O.QUALITY protects against the use of
-			mechanisms that weaken the TOE with regard to
-			attack by other software on the platform.</rationale>
-          </objective-refer>
-        </threat>
-        <threat name="T.PHYSICAL_ACCESS">
-          <description>An attacker may try to access sensitive data at rest.</description>
-          <objective-refer ref="O.PROTECTED_STORAGE">
-            <rationale>The objective O.PROTECTED_STORAGE protects against unauthorized attempts to access
-              physical storage used by the TOE.</rationale>
-          </objective-refer>
-        </threat>
-      </threats>
+		<threats>
+			<threat name="T.NETWORK_ATTACK">
+				<description>An attacker is positioned on a communications channel or elsewhere on the
+					network infrastructure. Attackers may engage in communications with the application
+					software or alter communications between the application software and other endpoints in
+					order to compromise it.</description>
+				<objective-refer ref="O.PROTECTED_COMMS">
+					<rationale>The threat T.NETWORK_ATTACK is countered by O.PROTECTED_COMMS as this
+						provides for integrity of transmitted data.</rationale>
+				</objective-refer>
+				<objective-refer ref="O.INTEGRITY">
+					<rationale>The threat T.NETWORK_ATTACK is countered by O.INTEGRITY as this provides
+						for integrity of software that is installed onto the system from the
+						network.</rationale>
+				</objective-refer>
+				<objective-refer ref="O.MANAGEMENT">
+					<rationale>The threat T.NETWORK_ATTACK is countered by O.MANAGEMENT as this
+						provides for the ability to configure the application to defend against network attack.</rationale>
+				</objective-refer>
+			</threat>
+			<threat name="T.NETWORK_EAVESDROP">
+				<description>An attacker is positioned on a communications channel or elsewhere on the
+					network infrastructure. Attackers may monitor and gain access to data exchanged between
+					the application and other endpoints.</description>
+				<objective-refer ref="O.PROTECTED_COMMS">
+					<rationale>The threat T.NETWORK_EAVESDROP is countered by O.PROTECTED_COMMS as this
+					provides for confidentiality of transmitted data.</rationale>
+				</objective-refer>
+				<objective-refer ref="O.QUALITY">
+					<rationale>The objective O.QUALITY ensures use of mechanisms that provide 
+						protection against network-based attack.</rationale>
+				</objective-refer>
+				<objective-refer ref="O.MANAGEMENT">
+					<rationale>The threat T.NETWORK_EAVESDROP is countered by O.MANAGEMENT as this
+						provides for the ability to configure the application to protect the
+						confidentiality of its transmitted data.</rationale>
+				</objective-refer>
+			</threat>
+			<threat name="T.LOCAL_ATTACK">
+				<description>An attacker can act through unprivileged software on the same computing
+					platform on which the application executes. Attackers may provide maliciously formatted
+					input to the application in the form of files or other local
+					communications.</description>
+				<objective-refer ref="O.QUALITY">
+					<rationale>The objective O.QUALITY protects against the use of
+						mechanisms that weaken the TOE with regard to
+						attack by other software on the platform.</rationale>
+				</objective-refer>
+			</threat>
+			<threat name="T.PHYSICAL_ACCESS">
+				<description>An attacker may try to access sensitive data at rest.</description>
+				<objective-refer ref="O.PROTECTED_STORAGE">
+					<rationale>The objective O.PROTECTED_STORAGE protects against unauthorized attempts to access
+						physical storage used by the TOE.</rationale>
+				</objective-refer>
+			</threat>
+		</threats>
     </sec:Threats>
+	
+	<!-- 3.2 Assumptions -->
     <sec:Assumptions>
-      <assumptions>
-        <assumption name="A.PLATFORM">
-          <description>The TOE relies upon a trustworthy computing platform with a reliable time clock for
-            its execution. This includes the underlying platform and whatever runtime environment
-            it provides to the TOE.</description>
-          <objective-refer ref="OE.PLATFORM">
-            <rationale>The operational environment objective OE.PLATFORM is realized through
-			  A.PLATFORM.</rationale>
-          </objective-refer>
-        </assumption>
-        <assumption name="A.PROPER_USER">
-          <description>
-	    The user of the application software is not willfully negligent or hostile,
-            and uses the software in compliance with the applied enterprise security policy.
-	  </description>
-          <objective-refer ref="OE.PROPER_USER">
-            <rationale>The operational environment objective OE.PROPER_USER 
-			is realized through A.PROPER_USER.</rationale>
-          </objective-refer>
-        </assumption>
-        <assumption name="A.PROPER_ADMIN">
-          <description>The administrator of the application software is not careless, willfully
-            negligent or hostile, and administers the software in compliance with the applied
-            enterprise security policy.</description>
-          <objective-refer ref="OE.PROPER_ADMIN">
-            <rationale>The operational environment objective OE.PROPER_ADMIN 
-			is realized through A.PROPER_ADMIN.</rationale>
-          </objective-refer>
-        </assumption>
-      </assumptions>
+		<assumptions>
+			<assumption name="A.PLATFORM">
+				<description>The TOE relies upon a trustworthy computing platform with a reliable time clock for
+					its execution. This includes the underlying platform and whatever runtime environment
+					it provides to the TOE.</description>
+				<objective-refer ref="OE.PLATFORM">
+					<rationale>The operational environment objective OE.PLATFORM is realized through
+						A.PLATFORM.</rationale>
+				</objective-refer>
+			</assumption>
+			<assumption name="A.PROPER_USER">
+				<description>
+					The user of the application software is not willfully negligent or hostile,
+					and uses the software in compliance with the applied enterprise security policy.
+				</description>
+				<objective-refer ref="OE.PROPER_USER">
+					<rationale>The operational environment objective OE.PROPER_USER 
+						is realized through A.PROPER_USER.</rationale>
+				</objective-refer>
+			</assumption>
+			<assumption name="A.PROPER_ADMIN">
+				<description>The administrator of the application software is not careless, willfully
+					negligent or hostile, and administers the software in compliance with the applied
+					enterprise security policy.</description>
+				<objective-refer ref="OE.PROPER_ADMIN">
+					<rationale>The operational environment objective OE.PROPER_ADMIN 
+						is realized through A.PROPER_ADMIN.</rationale>
+				</objective-refer>
+			</assumption>
+		</assumptions>
     </sec:Assumptions>
+	
+	<!-- 3.3 Organizational Security Policies -->
     <sec:Organizational_Security_Policies>
   
-     <OSPs/>
+		<OSPs/>
    <!--     <OSP id="P.ENTERPRISE">
           <description>The configuration of the application software must be capable of adhering to
             the enterprise security policy.</description>
@@ -473,30 +490,35 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
         </OSP>
       </OSPs> -->
     </sec:Organizational_Security_Policies>
-  </sec:Security_Problem_Description>
-  <sec:Security_Objectives>
-    <sec:Security_Objectives_for_the_TOE>
-      <SOs>
-        <SO name="O.INTEGRITY">
-		  <description>Conformant TOEs ensure the integrity
-		  of their installation and update packages, and also leverage
-		  execution environment-based mitigations. Software is seldom, if ever,
-		  shipped without errors. The ability to deploy patches and updates
-		  to fielded software with integrity is critical to enterprise network
-		  security. Processor manufacturers, compiler developers, execution
-		  environment vendors, and operating system vendors have developed
-		  execution environment-based mitigations that increase the cost to
-		  attackers by adding complexity to the task of compromising systems.
-		  Application software can often take advantage of these mechanisms by
-		  using APIs provided by the runtime environment or by
-		  enabling the mechanism through compiler or linker
-		  options.</description>
-          <addressed-by>FDP_DEC_EXT.1, FMT_CFG_EXT.1, FPT_AEX_EXT.1 FPT_TUD_EXT.1 </addressed-by>
-          <rationale>The PP includes FDP_DEC_EXT.1 to limit access to platform hardware resources, which limits the methods by which an attacker can attempt to compromise the integrity of the TOE.
-            <h:br/><h:br/>
-            The PP includes FMT_CFG_EXT.1 for the TSP to limit unauthorized access to itself by preventing the use of default authentication credentials and by ensuring that the TOE uses appropriately restrictive platform permissions on its binaries and data
-            <h:br/><h:br/>
-            The PP includes FPT_AEX_EXT.1 to add complexity to the task of compromising systems by ensuring that application is compatible with security features provided by the platform vendor and that the application implements platform-provided anti-exploitations such as ASLR and stack overflow protection.
+	
+	</sec:Security_Problem_Description>
+	
+	<!-- 4.0 Security Objectives -->
+	<sec:Security_Objectives>
+
+	<!-- 4.1 Security Objectives for the TOE -->
+	<sec:Security_Objectives_for_the_TOE>
+		<SOs>
+			<SO name="O.INTEGRITY">
+				<description>Conformant TOEs ensure the integrity
+					of their installation and update packages, and also leverage
+					execution environment-based mitigations. Software is seldom, if ever,
+					shipped without errors. The ability to deploy patches and updates
+					to fielded software with integrity is critical to enterprise network
+					security. Processor manufacturers, compiler developers, execution
+					environment vendors, and operating system vendors have developed
+					execution environment-based mitigations that increase the cost to
+					attackers by adding complexity to the task of compromising systems.
+					Application software can often take advantage of these mechanisms by
+					using APIs provided by the runtime environment or by
+					enabling the mechanism through compiler or linker
+					options.</description>
+				<addressed-by>FDP_DEC_EXT.1, FMT_CFG_EXT.1, FPT_AEX_EXT.1 FPT_TUD_EXT.1 </addressed-by>
+				<rationale>The PP includes FDP_DEC_EXT.1 to limit access to platform hardware resources, which limits the methods by which an attacker can attempt to compromise the integrity of the TOE.
+				<h:p/>
+				The PP includes FMT_CFG_EXT.1 for the TSP to limit unauthorized access to itself by preventing the use of default authentication credentials and by ensuring that the TOE uses appropriately restrictive platform permissions on its binaries and data
+				<h:p/>
+				The PP includes FPT_AEX_EXT.1 to add complexity to the task of compromising systems by ensuring that application is compatible with security features provided by the platform vendor and that the application implements platform-provided anti-exploitations such as ASLR and stack overflow protection.
             <h:br/><h:br/>
             The PP includes FPT_TUD_EXT.1 to ensure that the TOE can be patched and that any updates to the TOE have appropriate integrity protection.</rationale>
         </SO>
@@ -624,36 +646,44 @@ title="TOE as an Application Running in an Execution Environment Plus Native Cod
         </SO>
       </SOs>
     </sec:Security_Objectives_for_the_TOE>
+	
+	<!-- 4.2 Security Objctives for the Operational Environment -->
     <sec:Security_Objectives_for_the_Operational_Environment>
-      The following security objectives for the operational
-      environment assist the TOE in correctly providing its security
-      functionality. These track with the assumptions about the environment. <SOEs>
-        <SOE name="OE.PLATFORM">
-          <description>The TOE relies upon a trustworthy computing platform for
-            its execution. This includes the underlying operating system and any discrete execution 
-            environment provided to the TOE.</description>
-        </SOE>
-        <SOE name="OE.PROPER_USER">
-          <description>The user of the application software is not willfully negligent or hostile,
-            and uses the software within compliance of the applied enterprise security
-            policy.</description>
-        </SOE>
-        <SOE name="OE.PROPER_ADMIN">
-          <description>The administrator of the application software is not careless, willfully
-            negligent or hostile, and administers the software within compliance of the applied
-            enterprise security policy.</description>
-        </SOE>
-      </SOEs>
+		The following security objectives for the operational
+		environment assist the TOE in correctly providing its security
+		functionality. These track with the assumptions about the environment. 
+		<SOEs>
+			<SOE name="OE.PLATFORM">
+				<description>The TOE relies upon a trustworthy computing platform for
+					its execution. This includes the underlying operating system and any discrete execution 
+					environment provided to the TOE.</description>
+			</SOE>
+			<SOE name="OE.PROPER_USER">
+				<description>The user of the application software is not willfully negligent or hostile,
+					and uses the software within compliance of the applied enterprise security
+					policy.</description>
+			</SOE>
+			<SOE name="OE.PROPER_ADMIN">
+				<description>The administrator of the application software is not careless, willfully
+					negligent or hostile, and administers the software within compliance of the applied
+					enterprise security policy.</description>
+			</SOE>
+		</SOEs>
     </sec:Security_Objectives_for_the_Operational_Environment>
+	
+	<!-- 4.3 Security Objectives Rationale -->
     <sec:Security_Objectives_Rationale/>
-  </sec:Security_Objectives>
+	
+	</sec:Security_Objectives>
   
-  
-<sec:req title="Security Requirements">
-  
+	<!-- 5.0 Security Requirements -->
+	<sec:req title="Security Requirements">
+
+	<!-- 5.1 Security Functional Requriements -->
 	<sec:SFRs title="Security Functional Requirements">
 	
-		<section title="Cryptographic Support (FCS)" id="fcs">
+	<!-- 5.1.1 Cryptographic Support (FCS) -->
+	<section title="Cryptographic Support (FCS)" id="fcs">
 	  
 		<!-- FCS_RBG_EXT.1  -->
 		<!-- TD416 incorporated -->
@@ -2084,72 +2114,150 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           </f-element>
         </f-component>
         
-        <f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol" status="sel-based">
-          <depends on1="sel_all_https" on2="sel_sen_https"/>
-          <f-element id="fel-https-wath">
-            <title>
-              The application shall implement the HTTPS protocol that complies with RFC 2818.
-            </title>
-            <aactivity level="element">
-              <Tests>The evaluator shall attempt to establish an HTTPS connection with a webserver, 
-              observe the traffic with a packet analyzer, and verify that the connection succeeds 
-              and that the traffic is identified as 
-              TLS or HTTPS.
-	      </Tests>
-            </aactivity>
-          </f-element>
-          <f-element id="fel-https-how">
-            <title>The application shall implement HTTPS using 
-              TLS as defined in the TLS package.
-            </title>
-            <aactivity level="element">
-              <Tests>Other tests are performed in conjunction with the TLS package.
-	      </Tests>
-            </aactivity>
-          </f-element>
-          <f-element id="fel-https-who">
-            <title> The application shall 
-              <selectables>
-                <selectable>
-                  not establish the application-initiated connection
-                </selectable>
-                <selectable>
-                  notify the user and not establish the user-initiated connection
-                </selectable>
-                <selectable>
-                  notify the user and request authorization to establish the user-initiated connection
-                </selectable>
-              </selectables>
-              if the peer certificate is deemed invalid.
-            </title>    
-            <note role="application">
-              Validity is determined by the certificate path, the expiration date, and the 
-              revocation status in accordance with RFC 5280. 
-            </note>
-            <aactivity level="element">
-              <Tests>Certificate validity shall be tested in accordance with testing performed for 
-              FIA_X509_EXT.1, and the evaluator shall perform the following test:
-              <testlist>
-                <test>
-                  The evaluator shall demonstrate that using a certificate without a valid 
-                  certification path results in the selected action in the SFR. If "notify the user" is selected 
-                  in the SFR, then the evaluator shall also determine that the user is notified of the certificate validation 
-                  failure. Using the administrative guidance, the evaluator shall then load a certificate or 
-                  certificates to the Trust Anchor Database needed to validate the certificate to be 
-                  used in the function, and demonstrate that the function succeeds. The evaluator 
-                  then shall delete one of the certificates, and show that again, using a certificate without a valid 
-                  certification path results in the selected action in the SFR, and if "notify the user" was selected 
-                  in the SFR, the user is notified of the validation failure.
-                </test>
-              </testlist>
-	      </Tests>
-            </aactivity>
-          </f-element>
+		<!-- FCS_HTTPS_EXT.1/Client -->
+		<!-- Added by TD473 -->
+        <f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol" iteration="Client" status="sel-based">
+			<depends on1="sel_all_https" on2="sel_sen_https"/>
+			<f-element id="fel-https-wath-cl">
+				<title>
+					The application shall implement the HTTPS protocol that complies with RFC 2818.
+				</title>
+				<aactivity level="element">
+					<TSS>
+						The evaluator shall examine the TSS and determine that enough detail is provided to
+						explain how the implementation complies with RFC 2818.<h:p/>
+					</TSS>
+					<Guidance>
+						None.<h:p/>
+					</Guidance>
+					<Tests>
+						The evaluator shall attempt to establish an HTTPS connection with a webserver, 
+						observe the traffic with a packet analyzer, and verify that the connection succeeds 
+						and that the traffic is identified as TLS or HTTPS.
+					</Tests>
+				</aactivity>
+			</f-element>
+			<f-element id="fel-https-how-cl">
+				<title>The application shall implement HTTPS using TLS as defined in the TLS package.</title>
+				<aactivity level="element">
+					<TSS>None<h:p/></TSS>
+					<Guidance>None.<h:p/></Guidance>
+					<Tests>Other tests are performed in conjunction with the TLS package.</Tests>
+				</aactivity>
+			</f-element>
+			<f-element id="fel-https-who-cl">
+				<title> The application shall 
+					<selectables>
+						<selectable>not establish the application-initiated connection</selectable>
+						<selectable>notify the user and not establish the user-initiated connection</selectable>
+						<selectable>notify the user and request authorization to establish the user-initiated connection</selectable>
+					</selectables>
+					if the peer certificate is deemed invalid.
+				</title>    
+				<note role="application">
+					Validity is determined by the certificate path, the expiration date, and the 
+					revocation status in accordance with RFC 5280. 
+				</note>
+				<aactivity level="element">
+					<TSS>None<h:p/></TSS>
+					<Guidance>None.<h:p/></Guidance>
+					<Tests>
+						Certificate validity shall be tested in accordance with testing performed for 
+						FIA_X509_EXT.1, and the evaluator shall perform the following test:
+						<testlist>
+							<test>
+							The evaluator shall demonstrate that using a certificate without a valid 
+							certification path results in the selected action in the SFR. If "notify the user" 
+							isselected in the SFR, then the evaluator shall also determine that the user
+							isnotified of the certificate validation failure. Using the administrative
+							guidance, the evaluator shall then load a certificate or certificates to the 
+							Trust Anchor Database needed to validate the certificate to be used in the
+							function, and demonstrate that the function succeeds. The evaluator then shall
+							delete one of the certificates, and show that again, using a certificate
+							without a valid certification path results in the selected action in the SFR,
+							and if "notify the user" was selected in the SFR, the user is notified of the 
+							validation failure.
+							</test>
+						</testlist>
+					</Tests>
+				</aactivity>
+			</f-element>
         </f-component>
-      </section>
 
-      <section title="User Data Protection (FDP)" id="fdp">
-	  
+		<!-- FCS_HTTPS_EXT.1/Server -->
+		<!-- Added by TD473 -->
+        <f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol" iteration="Server" status="sel-based">
+			<depends on1="sel_all_https" on2="sel_sen_https"/>
+			<f-element id="fel-https-wath-sv">
+				<title>
+					The application shall implement the HTTPS protocol that complies with RFC 2818.
+				</title>
+				<aactivity level="element">
+					<TSS>
+						The evaluator shall examine the TSS and determine that enough detail is provided to
+						explain how the implementation complies with RFC 2818.<h:p/>
+					</TSS>
+					<Guidance>
+						None.<h:p/>
+					</Guidance>
+					<Tests>
+						The evaluator shall attempt to establish an HTTPS connection to the TOE using a 
+						client, observe the traffic with a packet analyzer, and verify that the connection
+						succeeds and that the traffic is identified as TLS or HTTPS.
+					</Tests>
+				</aactivity>
+			</f-element>
+			<f-element id="fel-https-how-sv">
+				<title>The application shall implement HTTPS using TLS as defined in the TLS package.</title>
+				<aactivity level="element">
+					<TSS>None<h:p/></TSS>
+					<Guidance>None.<h:p/></Guidance>
+					<Tests>Other tests are performed in conjunction with the TLS package.</Tests>
+				</aactivity>
+			</f-element>
+        </f-component>
+
+		<!-- FCS_HTTPS_EXT.2 HTTPS Protocol with Mutual Authentication -->
+		<!-- Added by TD473 -->
+        <f-component cc-id="fcs_https_ext.2" name="HTTPS Protocol with Mutual Authentication" status="sel-based">
+			<depends on1="sel_all_https" on2="sel_sen_https"/>
+			<f-element id="fel-https-wath-m">
+				<title>
+					The application shall 
+					<selectables>
+						<selectable>not establish the connection</selectable>
+						<selectable>establish or not establish the connection based on an administrative or user setting</selectable>
+					</selectables>if the peer certificate is deemed invalid.
+				</title>
+				<note role="application">
+					 Validity is determined by the certificate path, the expiration date, and the 
+					 revocation status in accordance with RFC 5280.
+				</note>
+				<aactivity level="element">
+					<TSS>None.<h:p/></TSS>
+					<Guidance>None.<h:p/></Guidance>
+					<Tests>
+						Certificate validity shall be tested in accordance with testing performed for 
+						FIA_X509_EXT.1, and the evaluator shall perform the following test:
+						<testlist>
+							<test> The evaluator shall demonstrate that using a certificate without a 
+							valid certification path results in the selected action in the SFR. Using the 
+							administrative guidance, the evaluator shall then load a certificate or 
+							certificates to the Trust Anchor Database needed to validate the certificate 
+							to be used in the function, and demonstrate that the function succeeds. The
+							evaluator then shall delete one of the certificates, and show that again,
+							using a certificate without a valid certification path results in the selected 
+							action in the SFR.</test>
+						</testlist>
+					</Tests>
+				</aactivity>
+			</f-element>
+        </f-component>
+		
+    </section>    <!-- 5.1.1 Cryptographic Support (FCS) -->
+
+	<!-- 5.1.2 User Data Protection (FDP) -->
+    <section title="User Data Protection (FDP)" id="fdp">
 	  
 		<!-- FDR_DEC_EXT.1 -->
 		<!-- Incorporates TD434 -->
@@ -3571,130 +3679,147 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
       </section>
 	    
 	    
-      <section title="Trusted Path/Channel (FTP)" id="ftp">
+    <section title="Trusted Path/Channel (FTP)" id="ftp">
+	  
+		<!-- FTP_DIT_EXT.1 Protection of Data in Transit -->
+		<!-- Modified by TD473 -->
         <f-component cc-id="ftp_dit_ext.1" name="Protection of Data in Transit">
-          <f-element id="fel-transmit">
-            <title>The application shall 
-	    <selectables linebreak="yes">
-        <selectable>not transmit any 
-          <selectables>
-            <selectable>data</selectable>
-            <selectable>sensitive data</selectable>
-          </selectables>
-        </selectable>
-      <selectable>encrypt all transmitted 
-		    <selectables>
-			     <selectable>sensitive data</selectable>
-			     <selectable>data</selectable>
-	      </selectables> with
-          <selectables>
-            <selectable id="sel_all_https">HTTPS in accordance with FCS_HTTPS_EXT.1</selectable>
-            <selectable id="sel_all_tlsc">TLS as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><h:i>TLS Package</h:i></h:a></selectable>
-            <selectable id="sel_all_dtls">DTLS as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><h:i>TLS Package</h:i></h:a></selectable>
-            <selectable>SSH as conforming to the Extended Package for <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389"><h:i>Secure Shell</h:i></h:a></selectable>
-            <selectable>IPsec as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=419&amp;id=419"><h:i>PP-Module for VPN Client</h:i></h:a></selectable>
-          </selectables>
-        </selectable>
- 
-	 <selectable>invoke platform-provided functionality to encrypt all transmitted sensitive data with
-      <selectables>
-        <selectable>HTTPS</selectable>
-        <selectable>TLS</selectable>
-        <selectable>DTLS</selectable>
-        <selectable>SSH</selectable>
-      </selectables>
-    </selectable>	    
-	      
-    <selectable>invoke platform-provided functionality to encrypt all transmitted data with
-      <selectables>
-        <selectable>HTTPS</selectable>
-        <selectable>TLS</selectable>
-        <selectable>DTLS</selectable>
-        <selectable>SSH</selectable>
-      </selectables>
-    </selectable>	    
-		    
-	    </selectables>
-              between itself and another trusted IT product.
-	    </title>
-      <note role="application">
-	      <!--The X509 requirements are invoked based on the selections in FTP_DIT_EXT.1; if you select a protocol that uses certificates,
-	      then you must include the SFRs that address the certificates.   
-	      X509 SFRs shall be included if selections for HTTPS, TLS, or DTLS are included (FCS_HTTPS, FCS_TLSC, FCS_TLSS, FCS_DTLS).
-	       <h:br/> <h:br/>-->
-	      Encryption is not required for applications transmitting data that is not sensitive. 
-		  <h:br/>
-        <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>TLS</h:i> is selected, then evaluation of elements from either FCS_TLSC_EXT.1 or FCS_TLSS_EXT.1 is required.</h:p>
-	      <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>HTTPS</h:i> is selected, FCS_HTTPS_EXT.1 is required.</h:p> 
-        <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>DTLS</h:i> is selected, FCS_DTLS_EXT.1 is required.</h:p>
-        <h:p> If <h:i>encrypt all transmitted</h:i> is selected and <h:i>SSH</h:i> is selected, the TSF shall be validated against the <h:i>Extended Package for <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389">Secure Shell</h:a></h:i>.</h:p>
-        <h:p> If <h:i>encrypt all trasnmitted</h:i> is selected and <h:i>IPsec</h:i> is selected, the TSF must claim conformance to a <h:i>PP-Configuration that includes the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=419&amp;id=419">VPN Client PP-Module</h:a></h:i></h:p>
-        <h:p> If <h:i>encrypt all transmitted</h:i> is selected the corresponding FCS_COP.1 requirements will be included.</h:p>
-	    </note>  
-      <aactivity>
-        <TSS>For platform-provided functionality, the evaluator shall verify the TSS contains the calls to the platform that TOE is leveraging to invoke the functionality.
-	</TSS>
-        <Tests>The evaluator shall perform the following tests.
-        <testlist>
-          <test>
-            The evaluator shall exercise the application (attempting to transmit data; for example 
-            by connecting to remote systems or websites) while capturing packets from the 
-            application. The evaluator shall verify from the packet capture that the traffic is 
-            encrypted with HTTPS, TLS, DTLS, or SSH, or IPsec in accordance with the 
-            selection in the ST.
-          </test>
-          <test>
-            The evaluator shall exercise the application (attempting to transmit data; for example by 
-    	      connecting to remote systems or websites) while capturing packets from the application.
-    	      The evaluator shall review the packet capture and verify that no sensitive data is transmitted 
-    	      in the clear.
-	        </test>
-          <test>
-            The evaluator shall inspect the TSS to determine if user credentials are
-            transmitted. If credentials are transmitted the evaluator shall set the
-            credential to a known value. The evaluator shall capture packets from the application
-            while causing credentials to be transmitted as described in the TSS.
-            The evaluator shall perform a string search
-            of the captured network packets and verify that the plaintext credential previously
-            set by the evaluator is not found.
-          </test>
-        </testlist>
-        <h:div><depends ref="android"/>
-          If "not transmit any data" is selected, the evaluator shall ensure that the application's
-          AndroidManifest.xml file does not contain a uses-permission or uses-permission-sdk-23 tag
-          containing android:name="android.permission.INTERNET".
-          In this case,
-          it is not necessary to perform the above Tests 1, 2, or 3, as the platform will not allow the
-          application to perform any network communication.
-          <!-- TODO: The current wording here adds additional work when "encrypt all transmitted data"
-               is selected. It'd be preferable if we can instead simplify evaluation in that case, to encourage
-               app developers to select it, so this is commented out for now.
-               If "encrypt all transmitted data" is selected, the evaluator
-               shall ensure that the application's manifest declares usesCleartextTraffic="false". It is
-               still necessary to perform the above tests, as this manifest entry is only enforced on
-               a best effort basis by the platform. -->
-        </h:div>
-        <h:div><depends ref="ios"/>
-          If "encrypt all transmitted data" is selected, the evaluator shall ensure that the
-          application's Info.plist file does not contain the NSAllowsArbitraryLoads or
-          NSExceptionAllowsInsecureHTTPLoads keys, as these keys disable iOS's Application
-          Transport Security feature.
-          <!-- TODO: Check the strength of iOS's App Transport Security enforcement (if apps
-               can't easily bypass it, then we can skip performing Tests 1, 2, 3 on iOS when
-               App Transport Security isn't explicitly disabled (assuming use of iOS 9 or greater)). -->
-        </h:div>
-	</Tests>
-      </aactivity>
-          </f-element>
+			<f-element id="fel-transmit">
+				<title>The application shall 
+					<selectables linebreak="yes">
+						<selectable>not transmit any 
+							<selectables>
+								<selectable>data</selectable>
+								<selectable>sensitive data</selectable>
+							</selectables>
+						</selectable>
+						<selectable>encrypt all transmitted 
+							<selectables>
+								<selectable>sensitive data</selectable>
+								<selectable>data</selectable>
+							</selectables> with
+							<selectables>
+								<selectable id="sel_all_https">HTTPS in accordance with FCS_HTTPS_EXT.1</selectable>
+								<selectable id="sel_all_tlsc">TLS as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><h:i>TLS Package</h:i></h:a></selectable>
+								<selectable id="sel_all_dtls">DTLS as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><h:i>TLS Package</h:i></h:a></selectable>
+								<selectable>SSH as conforming to the Extended Package for <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389"><h:i>Secure Shell</h:i></h:a></selectable>
+								<selectable>IPsec as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=419&amp;id=419"><h:i>PP-Module for VPN Client</h:i></h:a></selectable>
+							</selectables>
+						</selectable>
+						<selectable>invoke platform-provided functionality to encrypt all transmitted sensitive data with
+							<selectables>
+								<selectable>HTTPS</selectable>
+								<selectable>TLS</selectable>
+								<selectable>DTLS</selectable>
+								<selectable>SSH</selectable>
+							</selectables>
+						</selectable>	    	      
+						<selectable>invoke platform-provided functionality to encrypt all transmitted data with
+							<selectables>
+								<selectable>HTTPS</selectable>
+								<selectable>TLS</selectable>
+								<selectable>DTLS</selectable>
+								<selectable>SSH</selectable>
+							</selectables>
+						</selectable>	    	    
+					</selectables> between itself and another trusted IT product.
+				</title>
+				<note role="application">
+					<!--The X509 requirements are invoked based on the selections in FTP_DIT_EXT.1; if you select a protocol that uses certificates,
+					then you must include the SFRs that address the certificates.   
+					X509 SFRs shall be included if selections for HTTPS, TLS, or DTLS are included (FCS_HTTPS, FCS_TLSC, FCS_TLSS, FCS_DTLS).
+					<h:br/> <h:br/>-->
+					Encryption is not required for applications transmitting data that is not sensitive.<h:p/>
+					If <h:i>encrypt all transmitted</h:i> is selected and <h:i>TLS</h:i> is selected, then 
+					evaluation of elements from either FCS_TLSC_EXT.1 or FCS_TLSS_EXT.1 is required.<h:p/>
+					If <h:i>encrypt all transmitted</h:i> is selected, <h:i>HTTPS</h:i> is selected, and the 
+					TOE acts as a client, FCS_HTTPS_EXT.1/Client is required. If <h:i>encrypt all 
+					transmitted</h:i> is selected, <h:i>HTTPS</h:i> is selected, and the 
+					TOE acts as a server, FCS_HTTPS_EXT.1/Server is required.  If the TOE acts as a server
+					and if mutual authentication is selected in the TLS Package, then FCS_HTTPS_EXT.2 is
+					also required.<h:p/> 
+					If <h:i>encrypt all transmitted</h:i> is selected and <h:i>DTLS</h:i> is selected, 
+					FCS_DTLS_EXT.1 is required.<h:p/>
+					If <h:i>encrypt all transmitted</h:i> is selected and <h:i>SSH</h:i> is selected, the 
+					TSF shall be validated against the <h:i>Extended Package for 
+					<h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389">
+					Secure Shell</h:a></h:i>.<h:p/>
+					If <h:i>encrypt all trasnmitted</h:i> is selected and <h:i>IPsec</h:i> is selected, the
+					TSF must claim conformance to a <h:i>PP-Configuration that includes the
+					<h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=419&amp;id=419">
+					VPN Client PP-Module</h:a></h:i><h:p/>
+					If <h:i>encrypt all transmitted</h:i> is selected the corresponding FCS_COP.1 
+					requirements will be included.<h:p/>
+				</note>  
+				<aactivity>
+					<TSS>
+						For platform-provided functionality, the evaluator shall verify the TSS contains 
+						the calls to the platform that TOE is leveraging to invoke the functionality.
+					</TSS>
+					<Tests>
+						The evaluator shall perform the following tests.
+						<testlist>
+							<test>
+								The evaluator shall exercise the application (attempting to transmit data; for example 
+								by connecting to remote systems or websites) while capturing packets from the 
+								application. The evaluator shall verify from the packet capture that the traffic is 
+								encrypted with HTTPS, TLS, DTLS, or SSH, or IPsec in accordance with the 
+								selection in the ST.
+							</test>
+							<test>
+								The evaluator shall exercise the application (attempting to transmit data; for example by 
+								connecting to remote systems or websites) while capturing packets from the application.
+								The evaluator shall review the packet capture and verify that no sensitive data is transmitted 
+								in the clear.
+							</test>
+							<test>
+								The evaluator shall inspect the TSS to determine if user credentials are
+								transmitted. If credentials are transmitted the evaluator shall set the
+								credential to a known value. The evaluator shall capture packets from the application
+								while causing credentials to be transmitted as described in the TSS.
+								The evaluator shall perform a string search
+								of the captured network packets and verify that the plaintext credential previously
+								set by the evaluator is not found.
+							</test>
+						</testlist>
+						<h:div><depends ref="android"/>
+							If "not transmit any data" is selected, the evaluator shall ensure that the application's
+							AndroidManifest.xml file does not contain a uses-permission or uses-permission-sdk-23 tag
+							containing android:name="android.permission.INTERNET". In this case,
+							it is not necessary to perform the above Tests 1, 2, or 3, as the platform will not allow the
+							application to perform any network communication.
+							<!-- TODO: The current wording here adds additional work when "encrypt all transmitted data"
+						   is selected. It'd be preferable if we can instead simplify evaluation in that case, to encourage
+						   app developers to select it, so this is commented out for now.
+						   If "encrypt all transmitted data" is selected, the evaluator
+						   shall ensure that the application's manifest declares usesCleartextTraffic="false". It is
+						   still necessary to perform the above tests, as this manifest entry is only enforced on
+						   a best effort basis by the platform. -->
+						</h:div>
+						<h:div><depends ref="ios"/>
+							If "encrypt all transmitted data" is selected, the evaluator shall ensure that the
+							application's Info.plist file does not contain the NSAllowsArbitraryLoads or
+							NSExceptionAllowsInsecureHTTPLoads keys, as these keys disable iOS's Application
+							Transport Security feature.
+							<!-- TODO: Check the strength of iOS's App Transport Security enforcement (if apps
+							can't easily bypass it, then we can skip performing Tests 1, 2, 3 on iOS when
+							App Transport Security isn't explicitly disabled (assuming use of iOS 9 or greater)). -->
+						</h:div>
+					</Tests>
+				</aactivity>
+			</f-element>
         </f-component>
-      </section>
-    </sec:SFRs>
+		
+    </section>   <!-- Trusted Path/Channel (FTP) -->
+
+    </sec:SFRs>  <!-- 5.1 Security Functional Requirements -->
 	  
 	  
-    <section title="Security Assurance Requirements" id="SARs">The Security Objectives for the TOE in
-      <xref to="req"/> were constructed to address threats identified in
-      <xref to="Threats"/>. The Security Functional Requirements (SFRs)
-      in <xref to="SFRs"/> are a formal
+	<!-- 5.2 Security Assurance Requirements -->
+    <section title="Security Assurance Requirements" id="SARs">
+	
+		The Security Objectives for the TOE in <xref to="req"/> were constructed to address threats identified in
+      <xref to="Threats"/>. The Security Functional Requirements (SFRs) in <xref to="SFRs"/> are a formal
       instantiation of the Security Objectives. The PP identifies the Security Assurance Requirements
       (SARs) to frame the
       extent to which the evaluator assesses the documentation applicable for the evaluation and
