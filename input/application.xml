@@ -78,9 +78,10 @@
 	TD0427:  Reliable Time Source 
 	TD0416:  Correction to FCS_RBG_EXT.1 Test Activity
 	
-	Also changed names of FCS SFRs with iterations as follows:
+	Also changed the names of FCS SFRs with iterations as follows:
 
 	FCS_CKM.1/1 (a.k.a FCS_CKM.1/ALGO) is renamed FCS_CKM.1/AK 
+	FCS_CKM.1/2 is renamed FCS_CKM.1/SK 
 	
    -->
   
@@ -589,7 +590,7 @@
 				<addressed-by>FCS_RBG_EXT.1</addressed-by><rationale>The PP includes FCS_RBG_EXT.1 to define whether random bit generation services are implemented by the TSF or the platform. Depending on how data at rest is protected, the TOE may rely on the use of a random bit generator to create keys that are subsequently used for data protection.</rationale>
 				<addressed-by>FCS_STO_EXT.1</addressed-by><rationale>The PP includes FCS_STO_EXT.1 to define the mechanism that the TSF uses or relies upon to protect stored credential data.</rationale>
 				<addressed-by>FDP_DAR_EXT.1</addressed-by><rationale>The PP includes FDP_DAR_EXT.1 to define the mechanism that the TSF uses or relies upon to protect sensitive data at rest.</rationale>
-				<addressed-by>FCS_CKM.1/2 (optional)</addressed-by><rationale>The PP includes FCS_CKM.1/2 to define the TOE’s capability to generate symmetric keys. These keys may subsequently be used to encrypt stored credential data based on the claims made in FCS_STO_EXT.1.</rationale>
+				<addressed-by>FCS_CKM.1/SK (optional)</addressed-by><rationale>The PP includes FCS_CKM.1/SK to define the TOE’s capability to generate symmetric keys. These keys may subsequently be used to encrypt stored credential data based on the claims made in FCS_STO_EXT.1.</rationale>
 				<addressed-by>FCS_CKM.1/3 (selection-based)</addressed-by><rationale>The PP includes FCS_CKM.1/3 to define the password-based key derivation function that may be used to encrypt stored credential data based on the claims made in FCS_STO_EXT.1.</rationale>
 				<addressed-by>FCS_COP.1/1 (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/1 to define the AES cryptographic algorithm that may be used to encrypt stored credential data based on the claims made in FCS_STO_EXT.1.</rationale>
 				<addressed-by>FCS_COP.1/2 (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/2 to define integrity mechanisms that may be used by the TOE as part of ensuring that data at rest is protected.</rationale>
@@ -1091,51 +1092,50 @@
 			</f-element>
         </f-component>
 
-        <f-component cc-id="fcs_ckm.1" id="fcom_sym_key_gen" iteration="2" name="Cryptographic Symmetric Key Generation" status="optional">
-          <f-element id="fel-sym-key-gen">
-            <title>The <h:b>application</h:b> shall generate <h:b>symmetric</h:b> cryptographic keys <h:b>using a Random Bit
-              Generator as specified in FCS_RBG_EXT.1</h:b>  and specified
-              cryptographic key sizes <selectables linebreak="yes">
-                <selectable>128 bit</selectable>
-                <selectable>256 bit</selectable>
-               </selectables>. </title>
-            <note role="application">Symmetric keys may be used to generate keys along the key
-              chain.</note>
-            <aactivity>
-              <!-- Revised <tss>The evaluator shall review the TSS to determine that it describes how the
-                functionality described by FCS_RBG_EXT.1 <cite linkend="bibAppPP"/> is invoked.<br/>
-                If the email client is relying on random from the host platform, the evaluator shall
-                verify the TSS includes the name/manufacturer of the external RBG. If different
-                external RBGs are used for different platforms, the TSS identifies each one for each
-                platform. <br/>If the email client is relying on random from the host platform, the
-                evaluator shall verify the TSS describes the function call and parameters used when
-                calling the external DRBG function. Also, the TSS includes a short description of
-                the vendor's assumption for the amount of entropy seeding the external DRBG. The
-                evaluator uses the description of the RBG functionality in FCS_RBG_EXT or
-                documentation available for the operational environment to determine that the key
-                size being requested is identical to the key size and mode to be used for the
-                encryption/decryption of the user data (<linkref linkend="FCS_COP.1(f)" />. </tss> -->
-              <TSS>
-		The evaluator shall review the 
-		TSS 
-		to determine that it describes how the functionality described by FCS_RBG_EXT.1 
-		is invoked.
-		<h:br/> 
-                If the application is relying on random bit generation from the
-                host platform, the evaluator shall verify the 
-		TSS includes the
-                name/manufacturer of the external RBG and describes the function call and parameters
-                used when calling the external DRBG function. If different external RBGs are used
-                for different platforms, the evaluator shall verify the TSS identifies each RBG for
-                each platform. Also, the evaluator shall verify the TSS includes a short description
-                of the vendor's assumption for the amount of entropy seeding the external DRBG. The
-                evaluator uses the description of the RBG functionality in FCS_RBG_EXT or
-                documentation available for the operational environment to determine that the key
-                size being requested is identical to the key size and mode to be used for the
-                encryption/decryption of the user data.
-	      </TSS>
-              </aactivity>
-          </f-element>
+		<!-- FCS_CKM.1/SK (formerly FCS_CKM.1/2) -->
+        <f-component cc-id="fcs_ckm.1" id="fcom_sym_key_gen" iteration="SK" name="Cryptographic Symmetric Key Generation" status="optional">
+			<f-element id="fel-sym-key-gen">
+				<title>
+					The <h:b>application</h:b> shall generate <h:b>symmetric</h:b> cryptographic keys <h:b>using a Random Bit
+					Generator as specified in FCS_RBG_EXT.1</h:b>  and specified
+					cryptographic key sizes <selectables linebreak="yes">
+						<selectable>128 bit</selectable>
+						<selectable>256 bit</selectable>
+					</selectables>. 
+				</title>
+				<note role="application">
+					Symmetric keys may be used to generate keys along the key chain.</note>
+				<aactivity>
+					<!-- Revised <tss>The evaluator shall review the TSS to determine that it describes how the
+					functionality described by FCS_RBG_EXT.1 <cite linkend="bibAppPP"/> is invoked.<br/>
+					If the email client is relying on random from the host platform, the evaluator shall
+					verify the TSS includes the name/manufacturer of the external RBG. If different
+					external RBGs are used for different platforms, the TSS identifies each one for each
+					platform. <br/>If the email client is relying on random from the host platform, the
+					evaluator shall verify the TSS describes the function call and parameters used when
+					calling the external DRBG function. Also, the TSS includes a short description of
+					the vendor's assumption for the amount of entropy seeding the external DRBG. The
+					evaluator uses the description of the RBG functionality in FCS_RBG_EXT or
+					documentation available for the operational environment to determine that the key
+					size being requested is identical to the key size and mode to be used for the
+					encryption/decryption of the user data (<linkref linkend="FCS_COP.1(f)" />. </tss> -->
+					<TSS>
+						The evaluator shall review the TSS to determine that it describes how the functionality described by
+						FCS_RBG_EXT.1 is invoked.<h:p/> 
+						If the application is relying on random bit generation from the
+						host platform, the evaluator shall verify the TSS includes the
+						name/manufacturer of the external RBG and describes the function call and parameters
+						used when calling the external DRBG function. If different external RBGs are used
+						for different platforms, the evaluator shall verify the TSS identifies each RBG for
+						each platform. Also, the evaluator shall verify the TSS includes a short description
+						of the vendor's assumption for the amount of entropy seeding the external DRBG. The
+						evaluator uses the description of the RBG functionality in FCS_RBG_EXT or
+						documentation available for the operational environment to determine that the key
+						size being requested is identical to the key size and mode to be used for the
+						encryption/decryption of the user data.<h:p/>
+					</TSS>
+				</aactivity>
+			</f-element>
         </f-component>
 
 	<f-component name="Password Conditioning" cc-id="fcs_ckm.1" id="fcom_pass" iteration="3" status="sel-based">
