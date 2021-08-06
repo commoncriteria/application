@@ -84,6 +84,7 @@
 	FCS_CKM.1/2 is renamed FCS_CKM.1/SK 
 	FCS_CKM.1/3 is renamed FCS_CKM.1/PBKDF 
 	FCS_COP.1/1 is renamed FCS_COP.1/SKC
+	FCS_COP.1/2 is renamed FCS_COP.1/Hash
 	
    -->
   
@@ -595,7 +596,7 @@
 				<addressed-by>FCS_CKM.1/SK (optional)</addressed-by><rationale>The PP includes FCS_CKM.1/SK to define the TOE’s capability to generate symmetric keys. These keys may subsequently be used to encrypt stored credential data based on the claims made in FCS_STO_EXT.1.</rationale>
 				<addressed-by>FCS_CKM.1/PBKDF (selection-based)</addressed-by><rationale>The PP includes FCS_CKM.1/PBKDF to define the password-based key derivation function that may be used to encrypt stored credential data based on the claims made in FCS_STO_EXT.1.</rationale>
 				<addressed-by>FCS_COP.1/SKC (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/SKC to define the AES cryptographic algorithm that may be used to encrypt stored credential data based on the claims made in FCS_STO_EXT.1.</rationale>
-				<addressed-by>FCS_COP.1/2 (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/2 to define integrity mechanisms that may be used by the TOE as part of ensuring that data at rest is protected.</rationale>
+				<addressed-by>FCS_COP.1/Hash (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/Hash to define integrity mechanisms that may be used by the TOE as part of ensuring that data at rest is protected.</rationale>
 				<addressed-by>FCS_COP.1/4 (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/4 to define HMAC mechanisms that may be used by the TOE as part of ensuring that data at rest is protected.</rationale>
 				<addressed-by>FCS_RBG_EXT.2 (selection-based)</addressed-by><rationale>The PP includes FCS_RBG_EXT.2 to define the TOE’s implementation of random bit generation functionality in the event that the TOE provides this function in support of generating keys that are used for data protection.</rationale>
             </SO>
@@ -611,7 +612,7 @@
 				<addressed-by>FCS_CKM.1/AK</addressed-by><rationale>The PP includes FCS_CKM.1/AK to define whether the TSF or the platform generates asymmetric keys that are used in support of trusted communications.</rationale>
 				<addressed-by>FCS_CKM.2</addressed-by><rationale>The PP includes FCS_CKM.2 to define whether the TSF or the platform performs key establishment for trusted communications.</rationale>
 				<addressed-by>FCS_COP.1/SKC</addressed-by><rationale>The PP includes FCS_COP.1/SKC to define the symmetric encryption algorithms used in support of trusted communications.</rationale>
-				<addressed-by>FCS_COP.1/2</addressed-by><rationale>The PP includes FCS_COP.1/2 to define the hash algorithms used in support of trusted communications.</rationale>
+				<addressed-by>FCS_COP.1/Hash</addressed-by><rationale>The PP includes FCS_COP.1/Hash to define the hash algorithms used in support of trusted communications.</rationale>
 				<addressed-by>FCS_COP.1/3</addressed-by><rationale>The PP includes FCS_COP.1/3 to define the digital signature algorithms used in support of trusted communications.</rationale>
 				<addressed-by>FCS_COP.1/4</addressed-by><rationale>The PP includes FCS_COP.1/4 to define the HMAC algorithms used in support of trusted communications.</rationale>
 				<addressed-by>FCS_RBG_EXT.2</addressed-by><rationale>The PP includes FCS_RBG_EXT.2 to define the DRBG algorithms used in support of trusted communications.</rationale>
@@ -1484,7 +1485,7 @@ functionality (such as these)
         </f-component>
 -->
 
-		<!-- FCS_COP.1/1 Symmetric-Key Cryptography -->
+		<!-- FCS_COP.1/SKC (formerly FCS_COP.1/1) Symmetric-Key Cryptography -->
         <f-component cc-id="fcs_cop.1" id="fcom_crypto" iteration="SKC" name="Cryptographic Operation - Encryption/Decryption" status="sel-based">
 			<depends on="sel_all_tlsc"/>
 			<depends on="sel_impl_sto"/>
@@ -1766,101 +1767,98 @@ functionality (such as these)
 			</f-element>
         </f-component> 
 		
-	      
-        <f-component cc-id="fcs_cop.1" id="fcom_hash" iteration="2" name="Cryptographic Operation - Hashing" status="sel-based">
-          <depends on="sel_all_tlsc"/>
-          <f-element id="fel-crypt-hash">
-            <title>The <h:b>application</h:b> shall perform <h:i>cryptographic hashing</h:i> services in accordance with a specified 
-        cryptographic algorithm 
-	      <selectables linebreak="yes">
-	  <selectable>SHA-1</selectable>
-		<selectable>SHA-256</selectable>
-		<selectable>SHA-384</selectable>
-		<selectable>SHA-512</selectable>
-		<selectable>no other</selectable>
-	      </selectables>
-              and message digest sizes <selectables linebreak="yes">
-                <selectable>160</selectable>
-                <selectable>256</selectable>
-                <selectable>384</selectable>
-                <selectable>512</selectable>
-                <selectable>no other</selectable>
-              </selectables> bits that meet the following: FIPS Pub 180-4.
-            </title>
-            <note role="application">
-              This is dependent on implementing cryptographic functionality, as in FTP_DIT_EXT.1.<h:br/>
-              	Per NIST SP 800-131A, SHA-1 for generating digital signatures is no
-              	longer allowed, and SHA-1 for verification of digital signatures is strongly discouraged as
-              	there may be risk in accepting these signatures.
-              	<h:br/>
-                SHA-1 is currently included in order to comply with the TLS. If
-                the TLS package is included in the ST, the hashing algorithms selection for FCS_COP.1/2
-                must match the hashing algorithms used in the mandatory and selected cipher suites of
-                the TLS package. Vendors are strongly encouraged to implement updated protocols that
-              	support the SHA-2 family; until updated protocols are supported, this PP allows support for
-              	SHA-1 implementations in compliance with SP 800-131A.
-              	<h:br/>
-              	The intent of this requirement is to specify the hashing function. The hash selection must
-              	support the message digest size selection. The hash selection should be consistent with the
-              	overall strength of the algorithm used (for example, SHA 256 for 128-bit keys).
-            </note>
-            <aactivity>
-            <TSS>The evaluator shall check that the association of the hash function with other
-            application cryptographic functions (for example, the digital signature verification
-            function) is documented in the TSS.
-            </TSS>
-            <Tests>
-            The TSF hashing functions can be implemented in one of two 
-            modes. The first mode is the byte-oriented mode. In this mode the TSF 
-            hashes only messages that are an integral number of bytes in length; i.e., the length 
-            (in bits) of the message to be hashed is divisible by 8. The second mode is the 
-            bit-oriented mode. In this mode the TSF hashes messages of arbitrary 
-            length. As there are different tests for each mode, an indication is given in the 
-            following sections for the bit-oriented vs. the byte-oriented testmacs. The evaluator 
-            shall perform all of the following tests for each hash algorithm implemented by the 
-            TSF and used to satisfy the requirements of this PP.
-            <h:br/>
-            
-		    The following tests require the developer to provide access to a test application
-            that provides the evaluator with tools that are typically not found in the production
-            application.
-               <testlist>
-                <test>Short Messages Test - Bit oriented Mode The evaluators devise an input set
-                  consisting of m+1 messages, where m is the block length of the hash algorithm. The
-                  length of the messages range sequentially from 0 to m bits. The message text shall
-                  be pseudorandomly generated. The evaluators compute the message digest for each of
-                  the messages and ensure that the correct result is produced when the messages are
-                  provided to the TSF. </test>
-                <test>Short Messages Test - Byte oriented Mode The evaluators devise an input set
-                  consisting of m/8+1 messages, where m is the block length of the hash algorithm.
-                  The length of the messages range sequentially from 0 to m/8 bytes, with each
-                  message being an integral number of bytes. The message text shall be
-                  pseudorandomly generated. The evaluators compute the message digest for each of
-                  the messages and ensure that the correct result is produced when the messages are
-                  provided to the TSF. </test>
-                <test>Selected Long Messages Test - Bit oriented Mode The evaluators devise an input
-                  set consisting of m messages, where m is the block length of the hash algorithm.
-                  The length of the ith message is 512 + 99*i, where 1 ≤ i ≤ m. The message text
-                  shall be pseudorandomly generated. The evaluators compute the message digest for
-                  each of the messages and ensure that the correct result is produced when the
-                  messages are provided to the TSF. </test>
-                <test>Selected Long Messages Test - Byte oriented Mode The evaluators devise an
-                  input set consisting of m/8 messages, where m is the block length of the hash
-                  algorithm. The length of the ith message is 512 + 8*99*i, where 1 ≤ i ≤ m/8. The
-                  message text shall be pseudorandomly generated. The evaluators compute the message
-                  digest for each of the messages and ensure that the correct result is produced
-                  when the messages are provided to the TSF. </test>
-                <test>Pseudorandomly Generated Messages Test This test is for byte-oriented
-                  implementations only. The evaluators randomly generate a seed that is n bits long,
-                  where n is the length of the message digest produced by the hash function to be
-                  tested. The evaluators then formulate a set of 100 messages and associated digests
-                  by following the algorithm provided in Figure 1 of [SHAVS]. The evaluators then
-                  ensure that the correct result is produced when the messages are provided to the
-                  TSF. </test>
-               </testlist>
-	    </Tests>
-            </aactivity>
-          </f-element>
+	    <!-- FCS_COP.1/Hash (former;y FCS_COP.1/2) -->
+        <f-component cc-id="fcs_cop.1" id="fcom_hash" iteration="Hash" name="Cryptographic Operation - Hashing" status="sel-based">
+			<depends on="sel_all_tlsc"/>
+			<f-element id="fel-crypt-hash">
+				<title>
+					The <h:b>application</h:b> shall perform <h:i>cryptographic hashing</h:i> services in accordance with a specified 
+					cryptographic algorithm 
+					<selectables linebreak="yes">
+						<selectable>SHA-1</selectable>
+						<selectable>SHA-256</selectable>
+						<selectable>SHA-384</selectable>
+						<selectable>SHA-512</selectable>
+						<selectable>no other</selectable>
+					</selectables>
+					and message digest sizes <selectables linebreak="yes">
+						<selectable>160</selectable>
+						<selectable>256</selectable>
+						<selectable>384</selectable>
+						<selectable>512</selectable>
+						<selectable>no other</selectable>
+					</selectables> bits that meet the following: FIPS Pub 180-4.
+				</title>
+				<note role="application">
+					This is dependent on implementing cryptographic functionality, as in FTP_DIT_EXT.1.<h:p/>
+					Per NIST SP 800-131A, SHA-1 for generating digital signatures is no
+					longer allowed, and SHA-1 for verification of digital signatures is strongly discouraged as
+					there may be risk in accepting these signatures.<h:p/>
+					SHA-1 is currently included in order to comply with the TLS. If
+					the TLS package is included in the ST, the hashing algorithms selection for FCS_COP.1/Hash
+					must match the hashing algorithms used in the mandatory and selected cipher suites of
+					the TLS package. Vendors are strongly encouraged to implement updated protocols that
+					support the SHA-2 family; until updated protocols are supported, this PP allows support for
+					SHA-1 implementations in compliance with SP 800-131A.<h:p/>
+					The intent of this requirement is to specify the hashing function. The hash selection must
+					support the message digest size selection. The hash selection should be consistent with the
+					overall strength of the algorithm used (for example, SHA 256 for 128-bit keys).
+				</note>
+				<aactivity>
+					<TSS>
+						The evaluator shall check that the association of the hash function with other
+						application cryptographic functions (for example, the digital signature verification
+						function) is documented in the TSS.
+					</TSS>
+					<Tests>
+						The TSF hashing functions can be implemented in one of two 
+						modes. The first mode is the byte-oriented mode. In this mode the TSF 
+						hashes only messages that are an integral number of bytes in length; i.e., the length 
+						(in bits) of the message to be hashed is divisible by 8. The second mode is the 
+						bit-oriented mode. In this mode the TSF hashes messages of arbitrary 
+						length. As there are different tests for each mode, an indication is given in the 
+						following sections for the bit-oriented vs. the byte-oriented testmacs. The evaluator 
+						shall perform all of the following tests for each hash algorithm implemented by the 
+						TSF and used to satisfy the requirements of this PP.<h:p/>     
+						The following tests require the developer to provide access to a test application
+						that provides the evaluator with tools that are typically not found in the production application.
+						<testlist>
+							<test>Short Messages Test - Bit oriented Mode. The evaluators devise an input set
+								consisting of m+1 messages, where m is the block length of the hash algorithm. The
+								length of the messages range sequentially from 0 to m bits. The message text shall
+								be pseudorandomly generated. The evaluators compute the message digest for each of
+								the messages and ensure that the correct result is produced when the messages are
+								provided to the TSF. </test>
+							<test>Short Messages Test - Byte oriented Mode. The evaluators devise an input set
+								consisting of m/8+1 messages, where m is the block length of the hash algorithm.
+								The length of the messages range sequentially from 0 to m/8 bytes, with each
+								message being an integral number of bytes. The message text shall be
+								pseudorandomly generated. The evaluators compute the message digest for each of
+								the messages and ensure that the correct result is produced when the messages are
+								provided to the TSF. </test>
+							<test>Selected Long Messages Test - Bit oriented Mode. The evaluators devise an input
+								set consisting of m messages, where m is the block length of the hash algorithm.
+								The length of the ith message is 512 + 99*i, where 1 ≤ i ≤ m. The message text
+								shall be pseudorandomly generated. The evaluators compute the message digest for
+								each of the messages and ensure that the correct result is produced when the
+								messages are provided to the TSF. </test>
+							<test>Selected Long Messages Test - Byte oriented Mode. The evaluators devise an
+								input set consisting of m/8 messages, where m is the block length of the hash
+								algorithm. The length of the ith message is 512 + 8*99*i, where 1 ≤ i ≤ m/8. The
+								message text shall be pseudorandomly generated. The evaluators compute the message
+								digest for each of the messages and ensure that the correct result is produced
+								when the messages are provided to the TSF. </test>
+							<test>Pseudorandomly Generated Messages Test. This test is for byte-oriented
+								implementations only. The evaluators randomly generate a seed that is n bits long,
+								where n is the length of the message digest produced by the hash function to be
+								tested. The evaluators then formulate a set of 100 messages and associated digests
+								by following the algorithm provided in Figure 1 of [SHAVS]. The evaluators then
+								ensure that the correct result is produced when the messages are provided to the
+								TSF. </test>
+						</testlist>
+					</Tests>
+				</aactivity>
+			</f-element>
         </f-component> 
 	      
 	      
