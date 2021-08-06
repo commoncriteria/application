@@ -51,6 +51,8 @@
   </RevisionHistory>
   
   <!-- TDs incorporated: 
+	TD0510:  Obtaining random bytes for iOS/macOS
+	TD0498:  Application Software PP Security Objectives and Requirements Rationale
 	TD0495:  FIA_X509_EXT.1.2 Test Clarification
 	TD0473:  Support for Client or Server TOEs in FCS_HTTPS_EXT
 	TD0465:  Configuration Storage for .NET Apps
@@ -518,7 +520,7 @@
 				<addressed-by>FDP_DEC_EXT.1</addressed-by><rationale>The PP includes FDP_DEC_EXT.1 to limit access to platform hardware resources, which limits the methods by which an attacker can attempt to compromise the integrity of the TOE.</rationale>
 				<addressed-by>FMT_CFG_EXT.1</addressed-by><rationale>The PP includes FMT_CFG_EXT.1 for the TSP to limit unauthorized access to itself by preventing the use of default authentication credentials and by ensuring that the TOE uses appropriately restrictive platform permissions on its binaries and data</rationale>
 				<addressed-by>FPT_AEX_EXT.1</addressed-by><rationale>The PP includes FPT_AEX_EXT.1 to add complexity to the task of compromising systems by ensuring that application is compatible with security features provided by the platform vendor and that the application implements platform-provided anti-exploitations such as ASLR and stack overflow protection.</rationale>
-				<addressed-by>FPT_TUD_EXT.1</addressed-by><rationale>The PP includes FPT_TUD_EXT.1 to ensure that the TOE can be patched and that any updates to the TOE have appropriate integrity protection.</rationale></rationale>
+				<addressed-by>FPT_TUD_EXT.1</addressed-by><rationale>The PP includes FPT_TUD_EXT.1 to ensure that the TOE can be patched and that any updates to the TOE have appropriate integrity protection.</rationale>
 			</SO>
 			<SO name="O.QUALITY">
 				<description>To ensure quality of implementation, conformant TOEs
@@ -539,7 +541,7 @@
 				<addressed-by>FCS_CKM.2 (selection-based)</addressed-by><rationale>The PP supports this objective by allowing FCS_CKM.2 to specify that the TSF may rely on platform-provided key establishment services.</rationale>
 				<addressed-by>FIA_X509_EXT.1 (selection-based)</addressed-by><rationale>The PP supports this objective by allowing FIA_X509_EXT.1 to specify that the TSF may rely on platform-provided X.509 certificate validation services.</rationale>
 				<addressed-by>FPT_TUD_EXT.2 (selection-based)</addressed-by><rationale>The TSF includes FPT_TUD_EXT.2 to specify that the TOE may leverage the platform-supported package manager for application distribution and leverages platform-provided mechanisms to remove all traces of itself when removed from the platform system.</rationale>
-				<addressed-by>FPT_API_EXT.2 (objective)</addressed-by><rationale>The PP includes FPT_API_EXT.2 to permit the TOE to use platform-provided libraries for parsing IANA MIME media formats.</rationale></rationale>
+				<addressed-by>FPT_API_EXT.2 (objective)</addressed-by><rationale>The PP includes FPT_API_EXT.2 to permit the TOE to use platform-provided libraries for parsing IANA MIME media formats.</rationale>
             </SO>
 			<SO name="O.MANAGEMENT">
 				<description>To facilitate management by users and the enterprise, conformant TOEs
@@ -570,7 +572,7 @@
 				<addressed-by>FCS_COP.1/1 (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/1 to define the AES cryptographic algorithm that may be used to encrypt stored credential data based on the claims made in FCS_STO_EXT.1.</rationale>
 				<addressed-by>FCS_COP.1/2 (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/2 to define integrity mechanisms that may be used by the TOE as part of ensuring that data at rest is protected.</rationale>
 				<addressed-by>FCS_COP.1/4 (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/4 to define HMAC mechanisms that may be used by the TOE as part of ensuring that data at rest is protected.</rationale>
-				<addressed-by>FCS_RBG_EXT.2 (selection-based)</addressed-by><rationale>The PP includes FCS_RBG_EXT.2 to define the TOE’s implementation of random bit generation functionality in the event that the TOE provides this function in support of generating keys that are used for data protection.</rationale></rationale>
+				<addressed-by>FCS_RBG_EXT.2 (selection-based)</addressed-by><rationale>The PP includes FCS_RBG_EXT.2 to define the TOE’s implementation of random bit generation functionality in the event that the TOE provides this function in support of generating keys that are used for data protection.</rationale>
             </SO>
 			<SO name="O.PROTECTED_COMMS">
 				<description> To address both passive (eavesdropping) and active (packet modification)
@@ -591,7 +593,7 @@
 				<addressed-by>FCS_HTTPS_EXT.1</addressed-by><rationale>The PP includes FCS_HTTPS_EXT.1 to define the TOE’s support for the HTTPS trusted communications protocol.</rationale>
 				<addressed-by>FDP_NET_EXT.1</addressed-by><rationale>The PP includes FDP_NET_EXT.1 to define the TOE’s usage of network communications, which may include the transmission or receipt of data over a trusted channel.</rationale>
 				<addressed-by>FIA_X509_EXT.1</addressed-by><rationale>The PP includes FIA_X509_EXT.1 to define X.509 certificate validation activities in support of trusted communications.</rationale>
-				<addressed-by>FIA_X509_EXT.2</addressed-by><rationale>The PP includes FIA_X509_EXT.2 to define the trusted communications that X.509 certificate services support, as well as the extent to which trusted communications can be established when using a certificate with unknown validity.</rationale></rationale>
+				<addressed-by>FIA_X509_EXT.2</addressed-by><rationale>The PP includes FIA_X509_EXT.2 to define the trusted communications that X.509 certificate services support, as well as the extent to which trusted communications can be established when using a certificate with unknown validity.</rationale>
             </SO>
 		</SOs>
     </sec:Security_Objectives_for_the_TOE>
@@ -636,6 +638,7 @@
 	  
 		<!-- FCS_RBG_EXT.1  -->
 		<!-- TD416 incorporated -->
+		<!-- TD510 incorporated -->
         <f-component cc-id="fcs_rbg_ext.1" name="Random Bit Generation Services">
 			<f-element id="fel-rbg">
 				<title> The application shall
