@@ -79,7 +79,8 @@
 	TD0416:  Correction to FCS_RBG_EXT.1 Test Activity
 	
 	Also changed names of FCS SFRs with iterations as follows:
-	
+
+	FCS_CKM.1/1 (a.k.a FCS_CKM.1/ALGO) is renamed FCS_CKM.1/AK 
 	
    -->
   
@@ -558,7 +559,7 @@
 				<addressed-by>FPT_API_EXT.1</addressed-by><rationale>The PP includes FPT_API_EXT.1 to require the TOE to leverage platform functionality by using only documented and supported APIs.</rationale>
 				<addressed-by>FPT_LIB_EXT.1</addressed-by><rationale>The PP includes FPT_LIB_EXT.1 to ensure that the TOE does not include any unnecessary or unexpected third-party libraries which could present a privacy threat or vulnerability.</rationale>
 				<addressed-by>FTP_DIT_EXT.1</addressed-by><rationale>The PP supports this objective by allowing FTP_DIT_EXT.1 to specify that the TSF may rely on platform-provided services to implement trusted communications.</rationale>
-				<addressed-by>FCS_CKM.1/1 (selection-based)</addressed-by><rationale>The PP supports this objective by allowing FCS_CKM.1/1 to specify that the TSF may rely on platform-provided asymmetric key generation services.</rationale>
+				<addressed-by>FCS_CKM.1/AK (selection-based)</addressed-by><rationale>The PP supports this objective by allowing FCS_CKM.1/AK to specify that the TSF may rely on platform-provided asymmetric key generation services.</rationale>
 				<addressed-by>FCS_CKM.2 (selection-based)</addressed-by><rationale>The PP supports this objective by allowing FCS_CKM.2 to specify that the TSF may rely on platform-provided key establishment services.</rationale>
 				<addressed-by>FIA_X509_EXT.1 (selection-based)</addressed-by><rationale>The PP supports this objective by allowing FIA_X509_EXT.1 to specify that the TSF may rely on platform-provided X.509 certificate validation services.</rationale>
 				<addressed-by>FPT_TUD_EXT.2 (selection-based)</addressed-by><rationale>The TSF includes FPT_TUD_EXT.2 to specify that the TOE may leverage the platform-supported package manager for application distribution and leverages platform-provided mechanisms to remove all traces of itself when removed from the platform system.</rationale>
@@ -604,7 +605,7 @@
 				<addressed-by>FCS_RBG_EXT.1</addressed-by><rationale>The PP includes FCS_RBG_EXT.1 to define whether the random bit generation services used in establishing trusted communications are implemented by the TSF or by the platform.</rationale>
 				<addressed-by>FCS_CKM_EXT.1</addressed-by><rationale>The PP includes FCS_CKM_EXT.1 to specify whether the TOE or the platform is responsible for generation of any asymmetric keys that may be used for establishing trusted communications.</rationale>
 				<addressed-by>FTP_DIT_EXT.1</addressed-by><rationale>The PP includes FTP_DIT_EXT.1 to define the trusted channels used to protect data in transit, the data that is protected, and whether the trusted channels are implemented by the TSF or the platform.</rationale>
-				<addressed-by>FCS_CKM.1/1</addressed-by><rationale>The PP includes FCS_CKM.1/1 to define whether the TSF or the platform generates asymmetric keys that are used in support of trusted communications.</rationale>
+				<addressed-by>FCS_CKM.1/AK</addressed-by><rationale>The PP includes FCS_CKM.1/AK to define whether the TSF or the platform generates asymmetric keys that are used in support of trusted communications.</rationale>
 				<addressed-by>FCS_CKM.2</addressed-by><rationale>The PP includes FCS_CKM.2 to define whether the TSF or the platform performs key establishment for trusted communications.</rationale>
 				<addressed-by>FCS_COP.1/1</addressed-by><rationale>The PP includes FCS_COP.1/1 to define the symmetric encryption algorithms used in support of trusted communications.</rationale>
 				<addressed-by>FCS_COP.1/2</addressed-by><rationale>The PP includes FCS_COP.1/2 to define the hash algorithms used in support of trusted communications.</rationale>
@@ -747,391 +748,347 @@
 			</f-element>
         </f-component>
 	      
-         <f-component cc-id="fcs_rbg_ext.2" name="Random Bit Generation from Application" status="sel-based">
-           <depends on="drbg"/>
-          <f-element id="fel-drbg-how">
-            <title> The application shall perform all deterministic random bit generation (DRBG)
-              services in accordance with 
-                NIST Special Publication 800-90A using <selectables>
-                    <selectable>Hash_DRBG (any)</selectable>
-                    <selectable>HMAC_DRBG (any)</selectable>
-                    <selectable>CTR_DRBG (AES)</selectable>
-                  </selectables>
-            </title>
-            <note role="application">This requirement shall be included in STs in which 
-			  <h:i>implement DRBG functionality</h:i> is chosen in FCS_RBG_EXT.1.1. 
-			  The ST author 
-              should select the standard to which the RBG services comply (either SP 800-90A or FIPS 
-              140-2 Annex C). 
-              <h:br />
-              SP 800-90A contains three different methods of generating random numbers; each of 
-              these, in turn, depends on underlying cryptographic primitives 
-              (hash functions/ciphers). The ST author will select the function used (if SP 800-90A 
-              is selected), and include the specific underlying cryptographic primitives used in the 
-              requirement or in the TSS. While any of the identified hash functions (SHA-1, SHA-224, 
-              SHA-256, SHA-384, SHA-512) are allowed for Hash_DRBG or HMAC_DRBG, only AES-based 
-              implementations for CTR_DRBG are allowed.
-            </note>
-            <aactivity level="element">
-              <Tests>The evaluator shall perform the following tests, depending on the standard
-              to which the RBG conforms. 
-              <h:br />
-              Implementations Conforming to FIPS 140-2 Annex C. 
-              <h:br />
-              The reference for the tests contained in this section is The Random Number Generator
-              Validation System (RNGVS). The evaluators shall conduct the following two tests. Note 
-              that the "expected values" are produced by a reference implementation of the algorithm 
-              that is known to be correct. Proof of correctness is left to each Scheme.
-              <testlist>
-                <test>The evaluators shall perform a Variable Seed Test. The evaluators shall
-                  provide a set of 128 (Seed, DT) pairs to the TSF RBG function, 
-                  each 128 bits. The evaluators shall also provide a key (of the length appropriate 
-                  to the AES algorithm) that is constant for all 128 (Seed, DT) pairs. The DT value 
-                  is incremented by 1 for each set. The seed values shall have no repeats within
-                  the set. The evaluators ensure that the values returned by the 
-                  TSF match the expected values.
-                </test>
-                <test>
-                  The evaluators shall perform a Monte Carlo Test. For this test, they supply
-                  an initial Seed and DT value to the TSF RBG function; each of 
-                  these is 128 bits. The evaluators shall also provide a key (of the length 
-                  appropriate to the AES algorithm) that is constant throughout the test. The 
-                  evaluators then invoke the TSF RBG 10,000 times, with the DT 
-                  value being incremented by 1 on each iteration, and the new seed for the 
-                  subsequent iteration produced as specified in NIST-Recommended Random Number 
-                  Generator Based on ANSI X9.31 Appendix A.2.4 Using the 3-Key Triple DES and AES 
-                  Algorithms, Section E.3. The evaluators ensure that the 10,000th value produced 
-                  matches the expected value.
-                </test>
-              </testlist>
-              Implementations Conforming to NIST Special Publication 800-90A
-              <testlist>
-                <test>
-                  The evaluator shall perform 15 trials for the RNG implementation. If the RNG is
-                  configurable, the evaluator shall perform 15 trials for each configuration. The
-                  evaluator shall also confirm that the operational guidance contains appropriate
-                  instructions for configuring the RNG functionality.
-                  <h:br />
-                  If the RNG has prediction resistance enabled, each trial consists of (1) 
-                  instantiate DRBG, (2) generate the first block of random bits (3) generate a 
-                  second block of random bits (4) uninstantiate. The evaluator verifies that the 
-                  second block of random bits is the expected value. The evaluator shall generate 
-                  eight input values for each trial. The first is a count (0 – 14). The next three 
-                  are entropy input, nonce, and personalization string for the instantiate 
-                  operation. The next two are additional input and entropy input for the first call 
-                  to generate. The final two are additional input and entropy input for the second
-                  call to generate. These values are randomly generated. “generate one block of 
-                  random bits” means to generate random bits with number of returned bits equal to 
-                  the Output Block Length (as defined in NIST SP 800-90A).
-                  <h:br />
-                  If the RNG does not have prediction resistance, each trial consists of (1) 
-                  instantiate DRBG, (2) generate the first block of random bits (3) reseed, (4) 
-                  generate a second block of random bits (5) uninstantiate. The evaluator verifies 
-                  that the second block of random bits is the expected value. The evaluator shall 
-                  generate eight input values for each trial. The first is a count (0 – 14). The 
-                  next three are entropy input, nonce, and personalization string for the 
-                  instantiate operation. The fifth value is additional input to the first call to
-                  generate. The sixth and seventh are additional input and entropy input to the call 
-                  to reseed. The final value is additional input to the second generate call.
-                  <h:br />
-                  The following paragraphs contain more information on some of the input values to 
-                  be generated/selected by the evaluator.
-                  <h:br />
-                  <h:b>Entropy input:</h:b> the length of the entropy input value must equal the seed length.
-                  <h:br />
-                  <h:b>Nonce:</h:b> If a nonce is supported (CTR_DRBG with no Derivation Function does not use 
-                  a nonce), the nonce bit length is one-half the seed length. 
-                  <h:br />
-                  <h:b>Personalization string:</h:b> The length of the personalization string must be 
-                  less then or equal to seed length. If the implementation only supports one 
-                  personalization string length, then the same length can be used for both values. 
-                  If more than one string length is support, the evaluator shall use personalization 
-                  strings of two different lengths. If the implementation does not use a 
-                  personalization string, no value needs to be supplied. 
-                  <h:br />
-                  <h:b>Additional input:</h:b> the additional input bit lengths have the same defaults 
-                  and restrictions as the personalization string lengths.
-                </test>
-		      
-              </testlist>
-	      </Tests>
-            </aactivity>
-          </f-element>
-          <f-element id="fel-drbg-seed">
-            <title>The deterministic RBG shall be seeded by an entropy source that accumulates
-              entropy from a platform-based DRBG and <selectables linebreak="yes">
-                <selectable>a software-based noise source</selectable>
-                <selectable>a hardware-based noise source</selectable>
-                <selectable exclusive='yes'>no other noise source</selectable>
-              </selectables> with a minimum of <selectables linebreak="yes">
-                <selectable>128 bits</selectable>
-                <selectable>256 bits</selectable>
-              </selectables> of entropy at least equal to the greatest security strength (according
-              to NIST SP 800-57) of the keys and hashes that it will generate. </title>
-            <note role="application">This requirement shall be included in STs in which 
-			  <h:i>implement DRBG functionality</h:i> is chosen in FCS_RBG_EXT.1.1. For the first
-              selection in this requirement, the ST author selects 'software-based noise source' if 
-              any additional noise sources are used as input to the application's DRBG. Note that 
-              the application must use the platform's DRBG to seed its DRBG. 
-              <h:br />In the second selection in this requirement, the ST author selects the 
-              appropriate number of bits of entropy that corresponds to the greatest security 
-              strength of the algorithms included in the ST. Security strength is defined in Tables 
-              2 and 3 of NIST SP 800-57A. For example, if the implementation includes 2048-bit RSA 
-              (security strength of 112 bits) and AES 256 (security strength 256 bits),
-	      then the ST author would select 256 bits.
-            </note>
-            <aactivity level="element">
-	      <TSS>Documentation shall be produced - and the evaluator shall perform the
-              activities - in accordance with <xref to="entropyappendix"/> and
-              the
-	      <h:a href="https://www.niap-ccevs.org/Documents_and_Guidance/ccevs/Entropy%20Documentation%20and%20Assessment%20Clarification.pdf">
-		Clarification to the Entropy Documentation and Assessment Annex</h:a>.
-	    </TSS>
-              <Tests> In the future, specific statistical testing (in line with NIST SP 800-90B) will 
-              be required to verify the entropy estimates.
-	      </Tests>
-            </aactivity>
-          </f-element>
+		<!-- FCS_RBG_EXT.2 -->
+        <f-component cc-id="fcs_rbg_ext.2" name="Random Bit Generation from Application" status="sel-based">
+			<depends on="drbg"/>
+			<f-element id="fel-drbg-how">
+				<title> The application shall perform all deterministic random bit generation (DRBG)
+					services in accordance with NIST Special Publication 800-90A using <selectables>
+						<selectable>Hash_DRBG (any)</selectable>
+						<selectable>HMAC_DRBG (any)</selectable>
+						<selectable>CTR_DRBG (AES)</selectable>
+					</selectables>
+				</title>
+				<note role="application">This requirement shall be included in STs in which 
+					<h:i>implement DRBG functionality</h:i> is chosen in FCS_RBG_EXT.1.1. 
+					The ST author should select the standard to which the RBG services comply (either SP 800-90A or FIPS 
+					140-2 Annex C). <h:p/>
+					SP 800-90A contains three different methods of generating random numbers; each of 
+					these, in turn, depends on underlying cryptographic primitives 
+					(hash functions/ciphers). The ST author will select the function used (if SP 800-90A 
+					is selected), and include the specific underlying cryptographic primitives used in the 
+					requirement or in the TSS. While any of the identified hash functions (SHA-1, SHA-224, 
+					SHA-256, SHA-384, SHA-512) are allowed for Hash_DRBG or HMAC_DRBG, only AES-based 
+					implementations for CTR_DRBG are allowed.
+				</note>
+				<aactivity level="element">
+					<Tests>
+						The evaluator shall perform the following tests, depending on the standard
+						to which the RBG conforms. <h:p/>
+						Implementations Conforming to FIPS 140-2 Annex C. <h:p/>
+						The reference for the tests contained in this section is The Random Number Generator
+						Validation System (RNGVS). The evaluators shall conduct the following two tests. Note 
+						that the "expected values" are produced by a reference implementation of the algorithm 
+						that is known to be correct. Proof of correctness is left to each Scheme.
+						<testlist>
+							<test>
+								The evaluators shall perform a Variable Seed Test. The evaluators shall
+								provide a set of 128 (Seed, DT) pairs to the TSF RBG function, 
+								each 128 bits. The evaluators shall also provide a key (of the length appropriate 
+								to the AES algorithm) that is constant for all 128 (Seed, DT) pairs. The DT value 
+								is incremented by 1 for each set. The seed values shall have no repeats within
+								the set. The evaluators ensure that the values returned by the 
+								TSF match the expected values.
+							</test>
+							<test>
+								The evaluators shall perform a Monte Carlo Test. For this test, they supply
+								an initial Seed and DT value to the TSF RBG function; each of 
+								these is 128 bits. The evaluators shall also provide a key (of the length 
+								appropriate to the AES algorithm) that is constant throughout the test. The 
+								evaluators then invoke the TSF RBG 10,000 times, with the DT 
+								value being incremented by 1 on each iteration, and the new seed for the 
+								subsequent iteration produced as specified in NIST-Recommended Random Number 
+								Generator Based on ANSI X9.31 Appendix A.2.4 Using the 3-Key Triple DES and AES 
+								Algorithms, Section E.3. The evaluators ensure that the 10,000th value produced 
+								matches the expected value.
+							</test>
+						</testlist>
+						Implementations Conforming to NIST Special Publication 800-90A
+						<testlist>
+							<test>
+								The evaluator shall perform 15 trials for the RNG implementation. If the RNG is
+								configurable, the evaluator shall perform 15 trials for each configuration. The
+								evaluator shall also confirm that the operational guidance contains appropriate
+								instructions for configuring the RNG functionality. <h:p/>
+								If the RNG has prediction resistance enabled, each trial consists of (1) 
+								instantiate DRBG, (2) generate the first block of random bits (3) generate a 
+								second block of random bits (4) uninstantiate. The evaluator verifies that the 
+								second block of random bits is the expected value. The evaluator shall generate 
+								eight input values for each trial. The first is a count (0 – 14). The next three 
+								are entropy input, nonce, and personalization string for the instantiate 
+								operation. The next two are additional input and entropy input for the first call 
+								to generate. The final two are additional input and entropy input for the second
+								call to generate. These values are randomly generated. “generate one block of 
+								random bits” means to generate random bits with number of returned bits equal to 
+								the Output Block Length (as defined in NIST SP 800-90A). <h:p/>
+								If the RNG does not have prediction resistance, each trial consists of (1) 
+								instantiate DRBG, (2) generate the first block of random bits (3) reseed, (4) 
+								generate a second block of random bits (5) uninstantiate. The evaluator verifies 
+								that the second block of random bits is the expected value. The evaluator shall 
+								generate eight input values for each trial. The first is a count (0 – 14). The 
+								next three are entropy input, nonce, and personalization string for the 
+								instantiate operation. The fifth value is additional input to the first call to
+								generate. The sixth and seventh are additional input and entropy input to the call 
+								to reseed. The final value is additional input to the second generate call. <h:p/>
+								The following paragraphs contain more information on some of the input values to 
+								be generated/selected by the evaluator. <h:p/>
+								<h:b>Entropy input:</h:b> the length of the entropy input value must equal the seed length.<h:p/>
+								<h:b>Nonce:</h:b> If a nonce is supported (CTR_DRBG with no Derivation Function does not use 
+								a nonce), the nonce bit length is one-half the seed length. 
+								<h:p/>
+								<h:b>Personalization string:</h:b> The length of the personalization string must be 
+								less then or equal to seed length. If the implementation only supports one 
+								personalization string length, then the same length can be used for both values. 
+								If more than one string length is support, the evaluator shall use personalization 
+								strings of two different lengths. If the implementation does not use a 
+								personalization string, no value needs to be supplied. <h:p/>
+								<h:b>Additional input:</h:b> the additional input bit lengths have the same defaults 
+								and restrictions as the personalization string lengths.
+							</test>   
+						</testlist>
+					</Tests>
+				</aactivity>
+			</f-element>
+			<f-element id="fel-drbg-seed">
+				<title>
+					The deterministic RBG shall be seeded by an entropy source that accumulates
+					entropy from a platform-based DRBG and <selectables linebreak="yes">
+						<selectable>a software-based noise source</selectable>
+						<selectable>a hardware-based noise source</selectable>
+						<selectable exclusive='yes'>no other noise source</selectable>
+					</selectables> with a minimum of <selectables linebreak="yes">
+						<selectable>128 bits</selectable>
+						<selectable>256 bits</selectable>
+					</selectables> of entropy at least equal to the greatest security strength (according
+					to NIST SP 800-57) of the keys and hashes that it will generate. 
+				</title>
+				<note role="application">This requirement shall be included in STs in which 
+					<h:i>implement DRBG functionality</h:i> is chosen in FCS_RBG_EXT.1.1. For the first
+					selection in this requirement, the ST author selects 'software-based noise source' if 
+					any additional noise sources are used as input to the application's DRBG. Note that 
+					the application must use the platform's DRBG to seed its DRBG. <h:p/>
+					In the second selection in this requirement, the ST author selects the 
+					appropriate number of bits of entropy that corresponds to the greatest security 
+					strength of the algorithms included in the ST. Security strength is defined in Tables 
+					2 and 3 of NIST SP 800-57A. For example, if the implementation includes 2048-bit RSA 
+					(security strength of 112 bits) and AES 256 (security strength 256 bits),
+					then the ST author would select 256 bits.
+				</note>
+				<aactivity level="element">
+					<TSS>
+						Documentation shall be produced - and the evaluator shall perform the
+						activities - in accordance with <xref to="entropyappendix"/> and the
+						<h:a href="https://www.niap-ccevs.org/Documents_and_Guidance/ccevs/Entropy%20Documentation%20and%20Assessment%20Clarification.pdf">
+						Clarification to the Entropy Documentation and Assessment Annex</h:a>.
+					</TSS>
+					<Tests> 
+						In the future, specific statistical testing (in line with NIST SP 800-90B) will 
+						be required to verify the entropy estimates.
+					</Tests>
+				</aactivity>
+			</f-element>
         </f-component>
 
-
+		<!-- FCS_CKM.1 -->
         <f-component cc-id="fcs_ckm.1" name="Cryptographic Key Generation Services">
-          <f-element id="fel-asym-key-gen">
-            <title>The application shall <selectables linebreak="yes">
-	        <selectable>generate no asymmetric cryptographic keys</selectable>
-                <selectable id="sel_invoke_genkey">invoke platform-provided functionality for asymmetric key generation</selectable>
-                <selectable id="sel_impl_genkey">implement asymmetric key generation</selectable>
-              </selectables>.
-            </title>
-            <note role="application">If <h:i>implement asymmetric key generation</h:i> or 
-			  <h:i>invoke platform-provided functionality for asymmetric key generation</h:i> is chosen, then
-              additional FCS_CKM.1/1 elements shall be included in the ST.
-            </note>
-            <aactivity level="element">
-              <TSS>The evaluator shall inspect the application and its developer documentation 
-              to determine if the application needs asymmetric key generation services. If not, the 
-              evaluator shall verify the <h:b>generate no asymmetric cryptographic keys</h:b> selection is present 
-              in the ST. Otherwise, the evaluation activities shall be performed as stated in the 
-              selection-based requirements.
-	      </TSS>
-            </aactivity>
-          </f-element>
+			<f-element id="fel-asym-key-gen">
+				<title>
+					The application shall <selectables linebreak="yes">
+						<selectable>generate no asymmetric cryptographic keys</selectable>
+						<selectable id="sel_invoke_genkey">invoke platform-provided functionality for asymmetric key generation</selectable>
+						<selectable id="sel_impl_genkey">implement asymmetric key generation</selectable>
+					</selectables>.
+				</title>
+				<note role="application">If <h:i>implement asymmetric key generation</h:i> or 
+					<h:i>invoke platform-provided functionality for asymmetric key generation</h:i> is chosen, then
+					additional FCS_CKM.1/AK elements shall be included in the ST.
+				</note>
+				<aactivity level="element">
+					<TSS>
+						The evaluator shall inspect the application and its developer documentation 
+						to determine if the application needs asymmetric key generation services. If not, the 
+						evaluator shall verify the <h:b>generate no asymmetric cryptographic keys</h:b> selection is present 
+						in the ST. Otherwise, the evaluation activities shall be performed as stated in the 
+						selection-based requirements.
+					</TSS>
+				</aactivity>
+			</f-element>
         </f-component>
 
-        <f-component cc-id="fcs_ckm.1" id="fcom_asym_key_gen" name="Cryptographic Asymmetric Key Generation" status="sel-based" iteration="ALGO">
-          <depends on="sel_invoke_genkey" and="sel_impl_genkey"/>
-          <f-element id="fel-asym-key-gen-impl">
-            <title>            
-              The <h:b>application</h:b> shall <selectables linebreak="yes">
-                <selectable>invoke platform-provided functionality</selectable>
-                <selectable>implement functionality</selectable>
-              </selectables>
-               <h:b>to generate asymmetric cryptographic keys in accordance with a specified cryptographic key generation algorithm</h:b>
-              <selectables linebreak="yes">
-                <selectable>
-                  <h:b>[RSA schemes]</h:b> using cryptographic key sizes of <h:b>[2048-bit or greater]</h:b> that meet the following <h:b>
-                    FIPS PUB 186-4, "Digital Signature Standard (DSS), Appendix B.3"</h:b>
-                </selectable>
-                <selectable>
-                  <h:b>[ECC schemes]</h:b> using <h:b>[“NIST curves” P-256, P-384 and
-                  <selectables>
-                    <selectable> P-521 </selectable>
-                    <selectable> no other curves </selectable>
-                  </selectables> 
-                    ]</h:b>that meet the following: 
-                  <h:b>[FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.4]</h:b>
-                </selectable> 
-                <selectable>
-                  <h:b>[FFC schemes]</h:b> using cryptographic key sizes of <h:b>[2048-bit or greater]</h:b> 
-                  that meet the following: 
-                  <h:b>[FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.1]</h:b>
-                </selectable>
-		      <selectable>[FFC Schemes]<h:b> using Diffie-Hellman group 14</h:b> 
-			      that meet the following: 
-			      <h:b>RFC 3526, Section 3</h:b>
-		      </selectable>
-		      <selectable>[FFC Schemes]<h:b> using “safe-prime” groups</h:b>
-			      that meet the following: 
-			      <h:b>NIST Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes
-				      Using Discrete Logarithm Cryptography”</h:b>
-			      and 
-			      <selectables>
-				      <selectable>RFC 3526</selectable>
-				      <selectable>RFC 7919</selectable>
-			      </selectables>
-		      </selectable>
-			      
-              </selectables>.
-            </title>
-            <note role="application">
-              The ST author shall select all key generation schemes used for key 
-              establishment and entity authentication. When key generation is used for key 
-              establishment, the schemes in FCS_CKM.2.1 and selected cryptographic protocols must 
-              match the selection. When key generation is used for entity authentication, the public 
-              key is expected to be associated with an X.509v3 certificate.
-              <h:br />
-              If the TOE acts as a receiver in the RSA key establishment scheme, 
-              the TOE does not need to implement RSA key generation. 
-            </note>
-            <aactivity level="element">
-	      <TSS>
-		<h:p>The evaluator shall ensure that the TSS identifies the key sizes 
-		supported by the TOE. If the ST specifies more 
-		than one scheme, the evaluator shall examine the TSS to verify that 
-		it identifies the usage for each scheme.
-		</h:p>
-	      <h:p>
-		If the application <h:b>invokes platform-provided functionality for asymmetric key generation</h:b>,
-		then the evaluator shall examine the TSS to verify that it describes 
-		how the key generation functionality is invoked.
-	      </h:p>
-	      </TSS>
-		
-              <Guidance> The evaluator shall verify that the AGD guidance instructs the administrator how to 
-		configure the TOE to use the selected key generation scheme(s) and 
-		key size(s) for all uses defined in this PP.
-		</Guidance>
-		<Tests>
-		  <h:p>
-		      If the application <h:b>implements asymmetric key generation</h:b>, then the following test
-		activities shall be carried out. <h:br/><h:br/>
-	      
-		    Evaluation Activity Note: The following tests may require the developer to provide access 
-              to a developer environment that provides the evaluator with tools that are typically available
-			  to end-users of the application.<h:br/><h:br/>
-		      
-	<h:b>Key Generation for FIPS PUB 186-4 RSA Schemes</h:b><h:br/><h:br/>
-	      
-              
-	      
-		    
-		    The evaluator shall verify the implementation of RSA Key Generation by the 
-              TOE using the Key Generation test. This test verifies the ability of 
-              the TSF to correctly produce values for the key components including 
-              the public verification exponent e, the private prime factors p and q, the public 
-              modulus n and the calculation of the private signature exponent d. Key Pair generation 
-              specifies 5 ways (or methods) to generate the primes p and q. 
-              These include:
-              <h:ol>
-                <h:li>
-                  Random Primes:
-                  <h:ul>
-                    <h:li>Provable primes</h:li>
-                    <h:li>Probable primes</h:li>
-                  </h:ul>
-                </h:li>
-                <h:li>
-                  Primes with Conditions:
-                  <h:ul>
-                    <h:li>Primes p1, p2, q1,q2, p and q shall all be provable primes</h:li>
-                    <h:li>Primes p1, p2, q1, and q2 shall be provable primes and p and q shall be 
-                      probable primes</h:li>
-                    <h:li>Primes p1, p2, q1,q2, p and q shall all be probable primes</h:li>
-                  </h:ul>
-                </h:li>
-              </h:ol>
-              To test the key generation method for the Random Provable primes method and for all 
-              the Primes with Conditions methods, the evaluator must seed the TSF 
-              key generation routine with sufficient data to deterministically generate the RSA key 
-              pair. This includes the random seed(s), the public exponent of the RSA key, and the 
-              desired key length. For each key length supported, the evaluator shall have the 
-              TSF generate 25 key pairs. The evaluator shall verify the 
-              correctness of the TSF’s implementation by comparing values 
-              generated by the TSF with those generated from a known good 
-              implementation.
-
-	    </h:p>
-	      <h:p>
-              If possible, the Random Probable primes method should also be verified against a 
-              known good implementation as described above. Otherwise, the evaluator shall have 
-              the TSF generate 10 keys pairs for each supported key length nlen 
-              and verify:
-	      <h:ul>
-                <h:li>n = p&#x22c5;q,</h:li>
-                <h:li>p and q are probably prime according to Miller-Rabin tests,</h:li>
-                <h:li>GCD(p-1,e) = 1,</h:li>
-                <h:li>GCD(q-1,e) = 1,</h:li>
-                <h:li>2<h:sup>16</h:sup> &#x2264; e &#x2264; 2<h:sup>256</h:sup> and e is an odd integer,</h:li>
-                <h:li>|p-q| > 2<h:sup>nlen/2 - 100</h:sup>,</h:li>
-                <h:li>p &#x2265; 2<h:sup>nlen/2 -1/2</h:sup>,</h:li>
-                <h:li>q &#x2265; 2<h:sup>nlen/2 -1/2</h:sup>,</h:li>
-                <h:li>2<h:sup>(nlen/2)</h:sup> &lt; d &lt; LCM(p-1,q-1),</h:li>
-                <h:li>e&#x22c5;d = 1 mod LCM(p-1,q-1).</h:li>
-              </h:ul>
-              <h:b>Key Generation for Elliptic Curve Cryptography (ECC)</h:b><h:p/>
-              FIPS 186-4 ECC Key Generation Test
-              For each supported NIST curve, i.e., P-256, P-384 and P-521, the evaluator shall
-              require the implementation under test (IUT) to generate 10 private/public key pairs.
-              The private key shall be generated using an approved random bit generator (RBG). To 
-              determine correctness, the evaluator shall submit the generated key pairs to the 
-              public key verification (PKV) function of a known good implementation.
-	      </h:p>
-	      <h:p>
-              FIPS 186-4 Public Key Verification (PKV) Test
-              For each supported NIST curve, i.e., P-256, P-384 and P-521, the evaluator shall
-              generate 10 private/public key pairs using the key generation function of a known 
-              good implementation and modify five of the public key values so that they are 
-              incorrect, leaving five values unchanged (i.e., correct). The evaluator shall obtain 
-              in response a set of 10 PASS/FAIL values.
-
-		    </h:p>
-	      <h:p>
-              <h:b>Key Generation for Finite-Field Cryptography (FFC)</h:b><h:p/>
-              The evaluator shall verify the implementation of the Parameters Generation and the 
-              Key Generation for FFC by the TOE using the Parameter Generation and 
-              Key Generation test. This test verifies the ability of the TSF to 
-              correctly produce values for the field prime p, the cryptographic prime q (dividing 
-              p-1), the cryptographic group generator g, and the calculation of the private key x 
-              and public key y. The Parameter generation specifies 2 ways (or methods) to generate 
-              the cryptographic prime q and the field prime p:
-	      </h:p>
-	      <h:p>
-	      Cryptographic and Field Primes:
-              <h:ul>
-                <h:li>Primes q and p shall both be provable primes</h:li>
-                <h:li>Primes q and field prime p shall both be probable primes</h:li>
-              </h:ul>
-              and two ways to generate the cryptographic group generator g:
-              <h:br />
-              Cryptographic Group Generator:
-              <h:ul>
-                <h:li>Generator g constructed through a verifiable process</h:li>
-                <h:li>Generator g constructed through an unverifiable process.</h:li>
-              </h:ul>
-              The Key generation specifies 2 ways to generate the private key x:
-              Private Key:
-              <h:ul>
-                <h:li>len(q) bit output of RBG where 1 &#x2264;x &#x2264; q-1</h:li>
-                <h:li>len(q) + 64 bit output of RBG, followed by a mod q-1 operation where 
-              1&#x2264; x&#x2264;q-1.</h:li>
-              </h:ul>
-              The security strength of the RBG must be at least that of the security offered by the 
-              FFC parameter set.
-              To test the cryptographic and field prime generation method for the provable primes 
-              method and/or the group generator g for a verifiable process, the evaluator must seed 
-              the TSF parameter generation routine with sufficient data to 
-              deterministically generate the parameter set.
-              For each key length supported, the evaluator shall have the TSF 
-              generate 25 parameter sets and key pairs. The evaluator shall verify the correctness 
-              of the TSF’s implementation by comparing values generated by the 
-              TSF with those generated from a known good implementation. 
-              Verification must also confirm
-              <h:ul>
-                <h:li>g &#8800; 0,1</h:li>
-                <h:li>q divides p-1</h:li>
-                <h:li>g<h:sup>q</h:sup> mod p = 1</h:li>
-                <h:li>g<h:sup>x</h:sup> mod p = y</h:li>
-              </h:ul>
-              for each FFC parameter set and key pair.
-	      </h:p>
-		    
-		    
-		     <h:b>Diffie-Hellman Group 14 and FFC Schemes using “safe-prime” groups</h:b><h:p/>
-		     Testing for FFC Schemes using Diffie-Hellman group 14 and/or safe-prime groups is done as part of testing in CKM.2.1.
-		   </Tests>
-
-            </aactivity>
-          </f-element>
+		<!-- FCS_CKM.1/AK -->
+        <f-component cc-id="fcs_ckm.1" id="fcom_asym_key_gen" iteration="AK" name="Cryptographic Asymmetric Key Generation" status="sel-based">
+			<depends on="sel_invoke_genkey" and="sel_impl_genkey"/>
+			<f-element id="fel-asym-key-gen-impl">
+				<title>            
+					The <h:b>application</h:b> shall <selectables linebreak="yes">
+						<selectable>invoke platform-provided functionality</selectable>
+						<selectable>implement functionality</selectable>
+					</selectables>
+					<h:b>to generate asymmetric cryptographic keys in accordance with a specified cryptographic key generation algorithm</h:b>
+					<selectables linebreak="yes">
+						<selectable><h:b>[RSA schemes]</h:b> using cryptographic key sizes of <h:b>[2048-bit or greater]</h:b> that meet
+							the following <h:b> FIPS PUB 186-4, "Digital Signature Standard (DSS), Appendix B.3"</h:b></selectable>
+						<selectable><h:b>[ECC schemes]</h:b> using <h:b>[“NIST curves” P-256, P-384 and <selectables>
+							<selectable> P-521 </selectable>
+							<selectable> no other curves </selectable></selectables> 
+							]</h:b>that meet the following: 
+							<h:b>[FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.4]</h:b>
+						</selectable> 
+						<selectable>
+							<h:b>[FFC schemes]</h:b> using cryptographic key sizes of <h:b>[2048-bit or greater]</h:b> 
+							that meet the following: <h:b>[FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.1]</h:b>
+						</selectable>
+						<selectable>[FFC Schemes]<h:b> using Diffie-Hellman group 14</h:b> that meet the following: 
+							<h:b>RFC 3526, Section 3</h:b>
+						</selectable>
+						<selectable>[FFC Schemes]<h:b> using “safe-prime” groups</h:b> that meet the following: 
+							<h:b>NIST Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes
+								Using Discrete Logarithm Cryptography”</h:b> and 
+							<selectables>
+								<selectable>RFC 3526</selectable>
+								<selectable>RFC 7919</selectable>
+							</selectables>
+						</selectable>  
+					</selectables>.
+				</title>
+				<note role="application">
+					The ST author shall select all key generation schemes used for key 
+					establishment and entity authentication. When key generation is used for key 
+					establishment, the schemes in FCS_CKM.2.1 and selected cryptographic protocols must 
+					match the selection. When key generation is used for entity authentication, the public 
+					key is expected to be associated with an X.509v3 certificate.<h:p/>
+					If the TOE acts as a receiver in the RSA key establishment scheme, 
+					the TOE does not need to implement RSA key generation. 
+				</note>
+				<aactivity level="element">
+					<TSS>
+						The evaluator shall ensure that the TSS identifies the key sizes 
+						supported by the TOE. If the ST specifies more 
+						than one scheme, the evaluator shall examine the TSS to verify that 
+						it identifies the usage for each scheme.<h:p/>
+						If the application <h:b>invokes platform-provided functionality for asymmetric key generation</h:b>,
+						then the evaluator shall examine the TSS to verify that it describes 
+						how the key generation functionality is invoked.<h:p/>
+					</TSS>
+					<Guidance> 
+						The evaluator shall verify that the AGD guidance instructs the administrator how to 
+						configure the TOE to use the selected key generation scheme(s) and 
+						key size(s) for all uses defined in this PP.
+					</Guidance>
+					<Tests>
+						If the application <h:b>implements asymmetric key generation</h:b>, then the following test
+						activities shall be carried out. <h:p/>
+						Evaluation Activity Note: The following tests may require the developer to provide access 
+						to a developer environment that provides the evaluator with tools that are typically available
+						to end-users of the application.<h:p/>
+						<h:b>Key Generation for FIPS PUB 186-4 RSA Schemes</h:b><h:p/>
+						The evaluator shall verify the implementation of RSA Key Generation by the 
+						TOE using the Key Generation test. This test verifies the ability of 
+						the TSF to correctly produce values for the key components including 
+						the public verification exponent e, the private prime factors p and q, the public 
+						modulus n and the calculation of the private signature exponent d. Key Pair generation 
+						specifies 5 ways (or methods) to generate the primes p and q. 
+						These include: <h:ol>
+						<h:li>Random Primes:
+							<h:ul>
+								<h:li>Provable primes</h:li>
+								<h:li>Probable primes</h:li>
+							</h:ul>
+						</h:li>
+						<h:li>Primes with Conditions:
+							<h:ul>
+								<h:li>Primes p1, p2, q1,q2, p and q shall all be provable primes</h:li>
+								<h:li>Primes p1, p2, q1, and q2 shall be provable primes and p and q shall be 
+									probable primes</h:li>
+								<h:li>Primes p1, p2, q1,q2, p and q shall all be probable primes</h:li>
+							</h:ul>
+						</h:li></h:ol>
+						To test the key generation method for the Random Provable primes method and for all 
+						the Primes with Conditions methods, the evaluator must seed the TSF 
+						key generation routine with sufficient data to deterministically generate the RSA key 
+						pair. This includes the random seed(s), the public exponent of the RSA key, and the 
+						desired key length. For each key length supported, the evaluator shall have the 
+						TSF generate 25 key pairs. The evaluator shall verify the 
+						correctness of the TSF’s implementation by comparing values 
+						generated by the TSF with those generated from a known good 
+						implementation.<h:p/>
+						If possible, the Random Probable primes method should also be verified against a 
+						known good implementation as described above. Otherwise, the evaluator shall have 
+						the TSF generate 10 keys pairs for each supported key length nlen 
+						and verify: <h:ul>
+							<h:li>n = p&#x22c5;q,</h:li>
+							<h:li>p and q are probably prime according to Miller-Rabin tests,</h:li>
+							<h:li>GCD(p-1,e) = 1,</h:li>
+							<h:li>GCD(q-1,e) = 1,</h:li>
+							<h:li>2<h:sup>16</h:sup> &#x2264; e &#x2264; 2<h:sup>256</h:sup> and e is an odd integer,</h:li>
+							<h:li>|p-q| > 2<h:sup>nlen/2 - 100</h:sup>,</h:li>
+							<h:li>p &#x2265; 2<h:sup>nlen/2 -1/2</h:sup>,</h:li>
+							<h:li>q &#x2265; 2<h:sup>nlen/2 -1/2</h:sup>,</h:li>
+							<h:li>2<h:sup>(nlen/2)</h:sup> &lt; d &lt; LCM(p-1,q-1),</h:li>
+							<h:li>e&#x22c5;d = 1 mod LCM(p-1,q-1).</h:li>
+						</h:ul>
+						<h:b>Key Generation for Elliptic Curve Cryptography (ECC)</h:b><h:p/>
+						FIPS 186-4 ECC Key Generation Test
+						For each supported NIST curve, i.e., P-256, P-384 and P-521, the evaluator shall
+						require the implementation under test (IUT) to generate 10 private/public key pairs.
+						The private key shall be generated using an approved random bit generator (RBG). To 
+						determine correctness, the evaluator shall submit the generated key pairs to the 
+						public key verification (PKV) function of a known good implementation.<h:p/>
+						FIPS 186-4 Public Key Verification (PKV) Test
+						For each supported NIST curve, i.e., P-256, P-384 and P-521, the evaluator shall
+						generate 10 private/public key pairs using the key generation function of a known 
+						good implementation and modify five of the public key values so that they are 
+						incorrect, leaving five values unchanged (i.e., correct). The evaluator shall obtain 
+						in response a set of 10 PASS/FAIL values.<h:p/>
+						<h:b>Key Generation for Finite-Field Cryptography (FFC)</h:b><h:p/>
+						The evaluator shall verify the implementation of the Parameters Generation and the 
+						Key Generation for FFC by the TOE using the Parameter Generation and 
+						Key Generation test. This test verifies the ability of the TSF to 
+						correctly produce values for the field prime p, the cryptographic prime q (dividing 
+						p-1), the cryptographic group generator g, and the calculation of the private key x 
+						and public key y. The Parameter generation specifies 2 ways (or methods) to generate 
+						the cryptographic prime q and the field prime p:<h:p/>
+						Cryptographic and Field Primes:	<h:ul>
+							<h:li>Primes q and p shall both be provable primes</h:li>
+							<h:li>Primes q and field prime p shall both be probable primes</h:li>
+						</h:ul>
+						and two ways to generate the cryptographic group generator g:<h:p/>
+						Cryptographic Group Generator:
+						<h:ul>
+							<h:li>Generator g constructed through a verifiable process</h:li>
+							<h:li>Generator g constructed through an unverifiable process.</h:li>
+						</h:ul>
+						The Key generation specifies 2 ways to generate the private key x:<h:p/>
+						Private Key:
+						<h:ul>
+							<h:li>len(q) bit output of RBG where 1 &#x2264;x &#x2264; q-1</h:li>
+							<h:li>len(q) + 64 bit output of RBG, followed by a mod q-1 operation where 
+								1&#x2264; x&#x2264;q-1.</h:li>
+						</h:ul>
+						The security strength of the RBG must be at least that of the security offered by the 
+						FFC parameter set.
+						To test the cryptographic and field prime generation method for the provable primes 
+						method and/or the group generator g for a verifiable process, the evaluator must seed 
+						the TSF parameter generation routine with sufficient data to 
+						deterministically generate the parameter set.
+						For each key length supported, the evaluator shall have the TSF 
+						generate 25 parameter sets and key pairs. The evaluator shall verify the correctness 
+						of the TSF’s implementation by comparing values generated by the 
+						TSF with those generated from a known good implementation. 
+						Verification must also confirm
+						<h:ul>
+							<h:li>g &#8800; 0,1</h:li>
+							<h:li>q divides p-1</h:li>
+							<h:li>g<h:sup>q</h:sup> mod p = 1</h:li>
+							<h:li>g<h:sup>x</h:sup> mod p = y</h:li>
+						</h:ul>
+						for each FFC parameter set and key pair. <h:p/>
+						<h:b>Diffie-Hellman Group 14 and FFC Schemes using “safe-prime” groups</h:b><h:p/>
+						Testing for FFC Schemes using Diffie-Hellman group 14 and/or safe-prime groups is done as part of testing
+						in CKM.2.1.
+					</Tests>
+				</aactivity>
+			</f-element>
         </f-component>
 
         <f-component cc-id="fcs_ckm.1" id="fcom_sym_key_gen" iteration="2" name="Cryptographic Symmetric Key Generation" status="optional">
@@ -1292,10 +1249,10 @@
               RSA key generation.
               <h:br />
               The elliptic curves used for the key establishment scheme shall correlate with the curves 
-              specified in FCS_CKM.1.1/1.
+              specified in FCS_CKM.1.1/AK.
               <h:br />
               The domain parameters used for the finite field-based key establishment scheme are specified 
-              by the key generation according to FCS_CKM.1.1/1.
+              by the key generation according to FCS_CKM.1.1/AK.
             </note>
             <aactivity level="element">
               <TSS>The evaluator shall ensure that the supported key establishment schemes correspond to the 
@@ -2104,7 +2061,7 @@ functionality (such as these)
               <Tests>
               For all credentials for which the application implements functionality, the evaluator shall 
               verify credentials are encrypted according to FCS_COP.1/1 or conditioned according to
-              FCS_CKM.1.1/1 and FCS_CKM.1/3.
+              FCS_CKM.1.1/AK and FCS_CKM.1/3.
               
               For all credentials for which the application invokes platform-provided
               functionality, the evaluator shall perform the following actions which vary per platform.
