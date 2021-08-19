@@ -901,7 +901,7 @@
 			<f-element id="fel-asym-key-gen">
 				<title>
 					The application shall <selectables linebreak="yes">
-						<selectable>generate no asymmetric cryptographic keys</selectable>
+						<selectable exclusive="yes">generate no asymmetric cryptographic keys</selectable>
 						<selectable id="sel_invoke_genkey">invoke platform-provided functionality for asymmetric key generation</selectable>
 						<selectable id="sel_impl_genkey">implement asymmetric key generation</selectable>
 					</selectables>.
@@ -1146,7 +1146,7 @@
 
 		<!-- FCS_CKM.1/PBKDF (formerly FCS_CKM.1/3) -->
 		<f-component name="Password Conditioning" cc-id="fcs_ckm.1" id="fcom_pass" iteration="PBKDF" status="sel-based">
-			<depends on="sel_impl_sto"/>
+			<depends on="sel-fcs-sto-pbkdf"/>
 			<f-element id="fel-pass">
 				<title>
 					A password/passphrase shall perform <assignable>Password-based Key Derivation Functions</assignable> 
@@ -1491,7 +1491,7 @@ functionality (such as these)
 		<!-- FCS_COP.1/SKC (formerly FCS_COP.1/1) Symmetric-Key Cryptography -->
         <f-component cc-id="fcs_cop.1" id="fcom_crypto" iteration="SKC" name="Cryptographic Operation - Encryption/Decryption" status="sel-based">
 			<depends on="sel_all_tlsc"/>
-			<depends on="sel_impl_sto"/>
+			<depends on="sel-fcs-sto-skc"/>
 			<f-element id="fel-sym-encrypt">
 				<title>
 					The <h:b>application</h:b> shall perform <h:i>encryption/decryption</h:i> in accordance with a specified 
@@ -1991,8 +1991,8 @@ functionality (such as these)
                   <assignable>list of credentials</assignable>
                   according to
                   <selectables>
-                    <selectable>FCS_COP.1/SKC</selectable>
-                    <selectable>FCS_CKM.1/PBKDF</selectable>
+                    <selectable id="sel-fcs-sto-skc">FCS_COP.1/SKC</selectable>
+                    <selectable id="sel-fcs-sto-pbkdf">FCS_CKM.1/PBKDF</selectable>
                   </selectables>
                 </selectable>
               </selectables>
@@ -2202,7 +2202,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 			<f-element id="fel-hardware-access">
 				<title> The application shall restrict its access to
 					<selectables linebreak="yes">
-						<selectable>no hardware resources</selectable>
+						<selectable exclusive="yes">no hardware resources</selectable>
 						<selectable>network connectivity</selectable>
 						<selectable>camera</selectable>
 						<selectable>microphone</selectable>
@@ -2278,7 +2278,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 			<f-element id="fel-info-access">
 				<title>The application shall restrict its access to
 					<selectables linebreak="yes">
-						<selectable>no sensitive information repositories</selectable>
+						<selectable exclusive="yes">no sensitive information repositories</selectable>
 						<selectable>address book</selectable>
 						<selectable>calendar</selectable>
 						<selectable>call lists</selectable>
@@ -2340,7 +2340,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
           <f-element id="fel-network-access">
             <title>The application shall restrict network communication to 
               <selectables linebreak="yes">
-                <selectable>no network communication</selectable>
+                <selectable exclusive="yes">no network communication</selectable>
                 <selectable>user-initiated communication for 
 				  <assignable>list of functions 
                   for which the user can initiate network communication</assignable></selectable>
@@ -2399,7 +2399,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 						<selectable>leverage platform-provided functionality to encrypt sensitive data</selectable>
 						<selectable>implement functionality to encrypt sensitive data as defined in the PP-Module for File Encryption</selectable>
 						<selectable>protect sensitive data in accordance with FCS_STO_EXT.1</selectable>
-						<selectable>not store any sensitive data</selectable>
+						<selectable exclusive="yes">not store any sensitive data</selectable>
 					</selectables> in non-volatile memory.
 				</title>
 				<note role="application">
@@ -2937,7 +2937,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <title> The TSF shall be capable of performing the following
               management functions 
               <selectables linebreak="yes">
-                <selectable>no management functions</selectable>
+                <selectable exclusive="yes">no management functions</selectable>
                 <selectable> enable/disable the transmission of any information describing the
                   system's hardware, software, or configuration
                 </selectable>
@@ -2981,17 +2981,11 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
             <title>
 	      The application shall 
 	      <selectables linebreak="yes">
-		<selectable>
-		  not transmit PII over a network
-		</selectable>
-		<selectable>
-		  require user approval before executing
-		  <assignable> 
-		    list of functions that transmit PII over a network
-		  </assignable>
-		</selectable>
-	      </selectables>
-	      .
+			<selectable exclusive="yes">not transmit PII over a network</selectable>
+			<selectable exclusive="yes"> require user approval before executing
+				<assignable>list of functions that transmit PII over a network</assignable>
+			</selectable>
+	      </selectables>.
 	    </title>
             <note role="application">
 	      This requirement applies only to PII that is specifically requested by the application;
@@ -3154,8 +3148,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 				<title>
 					The application shall 
 					<selectables linebreak="yes">
-						<selectable>not allocate any memory region with both write and execute permissions</selectable>
-						<selectable>allocate memory regions with write and execute permissions for only
+						<selectable exclusive="yes">not allocate any memory region with both write and execute permissions</selectable>
+						<selectable exclusive="yes">allocate memory regions with write and execute permissions for only
 							<assignable> list of functions performing just-in-time compilation</assignable>
 						</selectable>
 					</selectables>.
@@ -3463,7 +3457,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 			current FPT_TUD_EXT.2.2 was FPT_TUD_EXT.1.3 -->	  
 		<!-- incorporates TD561 (adds FPT_TUD_EXT.2.3) -->
         <f-component cc-id="fpt_tud_ext.2" name="Integrity for Installation and Update" status="sel-based">
-			<depends on1="sel_with_plat" on="sel_add_plat"/>
+			<depends on-sel="sel_add_plat"/>
 			<f-element id="fel-patch-native">
 				<title>
 					The application shall be distributed using the format of the platform-supported
@@ -3633,18 +3627,21 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 			<f-element id="fel-transmit">
 				<title>The application shall 
 					<selectables linebreak="yes">
-						<selectable>not transmit any 
+						<selectable exclusive="yes">not transmit any 
 							<selectables>
 								<selectable>data</selectable>
 								<selectable>sensitive data</selectable>
 							</selectables>
 						</selectable>
-						<selectable>encrypt all transmitted 
+						<selectable exclusive="yes">encrypt all transmitted 
 							<selectables>
-								<selectable>sensitive data</selectable>
-								<selectable>data</selectable>
+								<selectable exclusive="yes">sensitive data</selectable>
+								<selectable exclusive="yes">data</selectable>
 							</selectables> with
 							<selectables>
+<!--								<selectable id="sel_all_https_cl">HTTPS as a client in accordance with FCS_HTTPS_EXT.1/Client</selectable>
+								<selectable id="sel_all_https_sv">HTTPS as a server in accordance with FCS_HTTPS_EXT.1/Server</selectable>
+								<selectable id="sel_all_https_sv">HTTPS as a server using mutual authentication in accordance with FCS_HTTPS_EXT.2</selectable>  -->
 								<selectable id="sel_all_https">HTTPS in accordance with FCS_HTTPS_EXT.1</selectable>
 								<selectable id="sel_all_tlsc">TLS as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><h:i>TLS Package</h:i></h:a></selectable>
 								<selectable id="sel_all_dtls">DTLS as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><h:i>TLS Package</h:i></h:a></selectable>
@@ -3683,7 +3680,10 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 					transmitted</h:i> is selected, <h:i>HTTPS</h:i> is selected, and the 
 					TOE acts as a server, FCS_HTTPS_EXT.1/Server is required.  If the TOE acts as a server
 					and if mutual authentication is selected in the TLS Package, then FCS_HTTPS_EXT.2 is
-					also required.<h:p/> 
+					also required.
+					<!-- If the TOE acts as a server
+					and if mutual authentication is selected in the TLS Package, then FCS_HTTPS_EXT.2 is
+					also required. --> <h:p/> 
 					If <h:i>encrypt all transmitted</h:i> is selected and <h:i>DTLS</h:i> is selected, 
 					FCS_DTLS_EXT.1 is required.<h:p/>
 					If <h:i>encrypt all transmitted</h:i> is selected and <h:i>SSH</h:i> is selected, the 
