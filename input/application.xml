@@ -56,7 +56,7 @@
   </RevisionHistory>
   
   <!-- TDs incorporated: 
-	XXXXXX:	 Upgraded to SSH FP 1.0
+	XXXXXX:	 Replaced SSH EP 1.0 with SSH FP 1.0
 	TQ1882:  Updating FTP_DIT_EXT.1 to conform to changes in FCS_HTTPS_EXT (subject of a later TD).
 	TD0600:  Conformance claim sections updated to allow for MOD_VPNC_V2.3
 	TD0598:  Expanded AES Modes in FCS_COP for App PP
@@ -104,27 +104,21 @@
      <val id="sad-mac" full="Apple macOS Platform"></val>
   </subaactivity-decl> 
   -->
-  <include-pkg id="p-tls">
+   <include-pkg id="p-tls">
 	  <raw-url>
 		 https://raw.githubusercontent.com/commoncriteria/tls/ed2d9042c27f7793d1f96e08e47bd12b04970977/input/tls.xml
 	  </raw-url>
 	  <url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439</url>
 	  <depends on-sel="sel_all_tls" on-also="sel_all_dtls"/>
-  </include-pkg>
+   </include-pkg>
 
-<!--
-      <include-pkg id="p-ssh">
-	  
-	  This points to the wrong file, I want SSH FP
-	  
-                <raw-url>https://github.com/commoncriteria/ssh/raw/   
-                         de9b38dc426a4ac14d4016510d1ef477d419f7ae
-                         /input/ssh.xml</raw-url>
+    <include-pkg id="p-ssh">
+            <raw-url>https://raw.githubusercontent.com/commoncriteria/ssh/release/input/ssh.xml</raw-url>
 		<url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459</url>
 	    <depends on-sel="sel_all_ssh"/>
     </include-pkg>
-	-->
 	
+
 	<!-- 1.0 Introdiction -->
 	<sec:Introduction>
 
@@ -398,7 +392,7 @@
 			</cclaim>
 			<cclaim name="Package Claim">
 				<description>This PP is TLS Package Version 1.1 Conformant.</description>
-<!--				<description>This PP is SSH Package Version 1.1 Conformant.</description>  -->
+				<description>This PP is SSH Package Version 1.0 Conformant.</description>
 			</cclaim>
 		</cclaims>
 	</sec:Conformance_Claims>
@@ -3643,8 +3637,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 <!--								<selectable id="sel_all_https">HTTPS in accordance with FCS_HTTPS_EXT.1</selectable> -->
 								<selectable id="sel_all_tls">TLS as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><h:i>TLS Package</h:i></h:a></selectable>
 								<selectable id="sel_all_dtls">DTLS as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><h:i>TLS Package</h:i></h:a></selectable>
-								<selectable>SSH as conforming to the Extended Package for <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389"><h:i>Secure Shell</h:i></h:a></selectable>
-<!--								<selectable id="sel_all_ssh">SSH as conforming to the Functional Package for <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459"><h:i>Secure Shell</h:i></h:a></selectable>  -->
+<!--								<selectable>SSH as conforming to the Extended Package for <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389"><h:i>Secure Shell</h:i></h:a></selectable>  -->
+								<selectable id="sel_all_ssh">SSH as conforming to the Functional Package for <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459"><h:i>Secure Shell</h:i></h:a></selectable>
 								<selectable>IPsec as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=419&amp;id=419"><h:i>PP-Module for VPN Client</h:i></h:a></selectable>
 							</selectables>
 						</selectable>
@@ -3687,12 +3681,12 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 					If <h:i>encrypt all transmitted</h:i> is selected and <h:i>DTLS</h:i> is selected, 
 					FCS_DTLS_EXT.1 is required.<h:p/>
 					If <h:i>encrypt all transmitted</h:i> is selected and <h:i>SSH</h:i> is selected, the 
-					TSF shall be validated against the <h:i>Extended Package for 
-					<h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=389&amp;id=389">
+					TSF shall be validated against the <h:i>Functional Package for 
+					<h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459">
 					Secure Shell</h:a></h:i>.<h:p/>
 					If <h:i>encrypt all transmitted</h:i> is selected and <h:i>IPsec</h:i> is selected, the
 					TSF must claim conformance to a <h:i>PP-Configuration that includes the
-					<h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=419&amp;id=419">
+					<h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=461&amp;id=461">
 					VPN Client PP-Module</h:a></h:i><h:p/>
 					If <h:i>encrypt all transmitted</h:i> is selected the corresponding FCS_COP.1 
 					requirements will be included.<h:p/>
