@@ -13,7 +13,7 @@
       <PPTitle>(Draft) Protection Profile for Application Software</PPTitle>
       <PPVersion>1.4</PPVersion>
       <PPAuthor>National Information Assurance Partnership</PPAuthor>
-      <PPPubDate>2021-09-14</PPPubDate>
+      <PPPubDate>2021-09-16</PPPubDate>
       <Keywords>application; software</Keywords>
     </ReferenceTable>
   </PPReference>
@@ -50,7 +50,7 @@
     </entry>
     <entry>
           <version>v 1.4 Draft</version>
-          <date>2021-09-14</date>
+          <date>2021-09-16</date>
           <subject>Incorporated applicable Technical Decisions
 			<h:br/>Update to TLS FP 1.1
 			<h:br/>Incorporate SSH FP 1.0
@@ -60,10 +60,10 @@
   
   <!-- TDs incorporated: 
 	XXXXXX:	 Replaced SSH EP 1.0 with SSH FP 1.0
-	TQ1882:  Updating FTP_DIT_EXT.1 to conform to changes in FCS_HTTPS_EXT (subject of a later TD).
+	TD0601:  Updating FTP_DIT_EXT.1 to conform to changes in FCS_HTTPS_EXT. Supersedes TDs 444, 473, 587.
 	TD0600:  Conformance claim sections updated to allow for MOD_VPNC_V2.3
 	TD0598:  Expanded AES Modes in FCS_COP for App PP
-	TD0587:  X.509 SFR Applicability in App PP
+<!--	TD0587:  X.509 SFR Applicability in App PP  (superseded by TD0601) -->
 	TD0582:  PP-Configuration for Application Software and Virtual Private Network (VPN) Clients now allowed
 	TD0561:  Signature verification update
 	TD0554:  iOS/iPadOS/Android AppSW Virus Scan
@@ -75,7 +75,7 @@
 	TD0510:  Obtaining random bytes for iOS/macOS
 	TD0498:  Application Software PP Security Objectives and Requirements Rationale
 	TD0495:  FIA_X509_EXT.1.2 Test Clarification
-	TD0473:  Support for Client or Server TOEs in FCS_HTTPS_EXT
+<!--	TD0473:  Support for Client or Server TOEs in FCS_HTTPS_EXT (superseded by TD0601) -->
 	TD0465:  Configuration Storage for .NET Apps
 	TD0445:  User Modifiable File Definition
     TD0437:  Supported Configuration Mechanism
@@ -2050,7 +2050,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
         </f-component>
         
 		<!-- FCS_HTTPS_EXT.1/Client -->
-		<!-- Added by TD473 -->
+		<!-- Added by TD0601 -->
         <f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol" iteration="Client" status="sel-based">
 			<depends on-se1="sel_all_https_cl"/>
 			<f-element id="fel-https-wath-cl">
@@ -2120,7 +2120,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
         </f-component>
 
 		<!-- FCS_HTTPS_EXT.1/Server -->
-		<!-- Added by TD473 -->
+		<!-- Added by TD0601 -->
         <f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol" iteration="Server" status="sel-based">
 			<depends on1="sel_all_https_sv"/>
 			<f-element id="fel-https-wath-sv">
@@ -2153,7 +2153,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
         </f-component>
 
 		<!-- FCS_HTTPS_EXT.2 HTTPS Protocol with Mutual Authentication -->
-		<!-- Added by TD473 -->
+		<!-- Added by TD0601 -->
         <f-component cc-id="fcs_https_ext.2" name="HTTPS Protocol with Mutual Authentication" status="sel-based">
 			<depends on1="sel_all_https_ma"/>
 			<f-element id="fel-https-wath-m">
@@ -2472,7 +2472,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	
 		<!-- FIA_X509_EXT.1 -->
 		<!-- Modified by TD495 -->
-		<!-- Modified by TD587 -->
+		<!-- Modified by TD601 -->
         <f-component cc-id="fia_x509_ext.1" name="X.509 Certificate Validation" status="sel-based">
 			<depends on1="sel_all_https_cl" on2="sel_all_https_sv" on3="sel_all_https_ma" on4="sel_all_tls" on5="sel_all_dtls"/>
 			<f-element id="fel-certauth-how">
@@ -2666,7 +2666,7 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 	      
 	      
 		<!-- FIA_X509_EXT.2 X.509 Certificate Authentication -->
-		<!-- Incorporates TD587 -->
+		<!-- Incorporates TD601 -->
         <f-component cc-id="fia_x509_ext.2" name="X.509 Certificate Authentication" status="sel-based">
 			<depends on1="sel_all_https_cl" on2="sel_all_https_sv" on3="sel_all_https_ma" on4="sel_all_tls" on5="sel_all_dtls"/>
 			<f-element id="fel-certs-who">
@@ -3620,9 +3620,8 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
     <section title="Trusted Path/Channel (FTP)" id="ftp">
 	  
 		<!-- FTP_DIT_EXT.1 Protection of Data in Transit -->
-		<!-- Modified by TD473 -->
-		<!-- Modified by TD587 -->
-        <f-component cc-id="ftp_dit_ext.1" name="Protection of Data in Transit">
+		<!-- Modified by TD0609 -->		
+        	<f-component cc-id="ftp_dit_ext.1" name="Protection of Data in Transit">
 			<f-element id="fel-transmit">
 				<title>The application shall 
 					<selectables linebreak="yes">
@@ -3671,37 +3670,34 @@ The evaluator shall verify that all keys are stored using Linux keyrings.
 					X509 SFRs shall be included if selections for HTTPS, TLS, or DTLS are included (FCS_HTTPS, FCS_TLSC, FCS_TLSS, FCS_DTLS).
 					<h:br/> <h:br/>-->
 					Encryption is not required for applications transmitting data that is not sensitive.<h:p/>
-					If <h:i>encrypt all transmitted</h:i> is selected and <h:i>TLS</h:i> is selected, then 
+					If "<h:i>encrypt all transmitted</h:i>" is selected and "<h:i>TLS</h:i>" is selected, then 
 					evaluation of elements from either FCS_TLSC_EXT.1 or FCS_TLSS_EXT.1 is required.<h:p/>
-					If <h:i>encrypt all transmitted</h:i> is selected, <h:i>HTTPS</h:i> is selected, and the 
-					TOE acts as a client, FCS_HTTPS_EXT.1/Client is required. If <h:i>encrypt all 
-					transmitted</h:i> is selected, <h:i>HTTPS</h:i> is selected, and the 
-					TOE acts as a server, FCS_HTTPS_EXT.1/Server is required.  
-					<!-- If the TOE acts as a server
-					and if mutual authentication is selected in the TLS Package, then FCS_HTTPS_EXT.2 is
-					also required.  -->
-					If the TOE acts as a server
-					and if mutual authentication is selected in the TLS Package, then FCS_HTTPS_EXT.2 is
-					also required. <h:p/> 
-					If <h:i>encrypt all transmitted</h:i> is selected and <h:i>DTLS</h:i> is selected, 
+					If "<h:i>encrypt all transmitted</h:i>" is selected, "<h:i>HTTPS</h:i>" is selected, and the 
+					TOE acts as a client, then FCS_HTTPS_EXT.1/Client is required.<h:p/> 
+					If "<h:i>encrypt all transmitted</h:i>" is selected, "<h:i>HTTPS</h:i>" is selected, and the 
+					TOE acts as a server, then FCS_HTTPS_EXT.1/Server is required. <h:p/> 
+					<!-- If the TOE acts as a server and if mutual authentication is selected in the TLS Package, 
+					then FCS_HTTPS_EXT.2 is also required.  -->
+					If the TOE acts as a server and if "<h:i>mutual authentication</h:i>" is selected in the TLS Package,
+					then FCS_HTTPS_EXT.2 is also required. <h:p/> 
+					If "<h:i>encrypt all transmitted</h:i>" is selected and "<h:i>DTLS</h:i>" is selected, then
 					FCS_DTLS_EXT.1 is required.<h:p/>
-					If <h:i>encrypt all transmitted</h:i> is selected and <h:i>SSH</h:i> is selected, the 
-					TSF shall be validated against the  
-					<h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459">
+					If "<h:i>encrypt all transmitted</h:i>" is selected and "<h:i>SSH</h:i>" is selected, then the 
+					TSF shall be validated against the  <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459">
 					<h:i>Functional Package for Secure Shell</h:i></h:a>.<h:p/>
-					If <h:i>encrypt all transmitted</h:i> is selected and <h:i>IPsec</h:i> is selected, the
+					If "<h:i>encrypt all transmitted</h:i>" is selected and "<h:i>IPsec</h:i>" is selected, then the
 					TSF must claim conformance to a <h:i>PP-Configuration that includes the
 					<h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=461&amp;id=461">
 					VPN Client PP-Module</h:a></h:i><h:p/>
-					If <h:i>encrypt all transmitted</h:i> is selected the corresponding FCS_COP.1 
+					If "<h:i>encrypt all transmitted</h:i>" is selected the corresponding FCS_COP.1 
 					requirements will be included.<h:p/>
 					In addition to the above, FIA_X509_EXT.1 and FIA_X509_EXT.2 are required when the following is 
 					true:<h:ul>
-						<h:li>encrypt all transmitted is selected and the TOE implements a protocol that requires 
+						<h:li>"<h:i>encrypt all transmitted</h:i>" is selected and the TOE implements a protocol that requires 
 							certificates</h:li>
-						<h:li>invoke platform-provided functionality to encrypt all transmitted sensitive data is 
+						<h:li>"<h:i>invoke platform-provided functionality to encrypt all transmitted sensitive data</h:i>" is 
 							selected and the platform implements a protocol that requires certificates</h:li>
-						<h:li>invoke platform-provided functionality to encrypt all transmitted data is selected 
+						<h:li>"<h:i>invoke platform-provided functionality to encrypt all transmitted data</h:i>" is selected 
 							and the platform implements a protocol that requires certificates</h:li></h:ul>
 						<h:b>Note:</h:b>FIA_X509_EXT.1 and FIA_X509_EXT.2 are not applicable when the TOE acts 
 						as a HTTPS/TLS server with no mutual authentication.
