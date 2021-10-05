@@ -679,7 +679,7 @@
 						<selectable id="drbg">implement DRBG functionality</selectable>
 					</selectables> for its cryptographic operations. 
 				</title>
-				<note role="application"> The selection <h:i>invoke platform-provided DRBG functionality</h:i>
+				<note role="application"> The selection "<h:i>invoke platform-provided DRBG functionality</h:i>"
 					should only be chosen for direct invocations of the platform DRBG, calls to platform protocols
 					that may then call the platform's DRBG are not directly using DRBG functionality  and should
 					select <h:i>use no DRBG functionality</h:i>. <h:p/> 
@@ -691,13 +691,13 @@
 				</note>
 				<aactivity>
 					<TSS>
-						If <h:b>use no DRBG functionality</h:b> is selected, the evaluator shall inspect the application 
+						If "<h:i>use no DRBG functionality</h:i>" is selected, the evaluator shall inspect the application 
 						and its developer documentation and verify that the application needs no random bit generation services. 
 						<h:p/>
-						If <h:b>implement DRBG functionality</h:b> is selected, the evaluator shall ensure
+						If "<h:i>implement DRBG functionality</h:i>" is selected, the evaluator shall ensure
 						that additional FCS_RBG_EXT.2 elements are included in the ST.
 						<h:p/>
-						If <h:b>invoke platform-provided DRBG functionality</h:b> is selected, the evaluator 
+						If "<h:i>invoke platform-provided DRBG functionality</h:i>" is selected, the evaluator 
 						performs the following activities.  The evaluator shall examine 
 						the TSS to confirm that it identifies all functions (as described by the
 						SFRs included in the ST) that obtain random numbers from the platform RBG.  The evaluator 
@@ -712,7 +712,7 @@
 					</TSS>
 					<Guidance>None.<h:p/></Guidance>
 					<Tests>
-						If <h:b>invoke platform-provided DRBG functionality</h:b> is selected, the following tests shall be performed: <h:p/>
+						If "<h:i>invoke platform-provided DRBG functionality</h:i>" is selected, the following tests shall be performed: <h:p/>
 						The evaluator shall decompile the application binary using a decompiler 
 						suitable for the application (TOE).  The evaluator shall search the output of the 
 						decompiler to determine that, for each API listed in the TSS, that API 
@@ -912,8 +912,8 @@
 						<selectable id="sel_impl_genkey">implement asymmetric key generation</selectable>
 					</selectables>.
 				</title>
-				<note role="application">If <h:i>implement asymmetric key generation</h:i> or 
-					<h:i>invoke platform-provided functionality for asymmetric key generation</h:i> is chosen, then
+				<note role="application">If "<h:i>implement asymmetric key generation</h:i>" or 
+					"<h:i>invoke platform-provided functionality for asymmetric key generation</h:i>" is chosen, then
 					additional FCS_CKM.1/AK elements shall be included in the ST.
 				</note>
 				<aactivity level="element">
@@ -981,7 +981,7 @@
 						supported by the TOE. If the ST specifies more 
 						than one scheme, the evaluator shall examine the TSS to verify that 
 						it identifies the usage for each scheme.<h:p/>
-						If the application <h:b>invokes platform-provided functionality for asymmetric key generation</h:b>,
+						If the application "<h:i>invokes platform-provided functionality for asymmetric key generation</h:i>,"
 						then the evaluator shall examine the TSS to verify that it describes 
 						how the key generation functionality is invoked.<h:p/>
 					</TSS>
@@ -991,7 +991,7 @@
 						key size(s) for all uses defined in this PP.<h:p/>
 					</Guidance>
 					<Tests>
-						If the application <h:b>implements asymmetric key generation</h:b>, then the following test
+						If the application "<h:i>implements asymmetric key generation</h:i>," then the following test
 						activities shall be carried out. <h:p/>
 						Evaluation Activity Note: The following tests may require the developer to provide access 
 						to a developer environment that provides the evaluator with tools that are typically available
@@ -1698,7 +1698,7 @@ functionality (such as these)
 							<h:li>Tag: All supported tag lengths (4, 6, 8, 10, 12, 14, 16) in bytes.</h:li>
 						</h:ul>
 						The testing for CCM consists of five tests. To determine correctness in each of the below tests, the evaluator
-						shall compare the ciphertext with the result of encryption of the same inputs with a known good implementation.
+						shall compare the ciphertext with the result of encryption of the same inputs with a known good implementation.<h:p/>
 						<h:b>Variable Associated Data Test</h:b><h:p/>
 						For each supported key size and associated data length, and any supported payload length, nonce length, and tag 
 						length, the evaluator shall supply one key value, one nonce value, and 10 pairs of associated data and payload 
@@ -2125,7 +2125,7 @@ functionality (such as these)
 							The evaluator shall demonstrate that using a certificate without a valid 
 							certification path results in the selected action in the SFR. If "notify the user" 
 							isselected in the SFR, then the evaluator shall also determine that the user
-							isnotified of the certificate validation failure. Using the administrative
+							is notified of the certificate validation failure. Using the administrative
 							guidance, the evaluator shall then load a certificate or certificates to the 
 							Trust Anchor Database needed to validate the certificate to be used in the
 							function, and demonstrate that the function succeeds. The evaluator then shall
@@ -2450,7 +2450,7 @@ functionality (such as these)
 						The evaluator shall run the application and attempt to store sensitive data. The evaluator shall 
 						then inspect those areas of the filesystem to note where data was stored (if any), and determine 
 						whether it has been encrypted.<h:p/>
-						If <h:b>leverage platform-provided functionality</h:b> is selected, the evaluation activities will be performed as 
+						If "<h:i>leverage platform-provided functionality</h:i>" is selected, the evaluation activities will be performed as 
 						stated in the following requirements, which vary on a per-platform basis.<h:p/>
 			            <h:div><depends ref="android"/>
 							The evaluator shall inspect the TSS and verify that it describes how files containing sensitive data are 
@@ -2519,7 +2519,7 @@ functionality (such as these)
 							<selectables>
 								<selectable>OCSP as specified in RFC 6960</selectable>
 								<selectable>CRL as specified in RFC 5280 Section 6.3</selectable>
-								<selectable>CRL as specified in RFC 5759</selectable>
+								<selectable>CRL as specified in RFC 8603</selectable>
 								<selectable>an OCSP TLS Status Request Extension (OCSP stapling) as specified in RFC 6066</selectable>
 								<selectable>OCSP TLS Multi-Certificate Status Request Extension (i.e., OCSP Multi-Stapling) as specified in RFC 6961</selectable>
 							</selectables>.
@@ -2563,8 +2563,8 @@ functionality (such as these)
 					this requirement is not applicable.<h:p/>
 					OCSP stapling and OCSP multi-stapling only support TLS server certificate validation. If other 
 					certificate types are validated, either OCSP or CRL should be claimed.<h:p/>
-					Regardless of the selection of implement functionality or invoke platform-provided 
-					functionality, the validation is expected to end in a trusted root CA certificate in a root
+					Regardless of the selection of "<h:i>implement functionality or invoke platform-provided 
+					functionality</h:i>," the validation is expected to end in a trusted root CA certificate in a root
 					store managed by the platform.
 				</note>
 				<aactivity level="element">
@@ -2709,9 +2709,11 @@ functionality (such as these)
 				</title>
 				<note role="application">
 					The ST author's selection shall match the selection in FTP_DIT_EXT.1.1.<h:p/> 
-					This requirement is included if the protocol(s) selected in FTP_DIT_EXT.1.1 require the use of certificates.
-					If the TOE implements TLS as a HTTPS/TLS server with no mutual authentication, this requirement is not 
-					applicable.
+					This requirement is included if the protocol(s) selected in FTP_DIT_EXT.1.1 
+					require the use of certificates to authenticate the remote entity. For example, 
+					if the TOE or platform implements TLS as a HTTPS/TLS server with no mutual 
+					authentication, X509 authentication is not claimed for TLS. If the TOE or 
+					platform operates as a TLS client, X509 authentication must be claimed. 					
 				</note>
 				<!-- 
 				<aactivity>
