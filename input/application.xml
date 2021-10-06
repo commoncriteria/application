@@ -2712,12 +2712,10 @@ functionality (such as these)
 					</selectables>. 
 				</title>
 				<note role="application">
-					The ST author's selection shall match the selection in FTP_DIT_EXT.1.1.<h:p/> 
-					This requirement is included if the protocol(s) selected in FTP_DIT_EXT.1.1 
-					require the use of certificates to authenticate the remote entity. For example, 
-					if the TOE or platform implements TLS as a HTTPS/TLS server with no mutual 
-					authentication, X509 authentication is not claimed for TLS. If the TOE or 
-					platform operates as a TLS client, X509 authentication must be claimed. 					
+					This requirement is included if the protocol(s) selected in FTP_DIT_EXT.1.1 require the use of certificates
+					to authenticate the remote entity. For example, if the TOE or platform implements TLS as a HTTPS/TLS server
+					with no mutual authentication, X509 authentication is not claimed for TLS. If the TOE or platform operates
+					as a TLS client, X509 authentication must be claimed.				
 				</note>
 				<!-- 
 				<aactivity>
@@ -2949,7 +2947,7 @@ functionality (such as these)
 							leverages the appropriate Data Protection Class for each data file stored
 							locally.</h:div>
 						<h:div><depends ref="linux"/> 
-							The evaluator shall run the command <h:code>find . -perm /002</h:code> 
+							The evaluator shall run the command <h:code>find -L . -perm /002</h:code> 
 							inside the application's data directories to ensure that all files are 
 							not world-writable. The command should not print any files.
 						</h:div>
@@ -3388,10 +3386,73 @@ functionality (such as these)
 				</aactivity>
 			</f-element>
         </f-component>
+		
+		<!-- FPT_IDV_EXT.1 Software Identification and Versions -->
+	    <f-component cc-id="fpt_idv_ext.1" name="Software Identification and Versions">
+			<f-element id="fel-swid">
+				<title>The application shall be versioned with
+					<selectables>
+						<selectable>SWID tags 
+							that comply with minimum requirements from ISO/IEC 19770-2:2015                 
+						</selectable>
+						<selectable><assignable>other version information</assignable></selectable>
+					</selectables>.
+				</title>
+				<note role="application">The use of SWID tag to identify application software
+					is a requirement for DOD IT based on DoD Instruction 8500.01 which requires
+					the use of SCAP which includes SWID tags per the NIST standard. The PP selection
+					of "other version information" will be removed in the next major release of
+					this protection profile. Vendors should begin to version software with valid SWID tags.
+					<h:p/>
+					Valid SWID tags must contain a SoftwareIdentity element and an Entity element as 
+					defined in the ISO/IEC 19770-2:2015 standard. SWID tags must be stored with a .swidtag 
+					file extensions as defined in the ISO/IEC 19770-2:2015.
+				</note>
+				<aactivity>
+					<TSS>
+						If "other version information" is selected the evaluator shall verify that the 
+						TSS contains an explanation of the versioning methodology.<h:p/>
+					</TSS>
+					<Guidance>None.<h:p/></Guidance>
+					<Tests>
+						The evaluator shall install the application, then check for the
+						existence of version information. If SWID tags is selected the evaluator shall 
+						check for a .swidtag file. The evaluator shall open the file and verify that 
+						is contains at least a SoftwareIdentity element and an Entity element.
+					</Tests>
+				</aactivity>
+			</f-element>
+        </f-component>
+   
+		<!-- FPT_LIB_EXT.1 Use of Third-Party Libraries -->
+        <f-component cc-id="fpt_lib_ext.1" name="Use of Third Party Libraries">
+			<f-element id="fel-thirdparty-libs">
+				<title> The application shall be packaged with only
+					<assignable>list of third-party libraries</assignable>. 
+				</title>
+				<note role="application"> 
+					The intention of this requirement is for the evaluator to discover and document whether the 
+					application is including unnecessary or unexpected third-party libraries.  This includes
+					adware libraries which could present a privacy threat, as well as ensuring
+					documentation of such libraries in case vulnerabilities are later discovered.
+				</note>
+				<aactivity> 
+					<TSS>None.<h:p/></TSS>
+					<Guidance>None.<h:p/></Guidance>
+					<Tests>
+						The evaluator shall install the application and survey its installation directory for 
+						dynamic libraries. 
+						The evaluator shall verify that libraries found to be packaged with or employed by the 
+						application are limited to those in the assignment.
+					</Tests>
+				</aactivity>
+			</f-element>
+        </f-component>
 	      
-	      
+	          
 		<!-- FPT_TUD_EXT.1 Integrity of Installation and Update -->
 		<!-- incorporates TD561 -->
+		<!-- incorporates TD548 -->
         <f-component cc-id="fpt_tud_ext.1" name="Integrity for Installation and Update">
 			<f-element id="fel-update-check">
 				<title>The application shall <selectables>
@@ -3452,7 +3513,11 @@ functionality (such as these)
 					<Guidance>None.<h:p/></Guidance>
 					<Tests>
 						The evaluator shall verify that the application's executable files are
-						not changed by the application. The evaluator shall complete the following test:
+						not changed by the application. 
+						<h:div><depends ref="ios"/>The evaluator shall consider the requirement met because the platform forces
+							applications to write all data within the application working directory (sandbox).
+						</h:div>
+						<h:br/>For all other platforms, the evaluator shall perform the following test:
 						<testlist>
 							<test>The evaluator shall install the application and then locate all of its executable files. 
 								The evaluator shall then, for each file, save off either a hash of the file or a copy of the file 
@@ -3624,66 +3689,6 @@ functionality (such as these)
 			</f-element>
         </f-component>
        
-        <f-component cc-id="fpt_lib_ext.1" name="Use of Third Party Libraries">
-			<f-element id="fel-thirdparty-libs">
-				<title> The application shall be packaged with only
-					<assignable>list of third-party libraries</assignable>. 
-				</title>
-				<note role="application"> 
-					The intention of this requirement is for the evaluator to discover and document whether the 
-					application is including unnecessary or unexpected third-party libraries.  This includes
-					adware libraries which could present a privacy threat, as well as ensuring
-					documentation of such libraries in case vulnerabilities are later discovered.
-				</note>
-				<aactivity> 
-					<TSS>None.<h:p/></TSS>
-					<Guidance>None.<h:p/></Guidance>
-					<Tests>
-						The evaluator shall install the application and survey its installation directory for 
-						dynamic libraries. 
-						The evaluator shall verify that libraries found to be packaged with or employed by the 
-						application are limited to those in the assignment.
-					</Tests>
-				</aactivity>
-			</f-element>
-        </f-component>
-	      
-	      
-        <f-component cc-id="fpt_idv_ext.1" name="Software Identification and Versions">
-			<f-element id="fel-swid">
-				<title>The application shall be versioned with
-					<selectables>
-						<selectable>SWID tags 
-							that comply with minimum requirements from ISO/IEC 19770-2:2015                 
-						</selectable>
-						<selectable><assignable>other version information</assignable></selectable>
-					</selectables>.
-				</title>
-				<note role="application">The use of SWID tag to identify application software
-					is a requirement for DOD IT based on DoD Instruction 8500.01 which requires
-					the use of SCAP which includes SWID tags per the NIST standard. The PP selection
-					of "other version information" will be removed in the next major release of
-					this protection profile. Vendors should begin to version software with valid SWID tags.
-					<h:p/>
-					Valid SWID tags must contain a SoftwareIdentity element and an Entity element as 
-					defined in the ISO/IEC 19770-2:2015 standard. SWID tags must be stored with a .swidtag 
-					file extensions as defined in the ISO/IEC 19770-2:2015.
-				</note>
-				<aactivity>
-					<TSS>
-						If "other version information" is selected the evaluator shall verify that the 
-						TSS contains an explanation of the versioning methodology.<h:p/>
-					</TSS>
-					<Guidance>None.<h:p/></Guidance>
-					<Tests>
-						The evaluator shall install the application, then check for the
-						existence of version information. If SWID tags is selected the evaluator shall 
-						check for a .swidtag file. The evaluator shall open the file and verify that 
-						is contains at least a SoftwareIdentity element and an Entity element.
-					</Tests>
-				</aactivity>
-			</f-element>
-        </f-component>
 
     </section>  <!-- FPT -->
 	    
