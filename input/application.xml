@@ -682,8 +682,8 @@
 				<note role="application"> The selection "<h:i>invoke platform-provided DRBG functionality</h:i>"
 					should only be chosen for direct invocations of the platform DRBG, calls to platform protocols
 					that may then call the platform's DRBG are not directly using DRBG functionality  and should
-					select <h:i>use no DRBG functionality</h:i>. <h:p/> 
-					If <h:i>implement DRBG functionality</h:i> is chosen, then additional FCS_RBG_EXT.2
+					select "<h:i>use no DRBG functionality</h:i>." <h:p/> 
+					If "<h:i>implement DRBG functionality</h:i>" is chosen, then additional FCS_RBG_EXT.2
 					elements shall be included in the ST.<h:p/>
 					In this requirement, cryptographic operations include all cryptographic key generation/derivation/agreement, IVs (for
 					certain modes), as well as protocol-specific random values. Cryptographic operations in this requirement refer to
@@ -770,7 +770,7 @@
 					</selectables>
 				</title>
 				<note role="application">This requirement shall be included in STs in which 
-					<h:i>implement DRBG functionality</h:i> is chosen in FCS_RBG_EXT.1.1. 
+					"<h:i>implement DRBG functionality</h:i>" is chosen in FCS_RBG_EXT.1.1. 
 					The ST author should select the standard to which the RBG services comply (either SP 800-90A or FIPS 
 					140-2 Annex C). <h:p/>
 					SP 800-90A contains three different methods of generating random numbers; each of 
@@ -875,8 +875,8 @@
 					to NIST SP 800-57) of the keys and hashes that it will generate. 
 				</title>
 				<note role="application">This requirement shall be included in STs in which 
-					<h:i>implement DRBG functionality</h:i> is chosen in FCS_RBG_EXT.1.1. For the first
-					selection in this requirement, the ST author selects 'software-based noise source' if 
+					"<h:i>implement DRBG functionality</h:i>" is chosen in FCS_RBG_EXT.1.1. For the first
+					selection in this requirement, the ST author selects "<h:i>software-based noise source</h:i>" if 
 					any additional noise sources are used as input to the application's DRBG. Note that 
 					the application must use the platform's DRBG to seed its DRBG. <h:p/>
 					In the second selection in this requirement, the ST author selects the 
@@ -2018,16 +2018,20 @@ functionality (such as these)
 					to non-volatile memory.
 				</title>
 				<note role="application">
-					This requirement ensures that persistent credentials (secret keys, PKI private keys, passwords, etc) are stored securely, and never persisted in cleartext form. 
+					This requirement ensures that persistent credentials (secret keys, PKI private keys, passwords, etc) 
+					are stored securely, and never persisted in cleartext form. 
 					Application developers are encouraged to use platform mechanisms for the secure storage of credentials. 
-					Depending on the platform that may include hardware-backed protection for credential storage. Application developers must choose a selection, 
-					or multiple selections, based on all credentials that the application stores. If <h:i>not store any credentials</h:i> is selected then the application must not store any credentials.
-					If <h:i>invoke the functionality provided by the platform to securely store</h:i> is selected then the Application developer must closely review the EA for their 
-					platform and provide documentation indicating which platform mechanisms are used to store credentials. 
-					If <h:i>implement functionality to securely store credentials</h:i> is selected, then the following components must be included in 
-					the ST: FCS_COP.1/SKC or FCS_CKM.1/PBKDF.
-					If other cryptographic operations are used to implement the secure storage of credentials, the corresponding requirements must be included in the ST.
-					If the OS is Linux and Java KeyStores are used to store credentials, <h:i>implement functionality to securely store credentials</h:i> must be selected.
+					Depending on the platform that may include hardware-backed protection for credential storage. Application
+					developers must choose a selection, or multiple selections, based on all credentials that the application
+					stores. If "<h:i>not store any credentials</h:i>" is selected then the application must not store any credentials.
+					If "<h:i>invoke the functionality provided by the platform to securely store</h:i>" is selected then the 
+					Application developer must closely review the EA for their platform and provide documentation indicating
+					which platform mechanisms are used to store credentials. 
+					If "<h:i>implement functionality to securely store credentials</h:i>" is selected, then the following components 
+					must be included in the ST: FCS_COP.1/SKC or FCS_CKM.1/PBKDF.
+					If other cryptographic operations are used to implement the secure storage of credentials, the corresponding 
+					requirements must be included in the ST. If the OS is Linux and Java KeyStores are used to store 
+					credentials, "<h:i>implement functionality to securely store credentials</h:i>" must be selected.
 				</note>           
 				<aactivity>
 					<TSS>The evaluator shall check the TSS to ensure that it lists all persistent 
@@ -2243,9 +2247,9 @@ functionality (such as these)
 					hardware resource, should still be considered access.
 					Selections should be expressed in a manner consistent with how the application expresses
 					its access needs to the underlying platform.  For example,
-					the platform may provide <h:i>location services</h:i> which implies the potential use of a variety
+					the platform may provide location services which implies the potential use of a variety
 					of hardware resources (e.g. satellite receivers, WiFi, cellular radio)
-					yet <h:i>location services</h:i> is the proper selection.  This is because use of these resources
+					yet "<h:i>location services</h:i>" is the proper selection.  This is because use of these resources
 					can be inferred, but also because the actual usage may vary based on the particular platform.
 					Resources that do not need to be explicitly identified are
 					those which are ordinarily used by any application such as central processing units,
@@ -2308,7 +2312,7 @@ functionality (such as these)
 					</selectables>.
 				</title>
 				<note role="application"> 
-					<h:i>Sensitive information repositories</h:i> are defined as those collections of sensitive data that 
+					"<h:i>Sensitive information repositories</h:i>" are defined as those collections of sensitive data that 
 					could be expected to be shared among some applications, users, or user roles, but to which not all
 					of these would ordinarily require access.
 				</note>
@@ -2425,13 +2429,13 @@ functionality (such as these)
 					</selectables> in non-volatile memory.
 				</title>
 				<note role="application">
-					If <h:i>implement functionality to encrypt sensitive data as defined in the PP-Module for File Encryption</h:i> is selected, 
-					the TSF must claim conformance to a PP-Configuration that includes the File Encryption PP-Module. 
+					If "<h:i>implement functionality to encrypt sensitive data as defined in the PP-Module for File Encryption</h:i>"
+					is selected, the TSF must claim conformance to a PP-Configuration that includes the File Encryption PP-Module. 
 					<h:p/>
 					Any file that may potentially contain sensitive data (to include temporary files)
 					shall be protected.  The only exception is if the user intentionally exports the sensitive data
-					to non-protected files. ST authors should select <h:i>protect sensitive data in accordance with 
-					FCS_STO_EXT.1</h:i> for the sensitive data that is covered by the FCS_STO_EXT.1 SFR.
+					to non-protected files. ST authors should select "<h:i>protect sensitive data in accordance with 
+					FCS_STO_EXT.1</h:i>" for the sensitive data that is covered by the FCS_STO_EXT.1 SFR.
 				</note>
 				<aactivity>
 					<TSS>
@@ -3059,7 +3063,7 @@ functionality (such as these)
 			<f-element id="fel-api-what">
 				<title>The application shall use only documented platform APIs.</title>
 				<note role="application">
-					The definition of <h:i>documented</h:i> may vary depending upon whether the application is provided by
+					The definition of "<h:i>documented</h:i>" may vary depending upon whether the application is provided by
 					a third party (who relies upon documented platform APIs) or by a platform vendor 
 					who may be able to guarantee support for platform APIs.
 				</note>
@@ -3090,9 +3094,7 @@ functionality (such as these)
 				</title>
 				<note role="application">
 					The IANA MIME types are listed at
-					<h:a href='http://www.iana.org/assignments/media-types'>
-					http://www.iana.org/assignments/media-types
-					</h:a> 
+					<h:a href='http://www.iana.org/assignments/media-types'>http://www.iana.org/assignments/media-types</h:a> 
 					and include many image, audio, video, and content file formats. 
 					This requirement does not apply if providing parsing services is the purpose of the 
 					application.
@@ -3357,13 +3359,16 @@ functionality (such as these)
 					enabled.</title>
 				<aactivity level="element">
 					<TSS>None.<h:p/></TSS>
-					<Guidance>None.<h:p/>
+					<Guidance>None.<h:p/></Guidance>
 					<Tests>
-						The evaluator will inspect every native executable included in the TOE to ensure that stack-based buffer overflow protection is present.
-						<h:div><depends ref="windows"/>Applications that run as Managed Code in the .NET Framework do not require these stack protections.
-							Applications developed in Object Pascal using the Delphi IDE compiled with RangeChecking enabled comply with this element. For other code, 
-							the evaluator shall review the TSS and verify that the /GS flag was used during compilation. The evaluator shall run a tool like, BinScope, 
-							that can verify the correct usage of /GS.</h:div>
+						The evaluator will inspect every native executable included in the TOE to ensure that stack-based buffer 
+						overflow protection is present.
+						<h:div><depends ref="windows"/>Applications that run as Managed Code in the .NET Framework do not require
+							these stack protections.
+							Applications developed in Object Pascal using the Delphi IDE compiled with RangeChecking enabled 
+							comply with this element. For other code, 
+							the evaluator shall review the TSS and verify that the /GS flag was used during compilation. The 
+							evaluator shall run a tool like, BinScope, that can verify the correct usage of /GS.</h:div>
 						<h:div class="subaact"> <h:i><h:b>For PE</h:b></h:i>
 							, the evaluator will disassemble each and ensure the following sequence appears:<h:br/>
 							<h:table class="code-table">
@@ -3372,10 +3377,12 @@ functionality (such as these)
 								<h:tr><h:td>call <h:i>(...)</h:i></h:td></h:tr>
 							</h:table>.
 						</h:div>
-						<h:div class="subaact"> <h:i><h:b>For ELF executables</h:b></h:i>, the evaluator will ensure that each contains references to the symbol <h:b>__stack_chk_fail</h:b>.
+						<h:div class="subaact"> <h:i><h:b>For ELF executables</h:b></h:i>, the evaluator will ensure that each 
+							contains references to the symbol <h:b>__stack_chk_fail</h:b>.
 						</h:div>
 						<h:br/><h:p>
-						Tools such as <h:a href="https://github.com/commoncriteria/canary-detector">Canary Detector</h:a> may help automate these activities.
+						Tools such as <h:a href="https://github.com/commoncriteria/canary-detector">Canary Detector</h:a> may help
+						automate these activities.
 						</h:p>
 					</Tests>
 				</aactivity>
