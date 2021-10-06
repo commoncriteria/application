@@ -560,7 +560,7 @@
 					important for cryptographic services and other complex operations such as file and media
 					parsing. Leveraging this platform behavior relies upon using only documented and supported APIs.
 				</description>
-				<addressed-by>FCS_CKM_EXT.1</addressed-by><rationale>The PP supports this objective by allowing FCS_CKM_EXT.1 to specify that the TSF may rely on platform-provided key generation services.</rationale>
+				<addressed-by>FCS_CKM.1</addressed-by><rationale>The PP supports this objective by allowing FCS_CKM_EXT.1 to specify that the TSF may rely on platform-provided key generation services.</rationale>
 				<addressed-by>FCS_RBG_EXT.1</addressed-by><rationale>The PP supports this objective by allowing FCS_RBG_EXT.1 to specify that the TSF may rely on platform-provided random bit generation services.</rationale> 
 				<addressed-by>FCS_STO_EXT.1</addressed-by><rationale>The PP supports this objective by allowing FCS_STO_EXT.1 to specify that the TSF may rely on platform-provided credential storage services.</rationale>
 				<addressed-by>FDP_DAR_EXT.1</addressed-by><rationale>The PP supports this objective by allowing FDP_DAR_EXT.1 to specify that the TSF may rely on platform-provided data-at-rest protection services.</rationale>
@@ -612,7 +612,7 @@
 					data specific to the application that should not be exposed outside of the application. 
 				</description>
 				<addressed-by>FCS_RBG_EXT.1</addressed-by><rationale>The PP includes FCS_RBG_EXT.1 to define whether the random bit generation services used in establishing trusted communications are implemented by the TSF or by the platform.</rationale>
-				<addressed-by>FCS_CKM_EXT.1</addressed-by><rationale>The PP includes FCS_CKM_EXT.1 to specify whether the TOE or the platform is responsible for generation of any asymmetric keys that may be used for establishing trusted communications.</rationale>
+				<addressed-by>FCS_CKM.1</addressed-by><rationale>The PP includes FCS_CKM_EXT.1 to specify whether the TOE or the platform is responsible for generation of any asymmetric keys that may be used for establishing trusted communications.</rationale>
 				<addressed-by>FTP_DIT_EXT.1</addressed-by><rationale>The PP includes FTP_DIT_EXT.1 to define the trusted channels used to protect data in transit, the data that is protected, and whether the trusted channels are implemented by the TSF or the platform.</rationale>
 				<addressed-by>FCS_CKM.1/AK</addressed-by><rationale>The PP includes FCS_CKM.1/AK to define whether the TSF or the platform generates asymmetric keys that are used in support of trusted communications.</rationale>
 				<addressed-by>FCS_CKM.2</addressed-by><rationale>The PP includes FCS_CKM.2 to define whether the TSF or the platform performs key establishment for trusted communications.</rationale>
@@ -621,7 +621,8 @@
 				<addressed-by>FCS_COP.1/Sig</addressed-by><rationale>The PP includes FCS_COP.1/Sig to define the digital signature algorithms used in support of trusted communications.</rationale>
 				<addressed-by>FCS_COP.1/KeyedHash</addressed-by><rationale>The PP includes FCS_COP.1/KeyedHash to define the HMAC algorithms used in support of trusted communications.</rationale>
 				<addressed-by>FCS_RBG_EXT.2</addressed-by><rationale>The PP includes FCS_RBG_EXT.2 to define the DRBG algorithms used in support of trusted communications.</rationale>
-				<addressed-by>FCS_HTTPS_EXT.1</addressed-by><rationale>The PP includes FCS_HTTPS_EXT.1 to define the TOE’s support for the HTTPS trusted communications protocol.</rationale>
+				<addressed-by>FCS_HTTPS_EXT.1/Client</addressed-by><rationale>The PP includes FCS_HTTPS_EXT.1 to define the TOE’s support for the HTTPS trusted communications protocol as a client.</rationale>
+				<addressed-by>FCS_HTTPS_EXT.1/Server</addressed-by><rationale>The PP includes FCS_HTTPS_EXT.1 to define the TOE’s support for the HTTPS trusted communications protocol as a server.</rationale>
 				<addressed-by>FDP_NET_EXT.1</addressed-by><rationale>The PP includes FDP_NET_EXT.1 to define the TOE’s usage of network communications, which may include the transmission or receipt of data over a trusted channel.</rationale>
 				<addressed-by>FIA_X509_EXT.1</addressed-by><rationale>The PP includes FIA_X509_EXT.1 to define X.509 certificate validation activities in support of trusted communications.</rationale>
 				<addressed-by>FIA_X509_EXT.2</addressed-by><rationale>The PP includes FIA_X509_EXT.2 to define the trusted communications that X.509 certificate services support, as well as the extent to which trusted communications can be established when using a certificate with unknown validity.</rationale>
@@ -667,240 +668,6 @@
 	<!-- 5.1.1 Cryptographic Support (FCS) -->
 	<section title="Cryptographic Support (FCS)" id="fcs">
 	  
-		<!-- FCS_RBG_EXT.1  -->
-		<!-- TD416 incorporated -->
-		<!-- TD510 incorporated -->
-        <f-component cc-id="fcs_rbg_ext.1" name="Random Bit Generation Services">
-			<f-element id="fel-rbg">
-				<title> The application shall
-					<selectables linebreak="yes">
-						<selectable exclusive="yes">use no DRBG functionality</selectable>
-						<selectable>invoke platform-provided DRBG functionality</selectable>
-						<selectable id="drbg">implement DRBG functionality</selectable>
-					</selectables> for its cryptographic operations. 
-				</title>
-				<note role="application"> The selection "<h:i>invoke platform-provided DRBG functionality</h:i>"
-					should only be chosen for direct invocations of the platform DRBG, calls to platform protocols
-					that may then call the platform's DRBG are not directly using DRBG functionality  and should
-					select "<h:i>use no DRBG functionality</h:i>." <h:p/> 
-					If "<h:i>implement DRBG functionality</h:i>" is chosen, then additional FCS_RBG_EXT.2
-					elements shall be included in the ST.<h:p/>
-					In this requirement, cryptographic operations include all cryptographic key generation/derivation/agreement, IVs (for
-					certain modes), as well as protocol-specific random values. Cryptographic operations in this requirement refer to
-					the other cryptographic requirements in this PP, not additional functionality that is not in scope.
-				</note>
-				<aactivity>
-					<TSS>
-						If "<h:i>use no DRBG functionality</h:i>" is selected, the evaluator shall inspect the application 
-						and its developer documentation and verify that the application needs no random bit generation services. 
-						<h:p/>
-						If "<h:i>implement DRBG functionality</h:i>" is selected, the evaluator shall ensure
-						that additional FCS_RBG_EXT.2 elements are included in the ST.
-						<h:p/>
-						If "<h:i>invoke platform-provided DRBG functionality</h:i>" is selected, the evaluator 
-						performs the following activities.  The evaluator shall examine 
-						the TSS to confirm that it identifies all functions (as described by the
-						SFRs included in the ST) that obtain random numbers from the platform RBG.  The evaluator 
-						shall determine that for each of these functions, the TSS states which 
-						platform interface (API) is used to obtain the random numbers.  The evaluator shall confirm 
-						that each of these interfaces corresponds to the acceptable interfaces listed for each platform 
-						below.  <h:p/>
-						It should be noted that there is no expectation that the evaluators attempt to confirm 
-						that the APIs are being used correctly for the functions identified in the TSS; 
-						the activity is to list the used APIs and then do an existence check via decompilation.
-						<h:p/>
-					</TSS>
-					<Guidance>None.<h:p/></Guidance>
-					<Tests>
-						If "<h:i>invoke platform-provided DRBG functionality</h:i>" is selected, the following tests shall be performed: <h:p/>
-						The evaluator shall decompile the application binary using a decompiler 
-						suitable for the application (TOE).  The evaluator shall search the output of the 
-						decompiler to determine that, for each API listed in the TSS, that API 
-						appears in the output.  If the representation of the API does not correspond directly to 
-						the strings in the following list, the evaluator shall provide a mapping from the 
-						decompiled text to its corresponding API, with a description of why the API text does 
-						not directly correspond to the decompiled text and justification that the decompiled text 
-						corresponds to the associated API. <h:p/>
-						The following are the per-platform list of acceptable APIs:
-						<h:div><depends ref="android"/> 
-							The evaluator shall verify that the application uses at least one of <h:code>javax.crypto.KeyGenerator</h:code> 
-							class or the <h:code>java.security.SecureRandom</h:code> class or <h:code>/dev/random
-							</h:code> or <h:code>/dev/urandom</h:code>.
-						</h:div>
-						<h:div><depends ref="windows"/>
-							The evaluator shall verify that rand_s, RtlGenRandom, BCryptGenRandom, or 
-							CryptGenRandom API is used for classic desktop applications. The evaluator shall 
-							verify the application uses the RNGCryptoServiceProvider class or derives a class 
-							from System.Security.Cryptography.RandomNumberGenerator API for Windows Universal
-							Applications. It is only required that the API is called/invoked, there is no 
-							requirement that the API be used directly. In future versions of this document, 
-							CryptGenRandom may be removed as an option as it is no longer the preferred API per
-							vendor documentation. </h:div>
-						<h:div><depends ref="ios"/> 
-							The evaluator shall verify that the application invokes either
-							<h:code>SecRandomCopyBytes</h:code>, <h:code>CCRandomGenerateBytes</h:code>, or <h:code>CCRandomCopyBytes</h:code>, or uses <h:code>/dev/random</h:code> directly to acquire random.
-						</h:div>
-						<h:div><depends ref="linux"/> 
-							The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>
-							or <h:code>/dev/urandom</h:code>.
-						</h:div>
-						<h:div><depends ref="Solaris"/>
-							The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>.
-						</h:div>
-						<h:div><depends ref="mac"/>
-							The evaluator shall verify that the application invokes either <h:code>CCRandomGenerateBytes</h:code> or <h:code>CCRandomCopyBytes</h:code>, or collects random from <h:code>/dev/random</h:code>.
-						</h:div>
-						<h:p/>If invocation of platform-provided functionality is achieved in another way, the evaluator 
-						shall ensure the TSS describes how this is carried out, and how it is equivalent to the 
-						methods listed here (e.g. higher-level API invokes identical low-level API).
-					</Tests>
-				</aactivity>
-			</f-element>
-        </f-component>
-	      
-		<!-- FCS_RBG_EXT.2 -->
-        <f-component cc-id="fcs_rbg_ext.2" name="Random Bit Generation from Application" status="sel-based">
-			<depends on="drbg"/>
-			<f-element id="fel-drbg-how">
-				<title> The application shall perform all deterministic random bit generation (DRBG)
-					services in accordance with NIST Special Publication 800-90A using <selectables>
-						<selectable>Hash_DRBG (any)</selectable>
-						<selectable>HMAC_DRBG (any)</selectable>
-						<selectable>CTR_DRBG (AES)</selectable>
-					</selectables>
-				</title>
-				<note role="application">This requirement shall be included in STs in which 
-					"<h:i>implement DRBG functionality</h:i>" is chosen in FCS_RBG_EXT.1.1. 
-					The ST author should select the standard to which the RBG services comply (either SP 800-90A or FIPS 
-					140-2 Annex C). <h:p/>
-					SP 800-90A contains three different methods of generating random numbers; each of 
-					these, in turn, depends on underlying cryptographic primitives 
-					(hash functions/ciphers). The ST author will select the function used (if SP 800-90A 
-					is selected), and include the specific underlying cryptographic primitives used in the 
-					requirement or in the TSS. While any of the identified hash functions (SHA-1, SHA-224, 
-					SHA-256, SHA-384, SHA-512) are allowed for Hash_DRBG or HMAC_DRBG, only AES-based 
-					implementations for CTR_DRBG are allowed.
-				</note>
-				<aactivity level="element">
-					<TSS>None.<h:p/></TSS>
-					<Guidance>None.<h:p/></Guidance>
-					<Tests>
-						The evaluator shall perform the following tests, depending on the standard
-						to which the RBG conforms. <h:p/>
-						Implementations Conforming to FIPS 140-2 Annex C. <h:p/>
-						The reference for the tests contained in this section is The Random Number Generator
-						Validation System (RNGVS). The evaluators shall conduct the following two tests. Note 
-						that the "expected values" are produced by a reference implementation of the algorithm 
-						that is known to be correct. Proof of correctness is left to each Scheme.
-						<testlist>
-							<test>
-								The evaluators shall perform a Variable Seed Test. The evaluators shall
-								provide a set of 128 (Seed, DT) pairs to the TSF RBG function, 
-								each 128 bits. The evaluators shall also provide a key (of the length appropriate 
-								to the AES algorithm) that is constant for all 128 (Seed, DT) pairs. The DT value 
-								is incremented by 1 for each set. The seed values shall have no repeats within
-								the set. The evaluators ensure that the values returned by the 
-								TSF match the expected values.
-							</test>
-							<test>
-								The evaluators shall perform a Monte Carlo Test. For this test, they supply
-								an initial Seed and DT value to the TSF RBG function; each of 
-								these is 128 bits. The evaluators shall also provide a key (of the length 
-								appropriate to the AES algorithm) that is constant throughout the test. The 
-								evaluators then invoke the TSF RBG 10,000 times, with the DT 
-								value being incremented by 1 on each iteration, and the new seed for the 
-								subsequent iteration produced as specified in NIST-Recommended Random Number 
-								Generator Based on ANSI X9.31 Appendix A.2.4 Using the 3-Key Triple DES and AES 
-								Algorithms, Section E.3. The evaluators ensure that the 10,000th value produced 
-								matches the expected value.
-							</test>
-						</testlist>
-						Implementations Conforming to NIST Special Publication 800-90A
-						<testlist>
-							<test>
-								The evaluator shall perform 15 trials for the RNG implementation. If the RNG is
-								configurable, the evaluator shall perform 15 trials for each configuration. The
-								evaluator shall also confirm that the operational guidance contains appropriate
-								instructions for configuring the RNG functionality. <h:p/>
-								If the RNG has prediction resistance enabled, each trial consists of (1) 
-								instantiate DRBG, (2) generate the first block of random bits (3) generate a 
-								second block of random bits (4) uninstantiate. The evaluator verifies that the 
-								second block of random bits is the expected value. The evaluator shall generate 
-								eight input values for each trial. The first is a count (0 – 14). The next three 
-								are entropy input, nonce, and personalization string for the instantiate 
-								operation. The next two are additional input and entropy input for the first call 
-								to generate. The final two are additional input and entropy input for the second
-								call to generate. These values are randomly generated. “generate one block of 
-								random bits” means to generate random bits with number of returned bits equal to 
-								the Output Block Length (as defined in NIST SP 800-90A). <h:p/>
-								If the RNG does not have prediction resistance, each trial consists of (1) 
-								instantiate DRBG, (2) generate the first block of random bits (3) reseed, (4) 
-								generate a second block of random bits (5) uninstantiate. The evaluator verifies 
-								that the second block of random bits is the expected value. The evaluator shall 
-								generate eight input values for each trial. The first is a count (0 – 14). The 
-								next three are entropy input, nonce, and personalization string for the 
-								instantiate operation. The fifth value is additional input to the first call to
-								generate. The sixth and seventh are additional input and entropy input to the call 
-								to reseed. The final value is additional input to the second generate call. <h:p/>
-								The following paragraphs contain more information on some of the input values to 
-								be generated/selected by the evaluator. <h:p/>
-								<h:b>Entropy input:</h:b> the length of the entropy input value must equal the seed length.<h:p/>
-								<h:b>Nonce:</h:b> If a nonce is supported (CTR_DRBG with no Derivation Function does not use 
-								a nonce), the nonce bit length is one-half the seed length. 
-								<h:p/>
-								<h:b>Personalization string:</h:b> The length of the personalization string must be 
-								less then or equal to seed length. If the implementation only supports one 
-								personalization string length, then the same length can be used for both values. 
-								If more than one string length is support, the evaluator shall use personalization 
-								strings of two different lengths. If the implementation does not use a 
-								personalization string, no value needs to be supplied. <h:p/>
-								<h:b>Additional input:</h:b> the additional input bit lengths have the same defaults 
-								and restrictions as the personalization string lengths.
-							</test>   
-						</testlist>
-					</Tests>
-				</aactivity>
-			</f-element>
-			<f-element id="fel-drbg-seed">
-				<title>
-					The deterministic RBG shall be seeded by an entropy source that accumulates
-					entropy from a platform-based DRBG and <selectables linebreak="yes">
-						<selectable>a software-based noise source</selectable>
-						<selectable>a hardware-based noise source</selectable>
-						<selectable exclusive='yes'>no other noise source</selectable>
-					</selectables> with a minimum of <selectables linebreak="yes">
-						<selectable>128 bits</selectable>
-						<selectable>256 bits</selectable>
-					</selectables> of entropy at least equal to the greatest security strength (according
-					to NIST SP 800-57) of the keys and hashes that it will generate. 
-				</title>
-				<note role="application">This requirement shall be included in STs in which 
-					"<h:i>implement DRBG functionality</h:i>" is chosen in FCS_RBG_EXT.1.1. For the first
-					selection in this requirement, the ST author selects "<h:i>software-based noise source</h:i>" if 
-					any additional noise sources are used as input to the application's DRBG. Note that 
-					the application must use the platform's DRBG to seed its DRBG. <h:p/>
-					In the second selection in this requirement, the ST author selects the 
-					appropriate number of bits of entropy that corresponds to the greatest security 
-					strength of the algorithms included in the ST. Security strength is defined in Tables 
-					2 and 3 of NIST SP 800-57A. For example, if the implementation includes 2048-bit RSA 
-					(security strength of 112 bits) and AES 256 (security strength 256 bits),
-					then the ST author would select 256 bits.
-				</note>
-				<aactivity level="element">
-					<TSS>
-						Documentation shall be produced - and the evaluator shall perform the
-						activities - in accordance with <xref to="entropyappendix"/> and the
-						<h:a href="https://www.niap-ccevs.org/Documents_and_Guidance/ccevs/Entropy%20Documentation%20and%20Assessment%20Clarification.pdf">
-						Clarification to the Entropy Documentation and Assessment Annex</h:a>.<h:p/>
-					</TSS>
-					<Guidance>None.<h:p/></Guidance>
-					<Tests> 
-						In the future, specific statistical testing (in line with NIST SP 800-90B) will 
-						be required to verify the entropy estimates.
-					</Tests>
-				</aactivity>
-			</f-element>
-        </f-component>
 
 		<!-- FCS_CKM.1 -->
         <f-component cc-id="fcs_ckm.1" name="Cryptographic Key Generation Services">
@@ -1996,83 +1763,6 @@ functionality (such as these)
 				</aactivity>
 			</f-element>
         </f-component> 
-	      
-	      
-        <f-component cc-id="fcs_sto_ext.1" name="Storage of Credentials">
-			<f-element id="fel-store-creds">
-				<title>The application shall 
-					<selectables linebreak="yes">
-						<selectable exclusive="yes">not store any credentials</selectable>
-						<selectable>invoke the functionality provided by the platform to securely store 
-							<assignable>list of credentials</assignable>
-						</selectable>
-						<selectable id="sel_impl_sto">implement functionality to securely store
-							<assignable>list of credentials</assignable>
-							according to
-							<selectables>
-								<selectable id="sel-fcs-sto-skc">FCS_COP.1/SKC</selectable>
-								<selectable id="sel-fcs-sto-pbkdf">FCS_CKM.1/PBKDF</selectable>
-							</selectables>
-						</selectable>
-					</selectables>
-					to non-volatile memory.
-				</title>
-				<note role="application">
-					This requirement ensures that persistent credentials (secret keys, PKI private keys, passwords, etc) 
-					are stored securely, and never persisted in cleartext form. 
-					Application developers are encouraged to use platform mechanisms for the secure storage of credentials. 
-					Depending on the platform that may include hardware-backed protection for credential storage. Application
-					developers must choose a selection, or multiple selections, based on all credentials that the application
-					stores. If "<h:i>not store any credentials</h:i>" is selected then the application must not store any credentials.
-					If "<h:i>invoke the functionality provided by the platform to securely store</h:i>" is selected then the 
-					Application developer must closely review the EA for their platform and provide documentation indicating
-					which platform mechanisms are used to store credentials. 
-					If "<h:i>implement functionality to securely store credentials</h:i>" is selected, then the following components 
-					must be included in the ST: FCS_COP.1/SKC or FCS_CKM.1/PBKDF.
-					If other cryptographic operations are used to implement the secure storage of credentials, the corresponding 
-					requirements must be included in the ST. If the OS is Linux and Java KeyStores are used to store 
-					credentials, "<h:i>implement functionality to securely store credentials</h:i>" must be selected.
-				</note>           
-				<aactivity>
-					<TSS>The evaluator shall check the TSS to ensure that it lists all persistent 
-						credentials (secret keys, PKI private keys, or passwords) needed to meet the 
-						requirements in the ST. For each of these items, the evaluator shall 
-						confirm that the TSS lists for what purpose it is used, and how it is stored. <h:p/>
-					</TSS>              
-					<Guidance>None.<h:p/></Guidance>
-					<Tests>
-						For all credentials for which the application implements functionality, the evaluator shall 
-						verify credentials are encrypted according to FCS_COP.1/SKC or conditioned according to
-						FCS_CKM.1.1/AK and FCS_CKM.1/PBKDF.
-						For all credentials for which the application invokes platform-provided
-						functionality, the evaluator shall perform the following actions which vary per platform.
-						<h:div><depends ref="android"/>The evaluator shall verify that the application uses
-							the Android <h:code>KeyStore</h:code> or the Android <h:code>KeyChain</h:code> to store certificates.  
-						</h:div>
-						<h:div><depends ref="windows"/>The evaluator shall verify that all certificates are
-							stored in the Windows Certificate Store. The evaluator shall verify that other
-							credentials, like passwords, are stored in the Windows Credential Manager or stored 
-							using the Data Protection API (DPAPI). For Windows Universal Applications, the evaluator shall 
-							verify that the application is using the ProtectData class and storing credentials 
-							in IsolatedStorage.
-						</h:div>
-						<h:div><depends ref="ios"/>
-							The evaluator shall verify that all credentials are stored
-							within a <h:code>Keychain</h:code>.  
-						</h:div>
-						<h:div><depends ref="linux"/>
-							The evaluator shall verify that all keys are stored using Linux keyrings.
-						</h:div>
-						<h:div><depends ref="Solaris"/>
-							The evaluator shall verify that all keys are stored using Solaris 
-							<h:code>Key Management Framework (KMF)</h:code>.
-						</h:div>
-						<h:div><depends ref="mac"/>The evaluator shall verify that all credentials are 
-							stored within <h:code>Keychain</h:code>.</h:div>
-					</Tests>
-				</aactivity>
-			</f-element>
-        </f-component>
         
 		<!-- FCS_HTTPS_EXT.1/Client -->
 		<!-- Added by TD0601 -->
@@ -2213,6 +1903,319 @@ functionality (such as these)
 				</aactivity>
 			</f-element>
         </f-component>
+		
+		<!-- FCS_RBG_EXT.1  -->
+		<!-- TD416 incorporated -->
+		<!-- TD510 incorporated -->
+        <f-component cc-id="fcs_rbg_ext.1" name="Random Bit Generation Services">
+			<f-element id="fel-rbg">
+				<title> The application shall
+					<selectables linebreak="yes">
+						<selectable exclusive="yes">use no DRBG functionality</selectable>
+						<selectable>invoke platform-provided DRBG functionality</selectable>
+						<selectable id="drbg">implement DRBG functionality</selectable>
+					</selectables> for its cryptographic operations. 
+				</title>
+				<note role="application"> The selection "<h:i>invoke platform-provided DRBG functionality</h:i>"
+					should only be chosen for direct invocations of the platform DRBG, calls to platform protocols
+					that may then call the platform's DRBG are not directly using DRBG functionality  and should
+					select "<h:i>use no DRBG functionality</h:i>." <h:p/> 
+					If "<h:i>implement DRBG functionality</h:i>" is chosen, then additional FCS_RBG_EXT.2
+					elements shall be included in the ST.<h:p/>
+					In this requirement, cryptographic operations include all cryptographic key generation/derivation/agreement, IVs (for
+					certain modes), as well as protocol-specific random values. Cryptographic operations in this requirement refer to
+					the other cryptographic requirements in this PP, not additional functionality that is not in scope.
+				</note>
+				<aactivity>
+					<TSS>
+						If "<h:i>use no DRBG functionality</h:i>" is selected, the evaluator shall inspect the application 
+						and its developer documentation and verify that the application needs no random bit generation services. 
+						<h:p/>
+						If "<h:i>implement DRBG functionality</h:i>" is selected, the evaluator shall ensure
+						that additional FCS_RBG_EXT.2 elements are included in the ST.
+						<h:p/>
+						If "<h:i>invoke platform-provided DRBG functionality</h:i>" is selected, the evaluator 
+						performs the following activities.  The evaluator shall examine 
+						the TSS to confirm that it identifies all functions (as described by the
+						SFRs included in the ST) that obtain random numbers from the platform RBG.  The evaluator 
+						shall determine that for each of these functions, the TSS states which 
+						platform interface (API) is used to obtain the random numbers.  The evaluator shall confirm 
+						that each of these interfaces corresponds to the acceptable interfaces listed for each platform 
+						below.  <h:p/>
+						It should be noted that there is no expectation that the evaluators attempt to confirm 
+						that the APIs are being used correctly for the functions identified in the TSS; 
+						the activity is to list the used APIs and then do an existence check via decompilation.
+						<h:p/>
+					</TSS>
+					<Guidance>None.<h:p/></Guidance>
+					<Tests>
+						If "<h:i>invoke platform-provided DRBG functionality</h:i>" is selected, the following tests shall be performed: <h:p/>
+						The evaluator shall decompile the application binary using a decompiler 
+						suitable for the application (TOE).  The evaluator shall search the output of the 
+						decompiler to determine that, for each API listed in the TSS, that API 
+						appears in the output.  If the representation of the API does not correspond directly to 
+						the strings in the following list, the evaluator shall provide a mapping from the 
+						decompiled text to its corresponding API, with a description of why the API text does 
+						not directly correspond to the decompiled text and justification that the decompiled text 
+						corresponds to the associated API. <h:p/>
+						The following are the per-platform list of acceptable APIs:
+						<h:div><depends ref="android"/> 
+							The evaluator shall verify that the application uses at least one of <h:code>javax.crypto.KeyGenerator</h:code> 
+							class or the <h:code>java.security.SecureRandom</h:code> class or <h:code>/dev/random
+							</h:code> or <h:code>/dev/urandom</h:code>.
+						</h:div>
+						<h:div><depends ref="windows"/>
+							The evaluator shall verify that rand_s, RtlGenRandom, BCryptGenRandom, or 
+							CryptGenRandom API is used for classic desktop applications. The evaluator shall 
+							verify the application uses the RNGCryptoServiceProvider class or derives a class 
+							from System.Security.Cryptography.RandomNumberGenerator API for Windows Universal
+							Applications. It is only required that the API is called/invoked, there is no 
+							requirement that the API be used directly. In future versions of this document, 
+							CryptGenRandom may be removed as an option as it is no longer the preferred API per
+							vendor documentation. </h:div>
+						<h:div><depends ref="ios"/> 
+							The evaluator shall verify that the application invokes either
+							<h:code>SecRandomCopyBytes</h:code>, <h:code>CCRandomGenerateBytes</h:code>, or <h:code>CCRandomCopyBytes</h:code>, or uses <h:code>/dev/random</h:code> directly to acquire random.
+						</h:div>
+						<h:div><depends ref="linux"/> 
+							The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>
+							or <h:code>/dev/urandom</h:code>.
+						</h:div>
+						<h:div><depends ref="Solaris"/>
+							The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>.
+						</h:div>
+						<h:div><depends ref="mac"/>
+							The evaluator shall verify that the application invokes either <h:code>CCRandomGenerateBytes</h:code> or <h:code>CCRandomCopyBytes</h:code>, or collects random from <h:code>/dev/random</h:code>.
+						</h:div>
+						<h:p/>If invocation of platform-provided functionality is achieved in another way, the evaluator 
+						shall ensure the TSS describes how this is carried out, and how it is equivalent to the 
+						methods listed here (e.g. higher-level API invokes identical low-level API).
+					</Tests>
+				</aactivity>
+			</f-element>
+        </f-component>
+	      
+		<!-- FCS_RBG_EXT.2 -->
+        <f-component cc-id="fcs_rbg_ext.2" name="Random Bit Generation from Application" status="sel-based">
+			<depends on="drbg"/>
+			<f-element id="fel-drbg-how">
+				<title> The application shall perform all deterministic random bit generation (DRBG)
+					services in accordance with NIST Special Publication 800-90A using <selectables>
+						<selectable>Hash_DRBG (any)</selectable>
+						<selectable>HMAC_DRBG (any)</selectable>
+						<selectable>CTR_DRBG (AES)</selectable>
+					</selectables>
+				</title>
+				<note role="application">This requirement shall be included in STs in which 
+					"<h:i>implement DRBG functionality</h:i>" is chosen in FCS_RBG_EXT.1.1. 
+					The ST author should select the standard to which the RBG services comply (either SP 800-90A or FIPS 
+					140-2 Annex C). <h:p/>
+					SP 800-90A contains three different methods of generating random numbers; each of 
+					these, in turn, depends on underlying cryptographic primitives 
+					(hash functions/ciphers). The ST author will select the function used (if SP 800-90A 
+					is selected), and include the specific underlying cryptographic primitives used in the 
+					requirement or in the TSS. While any of the identified hash functions (SHA-1, SHA-224, 
+					SHA-256, SHA-384, SHA-512) are allowed for Hash_DRBG or HMAC_DRBG, only AES-based 
+					implementations for CTR_DRBG are allowed.
+				</note>
+				<aactivity level="element">
+					<TSS>None.<h:p/></TSS>
+					<Guidance>None.<h:p/></Guidance>
+					<Tests>
+						The evaluator shall perform the following tests, depending on the standard
+						to which the RBG conforms. <h:p/>
+						Implementations Conforming to FIPS 140-2 Annex C. <h:p/>
+						The reference for the tests contained in this section is The Random Number Generator
+						Validation System (RNGVS). The evaluators shall conduct the following two tests. Note 
+						that the "expected values" are produced by a reference implementation of the algorithm 
+						that is known to be correct. Proof of correctness is left to each Scheme.
+						<testlist>
+							<test>
+								The evaluators shall perform a Variable Seed Test. The evaluators shall
+								provide a set of 128 (Seed, DT) pairs to the TSF RBG function, 
+								each 128 bits. The evaluators shall also provide a key (of the length appropriate 
+								to the AES algorithm) that is constant for all 128 (Seed, DT) pairs. The DT value 
+								is incremented by 1 for each set. The seed values shall have no repeats within
+								the set. The evaluators ensure that the values returned by the 
+								TSF match the expected values.
+							</test>
+							<test>
+								The evaluators shall perform a Monte Carlo Test. For this test, they supply
+								an initial Seed and DT value to the TSF RBG function; each of 
+								these is 128 bits. The evaluators shall also provide a key (of the length 
+								appropriate to the AES algorithm) that is constant throughout the test. The 
+								evaluators then invoke the TSF RBG 10,000 times, with the DT 
+								value being incremented by 1 on each iteration, and the new seed for the 
+								subsequent iteration produced as specified in NIST-Recommended Random Number 
+								Generator Based on ANSI X9.31 Appendix A.2.4 Using the 3-Key Triple DES and AES 
+								Algorithms, Section E.3. The evaluators ensure that the 10,000th value produced 
+								matches the expected value.
+							</test>
+						</testlist>
+						Implementations Conforming to NIST Special Publication 800-90A
+						<testlist>
+							<test>
+								The evaluator shall perform 15 trials for the RNG implementation. If the RNG is
+								configurable, the evaluator shall perform 15 trials for each configuration. The
+								evaluator shall also confirm that the operational guidance contains appropriate
+								instructions for configuring the RNG functionality. <h:p/>
+								If the RNG has prediction resistance enabled, each trial consists of (1) 
+								instantiate DRBG, (2) generate the first block of random bits (3) generate a 
+								second block of random bits (4) uninstantiate. The evaluator verifies that the 
+								second block of random bits is the expected value. The evaluator shall generate 
+								eight input values for each trial. The first is a count (0 – 14). The next three 
+								are entropy input, nonce, and personalization string for the instantiate 
+								operation. The next two are additional input and entropy input for the first call 
+								to generate. The final two are additional input and entropy input for the second
+								call to generate. These values are randomly generated. “generate one block of 
+								random bits” means to generate random bits with number of returned bits equal to 
+								the Output Block Length (as defined in NIST SP 800-90A). <h:p/>
+								If the RNG does not have prediction resistance, each trial consists of (1) 
+								instantiate DRBG, (2) generate the first block of random bits (3) reseed, (4) 
+								generate a second block of random bits (5) uninstantiate. The evaluator verifies 
+								that the second block of random bits is the expected value. The evaluator shall 
+								generate eight input values for each trial. The first is a count (0 – 14). The 
+								next three are entropy input, nonce, and personalization string for the 
+								instantiate operation. The fifth value is additional input to the first call to
+								generate. The sixth and seventh are additional input and entropy input to the call 
+								to reseed. The final value is additional input to the second generate call. <h:p/>
+								The following paragraphs contain more information on some of the input values to 
+								be generated/selected by the evaluator. <h:p/>
+								<h:b>Entropy input:</h:b> the length of the entropy input value must equal the seed length.<h:p/>
+								<h:b>Nonce:</h:b> If a nonce is supported (CTR_DRBG with no Derivation Function does not use 
+								a nonce), the nonce bit length is one-half the seed length. 
+								<h:p/>
+								<h:b>Personalization string:</h:b> The length of the personalization string must be 
+								less then or equal to seed length. If the implementation only supports one 
+								personalization string length, then the same length can be used for both values. 
+								If more than one string length is support, the evaluator shall use personalization 
+								strings of two different lengths. If the implementation does not use a 
+								personalization string, no value needs to be supplied. <h:p/>
+								<h:b>Additional input:</h:b> the additional input bit lengths have the same defaults 
+								and restrictions as the personalization string lengths.
+							</test>   
+						</testlist>
+					</Tests>
+				</aactivity>
+			</f-element>
+			<f-element id="fel-drbg-seed">
+				<title>
+					The deterministic RBG shall be seeded by an entropy source that accumulates
+					entropy from a platform-based DRBG and <selectables linebreak="yes">
+						<selectable>a software-based noise source</selectable>
+						<selectable>a hardware-based noise source</selectable>
+						<selectable exclusive='yes'>no other noise source</selectable>
+					</selectables> with a minimum of <selectables linebreak="yes">
+						<selectable>128 bits</selectable>
+						<selectable>256 bits</selectable>
+					</selectables> of entropy at least equal to the greatest security strength (according
+					to NIST SP 800-57) of the keys and hashes that it will generate. 
+				</title>
+				<note role="application">This requirement shall be included in STs in which 
+					"<h:i>implement DRBG functionality</h:i>" is chosen in FCS_RBG_EXT.1.1. For the first
+					selection in this requirement, the ST author selects "<h:i>software-based noise source</h:i>" if 
+					any additional noise sources are used as input to the application's DRBG. Note that 
+					the application must use the platform's DRBG to seed its DRBG. <h:p/>
+					In the second selection in this requirement, the ST author selects the 
+					appropriate number of bits of entropy that corresponds to the greatest security 
+					strength of the algorithms included in the ST. Security strength is defined in Tables 
+					2 and 3 of NIST SP 800-57A. For example, if the implementation includes 2048-bit RSA 
+					(security strength of 112 bits) and AES 256 (security strength 256 bits),
+					then the ST author would select 256 bits.
+				</note>
+				<aactivity level="element">
+					<TSS>
+						Documentation shall be produced - and the evaluator shall perform the
+						activities - in accordance with <xref to="entropyappendix"/> and the
+						<h:a href="https://www.niap-ccevs.org/Documents_and_Guidance/ccevs/Entropy%20Documentation%20and%20Assessment%20Clarification.pdf">
+						Clarification to the Entropy Documentation and Assessment Annex</h:a>.<h:p/>
+					</TSS>
+					<Guidance>None.<h:p/></Guidance>
+					<Tests> 
+						In the future, specific statistical testing (in line with NIST SP 800-90B) will 
+						be required to verify the entropy estimates.
+					</Tests>
+				</aactivity>
+			</f-element>
+        </f-component>
+		
+		<!-- FCS_STO_EXT.1 Storage of Credential -->
+        <f-component cc-id="fcs_sto_ext.1" name="Storage of Credentials">
+			<f-element id="fel-store-creds">
+				<title>The application shall 
+					<selectables linebreak="yes">
+						<selectable exclusive="yes">not store any credentials</selectable>
+						<selectable>invoke the functionality provided by the platform to securely store 
+							<assignable>list of credentials</assignable>
+						</selectable>
+						<selectable id="sel_impl_sto">implement functionality to securely store
+							<assignable>list of credentials</assignable>
+							according to
+							<selectables>
+								<selectable id="sel-fcs-sto-skc">FCS_COP.1/SKC</selectable>
+								<selectable id="sel-fcs-sto-pbkdf">FCS_CKM.1/PBKDF</selectable>
+							</selectables>
+						</selectable>
+					</selectables>
+					to non-volatile memory.
+				</title>
+				<note role="application">
+					This requirement ensures that persistent credentials (secret keys, PKI private keys, passwords, etc) 
+					are stored securely, and never persisted in cleartext form. 
+					Application developers are encouraged to use platform mechanisms for the secure storage of credentials. 
+					Depending on the platform that may include hardware-backed protection for credential storage. Application
+					developers must choose a selection, or multiple selections, based on all credentials that the application
+					stores. If "<h:i>not store any credentials</h:i>" is selected then the application must not store any credentials.
+					If "<h:i>invoke the functionality provided by the platform to securely store</h:i>" is selected then the 
+					Application developer must closely review the EA for their platform and provide documentation indicating
+					which platform mechanisms are used to store credentials. 
+					If "<h:i>implement functionality to securely store credentials</h:i>" is selected, then the following components 
+					must be included in the ST: FCS_COP.1/SKC or FCS_CKM.1/PBKDF.
+					If other cryptographic operations are used to implement the secure storage of credentials, the corresponding 
+					requirements must be included in the ST. If the OS is Linux and Java KeyStores are used to store 
+					credentials, "<h:i>implement functionality to securely store credentials</h:i>" must be selected.
+				</note>           
+				<aactivity>
+					<TSS>The evaluator shall check the TSS to ensure that it lists all persistent 
+						credentials (secret keys, PKI private keys, or passwords) needed to meet the 
+						requirements in the ST. For each of these items, the evaluator shall 
+						confirm that the TSS lists for what purpose it is used, and how it is stored. <h:p/>
+					</TSS>              
+					<Guidance>None.<h:p/></Guidance>
+					<Tests>
+						For all credentials for which the application implements functionality, the evaluator shall 
+						verify credentials are encrypted according to FCS_COP.1/SKC or conditioned according to
+						FCS_CKM.1.1/AK and FCS_CKM.1/PBKDF.
+						For all credentials for which the application invokes platform-provided
+						functionality, the evaluator shall perform the following actions which vary per platform.
+						<h:div><depends ref="android"/>The evaluator shall verify that the application uses
+							the Android <h:code>KeyStore</h:code> or the Android <h:code>KeyChain</h:code> to store certificates.  
+						</h:div>
+						<h:div><depends ref="windows"/>The evaluator shall verify that all certificates are
+							stored in the Windows Certificate Store. The evaluator shall verify that other
+							credentials, like passwords, are stored in the Windows Credential Manager or stored 
+							using the Data Protection API (DPAPI). For Windows Universal Applications, the evaluator shall 
+							verify that the application is using the ProtectData class and storing credentials 
+							in IsolatedStorage.
+						</h:div>
+						<h:div><depends ref="ios"/>
+							The evaluator shall verify that all credentials are stored
+							within a <h:code>Keychain</h:code>.  
+						</h:div>
+						<h:div><depends ref="linux"/>
+							The evaluator shall verify that all keys are stored using Linux keyrings.
+						</h:div>
+						<h:div><depends ref="Solaris"/>
+							The evaluator shall verify that all keys are stored using Solaris 
+							<h:code>Key Management Framework (KMF)</h:code>.
+						</h:div>
+						<h:div><depends ref="mac"/>The evaluator shall verify that all credentials are 
+							stored within <h:code>Keychain</h:code>.</h:div>
+					</Tests>
+				</aactivity>
+			</f-element>
+        </f-component>
+		
 		
     </section>    <!-- 5.1.1 Cryptographic Support (FCS) -->
 
