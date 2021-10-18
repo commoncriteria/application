@@ -1645,6 +1645,52 @@ functionality (such as these)
 			</f-element>
         </f-component> 
 	      
+	      
+	    <!-- FCS_COP.1/KeyedHash (formerly FCS_COP.1/4) -->
+        <f-component cc-id="fcs_cop.1" id="fcom_key_hash" iteration="KeyedHash" name="Cryptographic Operation - Keyed-Hash Message Authentication" status="sel-based">
+			<depends on="sel_all_tls"/>
+			<f-element id="fel-keyed-hash">
+				<title>The <h:b>application</h:b> shall perform <h:i>keyed-hash message authentication</h:i> in accordance with a 
+					specified cryptographic algorithm<h:ul>
+						<h:li>HMAC-SHA-256</h:li></h:ul>and
+					<selectables linebreak="yes">
+						<selectable>SHA-1</selectable>
+						<selectable>SHA-384</selectable>
+						<selectable>SHA-512</selectable>
+						<selectable>no other algorithms</selectable>
+					</selectables> with key sizes <assignable>key size (in bits) used in HMAC</assignable> 
+					and message digest sizes 256 and <selectables>
+						<selectable>160</selectable>
+						<selectable>384</selectable>
+						<selectable>512</selectable>
+						<selectable>no other size</selectable>
+					</selectables>
+					bits that meet the following: FIPS Pub 198-1 <h:i>The Keyed-Hash Message Authentication Code</h:i>
+					and FIPS Pub 180-4 <h:i>Secure Hash Standard</h:i>.
+				</title>
+				<note role="application">
+					This is dependent on implementing cryptographic functionality, as in FTP_DIT_EXT.1.<h:p/>
+					The intent of this requirement is to specify the keyed-hash
+					message authentication function used for key
+					establishment purposes for the various cryptographic protocols
+					used by the application (e.g., trusted channel). The hash selection must
+					support the message digest size selection. The hash selection
+					should be consistent with the overall strength of the algorithm used for FCS_COP.1/SKC.
+				</note>
+				<aactivity>
+					The evaluator shall perform the following activities based on the selections in the ST.
+					<TSS>None.<h:p/></TSS>
+					<Guidance>None.<h:p/></Guidance>
+					<Tests>
+						For each of the supported parameter sets, the evaluator shall compose 15 sets of test data.
+						Each set shall consist of a key and message data.  The evaluator shall have the TSF generate
+						HMAC tags for these sets of test data.  The resulting MAC tags shall be compared to the 
+						result of generating HMAC tags with the same key and IV using a known-good implementation.
+					</Tests>
+				</aactivity>
+			</f-element>
+        </f-component> 
+
 	    <!-- FCS_COP.1/Sig (formerly FCS_COP.1/3) -->
         <f-component cc-id="fcs_cop.1" id="fcom_sign" iteration="Sig" name="Cryptographic Operation - Signing"  status="sel-based">
 			<depends on="sel_all_tls"/>
@@ -1718,52 +1764,8 @@ functionality (such as these)
 				</aactivity>
 			</f-element>
         </f-component>
-	      
-	    <!-- FCS_COP.1/KeyedHash (formerly FCS_COP.1/4) -->
-        <f-component cc-id="fcs_cop.1" id="fcom_key_hash" iteration="KeyedHash" name="Cryptographic Operation - Keyed-Hash Message Authentication" status="sel-based">
-			<depends on="sel_all_tls"/>
-			<f-element id="fel-keyed-hash">
-				<title>The <h:b>application</h:b> shall perform <h:i>keyed-hash message authentication</h:i> in accordance with a 
-					specified cryptographic algorithm<h:ul>
-						<h:li>HMAC-SHA-256</h:li></h:ul>and
-					<selectables linebreak="yes">
-						<selectable>SHA-1</selectable>
-						<selectable>SHA-384</selectable>
-						<selectable>SHA-512</selectable>
-						<selectable>no other algorithms</selectable>
-					</selectables> with key sizes <assignable>key size (in bits) used in HMAC</assignable> 
-					and message digest sizes 256 and <selectables>
-						<selectable>160</selectable>
-						<selectable>384</selectable>
-						<selectable>512</selectable>
-						<selectable>no other size</selectable>
-					</selectables>
-					bits that meet the following: FIPS Pub 198-1 <h:i>The Keyed-Hash Message Authentication Code</h:i>
-					and FIPS Pub 180-4 <h:i>Secure Hash Standard</h:i>.
-				</title>
-				<note role="application">
-					This is dependent on implementing cryptographic functionality, as in FTP_DIT_EXT.1.<h:p/>
-					The intent of this requirement is to specify the keyed-hash
-					message authentication function used for key
-					establishment purposes for the various cryptographic protocols
-					used by the application (e.g., trusted channel). The hash selection must
-					support the message digest size selection. The hash selection
-					should be consistent with the overall strength of the algorithm used for FCS_COP.1/SKC.
-				</note>
-				<aactivity>
-					The evaluator shall perform the following activities based on the selections in the ST.
-					<TSS>None.<h:p/></TSS>
-					<Guidance>None.<h:p/></Guidance>
-					<Tests>
-						For each of the supported parameter sets, the evaluator shall compose 15 sets of test data.
-						Each set shall consist of a key and message data.  The evaluator shall have the TSF generate
-						HMAC tags for these sets of test data.  The resulting MAC tags shall be compared to the 
-						result of generating HMAC tags with the same key and IV using a known-good implementation.
-					</Tests>
-				</aactivity>
-			</f-element>
-        </f-component> 
-        
+		
+		
 		<!-- FCS_HTTPS_EXT.1/Client -->
 		<!-- Added by TD0601 -->
         <f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol" iteration="Client" status="sel-based">
