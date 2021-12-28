@@ -4,7 +4,7 @@ Protection Profile for Application Software
 ![Validate](https://github.com/commoncriteria/application/workflows/Validate/badge.svg)
 [![SanityChecks](https://raw.githubusercontent.com/commoncriteria/application/gh-pages/master/warnings-badge.svg)](https://github.com/commoncriteria/application/blob/gh-pages/SanityChecksOutput.md)
 [![SpellCheck](https://raw.githubusercontent.com/commoncriteria/application/gh-pages/master/spell-badge.svg)](https://github.com/commoncriteria/application/blob/gh-pages/SpellCheckReport.txt)
-[![QuickBuild](https://github.com/commoncriteria/application/actions/workflows/quick_build.yml/badge.svg)](https://commoncriteria.github.io/application/application-release.html)
+[![QuickBuild](https://github.com/commoncriteria/application/actions/workflows/quick_build.yml/badge.svg)](https://commoncriteria.github.io/application)
 [![GitHub issues Open](https://img.shields.io/github/issues/commoncriteria/application.svg?maxAge=2592000)](https://github.com/commoncriteria/application/issues) 
 
 This repository hosts the draft version of the Protection Profile for Application Software based on the 
