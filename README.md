@@ -46,13 +46,10 @@ To pull updates from the upstream _transforms_ submodule and commit them run:
 * [Help working with Transforms Submodule](https://github.com/commoncriteria/transforms/wiki/Working-with-Transforms-as-a-Submodule)
 
 ## Repository Content
-* hooks - Contains scripts to be run when certain git events happen
 * input - Contains the 'meat' of the project. It's the input content (in XML form) that gets transformed to readable html.
 * output - The output directory where the html is placed after transformation.
 * output/images - The directory where images are stored
 * transforms - Points to the transform subproject which is really a repository for resources shared amongst many Common Criteria projects.
-* local - Resources that are specific to this project.
-  They often modify or extend functionality from the transforms subproject.
 * vetting-output-format - Files in this directory defines the format for output derived from evaluating an application.
 
 ## Links 
