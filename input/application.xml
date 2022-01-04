@@ -706,7 +706,7 @@
 						<selectable>invoke platform-provided functionality</selectable>
 						<selectable>implement functionality</selectable>
 					</selectables>
-					<h:b>to generate asymmetric cryptographic keys in accordance with a specified cryptographic key generation algorithm</h:b>
+					to generate <h:b>asymmetric</h:b> cryptographic keys in accordance with a specified cryptographic key generation algorithm
 					<selectables linebreak="yes">
 						<selectable><h:b>[RSA schemes]</h:b> using cryptographic key sizes of <h:b>[2048-bit or greater]</h:b> that meet
 							the following <h:b> FIPS PUB 186-4, "Digital Signature Standard (DSS), Appendix B.3"</h:b></selectable>
@@ -720,10 +720,10 @@
 							<h:b>[FFC schemes]</h:b> using cryptographic key sizes of <h:b>[2048-bit or greater]</h:b> 
 							that meet the following: <h:b>[FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.1]</h:b>
 						</selectable>
-						<selectable>[FFC Schemes]<h:b> using Diffie-Hellman group 14</h:b> that meet the following: 
+						<selectable><h:b>[FFC Schemes]</h:b><h:b> using Diffie-Hellman group 14</h:b> that meet the following: 
 							<h:b>RFC 3526, Section 3</h:b>
 						</selectable>
-						<selectable>[FFC Schemes]<h:b> using “safe-prime” groups</h:b> that meet the following: 
+						<selectable><h:b>[FFC Schemes]</h:b><h:b> using “safe-prime” groups</h:b> that meet the following: 
 							<h:b>NIST Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes
 								Using Discrete Logarithm Cryptography”</h:b> and 
 							<selectables>
@@ -1840,6 +1840,7 @@ functionality (such as these)
 		<!-- Added by TD0601 -->
         <f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol" iteration="Server" status="sel-based">
 			<depends on1="sel_all_https_sv"/>
+			<depends on1="sel_all_https_ma"/>
 			<f-element id="fel-https-wath-sv">
 				<title>
 					The application shall implement the HTTPS protocol that complies with RFC 2818.
@@ -3091,7 +3092,7 @@ functionality (such as these)
         <f-component cc-id="fpt_api_ext.2" name="Use of Supported Services and APIs" status="objective">
 			<f-element id="fel-api-parsers">
 				<title> The application 
-					<selectables>
+					<selectables onlyone="yes">
 						<selectable>shall use platform-provided libraries</selectable>
 						<selectable>does not implement functionality</selectable>
 					</selectables>
@@ -3101,7 +3102,7 @@ functionality (such as these)
 				<note role="application">
 					The IANA MIME types are listed at
 					<h:a href='http://www.iana.org/assignments/media-types'>http://www.iana.org/assignments/media-types</h:a> 
-					and include many image, audio, video, and content file formats. 
+					and include many image, audio, video, and content file formats. <h:p/>
 					This requirement does not apply if providing parsing services is the purpose of the 
 					application.
 				</note>
@@ -3711,8 +3712,8 @@ functionality (such as these)
 					<selectables linebreak="yes">
 						<selectable exclusive="yes">not transmit any 
 							<selectables>
-								<selectable>data</selectable>
-								<selectable>sensitive data</selectable>
+								<selectable exclusive="yes">data</selectable>
+								<selectable exclusive="yes">sensitive data</selectable>
 							</selectables>
 						</selectable>
 						<selectable exclusive="yes">encrypt all transmitted 
@@ -3730,7 +3731,7 @@ functionality (such as these)
 								<selectable>IPsec as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=419&amp;id=419"><h:i>PP-Module for VPN Client</h:i></h:a></selectable>
 							</selectables>
 						</selectable>
-						<selectable>invoke platform-provided functionality to encrypt all transmitted sensitive data with
+						<selectable exclusive="yes">invoke platform-provided functionality to encrypt all transmitted sensitive data with
 							<selectables>
 								<selectable>HTTPS</selectable>
 								<selectable>TLS</selectable>
@@ -3738,7 +3739,7 @@ functionality (such as these)
 								<selectable>SSH</selectable>
 							</selectables>
 						</selectable>	    	      
-						<selectable>invoke platform-provided functionality to encrypt all transmitted data with
+						<selectable exclusive="yes">invoke platform-provided functionality to encrypt all transmitted data with
 							<selectables>
 								<selectable>HTTPS</selectable>
 								<selectable>TLS</selectable>
