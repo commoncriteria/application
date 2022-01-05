@@ -702,7 +702,7 @@
 			<depends on="sel_invoke_genkey" and="sel_impl_genkey"/>
 			<f-element id="fel-asym-key-gen-impl">
 				<title>            
-					The <h:b>application</h:b> shall <selectables linebreak="yes">
+					The <h:b>application</h:b> shall <selectables linebreak="yes" onlyone="yes">
 						<selectable>invoke platform-provided functionality</selectable>
 						<selectable>implement functionality</selectable>
 					</selectables>
@@ -711,8 +711,8 @@
 						<selectable><h:b>[RSA schemes]</h:b> using cryptographic key sizes of <h:b>[2048-bit or greater]</h:b> that meet
 							the following <h:b> FIPS PUB 186-4, "Digital Signature Standard (DSS), Appendix B.3"</h:b></selectable>
 						<selectable><h:b>[ECC schemes]</h:b> using <h:b>[“NIST curves” P-256, P-384 and <selectables>
-							<selectable> P-521 </selectable>
-							<selectable> no other curves </selectable></selectables> 
+							<selectable exclusive="yes"> P-521 </selectable>
+							<selectable exclusive="yes"> no other curves </selectable></selectables> 
 							]</h:b>that meet the following: 
 							<h:b>[FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.4]</h:b>
 						</selectable> 
@@ -979,7 +979,7 @@
 			<f-element id="fel-key-est">
 				<title>
 					The application shall 
-						<selectables>
+						<selectables onlyone="yes">
 							<selectable>invoke platform-provided functionality</selectable>
 							<selectable>implement functionality</selectable>
 						</selectables> 
@@ -1562,14 +1562,14 @@ functionality (such as these)
 						<selectable>SHA-256</selectable>
 						<selectable>SHA-384</selectable>
 						<selectable>SHA-512</selectable>
-						<selectable>no other</selectable>
+						<selectable exclusive="yes">no other</selectable>
 					</selectables>
 					and message digest sizes <selectables linebreak="yes">
 						<selectable>160</selectable>
 						<selectable>256</selectable>
 						<selectable>384</selectable>
 						<selectable>512</selectable>
-						<selectable>no other</selectable>
+						<selectable exclusive="yes">no other</selectable>
 					</selectables> bits that meet the following: FIPS Pub 180-4.
 				</title>
 				<note role="application">
@@ -1657,13 +1657,13 @@ functionality (such as these)
 						<selectable>HMAC-SHA-1</selectable>
 						<selectable>HMAC-SHA-384</selectable>
 						<selectable>HMAC-SHA-512</selectable>
-						<selectable>no other algorithms</selectable>
+						<selectable exclusive="yes">no other algorithms</selectable>
 					</selectables> with key sizes <assignable>key size (in bits) used in HMAC</assignable> 
 					and message digest sizes 256 and <selectables>
 						<selectable>160</selectable>
 						<selectable>384</selectable>
 						<selectable>512</selectable>
-						<selectable>no other size</selectable>
+						<selectable exclusive="yes">no other size</selectable>
 					</selectables>
 					bits that meet the following: FIPS Pub 198-1 <h:i>The Keyed-Hash Message Authentication Code</h:i>
 					and FIPS Pub 180-4 <h:i>Secure Hash Standard</h:i>.
@@ -1702,7 +1702,7 @@ functionality (such as these)
 							following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 4</selectable>
 						<selectable><h:b>ECDSA schemes</h:b> using “NIST curves” P-256, P-384 and <selectables>
 							<selectable>P-521</selectable>
-							<selectable>no other curves</selectable></selectables>
+							<selectable exclusive="yes">no other curves</selectable></selectables>
 						that meet the following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 5</selectable>
 					</selectables>.
 				</title>
@@ -1799,7 +1799,7 @@ functionality (such as these)
 			</f-element>
 			<f-element id="fel-https-who-cl">
 				<title> The application shall 
-					<selectables>
+					<selectables onlyone="yes">
 						<selectable>not establish the application-initiated connection</selectable>
 						<selectable>notify the user and not establish the user-initiated connection</selectable>
 						<selectable>notify the user and request authorization to establish the user-initiated connection</selectable>
@@ -1877,7 +1877,7 @@ functionality (such as these)
 			<f-element id="fel-https-wath-m">
 				<title>
 					The application shall 
-					<selectables>
+					<selectables onlyone="yes">
 						<selectable>not establish the connection</selectable>
 						<selectable>establish or not establish the connection based on an administrative or user setting</selectable>
 					</selectables>if the peer certificate is deemed invalid.
@@ -2512,7 +2512,7 @@ functionality (such as these)
 			<f-element id="fel-certauth-how">
 				<title>
 					The application shall 
-					<selectables>
+					<selectables onlyone="yes">
 						<selectable>invoke platform-provided functionality</selectable>
 						<selectable>implement functionality</selectable>
 					</selectables>
@@ -2733,7 +2733,7 @@ functionality (such as these)
 				<title>
 					When the application cannot establish a connection to determine the validity of a 
 					certificate, the application shall  
-					<selectables>
+					<selectables onlyone="yes">
 						<selectable>allow the administrator to choose whether to accept the certificate in these cases</selectable>
 						<selectable>accept the certificate</selectable>
 						<selectable>not accept the certificate</selectable>
