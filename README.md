@@ -19,6 +19,7 @@ See the [release](#Release-Version) section if you are looking for the officiall
 
 ## Release Version
 * [Protection Profile for Application Software v1.3](https://www.niap-ccevs.org/Profile/Info.cfm?PPID=429&id=429)
+* [Protection Profile for Application Software v1.4](https://www.niap-ccevs.org/Profile/Info.cfm?PPID=429&id=462)
 
 ## Contributing
 
