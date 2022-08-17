@@ -1,4 +1,6 @@
-APP_RECIPROCITY_WORKSHEET=$(OUT)/application-vetting-report-sample.html
+-include ~/commoncriteria/User.make
+
+#APP_RECIPROCITY_WORKSHEET=$(OUT)/application-vetting-report-sample.html
 
 TRANS?=transforms
 PP2HTML_XSL=local/pp2html.xsl
