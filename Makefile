@@ -1,5 +1,5 @@
 DIFF_DIR=diff
-DIFF_TAGS=release-1.4
+DIFF_TAGS="v1.4 v1.2"
 TRANS?=transforms
 # Application PP requires slightly different transforms, which is specified below.
 #PP2HTML_XSL?=local/pp2html.xsl
