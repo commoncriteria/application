@@ -7,18 +7,19 @@ Protection Profile for Application Software
 [![QuickBuild](https://github.com/commoncriteria/application/actions/workflows/quick_build.yml/badge.svg)](https://commoncriteria.github.io/application)
 [![GitHub issues Open](https://img.shields.io/github/issues/commoncriteria/application.svg?maxAge=2592000)](https://github.com/commoncriteria/application/issues) 
 
-This repository hosts the draft version of the PP-Module for Authentication Servers based on the 
-[Essential Security Requirements (ESR)](https://commoncriteria.github.io/pp/authserver/esr.html) for this technology class of 
+This repository hosts the draft version of the Protection Profile for Application Software based on the 
+[Essential Security Requirements (ESR)](https://commoncriteria.github.io/pp/application/application-esr.html) for this technology class of 
 products. This repository is used to facilitate collaboration and development on the draft document. 
-See the [release](#Release-Version) section if you are looking for the officially released version for evaluations. A list of products that have passed evaluation against this Protection Profile can be found [here](https://www.niap-ccevs.org/Product/index.cfm).
+See the [release](#Release-Version) section if you are looking for the officially released version for evaluations. A list of products that have passed evaluation against this Protection Profile can be found [here](https://www.niap-ccevs.org/Product/PCL.cfm?ID624=74).
 
 ## Draft Version
 
-* [PP-Module for Authentication Servers](https://commoncriteria.github.io/pp/application/application-release.html) (html)
-* [PP-Module for Authentication Servers](https://commoncriteria.github.io/pp/application/application-release.pdf) (pdf)
+* [Protection Profile for Application Software](https://commoncriteria.github.io/pp/application/application-release.html) (html)
+* [Protection Profile for Application Software](https://commoncriteria.github.io/pp/application/application-release.pdf) (pdf)
 
 ## Release Version
-* [PP-Module for Authentication Servers](TBD)
+* [Protection Profile for Application Software v1.3](https://www.niap-ccevs.org/Profile/Info.cfm?PPID=429&id=429)
+* [Protection Profile for Application Software v1.4](https://www.niap-ccevs.org/Profile/Info.cfm?PPID=429&id=462)
 
 ## Contributing
 
@@ -27,7 +28,7 @@ If you are interested in contributing directly to future versions the this Prote
 
 ## Feedback
 
-Questions, comments, and fixes can be submitted to the [repository issue tracker](https://github.com/commoncriteria/authserver/issues)
+Questions, comments, and fixes can be submitted to the [repository issue tracker](https://github.com/commoncriteria/application/issues)
 
 ## Quickstart
 To clone this project along with its _transforms_ submodule run:
