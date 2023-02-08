@@ -6,8 +6,10 @@
     xmlns:h="http://www.w3.org/1999/xhtml"
     xmlns:sec="https://niap-ccevs.org/cc/v1/section"
     target-products="Application Software" 
+    target-product="Application Software" 
     boilerplate="yes"
     short="App"
+
 >
 	
   <PPReference>
@@ -109,18 +111,21 @@
      <val id="sad-mac" full="Apple macOS Platform"></val>
   </subaactivity-decl> 
   -->
-   <include-pkg id="pkg-tls">
-	  <raw-url>https://raw.githubusercontent.com/commoncriteria/tls/v1.1/input/tls.xml</raw-url>
-	  <url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439</url>
-	  <depends on-sel="sel_all_tls" on-also="sel_all_dtls"/>
-   </include-pkg>
-
-    <include-pkg id="pkg-ssh">
-          <raw-url>https://raw.githubusercontent.com/commoncriteria/ssh/v1.0/input/ssh.xml</raw-url>
-          <url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459</url>
-	  <depends on-sel="sel_all_ssh"/>
-    </include-pkg>
-	
+  <include-pkg id="pkg-ssh">
+    <git>
+      <url>https://github.com/commoncriteria/ssh</url>
+      <branch>release-1.0</branch>
+    </git>
+    <url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459</url>
+    <depends on="s-ftp_ssh" also="s-uau-ssh"/>
+  </include-pkg>
+  <include-pkg id="pkg-tls">
+    <git>
+      <url>https://github.com/commoncriteria/tls</url>
+      <branch>release-1.1</branch>
+    </git>
+    <url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439</url>
+  </include-pkg>
 
 	<!-- 1.0 Introdiction -->
 	<sec:Introduction>
