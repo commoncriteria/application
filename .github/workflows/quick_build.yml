@@ -1,4 +1,4 @@
-name: QuickBuild
+name: QuickBuild v4.0
 
 on:
   push:
@@ -31,6 +31,9 @@ jobs:
 
     - name: Set branch name
       run: echo "action_branch=$(echo ${GITHUB_REF#refs/heads/})" >> $GITHUB_ENV
+
+    - name: Set base URL
+      run: echo "action_projname=${PWD##*/}" >> $GITHUB_ENV
       
     - name: Quick Build
       run: WARN_PATH="output/SanityChecksOutput.md" make
@@ -105,9 +108,13 @@ jobs:
 
     - name: Set TD badge attributes
       run: |
-        echo "action_tdcolor=$(if [ -s output/TDValidationReport.txt ]; then echo orange; else echo green; fi)" >> $GITHUB_ENV
-        echo "action_tdwarns=$(wc -l output/TDValidationReport.txt | { read first rest ; echo $first;} )" >> $GITHUB_ENV
-        
+        if ls input/tds/*.xml; then
+            echo "action_tdcolor=$(if [ -s output/TDValidationReport.txt ]; then echo orange; else echo green; fi)" >> $GITHUB_ENV
+            echo "action_tdwarns=$(wc -l output/TDValidationReport.txt | { read first rest ; echo $first;} )" >> $GITHUB_ENV
+        else
+            echo "action_tdcolor=gray" >> $GITHUB_ENV
+            echo "action_tdwarns=N/A"  >> $GITHUB_ENV
+        fi
         
     - name: Validate Effective
       run: |
@@ -171,11 +178,37 @@ jobs:
         color:  ${{ env.action_tdcolor }}
         path: output/tds.svg
 
+    - name:  Make Dashboard Snippet
+      run: |
+        (
+        rurl="https://raw.githubusercontent.com/commoncriteria/${{env.action_projname}}/gh-pages/${{env.action_branch}}"
+        surl="https://commoncriteria.github.io/${{env.action_projname}}/${{env.action_branch}}"
+        gurl="https://github.com/commoncriteria/${{env.action_projname}}/blob/gh-pages/${{env.action_branch}}"
+        echo '[cols="1,1,1,1,1,1,1,1"]'
+        echo '|==='
+        echo "8+|${{ env.action_projname }} "
+        echo "| https://github.com/commoncriteria/${{env.action_projname}}/tree/${{env.action_branch}}[${{ env.action_branch }}] "
+        echo "a| $surl/${{env.action_projname}}-release.html[📄]"
+        echo "a|[link=$gurl/ValidationReport.txt]"
+        echo "image::$rurl/validation.svg[Validation]"
+        echo "a|[link=$gurl/SanityChecksOutput.md]"
+        echo "image::$rurl/warnings.svg[SanityChecks]"
+        echo "a|[link=$gurl/SpellCheckReport.txt]"
+        echo "image::$rurl/spell-badge.svg[SpellCheck]"
+        echo "a|[link=$gurl/TDValidationReport.txt]"
+        echo "image::$rurl/tds.svg[TDs]"
+        echo "a|image::$rurl/transforms.svg[transforms,150]"
+        echo "a| "
+        for aa in output/*.html; do
+           echo "$surl/${aa#*/}[${aa#*/}] +"
+        done
+        echo '|==='
+        ) > output/Minidash.adoc
+
+
+        
     - name:  Prepare checkout
       run: |
-        pwd
-        ls
-        echo "---"
         mkdir gh-pages
 
     - uses: actions/checkout@v3
@@ -183,11 +216,9 @@ jobs:
         ref: gh-pages
         path: gh-pages
 
+        
     - name:  Move output to branch
       run: |
-        pwd
-        ls
-        echo "+++"
         rm -rf gh-pages/${{ env.action_branch }}
         mv output gh-pages/${{ env.action_branch }}
         
@@ -207,5 +238,3 @@ jobs:
       with:
         branch: gh-pages # The branch the action should deploy to.
         folder: gh-pages # The folder the action should deploy.
-
-        
