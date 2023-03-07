@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<technical-decisions  xmlns:h="http://www.w3.org/1999/xhtml" 
+		      xmlns="https://niap-ccevs.org/cc/v1">
+  <bunch>
+    <applies-to max-inclusive="1.4" name="Protection Profile for Application Software"/>
+
+    <decision id='0664'>
+    	<notes>Testing activity for FPT_TUD_EXT.2.2</notes>
+
+        <change xpath=".//f-element[@id='fel-removal']" mode="replace">
+			<f-element id="fel-removal">
+				<title>
+					The application shall be packaged such that its removal results in the deletion 
+					of all traces of the application, with the exception of configuration settings, output
+					files, and audit/log events.
+				</title>
+				<note role="application">Applications software bundled with the system/firmware image 
+					are not subject to this requirement if the user is unable to remove the application through
+					means provided by the OS.
+				</note>
+				<aactivity level="element">
+					<TSS>None.<h:p/></TSS>
+					<Guidance>None.<h:p/></Guidance>
+					<Tests>
+						<h:div><depends ref="android"/>The evaluator shall consider the requirement met because 
+							the platform forces applications to write all data within the application working 
+							directory (sandbox).</h:div>
+						<!-- Removed 
+						<h:div><depends ref="windows"/>
+							The evaluator shall install the application and then locate all of its executable files. 
+							The evaluator shall then, for each file, save off either a hash of the file or a copy of the
+							file itself. The evaluator shall then run the application and exercise all features of
+							the application as described in the ST. The evaluator shall then compare each executable
+							file with the either the saved hash or the saved copy of the files. The evaluator shall 
+							verify that these are identical.</h:div>
+						-->
+						<h:div><depends ref="ios"/>The evaluator shall consider the requirement met because 
+							the platform forces applications to write all data within the application working 
+							directory (sandbox).</h:div>
+						<!-- Removed
+							
+						<h:div><depends ref="linux"/>
+							The evaluator shall install the application and then locate all of its executable files. 
+							The evaluator shall then, for each file, save off either a hash of the file or a copy of the
+							file itself. The evaluator shall then run the application and exercise all features of
+							the application as described in the ST. The evaluator shall then compare each executable
+							file with the either the saved hash or the saved copy of the files. The evaluator shall 
+							verify that these are identical.</h:div>
+						<h:div><depends ref="Solaris"/>
+							The evaluator shall install the application and then locate all of its executable files. 
+							The evaluator shall then, for each file, save off either a hash of the file or a copy of the
+							file itself. The evaluator shall then run the application and exercise all features of
+							the application as described in the ST. The evaluator shall then compare each executable
+							file with the either the saved hash or the saved copy of the files. The evaluator shall 
+							verify that these are identical.</h:div>
+						<h:div><depends ref="mac"/>
+							The evaluator shall install the application and then locate all of its executable files. 
+							The evaluator shall then, for each file, save off either a hash of the file or a copy of the
+							file itself. The evaluator shall then run the application and exercise all features of
+							the application as described in the ST. The evaluator shall then compare each executable
+							file with the either the saved hash or the saved copy of the files. The evaluator shall 
+							verify that these are identical.</h:div>
+						-->
+						<!-- Added -->
+						<h:br/>All Other Platforms:
+								The evaluator shall record the path of every file on the entire filesystem prior to 
+								installation of the application, and then install and run the application. Afterwards, 
+								the evaluator shall then uninstall the application, and compare the resulting filesystem
+								to the initial record to verify that no files, other than configuration, output, and 
+								audit/log files, have been added to the filesystem.
+					</Tests>
+				</aactivity>
+			</f-element>
+		</change>
+    </decision>
+  </bunch>
+</technical-decisions>
