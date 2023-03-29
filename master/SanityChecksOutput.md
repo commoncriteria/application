@@ -231,3 +231,7 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]"The Secur"/section[6]"For the c"/a-component[1]""/a-element[5]""/aactivity[1]"The evalu"/h:p[2]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]"The Secur"/section[6]"For the c"/a-component[1]""/a-element[5]""/aactivity[1]"The evalu"/h:p[3]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]"The Secur"/section[6]"For the c"/a-component[1]""/a-element[5]""/aactivity[1]"The evalu"/h:p[4]""
+* Warning: Since FCS_RBG_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FPT_TUD_EXT.1.5 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       

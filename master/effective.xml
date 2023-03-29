@@ -1764,11 +1764,19 @@ functionality (such as these)
 			</f-element>
         </f-component>
 		
+        <ext-comp-def fam-id="FCS_HTTPS_EXT" title="HTTPS Protocol">
+          <fam-behavior>This family defines requirements for implementation of the HTTPS protocol.</fam-behavior>
+        </ext-comp-def>
 		
-		<!-- FCS_HTTPS_EXT.1/Client -->
-		<!-- Added by TD0601 -->
-        <f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol" iteration="Client" status="sel-based">
-			<depends on-se1="sel_all_https_cl"/>
+	<!-- FCS_HTTPS_EXT.1/Client -->
+	<!-- Added by TD0601 -->
+	<f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol" iteration="Client" status="sel-based">
+	  <depends on-se1="sel_all_https_cl"/>
+
+	  
+          <comp-lev>defines the capability of the TOE to implement HTTPS.</comp-lev>
+          <dependencies>FIA_X509_EXT.1 X.509 Certificate Validation</dependencies>
+		  
 			<f-element id="fel-https-wath-cl">
 				<title>
 					The application shall implement the HTTPS protocol that complies with RFC 2818.
@@ -1804,7 +1812,14 @@ functionality (such as these)
 						<selectable>notify the user and request authorization to establish the user-initiated connection</selectable>
 					</selectables>
 					if the peer certificate is deemed invalid.
-				</title>    
+				</title>
+				<ext-comp-def-title>
+				  <title>
+				    The application shall
+				    <assignable>take some action</assignable>
+				    if the peer certificate is deemed invalid.
+				</title>				  
+				</ext-comp-def-title>
 				<note role="application">
 					Validity is determined by the certificate path, the expiration date, and the 
 					revocation status in accordance with RFC 5280. 
@@ -1869,10 +1884,16 @@ functionality (such as these)
 			</f-element>
         </f-component>
 
-		<!-- FCS_HTTPS_EXT.2 HTTPS Protocol with Mutual Authentication -->
-		<!-- Added by TD0601 -->
-        <f-component cc-id="fcs_https_ext.2" name="HTTPS Protocol with Mutual Authentication" status="sel-based">
-			<depends on1="sel_all_https_ma"/>
+	<!-- FCS_HTTPS_EXT.2 HTTPS Protocol with Mutual Authentication -->
+	<!-- Added by TD0601 -->
+	<f-component cc-id="fcs_https_ext.2" name="HTTPS Protocol with Mutual Authentication" status="sel-based">
+	  <depends on1="sel_all_https_ma"/>
+          <comp-lev>defines HTTPS capabilities relating specifically to the case where the TOE acts as an HTTPS server that enforces mutual authentication.</comp-lev>
+          <dependencies>
+	    FCS_HTTPS_EXT.1 HTTPS Protocol <h:br/>
+	    FIA_X509_EXT.1 X.509 Certificate Validation
+	  </dependencies>
+
 			<f-element id="fel-https-wath-m">
 				<title>
 					The application shall 
@@ -1905,11 +1926,21 @@ functionality (such as these)
 				</aactivity>
 			</f-element>
         </f-component>
-		
-		<!-- FCS_RBG_EXT.1  -->
-		<!-- TD416 incorporated -->
-		<!-- TD510 incorporated -->
-        <f-component cc-id="fcs_rbg_ext.1" name="Random Bit Generation Services">
+
+
+
+        <ext-comp-def fam-id="FCS_RBG_EXT" title="Random Bit Generation">
+          <fam-behavior>This family defines requirements for the generation of random bits.</fam-behavior>
+        </ext-comp-def>
+
+	
+	
+	<!-- FCS_RBG_EXT.1  -->
+	<!-- TD416 incorporated -->
+	<!-- TD510 incorporated -->
+	<f-component cc-id="fcs_rbg_ext.1" name="Random Bit Generation Services">
+	  <comp-lev>requires the TSF to specify whether random bit generation is implemented by the TSF, invoked from the operational environment, or not used by the TOE.</comp-lev>
+
 			<f-element id="fel-rbg">
 				<title> The application shall
 					<selectables linebreak="yes">
@@ -1999,7 +2030,14 @@ functionality (such as these)
 	      
 		<!-- FCS_RBG_EXT.2 -->
         <f-component cc-id="fcs_rbg_ext.2" name="Random Bit Generation from Application" status="sel-based">
-			<depends on="drbg"/>
+	  <depends on="drbg"/>
+	  <comp-lev>specifies the mechanism by which the TSF generates random bits.</comp-lev>
+	  <dependencies>
+	    FCS_COP.1 Cryptographic Operation<h:br/>
+	    FCS_RBG_EXT.1 Random Bit Generation Services
+	  </dependencies>
+
+	  
 			<f-element id="fel-drbg-how">
 				<title> The application shall perform all deterministic random bit generation (DRBG)
 					services in accordance with NIST Special Publication 800-90A using <selectables>
@@ -2140,10 +2178,17 @@ functionality (such as these)
 				</aactivity>
 			</f-element>
         </f-component>
-		
-		<!-- FCS_STO_EXT.1 Storage of Credential -->
-        <f-component cc-id="fcs_sto_ext.1" name="Storage of Credentials">
-			<f-element id="fel-store-creds">
+
+	<ext-comp-def fam-id="FCS_STO_EXT" title="Storage of Credentials">
+	  <fam-behavior>This family defines requirements for the secure storage of credential data. </fam-behavior>
+	</ext-comp-def>
+	
+	<!-- FCS_STO_EXT.1 Storage of Credential -->
+	<f-component cc-id="fcs_sto_ext.1" name="Storage of Credentials">
+	  
+	  <comp-lev>requires the application to define how to store credentials to non-volatile memory.</comp-lev>
+	  
+	  <f-element id="fel-store-creds">
 				<title>The application shall 
 					<selectables linebreak="yes">
 						<selectable exclusive="yes">not store any credentials</selectable>
@@ -2161,6 +2206,24 @@ functionality (such as these)
 					</selectables>
 					to non-volatile memory.
 				</title>
+
+	<ext-comp-def-title><title>The application shall 
+					<selectables linebreak="yes">
+						<selectable exclusive="yes">not store any credentials</selectable>
+						<selectable>invoke the functionality provided by the platform to securely store 
+							<assignable>list of credentials</assignable>
+						</selectable>
+						<selectable>implement functionality to securely store
+							<assignable>list of credentials</assignable>
+							according to
+							<assignable>cryptographic mechanisms</assignable>
+
+						</selectable>
+					</selectables>
+					to non-volatile memory.
+				      </title>
+				      </ext-comp-def-title>
+				
 				<note role="application">
 					This requirement ensures that persistent credentials (secret keys, PKI private keys, passwords, etc) 
 					are stored securely, and never persisted in cleartext form. 
@@ -2223,11 +2286,20 @@ functionality (such as these)
 
 	<!-- 5.1.2 User Data Protection (FDP) -->
     <section title="User Data Protection (FDP)" id="fdp">
-	  
-		<!-- FDR_DEC_EXT.1 -->
-		<!-- Incorporates TD434 -->
-		<!-- Incorporates TD515 -->
-        <f-component cc-id="fdp_dec_ext.1" name="Access to Platform Resources">
+
+      
+      <!-- FDR_DEC_EXT.1 -->
+      <!-- Incorporates TD434 -->
+      <!-- Incorporates TD515 -->
+      <ext-comp-def fam-id="FDP_DEC_EXT" title="Access to Platform Resources">
+	<fam-behavior>This family defines requirements for accessing platform resources.</fam-behavior>
+      </ext-comp-def>
+      <f-component cc-id="fdp_dec_ext.1" name="Access to Platform Resources">
+
+	<comp-lev>requires the application to restrict access to hardware sources and sensitive information repositories.</comp-lev>
+	<management> The following action could be considered for the management functions in FMT: a) enable/disable the transmission of any information describing the system’s hardware, software,or configuration.</management>
+
+	
 			<f-element id="fel-hardware-access">
 				<title> The application shall restrict its access to
 					<selectables linebreak="yes">
@@ -2367,7 +2439,12 @@ functionality (such as these)
 			</f-element>
         </f-component>
 
+	<ext-comp-def fam-id="FDP_NET_EXT" title="Network Communications">
+	  <fam-behavior>This family defines requirements for the TOE’s use of network connectivity.</fam-behavior>
+	</ext-comp-def>
+	
         <f-component cc-id="fdp_net_ext.1" name="Network Communications">
+	  <comp-lev>identifies the purpose for each network interface used by the TOE and how that interface is invoked.</comp-lev>
 			<f-element id="fel-network-access">
 				<title>The application shall restrict network communication to 
 					<selectables linebreak="yes">
@@ -2420,9 +2497,17 @@ functionality (such as these)
 			</f-element>	
 		</f-component>
 
+
+		<ext-comp-def fam-id="FDP_DAR_EXT" title="Data-at-Rest Encryption">
+		  <fam-behavior>This family defines requirements for implementation of data-at-rest protection. </fam-behavior>
+		</ext-comp-def>
+		
 		<!-- FDP_DAR_EXT.1 Encryption of Sensitive Application Data -->
 		<!-- incorporates TD582 -->
-        <f-component cc-id="fdp_dar_ext.1" name="Encryption Of Sensitive Application Data">
+		<f-component cc-id="fdp_dar_ext.1" name="Encryption Of Sensitive Application Data">
+	<comp-lev>requires the application to be able to protect all data with a chosen method of encryption.</comp-lev>
+
+		  
 			<f-element id="fel-dar-how">
 				<title>
 					The application shall 
@@ -2506,9 +2591,14 @@ functionality (such as these)
 		<!-- FIA_X509_EXT.1 -->
 		<!-- Modified by TD495 -->
 		<!-- Modified by TD601 -->
-        <f-component cc-id="fia_x509_ext.1" name="X.509 Certificate Validation" status="sel-based">
-			<depends on1="sel_all_https_cl" on2="sel_all_https_sv" on3="sel_all_https_ma" on4="sel_all_tls" on5="sel_all_dtls"/>
-			<f-element id="fel-certauth-how">
+		<ext-comp-def fam-id="FIA_X509_EXT" title="X.509 Validation of Certificates">
+		  <fam-behavior>This family defines requirements for the management and use of X.509 certificates.</fam-behavior>
+		</ext-comp-def>
+
+		<f-component cc-id="fia_x509_ext.1" name="X.509 Certificate Validation" status="sel-based">
+		  <depends on1="sel_all_https_cl" on2="sel_all_https_sv" on3="sel_all_https_ma" on4="sel_all_tls" on5="sel_all_dtls"/>		  
+		  <comp-lev>specifies the rules the TSF must follow to determine if an X.509 certificate is valid.</comp-lev>
+		  <f-element id="fel-certauth-how">
 				<title>
 					The application shall 
 					<selectables onlyone="yes">
@@ -2704,18 +2794,31 @@ functionality (such as these)
 		<!-- FIA_X509_EXT.2 X.509 Certificate Authentication -->
 		<!-- Incorporates TD601 -->
         <f-component cc-id="fia_x509_ext.2" name="X.509 Certificate Authentication" status="sel-based">
-			<depends on1="sel_all_https_cl" on2="sel_all_https_sv" on3="sel_all_https_ma" on4="sel_all_tls" on5="sel_all_dtls"/>
-			<f-element id="fel-certs-who">
-				<title>
-					The application shall use X.509v3 certificates as defined by RFC 5280 to support authentication for 
-					<selectables>
-						<selectable>HTTPS</selectable>
-						<selectable>TLS</selectable>
-						<selectable>DTLS</selectable>
-						<selectable>SSH</selectable>
-						<selectable>IPsec</selectable>
-					</selectables>. 
-				</title>
+	  <depends on1="sel_all_https_cl" on2="sel_all_https_sv" on3="sel_all_https_ma" on4="sel_all_tls" on5="sel_all_dtls"/>
+
+	  <comp-lev>defines the TOE’s usage of X.509 certificates and how it reacts to certificates that cannot be validated.</comp-lev>
+	  <audit>The following action could be considered for the management functions in FMT: a) configuration of TSF behavior in the event that certificate revocation status cannot be verified.</audit>
+	  <dependencies>
+	    FIA_X509_EXT.1 X.509 Certificate Validation<h:br/>
+	    [FTP_ITC.1 Inter-TSF Trusted Channel, or<h:br/>
+	    FTP_TRP.1 Trusted Path]
+	  </dependencies>
+	  <f-element id="fel-certs-who">
+	    <title>
+	      The application shall use X.509v3 certificates as defined by RFC 5280 to support authentication for 
+	      <selectables>
+		<selectable>HTTPS</selectable>
+		<selectable>TLS</selectable>
+		<selectable>DTLS</selectable>
+		<selectable>SSH</selectable>
+		<selectable>IPsec</selectable>
+		</selectables>. 
+	    </title>
+	    <ext-comp-def-title><title>
+	      The application shall use X.509v3 certificates as defined by RFC 5280 to support authentication for 
+	      <assignable>trusted channel or trusted path communications protocol</assignable>.
+	    </title></ext-comp-def-title>
+	      
 				<note role="application">
 					This requirement is included if the protocol(s) selected in FTP_DIT_EXT.1.1 require the use of certificates
 					to authenticate the remote entity. For example, if the TOE or platform implements TLS as a HTTPS/TLS server
@@ -2792,12 +2895,19 @@ functionality (such as these)
 	    
 	    
       <section title="Security Management (FMT)" id="fmt">
-	  
-		<!-- FMT_MEC_EXT.1 -->
-		<!-- as replaced in TD437 -->
-		<!-- incorporates TD465 -->
-		<!-- incorporates TD543 -->
-        <f-component cc-id="fmt_mec_ext.1" name="Supported Configuration Mechanism">
+
+
+
+	<ext-comp-def fam-id="FMT_MEC_EXT" title="Supported Configuration Mechanism">
+	  <fam-behavior>This family defines requirements for the TOE’s use of mechanisms for the storage of configuration data.</fam-behavior>
+	</ext-comp-def>
+	
+	<!-- FMT_MEC_EXT.1 -->
+	<!-- as replaced in TD437 -->
+	<!-- incorporates TD465 -->
+	<!-- incorporates TD543 -->
+	<f-component cc-id="fmt_mec_ext.1" name="Supported Configuration Mechanism">
+	  <comp-lev>requires the application to store configuration data either through the use of an appropriate environmental mechanism or through its own file encryption capability.</comp-lev>
 			<f-element id="fel-config-store">
 				<title>The application shall<selectables>
 					<selectable>invoke the mechanisms recommended by the platform vendor for storing and setting configuration options</selectable>
@@ -2882,10 +2992,17 @@ functionality (such as these)
 			</f-element>
         </f-component>
 	      
-	    <!-- FMT_CFG_EXT.1 Secure by Default Configuration -->
-		<!-- Incoporates TD519 -->
-        <f-component cc-id="fmt_cfg_ext.1" name="Secure by Default Configuration">
-			<f-element id="fel-default-config">
+
+	<ext-comp-def fam-id="FMT_CFG_EXT" title="Secure by Default Configuration">
+	  <fam-behavior>
+	    This family defines requirements for authorization to manage the behavior of the application.
+	  </fam-behavior>
+	</ext-comp-def>
+	<!-- FMT_CFG_EXT.1 Secure by Default Configuration -->
+	<!-- Incoporates TD519 -->
+	<f-component cc-id="fmt_cfg_ext.1" name="Secure by Default Configuration">
+	  <comp-lev>requires the application to define how to set new credentials and protect the application from modification by unprivileged users.</comp-lev>
+	  <f-element id="fel-default-config">
 				<title>
 					The application shall provide only enough functionality to set new credentials when 
 					configured with default credentials or no credentials.
@@ -3017,9 +3134,18 @@ functionality (such as these)
     </section>   <!-- FMT -->
 
     <section title="Privacy (FPR)" id="fpr">
+      <ext-comp-def fam-id="FPR_ANO_EXT" title="User Consent for Transmission of Personally Identifiable Information">
+	<fam-behavior>
+	  This family defines requirements for anonymity that are not covered by the Part 2 family FPR_ANO.
+	</fam-behavior>
+      </ext-comp-def>
 	
-		<f-component cc-id="fpr_ano_ext.1" name="User Consent for Transmission of Personally Identifiable Information">
-			<f-element id="fel-transmit-pii">
+      <f-component cc-id="fpr_ano_ext.1" name="User Consent for Transmission of Personally Identifiable Information">
+	<comp-lev>requires the TSF to transmit personally identifiable information only with explicit approval.</comp-lev>
+	<management>The following action could be considered for the management functions in FMT:
+	a) enable/disable the transmission of any PII.
+	</management>
+	<f-element id="fel-transmit-pii">
 				<title>The application shall 
 					<selectables linebreak="yes">
 						<selectable exclusive="yes">not transmit PII over a network</selectable>
@@ -3064,9 +3190,15 @@ functionality (such as these)
     </section>  <!-- FPR -->
 
     <section title="Protection of the TSF (FPT)" id="fpt">
-	  
-        <f-component cc-id="fpt_api_ext.1" name="Use of Supported Services and APIs">
-			<f-element id="fel-api-what">
+
+      <ext-comp-def fam-id="FPT_API_EXT" title="Use of Supported Services and APIs">
+	<fam-behavior>
+	  This family defines requirements for specifying the environmental APIs used by the TOE.
+	</fam-behavior>
+      </ext-comp-def>
+      <f-component cc-id="fpt_api_ext.1" name="Use of Supported Services and APIs">
+	<comp-lev>requires the application to use only documented platform APIs.</comp-lev>
+	<f-element id="fel-api-what">
 				<title>The application shall use only documented platform APIs.</title>
 				<note role="application">
 					The definition of "<h:i>documented</h:i>" may vary depending upon whether the application is provided by
@@ -3088,7 +3220,8 @@ functionality (such as these)
 		</f-component>
 	      
 	      
-        <f-component cc-id="fpt_api_ext.2" name="Use of Supported Services and APIs" status="objective">
+		<f-component cc-id="fpt_api_ext.2" name="Use of Supported Services and APIs" status="objective">
+		  <comp-lev>requires the application implement media parsing in a specified manner.</comp-lev>
 			<f-element id="fel-api-parsers">
 				<title> The application 
 					<selectables onlyone="yes">
@@ -3120,11 +3253,18 @@ functionality (such as these)
         </f-component>
 	      
 	     
-		<!-- FPT_AEX_EXT.1 -->
-		<!-- Incorporates TD436 -->
-		<!-- Incorporates TD445 -->
-		<!-- Incorporates TD544 -->
+	<!-- FPT_AEX_EXT.1 -->
+	<!-- Incorporates TD436 -->
+	<!-- Incorporates TD445 -->
+	<!-- Incorporates TD544 -->
+	<ext-comp-def fam-id="FPT_AEX_EXT" title="Anti-Exploitation Capabilities">
+	  <fam-behavior>
+	    This family defines requirements for protecting against common types of software exploitation techniques.
+	  </fam-behavior>
+	</ext-comp-def>
+
         <f-component cc-id="fpt_aex_ext.1" name="Anti-Exploitation Capabilities">
+	  <comp-lev>requires the application to implement functionality that protects against common software exploits.</comp-lev>
 			<f-element id="fel-aslr">
 				<title> 
 					The application shall not request to map memory at an explicit address
@@ -3395,8 +3535,15 @@ functionality (such as these)
 			</f-element>
         </f-component>
 		
-		<!-- FPT_IDV_EXT.1 Software Identification and Versions -->
-	    <f-component cc-id="fpt_idv_ext.1" name="Software Identification and Versions">
+	<ext-comp-def fam-id="FPT_IDV_EXT" title="Software Identification and Versions">
+	  <fam-behavior>
+	    This family defines requirements for how to use versioning.
+	  </fam-behavior>
+	</ext-comp-def>
+	<!-- FPT_IDV_EXT.1 Software Identification and Versions -->
+	<f-component cc-id="fpt_idv_ext.1" name="Software Identification and Versions">
+	  <comp-lev>requires the TSF to specify the versioning mechanism used.</comp-lev>
+	  
 			<f-element id="fel-swid">
 				<title>The application shall be versioned with
 					<selectables>
@@ -3432,8 +3579,15 @@ functionality (such as these)
 			</f-element>
         </f-component>
    
-		<!-- FPT_LIB_EXT.1 Use of Third-Party Libraries -->
+	<!-- FPT_LIB_EXT.1 Use of Third-Party Libraries -->
+	<ext-comp-def fam-id="FPT_LIB_EXT" title="TSF Use of Third Party Libraries">
+	  <fam-behavior>
+	    This family defines requirements for identification of any third-party libraries used by the TOE.
+	  </fam-behavior>
+	</ext-comp-def>
+	
         <f-component cc-id="fpt_lib_ext.1" name="Use of Third Party Libraries">
+	  <comp-lev>requires the TOE to identify the third party libraries that it uses.</comp-lev>
 			<f-element id="fel-thirdparty-libs">
 				<title> The application shall be packaged with only
 					<assignable>list of third-party libraries</assignable>. 
@@ -3458,11 +3612,18 @@ functionality (such as these)
         </f-component>
 	      
 	          
-		<!-- FPT_TUD_EXT.1 Integrity of Installation and Update -->
-		<!-- incorporates TD561 -->
-		<!-- incorporates TD548 -->
+	<!-- FPT_TUD_EXT.1 Integrity of Installation and Update -->
+	<!-- incorporates TD561 -->
+	<!-- incorporates TD548 -->
+	<ext-comp-def fam-id="FPT_TUD_EXT" title="Trusted Updates">
+	  <fam-behavior>
+	    This family defines requirements for applying updates to the TOE.
+	  </fam-behavior>
+	</ext-comp-def>
         <f-component cc-id="fpt_tud_ext.1" name="Integrity for Installation and Update">
-			<f-element id="fel-update-check">
+	  <comp-lev>requires the TSF to specify how updates to it are acquired and verified.</comp-lev>
+	  <dependencies>FPT_IDV_EXT.1 Software Identification and Versions</dependencies>
+	  <f-element id="fel-update-check">
 				<title>The application shall <selectables>
 					<selectable>provide the ability</selectable>
 					<selectable>leverage the platform</selectable>
@@ -3590,7 +3751,10 @@ functionality (such as these)
 			current FPT_TUD_EXT.2.2 was FPT_TUD_EXT.1.3 -->	  
 		<!-- incorporates TD561 (adds FPT_TUD_EXT.2.3) -->
         <f-component cc-id="fpt_tud_ext.2" name="Integrity for Installation and Update" status="sel-based">
-			<depends on-sel="sel_add_plat"/>
+	  <depends on-sel="sel_add_plat"/>
+	  <comp-lev>requires TOE updates to be packaged in a certain manner.</comp-lev>
+	  <dependencies>FPT_TUD_EXT.1 Integrity for Installation and Update</dependencies>
+	  
 			<f-element id="fel-patch-native">
 				<title>
 					The application shall be distributed using the format of the platform-supported
@@ -3703,9 +3867,17 @@ functionality (such as these)
 	    
     <section title="Trusted Path/Channel (FTP)" id="ftp">
 	  
-		<!-- FTP_DIT_EXT.1 Protection of Data in Transit -->
-		<!-- Modified by TD0609 -->		
-        <f-component cc-id="ftp_dit_ext.1" name="Protection of Data in Transit">
+      <!-- FTP_DIT_EXT.1 Protection of Data in Transit -->
+      <!-- Modified by TD0609 -->
+      <ext-comp-def fam-id="FTP_DIT_EXT" title="Protection of Data in Transit">
+	<fam-behavior>
+	  This family defines requirements for protecting data in transit.
+	</fam-behavior>
+      </ext-comp-def>
+		
+      <f-component cc-id="ftp_dit_ext.1" name="Protection of Data in Transit">
+	<comp-lev>requires the TSF to specify what data is transmitted outside the TOE over a trusted channel, what protocol is used for data transmission, and whether the TSF implements this protocol or invokes an environmental interface to do so.</comp-lev>
+	
 			<f-element id="fel-transmit">
 				<title>The application shall 
 					<selectables linebreak="yes">
@@ -3748,6 +3920,31 @@ functionality (such as these)
 						</selectable>	    	    
 					</selectables> between itself and another trusted IT product.
 				</title>
+				<ext-comp-def-title>
+				<title>The application shall 
+					<selectables linebreak="yes">
+						<selectable exclusive="yes">not transmit any 
+							<selectables>
+								<selectable exclusive="yes">data</selectable>
+								<selectable exclusive="yes">sensitive data</selectable>
+							</selectables>
+						</selectable>
+						<selectable exclusive="yes">encrypt all transmitted 
+							<selectables>
+								<selectable exclusive="yes">sensitive data</selectable>
+								<selectable exclusive="yes">data</selectable>
+								</selectables> with
+								<assignable>trusted protocol</assignable>
+						</selectable>
+						<selectable exclusive="yes">invoke platform-provided functionality to encrypt all transmitted sensitive data with
+						<assignable>trusted protocol</assignable>
+						</selectable>	    	      
+						<selectable exclusive="yes">invoke platform-provided functionality to encrypt all transmitted data with
+						<assignable>trusted protocol</assignable>
+						</selectable>	    	    
+					</selectables> between itself and another trusted IT product.
+				</title>
+				</ext-comp-def-title>
 				<note role="application">
 					<!--The X509 requirements are invoked based on the selections in FTP_DIT_EXT.1; if you select a protocol that uses certificates,
 					then you must include the SFRs that address the certificates.   
