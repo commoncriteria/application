@@ -51,7 +51,16 @@
   </RevisionHistory>
 
   
-  <release-notes><h:h3>TDs Applied</h:h3></release-notes><!-- TDs incorporated: 
+  <release-notes><h:h3>TDs Applied</h:h3></release-notes><!-- TDs incorporated:
+    TD0736:  Number of elements for iterations of FCS_HTTPS_EXT.1
+    TD0719:  ECD for PP APP V1.3 and 1.4
+    TD0717:  Format changes for PP_APP_V1.4
+    TD0669:  FIA_X509_EXT.1 Test 4 Interpretation
+    TD0664:  Testing activity for FPT_TUD_EXT.2.2
+    TD0655:  Mutual authentication in FTP_DIT_EXT.1 for SW App
+	TD0650:  Conformance claim sections updated to allow for MOD_VPNC_V2.3 and 2.4
+	TD0628:  Addition of Container Image to Package Format
+	TD0624:  Addition of DataStore for Storing and Setting Configuration Options
 	XXXXXX:	 Replaced SSH EP 1.0 with SSH FP 1.0
 	TD0601:  Updating FTP_DIT_EXT.1 to conform to changes in FCS_HTTPS_EXT. Supersedes TDs 444, 473, 587.
 	TD0600:  Conformance claim sections updated to allow for MOD_VPNC_V2.3
@@ -79,9 +88,10 @@
 	
 	Also changed the names of FCS SFRs with iterations as follows:
 
+	FCS_CMK.1 is renamed FCS_CKM_EXT.1
 	FCS_CKM.1/1 (a.k.a FCS_CKM.1/ALGO) is renamed FCS_CKM.1/AK 
 	FCS_CKM.1/2 is renamed FCS_CKM.1/SK 
-	FCS_CKM.1/3 is renamed FCS_CKM.1/PBKDF 
+	FCS_CKM.1/3 is renamed FCS_CKM_EXT.1/PBKDF 
 	FCS_COP.1/1 is renamed FCS_COP.1/SKC
 	FCS_COP.1/2 is renamed FCS_COP.1/Hash
 	FCS_COP.1/3 is renamed FCS_COP.1/Sig
@@ -383,12 +393,14 @@
 				<description>This PP does not claim conformance to any other Protection Profile.<h:p/>
 					The following PPs and PP-Modules are allowed to be specified in a PP-Configuration with this PP. 
 					<h:br/>
+					<!-- updated to reflect NIAP TD0650 -->
 					<h:div class="indent">
 						<h:li>Protection Profile for Mobile Device Management Version 4.0</h:li>
 						<h:li>PP-Module for File Encryption, Version 1.0</h:li>
 						<h:li>PP-Module for File Encryption Enterprise Management, Version 1.0</h:li>
 						<h:li>PP-Module for VPN Clients, Version 2.2</h:li>
 						<h:li>PP-Module for VPN Clients, Version 2.3</h:li>
+						<h:li>PP-Module for VPN Clients, Version 2.4</h:li>
 						<h:li>PP-Module for Endpoint Detection and Response, Version 1.0</h:li>
 						<h:li>PP-Module for Host Agent, Version 1.0</h:li>
 						<h:li>PP-Module for Voice and Video over IP (VVoIP), Version 1.0</h:li>
@@ -559,7 +571,7 @@
 					important for cryptographic services and other complex operations such as file and media
 					parsing. Leveraging this platform behavior relies upon using only documented and supported APIs.
 				</description>
-				<addressed-by>FCS_CKM.1</addressed-by><rationale>The PP supports this objective by allowing FCS_CKM.1 to specify that the TSF may rely on platform-provided key generation services.</rationale>
+				<addressed-by>FCS_CKM_EXT.1</addressed-by><rationale>The PP supports this objective by allowing FCS_CKM_EXT.1 to specify that the TSF may rely on platform-provided key generation services.</rationale>
 				<addressed-by>FCS_RBG_EXT.1</addressed-by><rationale>The PP supports this objective by allowing FCS_RBG_EXT.1 to specify that the TSF may rely on platform-provided random bit generation services.</rationale> 
 				<addressed-by>FCS_STO_EXT.1</addressed-by><rationale>The PP supports this objective by allowing FCS_STO_EXT.1 to specify that the TSF may rely on platform-provided credential storage services.</rationale>
 				<addressed-by>FDP_DAR_EXT.1</addressed-by><rationale>The PP supports this objective by allowing FDP_DAR_EXT.1 to specify that the TSF may rely on platform-provided data-at-rest protection services.</rationale>
@@ -598,7 +610,7 @@
 				<addressed-by>FCS_STO_EXT.1</addressed-by><rationale>The PP includes FCS_STO_EXT.1 to define the mechanism that the TSF uses or relies upon to protect stored credential data.</rationale>
 				<addressed-by>FDP_DAR_EXT.1</addressed-by><rationale>The PP includes FDP_DAR_EXT.1 to define the mechanism that the TSF uses or relies upon to protect sensitive data at rest.</rationale>
 				<addressed-by>FCS_CKM.1/SK (optional)</addressed-by><rationale>The PP includes FCS_CKM.1/SK to define the TOE’s capability to generate symmetric keys. These keys may subsequently be used to encrypt stored credential data based on the claims made in FCS_STO_EXT.1.</rationale>
-				<addressed-by>FCS_CKM.1/PBKDF (selection-based)</addressed-by><rationale>The PP includes FCS_CKM.1/PBKDF to define the password-based key derivation function that may be used to encrypt stored credential data based on the claims made in FCS_STO_EXT.1.</rationale>
+				<addressed-by>FCS_CKM_EXT.1/PBKDF (selection-based)</addressed-by><rationale>The PP includes FCS_CKM_EXT.1/PBKDF to define the password-based key derivation function that may be used to encrypt stored credential data based on the claims made in FCS_STO_EXT.1.</rationale>
 				<addressed-by>FCS_COP.1/SKC (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/SKC to define the AES cryptographic algorithm that may be used to encrypt stored credential data based on the claims made in FCS_STO_EXT.1.</rationale>
 				<addressed-by>FCS_COP.1/Hash (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/Hash to define integrity mechanisms that may be used by the TOE as part of ensuring that data at rest is protected.</rationale>
 				<addressed-by>FCS_COP.1/KeyedHash (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/KeyedHash to define HMAC mechanisms that may be used by the TOE as part of ensuring that data at rest is protected.</rationale>
@@ -611,7 +623,7 @@
 					data specific to the application that should not be exposed outside of the application. 
 				</description>
 				<addressed-by>FCS_RBG_EXT.1</addressed-by><rationale>The PP includes FCS_RBG_EXT.1 to define whether the random bit generation services used in establishing trusted communications are implemented by the TSF or by the platform.</rationale>
-				<addressed-by>FCS_CKM.1</addressed-by><rationale>The PP includes FCS_CKM.1 to specify whether the TOE or the platform is responsible for generation of any asymmetric keys that may be used for establishing trusted communications.</rationale>
+				<addressed-by>FCS_CKM_EXT.1</addressed-by><rationale>The PP includes FCS_CKM_EXT.1 to specify whether the TOE or the platform is responsible for generation of any asymmetric keys that may be used for establishing trusted communications.</rationale>
 				<addressed-by>FTP_DIT_EXT.1</addressed-by><rationale>The PP includes FTP_DIT_EXT.1 to define the trusted channels used to protect data in transit, the data that is protected, and whether the trusted channels are implemented by the TSF or the platform.</rationale>
 				<addressed-by>FCS_CKM.1/AK</addressed-by><rationale>The PP includes FCS_CKM.1/AK to define whether the TSF or the platform generates asymmetric keys that are used in support of trusted communications.</rationale>
 				<addressed-by>FCS_CKM.2</addressed-by><rationale>The PP includes FCS_CKM.2 to define whether the TSF or the platform performs key establishment for trusted communications.</rationale>
@@ -668,8 +680,8 @@
 	<section title="Cryptographic Support (FCS)" id="fcs">
 	  
 
-		<!-- FCS_CKM.1 -->
-        <f-component cc-id="fcs_ckm.1" name="Cryptographic Key Generation Services">
+		<!-- FCS_CKM_EXT.1 -->
+        <f-component cc-id="fcs_ckm_ext.1" name="Cryptographic Key Generation Services">
 			<f-element id="fel-asym-key-gen">
 				<title>
 					The application shall <selectables linebreak="yes">
@@ -680,7 +692,7 @@
 				</title>
 				<note role="application">If "<h:i>implement asymmetric key generation</h:i>" or 
 					"<h:i>invoke platform-provided functionality for asymmetric key generation</h:i>" is chosen, then
-					additional FCS_CKM.1/AK elements shall be included in the ST.
+					additional FCS_CKM.1/AK elements must be included in the ST.
 				</note>
 				<aactivity level="element">
 					<TSS>
@@ -701,35 +713,30 @@
 			<depends on="sel_invoke_genkey" and="sel_impl_genkey"/>
 			<f-element id="fel-asym-key-gen-impl">
 				<title>            
-					The <h:b>application</h:b> shall <selectables linebreak="yes" onlyone="yes">
+					The <h:b>application</h:b> shall <h:b><selectables linebreak="yes" onlyone="yes">
 						<selectable>invoke platform-provided functionality</selectable>
 						<selectable>implement functionality</selectable>
-					</selectables>
+					</selectables></h:b>
 					to generate <h:b>asymmetric</h:b> cryptographic keys in accordance with a specified cryptographic key generation algorithm
 					<selectables linebreak="yes">
-						<selectable><h:b>[RSA schemes]</h:b> using cryptographic key sizes of <h:b>[2048-bit or greater]</h:b> that meet
-							the following <h:b> FIPS PUB 186-4, "Digital Signature Standard (DSS), Appendix B.3"</h:b></selectable>
-						<selectable><h:b>[ECC schemes]</h:b> using <h:b>[“NIST curves” P-256, P-384 and <selectables>
-							<selectable exclusive="yes"> P-521 </selectable>
-							<selectable exclusive="yes"> no other curves </selectable></selectables> 
-							]</h:b>that meet the following: 
-							<h:b>[FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.4]</h:b>
-						</selectable> 
+						<selectable><h:b>[RSA schemes]</h:b> using cryptographic key sizes of [<h:i>2048-bit or greater</h:i>] that meet
+							the following: [<h:i>FIPS PUB 186-4, "Digital Signature Standard (DSS)," Appendix B.3</h:i>]</selectable>
+						<selectable><h:b>[ECC schemes]</h:b> using [<h:i>“NIST curves” P-384 and <selectables>
+							<selectable>P-256</selectable>
+							<selectable>P-521</selectable>
+							<selectable>no other curves</selectable></selectables></h:i>]that meet the following: 
+							[<h:i>FIPS PUB 186-4, “Digital Signature Standard (DSS),” Appendix B.4</h:i>]</selectable> 
 						<selectable>
-							<h:b>[FFC schemes]</h:b> using cryptographic key sizes of <h:b>[2048-bit or greater]</h:b> 
-							that meet the following: <h:b>[FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.1]</h:b>
-						</selectable>
-						<selectable><h:b>[FFC Schemes]</h:b><h:b> using Diffie-Hellman group 14</h:b> that meet the following: 
-							<h:b>RFC 3526, Section 3</h:b>
-						</selectable>
-						<selectable><h:b>[FFC Schemes]</h:b><h:b> using “safe-prime” groups</h:b> that meet the following: 
-							<h:b>NIST Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes
-								Using Discrete Logarithm Cryptography”</h:b> and 
+							<h:b>[FFC schemes]</h:b> using cryptographic key sizes of [<h:i>2048-bit or greater</h:i>] 
+							that meet the following: [<h:i>FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.1</h:i>]</selectable>
+						<selectable><h:b>[FFC Schemes]</h:b> using [<h:i>Diffie-Hellman group 14</h:i>] that meet the following: 
+							[<h:i>RFC 3526, Section 3</h:i>]</selectable>
+						<selectable><h:b>[FFC Schemes]</h:b> using [<h:i>“safe-prime”</h:i>] groups that meet the following: 
+							[<h:i>NIST Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes
+								Using Discrete Logarithm Cryptography” and 
 							<selectables>
 								<selectable>RFC 3526</selectable>
-								<selectable>RFC 7919</selectable>
-							</selectables>
-						</selectable>  
+								<selectable>RFC 7919</selectable></selectables></h:i>]</selectable>  
 					</selectables>.
 				</title>
 				<note role="application">
@@ -920,8 +927,8 @@
 			</f-element>
         </f-component>
 
-		<!-- FCS_CKM.1/PBKDF (formerly FCS_CKM.1/3) -->
-		<f-component name="Password Conditioning" cc-id="fcs_ckm.1" id="fcom_pass" iteration="PBKDF" status="sel-based">
+		<!-- FCS_CKM_EXT.1/PBKDF (formerly FCS_CKM.1/3) -->
+		<f-component name="Password Conditioning" cc-id="fcs_ckm_ext.1" id="fcom_pass" iteration="PBKDF" status="sel-based">
 			<depends on="sel-fcs-sto-pbkdf"/>
 			<f-element id="fel-pass">
 				<title>
@@ -974,7 +981,10 @@
 
 		<!-- FCS_CKM.2 -->
         <f-component cc-id="fcs_ckm.2" name="Cryptographic Key Establishment" status="sel-based">
-			<depends on="sel_all_tls"/>
+			<depends on="sel_all_tlsc"/>
+        	<depends on="sel_all_tlss"/>
+        	<depends on="sel_all_dtlsc"/>
+        	<depends on="sel_all_dtlss"/>
 			<f-element id="fel-key-est">
 				<title>
 					The application shall 
@@ -1033,7 +1043,7 @@
 				<aactivity level="element">
 					<TSS>
 						The evaluator shall ensure that the supported key establishment schemes correspond to the 
-						key generation schemes identified in FCS_CKM.1.1. If the ST specifies more than one 
+						key generation schemes identified in FCS_CKM.1.1/AK. If the ST specifies more than one 
 						scheme, the evaluator shall examine the TSS to verify that it identifies the usage for each 
 						scheme.<h:p/>
 					</TSS>
@@ -1268,11 +1278,14 @@ functionality (such as these)
 
 		<!-- FCS_COP.1/SKC (formerly FCS_COP.1/1) Symmetric-Key Cryptography -->
         <f-component cc-id="fcs_cop.1" id="fcom_crypto" iteration="SKC" name="Cryptographic Operation - Encryption/Decryption" status="sel-based">
-			<depends on="sel_all_tls"/>
+        	<depends on="sel_all_tlsc"/>
+        	<depends on="sel_all_tlss"/>
+        	<depends on="sel_all_dtlsc"/>
+        	<depends on="sel_all_dtlss"/>
 			<depends on="sel-fcs-sto-skc"/>
 			<f-element id="fel-sym-encrypt">
 				<title>
-					The <h:b>application</h:b> shall perform <h:i>encryption/decryption</h:i> in accordance with a specified 
+					The <h:b>application</h:b> shall perform [<h:i>encryption and decryption</h:i>] in accordance with a specified 
 					cryptographic algorithm  
 					<selectables linebreak="yes">
 						<selectable>AES-CBC (as defined in NIST SP 800-38A) mode</selectable>
@@ -1551,10 +1564,13 @@ functionality (such as these)
 		
 	    <!-- FCS_COP.1/Hash (former;y FCS_COP.1/2) -->
         <f-component cc-id="fcs_cop.1" id="fcom_hash" iteration="Hash" name="Cryptographic Operation - Hashing" status="sel-based">
-			<depends on="sel_all_tls"/>
+        	<depends on="sel_all_tlsc"/>
+        	<depends on="sel_all_tlss"/>
+        	<depends on="sel_all_dtlsc"/>
+        	<depends on="sel_all_dtlss"/>
 			<f-element id="fel-crypt-hash">
 				<title>
-					The <h:b>application</h:b> shall perform <h:i>cryptographic hashing</h:i> services in accordance with a specified 
+					The <h:b>application</h:b> shall perform [<h:i>cryptographic hashing services</h:i>] in accordance with a specified 
 					cryptographic algorithm 
 					<selectables linebreak="yes">
 						<selectable>SHA-1</selectable>
@@ -1563,13 +1579,13 @@ functionality (such as these)
 						<selectable>SHA-512</selectable>
 						<selectable exclusive="yes">no other</selectable>
 					</selectables>
-					and message digest sizes <selectables linebreak="yes">
+					and <h:b>message digest</h:b> sizes <selectables linebreak="yes">
 						<selectable>160</selectable>
 						<selectable>256</selectable>
 						<selectable>384</selectable>
 						<selectable>512</selectable>
 						<selectable exclusive="yes">no other</selectable>
-					</selectables> bits that meet the following: FIPS Pub 180-4.
+					</selectables> <h:b>bits</h:b> that meet the following: [<h:i>FIPS Pub 180-4, "Secure Hash Standard"</h:i>].
 				</title>
 				<note role="application">
 					This is dependent on implementing cryptographic functionality, as in FTP_DIT_EXT.1.<h:p/>
@@ -1647,25 +1663,28 @@ functionality (such as these)
 	      
 	    <!-- FCS_COP.1/KeyedHash (formerly FCS_COP.1/4) -->
         <f-component cc-id="fcs_cop.1" id="fcom_key_hash" iteration="KeyedHash" name="Cryptographic Operation - Keyed-Hash Message Authentication" status="sel-based">
-			<depends on="sel_all_tls"/>
+        	<depends on="sel_all_tlsc"/>
+        	<depends on="sel_all_tlss"/>
+        	<depends on="sel_all_dtlsc"/>
+        	<depends on="sel_all_dtlss"/>
 			<f-element id="fel-keyed-hash">
-				<title>The <h:b>application</h:b> shall perform <h:i>keyed-hash message authentication</h:i> in accordance with a 
-					specified cryptographic algorithm<h:ul>
-						<h:li>HMAC-SHA-256</h:li></h:ul>and
-					<selectables linebreak="yes">
-						<selectable>HMAC-SHA-1</selectable>
+				<title>The <h:b>application</h:b> shall perform [<h:i>keyed-hash message authentication</h:i>] in accordance with a 
+					specified cryptographic algorithm <selectables linebreak="yes">
+						<selectable>HMAC-SHA-256</selectable>
 						<selectable>HMAC-SHA-384</selectable>
 						<selectable>HMAC-SHA-512</selectable>
-						<selectable exclusive="yes">no other algorithms</selectable>
-					</selectables> with key sizes <assignable>key size (in bits) used in HMAC</assignable> 
-					and message digest sizes 256 and <selectables>
-						<selectable>160</selectable>
+					</selectables> and <selectables linebreak="yes">
+						<selectable>HMAC-SHA-1</selectable>
+						<selectable>no other algorithms</selectable>
+					</selectables> <h:b>with</h:b> key sizes <assignable>key size (in bits) used in HMAC</assignable> 
+					<h:b>and message digest sizes</h:b> <selectables>
+						<selectable>256</selectable>
 						<selectable>384</selectable>
-						<selectable>512</selectable>
-						<selectable exclusive="yes">no other size</selectable>
-					</selectables>
-					bits that meet the following: FIPS Pub 198-1 <h:i>The Keyed-Hash Message Authentication Code</h:i>
-					and FIPS Pub 180-4 <h:i>Secure Hash Standard</h:i>.
+						<selectable>512</selectable></selectables> <h:b>and</h:b> <selectables>
+						<selectable>160</selectable>
+						<selectable>no other size</selectable></selectables> <h:b>bits</h:b>
+					that meet the following: [<h:i>FIPS Pub 198-1, "The Keyed-Hash Message Authentication Code
+					and FIPS Pub 180-4, "Secure Hash Standard"</h:i>].
 				</title>
 				<note role="application">
 					This is dependent on implementing cryptographic functionality, as in FTP_DIT_EXT.1.<h:p/>
@@ -1692,17 +1711,20 @@ functionality (such as these)
 
 	    <!-- FCS_COP.1/Sig (formerly FCS_COP.1/3) -->
         <f-component cc-id="fcs_cop.1" id="fcom_sign" iteration="Sig" name="Cryptographic Operation - Signing" status="sel-based">
-			<depends on="sel_all_tls"/>
+        	<depends on="sel_all_tlsc"/>
+        	<depends on="sel_all_tlss"/>
+        	<depends on="sel_all_dtlsc"/>
+        	<depends on="sel_all_dtlss"/>
 			<f-element id="fel-sign">
 				<title>
-					The <h:b>application</h:b> shall perform <h:i>cryptographic signature services (generation and
-					verification)</h:i> in accordance with a specified cryptographic algorithm <selectables linebreak="yes">
-						<selectable><h:b>RSA schemes</h:b> using cryptographic key sizes of 2048-bit or greater that meet the 
-							following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 4</selectable>
-						<selectable><h:b>ECDSA schemes</h:b> using “NIST curves” P-256, P-384 and <selectables>
+					The <h:b>application</h:b> shall perform [<h:i>cryptographic signature services (generation and
+					verification)</h:i>] in accordance with a specified cryptographic algorithm <selectables linebreak="yes">
+						<selectable><h:b>RSA schemes</h:b> using cryptographic key sizes of [2048-bit or greater] that meet the 
+							following: [FIPS PUB 186-4, “Digital Signature Standard (DSS),” Section 5]</selectable>
+						<selectable><h:b>ECDSA schemes</h:b> using [“NIST curves” P-256, P-384 and <selectables>
 							<selectable>P-521</selectable>
-							<selectable exclusive="yes">no other curves</selectable></selectables>
-						that meet the following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 5</selectable>
+							<selectable exclusive="yes">no other curves</selectable></selectables>]
+						that meet the following: [FIPS PUB 186-4, “Digital Signature Standard (DSS),” Section 6]</selectable>
 					</selectables>.
 				</title>
 				<note role="application">
@@ -1877,11 +1899,27 @@ functionality (such as these)
 			<f-element id="fel-https-how-sv">
 				<title>The application shall implement HTTPS using TLS as defined in the Functional Package for TLS.</title>
 				<aactivity level="element">
-					<TSS>None<h:p/></TSS>
+					<TSS>None.<h:p/></TSS>
 					<Guidance>None.<h:p/></Guidance>
 					<Tests>Other tests are performed in conjunction with the TLS package.</Tests>
 				</aactivity>
 			</f-element>
+        	<f-element id="fel-https-bad-cert">
+        		<title>
+        			The application shall <selectables>
+        				<selectable>not establish the connection</selectable>
+        				<selectable>establish or not establish the connection based on an administrative or user setting</selectable></selectables> 
+        			if the peer certificate is deemed invalid.
+        		</title>
+        		<aactivity level="element">
+        			<TSS>None.</TSS>
+        			<Guidance>None.</Guidance>
+        			<Tests>
+        				Other tests are performed in conjunction with the TLS Functional Package, 
+        				FCS_HTTPS_EXT.2 (dependent on selections in FTP_DIT_EXT.1), and FIA_X509_EXT.1.
+        			</Tests>
+        		</aactivity>
+        	</f-element>
         </f-component>
 
 	<!-- FCS_HTTPS_EXT.2 HTTPS Protocol with Mutual Authentication -->
@@ -2200,7 +2238,7 @@ functionality (such as these)
 							according to
 							<selectables>
 								<selectable id="sel-fcs-sto-skc">FCS_COP.1/SKC</selectable>
-								<selectable id="sel-fcs-sto-pbkdf">FCS_CKM.1/PBKDF</selectable>
+								<selectable id="sel-fcs-sto-pbkdf">FCS_CKM_EXT.1/PBKDF</selectable>
 							</selectables>
 						</selectable>
 					</selectables>
@@ -2235,7 +2273,7 @@ functionality (such as these)
 					Application developer must closely review the EA for their platform and provide documentation indicating
 					which platform mechanisms are used to store credentials. 
 					If "<h:i>implement functionality to securely store credentials</h:i>" is selected, then the following components 
-					must be included in the ST: FCS_COP.1/SKC or FCS_CKM.1/PBKDF.
+					must be included in the ST: FCS_COP.1/SKC or FCS_CKM_EXT.1/PBKDF.
 					If other cryptographic operations are used to implement the secure storage of credentials, the corresponding 
 					requirements must be included in the ST. If the OS is Linux and Java KeyStores are used to store 
 					credentials, "<h:i>implement functionality to securely store credentials</h:i>" must be selected.
@@ -2250,7 +2288,7 @@ functionality (such as these)
 					<Tests>
 						For all credentials for which the application implements functionality, the evaluator shall 
 						verify credentials are encrypted according to FCS_COP.1/SKC or conditioned according to
-						FCS_CKM.1.1/AK and FCS_CKM.1/PBKDF.
+						FCS_CKM.1.1/AK and FCS_CKM_EXT.1/PBKDF.
 						For all credentials for which the application invokes platform-provided
 						functionality, the evaluator shall perform the following actions which vary per platform.
 						<h:div><depends ref="android"/>The evaluator shall verify that the application uses
@@ -2596,7 +2634,7 @@ functionality (such as these)
 		</ext-comp-def>
 
 		<f-component cc-id="fia_x509_ext.1" name="X.509 Certificate Validation" status="sel-based">
-		  <depends on1="sel_all_https_cl" on2="sel_all_https_sv" on3="sel_all_https_ma" on4="sel_all_tls" on5="sel_all_dtls"/>		  
+		  <depends on1="sel_all_https_cl" on2="sel_all_https_sv" on3="sel_all_https_ma" on4="sel_all_tlsc" on5="sel_all_tlss" on6="sel_all_dtlsc" on7="sel_all_dtlss"/>		  
 		  <comp-lev>specifies the rules the TSF must follow to determine if an X.509 certificate is valid.</comp-lev>
 		  <f-element id="fel-certauth-how">
 				<title>
@@ -2712,12 +2750,26 @@ functionality (such as these)
 									validation function fails.</h:li>
 								</h:ul>
 							</test>
+							<!-- updated to reflect NIAP TD0669 -->
 							<test>
-								If any OCSP option is selected, the evaluator shall configure the OCSP server or use a
-								man-in-the-middle tool to present a certificate that does not have the OCSP signing purpose and verify
-								that validation of the OCSP response fails. If CRL is selected, the evaluator shall configure the CA 
-								to sign a CRL with a certificate that does not have the cRLsign key usage bit set, and verify that
-								validation of the CRL fails.
+								If any OCSP option is selected, the evaluator shall ensure the TSF has no other source of
+								revocation information available and configure the OCSP server or use a man-in-the-middle tool
+								to present an OCSP response signed by a certificate that does not have the OCSP signing purpose 
+								and which is the only source of revocation status information advertised by the CA issuing the
+								certificate being validated. The evaluator shall verify that validation of the OCSP
+								response fails and that the TOE treats the certificate being checked as invalid and rejects the
+								connection. If CRL is selected, the evaluator shall likewise configure the CA to be the only source
+								of revocation status information, and sign a CRL with a certificate that does not have the cRLsign key usage bit
+								set, and . The evaluator shall verify that validation of the CRL fails and that the TOE treats the certificate
+								being checked as invalid and rejects the connection.
+								<h:br/><h:br/>
+								<h:b><h:i>Note:</h:i></h:b> The intent of this test is to ensure a TSF does not trust invalid revocation status information. A TSF
+								receiving invalid revocation status information from the only advertised certificate status provider should
+								treat the certificate whose status is being checked as invalid. This should generally be treated differently
+								from the case where the TSF is not able to establish a connection to check revocation status information,
+								but it is acceptable that the TSF ignore any invalid information and attempt to find another source of
+								revocation status (another advertised provider, a locally configured provider, or cached information) and
+								treat this situation as not having a connection to a valid certificate status provider. 
 							</test>
 							<test>
 								The evaluator shall modify any byte in the first eight bytes of the certificate and demonstrate that 
@@ -2937,14 +2989,21 @@ functionality (such as these)
 					<Tests>
 						If "invoke the mechanisms recommended by the platform vendor for storing and setting configuration options" is chosen,
 						the method of testing varies per platform as follows: 
+						<!-- updated to reflect NIAP TD0624 -->
 	                    <h:div><depends ref="android"/>
 							The evaluator shall run the application and make security-related changes to its configuration.
-							The evaluator shall check that at least one XML file at location
-							<h:span style="path">/data/data/<h:i>package</h:i>/shared_prefs/</h:span>
-							reflects the changes made to the configuration to verify that the application used
-							<h:code>SharedPreferences</h:code> and/or <h:code>PreferenceActivity</h:code> classes
-							for storing configuration data, where <h:i>package</h:i> is the Java package
-							of the application.
+							The evaluator shall check that at least one file exists at location
+							<h:span style="path">/data/data/<h:i>package</h:i>/shared_prefs/</h:span> (for SharedPreferences)
+	                    	or
+	                    	<h:span style="path">/data/data/<h:i>package</h:i>/files/datastore</h:span> (for DataStore)
+                            where the <h:i>package</h:i> is the Java package of the application.
+	                    	
+	                    	For SharedPreferences, the evaluator shall examine the XML file to make sure it reflects the changes made to the 
+	                    	configuration to verify that the application used SharedPreferences or PreferenceActivity 
+	                    	to store the configuration data. For DataStore, the evaluator shall use a protocol 
+	                    	buffer analyzer to examine the file to make sure it reflects the changes made to the 
+	                    	configuration to verify that the application used DataStore to store the configuration data.
+	                    	
 						</h:div>
 						<h:div><depends ref="windows"/>The evaluator shall determine and verify that Windows
 							Universal Applications use either the Windows.Storage namespace, Windows.UI.ApplicationSettings namespace,
@@ -3757,14 +3816,20 @@ functionality (such as these)
 	  
 			<f-element id="fel-patch-native">
 				<title>
-					The application shall be distributed using the format of the platform-supported
-					package manager. 
+					The application shall be distributed using 
+					<selectables>
+						<selectable>the format of the platform-supported package manager</selectable>
+						<selectable>a container image</selectable></selectables>.
 				</title>
 				<aactivity level="element">
 					<TSS>None.<h:p/></TSS>
 					<Guidance>None.<h:p/></Guidance>
+					<!-- updated to reflect NIAP TD0628 -->
+					<!-- updated to reflect NIAP TD0664 -->
 					<Tests>
-						The evaluator shall verify that application updates are distributed in the
+						If a container image is claimed, the evaluator shall verify that application updates are distributed as container images.
+						If the format of the platform-supported package manager is claimed,
+						the evaluator shall verify that application updates are distributed in the
 						format supported by the platform. This varies per platform:               
 						<h:div><depends ref="android"/> The evaluator shall ensure that the application is
 							packaged in the Android application package (APK) format. </h:div>
@@ -3806,30 +3871,9 @@ functionality (such as these)
 						<h:div><depends ref="android"/>The evaluator shall consider the requirement met because 
 							the platform forces applications to write all data within the application working 
 							directory (sandbox).</h:div>
-						<h:div><depends ref="windows"/>
-							The evaluator shall install the application and then locate all of its executable files. 
-							The evaluator shall then, for each file, save off either a hash of the file or a copy of the
-							file itself. The evaluator shall then run the application and exercise all features of
-							the application as described in the ST. The evaluator shall then compare each executable
-							file with the either the saved hash or the saved copy of the files. The evaluator shall 
-							verify that these are identical.</h:div>
 						<h:div><depends ref="ios"/>The evaluator shall consider the requirement met because 
 							the platform forces applications to write all data within the application working 
 							directory (sandbox).</h:div>
-						<h:div><depends ref="linux"/>
-							The evaluator shall install the application and then locate all of its executable files. 
-							The evaluator shall then, for each file, save off either a hash of the file or a copy of the
-							file itself. The evaluator shall then run the application and exercise all features of
-							the application as described in the ST. The evaluator shall then compare each executable
-							file with the either the saved hash or the saved copy of the files. The evaluator shall 
-							verify that these are identical.</h:div>
-						<h:div><depends ref="Solaris"/>
-							The evaluator shall install the application and then locate all of its executable files. 
-							The evaluator shall then, for each file, save off either a hash of the file or a copy of the
-							file itself. The evaluator shall then run the application and exercise all features of
-							the application as described in the ST. The evaluator shall then compare each executable
-							file with the either the saved hash or the saved copy of the files. The evaluator shall 
-							verify that these are identical.</h:div>
 						<h:div><depends ref="mac"/>
 							The evaluator shall install the application and then locate all of its executable files. 
 							The evaluator shall then, for each file, save off either a hash of the file or a copy of the
@@ -3837,6 +3881,10 @@ functionality (such as these)
 							the application as described in the ST. The evaluator shall then compare each executable
 							file with the either the saved hash or the saved copy of the files. The evaluator shall 
 							verify that these are identical.</h:div>
+						<h:br/>For all other platforms, the evaluator shall record the path of every file on the entire filesystem prior to installation of the 
+						application, and then install and run the application. Afterwards, the evaluator shall then uninstall the application, 
+						and compare the resulting filesystem to the initial record to verify that no files, other than configuration, output, 
+						and audit/log files, have been added to the filesystem.
 					</Tests>
 				</aactivity>
 			</f-element>        
@@ -3878,6 +3926,7 @@ functionality (such as these)
       <f-component cc-id="ftp_dit_ext.1" name="Protection of Data in Transit">
 	<comp-lev>requires the TSF to specify what data is transmitted outside the TOE over a trusted channel, what protocol is used for data transmission, and whether the TSF implements this protocol or invokes an environmental interface to do so.</comp-lev>
 	
+	<!-- updated to reflect NIAP TD0655 -->
 			<f-element id="fel-transmit">
 				<title>The application shall 
 					<selectables linebreak="yes">
@@ -3896,10 +3945,17 @@ functionality (such as these)
 								<selectable id="sel_all_https_cl">HTTPS as a client in accordance with FCS_HTTPS_EXT.1/Client</selectable>
 								<selectable id="sel_all_https_sv">HTTPS as a server in accordance with FCS_HTTPS_EXT.1/Server</selectable>
 								<selectable id="sel_all_https_ma">HTTPS as a server using mutual authentication in accordance with FCS_HTTPS_EXT.2</selectable>
-								<selectable id="sel_all_tls">TLS as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><h:i>Functional Package for TLS</h:i></h:a></selectable>
-								<selectable id="sel_all_dtls">DTLS as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><h:i>Functional Package for TLS</h:i></h:a></selectable>
+								
+								<selectable id="sel_all_tlss">TLS as a server as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><h:i>Functional Package for TLS</h:i></h:a> and also supports functionality for
+								<selectables><selectable>mutual authentication</selectable><selectable>none</selectable></selectables></selectable>
+								<selectable id="sel_all_tlsc">TLS as a client as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><h:i>Functional Package for TLS</h:i></h:a></selectable>
+								
+								<selectable id="sel_all_dtlss">DTLS as a server as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><h:i>Functional Package for TLS</h:i></h:a> and also supports functionality for
+								<selectables><selectable>mutual authentication</selectable><selectable>none</selectable></selectables></selectable>
+								<selectable id="sel_all_dtlsc">DTLS as a client as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><h:i>Functional Package for TLS</h:i></h:a></selectable>
+																
 								<selectable id="sel_all_ssh">SSH as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459"><h:i>Functional Package for Secure Shell</h:i></h:a></selectable>
-								<selectable>IPsec as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=419&amp;id=419"><h:i>PP-Module for VPN Client</h:i></h:a></selectable>
+								<selectable id="sel_all_ipsec">IPsec as defined in the <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=419&amp;id=419"><h:i>PP-Module for VPN Client</h:i></h:a></selectable>
 							</selectables>
 						</selectable>
 						<selectable exclusive="yes">invoke platform-provided functionality to encrypt all transmitted sensitive data with
@@ -3951,15 +4007,13 @@ functionality (such as these)
 					X509 SFRs shall be included if selections for HTTPS, TLS, or DTLS are included (FCS_HTTPS, FCS_TLSC, FCS_TLSS, FCS_DTLS).
 					<h:br/> <h:br/>-->
 					Encryption is not required for applications transmitting data that is not sensitive.<h:p/>
-					If "<h:i>encrypt all transmitted</h:i>" is selected and "<h:i>TLS</h:i>" is selected, then 
-					evaluation of elements from either FCS_TLSC_EXT.1 or FCS_TLSS_EXT.1 is required.<h:p/>
+					If "<h:i>encrypt all transmitted</h:i>" is selected and "<h:i>TLS</h:i>" or "<h:i>DTLS</h:i>" as a client or server is selected, then 
+					corresponding components from the Functional Package for TLS must be selected.<h:p/>
 					If "<h:i>encrypt all transmitted</h:i>" is selected, "<h:i>HTTPS</h:i>" is selected, and the 
 					TOE acts as a client, then FCS_HTTPS_EXT.1/Client is required.<h:p/> 
 					If "<h:i>encrypt all transmitted</h:i>" is selected, "<h:i>HTTPS</h:i>" is selected, and the 
 					TOE acts as a server, then FCS_HTTPS_EXT.1/Server is required. <h:p/> 
-					<!-- If the TOE acts as a server and if mutual authentication is selected in the TLS Package, 
-					then FCS_HTTPS_EXT.2 is also required.  -->
-					If the TOE acts as a server and if "<h:i>mutual authentication</h:i>" is selected in the TLS Package,
+					If the TOE acts as an HTTPS server and if "<h:i>mutual authentication</h:i>" is selected,
 					then FCS_HTTPS_EXT.2 is also required. <h:p/> 
 					If "<h:i>encrypt all transmitted</h:i>" is selected and "<h:i>DTLS</h:i>" is selected, then
 					FCS_DTLS_EXT.1 is required.<h:p/>
@@ -3980,8 +4034,11 @@ functionality (such as these)
 							selected and the platform implements a protocol that requires certificates</h:li>
 						<h:li>"<h:i>invoke platform-provided functionality to encrypt all transmitted data</h:i>" is selected 
 							and the platform implements a protocol that requires certificates</h:li></h:ul>
-						<h:b>Note:</h:b>FIA_X509_EXT.1 and FIA_X509_EXT.2 are not applicable when the TOE acts 
-						as a HTTPS/TLS server with no mutual authentication.
+						<h:b>Note:</h:b>FIA_X509_EXT.1 and FIA_X509_EXT.2 are not applicable if "<h:i>mutual authentication</h:i>" 
+					is not selected when the TOE acts as an HTTPS, TLS, or DTLS server.
+					<h:br/><h:br/>
+					The selections for mutual authentication for HTTPS align with the selections in this SFR. 
+					The selections for mutual authentication must match the corresponding requirements in the Functional Package for TLS.
 				</note>  
 				<aactivity>
 					<TSS>

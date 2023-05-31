@@ -1,3 +1,11 @@
+* Error: Detected dangling id-reference to sel_all_tls from attribute
+        on-sel/PP[1]""/include-pkg[2]""/depends[1]""/on-sel[1]""
+* Error: Detected dangling id-reference to sel_all_dtls from attribute
+        on-also/PP[1]""/include-pkg[2]""/depends[1]""/on-also[1]""
+* Error: Detected dangling id-reference to sel_all_tls from attribute
+        on4/PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[2]""/depends[1]""/on4[1]""
+* Error: Detected dangling id-reference to sel_all_dtls from attribute
+        on5/PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[2]""/depends[1]""/on5[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"The requi"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"The requi"/sec:TOE_Boundary[1]"The appli"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[2]""/choice[1]"This PP i"/h:p[1]""
@@ -126,7 +134,7 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[10]""/f-element[3]""/aactivity[1]""/Guidance[1]"None."/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[11]""/f-element[1]""/aactivity[1]""/TSS[1]"The evalu"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[11]""/f-element[1]""/aactivity[1]""/Guidance[1]"None."/h:p[1]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[11]""/f-element[2]""/aactivity[1]""/TSS[1]"None"/h:p[1]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[11]""/f-element[2]""/aactivity[1]""/TSS[1]"None."/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[11]""/f-element[2]""/aactivity[1]""/Guidance[1]"None."/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[12]""/f-element[1]""/aactivity[1]""/TSS[1]"None."/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[12]""/f-element[1]""/aactivity[1]""/Guidance[1]"None."/h:p[1]""

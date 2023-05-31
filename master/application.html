@@ -847,12 +847,14 @@ The following sections list Common Criteria and technology terms used in this do
 					Selection-Based <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>, and Optional <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> (dated May 2017).</span></dd><dt class="cclaim defined" id="CC Conformance Claims">CC Conformance Claims</dt><dd><span class="description">This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is conformant to Parts 2 (extended) and 3 (extended) of Common Criteria Version 3.1, Revision 5.</span></dd><dt class="cclaim defined" id="PP Claim">PP Claim</dt><dd><span class="description">This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> does not claim conformance to any other Protection Profile.<p></p>
 					The following <abbr class="dyn-abbr"><a href="#abbr_PP">PPs</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-Modules are allowed to be specified in a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> with this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. 
 					<br/>
+					
 					<div class="indent">
 						<li>Protection Profile for Mobile Device Management Version 4.0</li>
 						<li><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption, Version 1.0</li>
 						<li><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption Enterprise Management, Version 1.0</li>
 						<li><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for VPN Clients, Version 2.2</li>
 						<li><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for VPN Clients, Version 2.3</li>
+						<li><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for VPN Clients, Version 2.4</li>
 						<li><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for Endpoint Detection and Response, Version 1.0</li>
 						<li><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for Host Agent, Version 1.0</li>
 						<li><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for Voice and Video over <abbr class="dyn-abbr"><a href="#abbr_IP">IP</a></abbr> (VVoIP), Version 1.0</li>
@@ -1011,16 +1013,16 @@ The following sections list Common Criteria and technology terms used in this do
 	  
 
 		
-        <div class="comp" id="FCS_CKM.1"><h4>FCS_CKM.1 Cryptographic Key Generation Services</h4>
-			<div class="element"><div class="reqid" id="FCS_CKM.1.1"><a href="#FCS_CKM.1.1" class="abbr">FCS_CKM.1.1</a></div><div class="reqdesc">
+        <div class="comp" id="FCS_CKM_EXT.1"><h4>FCS_CKM_EXT.1 Cryptographic Key Generation Services</h4>
+			<div class="element"><div class="reqid" id="FCS_CKM_EXT.1.1"><a href="#FCS_CKM_EXT.1.1" class="abbr">FCS_CKM_EXT.1.1</a></div><div class="reqdesc">
 					The application shall [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_7">generate no asymmetric cryptographic keys</span></li><li style=""><span class="selectable-content" id="sel_invoke_genkey">invoke platform-provided functionality for asymmetric key generation</span></li><li style=""><span class="selectable-content" id="sel_impl_genkey">implement asymmetric key generation</span></li></ul>].
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">If "<i>implement asymmetric key generation</i>" or 
 					"<i>invoke platform-provided functionality for asymmetric key generation</i>" is chosen, then
-					additional <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> elements shall be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
+					additional <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> elements must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
 				</span></div></div></div>
-        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_CKM.1.1">FCS_CKM.1.1</a></div>
+        <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_CKM_EXT.1.1">FCS_CKM_EXT.1.1</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
 						The evaluator shall inspect the application and its developer documentation 
 						to determine if the application needs asymmetric key generation services. If not, the 
@@ -1034,26 +1036,21 @@ The following sections list Common Criteria and technology terms used in this do
 
 		
         <div class="comp" id="FCS_CKM.1/AK"><h4>FCS_CKM.1/AK Cryptographic Asymmetric Key Generation</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
-	  <a href="#FCS_CKM.1.1">FCS_CKM.1.1</a>.
+	  <a href="#FCS_CKM_EXT.1.1">FCS_CKM_EXT.1.1</a>.
       </i></b></div>
 			
 			<div class="element"><div class="reqid" id="FCS_CKM.1.1/AK"><a href="#FCS_CKM.1.1/AK" class="abbr">FCS_CKM.1.1/AK</a></div><div class="reqdesc">            
-					The <b>application</b> shall [<b>selection</b><b>, choose one of</b>: <ul><li style=""><span class="selectable-content" id="_s_10">invoke platform-provided functionality</span></li><li style=""><span class="selectable-content" id="_s_11">implement functionality</span></li></ul>]
+					The <b>application</b> shall <b>[<b>selection</b><b>, choose one of</b>: <ul><li style=""><span class="selectable-content" id="_s_10">invoke platform-provided functionality</span></li><li style=""><span class="selectable-content" id="_s_11">implement functionality</span></li></ul>]</b>
 					to generate <b>asymmetric</b> cryptographic keys in accordance with a specified cryptographic key generation algorithm
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_12"><b>[RSA schemes]</b> using cryptographic key sizes of <b>[2048-bit or greater]</b> that meet
-							the following <b> <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-4, "Digital Signature Standard (<abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr>), Appendix B.3"</b></span></li><li style=""><span class="selectable-content" id="_s_13"><b>[ECC schemes]</b> using <b>[“<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curves” P-256, P-384 and [<b>selection</b>: <span class="selectable-content" id="_s_14"> P-521 </span>,  <span class="selectable-content" id="_s_15"> no other curves </span> ] 
-							]</b>that meet the following: 
-							<b>[<abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-4, “Digital Signature Standard (<abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr>)”, Appendix B.4]</b>
-						</span></li><li style=""><span class="selectable-content" id="_s_16">
-							<b>[FFC schemes]</b> using cryptographic key sizes of <b>[2048-bit or greater]</b> 
-							that meet the following: <b>[<abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-4, “Digital Signature Standard (<abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr>)”, Appendix B.1]</b>
-						</span></li><li style=""><span class="selectable-content" id="_s_17"><b>[FFC Schemes]</b><b> using Diffie-Hellman group 14</b> that meet the following: 
-							<b><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 3526, Section 3</b>
-						</span></li><li style=""><span class="selectable-content" id="_s_18"><b>[FFC Schemes]</b><b> using “safe-prime” groups</b> that meet the following: 
-							<b><abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes
-								Using Discrete Logarithm Cryptography”</b> and 
-							[<b>selection</b>: <span class="selectable-content" id="_s_19"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 3526</span>,  <span class="selectable-content" id="_s_20"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 7919</span> ]
-						</span></li></ul>].
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_12"><b>[RSA schemes]</b> using cryptographic key sizes of [<i>2048-bit or greater</i>] that meet
+							the following: [<i><abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-4, "Digital Signature Standard (<abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr>)," Appendix B.3</i>]</span></li><li style=""><span class="selectable-content" id="_s_13"><b>[ECC schemes]</b> using [<i>“<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curves” P-384 and [<b>selection</b>: <span class="selectable-content" id="_s_14">P-256</span>,  <span class="selectable-content" id="_s_15">P-521</span>,  <span class="selectable-content" id="_s_16">no other curves</span> ]</i>]that meet the following: 
+							[<i><abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-4, “Digital Signature Standard (<abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr>),” Appendix B.4</i>]</span></li><li style=""><span class="selectable-content" id="_s_17">
+							<b>[FFC schemes]</b> using cryptographic key sizes of [<i>2048-bit or greater</i>] 
+							that meet the following: [<i><abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-4, “Digital Signature Standard (<abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr>)”, Appendix B.1</i>]</span></li><li style=""><span class="selectable-content" id="_s_18"><b>[FFC Schemes]</b> using [<i>Diffie-Hellman group 14</i>] that meet the following: 
+							[<i><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 3526, Section 3</i>]</span></li><li style=""><span class="selectable-content" id="_s_19"><b>[FFC Schemes]</b> using [<i>“safe-prime”</i>] groups that meet the following: 
+							[<i><abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes
+								Using Discrete Logarithm Cryptography” and 
+							[<b>selection</b>: <span class="selectable-content" id="_s_20"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 3526</span>,  <span class="selectable-content" id="_s_21"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 7919</span> ]</i>]</span></li></ul>].
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -1199,7 +1196,7 @@ The following sections list Common Criteria and technology terms used in this do
 			<div class="element"><div class="reqid" id="FCS_CKM.1.1/SK"><a href="#FCS_CKM.1.1/SK" class="abbr">FCS_CKM.1.1/SK</a></div><div class="reqdesc">
 					The <b>application</b> shall generate <b>symmetric</b> cryptographic keys <b>using a Random Bit
 					Generator as specified in <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></b>  and specified
-					cryptographic key sizes [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_21">128 bit</span></li><li style=""><span class="selectable-content" id="_s_22">256 bit</span></li></ul>]. 
+					cryptographic key sizes [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_22">128 bit</span></li><li style=""><span class="selectable-content" id="_s_23">256 bit</span></li></ul>]. 
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -1226,21 +1223,21 @@ The following sections list Common Criteria and technology terms used in this do
 					</div><div class="eacategory">Guidance</div><div class="ea">None.<p></p></div><div class="eacategory">Tests</div><div class="ea">None.</div></div></div></div>
 
 		
-		<div class="comp" id="FCS_CKM.1/PBKDF"><h4>FCS_CKM.1/PBKDF Password Conditioning</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
+		<div class="comp" id="FCS_CKM_EXT.1/PBKDF"><h4>FCS_CKM_EXT.1/PBKDF Password Conditioning</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
 	  <a href="#FCS_STO_EXT.1.1">FCS_STO_EXT.1.1</a>.
       </i></b></div>
 			
-			<div class="element"><div class="reqid" id="FCS_CKM.1.1/PBKDF"><a href="#FCS_CKM.1.1/PBKDF" class="abbr">FCS_CKM.1.1/PBKDF</a></div><div class="reqdesc">
+			<div class="element"><div class="reqid" id="FCS_CKM_EXT.1.1/PBKDF"><a href="#FCS_CKM_EXT.1.1/PBKDF" class="abbr">FCS_CKM_EXT.1.1/PBKDF</a></div><div class="reqdesc">
 					A password/passphrase shall perform [<b>assignment</b>: 
      <span class="assignable-content">Password-based Key Derivation Functions</span>] 
 					in accordance with a specified cryptographic algorithm as specified in <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a>, with [<b>assignment</b>: 
      <span class="assignable-content">positive 
-					integer of 1,000 or more</span>] iterations, and output cryptographic key sizes [<b>selection</b>: <span class="selectable-content" id="_s_23">128</span>,  <span class="selectable-content" id="_s_24">256</span> ]
+					integer of 1,000 or more</span>] iterations, and output cryptographic key sizes [<b>selection</b>: <span class="selectable-content" id="_s_24">128</span>,  <span class="selectable-content" id="_s_25">256</span> ]
 					that meet the following <b>[<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-132]</b>.  
 				</div></div>
-			<div class="element"><div class="reqid" id="FCS_CKM.1.2/PBKDF"><a href="#FCS_CKM.1.2/PBKDF" class="abbr">FCS_CKM.1.2/PBKDF</a></div><div class="reqdesc">
+			<div class="element"><div class="reqid" id="FCS_CKM_EXT.1.2/PBKDF"><a href="#FCS_CKM_EXT.1.2/PBKDF" class="abbr">FCS_CKM_EXT.1.2/PBKDF</a></div><div class="reqdesc">
 					The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall generate salts using a <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> that meets <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> and with entropy corresponding
-					to the security strength selected for PBKDF in <a href="#FCS_CKM.1.1/PBKDF">FCS_CKM.1.1/PBKDF</a>.
+					to the security strength selected for PBKDF in FCS_CKM.1.1/PBKDF.
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -1254,7 +1251,7 @@ The following sections list Common Criteria and technology terms used in this do
 					value is recommended to ensure optimal security. This value is expected to increase to a minimum of 10,000 in a future 
 					iteration based on SP800-63.
 				</span></div></div></div>
-		<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_CKM.1/PBKDF">FCS_CKM.1/PBKDF</a></div>
+		<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_CKM_EXT.1/PBKDF">FCS_CKM_EXT.1/PBKDF</a></div>
 					
 					
 					
@@ -1270,7 +1267,7 @@ The following sections list Common Criteria and technology terms used in this do
 						For the <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-132-based conditioning of the password/passphrase, the required evaluation activities will be performed when 
 						doing the evaluation activities for the appropriate requirements (<a href="#FCS_COP.1.1/KeyedHash">FCS_COP.1.1/KeyedHash</a>).
 						No explicit testing of the formation of the submask from the input password is required. 
-						<a href="#FCS_CKM.1.1/PBKDF">FCS_CKM.1.1/PBKDF</a>: The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author shall provide a description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> regarding the salt generation. 
+						FCS_CKM.1.1/PBKDF: The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author shall provide a description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> regarding the salt generation. 
 						The evaluator shall confirm that the salt is generated using an <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> described in <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>.<p></p>
 					</div><div class="eacategory">Guidance</div><div class="ea">None.<p></p></div><div class="eacategory">Tests</div><div class="ea">None.</div></div></div></div>
 
@@ -1279,32 +1276,35 @@ The following sections list Common Criteria and technology terms used in this do
 	  <a href="#FTP_DIT_EXT.1.1">FTP_DIT_EXT.1.1</a>.
       </i></b></div>
 			
+        	
+        	
+        	
 			<div class="element"><div class="reqid" id="FCS_CKM.2.1"><a href="#FCS_CKM.2.1" class="abbr">FCS_CKM.2.1</a></div><div class="reqdesc">
 					The application shall 
-						[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_25">invoke platform-provided functionality</span>,  <span class="selectable-content" id="_s_26">implement functionality</span> ] 
+						[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_26">invoke platform-provided functionality</span>,  <span class="selectable-content" id="_s_27">implement functionality</span> ] 
 					to perform cryptographic key establishment in accordance with a specified 
 					cryptographic key establishment method:<p></p>
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_27">
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_28">
 							<b>[RSA-based key establishment schemes]</b> that meets the following: <b>[<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> 
 							Special Publication 800-56B, “Recommendation for Pair-Wise Key Establishment 
 							Schemes Using Integer Factorization Cryptography”]</b>
-						</span></li><li style=""><span class="selectable-content" id="_s_28"><b>[RSA-based key establishment schemes]</b>
+						</span></li><li style=""><span class="selectable-content" id="_s_29"><b>[RSA-based key establishment schemes]</b>
 							that meet the following: <b>RSAES-PKCS1-v1_5 as specified in Section 7.2 of <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 8017,
 							“Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1”</b>
-						</span></li><li style=""><span class="selectable-content" id="_s_29">
+						</span></li><li style=""><span class="selectable-content" id="_s_30">
 							<b>[Elliptic curve-based key establishment schemes]</b> that meets the 
 							following: <b>[<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56A, “Recommendation for Pair-Wise Key Establishment 
 							Schemes Using Discrete Logarithm Cryptography”]</b>
-						</span></li><li style=""><span class="selectable-content" id="_s_30">
+						</span></li><li style=""><span class="selectable-content" id="_s_31">
 							<b>[Finite field-based key establishment schemes]</b> that meets the following: 
 							<b>[<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56A, “Recommendation for Pair-Wise Key 
 							Establishment Schemes Using Discrete Logarithm Cryptography”]</b>
-						</span></li><li style=""><span class="selectable-content" id="_s_31"><b>[Key establishment scheme using Diffie-Hellman group 14]</b>
+						</span></li><li style=""><span class="selectable-content" id="_s_32"><b>[Key establishment scheme using Diffie-Hellman group 14]</b>
 							that meets the following: <b><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 3526, Section 3</b>
-						</span></li><li style=""><span class="selectable-content" id="_s_32"><b>[FFC Schemes using “safe-prime” groups]</b>
+						</span></li><li style=""><span class="selectable-content" id="_s_33"><b>[FFC Schemes using “safe-prime” groups]</b>
 							that meet the following: <b>‘<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56A Revision 3,
 							“Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”</b>
-							and [<b>selection</b>: <span class="selectable-content" id="_s_33"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 3526</span>,  <span class="selectable-content" id="_s_34"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 7919</span> ].
+							and [<b>selection</b>: <span class="selectable-content" id="_s_34"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 3526</span>,  <span class="selectable-content" id="_s_35"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 7919</span> ].
 						</span></li></ul>].
 				<div class="appnote"><span class="note-header">Application
       Note:
@@ -1324,7 +1324,7 @@ The following sections list Common Criteria and technology terms used in this do
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_CKM.2.1">FCS_CKM.2.1</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
 						The evaluator shall ensure that the supported key establishment schemes correspond to the 
-						key generation schemes identified in <a href="#FCS_CKM.1.1">FCS_CKM.1.1</a>. If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> specifies more than one 
+						key generation schemes identified in <a href="#FCS_CKM.1.1/AK">FCS_CKM.1.1/AK</a>. If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> specifies more than one 
 						scheme, the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it identifies the usage for each 
 						scheme.<p></p>
 					</div>
@@ -1458,14 +1458,17 @@ The following sections list Common Criteria and technology terms used in this do
         <div class="comp" id="FCS_COP.1/SKC"><h4>FCS_COP.1/SKC Cryptographic Operation - Encryption/Decryption</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
 	  <a href="#FCS_STO_EXT.1.1">FCS_STO_EXT.1.1</a>, <a href="#FTP_DIT_EXT.1.1">FTP_DIT_EXT.1.1</a>.
       </i></b></div>
-			
+        	
+        	
+        	
+        	
 			
 			<div class="element"><div class="reqid" id="FCS_COP.1.1/SKC"><a href="#FCS_COP.1.1/SKC" class="abbr">FCS_COP.1.1/SKC</a></div><div class="reqdesc">
-					The <b>application</b> shall perform <i>encryption/decryption</i> in accordance with a specified 
+					The <b>application</b> shall perform [<i>encryption and decryption</i>] in accordance with a specified 
 					cryptographic algorithm  
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_35"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38A) mode</span></li><li style=""><span class="selectable-content" id="_s_36"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-GCM (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38D) mode</span></li><li style=""><span class="selectable-content" id="_s_37"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-XTS (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38E) mode</span></li><li style=""><span class="selectable-content" id="_s_38"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CCM (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38C) mode</span></li><li style=""><span class="selectable-content" id="_s_39"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38A) mode</span></li></ul>]
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_36"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38A) mode</span></li><li style=""><span class="selectable-content" id="_s_37"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-GCM (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38D) mode</span></li><li style=""><span class="selectable-content" id="_s_38"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-XTS (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38E) mode</span></li><li style=""><span class="selectable-content" id="_s_39"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CCM (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38C) mode</span></li><li style=""><span class="selectable-content" id="_s_40"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CTR (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38A) mode</span></li></ul>]
 					and cryptographic key sizes 
-					[<b>selection</b>: <span class="selectable-content" id="_s_40">128-bit</span>,  <span class="selectable-content" id="_s_41">256-bit</span> ].
+					[<b>selection</b>: <span class="selectable-content" id="_s_41">128-bit</span>,  <span class="selectable-content" id="_s_42">256-bit</span> ].
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -1732,12 +1735,15 @@ The following sections list Common Criteria and technology terms used in this do
         <div class="comp" id="FCS_COP.1/Hash"><h4>FCS_COP.1/Hash Cryptographic Operation - Hashing</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
 	  <a href="#FTP_DIT_EXT.1.1">FTP_DIT_EXT.1.1</a>.
       </i></b></div>
-			
+        	
+        	
+        	
+        	
 			<div class="element"><div class="reqid" id="FCS_COP.1.1/Hash"><a href="#FCS_COP.1.1/Hash" class="abbr">FCS_COP.1.1/Hash</a></div><div class="reqdesc">
-					The <b>application</b> shall perform <i>cryptographic hashing</i> services in accordance with a specified 
+					The <b>application</b> shall perform [<i>cryptographic hashing services</i>] in accordance with a specified 
 					cryptographic algorithm 
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_42"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-1</span></li><li style=""><span class="selectable-content" id="_s_43"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256</span></li><li style=""><span class="selectable-content" id="_s_44"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384</span></li><li style=""><span class="selectable-content" id="_s_45"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512</span></li><li style=""><span class="selectable-content" id="_s_46">no other</span></li></ul>]
-					and message digest sizes [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_47">160</span></li><li style=""><span class="selectable-content" id="_s_48">256</span></li><li style=""><span class="selectable-content" id="_s_49">384</span></li><li style=""><span class="selectable-content" id="_s_50">512</span></li><li style=""><span class="selectable-content" id="_s_51">no other</span></li></ul>] bits that meet the following: <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> Pub 180-4.
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_43"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-1</span></li><li style=""><span class="selectable-content" id="_s_44"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256</span></li><li style=""><span class="selectable-content" id="_s_45"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384</span></li><li style=""><span class="selectable-content" id="_s_46"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512</span></li><li style=""><span class="selectable-content" id="_s_47">no other</span></li></ul>]
+					and <b>message digest</b> sizes [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_48">160</span></li><li style=""><span class="selectable-content" id="_s_49">256</span></li><li style=""><span class="selectable-content" id="_s_50">384</span></li><li style=""><span class="selectable-content" id="_s_51">512</span></li><li style=""><span class="selectable-content" id="_s_52">no other</span></li></ul>] <b>bits</b> that meet the following: [<i><abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> Pub 180-4, "Secure Hash Standard"</i>].
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -1821,15 +1827,16 @@ The following sections list Common Criteria and technology terms used in this do
         <div class="comp" id="FCS_COP.1/KeyedHash"><h4>FCS_COP.1/KeyedHash Cryptographic Operation - Keyed-Hash Message Authentication</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
 	  <a href="#FTP_DIT_EXT.1.1">FTP_DIT_EXT.1.1</a>.
       </i></b></div>
-			
-			<div class="element"><div class="reqid" id="FCS_COP.1.1/KeyedHash"><a href="#FCS_COP.1.1/KeyedHash" class="abbr">FCS_COP.1.1/KeyedHash</a></div><div class="reqdesc">The <b>application</b> shall perform <i>keyed-hash message authentication</i> in accordance with a 
-					specified cryptographic algorithm<ul>
-						<li><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA-256</li></ul>and
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_52"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA-1</span></li><li style=""><span class="selectable-content" id="_s_53"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA-384</span></li><li style=""><span class="selectable-content" id="_s_54"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA-512</span></li><li style=""><span class="selectable-content" id="_s_55">no other algorithms</span></li></ul>] with key sizes [<b>assignment</b>: 
+        	
+        	
+        	
+        	
+			<div class="element"><div class="reqid" id="FCS_COP.1.1/KeyedHash"><a href="#FCS_COP.1.1/KeyedHash" class="abbr">FCS_COP.1.1/KeyedHash</a></div><div class="reqdesc">The <b>application</b> shall perform [<i>keyed-hash message authentication</i>] in accordance with a 
+					specified cryptographic algorithm [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_53"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA-256</span></li><li style=""><span class="selectable-content" id="_s_54"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA-384</span></li><li style=""><span class="selectable-content" id="_s_55"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA-512</span></li></ul>] and [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_56"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA-1</span></li><li style=""><span class="selectable-content" id="_s_57">no other algorithms</span></li></ul>] <b>with</b> key sizes [<b>assignment</b>: 
      <span class="assignable-content">key size (in bits) used in <abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr></span>] 
-					and message digest sizes 256 and [<b>selection</b>: <span class="selectable-content" id="_s_56">160</span>,  <span class="selectable-content" id="_s_57">384</span>,  <span class="selectable-content" id="_s_58">512</span>,  <span class="selectable-content" id="_s_59">no other size</span> ]
-					bits that meet the following: <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> Pub 198-1 <i>The Keyed-Hash Message Authentication Code</i>
-					and <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> Pub 180-4 <i>Secure Hash Standard</i>.
+					<b>and message digest sizes</b> [<b>selection</b>: <span class="selectable-content" id="_s_58">256</span>,  <span class="selectable-content" id="_s_59">384</span>,  <span class="selectable-content" id="_s_60">512</span> ] <b>and</b> [<b>selection</b>: <span class="selectable-content" id="_s_61">160</span>,  <span class="selectable-content" id="_s_62">no other size</span> ] <b>bits</b>
+					that meet the following: [<i><abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> Pub 198-1, "The Keyed-Hash Message Authentication Code
+					and <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> Pub 180-4, "Secure Hash Standard"</i>].
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -1857,12 +1864,15 @@ The following sections list Common Criteria and technology terms used in this do
         <div class="comp" id="FCS_COP.1/Sig"><h4>FCS_COP.1/Sig Cryptographic Operation - Signing</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
 	  <a href="#FTP_DIT_EXT.1.1">FTP_DIT_EXT.1.1</a>.
       </i></b></div>
-			
+        	
+        	
+        	
+        	
 			<div class="element"><div class="reqid" id="FCS_COP.1.1/Sig"><a href="#FCS_COP.1.1/Sig" class="abbr">FCS_COP.1.1/Sig</a></div><div class="reqdesc">
-					The <b>application</b> shall perform <i>cryptographic signature services (generation and
-					verification)</i> in accordance with a specified cryptographic algorithm [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_60"><b>RSA schemes</b> using cryptographic key sizes of 2048-bit or greater that meet the 
-							following: <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-4, “Digital Signature Standard (<abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr>)”, Section 4</span></li><li style=""><span class="selectable-content" id="_s_61"><b><abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr> schemes</b> using “<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curves” P-256, P-384 and [<b>selection</b>: <span class="selectable-content" id="_s_62">P-521</span>,  <span class="selectable-content" id="_s_63">no other curves</span> ]
-						that meet the following: <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-4, “Digital Signature Standard (<abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr>)”, Section 5</span></li></ul>].
+					The <b>application</b> shall perform [<i>cryptographic signature services (generation and
+					verification)</i>] in accordance with a specified cryptographic algorithm [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_63"><b>RSA schemes</b> using cryptographic key sizes of [2048-bit or greater] that meet the 
+							following: [<abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-4, “Digital Signature Standard (<abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr>),” Section 5]</span></li><li style=""><span class="selectable-content" id="_s_64"><b><abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr> schemes</b> using [“<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curves” P-256, P-384 and [<b>selection</b>: <span class="selectable-content" id="_s_65">P-521</span>,  <span class="selectable-content" id="_s_66">no other curves</span> ]]
+						that meet the following: [<abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-4, “Digital Signature Standard (<abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr>),” Section 6]</span></li></ul>].
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -1944,7 +1954,7 @@ The following sections list Common Criteria and technology terms used in this do
 				</div></div>
 			<div class="element"><div class="reqid" id="FCS_HTTPS_EXT.1.2/Client"><a href="#FCS_HTTPS_EXT.1.2/Client" class="abbr">FCS_HTTPS_EXT.1.2/Client</a></div><div class="reqdesc">The application shall implement <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> using <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as defined in the Functional Package for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>.</div></div>
 			<div class="element"><div class="reqid" id="FCS_HTTPS_EXT.1.3/Client"><a href="#FCS_HTTPS_EXT.1.3/Client" class="abbr">FCS_HTTPS_EXT.1.3/Client</a></div><div class="reqdesc"> The application shall 
-					[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_64">not establish the application-initiated connection</span>,  <span class="selectable-content" id="_s_65">notify the user and not establish the user-initiated connection</span>,  <span class="selectable-content" id="_s_66">notify the user and request authorization to establish the user-initiated connection</span> ]
+					[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_67">not establish the application-initiated connection</span>,  <span class="selectable-content" id="_s_68">notify the user and not establish the user-initiated connection</span>,  <span class="selectable-content" id="_s_69">notify the user and request authorization to establish the user-initiated connection</span> ]
 					if the peer certificate is deemed invalid.
 				<div class="appnote"><span class="note-header">Application
       Note:
@@ -2005,6 +2015,10 @@ The following sections list Common Criteria and technology terms used in this do
 					The application shall implement the <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> protocol that complies with <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 2818.
 				</div></div>
 			<div class="element"><div class="reqid" id="FCS_HTTPS_EXT.1.2/Server"><a href="#FCS_HTTPS_EXT.1.2/Server" class="abbr">FCS_HTTPS_EXT.1.2/Server</a></div><div class="reqdesc">The application shall implement <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> using <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as defined in the Functional Package for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>.</div></div>
+        	<div class="element"><div class="reqid" id="FCS_HTTPS_EXT.1.3/Server"><a href="#FCS_HTTPS_EXT.1.3/Server" class="abbr">FCS_HTTPS_EXT.1.3/Server</a></div><div class="reqdesc">
+        			The application shall [<b>selection</b>: <span class="selectable-content" id="_s_70">not establish the connection</span>,  <span class="selectable-content" id="_s_71">establish or not establish the connection based on an administrative or user setting</span> ] 
+        			if the peer certificate is deemed invalid.
+        		</div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_HTTPS_EXT.1.1/Server">FCS_HTTPS_EXT.1.1/Server</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
 						The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and determine that enough detail is provided to
@@ -2019,10 +2033,17 @@ The following sections list Common Criteria and technology terms used in this do
 						succeeds and that the traffic is identified as <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>.
 					</div>
 				<div class="element-activity-header"><a href="#FCS_HTTPS_EXT.1.2/Server">FCS_HTTPS_EXT.1.2/Server</a></div>
-					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">None<p></p></div>
+					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">None.<p></p></div>
 					<div class="eacategory">Guidance</div><div class="ea">None.<p></p></div>
 					<div class="eacategory">Tests</div><div class="ea">Other tests are performed in conjunction with the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> package.</div>
-				</div></div></div>
+				<div class="element-activity-header"><a href="#FCS_HTTPS_EXT.1.3/Server">FCS_HTTPS_EXT.1.3/Server</a></div>
+        			<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">None.</div>
+        			<div class="eacategory">Guidance</div><div class="ea">None.</div>
+        			<div class="eacategory">Tests</div><div class="ea">
+        				Other tests are performed in conjunction with the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Functional Package, 
+        				<a href="#FCS_HTTPS_EXT.2">FCS_HTTPS_EXT.2</a> (dependent on selections in <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a>), and <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>.
+        			</div>
+        		</div></div></div>
 
 	
 	
@@ -2035,7 +2056,7 @@ The following sections list Common Criteria and technology terms used in this do
 
 			<div class="element"><div class="reqid" id="FCS_HTTPS_EXT.2.1"><a href="#FCS_HTTPS_EXT.2.1" class="abbr">FCS_HTTPS_EXT.2.1</a></div><div class="reqdesc">
 					The application shall 
-					[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_67">not establish the connection</span>,  <span class="selectable-content" id="_s_68">establish or not establish the connection based on an administrative or user setting</span> ]if the peer certificate is deemed invalid.
+					[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_72">not establish the connection</span>,  <span class="selectable-content" id="_s_73">establish or not establish the connection based on an administrative or user setting</span> ]if the peer certificate is deemed invalid.
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -2075,7 +2096,7 @@ The following sections list Common Criteria and technology terms used in this do
 	  
 
 			<div class="element"><div class="reqid" id="FCS_RBG_EXT.1.1"><a href="#FCS_RBG_EXT.1.1" class="abbr">FCS_RBG_EXT.1.1</a></div><div class="reqdesc"> The application shall
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_69">use no <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span></li><li style=""><span class="selectable-content" id="_s_70">invoke platform-provided <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span></li><li style=""><span class="selectable-content" id="drbg">implement <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span></li></ul>] for its cryptographic operations. 
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_74">use no <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span></li><li style=""><span class="selectable-content" id="_s_75">invoke platform-provided <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span></li><li style=""><span class="selectable-content" id="drbg">implement <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span></li></ul>] for its cryptographic operations. 
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note"> The selection "<i>invoke platform-provided <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</i>"
@@ -2165,7 +2186,7 @@ The following sections list Common Criteria and technology terms used in this do
 
 	  
 			<div class="element"><div class="reqid" id="FCS_RBG_EXT.2.1"><a href="#FCS_RBG_EXT.2.1" class="abbr">FCS_RBG_EXT.2.1</a></div><div class="reqdesc"> The application shall perform all deterministic random bit generation (<abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>)
-					services in accordance with <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-90A using [<b>selection</b>: <span class="selectable-content" id="_s_72">Hash_DRBG (any)</span>,  <span class="selectable-content" id="_s_73">HMAC_DRBG (any)</span>,  <span class="selectable-content" id="_s_74">CTR_DRBG (<abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>)</span> ]
+					services in accordance with <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-90A using [<b>selection</b>: <span class="selectable-content" id="_s_77">Hash_DRBG (any)</span>,  <span class="selectable-content" id="_s_78">HMAC_DRBG (any)</span>,  <span class="selectable-content" id="_s_79">CTR_DRBG (<abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>)</span> ]
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">This requirement shall be included in <abbr class="dyn-abbr"><a href="#abbr_ST">STs</a></abbr> in which 
@@ -2182,7 +2203,7 @@ The following sections list Common Criteria and technology terms used in this do
 				</span></div></div></div>
 			<div class="element"><div class="reqid" id="FCS_RBG_EXT.2.2"><a href="#FCS_RBG_EXT.2.2" class="abbr">FCS_RBG_EXT.2.2</a></div><div class="reqdesc">
 					The deterministic <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> shall be seeded by an entropy source that accumulates
-					entropy from a platform-based <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> and [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_75">a software-based noise source</span></li><li style=""><span class="selectable-content" id="_s_76">a hardware-based noise source</span></li><li style=""><span class="selectable-content" id="_s_77">no other noise source</span></li></ul>] with a minimum of [<b>selection</b><b>, choose one of</b>: <ul><li style=""><span class="selectable-content" id="_s_78">128 bits</span></li><li style=""><span class="selectable-content" id="_s_79">256 bits</span></li></ul>] of entropy at least equal to the greatest security strength (according
+					entropy from a platform-based <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> and [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_80">a software-based noise source</span></li><li style=""><span class="selectable-content" id="_s_81">a hardware-based noise source</span></li><li style=""><span class="selectable-content" id="_s_82">no other noise source</span></li></ul>] with a minimum of [<b>selection</b><b>, choose one of</b>: <ul><li style=""><span class="selectable-content" id="_s_83">128 bits</span></li><li style=""><span class="selectable-content" id="_s_84">256 bits</span></li></ul>] of entropy at least equal to the greatest security strength (according
 					to <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-57) of the keys and hashes that it will generate. 
 				<div class="appnote"><span class="note-header">Application
       Note:
@@ -2301,14 +2322,14 @@ The following sections list Common Criteria and technology terms used in this do
 	  
 	  
 	  <div class="element"><div class="reqid" id="FCS_STO_EXT.1.1"><a href="#FCS_STO_EXT.1.1" class="abbr">FCS_STO_EXT.1.1</a></div><div class="reqdesc">The application shall 
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_80">not store any credentials</span></li><li style=""><span class="selectable-content" id="_s_81">invoke the functionality provided by the platform to securely store 
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_85">not store any credentials</span></li><li style=""><span class="selectable-content" id="_s_86">invoke the functionality provided by the platform to securely store 
 							[<b>assignment</b>: 
      <span class="assignable-content">list of credentials</span>]
 						</span></li><li style=""><span class="selectable-content" id="sel_impl_sto">implement functionality to securely store
 							[<b>assignment</b>: 
      <span class="assignable-content">list of credentials</span>]
 							according to
-							[<b>selection</b>: <span class="selectable-content" id="sel-fcs-sto-skc"><a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a></span>,  <span class="selectable-content" id="sel-fcs-sto-pbkdf"><a href="#FCS_CKM.1/PBKDF">FCS_CKM.1/PBKDF</a></span> ]
+							[<b>selection</b>: <span class="selectable-content" id="sel-fcs-sto-skc"><a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a></span>,  <span class="selectable-content" id="sel-fcs-sto-pbkdf"><a href="#FCS_CKM_EXT.1/PBKDF">FCS_CKM_EXT.1/PBKDF</a></span> ]
 						</span></li></ul>]
 					to non-volatile memory.
 				<div class="appnote"><span class="note-header">Application
@@ -2324,7 +2345,7 @@ The following sections list Common Criteria and technology terms used in this do
 					Application developer must closely review the EA for their platform and provide documentation indicating
 					which platform mechanisms are used to store credentials. 
 					If "<i>implement functionality to securely store credentials</i>" is selected, then the following components 
-					must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>: <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> or <a href="#FCS_CKM.1/PBKDF">FCS_CKM.1/PBKDF</a>.
+					must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>: <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> or <a href="#FCS_CKM_EXT.1/PBKDF">FCS_CKM_EXT.1/PBKDF</a>.
 					If other cryptographic operations are used to implement the secure storage of credentials, the corresponding 
 					requirements must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. If the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> is Linux and Java KeyStores are used to store 
 					credentials, "<i>implement functionality to securely store credentials</i>" must be selected.
@@ -2340,7 +2361,7 @@ The following sections list Common Criteria and technology terms used in this do
 					</div><div class="eacategory">Guidance</div><div class="ea">None.<p></p></div><div class="eacategory">Tests</div><div class="ea">
 						For all credentials for which the application implements functionality, the evaluator shall 
 						verify credentials are encrypted according to <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> or conditioned according to
-						<a href="#FCS_CKM.1.1/AK">FCS_CKM.1.1/AK</a> and <a href="#FCS_CKM.1/PBKDF">FCS_CKM.1/PBKDF</a>.
+						<a href="#FCS_CKM.1.1/AK">FCS_CKM.1.1/AK</a> and <a href="#FCS_CKM_EXT.1/PBKDF">FCS_CKM_EXT.1/PBKDF</a>.
 						For all credentials for which the application invokes platform-provided
 						functionality, the evaluator shall perform the following actions which vary per platform.
 						<div class="dependent">Platforms:<a href="#android"><b>Android</b>: <i>Mobile operating systems based on Google Android.</i></a><div class="dependent-content"><div>The evaluator shall verify that the application uses
@@ -2386,7 +2407,7 @@ The following sections list Common Criteria and technology terms used in this do
 
 	
 			<div class="element"><div class="reqid" id="FDP_DEC_EXT.1.1"><a href="#FDP_DEC_EXT.1.1" class="abbr">FDP_DEC_EXT.1.1</a></div><div class="reqdesc"> The application shall restrict its access to
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_88">no hardware resources</span></li><li style=""><span class="selectable-content" id="_s_89">network connectivity</span></li><li style=""><span class="selectable-content" id="_s_90">camera</span></li><li style=""><span class="selectable-content" id="_s_91">microphone</span></li><li style=""><span class="selectable-content" id="_s_92">location services</span></li><li style=""><span class="selectable-content" id="_s_93"><abbr class="dyn-abbr"><a href="#abbr_NFC">NFC</a></abbr></span></li><li style=""><span class="selectable-content" id="_s_94"><abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr></span></li><li style=""><span class="selectable-content" id="_s_95">Bluetooth</span></li><li style=""><span class="selectable-content" id="_s_96">[<b>assignment</b>: 
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_93">no hardware resources</span></li><li style=""><span class="selectable-content" id="_s_94">network connectivity</span></li><li style=""><span class="selectable-content" id="_s_95">camera</span></li><li style=""><span class="selectable-content" id="_s_96">microphone</span></li><li style=""><span class="selectable-content" id="_s_97">location services</span></li><li style=""><span class="selectable-content" id="_s_98"><abbr class="dyn-abbr"><a href="#abbr_NFC">NFC</a></abbr></span></li><li style=""><span class="selectable-content" id="_s_99"><abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr></span></li><li style=""><span class="selectable-content" id="_s_100">Bluetooth</span></li><li style=""><span class="selectable-content" id="_s_101">[<b>assignment</b>: 
      <span class="assignable-content">list of additional hardware resources</span>]</span></li></ul>].
 				<div class="appnote"><span class="note-header">Application
       Note:
@@ -2410,7 +2431,7 @@ The following sections list Common Criteria and technology terms used in this do
 					persistent storage devices provided by the platform.
 				</span></div></div></div>
 			<div class="element"><div class="reqid" id="FDP_DEC_EXT.1.2"><a href="#FDP_DEC_EXT.1.2" class="abbr">FDP_DEC_EXT.1.2</a></div><div class="reqdesc">The application shall restrict its access to
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_97">no sensitive information repositories</span></li><li style=""><span class="selectable-content" id="_s_98">address book</span></li><li style=""><span class="selectable-content" id="_s_99">calendar</span></li><li style=""><span class="selectable-content" id="_s_100">call lists</span></li><li style=""><span class="selectable-content" id="_s_101">system logs</span></li><li style=""><span class="selectable-content" id="_s_102">[<b>assignment</b>: 
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_102">no sensitive information repositories</span></li><li style=""><span class="selectable-content" id="_s_103">address book</span></li><li style=""><span class="selectable-content" id="_s_104">calendar</span></li><li style=""><span class="selectable-content" id="_s_105">call lists</span></li><li style=""><span class="selectable-content" id="_s_106">system logs</span></li><li style=""><span class="selectable-content" id="_s_107">[<b>assignment</b>: 
      <span class="assignable-content">list of additional sensitive information repositories</span>]</span></li></ul>].
 				<div class="appnote"><span class="note-header">Application
       Note:
@@ -2510,11 +2531,11 @@ The following sections list Common Criteria and technology terms used in this do
         <div class="comp" id="FDP_NET_EXT.1"><h4>FDP_NET_EXT.1 Network Communications</h4>
 	  
 			<div class="element"><div class="reqid" id="FDP_NET_EXT.1.1"><a href="#FDP_NET_EXT.1.1" class="abbr">FDP_NET_EXT.1.1</a></div><div class="reqdesc">The application shall restrict network communication to 
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_103">no network communication</span></li><li style=""><span class="selectable-content" id="_s_104">user-initiated communication for 
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_108">no network communication</span></li><li style=""><span class="selectable-content" id="_s_109">user-initiated communication for 
 							[<b>assignment</b>: 
      <span class="assignable-content">list of functions 
-							for which the user can initiate network communication</span>]</span></li><li style=""><span class="selectable-content" id="_s_105">respond to [<b>assignment</b>: 
-     <span class="assignable-content">list of remotely initiated communication </span>]</span></li><li style=""><span class="selectable-content" id="_s_106">[<b>assignment</b>: 
+							for which the user can initiate network communication</span>]</span></li><li style=""><span class="selectable-content" id="_s_110">respond to [<b>assignment</b>: 
+     <span class="assignable-content">list of remotely initiated communication </span>]</span></li><li style=""><span class="selectable-content" id="_s_111">[<b>assignment</b>: 
      <span class="assignable-content">list of application-initiated network communication</span>]</span></li></ul>]. 
 				<div class="appnote"><span class="note-header">Application
       Note:
@@ -2570,7 +2591,7 @@ The following sections list Common Criteria and technology terms used in this do
 		  
 			<div class="element"><div class="reqid" id="FDP_DAR_EXT.1.1"><a href="#FDP_DAR_EXT.1.1" class="abbr">FDP_DAR_EXT.1.1</a></div><div class="reqdesc">
 					The application shall 
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_107">leverage platform-provided functionality to encrypt sensitive data</span></li><li style=""><span class="selectable-content" id="_s_108">implement functionality to encrypt sensitive data as defined in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</span></li><li style=""><span class="selectable-content" id="_s_109">protect sensitive data in accordance with <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></span></li><li style=""><span class="selectable-content" id="_s_110">not store any sensitive data</span></li></ul>] in non-volatile memory.
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_112">leverage platform-provided functionality to encrypt sensitive data</span></li><li style=""><span class="selectable-content" id="_s_113">implement functionality to encrypt sensitive data as defined in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</span></li><li style=""><span class="selectable-content" id="_s_114">protect sensitive data in accordance with <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></span></li><li style=""><span class="selectable-content" id="_s_115">not store any sensitive data</span></li></ul>] in non-volatile memory.
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -2653,7 +2674,7 @@ The following sections list Common Criteria and technology terms used in this do
 		  
 		  <div class="element"><div class="reqid" id="FIA_X509_EXT.1.1"><a href="#FIA_X509_EXT.1.1" class="abbr">FIA_X509_EXT.1.1</a></div><div class="reqdesc">
 					The application shall 
-					[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_111">invoke platform-provided functionality</span>,  <span class="selectable-content" id="_s_112">implement functionality</span> ]
+					[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_116">invoke platform-provided functionality</span>,  <span class="selectable-content" id="_s_117">implement functionality</span> ]
 					to validate certificates in accordance with the following rules:<ul>
 						<li><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5280 certificate validation and certificate path validation.</li>
 						<li>The certificate path must terminate with a trusted CA certificate.</li>
@@ -2664,7 +2685,7 @@ The following sections list Common Criteria and technology terms used in this do
 						<li>The application shall validate that any CA certificate includes caSigning purpose in the key
 							usage field</li>
 						<li>The application shall validate the revocation status of the certificate using 
-							[<b>selection</b>: <span class="selectable-content" id="_s_113"><abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6960</span>,  <span class="selectable-content" id="_s_114"><abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5280 Section 6.3</span>,  <span class="selectable-content" id="_s_115"><abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 8603</span>,  <span class="selectable-content" id="_s_116">an <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Status Request Extension (<abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> stapling) as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6066</span>,  <span class="selectable-content" id="_s_117"><abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Multi-Certificate Status Request Extension (i.e., <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> Multi-Stapling) as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6961</span> ].
+							[<b>selection</b>: <span class="selectable-content" id="_s_118"><abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6960</span>,  <span class="selectable-content" id="_s_119"><abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5280 Section 6.3</span>,  <span class="selectable-content" id="_s_120"><abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 8603</span>,  <span class="selectable-content" id="_s_121">an <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Status Request Extension (<abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> stapling) as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6066</span>,  <span class="selectable-content" id="_s_122"><abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Multi-Certificate Status Request Extension (i.e., <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> Multi-Stapling) as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6961</span> ].
 						</li>
 						<li>The application shall validate the extendedKeyUsage (EKU) field according to the 
 							following rules:<ul>
@@ -2768,13 +2789,27 @@ The following sections list Common Criteria and technology terms used in this do
 									validation function fails.</li>
 								</ul>
 							</li>
+							
 							<li class="test-"><a id="_t_20" class="defined" href="#_t_20">Test FIA_X509_EXT.1.1:4</a>:
       
-								If any <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> option is selected, the evaluator shall configure the <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> server or use a
-								man-in-the-middle tool to present a certificate that does not have the <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> signing purpose and verify
-								that validation of the <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> response fails. If <abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> is selected, the evaluator shall configure the CA 
-								to sign a <abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> with a certificate that does not have the cRLsign key usage bit set, and verify that
-								validation of the <abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> fails.
+								If any <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> option is selected, the evaluator shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> has no other source of
+								revocation information available and configure the <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> server or use a man-in-the-middle tool
+								to present an <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> response signed by a certificate that does not have the <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> signing purpose 
+								and which is the only source of revocation status information advertised by the CA issuing the
+								certificate being validated. The evaluator shall verify that validation of the <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr>
+								response fails and that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> treats the certificate being checked as invalid and rejects the
+								connection. If <abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> is selected, the evaluator shall likewise configure the CA to be the only source
+								of revocation status information, and sign a <abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> with a certificate that does not have the cRLsign key usage bit
+								set, and . The evaluator shall verify that validation of the <abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> fails and that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> treats the certificate
+								being checked as invalid and rejects the connection.
+								<br/><br/>
+								<b><i>Note:</i></b> The intent of this test is to ensure a <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> does not trust invalid revocation status information. A <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>
+								receiving invalid revocation status information from the only advertised certificate status provider should
+								treat the certificate whose status is being checked as invalid. This should generally be treated differently
+								from the case where the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> is not able to establish a connection to check revocation status information,
+								but it is acceptable that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> ignore any invalid information and attempt to find another source of
+								revocation status (another advertised provider, a locally configured provider, or cached information) and
+								treat this situation as not having a connection to a valid certificate status provider. 
 							</li>
 							<li class="test-"><a id="_t_21" class="defined" href="#_t_21">Test FIA_X509_EXT.1.1:5</a>:
       
@@ -2854,7 +2889,7 @@ The following sections list Common Criteria and technology terms used in this do
 	  
 	  <div class="element"><div class="reqid" id="FIA_X509_EXT.2.1"><a href="#FIA_X509_EXT.2.1" class="abbr">FIA_X509_EXT.2.1</a></div><div class="reqdesc">
 	      The application shall use X.509v3 certificates as defined by <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5280 to support authentication for 
-	      [<b>selection</b>: <span class="selectable-content" id="_s_118"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span>,  <span class="selectable-content" id="_s_119"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>,  <span class="selectable-content" id="_s_120"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span>,  <span class="selectable-content" id="_s_121"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></span>,  <span class="selectable-content" id="_s_122">IPsec</span> ]. 
+	      [<b>selection</b>: <span class="selectable-content" id="_s_123"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span>,  <span class="selectable-content" id="_s_124"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>,  <span class="selectable-content" id="_s_125"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span>,  <span class="selectable-content" id="_s_126"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></span>,  <span class="selectable-content" id="_s_127">IPsec</span> ]. 
 	    <div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -2866,7 +2901,7 @@ The following sections list Common Criteria and technology terms used in this do
 			<div class="element"><div class="reqid" id="FIA_X509_EXT.2.2"><a href="#FIA_X509_EXT.2.2" class="abbr">FIA_X509_EXT.2.2</a></div><div class="reqdesc">
 					When the application cannot establish a connection to determine the validity of a 
 					certificate, the application shall  
-					[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_123">allow the administrator to choose whether to accept the certificate in these cases</span>,  <span class="selectable-content" id="_s_124">accept the certificate</span>,  <span class="selectable-content" id="_s_125">not accept the certificate</span> ]. 
+					[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_128">allow the administrator to choose whether to accept the certificate in these cases</span>,  <span class="selectable-content" id="_s_129">accept the certificate</span>,  <span class="selectable-content" id="_s_130">not accept the certificate</span> ]. 
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -2934,7 +2969,7 @@ The following sections list Common Criteria and technology terms used in this do
 	
 	<div class="comp" id="FMT_MEC_EXT.1"><h4>FMT_MEC_EXT.1 Supported Configuration Mechanism</h4>
 	  
-			<div class="element"><div class="reqid" id="FMT_MEC_EXT.1.1"><a href="#FMT_MEC_EXT.1.1" class="abbr">FMT_MEC_EXT.1.1</a></div><div class="reqdesc">The application shall[<b>selection</b>: <span class="selectable-content" id="_s_126">invoke the mechanisms recommended by the platform vendor for storing and setting configuration options</span>,  <span class="selectable-content" id="_s_127">implement functionality to encrypt and store configuration options as defined by FDP_PRT_EXT.1 in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</span> ]
+			<div class="element"><div class="reqid" id="FMT_MEC_EXT.1.1"><a href="#FMT_MEC_EXT.1.1" class="abbr">FMT_MEC_EXT.1.1</a></div><div class="reqdesc">The application shall[<b>selection</b>: <span class="selectable-content" id="_s_131">invoke the mechanisms recommended by the platform vendor for storing and setting configuration options</span>,  <span class="selectable-content" id="_s_132">implement functionality to encrypt and store configuration options as defined by FDP_PRT_EXT.1 in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</span> ]
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note"> 
@@ -2961,14 +2996,21 @@ The following sections list Common Criteria and technology terms used in this do
 					</div><div class="eacategory">Guidance</div><div class="ea">None.<p></p></div><div class="eacategory">Tests</div><div class="ea">
 						If "invoke the mechanisms recommended by the platform vendor for storing and setting configuration options" is chosen,
 						the method of testing varies per platform as follows: 
+						
 	                    <div class="dependent">Platforms:<a href="#android"><b>Android</b>: <i>Mobile operating systems based on Google Android.</i></a><div class="dependent-content"><div>
 							The evaluator shall run the application and make security-related changes to its configuration.
-							The evaluator shall check that at least one XML file at location
-							<span style="path">/data/data/<i>package</i>/shared_prefs/</span>
-							reflects the changes made to the configuration to verify that the application used
-							<code>SharedPreferences</code> and/or <code>PreferenceActivity</code> classes
-							for storing configuration data, where <i>package</i> is the Java package
-							of the application.
+							The evaluator shall check that at least one file exists at location
+							<span style="path">/data/data/<i>package</i>/shared_prefs/</span> (for SharedPreferences)
+	                    	or
+	                    	<span style="path">/data/data/<i>package</i>/files/datastore</span> (for DataStore)
+                            where the <i>package</i> is the Java package of the application.
+	                    	
+	                    	For SharedPreferences, the evaluator shall examine the XML file to make sure it reflects the changes made to the 
+	                    	configuration to verify that the application used SharedPreferences or PreferenceActivity 
+	                    	to store the configuration data. For DataStore, the evaluator shall use a protocol 
+	                    	buffer analyzer to examine the file to make sure it reflects the changes made to the 
+	                    	configuration to verify that the application used DataStore to store the configuration data.
+	                    	
 						</div></div></div>
 						<div class="dependent">Platforms:<a href="#windows"><b>Microsoft Windows</b>: <i>Microsoft Windows operating systems.</i></a><div class="dependent-content"><div>The evaluator shall determine and verify that Windows
 							Universal Applications use either the Windows.Storage namespace, Windows.<abbr class="dyn-abbr"><a href="#abbr_UI">UI</a></abbr>.ApplicationSettings namespace,
@@ -3110,12 +3152,12 @@ The following sections list Common Criteria and technology terms used in this do
 	      
         <div class="comp" id="FMT_SMF.1"><h4>FMT_SMF.1 Specification of Management Functions</h4>
 			<div class="element"><div class="reqid" id="FMT_SMF.1.1"><a href="#FMT_SMF.1.1" class="abbr">FMT_SMF.1.1</a></div><div class="reqdesc"> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of performing the following management functions 
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_128">no management functions</span></li><li style=""><span class="selectable-content" id="_s_129"> enable/disable the transmission of any information describing the
-							system's hardware, software, or configuration</span></li><li style=""><span class="selectable-content" id="_s_130"> enable/disable the transmission of any <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr></span></li><li style=""><span class="selectable-content" id="_s_131"> enable/disable transmission of any application state (e.g. crashdump)
-							information</span></li><li style=""><span class="selectable-content" id="_s_132"> enable/disable network backup functionality to [<b>assignment</b>: 
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_133">no management functions</span></li><li style=""><span class="selectable-content" id="_s_134"> enable/disable the transmission of any information describing the
+							system's hardware, software, or configuration</span></li><li style=""><span class="selectable-content" id="_s_135"> enable/disable the transmission of any <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr></span></li><li style=""><span class="selectable-content" id="_s_136"> enable/disable transmission of any application state (e.g. crashdump)
+							information</span></li><li style=""><span class="selectable-content" id="_s_137"> enable/disable network backup functionality to [<b>assignment</b>: 
      <span class="assignable-content"> list of 
 							enterprise or commercial cloud backup systems</span>]
-						</span></li><li style=""><span class="selectable-content" id="_s_133"> [<b>assignment</b>: 
+						</span></li><li style=""><span class="selectable-content" id="_s_138"> [<b>assignment</b>: 
      <span class="assignable-content"> list of other management functions to be provided by
 							the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr></span>]</span></li></ul>].
 				<div class="appnote"><span class="note-header">Application
@@ -3149,7 +3191,7 @@ The following sections list Common Criteria and technology terms used in this do
 	
 	
 	<div class="element"><div class="reqid" id="FPR_ANO_EXT.1.1"><a href="#FPR_ANO_EXT.1.1" class="abbr">FPR_ANO_EXT.1.1</a></div><div class="reqdesc">The application shall 
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_134">not transmit <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr> over a network</span></li><li style=""><span class="selectable-content" id="_s_135"> require user approval before executing
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_139">not transmit <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr> over a network</span></li><li style=""><span class="selectable-content" id="_s_140"> require user approval before executing
 							[<b>assignment</b>: 
      <span class="assignable-content">list of functions that transmit <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr> over a network</span>]
 						</span></li></ul>].
@@ -3208,7 +3250,7 @@ The following sections list Common Criteria and technology terms used in this do
           </b></i></div>
 		  
 			<div class="element"><div class="reqid" id="FPT_API_EXT.2.1"><a href="#FPT_API_EXT.2.1" class="abbr">FPT_API_EXT.2.1</a></div><div class="reqdesc"> The application 
-					[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_136">shall use platform-provided libraries</span>,  <span class="selectable-content" id="_s_137">does not implement functionality</span> ]
+					[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_141">shall use platform-provided libraries</span>,  <span class="selectable-content" id="_s_142">does not implement functionality</span> ]
 					for parsing [<b>assignment</b>: 
      <span class="assignable-content"> list of formats parsed that are included in the 
 					<abbr class="dyn-abbr"><a href="#abbr_IANA">IANA</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_MIME">MIME</a></abbr> media types</span>].
@@ -3253,7 +3295,7 @@ The following sections list Common Criteria and technology terms used in this do
 				</span></div></div></div>
 			<div class="element"><div class="reqid" id="FPT_AEX_EXT.1.2"><a href="#FPT_AEX_EXT.1.2" class="abbr">FPT_AEX_EXT.1.2</a></div><div class="reqdesc">
 					The application shall 
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_138">not allocate any memory region with both write and execute permissions</span></li><li style=""><span class="selectable-content" id="_s_139">allocate memory regions with write and execute permissions for only
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_143">not allocate any memory region with both write and execute permissions</span></li><li style=""><span class="selectable-content" id="_s_144">allocate memory regions with write and execute permissions for only
 							[<b>assignment</b>: 
      <span class="assignable-content"> list of functions performing just-in-time compilation</span>]
 						</span></li></ul>].
@@ -3506,9 +3548,9 @@ The following sections list Common Criteria and technology terms used in this do
 	  
 	  
 			<div class="element"><div class="reqid" id="FPT_IDV_EXT.1.1"><a href="#FPT_IDV_EXT.1.1" class="abbr">FPT_IDV_EXT.1.1</a></div><div class="reqdesc">The application shall be versioned with
-					[<b>selection</b>: <span class="selectable-content" id="_s_140"><abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags 
+					[<b>selection</b>: <span class="selectable-content" id="_s_145"><abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags 
 							that comply with minimum requirements from <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_IEC">IEC</a></abbr> 19770-2:2015                 
-						</span>,  <span class="selectable-content" id="_s_141">[<b>assignment</b>: 
+						</span>,  <span class="selectable-content" id="_s_146">[<b>assignment</b>: 
      <span class="assignable-content">other version information</span>]</span> ].
 				<div class="appnote"><span class="note-header">Application
       Note:
@@ -3571,7 +3613,7 @@ The following sections list Common Criteria and technology terms used in this do
         <div class="comp" id="FPT_TUD_EXT.1"><h4>FPT_TUD_EXT.1 Integrity for Installation and Update</h4>
 	  
 	  
-	  <div class="element"><div class="reqid" id="FPT_TUD_EXT.1.1"><a href="#FPT_TUD_EXT.1.1" class="abbr">FPT_TUD_EXT.1.1</a></div><div class="reqdesc">The application shall [<b>selection</b>: <span class="selectable-content" id="_s_142">provide the ability</span>,  <span class="selectable-content" id="_s_143">leverage the platform</span> ] to check for updates and patches to the application software. 
+	  <div class="element"><div class="reqid" id="FPT_TUD_EXT.1.1"><a href="#FPT_TUD_EXT.1.1" class="abbr">FPT_TUD_EXT.1.1</a></div><div class="reqdesc">The application shall [<b>selection</b>: <span class="selectable-content" id="_s_147">provide the ability</span>,  <span class="selectable-content" id="_s_148">leverage the platform</span> ] to check for updates and patches to the application software. 
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -3580,7 +3622,7 @@ The following sections list Common Criteria and technology terms used in this do
 					is intended to ensure that the application can check for updates provided by the vendor,
 					as updates provided by another source may contain malicious code.
 				</span></div></div></div>
-			<div class="element"><div class="reqid" id="FPT_TUD_EXT.1.2"><a href="#FPT_TUD_EXT.1.2" class="abbr">FPT_TUD_EXT.1.2</a></div><div class="reqdesc">The application shall [<b>selection</b>: <span class="selectable-content" id="_s_144">provide the ability</span>,  <span class="selectable-content" id="_s_145">leverage the platform</span> ]
+			<div class="element"><div class="reqid" id="FPT_TUD_EXT.1.2"><a href="#FPT_TUD_EXT.1.2" class="abbr">FPT_TUD_EXT.1.2</a></div><div class="reqdesc">The application shall [<b>selection</b>: <span class="selectable-content" id="_s_149">provide the ability</span>,  <span class="selectable-content" id="_s_150">leverage the platform</span> ]
 					to query the current version of the application software.
 				</div></div>
 			<div class="element"><div class="reqid" id="FPT_TUD_EXT.1.3"><a href="#FPT_TUD_EXT.1.3" class="abbr">FPT_TUD_EXT.1.3</a></div><div class="reqdesc"> 
@@ -3686,8 +3728,8 @@ The following sections list Common Criteria and technology terms used in this do
 	  
 	  
 			<div class="element"><div class="reqid" id="FPT_TUD_EXT.2.1"><a href="#FPT_TUD_EXT.2.1" class="abbr">FPT_TUD_EXT.2.1</a></div><div class="reqdesc">
-					The application shall be distributed using the format of the platform-supported
-					package manager. 
+					The application shall be distributed using 
+					[<b>selection</b>: <span class="selectable-content" id="_s_153">the format of the platform-supported package manager</span>,  <span class="selectable-content" id="_s_154">a container image</span> ].
 				</div></div>
 			<div class="element"><div class="reqid" id="FPT_TUD_EXT.2.2"><a href="#FPT_TUD_EXT.2.2" class="abbr">FPT_TUD_EXT.2.2</a></div><div class="reqdesc">
 					The application shall be packaged such that its removal results in the deletion 
@@ -3711,8 +3753,12 @@ The following sections list Common Criteria and technology terms used in this do
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FPT_TUD_EXT.2.1">FPT_TUD_EXT.2.1</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">None.<p></p></div>
 					<div class="eacategory">Guidance</div><div class="ea">None.<p></p></div>
+					
+					
 					<div class="eacategory">Tests</div><div class="ea">
-						The evaluator shall verify that application updates are distributed in the
+						If a container image is claimed, the evaluator shall verify that application updates are distributed as container images.
+						If the format of the platform-supported package manager is claimed,
+						the evaluator shall verify that application updates are distributed in the
 						format supported by the platform. This varies per platform:               
 						<div class="dependent">Platforms:<a href="#android"><b>Android</b>: <i>Mobile operating systems based on Google Android.</i></a><div class="dependent-content"><div> The evaluator shall ensure that the application is
 							packaged in the Android application package (<abbr class="dyn-abbr"><a href="#abbr_APK">APK</a></abbr>) format. </div></div></div>
@@ -3742,30 +3788,9 @@ The following sections list Common Criteria and technology terms used in this do
 						<div class="dependent">Platforms:<a href="#android"><b>Android</b>: <i>Mobile operating systems based on Google Android.</i></a><div class="dependent-content"><div>The evaluator shall consider the requirement met because 
 							the platform forces applications to write all data within the application working 
 							directory (sandbox).</div></div></div>
-						<div class="dependent">Platforms:<a href="#windows"><b>Microsoft Windows</b>: <i>Microsoft Windows operating systems.</i></a><div class="dependent-content"><div>
-							The evaluator shall install the application and then locate all of its executable files. 
-							The evaluator shall then, for each file, save off either a hash of the file or a copy of the
-							file itself. The evaluator shall then run the application and exercise all features of
-							the application as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable
-							file with the either the saved hash or the saved copy of the files. The evaluator shall 
-							verify that these are identical.</div></div></div>
 						<div class="dependent">Platforms:<a href="#ios"><b>Apple iOS</b>: <i>Apple's mobile operating system for iPhones.</i></a><div class="dependent-content"><div>The evaluator shall consider the requirement met because 
 							the platform forces applications to write all data within the application working 
 							directory (sandbox).</div></div></div>
-						<div class="dependent">Platforms:<a href="#linux"><b>Linux</b>: <i>Linux-based operating systems other than Android.</i></a><div class="dependent-content"><div>
-							The evaluator shall install the application and then locate all of its executable files. 
-							The evaluator shall then, for each file, save off either a hash of the file or a copy of the
-							file itself. The evaluator shall then run the application and exercise all features of
-							the application as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable
-							file with the either the saved hash or the saved copy of the files. The evaluator shall 
-							verify that these are identical.</div></div></div>
-						<div class="dependent">Platforms:<a href="#Solaris"><b>Oracle Solaris</b>: <i>Oracle's enterprise operating system.</i></a><div class="dependent-content"><div>
-							The evaluator shall install the application and then locate all of its executable files. 
-							The evaluator shall then, for each file, save off either a hash of the file or a copy of the
-							file itself. The evaluator shall then run the application and exercise all features of
-							the application as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable
-							file with the either the saved hash or the saved copy of the files. The evaluator shall 
-							verify that these are identical.</div></div></div>
 						<div class="dependent">Platforms:<a href="#mac"><b>Apple macOS</b>: <i>Apple's operating system for MACs.</i></a><div class="dependent-content"><div>
 							The evaluator shall install the application and then locate all of its executable files. 
 							The evaluator shall then, for each file, save off either a hash of the file or a copy of the
@@ -3773,6 +3798,10 @@ The following sections list Common Criteria and technology terms used in this do
 							the application as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable
 							file with the either the saved hash or the saved copy of the files. The evaluator shall 
 							verify that these are identical.</div></div></div>
+						<br/>For all other platforms, the evaluator shall record the path of every file on the entire filesystem prior to installation of the 
+						application, and then install and run the application. Afterwards, the evaluator shall then uninstall the application, 
+						and compare the resulting filesystem to the initial record to verify that no files, other than configuration, output, 
+						and audit/log files, have been added to the filesystem.
 					</div>
 				<div class="element-activity-header"><a href="#FPT_TUD_EXT.2.3">FPT_TUD_EXT.2.3</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
@@ -3797,30 +3826,32 @@ The following sections list Common Criteria and technology terms used in this do
       <div class="comp" id="FTP_DIT_EXT.1"><h4>FTP_DIT_EXT.1 Protection of Data in Transit</h4>
 	
 	
+	
 			<div class="element"><div class="reqid" id="FTP_DIT_EXT.1.1"><a href="#FTP_DIT_EXT.1.1" class="abbr">FTP_DIT_EXT.1.1</a></div><div class="reqdesc">The application shall 
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_148">not transmit any 
-							[<b>selection</b>: <span class="selectable-content" id="_s_149">data</span>,  <span class="selectable-content" id="_s_150">sensitive data</span> ]
-						</span></li><li style=""><span class="selectable-content" id="_s_151">encrypt all transmitted 
-							[<b>selection</b>: <span class="selectable-content" id="_s_152">sensitive data</span>,  <span class="selectable-content" id="_s_153">data</span> ] with
-							[<b>selection</b>: <span class="selectable-content" id="sel_all_https_cl"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a client in accordance with <a href="#FCS_HTTPS_EXT.1/Client">FCS_HTTPS_EXT.1/Client</a></span>,  <span class="selectable-content" id="sel_all_https_sv"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a server in accordance with <a href="#FCS_HTTPS_EXT.1/Server">FCS_HTTPS_EXT.1/Server</a></span>,  <span class="selectable-content" id="sel_all_https_ma"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a server using mutual authentication in accordance with <a href="#FCS_HTTPS_EXT.2">FCS_HTTPS_EXT.2</a></span>,  <span class="selectable-content" id="sel_all_tls"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a></span>,  <span class="selectable-content" id="sel_all_dtls"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a></span>,  <span class="selectable-content" id="sel_all_ssh"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459"><i>Functional Package for Secure Shell</i></a></span>,  <span class="selectable-content" id="_s_160">IPsec as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=419&amp;id=419"><i>PP-Module for VPN Client</i></a></span> ]
-						</span></li><li style=""><span class="selectable-content" id="_s_161">invoke platform-provided functionality to encrypt all transmitted sensitive data with
-							[<b>selection</b>: <span class="selectable-content" id="_s_162"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span>,  <span class="selectable-content" id="_s_163"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>,  <span class="selectable-content" id="_s_164"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span>,  <span class="selectable-content" id="_s_165"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></span> ]
-						</span></li><li style=""><span class="selectable-content" id="_s_166">invoke platform-provided functionality to encrypt all transmitted data with
-							[<b>selection</b>: <span class="selectable-content" id="_s_167"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span>,  <span class="selectable-content" id="_s_168"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>,  <span class="selectable-content" id="_s_169"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span>,  <span class="selectable-content" id="_s_170"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></span> ]
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_155">not transmit any 
+							[<b>selection</b>: <span class="selectable-content" id="_s_156">data</span>,  <span class="selectable-content" id="_s_157">sensitive data</span> ]
+						</span></li><li style=""><span class="selectable-content" id="_s_158">encrypt all transmitted 
+							[<b>selection</b>: <span class="selectable-content" id="_s_159">sensitive data</span>,  <span class="selectable-content" id="_s_160">data</span> ] with
+							[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="sel_all_https_cl"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a client in accordance with <a href="#FCS_HTTPS_EXT.1/Client">FCS_HTTPS_EXT.1/Client</a></span></li><li style=""><span class="selectable-content" id="sel_all_https_sv"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a server in accordance with <a href="#FCS_HTTPS_EXT.1/Server">FCS_HTTPS_EXT.1/Server</a></span></li><li style=""><span class="selectable-content" id="sel_all_https_ma"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a server using mutual authentication in accordance with <a href="#FCS_HTTPS_EXT.2">FCS_HTTPS_EXT.2</a></span></li><li style=""><span class="selectable-content" id="sel_all_tlss"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a server as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a> and also supports functionality for
+								[<b>selection</b>: <span class="selectable-content" id="_s_165">mutual authentication</span>,  <span class="selectable-content" id="_s_166">none</span> ]</span></li><li style=""><span class="selectable-content" id="sel_all_tlsc"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a client as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a></span></li><li style=""><span class="selectable-content" id="sel_all_dtlss"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a server as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a> and also supports functionality for
+								[<b>selection</b>: <span class="selectable-content" id="_s_169">mutual authentication</span>,  <span class="selectable-content" id="_s_170">none</span> ]</span></li><li style=""><span class="selectable-content" id="sel_all_dtlsc"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a client as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a></span></li><li style=""><span class="selectable-content" id="sel_all_ssh"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459"><i>Functional Package for Secure Shell</i></a></span></li><li style=""><span class="selectable-content" id="sel_all_ipsec">IPsec as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=419&amp;id=419"><i>PP-Module for VPN Client</i></a></span></li></ul>]
+						</span></li><li style=""><span class="selectable-content" id="_s_174">invoke platform-provided functionality to encrypt all transmitted sensitive data with
+							[<b>selection</b>: <span class="selectable-content" id="_s_175"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span>,  <span class="selectable-content" id="_s_176"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>,  <span class="selectable-content" id="_s_177"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span>,  <span class="selectable-content" id="_s_178"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></span> ]
+						</span></li><li style=""><span class="selectable-content" id="_s_179">invoke platform-provided functionality to encrypt all transmitted data with
+							[<b>selection</b>: <span class="selectable-content" id="_s_180"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span>,  <span class="selectable-content" id="_s_181"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>,  <span class="selectable-content" id="_s_182"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span>,  <span class="selectable-content" id="_s_183"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></span> ]
 						</span></li></ul>] between itself and another trusted <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr> product.
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
 					
 					Encryption is not required for applications transmitting data that is not sensitive.<p></p>
-					If "<i>encrypt all transmitted</i>" is selected and "<i><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></i>" is selected, then 
-					evaluation of elements from either FCS_TLSC_EXT.1 or FCS_TLSS_EXT.1 is required.<p></p>
+					If "<i>encrypt all transmitted</i>" is selected and "<i><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></i>" or "<i><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></i>" as a client or server is selected, then 
+					corresponding components from the Functional Package for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> must be selected.<p></p>
 					If "<i>encrypt all transmitted</i>" is selected, "<i><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></i>" is selected, and the 
 					<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts as a client, then <a href="#FCS_HTTPS_EXT.1/Client">FCS_HTTPS_EXT.1/Client</a> is required.<p></p> 
 					If "<i>encrypt all transmitted</i>" is selected, "<i><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></i>" is selected, and the 
 					<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts as a server, then <a href="#FCS_HTTPS_EXT.1/Server">FCS_HTTPS_EXT.1/Server</a> is required. <p></p> 
-					
-					If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts as a server and if "<i>mutual authentication</i>" is selected in the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Package,
+					If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts as an <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> server and if "<i>mutual authentication</i>" is selected,
 					then <a href="#FCS_HTTPS_EXT.2">FCS_HTTPS_EXT.2</a> is also required. <p></p> 
 					If "<i>encrypt all transmitted</i>" is selected and "<i><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></i>" is selected, then
 					FCS_DTLS_EXT.1 is required.<p></p>
@@ -3841,8 +3872,11 @@ The following sections list Common Criteria and technology terms used in this do
 							selected and the platform implements a protocol that requires certificates</li>
 						<li>"<i>invoke platform-provided functionality to encrypt all transmitted data</i>" is selected 
 							and the platform implements a protocol that requires certificates</li></ul>
-						<b>Note:</b><a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a> and <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a> are not applicable when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts 
-						as a <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> server with no mutual authentication.
+						<b>Note:</b><a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a> and <a href="#FIA_X509_EXT.2">FIA_X509_EXT.2</a> are not applicable if "<i>mutual authentication</i>" 
+					is not selected when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts as an <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>, or <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> server.
+					<br/><br/>
+					The selections for mutual authentication for <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> align with the selections in this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>. 
+					The selections for mutual authentication must match the corresponding requirements in the Functional Package for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>.
 				</span></div></div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a></div>
 					
@@ -3907,7 +3941,7 @@ The following sections list Common Criteria and technology terms used in this do
 <tr><td><a href="#FMT_CFG_EXT.1">FMT_CFG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FMT_CFG_EXT.1">FMT_CFG_EXT.1</a> for the TSP to limit unauthorized access to itself by preventing the use of default authentication credentials and by ensuring that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses appropriately restrictive platform permissions on its binaries and data</td></tr>
 <tr><td><a href="#FPT_AEX_EXT.1">FPT_AEX_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_AEX_EXT.1">FPT_AEX_EXT.1</a> to add complexity to the task of compromising systems by ensuring that application is compatible with security features provided by the platform vendor and that the application implements platform-provided anti-exploitations such as <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> and stack overflow protection.</td></tr>
 <tr><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can be patched and that any updates to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> have appropriate integrity protection.</td></tr>
-<tr class="major-row"><td rowspan="13"><a href="#O.QUALITY">O.QUALITY</a><br/></td><td><a href="#FCS_CKM.1">FCS_CKM.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FCS_CKM.1">FCS_CKM.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided key generation services.</td></tr>
+<tr class="major-row"><td rowspan="13"><a href="#O.QUALITY">O.QUALITY</a><br/></td><td><a href="#FCS_CKM_EXT.1">FCS_CKM_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FCS_CKM_EXT.1">FCS_CKM_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided key generation services.</td></tr>
 <tr><td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided random bit generation services.</td></tr>
 <tr><td><a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided credential storage services.</td></tr>
 <tr><td><a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> supports this objective by allowing <a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided data-at-rest protection services.</td></tr>
@@ -3929,13 +3963,13 @@ The following sections list Common Criteria and technology terms used in this do
 <tr><td><a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a> to define the mechanism that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses or relies upon to protect stored credential data.</td></tr>
 <tr><td><a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a> to define the mechanism that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses or relies upon to protect sensitive data at rest.</td></tr>
 <tr><td><a href="#FCS_CKM.1/SK">FCS_CKM.1/SK</a> (optional)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/SK">FCS_CKM.1/SK</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s capability to generate symmetric keys. These keys may subsequently be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr>
-<tr><td><a href="#FCS_CKM.1/PBKDF">FCS_CKM.1/PBKDF</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/PBKDF">FCS_CKM.1/PBKDF</a> to define the password-based key derivation function that may be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr>
+<tr><td><a href="#FCS_CKM_EXT.1/PBKDF">FCS_CKM_EXT.1/PBKDF</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM_EXT.1/PBKDF">FCS_CKM_EXT.1/PBKDF</a> to define the password-based key derivation function that may be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr>
 <tr><td><a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> to define the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> cryptographic algorithm that may be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr>
 <tr><td><a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> to define integrity mechanisms that may be used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as part of ensuring that data at rest is protected.</td></tr>
 <tr><td><a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a> to define <abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr> mechanisms that may be used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as part of ensuring that data at rest is protected.</td></tr>
 <tr><td><a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s implementation of random bit generation functionality in the event that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> provides this function in support of generating keys that are used for data protection.</td></tr>
 <tr class="major-row"><td rowspan="15"><a href="#O.PROTECTED_COMMS">O.PROTECTED_​COMMS</a><br/></td><td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> to define whether the random bit generation services used in establishing trusted communications are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or by the platform.</td></tr>
-<tr><td><a href="#FCS_CKM.1">FCS_CKM.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1">FCS_CKM.1</a> to specify whether the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or the platform is responsible for generation of any asymmetric keys that may be used for establishing trusted communications.</td></tr>
+<tr><td><a href="#FCS_CKM_EXT.1">FCS_CKM_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM_EXT.1">FCS_CKM_EXT.1</a> to specify whether the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or the platform is responsible for generation of any asymmetric keys that may be used for establishing trusted communications.</td></tr>
 <tr><td><a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> to define the trusted channels used to protect data in transit, the data that is protected, and whether the trusted channels are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform.</td></tr>
 <tr><td><a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> to define whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform generates asymmetric keys that are used in support of trusted communications.</td></tr>
 <tr><td><a href="#FCS_CKM.2">FCS_CKM.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.2">FCS_CKM.2</a> to define whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform performs key establishment for trusted communications.</td></tr>
@@ -4423,29 +4457,29 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 	    <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a> X.509 Certificate Validation
 	  </td></tr></table><h4 id="ext-comp-FCS_HTTPS_EXT.2.1">FCS_HTTPS_EXT.2.1</h4>
 					The application shall 
-					[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_67">not establish the connection</span>,  <span class="selectable-content" id="_s_68">establish or not establish the connection based on an administrative or user setting</span> ]if the peer certificate is deemed invalid.
+					[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_72">not establish the connection</span>,  <span class="selectable-content" id="_s_73">establish or not establish the connection based on an administrative or user setting</span> ]if the peer certificate is deemed invalid.
 				</div></div><h3 id="ext-comp-FCS_RBG_EXT" class="indexable" data-level="4">B.2.1.2 FCS_RBG_EXT Random Bit Generation</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>This family defines requirements for the generation of random bits.</div><h4>Component Leveling</h4><svg style="max-height: 50px;"><text x="4" fill="black" font-size="15" y="44">FCS_RBG_EXT</text><rect x="2" y="31" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="37" x2="231" y2="17" stroke="black"></line><text x="234" fill="black" font-size="15" y="44">2</text><rect x="232" y="31" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="37" x2="231" y2="37" stroke="black"></line></svg><p><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>,
              Random Bit Generation Services,
              requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to specify whether random bit generation is implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, invoked from the operational environment, or not used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</p><p><a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a>,
              Random Bit Generation from Application,
              specifies the mechanism by which the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> generates random bits.</p><h4>Management: FCS_RBG_EXT.1</h4><p>There are no management functions foreseen.</p><h4>Audit: FCS_RBG_EXT.1</h4><p>There are no audit events foreseen.</p><h4>FCS_RBG_EXT.1 Random Bit Generation Services</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>No dependencies.</td></tr></table><h4 id="ext-comp-FCS_RBG_EXT.1.1">FCS_RBG_EXT.1.1</h4> The application shall
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_69">use no <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span></li><li style=""><span class="selectable-content" id="_s_70">invoke platform-provided <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span></li><li style=""><span class="selectable-content" id="drbg">implement <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span></li></ul>] for its cryptographic operations. 
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_74">use no <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span></li><li style=""><span class="selectable-content" id="_s_75">invoke platform-provided <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span></li><li style=""><span class="selectable-content" id="drbg">implement <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span></li></ul>] for its cryptographic operations. 
 				</div><h4>Management: FCS_RBG_EXT.2</h4><p>There are no management functions foreseen.</p><h4>Audit: FCS_RBG_EXT.2</h4><p>There are no audit events foreseen.</p><h4>FCS_RBG_EXT.2 Random Bit Generation from Application</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
 	    FCS_COP.1 Cryptographic Operation<br/>
 	    <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> Random Bit Generation Services
 	  </td></tr></table><h4 id="ext-comp-FCS_RBG_EXT.2.1">FCS_RBG_EXT.2.1</h4> The application shall perform all deterministic random bit generation (<abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>)
-					services in accordance with <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-90A using [<b>selection</b>: <span class="selectable-content" id="_s_72">Hash_DRBG (any)</span>,  <span class="selectable-content" id="_s_73">HMAC_DRBG (any)</span>,  <span class="selectable-content" id="_s_74">CTR_DRBG (<abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>)</span> ]
+					services in accordance with <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-90A using [<b>selection</b>: <span class="selectable-content" id="_s_77">Hash_DRBG (any)</span>,  <span class="selectable-content" id="_s_78">HMAC_DRBG (any)</span>,  <span class="selectable-content" id="_s_79">CTR_DRBG (<abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>)</span> ]
 				<h4 id="ext-comp-FCS_RBG_EXT.2.2">FCS_RBG_EXT.2.2</h4>
 					The deterministic <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> shall be seeded by an entropy source that accumulates
-					entropy from a platform-based <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> and [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_75">a software-based noise source</span></li><li style=""><span class="selectable-content" id="_s_76">a hardware-based noise source</span></li><li style=""><span class="selectable-content" id="_s_77">no other noise source</span></li></ul>] with a minimum of [<b>selection</b><b>, choose one of</b>: <ul><li style=""><span class="selectable-content" id="_s_78">128 bits</span></li><li style=""><span class="selectable-content" id="_s_79">256 bits</span></li></ul>] of entropy at least equal to the greatest security strength (according
+					entropy from a platform-based <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> and [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_80">a software-based noise source</span></li><li style=""><span class="selectable-content" id="_s_81">a hardware-based noise source</span></li><li style=""><span class="selectable-content" id="_s_82">no other noise source</span></li></ul>] with a minimum of [<b>selection</b><b>, choose one of</b>: <ul><li style=""><span class="selectable-content" id="_s_83">128 bits</span></li><li style=""><span class="selectable-content" id="_s_84">256 bits</span></li></ul>] of entropy at least equal to the greatest security strength (according
 					to <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-57) of the keys and hashes that it will generate. 
 				</div></div><h3 id="ext-comp-FCS_STO_EXT" class="indexable" data-level="4">B.2.1.3 FCS_STO_EXT Storage of Credentials</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>This family defines requirements for the secure storage of credential data. </div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FCS_STO_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>,
              Storage of Credentials,
              requires the application to define how to store credentials to non-volatile memory.</p><h4>Management: FCS_STO_EXT.1</h4><p>There are no management functions foreseen.</p><h4>Audit: FCS_STO_EXT.1</h4><p>There are no audit events foreseen.</p><h4>FCS_STO_EXT.1 Storage of Credentials</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>No dependencies.</td></tr></table><h4 id="ext-comp-FCS_STO_EXT.1.1">FCS_STO_EXT.1.1</h4>The application shall 
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_85">not store any credentials</span></li><li style=""><span class="selectable-content" id="_s_86">invoke the functionality provided by the platform to securely store 
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_90">not store any credentials</span></li><li style=""><span class="selectable-content" id="_s_91">invoke the functionality provided by the platform to securely store 
 							[<b>assignment</b>: 
      <span class="assignable-content">list of credentials</span>]
-						</span></li><li style=""><span class="selectable-content" id="_s_87">implement functionality to securely store
+						</span></li><li style=""><span class="selectable-content" id="_s_92">implement functionality to securely store
 							[<b>assignment</b>: 
      <span class="assignable-content">list of credentials</span>]
 							according to
@@ -4462,7 +4496,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
              X.509 Certificate Authentication,
              defines the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s usage of X.509 certificates and how it reacts to certificates that cannot be validated.</p><h4>Management: FIA_X509_EXT.1</h4><p>There are no management functions foreseen.</p><h4>Audit: FIA_X509_EXT.1</h4><p>There are no audit events foreseen.</p><h4>FIA_X509_EXT.1 X.509 Certificate Validation</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>No dependencies.</td></tr></table><h4 id="ext-comp-FIA_X509_EXT.1.1">FIA_X509_EXT.1.1</h4>
 					The application shall 
-					[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_111">invoke platform-provided functionality</span>,  <span class="selectable-content" id="_s_112">implement functionality</span> ]
+					[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_116">invoke platform-provided functionality</span>,  <span class="selectable-content" id="_s_117">implement functionality</span> ]
 					to validate certificates in accordance with the following rules:<ul>
 						<li><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5280 certificate validation and certificate path validation.</li>
 						<li>The certificate path must terminate with a trusted CA certificate.</li>
@@ -4473,7 +4507,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						<li>The application shall validate that any CA certificate includes caSigning purpose in the key
 							usage field</li>
 						<li>The application shall validate the revocation status of the certificate using 
-							[<b>selection</b>: <span class="selectable-content" id="_s_113"><abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6960</span>,  <span class="selectable-content" id="_s_114"><abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5280 Section 6.3</span>,  <span class="selectable-content" id="_s_115"><abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 8603</span>,  <span class="selectable-content" id="_s_116">an <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Status Request Extension (<abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> stapling) as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6066</span>,  <span class="selectable-content" id="_s_117"><abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Multi-Certificate Status Request Extension (i.e., <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> Multi-Stapling) as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6961</span> ].
+							[<b>selection</b>: <span class="selectable-content" id="_s_118"><abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6960</span>,  <span class="selectable-content" id="_s_119"><abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5280 Section 6.3</span>,  <span class="selectable-content" id="_s_120"><abbr class="dyn-abbr"><a href="#abbr_CRL">CRL</a></abbr> as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 8603</span>,  <span class="selectable-content" id="_s_121">an <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Status Request Extension (<abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> stapling) as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6066</span>,  <span class="selectable-content" id="_s_122"><abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Multi-Certificate Status Request Extension (i.e., <abbr class="dyn-abbr"><a href="#abbr_OCSP">OCSP</a></abbr> Multi-Stapling) as specified in <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 6961</span> ].
 						</li>
 						<li>The application shall validate the extendedKeyUsage (EKU) field according to the 
 							following rules:<ul>
@@ -4516,7 +4550,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 	    <h4 id="ext-comp-FIA_X509_EXT.2.2">FIA_X509_EXT.2.2</h4>
 					When the application cannot establish a connection to determine the validity of a 
 					certificate, the application shall  
-					[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_123">allow the administrator to choose whether to accept the certificate in these cases</span>,  <span class="selectable-content" id="_s_124">accept the certificate</span>,  <span class="selectable-content" id="_s_125">not accept the certificate</span> ]. 
+					[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_128">allow the administrator to choose whether to accept the certificate in these cases</span>,  <span class="selectable-content" id="_s_129">accept the certificate</span>,  <span class="selectable-content" id="_s_130">not accept the certificate</span> ]. 
 				</div></div></span><span data-sortkey="Privacy (FPR)"><h3 id="ext-comp-FPR" class="indexable" data-level="3">B.2.3 Privacy (FPR)</h3>This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> defines the following extended components as part of the
 	 FPR class originally defined by <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> Part 2:
 	<h3 id="ext-comp-FPR_ANO_EXT" class="indexable" data-level="4">B.2.3.1 FPR_ANO_EXT User Consent for Transmission of Personally Identifiable Information</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>
@@ -4526,7 +4560,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
              requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to transmit personally identifiable information only with explicit approval.</p><h4>Management: FPR_ANO_EXT.1</h4><p>The following action could be considered for the management functions in FMT:
 	a) enable/disable the transmission of any <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr>.
 	</p><h4>Audit: FPR_ANO_EXT.1</h4><p>There are no audit events foreseen.</p><h4>FPR_ANO_EXT.1 User Consent for Transmission of Personally Identifiable Information</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>No dependencies.</td></tr></table><h4 id="ext-comp-FPR_ANO_EXT.1.1">FPR_ANO_EXT.1.1</h4>The application shall 
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_134">not transmit <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr> over a network</span></li><li style=""><span class="selectable-content" id="_s_135"> require user approval before executing
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_139">not transmit <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr> over a network</span></li><li style=""><span class="selectable-content" id="_s_140"> require user approval before executing
 							[<b>assignment</b>: 
      <span class="assignable-content">list of functions that transmit <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr> over a network</span>]
 						</span></li></ul>].
@@ -4539,7 +4573,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
              requires the application to use only documented platform APIs.</p><p><a href="#FPT_API_EXT.2">FPT_API_EXT.2</a>,
              Use of Supported Services and APIs,
              requires the application implement media parsing in a specified manner.</p><h4>Management: FPT_API_EXT.1</h4><p>There are no management functions foreseen.</p><h4>Audit: FPT_API_EXT.1</h4><p>There are no audit events foreseen.</p><h4>FPT_API_EXT.1 Use of Supported Services and APIs</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>No dependencies.</td></tr></table><h4 id="ext-comp-FPT_API_EXT.1.1">FPT_API_EXT.1.1</h4>The application shall use only documented platform APIs.</div><h4>Management: FPT_API_EXT.2</h4><p>There are no management functions foreseen.</p><h4>Audit: FPT_API_EXT.2</h4><p>There are no audit events foreseen.</p><h4>FPT_API_EXT.2 Use of Supported Services and APIs</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>No dependencies.</td></tr></table><h4 id="ext-comp-FPT_API_EXT.2.1">FPT_API_EXT.2.1</h4> The application 
-					[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_136">shall use platform-provided libraries</span>,  <span class="selectable-content" id="_s_137">does not implement functionality</span> ]
+					[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_141">shall use platform-provided libraries</span>,  <span class="selectable-content" id="_s_142">does not implement functionality</span> ]
 					for parsing [<b>assignment</b>: 
      <span class="assignable-content"> list of formats parsed that are included in the 
 					<abbr class="dyn-abbr"><a href="#abbr_IANA">IANA</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_MIME">MIME</a></abbr> media types</span>].
@@ -4553,7 +4587,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
      <span class="assignable-content">list of explicit exceptions</span>].
 				<h4 id="ext-comp-FPT_AEX_EXT.1.2">FPT_AEX_EXT.1.2</h4>
 					The application shall 
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_138">not allocate any memory region with both write and execute permissions</span></li><li style=""><span class="selectable-content" id="_s_139">allocate memory regions with write and execute permissions for only
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_143">not allocate any memory region with both write and execute permissions</span></li><li style=""><span class="selectable-content" id="_s_144">allocate memory regions with write and execute permissions for only
 							[<b>assignment</b>: 
      <span class="assignable-content"> list of functions performing just-in-time compilation</span>]
 						</span></li></ul>].
@@ -4569,9 +4603,9 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 	  </div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FPT_IDV_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a>,
              Software Identification and Versions,
              requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to specify the versioning mechanism used.</p><h4>Management: FPT_IDV_EXT.1</h4><p>There are no management functions foreseen.</p><h4>Audit: FPT_IDV_EXT.1</h4><p>There are no audit events foreseen.</p><h4>FPT_IDV_EXT.1 Software Identification and Versions</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>No dependencies.</td></tr></table><h4 id="ext-comp-FPT_IDV_EXT.1.1">FPT_IDV_EXT.1.1</h4>The application shall be versioned with
-					[<b>selection</b>: <span class="selectable-content" id="_s_140"><abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags 
+					[<b>selection</b>: <span class="selectable-content" id="_s_145"><abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags 
 							that comply with minimum requirements from <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_IEC">IEC</a></abbr> 19770-2:2015                 
-						</span>,  <span class="selectable-content" id="_s_141">[<b>assignment</b>: 
+						</span>,  <span class="selectable-content" id="_s_146">[<b>assignment</b>: 
      <span class="assignable-content">other version information</span>]</span> ].
 				</div></div><h3 id="ext-comp-FPT_LIB_EXT" class="indexable" data-level="4">B.2.4.4 FPT_LIB_EXT TSF Use of Third Party Libraries</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>
 	    This family defines requirements for identification of any third-party libraries used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
@@ -4586,8 +4620,8 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
              Integrity for Installation and Update,
              requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to specify how updates to it are acquired and verified.</p><p><a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a>,
              Integrity for Installation and Update,
-             requires <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> updates to be packaged in a certain manner.</p><h4>Management: FPT_TUD_EXT.1</h4><p>There are no management functions foreseen.</p><h4>Audit: FPT_TUD_EXT.1</h4><p>There are no audit events foreseen.</p><h4>FPT_TUD_EXT.1 Integrity for Installation and Update</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a> Software Identification and Versions</td></tr></table><h4 id="ext-comp-FPT_TUD_EXT.1.1">FPT_TUD_EXT.1.1</h4>The application shall [<b>selection</b>: <span class="selectable-content" id="_s_142">provide the ability</span>,  <span class="selectable-content" id="_s_143">leverage the platform</span> ] to check for updates and patches to the application software. 
-				<h4 id="ext-comp-FPT_TUD_EXT.1.2">FPT_TUD_EXT.1.2</h4>The application shall [<b>selection</b>: <span class="selectable-content" id="_s_144">provide the ability</span>,  <span class="selectable-content" id="_s_145">leverage the platform</span> ]
+             requires <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> updates to be packaged in a certain manner.</p><h4>Management: FPT_TUD_EXT.1</h4><p>There are no management functions foreseen.</p><h4>Audit: FPT_TUD_EXT.1</h4><p>There are no audit events foreseen.</p><h4>FPT_TUD_EXT.1 Integrity for Installation and Update</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a> Software Identification and Versions</td></tr></table><h4 id="ext-comp-FPT_TUD_EXT.1.1">FPT_TUD_EXT.1.1</h4>The application shall [<b>selection</b>: <span class="selectable-content" id="_s_147">provide the ability</span>,  <span class="selectable-content" id="_s_148">leverage the platform</span> ] to check for updates and patches to the application software. 
+				<h4 id="ext-comp-FPT_TUD_EXT.1.2">FPT_TUD_EXT.1.2</h4>The application shall [<b>selection</b>: <span class="selectable-content" id="_s_149">provide the ability</span>,  <span class="selectable-content" id="_s_150">leverage the platform</span> ]
 					to query the current version of the application software.
 				<h4 id="ext-comp-FPT_TUD_EXT.1.3">FPT_TUD_EXT.1.3</h4> 
 					The application shall not download, modify, replace or update its own binary code. 
@@ -4597,8 +4631,8 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 					The application is distributed 
 					[<b>selection</b>: <span class="selectable-content" id="sel_with_plat">with the platform <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr></span>,  <span class="selectable-content" id="sel_add_plat">as an additional software package to the platform <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr></span> ].
 				</div><h4>Management: FPT_TUD_EXT.2</h4><p>There are no management functions foreseen.</p><h4>Audit: FPT_TUD_EXT.2</h4><p>There are no audit events foreseen.</p><h4>FPT_TUD_EXT.2 Integrity for Installation and Update</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a> Integrity for Installation and Update</td></tr></table><h4 id="ext-comp-FPT_TUD_EXT.2.1">FPT_TUD_EXT.2.1</h4>
-					The application shall be distributed using the format of the platform-supported
-					package manager. 
+					The application shall be distributed using 
+					[<b>selection</b>: <span class="selectable-content" id="_s_153">the format of the platform-supported package manager</span>,  <span class="selectable-content" id="_s_154">a container image</span> ].
 				<h4 id="ext-comp-FPT_TUD_EXT.2.2">FPT_TUD_EXT.2.2</h4>
 					The application shall be packaged such that its removal results in the deletion 
 					of all traces of the application, with the exception of configuration settings, output
@@ -4610,7 +4644,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 	 FMT class originally defined by <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> Part 2:
 	<h3 id="ext-comp-FMT_MEC_EXT" class="indexable" data-level="4">B.2.5.1 FMT_MEC_EXT Supported Configuration Mechanism</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>This family defines requirements for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s use of mechanisms for the storage of configuration data.</div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FMT_MEC_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FMT_MEC_EXT.1">FMT_MEC_EXT.1</a>,
              Supported Configuration Mechanism,
-             requires the application to store configuration data either through the use of an appropriate environmental mechanism or through its own file encryption capability.</p><h4>Management: FMT_MEC_EXT.1</h4><p>There are no management functions foreseen.</p><h4>Audit: FMT_MEC_EXT.1</h4><p>There are no audit events foreseen.</p><h4>FMT_MEC_EXT.1 Supported Configuration Mechanism</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>No dependencies.</td></tr></table><h4 id="ext-comp-FMT_MEC_EXT.1.1">FMT_MEC_EXT.1.1</h4>The application shall[<b>selection</b>: <span class="selectable-content" id="_s_126">invoke the mechanisms recommended by the platform vendor for storing and setting configuration options</span>,  <span class="selectable-content" id="_s_127">implement functionality to encrypt and store configuration options as defined by FDP_PRT_EXT.1 in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</span> ]
+             requires the application to store configuration data either through the use of an appropriate environmental mechanism or through its own file encryption capability.</p><h4>Management: FMT_MEC_EXT.1</h4><p>There are no management functions foreseen.</p><h4>Audit: FMT_MEC_EXT.1</h4><p>There are no audit events foreseen.</p><h4>FMT_MEC_EXT.1 Supported Configuration Mechanism</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>No dependencies.</td></tr></table><h4 id="ext-comp-FMT_MEC_EXT.1.1">FMT_MEC_EXT.1.1</h4>The application shall[<b>selection</b>: <span class="selectable-content" id="_s_131">invoke the mechanisms recommended by the platform vendor for storing and setting configuration options</span>,  <span class="selectable-content" id="_s_132">implement functionality to encrypt and store configuration options as defined by FDP_PRT_EXT.1 in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</span> ]
 				</div></div><h3 id="ext-comp-FMT_CFG_EXT" class="indexable" data-level="4">B.2.5.2 FMT_CFG_EXT Secure by Default Configuration</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>
 	    This family defines requirements for authorization to manage the behavior of the application.
 	  </div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FMT_CFG_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FMT_CFG_EXT.1">FMT_CFG_EXT.1</a>,
@@ -4628,16 +4662,16 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 	</div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FTP_DIT_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a>,
              Protection of Data in Transit,
              requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to specify what data is transmitted outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> over a trusted channel, what protocol is used for data transmission, and whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements this protocol or invokes an environmental interface to do so.</p><h4>Management: FTP_DIT_EXT.1</h4><p>There are no management functions foreseen.</p><h4>Audit: FTP_DIT_EXT.1</h4><p>There are no audit events foreseen.</p><h4>FTP_DIT_EXT.1 Protection of Data in Transit</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>No dependencies.</td></tr></table><h4 id="ext-comp-FTP_DIT_EXT.1.1">FTP_DIT_EXT.1.1</h4>The application shall 
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_171">not transmit any 
-							[<b>selection</b>: <span class="selectable-content" id="_s_172">data</span>,  <span class="selectable-content" id="_s_173">sensitive data</span> ]
-						</span></li><li style=""><span class="selectable-content" id="_s_174">encrypt all transmitted 
-							[<b>selection</b>: <span class="selectable-content" id="_s_175">sensitive data</span>,  <span class="selectable-content" id="_s_176">data</span> ] with
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_184">not transmit any 
+							[<b>selection</b>: <span class="selectable-content" id="_s_185">data</span>,  <span class="selectable-content" id="_s_186">sensitive data</span> ]
+						</span></li><li style=""><span class="selectable-content" id="_s_187">encrypt all transmitted 
+							[<b>selection</b>: <span class="selectable-content" id="_s_188">sensitive data</span>,  <span class="selectable-content" id="_s_189">data</span> ] with
 								[<b>assignment</b>: 
      <span class="assignable-content">trusted protocol</span>]
-						</span></li><li style=""><span class="selectable-content" id="_s_177">invoke platform-provided functionality to encrypt all transmitted sensitive data with
+						</span></li><li style=""><span class="selectable-content" id="_s_190">invoke platform-provided functionality to encrypt all transmitted sensitive data with
 						[<b>assignment</b>: 
      <span class="assignable-content">trusted protocol</span>]
-						</span></li><li style=""><span class="selectable-content" id="_s_178">invoke platform-provided functionality to encrypt all transmitted data with
+						</span></li><li style=""><span class="selectable-content" id="_s_191">invoke platform-provided functionality to encrypt all transmitted data with
 						[<b>assignment</b>: 
      <span class="assignable-content">trusted protocol</span>]
 						</span></li></ul>] between itself and another trusted <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr> product.
@@ -4646,25 +4680,25 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 	<h3 id="ext-comp-FDP_DEC_EXT" class="indexable" data-level="4">B.2.7.1 FDP_DEC_EXT Access to Platform Resources</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>This family defines requirements for accessing platform resources.</div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FDP_DEC_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FDP_DEC_EXT.1">FDP_DEC_EXT.1</a>,
              Access to Platform Resources,
              requires the application to restrict access to hardware sources and sensitive information repositories.</p><h4>Management: FDP_DEC_EXT.1</h4><p> The following action could be considered for the management functions in FMT: a) enable/disable the transmission of any information describing the system’s hardware, software,or configuration.</p><h4>Audit: FDP_DEC_EXT.1</h4><p>There are no audit events foreseen.</p><h4>FDP_DEC_EXT.1 Access to Platform Resources</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>No dependencies.</td></tr></table><h4 id="ext-comp-FDP_DEC_EXT.1.1">FDP_DEC_EXT.1.1</h4> The application shall restrict its access to
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_88">no hardware resources</span></li><li style=""><span class="selectable-content" id="_s_89">network connectivity</span></li><li style=""><span class="selectable-content" id="_s_90">camera</span></li><li style=""><span class="selectable-content" id="_s_91">microphone</span></li><li style=""><span class="selectable-content" id="_s_92">location services</span></li><li style=""><span class="selectable-content" id="_s_93"><abbr class="dyn-abbr"><a href="#abbr_NFC">NFC</a></abbr></span></li><li style=""><span class="selectable-content" id="_s_94"><abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr></span></li><li style=""><span class="selectable-content" id="_s_95">Bluetooth</span></li><li style=""><span class="selectable-content" id="_s_96">[<b>assignment</b>: 
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_93">no hardware resources</span></li><li style=""><span class="selectable-content" id="_s_94">network connectivity</span></li><li style=""><span class="selectable-content" id="_s_95">camera</span></li><li style=""><span class="selectable-content" id="_s_96">microphone</span></li><li style=""><span class="selectable-content" id="_s_97">location services</span></li><li style=""><span class="selectable-content" id="_s_98"><abbr class="dyn-abbr"><a href="#abbr_NFC">NFC</a></abbr></span></li><li style=""><span class="selectable-content" id="_s_99"><abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr></span></li><li style=""><span class="selectable-content" id="_s_100">Bluetooth</span></li><li style=""><span class="selectable-content" id="_s_101">[<b>assignment</b>: 
      <span class="assignable-content">list of additional hardware resources</span>]</span></li></ul>].
 				<h4 id="ext-comp-FDP_DEC_EXT.1.2">FDP_DEC_EXT.1.2</h4>The application shall restrict its access to
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_97">no sensitive information repositories</span></li><li style=""><span class="selectable-content" id="_s_98">address book</span></li><li style=""><span class="selectable-content" id="_s_99">calendar</span></li><li style=""><span class="selectable-content" id="_s_100">call lists</span></li><li style=""><span class="selectable-content" id="_s_101">system logs</span></li><li style=""><span class="selectable-content" id="_s_102">[<b>assignment</b>: 
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_102">no sensitive information repositories</span></li><li style=""><span class="selectable-content" id="_s_103">address book</span></li><li style=""><span class="selectable-content" id="_s_104">calendar</span></li><li style=""><span class="selectable-content" id="_s_105">call lists</span></li><li style=""><span class="selectable-content" id="_s_106">system logs</span></li><li style=""><span class="selectable-content" id="_s_107">[<b>assignment</b>: 
      <span class="assignable-content">list of additional sensitive information repositories</span>]</span></li></ul>].
 				</div></div><h3 id="ext-comp-FDP_NET_EXT" class="indexable" data-level="4">B.2.7.2 FDP_NET_EXT Network Communications</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>This family defines requirements for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s use of network connectivity.</div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FDP_NET_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FDP_NET_EXT.1">FDP_NET_EXT.1</a>,
              Network Communications,
              identifies the purpose for each network interface used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and how that interface is invoked.</p><h4>Management: FDP_NET_EXT.1</h4><p>There are no management functions foreseen.</p><h4>Audit: FDP_NET_EXT.1</h4><p>There are no audit events foreseen.</p><h4>FDP_NET_EXT.1 Network Communications</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>No dependencies.</td></tr></table><h4 id="ext-comp-FDP_NET_EXT.1.1">FDP_NET_EXT.1.1</h4>The application shall restrict network communication to 
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_103">no network communication</span></li><li style=""><span class="selectable-content" id="_s_104">user-initiated communication for 
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_108">no network communication</span></li><li style=""><span class="selectable-content" id="_s_109">user-initiated communication for 
 							[<b>assignment</b>: 
      <span class="assignable-content">list of functions 
-							for which the user can initiate network communication</span>]</span></li><li style=""><span class="selectable-content" id="_s_105">respond to [<b>assignment</b>: 
-     <span class="assignable-content">list of remotely initiated communication </span>]</span></li><li style=""><span class="selectable-content" id="_s_106">[<b>assignment</b>: 
+							for which the user can initiate network communication</span>]</span></li><li style=""><span class="selectable-content" id="_s_110">respond to [<b>assignment</b>: 
+     <span class="assignable-content">list of remotely initiated communication </span>]</span></li><li style=""><span class="selectable-content" id="_s_111">[<b>assignment</b>: 
      <span class="assignable-content">list of application-initiated network communication</span>]</span></li></ul>]. 
 				</div></div><h3 id="ext-comp-FDP_DAR_EXT" class="indexable" data-level="4">B.2.7.3 FDP_DAR_EXT Data-at-Rest Encryption</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>This family defines requirements for implementation of data-at-rest protection. </div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FDP_DAR_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a>,
              Encryption Of Sensitive Application Data,
              requires the application to be able to protect all data with a chosen method of encryption.</p><h4>Management: FDP_DAR_EXT.1</h4><p>There are no management functions foreseen.</p><h4>Audit: FDP_DAR_EXT.1</h4><p>There are no audit events foreseen.</p><h4>FDP_DAR_EXT.1 Encryption Of Sensitive Application Data</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>No dependencies.</td></tr></table><h4 id="ext-comp-FDP_DAR_EXT.1.1">FDP_DAR_EXT.1.1</h4>
 					The application shall 
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_107">leverage platform-provided functionality to encrypt sensitive data</span></li><li style=""><span class="selectable-content" id="_s_108">implement functionality to encrypt sensitive data as defined in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</span></li><li style=""><span class="selectable-content" id="_s_109">protect sensitive data in accordance with <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></span></li><li style=""><span class="selectable-content" id="_s_110">not store any sensitive data</span></li></ul>] in non-volatile memory.
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_112">leverage platform-provided functionality to encrypt sensitive data</span></li><li style=""><span class="selectable-content" id="_s_113">implement functionality to encrypt sensitive data as defined in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</span></li><li style=""><span class="selectable-content" id="_s_114">protect sensitive data in accordance with <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></span></li><li style=""><span class="selectable-content" id="_s_115">not store any sensitive data</span></li></ul>] in non-volatile memory.
 				</div></div></span></span><h1 id="entropyappendix" class="indexable" data-level="A">Appendix C -  Entropy Documentation and Assessment</h1> 
   This appendix describes the required supplementary information for the entropy
   source used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
