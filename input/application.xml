@@ -693,7 +693,7 @@
 	  
 
 		<!-- FCS_CKM_EXT.1 -->
-		<ext-comp-def fam-id="FAU_GCR_EXT" title="Generation of Certificate Repository">
+		<ext-comp-def fam-id="FCS_CKM_EXT" title="Cryptographic Key Management">
 			<fam-behavior>This family defines requirements for management of cryptographic keys that are not addressed by FCS_CKM in CC Part 2.
 			</fam-behavior>
 		</ext-comp-def>
@@ -1814,19 +1814,46 @@ functionality (such as these)
         <ext-comp-def fam-id="FCS_HTTPS_EXT" title="HTTPS Protocol">
           <fam-behavior>This family defines requirements for implementation of the HTTPS protocol.</fam-behavior>
         </ext-comp-def>
+		<!-- invisble SFR for the purpose of having an un-iterated copy of FCS_HTTPS_EXT.1 in the ECD -->
+		<f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol" status="invisible">
+			
+			<comp-lev> defines the capability of the TOE to implement HTTPS.</comp-lev>
+			<management>No specific management functions are identified.</management>
+			<audit>There are no auditable events foreseen.</audit>
+			<dependencies>
+				FCS_TLS_EXT.1 TLS Protocol<h:p/>
+				FIA_X509_EXT.1 X.509 Certificate Validation
+			</dependencies>
+		
+			
+			<f-element id="fel-https-wath">
+				<title>
+					The application shall implement the HTTPS protocol that complies with RFC 2818.
+				</title>
+			</f-element>
+			<f-element id="fel-https-howl">
+				<title>The application shall implement HTTPS using TLS as defined in the Functional Package for TLS.</title>
+			</f-element>
+			<f-element id="fel-https-who-cl">
+				<title> The application shall 
+					<assignable>take some action in result to being presented an invalid peer certificate</assignable>.
+				</title>
+				<aactivity>
+					<no-tests></no-tests>
+				</aactivity>
+			</f-element>
+		</f-component>
 		
 	<!-- FCS_HTTPS_EXT.1/Client -->
 	<!-- Added by TD0601 -->
 	<f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol" iteration="Client" status="sel-based">
 	  <depends on-se1="sel_all_https_cl"/>
 
-	  
-          <comp-lev>defines the capability of the TOE to implement HTTPS.</comp-lev>
-          <dependencies>FIA_X509_EXT.1 X.509 Certificate Validation</dependencies>
+	 
 		  
 			<f-element id="fel-https-wath-cl">
 				<title>
-					The application shall implement the HTTPS protocol that complies with RFC 2818.
+					The application shall implement the HTTPS protocol <h:b>as a client</h:b> that complies with RFC 2818.
 				</title>
 				<aactivity level="element">
 					<TSS>
@@ -1837,7 +1864,7 @@ functionality (such as these)
 						None.<h:p/>
 					</Guidance>
 					<Tests>
-						The evaluator shall attempt to establish an HTTPS connection with a webserver, 
+						The evaluator shall attempt to establish an HTTPS connection with a web server, 
 						observe the traffic with a packet analyzer, and verify that the connection succeeds 
 						and that the traffic is identified as TLS or HTTPS.
 					</Tests>
@@ -1904,7 +1931,7 @@ functionality (such as these)
 			<depends on1="sel_all_https_ma"/>
 			<f-element id="fel-https-wath-sv">
 				<title>
-					The application shall implement the HTTPS protocol that complies with RFC 2818.
+					The application shall implement the HTTPS protocol <h:b>as a server</h:b> that complies with RFC 2818.
 				</title>
 				<aactivity level="element">
 					<TSS>
