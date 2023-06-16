@@ -60,6 +60,12 @@
 			<h:br/>Incorporated SSH FP 1.0
 		  </subject>
     </entry>
+  	<entry>
+  		<version>v 1.5</version>
+  		<date>2023-06-16</date>
+  		<subject>Incorporated applicable Technical Decisions and CC:2022 conformance
+  		</subject>
+  	</entry>
   </RevisionHistory>
 
   
@@ -375,7 +381,7 @@
 	<section title="Platforms with Specific EAs" id="sec-platforms">
 	    <choice prefix="Platforms:" >
 			This PP includes platform-specific EAs for the below-listed operating system platforms. For "bare-metal" applications, applications that run on
-		    	other OS platforms, and applications that run in software-based execution environments contact the Technical Community for guidance.<h:p/>  
+		    	other OS platforms, and applications that run in software-based execution environments, contact the Technical Community for guidance.<h:p/>  
 			<selectables linebreak="yes">
 				<selectable id="android"><h:b><snip>Android</snip></h:b>: <h:i>Mobile operating systems based on Google Android.</h:i></selectable>
 				<selectable id="windows"><h:b><snip>Microsoft Windows</snip></h:b>: <h:i>Microsoft Windows operating systems.</h:i></selectable>
@@ -395,10 +401,16 @@
 		<cclaims>
 			<cclaim name="Conformance Statement">
 				<description>An ST must claim exact conformance to this PP, as defined in the CC and CEM addenda for Exact Conformance, 
-					Selection-Based SFRs, and Optional SFRs (dated May 2017).</description>
+					Selection-Based SFRs, and Optional SFRs (dated May 2017).
+					<h:br/><h:br/>
+					The evaluation methods used for evaluating the TOE are a combination of the workunits defined in <xref to="bibCEM"/> as well as the
+					Evaluation Activities for ensuring that individual SFRs have sufficient level of supporting evidence in the Security Target and 
+					guidance documentation and have been sufficiently tested by the laboratory as part of completing ATE_IND.1. Any functional packages to 
+					which this PP claims similarly contain their own Evaluation Activities that are used in this manner.
+				</description>
 			</cclaim>
 			<cclaim name="CC Conformance Claims">
-				<description>This PP is conformant to Parts 2 (extended) and 3 (extended) of Common Criteria Version 3.1, Revision 5.</description>
+				<description>This PP is conformant to Parts 2 (extended) and 3 (extended) of Common Criteria CC:2022, Revision 1.</description>
 			</cclaim>
 			<cclaim name="PP Claim">
 				<description>This PP does not claim conformance to any other Protection Profile.<h:p/>
@@ -422,8 +434,14 @@
 			<cclaim name="Package Claim">
 				<description><h:ul>
 					<h:li>This PP is Functional Package for TLS Version 1.1 Conformant.</h:li>
+					<h:li>This PP is Functional Package for TLS Version 2.0 Conformant.</h:li>
 					<h:li>This PP is Functional Package for SSH Version 1.0 Conformant.</h:li>
+					<h:li>This PP conforms to the EAL1 assurance package augmented with ALC_TSU_EXT.1, ASE_OBJ.2, ASE_REQ.2, and ASE_SPD.1.</h:li>
 					</h:ul>
+					The functional packages to which the PP conforms include SFRs that are not mandatory to claim for the sake of conformance.
+					An ST that claims one or more of these functional packages may include whatever non-mandatory SFRs are appropriate to claim based on the 
+					capabilities of the TSF and on any triggers on their inclusion based inherently on the SFR selections made. All security requirements
+					in these packages are intended to satisfy the O.PROTECTED_COMMS TOE security objective of this PP.
 				</description>
 			</cclaim>
 		</cclaims>
@@ -468,7 +486,8 @@
 					provides for confidentiality of transmitted data.</rationale>
 				</objective-refer>
 				<objective-refer ref="O.QUALITY">
-					<rationale>The objective O.QUALITY ensures use of mechanisms that provide 
+					<rationale>The threat T.NETWORK_EAVESDROP is countered by O.QUALITY as this
+						ensures the TOE's use of mechanisms that provide 
 						protection against network-based attack.</rationale>
 				</objective-refer>
 				<objective-refer ref="O.MANAGEMENT">
@@ -483,9 +502,9 @@
 					input to the application in the form of files or other local
 					communications.</description>
 				<objective-refer ref="O.QUALITY">
-					<rationale>The objective O.QUALITY protects against the use of
-						mechanisms that weaken the TOE with regard to
-						attack by other software on the platform.</rationale>
+					<rationale>The threat T.LOCAL_ATTACK is countered by O.QUALITY as this
+						ensures the TOE's use of mechanisms that provide 
+						protection against attack by other software on the platform.</rationale>
 				</objective-refer>
 			</threat>
 			<threat name="T.PHYSICAL_ACCESS">
@@ -635,19 +654,21 @@
 				</description>
 				<addressed-by>FCS_RBG_EXT.1</addressed-by><rationale>The PP includes FCS_RBG_EXT.1 to define whether the random bit generation services used in establishing trusted communications are implemented by the TSF or by the platform.</rationale>
 				<addressed-by>FCS_CKM_EXT.1</addressed-by><rationale>The PP includes FCS_CKM_EXT.1 to specify whether the TOE or the platform is responsible for generation of any asymmetric keys that may be used for establishing trusted communications.</rationale>
-				<addressed-by>FTP_DIT_EXT.1</addressed-by><rationale>The PP includes FTP_DIT_EXT.1 to define the trusted channels used to protect data in transit, the data that is protected, and whether the trusted channels are implemented by the TSF or the platform.</rationale>
-				<addressed-by>FCS_CKM.1/AK</addressed-by><rationale>The PP includes FCS_CKM.1/AK to define whether the TSF or the platform generates asymmetric keys that are used in support of trusted communications.</rationale>
-				<addressed-by>FCS_CKM.2</addressed-by><rationale>The PP includes FCS_CKM.2 to define whether the TSF or the platform performs key establishment for trusted communications.</rationale>
-				<addressed-by>FCS_COP.1/SKC</addressed-by><rationale>The PP includes FCS_COP.1/SKC to define the symmetric encryption algorithms used in support of trusted communications.</rationale>
-				<addressed-by>FCS_COP.1/Hash</addressed-by><rationale>The PP includes FCS_COP.1/Hash to define the hash algorithms used in support of trusted communications.</rationale>
-				<addressed-by>FCS_COP.1/Sig</addressed-by><rationale>The PP includes FCS_COP.1/Sig to define the digital signature algorithms used in support of trusted communications.</rationale>
-				<addressed-by>FCS_COP.1/KeyedHash</addressed-by><rationale>The PP includes FCS_COP.1/KeyedHash to define the HMAC algorithms used in support of trusted communications.</rationale>
-				<addressed-by>FCS_RBG_EXT.2</addressed-by><rationale>The PP includes FCS_RBG_EXT.2 to define the DRBG algorithms used in support of trusted communications.</rationale>
-				<addressed-by>FCS_HTTPS_EXT.1/Client</addressed-by><rationale>The PP includes FCS_HTTPS_EXT.1 to define the TOE’s support for the HTTPS trusted communications protocol as a client.</rationale>
-				<addressed-by>FCS_HTTPS_EXT.1/Server</addressed-by><rationale>The PP includes FCS_HTTPS_EXT.1 to define the TOE’s support for the HTTPS trusted communications protocol as a server.</rationale>
 				<addressed-by>FDP_NET_EXT.1</addressed-by><rationale>The PP includes FDP_NET_EXT.1 to define the TOE’s usage of network communications, which may include the transmission or receipt of data over a trusted channel.</rationale>
-				<addressed-by>FIA_X509_EXT.1</addressed-by><rationale>The PP includes FIA_X509_EXT.1 to define X.509 certificate validation activities in support of trusted communications.</rationale>
-				<addressed-by>FIA_X509_EXT.2</addressed-by><rationale>The PP includes FIA_X509_EXT.2 to define the trusted communications that X.509 certificate services support, as well as the extent to which trusted communications can be established when using a certificate with unknown validity.</rationale>
+				<addressed-by>FTP_DIT_EXT.1</addressed-by><rationale>The PP includes FTP_DIT_EXT.1 to define the trusted channels used to protect data in transit, the data that is protected, and whether the trusted channels are implemented by the TSF or the platform.</rationale>
+				<addressed-by>FCS_CKM.1/SK (optional)</addressed-by><rationale>The PP includes FCS_CKM.1/SK to define the mechanism used to generate symmetric keys when the TOE performs this function.</rationale>
+				<addressed-by>FCS_CKM.1/AK (selection-based)</addressed-by><rationale>The PP includes FCS_CKM.1/AK to define whether the TSF or the platform generates asymmetric keys that are used in support of trusted communications.</rationale>
+				<addressed-by>FCS_CKM.2 (selection-based)</addressed-by><rationale>The PP includes FCS_CKM.2 to define whether the TSF or the platform performs key establishment for trusted communications.</rationale>
+				<addressed-by>FCS_COP.1/SKC (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/SKC to define the symmetric encryption algorithms used in support of trusted communications.</rationale>
+				<addressed-by>FCS_COP.1/Hash (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/Hash to define the hash algorithms used in support of trusted communications.</rationale>
+				<addressed-by>FCS_COP.1/Sig (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/Sig to define the digital signature algorithms used in support of trusted communications.</rationale>
+				<addressed-by>FCS_COP.1/KeyedHash (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/KeyedHash to define the HMAC algorithms used in support of trusted communications.</rationale>
+				<addressed-by>FCS_RBG_EXT.2 (selection-based)</addressed-by><rationale>The PP includes FCS_RBG_EXT.2 to define the DRBG algorithms used in support of trusted communications.</rationale>
+				<addressed-by>FCS_HTTPS_EXT.1/Client (selection-based)</addressed-by><rationale>The PP includes FCS_HTTPS_EXT.1/Client to define the TOE’s support for the HTTPS trusted communications protocol as a client.</rationale>
+				<addressed-by>FCS_HTTPS_EXT.1/Server (selection-based)</addressed-by><rationale>The PP includes FCS_HTTPS_EXT.1/Server to define the TOE’s support for the HTTPS trusted communications protocol as a server.</rationale>
+				<addressed-by>FCS_HTTPS_EXT.2 (selection-based)</addressed-by><rationale>The PP includes FCS_HTTPS_EXT.2 to define the TOE’s behavior when presented with an invalid certificate as part of an HTTPS connection attempt.</rationale>
+				<addressed-by>FIA_X509_EXT.1 (selection-based)</addressed-by><rationale>The PP includes FIA_X509_EXT.1 to define X.509 certificate validation activities in support of trusted communications.</rationale>
+				<addressed-by>FIA_X509_EXT.2 (selection-based)</addressed-by><rationale>The PP includes FIA_X509_EXT.2 to define the trusted communications that X.509 certificate services support, as well as the extent to which trusted communications can be established when using a certificate with unknown validity.</rationale>
             </SO>
 		</SOs>
     </sec:Security_Objectives_for_the_TOE>
@@ -736,7 +757,7 @@
 			<depends on="sel_invoke_genkey" and="sel_impl_genkey"/>
 			<f-element id="fel-asym-key-gen-impl">
 				<title>            
-					The <h:b>application</h:b> shall <h:b><selectables linebreak="yes" onlyone="yes">
+					The <h:b>application</h:b> shall <h:b><selectables linebreak="yes">
 						<selectable>invoke platform-provided functionality</selectable>
 						<selectable>implement functionality</selectable></selectables></h:b>
 					to generate <h:b>asymmetric</h:b> cryptographic keys in accordance with a specified cryptographic key generation algorithm
@@ -746,14 +767,14 @@
 						<selectable><h:b>[ECC schemes]</h:b> using [<h:i>“NIST curves” P-384 and <selectables>
 							<selectable>P-256</selectable>
 							<selectable>P-521</selectable>
-							<selectable>no other curves</selectable></selectables></h:i>]that meet the following: 
+							<selectable>no other curves</selectable></selectables></h:i>] that meet the following: 
 							[<h:i>FIPS PUB 186-4, “Digital Signature Standard (DSS),” Appendix B.4</h:i>]</selectable> 
 						<selectable>
 							<h:b>[FFC schemes]</h:b> using cryptographic key sizes of [<h:i>2048-bit or greater</h:i>] 
-							that meet the following: [<h:i>FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.1</h:i>]</selectable>
+							that meet the following: [<h:i>FIPS PUB 186-4, “Digital Signature Standard (DSS),” Appendix B.1</h:i>]</selectable>
 						<selectable><h:b>[FFC Schemes]</h:b> using [<h:i>Diffie-Hellman group 14</h:i>] that meet the following: 
 							[<h:i>RFC 3526, Section 3</h:i>]</selectable>
-						<selectable><h:b>[FFC Schemes]</h:b> using [<h:i>“safe-prime”</h:i>] groups that meet the following: 
+						<selectable><h:b>[FFC Schemes]</h:b> using [<h:i>“safe-prime” groups</h:i>] that meet the following: 
 							[<h:i>NIST Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes
 								Using Discrete Logarithm Cryptography” and 
 							<selectables>
@@ -761,7 +782,7 @@
 								<selectable>RFC 7919</selectable></selectables></h:i>]</selectable></selectables>.
 				</title>
 				<note role="application">
-					The ST author shall select all key generation schemes used for key 
+					The ST should claim all key generation schemes used for key 
 					establishment and entity authentication. When key generation is used for key 
 					establishment, the schemes in FCS_CKM.2.1 and selected cryptographic protocols must 
 					match the selection. When key generation is used for entity authentication, the public 
@@ -775,7 +796,7 @@
 						supported by the TOE. If the ST specifies more 
 						than one scheme, the evaluator shall examine the TSS to verify that 
 						it identifies the usage for each scheme.<h:p/>
-						If the application "<h:i>invokes platform-provided functionality for asymmetric key generation</h:i>,"
+						If the ST selects "<h:i>invoke platform-provided functionality for asymmetric key generation</h:i>,"
 						then the evaluator shall examine the TSS to verify that it describes 
 						how the key generation functionality is invoked.<h:p/>
 					</TSS>
@@ -785,7 +806,7 @@
 						key size(s) for all uses defined in this PP.<h:p/>
 					</Guidance>
 					<Tests>
-						If the application "<h:i>implements asymmetric key generation</h:i>," then the following test
+						If the application selects "<h:i>implement asymmetric key generation</h:i>," then the following test
 						activities shall be carried out. <h:p/>
 						Evaluation Activity Note: The following tests may require the developer to provide access 
 						to a developer environment that provides the evaluator with tools that are typically available
@@ -797,7 +818,7 @@
 						the public verification exponent e, the private prime factors p and q, the public 
 						modulus n and the calculation of the private signature exponent d. Key Pair generation 
 						specifies 5 ways (or methods) to generate the primes p and q. 
-						These include: <h:ol>
+						These include: <h:ul>
 						<h:li>Random Primes:
 							<h:ul>
 								<h:li>Provable primes</h:li>
@@ -806,12 +827,12 @@
 						</h:li>
 						<h:li>Primes with Conditions:
 							<h:ul>
-								<h:li>Primes p1, p2, q1,q2, p and q shall all be provable primes</h:li>
-								<h:li>Primes p1, p2, q1, and q2 shall be provable primes and p and q shall be 
+								<h:li>Primes p1, p2, q1, q2, p, and q shall all be provable primes</h:li>
+								<h:li>Primes p1, p2, q1, and q2 shall be provable primes, and p and q shall be 
 									probable primes</h:li>
-								<h:li>Primes p1, p2, q1,q2, p and q shall all be probable primes</h:li>
+								<h:li>Primes p1, p2, q1,q 2, p, and q shall all be probable primes</h:li>
 							</h:ul>
-						</h:li></h:ol>
+						</h:li></h:ul>
 						To test the key generation method for the Random Provable primes method and for all 
 						the Primes with Conditions methods, the evaluator must seed the TSF 
 						key generation routine with sufficient data to deterministically generate the RSA key 
@@ -827,23 +848,23 @@
 						and verify: <h:ul>
 							<h:li>n = p&#x22c5;q,</h:li>
 							<h:li>p and q are probably prime according to Miller-Rabin tests,</h:li>
-							<h:li>GCD(p-1,e) = 1,</h:li>
-							<h:li>GCD(q-1,e) = 1,</h:li>
+							<h:li>GCD(p-1, e) = 1,</h:li>
+							<h:li>GCD(q-1, e) = 1,</h:li>
 							<h:li>2<h:sup>16</h:sup> &#x2264; e &#x2264; 2<h:sup>256</h:sup> and e is an odd integer,</h:li>
 							<h:li>|p-q| > 2<h:sup>nlen/2 - 100</h:sup>,</h:li>
 							<h:li>p &#x2265; 2<h:sup>nlen/2 -1/2</h:sup>,</h:li>
 							<h:li>q &#x2265; 2<h:sup>nlen/2 -1/2</h:sup>,</h:li>
-							<h:li>2<h:sup>(nlen/2)</h:sup> &lt; d &lt; LCM(p-1,q-1),</h:li>
-							<h:li>e&#x22c5;d = 1 mod LCM(p-1,q-1).</h:li>
+							<h:li>2<h:sup>(nlen/2)</h:sup> &lt; d &lt; LCM(p-1, q-1),</h:li>
+							<h:li>e&#x22c5;d = 1 mod LCM(p-1, q-1).</h:li>
 						</h:ul>
 						<h:b>Key Generation for Elliptic Curve Cryptography (ECC)</h:b><h:p/>
-						FIPS 186-4 ECC Key Generation Test
+						<h:b>FIPS 186-4 ECC Key Generation Test</h:b> -
 						For each supported NIST curve, i.e., P-256, P-384 and P-521, the evaluator shall
 						require the implementation under test (IUT) to generate 10 private/public key pairs.
 						The private key shall be generated using an approved random bit generator (RBG). To 
 						determine correctness, the evaluator shall submit the generated key pairs to the 
 						public key verification (PKV) function of a known good implementation.<h:p/>
-						FIPS 186-4 Public Key Verification (PKV) Test
+						<h:b>FIPS 186-4 Public Key Verification (PKV) Test</h:b> -
 						For each supported NIST curve, i.e., P-256, P-384 and P-521, the evaluator shall
 						generate 10 private/public key pairs using the key generation function of a known 
 						good implementation and modify five of the public key values so that they are 
@@ -855,7 +876,7 @@
 						Key Generation test. This test verifies the ability of the TSF to 
 						correctly produce values for the field prime p, the cryptographic prime q (dividing 
 						p-1), the cryptographic group generator g, and the calculation of the private key x 
-						and public key y. The Parameter generation specifies 2 ways (or methods) to generate 
+						and public key y. The Parameter generation specifies two ways (or methods) to generate 
 						the cryptographic prime q and the field prime p:<h:p/>
 						Cryptographic and Field Primes:	<h:ul>
 							<h:li>Primes q and p shall both be provable primes</h:li>
@@ -870,9 +891,9 @@
 						The Key generation specifies 2 ways to generate the private key x:<h:p/>
 						Private Key:
 						<h:ul>
-							<h:li>len(q) bit output of RBG where 1 &#x2264;x &#x2264; q-1</h:li>
+							<h:li>len(q) bit output of RBG where 1 &#x2264; x &#x2264; q-1</h:li>
 							<h:li>len(q) + 64 bit output of RBG, followed by a mod q-1 operation where 
-								1&#x2264; x&#x2264;q-1.</h:li>
+								1&#x2264; x &#x2264;q-1.</h:li>
 						</h:ul>
 						The security strength of the RBG must be at least that of the security offered by the 
 						FFC parameter set.
@@ -907,8 +928,8 @@
 					The <h:b>application</h:b> shall generate <h:b>symmetric</h:b> cryptographic keys <h:b>using a Random Bit
 					Generator as specified in FCS_RBG_EXT.1</h:b>  and specified
 					cryptographic key sizes <selectables linebreak="yes">
-						<selectable>128 bit</selectable>
-						<selectable>256 bit</selectable></selectables>. 
+						<selectable>128-bit</selectable>
+						<selectable>256-bit</selectable></selectables>. 
 				</title>
 				<note role="application">
 					Symmetric keys may be used to generate keys along the key chain.</note>
@@ -946,80 +967,6 @@
 				</aactivity>
 			</f-element>
         </f-component>
-
-		<!-- FCS_PBKDF_EXT.1 (formerly FCS_CKM.1/3, FCS_CKM.1/PBKDF, FCS_CKM_EXT.1) -->
-		<ext-comp-def fam-id="FCS_PBKDF_EXT" title="Password Conditioning">
-			<fam-behavior>This family defines requirements for implementation of password-based key derivation functions.</fam-behavior>
-		</ext-comp-def>
-		
-		<f-component name="Password Conditioning" cc-id="fcs_pbkdf_ext.1" id="fcom_pass" status="sel-based">
-			<depends on="sel-fcs-sto-pbkdf"/>
-			
-			<comp-lev> defines the capability of the TOE to implement PBKDF2 for key derivation.</comp-lev>
-			<management>No specific management functions are identified.</management>
-			<audit>There are no auditable events foreseen.</audit>
-			<dependencies>
-				FCS_COP.1 Cryptographic Operation<h:br/>
-				FCS_RBG_EXT.1 Random Bit Generation Services
-			</dependencies>
-			
-			<f-element id="fel-pass">
-				<title>
-					A password/passphrase shall perform <assignable>Password-based Key Derivation Functions</assignable> 
-					in accordance with a specified cryptographic algorithm as specified in FCS_COP.1<h:b>/KeyedHash</h:b>, with <assignable>positive 
-					integer of 1,000 or more</assignable> iterations, and output cryptographic key sizes <selectables>
-						<selectable>128</selectable>
-						<selectable>256</selectable></selectables>
-					that meet the following [<h:i>NIST SP 800-132</h:i>].  
-				</title>
-				<ext-comp-def-title>
-					<title>
-					A password/passphrase shall perform <assignable>Password-based Key Derivation Functions</assignable> 
-					in accordance with a specified cryptographic algorithm as specified in FCS_COP.1, with <assignable>positive 
-						integer of 1,000 or more</assignable> iterations, and output cryptographic key sizes <selectables>
-							<selectable>128</selectable>
-							<selectable>256</selectable></selectables>
-					that meet the following <assignable>applicable standard</assignable>.
-					</title>
-				</ext-comp-def-title>
-			</f-element>
-			<f-element id="fel-gen-salts">
-				<title>
-					The TSF shall generate salts using a RBG that meets FCS_RBG_EXT.1 and with entropy corresponding
-					to the security strength selected for PBKDF in FCS_PBKDF_EXT.1.
-				</title>
-				<note role="application">
-					This should be included if selected in FCS_STO_EXT.1<h:p/>
-					Conditioning can be performed using one of the identified hash functions or the process described 
-					in NIST SP 800-132; the method used is selected by the ST Author. SP 800-132 requires the use of a pseudo-random 
-					function (PRF) consisting of HMAC with an approved hash function. The ST author selects the hash function used, 
-					also includes the appropriate requirements for HMAC and the hash function. <h:p/>
-					Appendix A of SP 800-132 recommends setting the iteration count in order to increase the computation needed to derive a 
-					key from a password and, therefore, increase the workload of performing a password recovery attack. A significantly higher 
-					value is recommended to ensure optimal security. This value is expected to increase to a minimum of 10,000 in a future 
-					iteration based on SP800-63.
-				</note>
-				<aactivity>
-					<TSS> 
-						Support for PBKDF: The evaluator shall examine the password hierarchy TSS to ensure that 
-						the formation of all password based derived keys is described and that the key sizes match that 
-						described by the ST author. 
-						The evaluator shall check that the TSS describes the method by which the password/passphrase is first encoded and then fed to 
-						the SHA algorithm. The settings for the algorithm (padding, blocking, etc.) shall be described, and the evaluator shall verify 
-						that these are supported by the selections in this component as well as the selections concerning the hash function itself. 
-						The evaluator shall verify that the TSS contains a description of how the output of the hash function is used to form the 
-						submask that will be input into the function.
-						For the NIST SP 800-132-based conditioning of the password/passphrase, the required evaluation activities will be performed when 
-						doing the evaluation activities for the appropriate requirements (FCS_COP.1.1/KeyedHash).
-						No explicit testing of the formation of the submask from the input password is required. 
-						FCS_CKM.1.1/PBKDF: The ST author shall provide a description in the TSS regarding the salt generation. 
-						The evaluator shall confirm that the salt is generated using an RBG described in FCS_RBG_EXT.1.<h:p/>
-					</TSS>
-					<Guidance>None.<h:p/></Guidance>
-					<Tests>None.</Tests>
-				</aactivity>
-			</f-element>
-		</f-component>
 
 		<!-- FCS_CKM.2 -->
         <f-component cc-id="fcs_ckm.2" name="Cryptographic Key Establishment" status="sel-based">
@@ -1111,13 +1058,13 @@
 						schemes correctly. To conduct this test the evaluator shall generate or obtain test vectors 
 						from a known good implementation of the TOE supported schemes. For each supported 
 						key agreement scheme-key agreement role combination, KDF type, and, if supported, 
-						key confirmation role- key confirmation type combination, the tester shall generate 10 
+						key confirmation role and type combination, the tester shall generate 10 
 						sets of test vectors. The data set consists of one set of domain parameter values (FFC) or 
 						the NIST approved curve (ECC) per 10 sets of public keys. These keys are static, 
 						ephemeral or both depending on the scheme being tested.<h:p/>
 						The evaluator shall obtain the DKM, the corresponding TOE’s public keys (static and/or 
 						ephemeral), the MAC tag(s), and any inputs used in the KDF, such as the Other 
-						Information <h:i>(OtherInfo)</h:i> and TOE id fields. <h:p/>
+						Information <h:i>(OtherInfo)</h:i> and TOE ID fields. <h:p/>
 						If the TOE does not use a KDF defined in SP 800-56A, the evaluator shall obtain only 
 						the public keys and the hashed value of the shared secret.<h:p/>
 						The evaluator shall verify the correctness of the TSF’s implementation of a given 
@@ -1141,12 +1088,12 @@
 						MACed, or the generated MACTag. If the TOE contains the full or partial (only ECC) 
 						public key validation, the evaluator will also individually inject errors in both parties’ 
 						static public keys, both parties’ ephemeral public keys and the TOE’s static private key 
-						to assure the TOE detects errors in the public key validation function and/or the partial 
+						to ensure that the TOE detects errors in the public key validation function and/or the partial 
 						key validation function (in ECC only). At least two of the test vectors shall remain 
 						unmodified and therefore should result in valid key agreement results (they should pass).<h:p/>
 						The TOE shall use these modified test vectors to emulate the key agreement scheme 
 						using the corresponding parameters. The evaluator shall compare the TOE’s results with 
-						the results using a known good implementation verifying that the TOE detects these errors.<h:p/>
+						the results obtained by using a known good implementation verifying that the TOE detects these errors.<h:p/>
 						<h:b>SP800-56B Key Establishment Schemes</h:b><h:p/>
 						The evaluator shall verify that the TSS describes whether the TOE acts as a sender, a 
 						recipient, or both for RSA-based key establishment schemes. <h:p/>
@@ -1172,7 +1119,7 @@
 						<h:div class="indent">
 							To conduct this test the evaluator shall generate or obtain test vectors from a known 
 							good implementation of the TOE supported schemes. For each combination of 
-							supported key establishment scheme and its options (with our without key 
+							supported key establishment scheme and its options (with or without key 
 							confirmation if supported, for each supported key confirmation MAC function if key 
 							confirmation is supported, and for each supported mask generation function if KTS-OAEP is 
 							supported), the tester shall generate 10 sets of test vectors. Each test vector 
@@ -1419,10 +1366,13 @@ functionality (such as these)
 						decrypt the message, using the mode to be tested, with the chosen
 						key and IV. The plaintext shall be compared to the result of
 						decrypting the same ciphertext message with the same key and IV
-						using a known good implementation. AES-CBC Monte Carlo Tests The
-						evaluator shall test the encrypt functionality using a set of 200
-						plaintext, IV, and key 3- tuples. 100 of these shall use 128 bit
-						keys, and 100 shall use 256 bit keys. The plaintext and IV values
+						using a known good implementation. 
+						<h:br/><h:br/>
+						<h:b>AES-CBC Monte Carlo Tests</h:b>
+						<h:br/>
+						The evaluator shall test the encrypt functionality using a set of 200
+						plaintext, IV, and key 3-tuples. 100 of these shall use 128-bit
+						keys, and 100 shall use 256-bit keys. The plaintext and IV values
 						shall be 128-bit blocks. For each 3-tuple, 1000 iterations shall be
 						run as follows: 
 						  <h:pre>
@@ -1446,7 +1396,7 @@ functionality (such as these)
 						The evaluator shall test the authenticated encrypt
 						functionality of AES-GCM for each combination of the following
 						input parameter lengths: <h:ul>
-							<h:li>128 bit and 256 bit keys</h:li>
+							<h:li>128-bit and 256-bit keys</h:li>
 							<h:li>Two plaintext lengths. One of the plaintext lengths shall be
 								a non-zero integer multiple of 128 bits, if
 								supported. The other plaintext length shall not be an integer
@@ -1478,13 +1428,13 @@ functionality (such as these)
 						<h:b>AES-XTS Tests</h:b><h:p/>
 						The evaluator shall test the encrypt functionality of XTS-AES for each combination
 						of the following input parameter lengths:<h:p/>
-						256 bit (for AES-128) and 512 bit (for AES-256) keys<h:p/>
+						256-bit (for AES-128) and 512 bit (for AES-256) keys<h:p/>
 						Three data unit (i.e., plaintext) lengths. One of the data unit lengths shall be a
 						non-zero integer multiple of 128 bits, if supported. One of the data unit lengths
 						shall be an integer multiple of 128 bits, if supported. The third data unit length
 						shall be either the longest supported data unit length or 216 bits, whichever is
 						smaller.<h:p/>
-						Using a set of 100 (key, plaintext and 128-bit random tweak value) 3-tuples and
+						Using a set of 100 (key, plaintext and 128-bit random tweak value) 3-tuples, the evaluator shall
 						obtain the ciphertext that results from XTS-AES encrypt.<h:p/>
 						The evaluator may supply a data unit sequence number instead of the tweak value if
 						the implementation supports it. The data unit sequence number is a base-10 number
@@ -1536,16 +1486,17 @@ functionality (such as these)
 						supplying the inputs to the implementer and receiving the results in response. To determine correctness, the 
 						evaluator shall compare the resulting values to those obtained by submitting the same inputs to a known good
 						implementation.<h:p/>
-						To test the encrypt functionality, the evaluator shall supply a set of 10 plaintext values and obtain the
+						<h:ul>
+						<h:li>KAT-1. To test the encrypt functionality, the evaluator shall supply a set of 10 plaintext values and obtain the
 						ciphertext value that results from encryption of the given plaintext using a key value of all zeros and an IV of
 						all zeros. Five plaintext values shall be encrypted with a 128-bit all zeros key, and the other five shall be 
 						encrypted with a 256-bit all zeros key. To test the decrypt functionality, the evaluator shall perform the same 
-						test as for encrypt, using 10 ciphertext values as input.<h:p/>
-						To test the encrypt functionality, the evaluator shall supply a set of 10 key values and obtain the ciphertext 
+						test as for encrypt, using 10 ciphertext values as input.</h:li>
+					    <h:li>KAT-1.To test the encrypt functionality, the evaluator shall supply a set of 10 key values and obtain the ciphertext 
 						value that results from encryption of an all zeros plaintext using the given key value and an IV of all zeros.
 						Five of the key values shall be 128-bit keys, and the other five shall be 256-bit keys. To test the decrypt 
 						functionality, the evaluator shall perform the same test as for encrypt, using an all zero ciphertext value as 
-						input.<h:p/>
+						input.</h:li>
 						To test the encrypt functionality, the evaluator shall supply the two sets of key values described below and 
 						obtain the ciphertext values that result from AES encryption of an all zeros plaintext using the given key values
 						an an IV of all zeros. The first set of keys shall have 128 128-bit keys, and the second shall have 256 256-bit 
@@ -1559,10 +1510,12 @@ functionality (such as these)
 						key.<h:p/>
 						To test the encrypt functionality, the evaluator shall supply the set of 128 plaintext values described below and 
 						obtain the two ciphertext values that result from encryption of the given plaintext using a 128-bit key value of 
-						all zeros and using a 256 bit key value of all zeros, respectively, and an IV of all zeros. Plaintext value i in
+						all zeros and using a 256-bit key value of all zeros, respectively, and an IV of all zeros. Plaintext value i in
 						each set shall have the leftmost bits be ones and the rightmost 128-i bits be zeros, for i in [1, 128]. To test
 						the decrypt functionality, the evaluator shall perform the same test as for encrypt, using ciphertext values of
-						the same form as the plaintext in the encrypt test as input.<h:p/>
+						the same form as the plaintext in the encrypt test as input.
+						</h:ul>
+						<h:p/>
 						<h:b><h:i>Test 2: Multi-Block Message Test</h:i></h:b><h:p/>
 						The evaluator shall test the encrypt functionality by encrypting an i-block message where 1 less-than i 
 						less-than-or-equal to 10. For each i the evaluator shall choose a key, IV, and plaintext message of length i 
@@ -1573,10 +1526,10 @@ functionality (such as these)
 						and decrypt the message, using the mode to be tested, with the chosen key. The plaintext shall be compared to the
 						result of decrypting the same ciphertext message with the same key using a known good implementation.<h:p/>
 						<h:b><h:i>Test 3: Monte-Carlo Test</h:i></h:b><h:p/>
-						For AES-CTR mode perform the Monte Carlo Test for ECB Mode on the encryption engine of the counter mode
+						For AES-CTR mode, perform the Monte Carlo Test for ECB Mode on the encryption engine of the counter mode
 						implementation. There is no need to test the decryption engine.<h:p/>
-						The evaluator shall test the encrypt functionality using 200 plaintext/key pairs. 100 of these shall use 128 bit 
-						keys, and 100 of these shall use 256 bit keys. The plaintext values shall be 128-bit blocks. For each pair, 
+						The evaluator shall test the encrypt functionality using 200 plaintext/key pairs. 100 of these shall use 128-bit 
+						keys, and 100 of these shall use 256-bit keys. The plaintext values shall be 128-bit blocks. For each pair, 
 						1000 iterations shall be run as follows:<h:p/>
 						<h:code>
 							For AES-ECB mode
@@ -1651,26 +1604,26 @@ functionality (such as these)
 						The following tests require the developer to provide access to a test application
 						that provides the evaluator with tools that are typically not found in the production application.
 						<testlist>
-							<test>Short Messages Test - Bit oriented Mode. The evaluators devise an input set
+							<test>Short Messages Test - Bit-oriented Mode. The evaluators devise an input set
 								consisting of m+1 messages, where m is the block length of the hash algorithm. The
 								length of the messages range sequentially from 0 to m bits. The message text shall
 								be pseudorandomly generated. The evaluators compute the message digest for each of
 								the messages and ensure that the correct result is produced when the messages are
 								provided to the TSF. </test>
-							<test>Short Messages Test - Byte oriented Mode. The evaluators devise an input set
+							<test>Short Messages Test - Byte-oriented Mode. The evaluators devise an input set
 								consisting of m/8+1 messages, where m is the block length of the hash algorithm.
 								The length of the messages range sequentially from 0 to m/8 bytes, with each
 								message being an integral number of bytes. The message text shall be
 								pseudorandomly generated. The evaluators compute the message digest for each of
 								the messages and ensure that the correct result is produced when the messages are
 								provided to the TSF. </test>
-							<test>Selected Long Messages Test - Bit oriented Mode. The evaluators devise an input
+							<test>Selected Long Messages Test - Bit-oriented Mode. The evaluators devise an input
 								set consisting of m messages, where m is the block length of the hash algorithm.
 								The length of the ith message is 512 + 99*i, where 1 ≤ i ≤ m. The message text
 								shall be pseudorandomly generated. The evaluators compute the message digest for
 								each of the messages and ensure that the correct result is produced when the
 								messages are provided to the TSF. </test>
-							<test>Selected Long Messages Test - Byte oriented Mode. The evaluators devise an
+							<test>Selected Long Messages Test - Byte-oriented Mode. The evaluators devise an
 								input set consisting of m/8 messages, where m is the block length of the hash
 								algorithm. The length of the ith message is 512 + 8*99*i, where 1 ≤ i ≤ m/8. The
 								message text shall be pseudorandomly generated. The evaluators compute the message
@@ -1711,7 +1664,7 @@ functionality (such as these)
 						<selectable>512</selectable></selectables> <h:b>and</h:b> <selectables>
 						<selectable>160</selectable>
 						<selectable>no other size</selectable></selectables> <h:b>bits</h:b>
-					that meet the following: [<h:i>FIPS Pub 198-1, "The Keyed-Hash Message Authentication Code
+					that meet the following: [<h:i>FIPS Pub 198-1, "The Keyed-Hash Message Authentication Code,"
 					and FIPS Pub 180-4, "Secure Hash Standard"</h:i>].
 				</title>
 				<note role="application">
@@ -1851,8 +1804,6 @@ functionality (such as these)
 	<f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol" iteration="Client" status="sel-based">
 	  <depends on-se1="sel_all_https_cl"/>
 
-	 
-		  
 			<f-element id="fel-https-wath-cl">
 				<title>
 					The application shall implement the HTTPS protocol <h:b>as a client</h:b> that complies with RFC 2818.
@@ -1900,7 +1851,7 @@ functionality (such as these)
 					revocation status in accordance with RFC 5280. 
 				</note>
 				<aactivity level="element">
-					<TSS>None<h:p/></TSS>
+					<TSS>None.<h:p/></TSS>
 					<Guidance>None.<h:p/></Guidance>
 					<Tests>
 						Certificate validity shall be tested in accordance with testing performed for 
@@ -2129,6 +2080,80 @@ functionality (such as these)
 				</aactivity>
 			</f-element>
         </f-component>
+		
+		<!-- FCS_PBKDF_EXT.1 (formerly FCS_CKM.1/3, FCS_CKM.1/PBKDF, FCS_CKM_EXT.1) -->
+		<ext-comp-def fam-id="FCS_PBKDF_EXT" title="Password Conditioning">
+			<fam-behavior>This family defines requirements for implementation of password-based key derivation functions.</fam-behavior>
+		</ext-comp-def>
+		
+		<f-component name="Password Conditioning" cc-id="fcs_pbkdf_ext.1" id="fcom_pass" status="sel-based">
+			<depends on="sel-fcs-sto-pbkdf"/>
+			
+			<comp-lev> defines the capability of the TOE to implement PBKDF2 for key derivation.</comp-lev>
+			<management>No specific management functions are identified.</management>
+			<audit>There are no auditable events foreseen.</audit>
+			<dependencies>
+				FCS_COP.1 Cryptographic Operation<h:br/>
+				FCS_RBG_EXT.1 Random Bit Generation Services
+			</dependencies>
+			
+			<f-element id="fel-pass">
+				<title>
+					A password/passphrase shall perform <assignable>Password-based Key Derivation Functions</assignable> 
+					in accordance with a specified cryptographic algorithm as specified in FCS_COP.1<h:b>/KeyedHash</h:b>, with <assignable>positive 
+						integer of 1,000 or more</assignable> iterations, and output cryptographic key sizes <selectables>
+							<selectable>128</selectable>
+							<selectable>256</selectable></selectables>
+					that meet the following [<h:i>NIST SP 800-132</h:i>].  
+				</title>
+				<ext-comp-def-title>
+					<title>
+						A password/passphrase shall perform <assignable>Password-based Key Derivation Functions</assignable> 
+						in accordance with a specified cryptographic algorithm as specified in FCS_COP.1, with <assignable>positive 
+							integer of 1,000 or more</assignable> iterations, and output cryptographic key sizes <selectables>
+								<selectable>128</selectable>
+								<selectable>256</selectable></selectables>
+						that meet the following <assignable>applicable standard</assignable>.
+					</title>
+				</ext-comp-def-title>
+			</f-element>
+			<f-element id="fel-gen-salts">
+				<title>
+					The TSF shall generate salts using a RBG that meets FCS_RBG_EXT.1 and with entropy corresponding
+					to the security strength selected for PBKDF in FCS_PBKDF_EXT.1.
+				</title>
+				<note role="application">
+					This should be included if selected in FCS_STO_EXT.1<h:p/>
+					Conditioning can be performed using one of the identified hash functions or the process described 
+					in NIST SP 800-132; the method used is selected by the ST Author. SP 800-132 requires the use of a pseudorandom 
+					function (PRF) consisting of HMAC with an approved hash function. The ST author selects the hash function used, 
+					including the appropriate requirements for HMAC and the hash function. <h:p/>
+					Appendix A of SP 800-132 recommends setting the iteration count in order to increase the computation needed to derive a 
+					key from a password and, therefore, increase the workload of performing a password recovery attack. A significantly higher 
+					value is recommended to ensure optimal security. This value is expected to increase to a minimum of 10,000 in a future 
+					iteration based on SP800-63.
+				</note>
+				<aactivity>
+					<TSS> 
+						Support for PBKDF: The evaluator shall examine the password hierarchy TSS to ensure that 
+						the formation of all password based derived keys is described and that the key sizes match that 
+						described by the ST author. 
+						The evaluator shall check that the TSS describes the method by which the password/passphrase is first encoded and then fed to 
+						the SHA algorithm. The settings for the algorithm (padding, blocking, etc.) shall be described, and the evaluator shall verify 
+						that these are supported by the selections in this component as well as the selections concerning the hash function itself. 
+						The evaluator shall verify that the TSS contains a description of how the output of the hash function is used to form the 
+						submask that will be input into the function.
+						For the NIST SP 800-132-based conditioning of the password/passphrase, the required evaluation activities will be performed when 
+						doing the evaluation activities for the appropriate requirements (FCS_COP.1.1/KeyedHash).
+						No explicit testing of the formation of the submask from the input password is required. 
+						FCS_PBKDF_EXT.1: The ST author shall provide a description in the TSS regarding the salt generation. 
+						The evaluator shall confirm that the salt is generated using an RBG described in FCS_RBG_EXT.1.<h:p/>
+					</TSS>
+					<Guidance>None.<h:p/></Guidance>
+					<Tests>None.</Tests>
+				</aactivity>
+			</f-element>
+		</f-component>
 	      
 		<!-- FCS_RBG_EXT.2 -->
         <f-component cc-id="fcs_rbg_ext.2" name="Random Bit Generation from Application" status="sel-based">
@@ -2148,7 +2173,7 @@ functionality (such as these)
 					services in accordance with NIST Special Publication 800-90A using <selectables>
 						<selectable>Hash_DRBG (any)</selectable>
 						<selectable>HMAC_DRBG (any)</selectable>
-						<selectable>CTR_DRBG (AES)</selectable></selectables>
+						<selectable>CTR_DRBG (AES)</selectable></selectables>.
 				</title>
 				<note role="application">This requirement shall be included in STs in which 
 					"<h:i>implement DRBG functionality</h:i>" is chosen in FCS_RBG_EXT.1.1. 
@@ -2211,7 +2236,7 @@ functionality (such as these)
 								are entropy input, nonce, and personalization string for the instantiate 
 								operation. The next two are additional input and entropy input for the first call 
 								to generate. The final two are additional input and entropy input for the second
-								call to generate. These values are randomly generated. “generate one block of 
+								call to generate. These values are randomly generated. The operation to “generate one block of 
 								random bits” means to generate random bits with number of returned bits equal to 
 								the Output Block Length (as defined in NIST SP 800-90A). <h:p/>
 								If the RNG does not have prediction resistance, each trial consists of (1) 
@@ -2225,17 +2250,17 @@ functionality (such as these)
 								to reseed. The final value is additional input to the second generate call. <h:p/>
 								The following paragraphs contain more information on some of the input values to 
 								be generated/selected by the evaluator. <h:p/>
-								<h:b>Entropy input:</h:b> the length of the entropy input value must equal the seed length.<h:p/>
+								<h:b>Entropy input:</h:b> The length of the entropy input value must equal the seed length.<h:p/>
 								<h:b>Nonce:</h:b> If a nonce is supported (CTR_DRBG with no Derivation Function does not use 
 								a nonce), the nonce bit length is one-half the seed length. 
 								<h:p/>
 								<h:b>Personalization string:</h:b> The length of the personalization string must be 
 								less then or equal to seed length. If the implementation only supports one 
 								personalization string length, then the same length can be used for both values. 
-								If more than one string length is support, the evaluator shall use personalization 
+								If more than one string length is supported, the evaluator shall use personalization 
 								strings of two different lengths. If the implementation does not use a 
 								personalization string, no value needs to be supplied. <h:p/>
-								<h:b>Additional input:</h:b> the additional input bit lengths have the same defaults 
+								<h:b>Additional input:</h:b> The additional input bit lengths have the same defaults 
 								and restrictions as the personalization string lengths.
 							</test>   
 						</testlist>
@@ -2391,6 +2416,96 @@ functionality (such as these)
 	<!-- 5.1.2 User Data Protection (FDP) -->
     <section title="User Data Protection (FDP)" id="fdp">
 
+    	<!-- FDP_DAR_EXT.1 Encryption of Sensitive Application Data -->
+    	<!-- incorporates TD582 -->
+    	
+    	
+    	<ext-comp-def fam-id="FDP_DAR_EXT" title="Data-at-Rest Encryption">
+    		<fam-behavior>This family defines requirements for implementation of data-at-rest protection. </fam-behavior>
+    	</ext-comp-def>
+    	
+    	<f-component cc-id="fdp_dar_ext.1" name="Encryption Of Sensitive Application Data">
+    		<comp-lev>requires the application to be able to protect all data with a chosen method of encryption.</comp-lev>
+    		<management>No specific management functions are identified.</management>
+    		<audit>There are no auditable events foreseen.</audit>
+    		<dependencies>
+    			No dependencies.
+    		</dependencies>
+    		
+    		<f-element id="fel-dar-how">
+    			<title>
+    				The application shall 
+    				<selectables linebreak="yes">
+    					<selectable>leverage platform-provided functionality to encrypt sensitive data</selectable>
+    					<selectable>implement functionality to encrypt sensitive data as defined in the PP-Module for File Encryption</selectable>
+    					<selectable>protect sensitive data in accordance with FCS_STO_EXT.1</selectable>
+    					<selectable exclusive="yes">not store any sensitive data</selectable></selectables> in non-volatile memory.
+    			</title>
+    			<note role="application">
+    				If "<h:i>implement functionality to encrypt sensitive data as defined in the PP-Module for File Encryption</h:i>"
+    				is selected, the TSF must claim conformance to a PP-Configuration that includes the File Encryption PP-Module. 
+    				<h:p/>
+    				Any file that may potentially contain sensitive data (to include temporary files)
+    				shall be protected.  The only exception is if the user intentionally exports the sensitive data
+    				to non-protected files. ST authors should select "<h:i>protect sensitive data in accordance with 
+    					FCS_STO_EXT.1</h:i>" for the sensitive data that is covered by the FCS_STO_EXT.1 SFR.
+    			</note>
+    			<aactivity>
+    				<TSS>
+    					The evaluator shall examine the TSS to ensure that it describes the sensitive data processed by the application. 
+    					The evaluator shall then ensure that the following activities cover all of the sensitive data identified in the TSS.
+    					<h:p/>
+    					If <h:b>not store any sensitive data</h:b> is selected, the evaluator shall inspect the TSS to ensure 
+    					that it describes how sensitive data cannot be written to non-volatile memory. The evaluator shall also 
+    					ensure that this is consistent with the filesystem test below.<h:p/>
+    				</TSS>
+    				<Guidance>None.<h:p/></Guidance>
+    				<Tests>
+    					Evaluation activities (after the identification of the sensitive data) are to be performed on all sensitive data listed 
+    					that are not covered by FCS_STO_EXT.1. <h:p/>
+    					The evaluator shall inventory the filesystem locations where the application may write data. 
+    					The evaluator shall run the application and attempt to store sensitive data. The evaluator shall 
+    					then inspect those areas of the filesystem to note where data was stored (if any), and determine 
+    					whether it has been encrypted.<h:p/>
+    					If "<h:i>leverage platform-provided functionality...</h:i>" is selected, the evaluation activities will be performed as 
+    					stated in the following requirements, which vary on a per-platform basis.<h:p/>
+    					<h:div><depends ref="android"/>
+    						The evaluator shall inspect the TSS and verify that it describes how files containing sensitive data are 
+    						stored with the <h:code>MODE_PRIVATE</h:code> flag set.
+    					</h:div>
+    					<h:div><depends ref="windows"/>
+    						The Windows platform currently does not provide data-at-rest
+    						encryption services which depend upon invocation by application developers. The evaluator shall
+    						verify that the Operational User Guidance makes the need to activate platform encryption, 
+    						such as BitLocker or Encrypting File System (EFS), clear to the end user.
+    					</h:div>
+    					<h:div><depends ref="ios"/>
+    						The evaluator shall inspect the TSS and ensure that it describes how the 
+    						application uses the Complete Protection, Protected Unless Open, or Protected Until 
+    						First User Authentication Data Protection Class for each data file stored locally. 
+    					</h:div>
+    					<h:div><depends ref="linux"/>
+    						The Linux platform currently does not provide data-at-rest encryption services which depend
+    						upon invocation by application developers.  The evaluator shall verify that
+    						the Operational User Guidance makes the need to activate platform encryption clear 
+    						to the end user.
+    					</h:div>
+    					<h:div><depends ref="Solaris"/>
+    						The Solaris platform currently does not provide data-at-rest encryption services which depend
+    						upon invocation by application developers.  The evaluator shall verify that
+    						the Operational User Guidance makes the need to activate platform encryption clear 
+    						to the end user.
+    					</h:div>
+    					<h:div><depends ref="mac"/>
+    						The macOS platform currently does not provide data-at-rest encryption services which depend
+    						upon invocation by application developers.  The evaluator shall verify that
+    						the Operational User Guidance makes the need to activate platform encryption clear
+    						to the end user.
+    					</h:div>
+    				</Tests>
+    			</aactivity>
+    		</f-element>
+    	</f-component>
       
       <!-- FDR_DEC_EXT.1 -->
       <!-- Incorporates TD434 -->
@@ -2402,7 +2517,7 @@ functionality (such as these)
 
       	<comp-lev> requires the application to restrict access to hardware sources and sensitive information repositories.</comp-lev>
       	<management>The following action could be considered for the management functions in FMT: <h:ul type="a">
-      		<h:li>Enabling/disabling the transmission of any information describing the system’s hardware, software, or configuration.</h:li>
+      		<h:li>Enabling and disabling the transmission of any information describing the system’s hardware, software, or configuration.</h:li>
       	</h:ul>
       	</management>
       	<audit>There are no auditable events foreseen.</audit>
@@ -2611,96 +2726,8 @@ functionality (such as these)
 				</aactivity>
 			</f-element>	
 		</f-component>
-
-
-		<ext-comp-def fam-id="FDP_DAR_EXT" title="Data-at-Rest Encryption">
-		  <fam-behavior>This family defines requirements for implementation of data-at-rest protection. </fam-behavior>
-		</ext-comp-def>
 		
-		<!-- FDP_DAR_EXT.1 Encryption of Sensitive Application Data -->
-		<!-- incorporates TD582 -->
-		<f-component cc-id="fdp_dar_ext.1" name="Encryption Of Sensitive Application Data">
-	<comp-lev>requires the application to be able to protect all data with a chosen method of encryption.</comp-lev>
-			<management>No specific management functions are identified.</management>
-			<audit>There are no auditable events foreseen.</audit>
-			<dependencies>
-				No dependencies.
-			</dependencies>
-		  
-			<f-element id="fel-dar-how">
-				<title>
-					The application shall 
-					<selectables linebreak="yes">
-						<selectable>leverage platform-provided functionality to encrypt sensitive data</selectable>
-						<selectable>implement functionality to encrypt sensitive data as defined in the PP-Module for File Encryption</selectable>
-						<selectable>protect sensitive data in accordance with FCS_STO_EXT.1</selectable>
-						<selectable exclusive="yes">not store any sensitive data</selectable></selectables> in non-volatile memory.
-				</title>
-				<note role="application">
-					If "<h:i>implement functionality to encrypt sensitive data as defined in the PP-Module for File Encryption</h:i>"
-					is selected, the TSF must claim conformance to a PP-Configuration that includes the File Encryption PP-Module. 
-					<h:p/>
-					Any file that may potentially contain sensitive data (to include temporary files)
-					shall be protected.  The only exception is if the user intentionally exports the sensitive data
-					to non-protected files. ST authors should select "<h:i>protect sensitive data in accordance with 
-					FCS_STO_EXT.1</h:i>" for the sensitive data that is covered by the FCS_STO_EXT.1 SFR.
-				</note>
-				<aactivity>
-					<TSS>
-						The evaluator shall examine the TSS to ensure that it describes the sensitive data processed by the application. 
-						The evaluator shall then ensure that the following activities cover all of the sensitive data identified in the TSS.
-						<h:p/>
-						If <h:b>not store any sensitive data</h:b> is selected, the evaluator shall inspect the TSS to ensure 
-						that it describes how sensitive data cannot be written to non-volatile memory. The evaluator shall also 
-						ensure that this is consistent with the filesystem test below.<h:p/>
-					</TSS>
-					<Guidance>None.<h:p/></Guidance>
-					<Tests>
-						Evaluation activities (after the identification of the sensitive data) are to be performed on all sensitive data listed 
-						that are not covered by FCS_STO_EXT.1. <h:p/>
-						The evaluator shall inventory the filesystem locations where the application may write data. 
-						The evaluator shall run the application and attempt to store sensitive data. The evaluator shall 
-						then inspect those areas of the filesystem to note where data was stored (if any), and determine 
-						whether it has been encrypted.<h:p/>
-						If "<h:i>leverage platform-provided functionality</h:i>" is selected, the evaluation activities will be performed as 
-						stated in the following requirements, which vary on a per-platform basis.<h:p/>
-			            <h:div><depends ref="android"/>
-							The evaluator shall inspect the TSS and verify that it describes how files containing sensitive data are 
-							stored with the <h:code>MODE_PRIVATE</h:code> flag set.
-						</h:div>
-						<h:div><depends ref="windows"/>
-							The Windows platform currently does not provide data-at-rest
-							encryption services which depend upon invocation by application developers. The evaluator shall
-							verify that the Operational User Guidance makes the need to activate platform encryption, 
-							such as BitLocker or Encrypting File System (EFS), clear to the end user.
-						</h:div>
-						<h:div><depends ref="ios"/>
-							The evaluator shall inspect the TSS and ensure that it describes how the 
-							application uses the Complete Protection, Protected Unless Open, or Protected Until 
-							First User Authentication Data Protection Class for each data file stored locally. 
-						</h:div>
-						<h:div><depends ref="linux"/>
-							The Linux platform currently does not provide data-at-rest encryption services which depend
-							upon invocation by application developers.  The evaluator shall verify that
-							the Operational User Guidance makes the need to activate platform encryption clear 
-							to the end user.
-						</h:div>
-						<h:div><depends ref="Solaris"/>
-							The Solaris platform currently does not provide data-at-rest encryption services which depend
-							upon invocation by application developers.  The evaluator shall verify that
-							the Operational User Guidance makes the need to activate platform encryption clear 
-							to the end user.
-						</h:div>
-						<h:div><depends ref="mac"/>
-							The macOS platform currently does not provide data-at-rest encryption services which depend
-							upon invocation by application developers.  The evaluator shall verify that
-							the Operational User Guidance makes the need to activate platform encryption clear
-							to the end user.
-						</h:div>
-					</Tests>
-				</aactivity>
-			</f-element>
-        </f-component>
+
     </section>   <!-- FDP -->
 	    
 	<!-- Identification and Authentication (FIA) -->
@@ -2781,11 +2808,11 @@ functionality (such as these)
 					If OCSP is not supported the EKU provision for checking the OCSP Signing purpose is met by 
 					default.<h:p/>
 					This requirement is included if the protocol(s) selected in FTP_DIT_EXT.1.1 require the use of
-					certificates. If the TOE implements TLS as a HTTPS/TLS server with no mutual authentication,
+					certificates. If the TOE implements TLS as an HTTPS/TLS server with no mutual authentication,
 					this requirement is not applicable.<h:p/>
 					OCSP stapling and OCSP multi-stapling only support TLS server certificate validation. If other 
 					certificate types are validated, either OCSP or CRL should be claimed.<h:p/>
-					Regardless of the selection of "<h:i>implement functionality or invoke platform-provided 
+					Regardless of the selection of "<h:i>implement functionality to invoke platform-provided 
 					functionality</h:i>," the validation is expected to end in a trusted root CA certificate in a root
 					store managed by the platform.
 				</note>
@@ -2821,8 +2848,8 @@ functionality (such as these)
 								The evaluator shall demonstrate that validating an expired certificate results in the function failing.
 							</test>
 							<test>
-								The evaluator shall test that the TOE can properly handle revoked certificates-“conditional on whether
-								CRL, OCSP, OCSP Stapling or OCSP Multi-stapling is selected; if multiple methods are selected, then
+								The evaluator shall test that the TOE can properly handle revoked certificates, conditional on whether
+								CRL, OCSP, OCSP Stapling, or OCSP Multi-stapling is selected; if multiple methods are selected, then
 								the following tests shall be performed for each method:
 								<h:ul>
 								<h:li>The evaluator shall test revocation of the node certificate.</h:li>
@@ -2840,12 +2867,12 @@ functionality (such as these)
 								If any OCSP option is selected, the evaluator shall ensure the TSF has no other source of
 								revocation information available and configure the OCSP server or use a man-in-the-middle tool
 								to present an OCSP response signed by a certificate that does not have the OCSP signing purpose 
-								and which is the only source of revocation status information advertised by the CA issuing the
+								and that is the only source of revocation status information advertised by the CA issuing the
 								certificate being validated. The evaluator shall verify that validation of the OCSP
 								response fails and that the TOE treats the certificate being checked as invalid and rejects the
 								connection. If CRL is selected, the evaluator shall likewise configure the CA to be the only source
 								of revocation status information, and sign a CRL with a certificate that does not have the cRLsign key usage bit
-								set, and . The evaluator shall verify that validation of the CRL fails and that the TOE treats the certificate
+								set. The evaluator shall verify that validation of the CRL fails and that the TOE treats the certificate
 								being checked as invalid and rejects the connection.
 								<h:br/><h:br/>
 								<h:b><h:i>Note:</h:i></h:b> The intent of this test is to ensure a TSF does not trust invalid revocation status information. A TSF
@@ -2853,7 +2880,7 @@ functionality (such as these)
 								treat the certificate whose status is being checked as invalid. This should generally be treated differently
 								from the case where the TSF is not able to establish a connection to check revocation status information,
 								but it is acceptable that the TSF ignore any invalid information and attempt to find another source of
-								revocation status (another advertised provider, a locally configured provider, or cached information) and
+								revocation status (another advertised provider, a locally configured provider, or cached information), and
 								treat this situation as not having a connection to a valid certificate status provider. 
 							</test>
 							<test>
@@ -2963,7 +2990,7 @@ functionality (such as these)
 	      
 				<note role="application">
 					This requirement is included if the protocol(s) selected in FTP_DIT_EXT.1.1 require the use of certificates
-					to authenticate the remote entity. For example, if the TOE or platform implements TLS as a HTTPS/TLS server
+					to authenticate the remote entity. For example, if the TOE or platform implements TLS as an HTTPS/TLS server
 					with no mutual authentication, X509 authentication is not claimed for TLS. If the TOE or platform operates
 					as a TLS client, X509 authentication must be claimed.				
 				</note>
@@ -3039,6 +3066,112 @@ functionality (such as these)
 
 
 
+      	<ext-comp-def fam-id="FMT_CFG_EXT" title="Secure by Default Configuration">
+      		<fam-behavior>
+      			This family defines requirements for authorization to manage the behavior of the application.
+      		</fam-behavior>
+      	</ext-comp-def>
+      	<!-- FMT_CFG_EXT.1 Secure by Default Configuration -->
+      	<!-- Incoporates TD519 -->
+      	<f-component cc-id="fmt_cfg_ext.1" name="Secure by Default Configuration">
+      		
+      		<comp-lev> requires the application to define how to set new credentials 
+      			and protect the application from modification by unprivileged users.</comp-lev>
+      		<management>No specific management functions are identified.</management>
+      		<audit>There are no auditable events foreseen.</audit>
+      		<dependencies>No dependencies.
+      		</dependencies>
+      		
+      		<f-element id="fel-default-config">
+      			<title>
+      				The application shall provide only enough functionality to set new credentials when 
+      				configured with default credentials or no credentials.
+      			</title>
+      			<note role="application">
+      				Default credentials are credentials (e.g., passwords, keys) that are automatically 
+      				(without user interaction) loaded onto the platform during application installation.
+      				Credentials that are generated during installation using requirements laid out in 
+      				FCS_RBG_EXT.1 are not by definition default credentials.
+      			</note>
+      			<aactivity level="element">
+      				<TSS>
+      					The evaluator shall check the TSS to determine if the application requires any type
+      					of credentials and if the application installs with default credentials.<h:br/>
+      				</TSS>
+      				<Guidance>None.<h:br/></Guidance>
+      				<Tests>If the application uses any default credentials the evaluator shall run the following tests.
+      					<testlist>
+      						<test>
+      							The evaluator shall install and run the application without generating or loading 
+      							new credentials and verify that only the minimal
+      							application functionality required to set new credentials is available.
+      						</test>
+      						<test>
+      							The evaluator shall attempt to clear all credentials and verify that only
+      							the minimal application functionality required to set new credentials is available.
+      						</test>
+      						<test>
+      							The evaluator shall run the application, establish new credentials and
+      							verify that the original default credentials no longer provide access to
+      							the application.
+      						</test>
+      					</testlist>
+      				</Tests>
+      			</aactivity>
+      		</f-element>
+      		<f-element id="fel-file-perms">
+      			<title>
+      				The application shall be configured by default with file permissions which protect
+      				the application binaries and data files from modification by normal unprivileged users.
+      			</title>
+      			<note role="application">
+      				The precise expectations for file permissions vary per platform
+      				but the general intention is that a trust boundary protects the application and its data.
+      			</note>
+      			<aactivity level="element">
+      				<TSS>None.<h:br/></TSS>
+      				<Guidance>None.<h:br/></Guidance>
+      				<Tests>
+      					The evaluator shall install and run the application. The evaluator shall
+      					inspect the filesystem of the platform (to the extent possible) for any files created
+      					by the application and ensure that their permissions are adequate to protect them.
+      					The method of doing so varies per platform.
+      					<h:div><depends ref="android"/>The evaluator shall run the command <h:code>find -L . -perm /002</h:code> 
+      						inside the application's data directories to ensure that all files are not world-writable. The command 
+      						should not print any files.
+      					</h:div>
+      					<h:div><depends ref="windows"/>The evaluator shall run the SysInternals tools,
+      						Process Monitor and Access Check (or tools of equivalent capability, like 
+      						icacls.exe) for Classic Desktop applications to verify that files written to disk 
+      						during an application's installation have the correct file permissions, such that a 
+      						standard user cannot modify the application or its data files. For Windows Universal 
+      						Applications the evaluator shall consider the requirement met because of the AppContainer 
+      						sandbox.
+      					</h:div>
+      					<h:div><depends ref="ios"/>The evaluator shall determine whether the application
+      						leverages the appropriate Data Protection Class for each data file stored
+      						locally.</h:div>
+      					<h:div><depends ref="linux"/> 
+      						The evaluator shall run the command <h:code>find -L . -perm /002</h:code> 
+      						inside the application's data directories to ensure that all files are 
+      						not world-writable. The command should not print any files.
+      					</h:div>
+      					<h:div><depends ref="Solaris"/>
+      						The evaluator shall run the command <h:code>find . \( -perm -002 \)</h:code>
+      						inside the application's data directories to ensure that all files are not 
+      						world-writable. The command should not print any files.
+      					</h:div>
+      					<h:div><depends ref="mac"/>
+      						The evaluator shall run the command <h:code>find . -perm +002</h:code> inside
+      						the application's data directories to ensure that all files are not world-writable.
+      						The command should not print any files.
+      					</h:div>
+      				</Tests>
+      			</aactivity>
+      		</f-element>
+      	</f-component>
+      	
+
 	<ext-comp-def fam-id="FMT_MEC_EXT" title="Supported Configuration Mechanism">
 	  <fam-behavior>This family defines requirements for the TOE’s use of mechanisms for the storage of configuration data.</fam-behavior>
 	</ext-comp-def>
@@ -3059,7 +3192,7 @@ functionality (such as these)
 			<f-element id="fel-config-store">
 				<title>The application shall <selectables>
 					<selectable>invoke the mechanisms recommended by the platform vendor for storing and setting configuration options</selectable>
-					<selectable>implement functionality to encrypt and store configuration options as defined by FDP_PRT_EXT.1 in the PP-Module for File Encryption</selectable></selectables>
+					<selectable>implement functionality to encrypt and store configuration options as defined by FDP_PRT_EXT.1 in the PP-Module for File Encryption</selectable></selectables>.
 				</title>
 				<note role="application"> 
 					Configuration options that are stored remotely are not subject to this requirement. 
@@ -3130,7 +3263,7 @@ functionality (such as these)
 							The evaluator shall verify that <h:span class="util">dtrace</h:span> logs corresponding changes to 
 							configuration 
 							files that reside in /etc (for system-specific configuration) or 
-							in the user's home directory(for user-specific configuration).
+							in the user's home directory (for user-specific configuration).
 						</h:div>
 						<h:div><depends ref="mac"/>
 							The evaluator shall verify that the application stores and retrieves settings
@@ -3141,112 +3274,6 @@ functionality (such as these)
 						options listed in the TSS as being stored and protected using encryption, the evaluator 
 						shall examine the contents of the configuration option storage (identified in the TSS) to determine 
 						that the options have been encrypted.
-					</Tests>
-				</aactivity>
-			</f-element>
-        </f-component>
-	      
-
-	<ext-comp-def fam-id="FMT_CFG_EXT" title="Secure by Default Configuration">
-	  <fam-behavior>
-	    This family defines requirements for authorization to manage the behavior of the application.
-	  </fam-behavior>
-	</ext-comp-def>
-	<!-- FMT_CFG_EXT.1 Secure by Default Configuration -->
-	<!-- Incoporates TD519 -->
-	<f-component cc-id="fmt_cfg_ext.1" name="Secure by Default Configuration">
-	 
-		<comp-lev> requires the application to define how to set new credentials 
-			and protect the application from modification by unprivileged users.</comp-lev>
-		<management>No specific management functions are identified.</management>
-		<audit>There are no auditable events foreseen.</audit>
-		<dependencies>No dependencies.
-		</dependencies>
-		
-	  <f-element id="fel-default-config">
-				<title>
-					The application shall provide only enough functionality to set new credentials when 
-					configured with default credentials or no credentials.
-				</title>
-				<note role="application">
-					Default credentials are credentials (e.g., passwords, keys) that are automatically 
-					(without user interaction) loaded onto the platform during application installation.
-					Credentials that are generated during installation using requirements laid out in 
-					FCS_RBG_EXT.1 are not by definition default credentials.
-				</note>
-				<aactivity level="element">
-					<TSS>
-						The evaluator shall check the TSS to determine if the application requires any type
-						of credentials and if the application installs with default credentials.<h:br/>
-					</TSS>
-					<Guidance>None.<h:br/></Guidance>
-					<Tests>If the application uses any default credentials the evaluator shall run the following tests.
-						<testlist>
-							<test>
-								The evaluator shall install and run the application without generating or loading 
-								new credentials and verify that only the minimal
-								application functionality required to set new credentials is available.
-							</test>
-							<test>
-								The evaluator shall attempt to clear all credentials and verify that only
-								the minimal application functionality required to set new credentials is available.
-							</test>
-							<test>
-								The evaluator shall run the application, establish new credentials and
-								verify that the original default credentials no longer provide access to
-								the application.
-							</test>
-						</testlist>
-					</Tests>
-				</aactivity>
-			</f-element>
-			<f-element id="fel-file-perms">
-				<title>
-					The application shall be configured by default with file permissions which protect
-					the application binaries and data files from modification by normal unprivileged users.
-				</title>
-				<note role="application">
-					The precise expectations for file permissions vary per platform
-					but the general intention is that a trust boundary protects the application and its data.
-				</note>
-				<aactivity level="element">
-					<TSS>None.<h:br/></TSS>
-					<Guidance>None.<h:br/></Guidance>
-					<Tests>
-						The evaluator shall install and run the application. The evaluator shall
-						inspect the filesystem of the platform (to the extent possible) for any files created
-						by the application and ensure that their permissions are adequate to protect them.
-						The method of doing so varies per platform.
-						<h:div><depends ref="android"/>The evaluator shall run the command <h:code>find -L . -perm /002</h:code> 
-							inside the application's data directories to ensure that all files are not world-writable. The command 
-							should not print any files.
-						</h:div>
-						<h:div><depends ref="windows"/>The evaluator shall run the SysInternals tools,
-							Process Monitor and Access Check (or tools of equivalent capability, like 
-							icacls.exe) for Classic Desktop applications to verify that files written to disk 
-							during an application's installation have the correct file permissions, such that a 
-							standard user cannot modify the application or its data files. For Windows Universal 
-							Applications the evaluator shall consider the requirement met because of the AppContainer 
-							sandbox.
-						</h:div>
-						<h:div><depends ref="ios"/>The evaluator shall determine whether the application
-							leverages the appropriate Data Protection Class for each data file stored
-							locally.</h:div>
-						<h:div><depends ref="linux"/> 
-							The evaluator shall run the command <h:code>find -L . -perm /002</h:code> 
-							inside the application's data directories to ensure that all files are 
-							not world-writable. The command should not print any files.
-						</h:div>
-						<h:div><depends ref="Solaris"/>
-							The evaluator shall run the command <h:code>find . \( -perm -002 \)</h:code>
-							inside the application's data directories to ensure that all files are not 
-							world-writable. The command should not print any files.
-						</h:div>
-						<h:div><depends ref="mac"/>
-							The evaluator shall run the command <h:code>find . -perm +002</h:code> inside
-							the application's data directories to ensure that all files are not world-writable.
-							The command should not print any files.
-						</h:div>
 					</Tests>
 				</aactivity>
 			</f-element>
@@ -3303,7 +3330,7 @@ functionality (such as these)
       <f-component cc-id="fpr_ano_ext.1" name="User Consent for Transmission of Personally Identifiable Information">
 	<comp-lev> requires the TSF to transmit personally identifiable information only with explicit approval.</comp-lev>
 	<management>The following action could be considered for the management functions in FMT: <h:ul type="a">
-		<h:li>Enabling/disabling the transmission of any PII.</h:li>
+		<h:li>Enabling and disabling the transmission of any PII.</h:li>
 	</h:ul>
 	</management>
     <audit>There are no auditable events foreseen.</audit>
@@ -3333,7 +3360,7 @@ functionality (such as these)
 					<Tests>
 					<!--<testlist>
 						<test>-->
-						If require user approval before executing is selected, the evaluator shall run the application and exercise the functionality responsibly
+						If "require user approval before executing..." is selected, the evaluator shall run the application and exercise the functionality responsible
 						for transmitting PII and verify that user approval is required before transmission
 						of the PII.
 						<!--</test>
@@ -3353,6 +3380,292 @@ functionality (such as these)
     </section>  <!-- FPR -->
 
     <section title="Protection of the TSF (FPT)" id="fpt">
+
+    	<!-- FPT_AEX_EXT.1 -->
+    	<!-- Incorporates TD436 -->
+    	<!-- Incorporates TD445 -->
+    	<!-- Incorporates TD544 -->
+    	<ext-comp-def fam-id="FPT_AEX_EXT" title="Anti-Exploitation Capabilities">
+    		<fam-behavior>
+    			This family defines requirements for protecting against common types of software exploitation techniques.
+    		</fam-behavior>
+    	</ext-comp-def>
+    	
+    	<f-component cc-id="fpt_aex_ext.1" name="Anti-Exploitation Capabilities">
+    		<comp-lev> requires the application to implement functionality that protects against common software exploits.</comp-lev>
+    		<management>No specific management functions are identified.</management>
+    		<audit>There are no auditable events foreseen.</audit>
+    		<dependencies>No dependencies.</dependencies>
+    		
+    		<f-element id="fel-aslr">
+    			<title> 
+    				The application shall not request to map memory at an explicit address
+    				except for <assignable>list of explicit exceptions</assignable>.
+    			</title>
+    			<note role="application"> Requesting a memory mapping at an explicit address
+    				subverts address space layout randomization (ASLR). 
+    			</note>
+    			<aactivity level="element"> 
+    				<TSS>
+    					The evaluator shall ensure that the TSS describes the compiler flags used to 
+    					enable ASLR when the application is compiled.<h:br/>
+    				</TSS>
+    				<Guidance>None.<h:br/></Guidance>
+    				<Tests> 
+    					The evaluator shall perform either a static or dynamic
+    					analysis to determine that no memory mappings are placed at an explicit and
+    					consistent address. The method of doing so varies per platform. For those platforms 
+    					requiring the same application running on two different systems, the evaluator may 
+    					alternatively use the same device. After collecting the first instance of mappings, 
+    					the evaluator must uninstall the application, reboot the device, and reinstall the application 
+    					to collect the second instance of mappings.
+    					<h:div><depends ref="android"/>
+    						The evaluator shall run the same application on two
+    						different Android systems. Both devices do not need to be evaluated, as the second device is acting only as a tool. 
+    						Connect via ADB and inspect /proc/PID/maps. Ensure the two different instances share no memory mappings made by the 
+    						application at the same location.
+    					</h:div>
+    					<h:div><depends ref="windows"/> 
+    						The evaluator shall run the same application on two
+    						different Windows systems and run a tool that will list all memory mapped addresses
+    						for the application. The evaluator shall then verify the two different instances
+    						share no mapping locations. The Microsoft SysInternals tool, VMMap, could be used to
+    						view memory addresses of a running application.  The evaluator shall use a tool
+    						such as Microsoft's BinScope Binary Analyzer to confirm that the application has
+    						ASLR enabled.
+    					</h:div>
+    					<h:div><depends ref="ios"/>
+    						The evaluator shall perform a static analysis to search
+    						for any mmap calls (or API calls that call mmap), and ensure that
+    						no arguments are provided that request a mapping at a fixed address.
+    					</h:div>
+    					<h:div><depends ref="linux"/> 
+    						The evaluator shall run the same application on two different Linux systems. 
+    						The evaluator shall then compare their memory maps using 
+    						<h:code>pmap -x <h:i>PID</h:i> </h:code>
+    						to ensure the two different instances share no mapping locations.
+    					</h:div>
+    					<h:div><depends ref="Solaris"/>
+    						The evaluator shall run the same application on two different Solaris systems. 
+    						The evaluator shall then compare their memory maps using 
+    						<h:code>pmap -x <h:i>PID</h:i> </h:code>
+    						to ensure the two different instances share no mapping locations.
+    					</h:div>
+    					<h:div><depends ref="mac"/>
+    						The evaluator shall run the same application on two different Mac systems. 
+    						The evaluator shall then compare their memory maps using 
+    						<h:code>vmmap <h:i>PID</h:i></h:code>
+    						to ensure the two different instances share no mapping locations.
+    					</h:div>
+    				</Tests>
+    			</aactivity>
+    		</f-element>
+    		<f-element id="fel-nwx">
+    			<title>
+    				The application shall 
+    				<selectables linebreak="yes">
+    					<selectable exclusive="yes">not allocate any memory region with both write and execute permissions</selectable>
+    					<selectable exclusive="yes">allocate memory regions with write and execute permissions for only
+    						<assignable> list of functions performing just-in-time compilation</assignable>
+    					</selectable></selectables>.
+    			</title>
+    			<note role="application"> 
+    				Requesting a memory mapping with both write and execute permissions subverts the
+    				platform protection provided by DEP.  If the application performs no just-in-time 
+    				compiling, then the first selection must be chosen.
+    			</note>
+    			<aactivity level="element"> 
+    				<TSS>None.<h:br/></TSS>
+    				<Guidance>None.<h:br/></Guidance>
+    				<Tests>
+    					The evaluator shall verify that no memory mapping requests are made with write and
+    					execute permissions. The method of doing so varies per platform.
+    					<h:div><depends ref="android"/> 
+    						The evaluator shall perform static analysis on the application to verify that <h:ul>
+    							<h:li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions,
+    								and </h:li>
+    							<h:li> mprotect is never invoked.</h:li>
+    						</h:ul> 
+    					</h:div>
+    					<h:div><depends ref="windows"/> 
+    						The evaluator shall use a tool such as Microsoft's 
+    						BinScope Binary Analyzer to confirm that the application passes the NXCheck. The 
+    						evaluator may also ensure that the <h:code>/NXCOMPAT</h:code> flag was used during 
+    						compilation to verify that DEP protections are enabled for the application. 
+    					</h:div>
+    					<h:div><depends ref="ios"/> 
+    						The evaluator shall perform static analysis on the
+    						application to verify that mprotect is never invoked with the PROT_EXEC permission. 
+    					</h:div>
+    					<h:div><depends ref="linux"/> 
+    						The evaluator shall perform static analysis on the
+    						application to verify that both <h:ul>
+    							<h:li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions,
+    								and </h:li>
+    							<h:li> mprotect is never invoked with the PROT_EXEC permission.</h:li>
+    						</h:ul>  
+    					</h:div>
+    					<h:div><depends ref="Solaris"/> 
+    						The evaluator shall perform static analysis on the
+    						application to verify that both <h:ul>
+    							<h:li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions,
+    								and </h:li>
+    							<h:li> mprotect is never invoked with the PROT_EXEC permission.</h:li>
+    						</h:ul>
+    					</h:div>
+    					<h:div><depends ref="mac"/> 
+    						The evaluator shall perform static analysis on the
+    						application to verify that mprotect is never invoked with the PROT_EXEC permission.
+    					</h:div>
+    				</Tests>
+    			</aactivity>
+    		</f-element>
+    		<f-element id="fel-plays-nice">
+    			<title>
+    				The application shall be compatible with security features provided by the
+    				platform vendor.
+    			</title>
+    			<note role="application">
+    				This requirement is designed to ensure that platform security 
+    				features do not need to be disabled in order for the application to run.
+    			</note>
+    			<aactivity level="element">
+    				<TSS>None.<h:br/></TSS>
+    				<Guidance>None.<h:br/></Guidance>
+    				<Tests>
+    					The evaluator shall configure the platform in the necessary manner and 
+    					carry out one of the prescribed tests:
+    					<h:div><depends ref="android"/>
+    						Applications running on Android cannot disable Android 
+    						security features, therefore this requirement is met and no evaluation activity is required.
+    					</h:div>
+    					<h:div><depends ref="windows"/>
+    						If the OS platform supports Windows Defender Exploit Guard 
+    						(Windows 10 version 1709 or later), then the evaluator shall ensure that the application can 
+    						run successfully with Windows Defender Exploit Guard Exploit Protection configured with the 
+    						following minimum mitigations enabled; Control Flow Guard (CFG), Randomize memory allocations 
+    						(Bottom-Up ASLR), Export address filtering (EAF), Import address filtering (IAF), and
+    						Data Execution Prevention (DEP). The following link describes how to enable Exploit Protection, 
+    						https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-exploit-guard/customize-exploit-protection.
+    						<h:p/>
+    						If the OS platform supports the Enhanced Mitigation Experience Toolkit (EMET) which can be 
+    						installed on Windows 10 version 1703 and earlier, then the evaluator shall ensure that 
+    						the application can run successfully with EMET configured with the following minimum 
+    						mitigations enabled; Memory Protection Check, Randomize memory allocations (Bottom-Up ASLR), 
+    						Export address filtering (EAF), and Data Execution Prevention (DEP).
+    					</h:div>
+    					<h:div><depends ref="ios"/>
+    						Applications running on iOS cannot disable
+    						security features, therefore this requirement is met and no evaluation activity is required.
+    					</h:div>
+    					<h:div><depends ref="linux"/> 
+    						The evaluator shall ensure that the application can
+    						successfully run on a system with either SELinux or AppArmor enabled and in enforce mode.
+    					</h:div>
+    					<h:div><depends ref="Solaris"/>
+    						The evaluator shall ensure that the application can run with 
+    						Solaris Trusted Extensions enabled and enforcing.
+    					</h:div>
+    					<h:div><depends ref="mac"/> 
+    						The evaluator shall ensure that the application can
+    						successfully run on macOS without disabling any security features. 
+    					</h:div>
+    				</Tests>
+    			</aactivity>
+    		</f-element>
+    		<f-element id="fel-ro-exe">
+    			<title>
+    				The application shall not write user-modifiable files to directories that contain 
+    				executable files unless explicitly directed by the user to do so.
+    			</title>
+    			<note role="application">
+    				The purpose of this requirement is to help ensure the integrity of application binaries
+    				by supporting file protection mechanisms such as directory-level file permissions and 
+    				application allowlisting.<h:p/>
+    				A user-modifiable file for purposes of this requirement is a file that is writable by
+    				an unprivileged user of the application -- either directly through application 
+    				execution or independently of the application. If the application runs in the context 
+    				of the application user, then the application should not be able to write to the 
+    				directory containing the application binaries -- regardless of whether the files 
+    				are configuration data, audit data, or temporary files.<h:p/>
+    				Executables and user-modifiable files may not share the same parent directory, but
+    				may share directories above the parent.
+    			</note>
+    			<aactivity level="element">
+    				<TSS>None.<h:br/></TSS>
+    				<Guidance>None.<h:br/></Guidance>
+    				<Tests>The evaluator shall run the application and determine where it writes its files.
+    					For files where the user does not choose the destination, the evaluator shall 
+    					check whether the destination directory contains executable files.
+    					This varies per platform: 
+    					<h:div><depends ref="android"/> 
+    						The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. 
+    						The evaluator shall ensure that there are no executable files stored under <h:span style="path">/data/data/<h:i>package</h:i>/</h:span> where <h:i>package</h:i> is the Java package of the application.
+    					</h:div>
+    					<h:div><depends ref="windows"/>For Windows Universal Applications the evaluator shall consider
+    						the requirement met because the platform forces applications to write all data
+    						within the application working directory (sandbox). For Windows Desktop Applications
+    						the evaluator shall run the program, mimicking normal usage, and note where all user-modifiable
+    						files are written. The evaluator shall ensure that there are no executable files
+    						stored in the same directories to which the application wrote user-modifiable files.</h:div>
+    					<h:div><depends ref="ios"/>The evaluator shall consider the requirement met because
+    						the platform forces applications to write all data within the application working
+    						directory (sandbox).</h:div>
+    					<h:div><depends ref="linux"/> 
+    						The evaluator shall run the program, mimicking normal usage, 
+    						and note where all user-modifiable files are written. 
+    						The evaluator shall ensure that there are no executable files stored in the 
+    						same directories to which the application wrote user-modifiable files.
+    					</h:div>
+    					<h:div><depends ref="Solaris"/>
+    						The evaluator shall run the program, mimicking normal usage, 
+    						and note where all user-modifiable files are written. 
+    						The evaluator shall ensure that there are no executable files stored in the 
+    						same directories to which the application wrote user-modifiable files.
+    					</h:div>
+    					<h:div><depends ref="mac"/> The evaluator shall run the program, mimicking normal
+    						usage, and note where all user-modifiable files are written. The evaluator shall ensure that there
+    						are no executable files stored in the same directories to which the application
+    						wrote user-modifiable files.
+    					</h:div>
+    				</Tests>
+    			</aactivity>
+    		</f-element>
+    		<f-element id="fel-stackcookies">
+    			<title>The application shall be built with stack-based buffer overflow protection
+    				enabled.</title>
+    			<aactivity level="element">
+    				<TSS>None.<h:br/></TSS>
+    				<Guidance>None.<h:br/></Guidance>
+    				<Tests>
+    					The evaluator will inspect every native executable included in the TOE to ensure that stack-based buffer 
+    					overflow protection is present.
+    					<h:div><depends ref="windows"/>Applications that run as Managed Code in the .NET Framework do not require
+    						these stack protections.
+    						Applications developed in Object Pascal using the Delphi IDE compiled with RangeChecking enabled 
+    						comply with this element. For other code, 
+    						the evaluator shall review the TSS and verify that the /GS flag was used during compilation. The 
+    						evaluator shall run a tool like, BinScope, that can verify the correct usage of /GS.</h:div>
+    					<h:div class="subaact"> <h:i><h:b>For PE</h:b></h:i>
+    						, the evaluator will disassemble each and ensure the following sequence appears:<h:br/>
+    						<h:table class="code-table">
+    							<h:tr><h:td>mov rcx, QWORD PTR [rsp+<h:i>(...)</h:i>]</h:td></h:tr>
+    							<h:tr><h:td>xor rcx, <h:i>(...)</h:i></h:td></h:tr>
+    							<h:tr><h:td>call <h:i>(...)</h:i></h:td></h:tr>
+    						</h:table>
+    					</h:div>
+    					<h:div class="subaact"> <h:i><h:b>For ELF executables</h:b></h:i>, the evaluator will ensure that each 
+    						contains references to the symbol <h:b>__stack_chk_fail</h:b>.
+    					</h:div>
+    					<h:br/><h:p>
+    						Tools such as <h:a href="https://github.com/commoncriteria/canary-detector">Canary Detector</h:a> may help
+    						automate these activities.
+    					</h:p>
+    				</Tests>
+    			</aactivity>
+    		</f-element>
+    	</f-component>
+    	
 
       <ext-comp-def fam-id="FPT_API_EXT" title="Use of Supported Services and APIs">
 	<fam-behavior>
@@ -3388,7 +3701,7 @@ functionality (such as these)
 	      
 	      
 		<f-component cc-id="fpt_api_ext.2" name="Use of Supported Services and APIs" status="objective">
-		  <comp-lev>requires the application implement media parsing in a specified manner.</comp-lev>
+		  <comp-lev>requires the application to implement media parsing in a specified manner.</comp-lev>
 			<management>No specific management functions are identified.</management>
 			<audit>There are no auditable events foreseen.</audit>
 			<dependencies>No dependencies.</dependencies>
@@ -3423,291 +3736,7 @@ functionality (such as these)
         </f-component>
 	      
 	     
-	<!-- FPT_AEX_EXT.1 -->
-	<!-- Incorporates TD436 -->
-	<!-- Incorporates TD445 -->
-	<!-- Incorporates TD544 -->
-	<ext-comp-def fam-id="FPT_AEX_EXT" title="Anti-Exploitation Capabilities">
-	  <fam-behavior>
-	    This family defines requirements for protecting against common types of software exploitation techniques.
-	  </fam-behavior>
-	</ext-comp-def>
-
-        <f-component cc-id="fpt_aex_ext.1" name="Anti-Exploitation Capabilities">
-	  <comp-lev> requires the application to implement functionality that protects against common software exploits.</comp-lev>
-        	<management>No specific management functions are identified.</management>
-        	<audit>There are no auditable events foreseen.</audit>
-        	<dependencies>No dependencies.</dependencies>
-        	
-			<f-element id="fel-aslr">
-				<title> 
-					The application shall not request to map memory at an explicit address
-					except for <assignable>list of explicit exceptions</assignable>.
-				</title>
-				<note role="application"> Requesting a memory mapping at an explicit address
-					subverts address space layout randomization (ASLR). 
-				</note>
-				<aactivity level="element"> 
-					<TSS>
-						The evaluator shall ensure that the TSS describes the compiler flags used to 
-						enable ASLR when the application is compiled.<h:br/>
-					</TSS>
-					<Guidance>None.<h:br/></Guidance>
-					<Tests> 
-						The evaluator shall perform either a static or dynamic
-						analysis to determine that no memory mappings are placed at an explicit and
-						consistent address. The method of doing so varies per platform. For those platforms 
-						requiring the same application running on two different systems, the evaluator may 
-						alternatively use the same device. After collecting the first instance of mappings, 
-						the evaluator must uninstall the application, reboot the device, and reinstall the application 
-						to collect the second instance of mappings.
-						<h:div><depends ref="android"/>
-							The evaluator shall run the same application on two
-							different Android systems. Both devices do not need to be evaluated, as the second device is acting only as a tool. 
-							Connect via ADB and inspect /proc/PID/maps. Ensure the two different instances share no memory mappings made by the 
-							application at the same location.
-						</h:div>
-						<h:div><depends ref="windows"/> 
-							The evaluator shall run the same application on two
-							different Windows systems and run a tool that will list all memory mapped addresses
-							for the application. The evaluator shall then verify the two different instances
-							share no mapping locations. The Microsoft SysInternals tool, VMMap, could be used to
-							view memory addresses of a running application.  The evaluator shall use a tool
-							such as Microsoft's BinScope Binary Analyzer to confirm that the application has
-							ASLR enabled.
-						</h:div>
-						<h:div><depends ref="ios"/>
-							The evaluator shall perform a static analysis to search
-							for any mmap calls (or API calls that call mmap), and ensure that
-							no arguments are provided that request a mapping at a fixed address.
-						</h:div>
-						<h:div><depends ref="linux"/> 
-							The evaluator shall run the same application on two different Linux systems. 
-							The evaluator shall then compare their memory maps using 
-							<h:code>pmap -x <h:i>PID</h:i> </h:code>
-							to ensure the two different instances share no mapping locations.
-						</h:div>
-						<h:div><depends ref="Solaris"/>
-							The evaluator shall run the same application on two different Solaris systems. 
-							The evaluator shall then compare their memory maps using 
-							<h:code>pmap -x <h:i>PID</h:i> </h:code>
-							to ensure the two different instances share no mapping locations.
-						</h:div>
-						<h:div><depends ref="mac"/>
-							The evaluator shall run the same application on two different Mac systems. 
-							The evaluator shall then compare their memory maps using 
-							<h:code>vmmap <h:i>PID</h:i></h:code>
-							to ensure the two different instances share no mapping locations.
-						</h:div>
-					</Tests>
-				</aactivity>
-			</f-element>
-			<f-element id="fel-nwx">
-				<title>
-					The application shall 
-					<selectables linebreak="yes">
-						<selectable exclusive="yes">not allocate any memory region with both write and execute permissions</selectable>
-						<selectable exclusive="yes">allocate memory regions with write and execute permissions for only
-							<assignable> list of functions performing just-in-time compilation</assignable>
-						</selectable></selectables>.
-				</title>
-				<note role="application"> 
-					Requesting a memory mapping with both write and execute permissions subverts the
-					platform protection provided by DEP.  If the application performs no just-in-time 
-					compiling, then the first selection must be chosen.
-				</note>
-				<aactivity level="element"> 
-					<TSS>None.<h:br/></TSS>
-					<Guidance>None.<h:br/></Guidance>
-					<Tests>
-						The evaluator shall verify that no memory mapping requests are made with write and
-						execute permissions. The method of doing so varies per platform.
-                        <h:div><depends ref="android"/> 
-							The evaluator shall perform static analysis on the application to verify that <h:ul>
-								<h:li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions,
-									and </h:li>
-								<h:li> mprotect is never invoked.</h:li>
-							</h:ul> 
-						</h:div>
-						<h:div><depends ref="windows"/> 
-							The evaluator shall use a tool such as Microsoft's 
-							BinScope Binary Analyzer to confirm that the application passes the NXCheck. The 
-							evaluator may also ensure that the <h:code>/NXCOMPAT</h:code> flag was used during 
-							compilation to verify that DEP protections are enabled for the application. 
-						</h:div>
-						<h:div><depends ref="ios"/> 
-							The evaluator shall perform static analysis on the
-							application to verify that mprotect is never invoked with the PROT_EXEC permission. 
-						</h:div>
-						<h:div><depends ref="linux"/> 
-							The evaluator shall perform static analysis on the
-							application to verify that both <h:ul>
-								<h:li> mmap is never be invoked with both the PROT_WRITE and PROT_EXEC permissions,
-									and </h:li>
-							<h:li> mprotect is never invoked with the PROT_EXEC permission.</h:li>
-							</h:ul>  
-						</h:div>
-						<h:div><depends ref="Solaris"/> 
-							The evaluator shall perform static analysis on the
-							application to verify that both <h:ul>
-								<h:li> mmap is never be invoked with both the PROT_WRITE and PROT_EXEC permissions,
-									and </h:li>
-								<h:li> mprotect is never invoked with the PROT_EXEC permission.</h:li>
-							</h:ul>
-						</h:div>
-						<h:div><depends ref="mac"/> 
-							The evaluator shall perform static analysis on the
-							application to verify that mprotect is never invoked with the PROT_EXEC permission.
-						</h:div>
-					</Tests>
-				</aactivity>
-			</f-element>
-			<f-element id="fel-plays-nice">
-				<title>
-					The application shall be compatible with security features provided by the
-					platform vendor.
-				</title>
-				<note role="application">
-					This requirement is designed to ensure that platform security 
-					features do not need to be disabled in order for the application to run.
-				</note>
-				<aactivity level="element">
-					<TSS>None.<h:br/></TSS>
-					<Guidance>None.<h:br/></Guidance>
-					<Tests>
-						The evaluator shall configure the platform in the ascribed manner and 
-						carry out one of the prescribed tests:
-	                    <h:div><depends ref="android"/>
-							Applications running on Android cannot disable Android 
-							security features, therefore this requirement is met and no evaluation activity is required.
-						</h:div>
-						<h:div><depends ref="windows"/>
-							If the OS platform supports Windows Defender Exploit Guard 
-							(Windows 10 version 1709 or later), then the evaluator shall ensure that the application can 
-							run successfully with Windows Defender Exploit Guard Exploit Protection configured with the 
-							following minimum mitigations enabled; Control Flow Guard (CFG), Randomize memory allocations 
-							(Bottom-Up ASLR), Export address filtering (EAF), Import address filtering (IAF), and
-							Data Execution Prevention (DEP). The following link describes how to enable Exploit Protection, 
-							https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-exploit-guard/customize-exploit-protection.
-							<h:p/>
-							If the OS platform supports the Enhanced Mitigation Experience Toolkit (EMET) which can be 
-							installed on Windows 10 version 1703 and earlier, then the evaluator shall ensure that 
-							the application can run successfully with EMET configured with the following minimum 
-							mitigations enabled; Memory Protection Check, Randomize memory allocations (Bottom-Up ASLR), 
-							Export address filtering (EAF), and Data Execution Prevention (DEP).
-						</h:div>
-						<h:div><depends ref="ios"/>
-							Applications running on iOS cannot disable
-							security features, therefore this requirement is met and no evaluation activity is required.
-						</h:div>
-						<h:div><depends ref="linux"/> 
-							The evaluator shall ensure that the application can
-							successfully run on a system with either SELinux or AppArmor enabled and in enforce mode.
-						</h:div>
-						<h:div><depends ref="Solaris"/>
-							The evaluator shall ensure that the application can run with 
-							Solaris Trusted Extensions enabled and enforcing.
-						</h:div>
-						<h:div><depends ref="mac"/> 
-							The evaluator shall ensure that the application can
-							successfully run on macOS without disabling any security features. 
-						</h:div>
-					</Tests>
-				</aactivity>
-			</f-element>
-			<f-element id="fel-ro-exe">
-				<title>
-					The application shall not write user-modifiable files to directories that contain 
-					executable files unless explicitly directed by the user to do so.
-				</title>
-				<note role="application">
-					The purpose of this requirement is to help ensure the integrity of application binaries
-					by supporting file protection mechanisms such as directory-level file permissions and 
-					application allowlisting.<h:p/>
-					A user-modifiable file for purposes of this requirement is a file that is writable by
-					an unprivileged user of the application -- either directly through application 
-					execution or independently of the application. If the application runs in the context 
-					of the application user, then the application should not be able to write to the 
-					directory containing the application binaries -- regardless of whether the files 
-					are configuration data, audit data, or temporary files.<h:p/>
-					Executables and user-modifiable files may not share the same parent directory, but
-					may share directories above the parent.
-				</note>
-				<aactivity level="element">
-					<TSS>None.<h:br/></TSS>
-					<Guidance>None.<h:br/></Guidance>
-					<Tests>The evaluator shall run the application and determine where it writes its files.
-						For files where the user does not choose the destination, the evaluator shall 
-						check whether the destination directory contains executable files.
-						This varies per platform: 
-	                    <h:div><depends ref="android"/> 
-							The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. 
-							The evaluator shall ensure that there are no executable files stored under <h:span style="path">/data/data/<h:i>package</h:i>/</h:span> where <h:i>package</h:i> is the Java package of the application.
-						</h:div>
-						<h:div><depends ref="windows"/>For Windows Universal Applications the evaluator shall consider
-							the requirement met because the platform forces applications to write all data
-							within the application working directory (sandbox). For Windows Desktop Applications
-							the evaluator shall run the program, mimicking normal usage, and note where all user-modifiable
-							files are written. The evaluator shall ensure that there are no executable files
-							stored in the same directories to which the application wrote user-modifiable files.</h:div>
-						<h:div><depends ref="ios"/>The evaluator shall consider the requirement met because
-							the platform forces applications to write all data within the application working
-							directory (sandbox).</h:div>
-						<h:div><depends ref="linux"/> 
-							The evaluator shall run the program, mimicking normal usage, 
-							and note where all user-modifiable files are written. 
-							The evaluator shall ensure that there are no executable files stored in the 
-							same directories to which the application wrote user-modifiable files.
-						</h:div>
-						<h:div><depends ref="Solaris"/>
-							The evaluator shall run the program, mimicking normal usage, 
-							and note where all user-modifiable files are written. 
-							The evaluator shall ensure that there are no executable files stored in the 
-							same directories to which the application wrote user-modifiable files.
-						</h:div>
-						<h:div><depends ref="mac"/> The evaluator shall run the program, mimicking normal
-							usage, and note where all user-modifiable files are written. The evaluator shall ensure that there
-							are no executable files stored in the same directories to which the application
-							wrote user-modifiable files.
-						</h:div>
-					</Tests>
-				</aactivity>
-			</f-element>
-			<f-element id="fel-stackcookies">
-				<title>The application shall be built with stack-based buffer overflow protection
-					enabled.</title>
-				<aactivity level="element">
-					<TSS>None.<h:br/></TSS>
-					<Guidance>None.<h:br/></Guidance>
-					<Tests>
-						The evaluator will inspect every native executable included in the TOE to ensure that stack-based buffer 
-						overflow protection is present.
-						<h:div><depends ref="windows"/>Applications that run as Managed Code in the .NET Framework do not require
-							these stack protections.
-							Applications developed in Object Pascal using the Delphi IDE compiled with RangeChecking enabled 
-							comply with this element. For other code, 
-							the evaluator shall review the TSS and verify that the /GS flag was used during compilation. The 
-							evaluator shall run a tool like, BinScope, that can verify the correct usage of /GS.</h:div>
-						<h:div class="subaact"> <h:i><h:b>For PE</h:b></h:i>
-							, the evaluator will disassemble each and ensure the following sequence appears:<h:br/>
-							<h:table class="code-table">
-								<h:tr><h:td>mov rcx, QWORD PTR [rsp+<h:i>(...)</h:i>]</h:td></h:tr>
-								<h:tr><h:td>xor rcx, <h:i>(...)</h:i></h:td></h:tr>
-								<h:tr><h:td>call <h:i>(...)</h:i></h:td></h:tr>
-							</h:table>.
-						</h:div>
-						<h:div class="subaact"> <h:i><h:b>For ELF executables</h:b></h:i>, the evaluator will ensure that each 
-							contains references to the symbol <h:b>__stack_chk_fail</h:b>.
-						</h:div>
-						<h:br/><h:p>
-						Tools such as <h:a href="https://github.com/commoncriteria/canary-detector">Canary Detector</h:a> may help
-						automate these activities.
-						</h:p>
-					</Tests>
-				</aactivity>
-			</f-element>
-        </f-component>
-		
+	
 	<ext-comp-def fam-id="FPT_IDV_EXT" title="Software Identification and Versions">
 	  <fam-behavior>
 	    This family defines requirements for how the TOE version is identified.
@@ -3727,7 +3756,7 @@ functionality (such as these)
 							that comply with minimum requirements from ISO/IEC 19770-2:2015</selectable>
 						<selectable><assignable>other version information</assignable></selectable></selectables>.
 				</title>
-				<note role="application">The use of SWID tag to identify application software
+				<note role="application">The use of a SWID tag to identify application software
 					is a requirement for DOD IT based on DoD Instruction 8500.01 which requires
 					the use of SCAP which includes SWID tags per the NIST standard. The PP selection
 					of "other version information" will be removed in the next major release of
@@ -3772,7 +3801,7 @@ functionality (such as these)
 				</title>
 				<note role="application"> 
 					The intention of this requirement is for the evaluator to discover and document whether the 
-					application is including unnecessary or unexpected third-party libraries.  This includes
+					application includes unnecessary or unexpected third-party libraries.  This includes
 					adware libraries which could present a privacy threat, as well as ensuring
 					documentation of such libraries in case vulnerabilities are later discovered.
 				</note>
@@ -3872,7 +3901,7 @@ functionality (such as these)
 							<test>The evaluator shall install the application and then locate all of its executable files. 
 								The evaluator shall then, for each file, save off either a hash of the file or a copy of the file 
 								itself. The evaluator shall then run the application and exercise all features of the application as 
-								described in the ST. The evaluator shall then compare each executable file with the either the saved 
+								described in the ST. The evaluator shall then compare each executable file with either the saved 
 								hash or the saved copy of the files. The evaluator shall verify that these are identical.
 							</test>
 						</testlist><h:br/>
@@ -3908,8 +3937,8 @@ functionality (such as these)
 				</title>
 				<note role="application">
 					Application software that is distributed as part of the platform operating system is not 
-					required to be package for installation or uninstallation. If "as an additional software
-					package to the OS" is selected the requirements from FPT_TUD_EXT.2 
+					required to be packaged for installation or uninstallation. If "as an additional software
+					package to the platform OS" is selected the requirements from FPT_TUD_EXT.2 
 					must be included in the ST.
 				</note>
 				<aactivity level="element">
@@ -3973,7 +4002,7 @@ functionality (such as these)
 							derivatives shall be packaged in <h:code>DEB</h:code> format. </h:div>
 						<h:div><depends ref="Solaris"/> The evaluator shall ensure that the application is
 							packaged in the PKG format. </h:div>
-						<h:div><depends ref="mac"/> The evaluator shall ensure that application is packaged
+						<h:div><depends ref="mac"/> The evaluator shall ensure that the application is packaged
 							in the DMG format, the PKG format, or the MPKG format. </h:div>
 					</Tests>
 				</aactivity>
@@ -3999,9 +4028,9 @@ functionality (such as these)
 							the platform forces applications to write all data within the application working 
 							directory (sandbox).</h:div>
 						<h:br/>For all other platforms, the evaluator shall record the path of every file on the entire filesystem prior to installation of the 
-						application, and then install and run the application. Afterwards, the evaluator shall then uninstall the application, 
+						application, and then install and run the application. Afterward, the evaluator shall uninstall the application, 
 						and compare the resulting filesystem to the initial record to verify that no files, other than configuration, output, 
-						and audit/log files, have been added to the filesystem.
+						and audit or log files, have been added to the filesystem.
 					</Tests>
 				</aactivity>
 			</f-element>        
@@ -4118,7 +4147,8 @@ functionality (such as these)
 					then you must include the SFRs that address the certificates.   
 					X509 SFRs shall be included if selections for HTTPS, TLS, or DTLS are included (FCS_HTTPS, FCS_TLSC, FCS_TLSS, FCS_DTLS).
 					<h:br/> <h:br/>-->
-					Encryption is not required for applications transmitting data that is not sensitive.<h:p/>
+					Encryption is not required for applications transmitting data that is not sensitive.
+					<h:br/><h:br/>
 					If "<h:i>encrypt all transmitted</h:i>" is selected and "<h:i>TLS</h:i>" or "<h:i>DTLS</h:i>" as a client or server is selected, then 
 					corresponding components from the Functional Package for TLS must be selected.<h:p/>
 					If "<h:i>encrypt all transmitted</h:i>" is selected, "<h:i>HTTPS</h:i>" is selected, and the 
@@ -4127,8 +4157,6 @@ functionality (such as these)
 					TOE acts as a server, then FCS_HTTPS_EXT.1/Server is required. <h:p/> 
 					If the TOE acts as an HTTPS server and if "<h:i>mutual authentication</h:i>" is selected,
 					then FCS_HTTPS_EXT.2 is also required. <h:p/> 
-					If "<h:i>encrypt all transmitted</h:i>" is selected and "<h:i>DTLS</h:i>" is selected, then
-					FCS_DTLS_EXT.1 is required.<h:p/>
 					If "<h:i>encrypt all transmitted</h:i>" is selected and "<h:i>SSH</h:i>" is selected, then the 
 					TSF shall be validated against the  <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459">
 					<h:i>Functional Package for Secure Shell</h:i></h:a>.<h:p/>
@@ -4146,7 +4174,7 @@ functionality (such as these)
 							selected and the platform implements a protocol that requires certificates</h:li>
 						<h:li>"<h:i>invoke platform-provided functionality to encrypt all transmitted data</h:i>" is selected 
 							and the platform implements a protocol that requires certificates</h:li></h:ul>
-						<h:b>Note:</h:b>FIA_X509_EXT.1 and FIA_X509_EXT.2 are not applicable if "<h:i>mutual authentication</h:i>" 
+						<h:b>Note: </h:b>FIA_X509_EXT.1 and FIA_X509_EXT.2 are not applicable if "<h:i>mutual authentication</h:i>" 
 					is not selected when the TOE acts as an HTTPS, TLS, or DTLS server.
 					<h:br/><h:br/>
 					The selections for mutual authentication for HTTPS align with the selections in this SFR. 
@@ -4155,7 +4183,7 @@ functionality (such as these)
 				<aactivity>
 					<TSS>
 						For platform-provided functionality, the evaluator shall verify the TSS contains 
-						the calls to the platform that TOE is leveraging to invoke the functionality.<h:p/>
+						the calls to the platform that the TOE is leveraging to invoke the functionality.<h:p/>
 					</TSS>
 					<Guidance>None.<h:p/></Guidance>
 					<Tests>
@@ -4227,10 +4255,13 @@ functionality (such as these)
 		<xref to="Threats"/>. The Security Functional Requirements (SFRs) in <xref to="SFRs"/> are a formal
 		instantiation of the Security Objectives. The PP identifies the Security Assurance Requirements
 		(SARs) to frame the extent to which the evaluator assesses the documentation applicable for the evaluation 
-		and performs independent testing.<h:p/>
+		and performs independent testing.<h:br/><h:br/>
 		This section lists the set of SARs from CC part 3 that are required in evaluations against this
 		PP. Individual Evaluation Activities (EAs) to be performed are specified both
-		in <xref to="req"/> as well as in this section. <h:p/>      
+		in <xref to="req"/> as well as in this section. These SARs were chosen based on the notion that a hypothetical attacker of the TOE lacks administrative privilege
+    	on its platform but otherwise has persistent access to the TOE itself and the sophistication to interact with the platform in a way that they can
+    	attmept to access stored data without authorization or to run tools that automate more sophisticated malicious activity.
+    	<h:br/><h:br/>      
 		The general model for evaluation of TOEs against STs written to conform to this PP is as follows:<h:p/>
 		After the ST has been approved for evaluation, the  CCTL will obtain the TOE, supporting
 		environmental IT, and the administrative/user guides for the TOE. The CCTL is expected to
@@ -4328,7 +4359,7 @@ functionality (such as these)
         documentation should be in an informal style and readable by the IT personnel. Guidance must
         be provided for every operational environment that the product supports as claimed in the
         ST. This guidance includes instructions to successfully install the TSF in
-        that environment; and Instructions to manage the security of the TSF as a 
+        that environment; and instructions to manage the security of the TSF as a 
         product and as a component of the larger operational environment. Guidance pertaining to 
         particular security functionality is also provided; requirements on such guidance are 
         contained in the evaluation activities specified with each requirement.
@@ -4491,9 +4522,9 @@ functionality (such as these)
 					(such as a product name/version number) that specifically identifies the version that
 					meets the requirements of the ST. Further, the evaluator shall check the AGD guidance
 					and TOE samples received for testing to ensure that the version
-					number is consistent with that in the ST. If the vendor maintains a web site
+					number is consistent with that in the ST. If the vendor maintains a website
 					advertising the TOE, the evaluator shall examine the information on 
-					the web site to ensure that the information in the ST is sufficient to distinguish the
+					the website to ensure that the information in the ST is sufficient to distinguish the
 					product.
 				<!--	    </TSS> -->
 				</aactivity>
@@ -4580,8 +4611,8 @@ functionality (such as these)
 			<a-element type="C">
 				<title>The description shall include the mechanisms publicly available for
 					reporting security issues pertaining to the TOE.</title>
-				<note>
-					The reporting mechanism could include web sites, email addresses, as
+				<note role="application">
+					The reporting mechanism could include a website or email address as
 					well as a means to protect the sensitive nature of the report (e.g., public keys that could be
 					used to encrypt the details of a proof-of-concept exploit).
 				</note>
@@ -4624,7 +4655,7 @@ functionality (such as these)
 			Testing is performed to confirm the
 			functionality described in the TSS as well as the administrative
 			(including configuration and operational) documentation provided. The focus of the testing
-			is to confirm that the requirements specified in <xref to="SFRs"/> being met,
+			is to confirm that the requirements specified in <xref to="SFRs"/> are being met,
 			although some additional testing is specified for SARs in <xref to="SARs"/>. The
 			evaluation activities identify the additional testing activities associated with these
 			components. The evaluator produces a test report documenting the plan for and results of
@@ -4634,7 +4665,7 @@ functionality (such as these)
 			component’s evaluation activities are covered by the evaluation activities listed for ALC_CMC.1. 
             <a-element type="D">
 				<title>The developer shall provide the TOE for testing.</title>
-				<note role="application">The developer must provide at least one product instance of the TOE for complete testing on at least
+				<note role="application">The developer must provide at least one product instance of the TOE for complete testing on at least one
 					platform regardless of equivalency. See the Equivalency Appendix for more details.
 				</note>
             </a-element>         
@@ -4648,7 +4679,7 @@ functionality (such as these)
             <a-element type="E">
 				<title>The evaluator shall test a subset of the TSF to confirm
 					that the TSF operates as specified.</title>
-				<note role="application">The evaluator shall test the application on the most current
+				<note role="application">The evaluator should test the application on the most current
 					fully patched version of the platform.</note>
 				<aactivity>
 					The evaluator shall prepare a test plan and report documenting the testing
@@ -5136,7 +5167,7 @@ functionality (such as these)
             <h:td valign="top">Platform Type/Vendor</h:td>
             <h:td valign="top">Different</h:td>
             <h:td valign="top">Software-based execution environments that are substantially different or come 
-              from different vendors are not equivalent. For example, a java virtual machine is not the same as a 
+              from different vendors are not equivalent. For example, a Java virtual machine is not the same as a 
               container. A Docker container is not the same as a CoreOS container.</h:td>
           </h:tr>
           <h:tr valign="top">
@@ -5202,9 +5233,9 @@ functionality (such as these)
       <entry id="bibCEM">
         <tag>CEM</tag>
         <description>
-          <h:a href="http://www.commoncriteriaportal.org/files/ccfiles/CEMV3.1R4.pdf">Common
-            Evaluation Methodology for Information Technology Security - Evaluation Methodology</h:a>,
-          CCMB-2017-04-004, Version 3.1, Revision 5, April 2017. </description>
+        	<h:a href="https://commoncriteriaportal.org/files/ccfiles/CEM2022R1.pdf">Common
+            Methodology for Information Technology Security - Evaluation Methodology</h:a>,
+          CCMB-2022-11-006, CEM:2022, Revision 1, November 2022. </description>
       </entry>
      
       <entry id="bibOMB">
