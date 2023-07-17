@@ -2472,25 +2472,32 @@ The following sections list Common Criteria and technology terms used in this do
     				shall be protected.  The only exception is if the user intentionally exports the sensitive data
     				to non-protected files. <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> authors should select "<i>protect sensitive data in accordance with 
     					<a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></i>" for the sensitive data that is covered by the <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a> <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>.
+    				<p></p>
+    				
     			</span></div></div></div>
     	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a></div>
     				
     				
     				
     			<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
-    					The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it describes the sensitive data processed by the application. 
+    					If any selection other than <b>not store any sensitive data</b> is selected the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> 
+    					to ensure that it describes the sensitive data processed by the application. 
     					The evaluator shall then ensure that the following activities cover all of the sensitive data identified in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>.
     					<p></p>
     					If <b>not store any sensitive data</b> is selected, the evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure 
     					that it describes how sensitive data cannot be written to non-volatile memory. The evaluator shall also 
     					ensure that this is consistent with the filesystem test below.<p></p>
-    				</div><div class="eacategory">Guidance</div><div class="ea">None.<p></p></div><div class="eacategory">Tests</div><div class="ea">
-    					Evaluation activities (after the identification of the sensitive data) are to be performed on all sensitive data listed 
-    					that are not covered by <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>. <p></p>
-    					The evaluator shall inventory the filesystem locations where the application may write data. 
+    					If mulitple selections are included the evaluator shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes which sensative data is captures by which selection.
+    				</div><div class="eacategory">Guidance</div><div class="ea">The evalutor shall confirm the operational guidance contains any instructions necessary configing the storage and protection of any sensative data.
+    					<p></p>
+    					If <b>leverage platform-provided functionality to encrypt sensitive data</b> is selected the evalutor shall confirm the operational guidance contains the list of supported 
+    					operational environments and any steps necessary to ensure the platform captures any sensative data that is stored.
+    					<p></p></div><div class="eacategory">Tests</div><div class="ea">
+    					If <b>implement functionality to encrypt sensitive data as defined in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</b>
+    					the evaluator shall inventory the filesystem locations where the application may write data. 
     					The evaluator shall run the application and attempt to store sensitive data. The evaluator shall 
-    					then inspect those areas of the filesystem to note where data was stored (if any), and determine 
-    					whether it has been encrypted.<p></p>
+    					then inspect those areas of the filesystem to note where data was stored (if any), and verify 
+    					it has been encrypted.<p></p>
     					If "<i>leverage platform-provided functionality...</i>" is selected, the evaluation activities will be performed as 
     					stated in the following requirements, which vary on a per-platform basis.<p></p>
     					<div class="dependent">Platforms:<a href="#android"><b>Android</b>: <i>Mobile operating systems based on Google Android.</i></a><div class="dependent-content"><div>
@@ -2499,9 +2506,7 @@ The following sections list Common Criteria and technology terms used in this do
     					</div></div></div>
     					<div class="dependent">Platforms:<a href="#windows"><b>Microsoft Windows</b>: <i>Microsoft Windows operating systems.</i></a><div class="dependent-content"><div>
     						The Windows platform currently does not provide data-at-rest
-    						encryption services which depend upon invocation by application developers. The evaluator shall
-    						verify that the Operational User Guidance makes the need to activate platform encryption, 
-    						such as BitLocker or Encrypting File System (EFS), clear to the end user.
+    						encryption services which depend upon invocation by application developers. No additional test is required.
     					</div></div></div>
     					<div class="dependent">Platforms:<a href="#ios"><b>Apple iOS</b>: <i>Apple's mobile operating system for iPhones.</i></a><div class="dependent-content"><div>
     						The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and ensure that it describes how the 
@@ -2510,21 +2515,15 @@ The following sections list Common Criteria and technology terms used in this do
     					</div></div></div>
     					<div class="dependent">Platforms:<a href="#linux"><b>Linux</b>: <i>Linux-based operating systems other than Android.</i></a><div class="dependent-content"><div>
     						The Linux platform currently does not provide data-at-rest encryption services which depend
-    						upon invocation by application developers.  The evaluator shall verify that
-    						the Operational User Guidance makes the need to activate platform encryption clear 
-    						to the end user.
+    						upon invocation by application developers.  No additional test is required.
     					</div></div></div>
     					<div class="dependent">Platforms:<a href="#Solaris"><b>Oracle Solaris</b>: <i>Oracle's enterprise operating system.</i></a><div class="dependent-content"><div>
     						The Solaris platform currently does not provide data-at-rest encryption services which depend
-    						upon invocation by application developers.  The evaluator shall verify that
-    						the Operational User Guidance makes the need to activate platform encryption clear 
-    						to the end user.
+    						upon invocation by application developers.  No additional test is required.
     					</div></div></div>
     					<div class="dependent">Platforms:<a href="#mac"><b>Apple macOS</b>: <i>Apple's operating system for MACs.</i></a><div class="dependent-content"><div>
     						The macOS platform currently does not provide data-at-rest encryption services which depend
-    						upon invocation by application developers.  The evaluator shall verify that
-    						the Operational User Guidance makes the need to activate platform encryption clear
-    						to the end user.
+    						upon invocation by application developers.  No additional test is required.
     					</div></div></div>
     				</div></div></div></div>
       
