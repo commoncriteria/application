@@ -2325,12 +2325,37 @@ functionality (such as these)
 						<selectable>invoke the functionality provided by the platform to securely store 
 							<assignable>list of credentials</assignable>
 						</selectable>
-						<selectable id="sel_impl_sto">implement functionality to securely store
+						<selectable id="sel_impl_sto">
+							securely store
+							<assignable>list of credentials</assignable>
+							with platform provided
+							<selectables>
+								<selectable>
+									<selectables linebreak="yes">
+									<selectable>AES-CBC (as defined in NIST SP 800-38A) mode</selectable>
+									<selectable>AES-GCM (as defined in NIST SP 800-38D) mode</selectable>
+									<selectable>AES-XTS (as defined in NIST SP 800-38E) mode</selectable>
+									</selectables> and cryptographic key size of 256-bit.
+								</selectable>
+								<selectable>PBKDF2 function that uses <selectables linebreak="yes">
+									<selectable>HMAC-SHA256</selectable>
+									<selectable>HMAC-SHA384</selectable>
+									<selectable>HMAC-SHA512</selectable>
+								</selectables> with <assignable>positive integer of 1,000 or more</assignable> iterations 
+									and output cryptographic key size of 256 bits that meet the following [<h:i>NIST SP 800-132</h:i>].  
+								</selectable>
+							</selectables>
+						</selectable>
+						<selectable id="sel_impl_sto">
+							implement functionality to securely store
 							<assignable>list of credentials</assignable>
 							according to
 							<selectables>
 								<selectable id="sel-fcs-sto-skc">FCS_COP.1/SKC</selectable>
-								<selectable id="sel-fcs-sto-pbkdf">FCS_PBKDF_EXT.1</selectable></selectables></selectable></selectables>
+								<selectable id="sel-fcs-sto-pbkdf">FCS_PBKDF_EXT.1</selectable>
+							</selectables>
+						</selectable>
+					</selectables>
 					to non-volatile memory.
 				</title>
 
@@ -2370,6 +2395,8 @@ functionality (such as these)
 						credentials (secret keys, PKI private keys, or passwords) needed to meet the 
 						requirements in the ST. For each of these items, the evaluator shall 
 						confirm that the TSS lists for what purpose it is used, and how it is stored. <h:p/>
+						If <h:b>securely store</h:b> is selected the evalutor shall verify the TSS contains the platform functions utilized and verify those functions 
+						are documented by the platform to be non-depricated functions meeting the specifications in the requirement.
 					</TSS>              
 					<Guidance>None.<h:p/></Guidance>
 					<Tests>
