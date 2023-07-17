@@ -977,7 +977,7 @@
 			<f-element id="fel-key-est">
 				<title>
 					The application shall 
-						<selectables onlyone="yes">
+						<selectables>
 							<selectable>invoke platform-provided functionality</selectable>
 							<selectable>implement functionality</selectable></selectables> 
 					to perform cryptographic key establishment in accordance with a specified 
@@ -1654,16 +1654,20 @@ functionality (such as these)
 					specified cryptographic algorithm <selectables linebreak="yes">
 						<selectable>HMAC-SHA-256</selectable>
 						<selectable>HMAC-SHA-384</selectable>
-						<selectable>HMAC-SHA-512</selectable></selectables> and <selectables linebreak="yes">
-						<selectable>HMAC-SHA-1</selectable>
-						<selectable>no other algorithms</selectable></selectables> 
+						<selectable>HMAC-SHA-512</selectable></selectables> and 
+							<selectables onlyone="yes" linebreak="yes">
+								<selectable>HMAC-SHA-1</selectable>
+								<selectable>no other algorithms</selectable>
+							</selectables> 
 					<h:b>with</h:b> key sizes <assignable>key size (in bits) used in HMAC</assignable> 
 					<h:b>and message digest sizes</h:b> <selectables>
 						<selectable>256</selectable>
 						<selectable>384</selectable>
-						<selectable>512</selectable></selectables> <h:b>and</h:b> <selectables>
-						<selectable>160</selectable>
-						<selectable>no other size</selectable></selectables> <h:b>bits</h:b>
+						<selectable>512</selectable></selectables> <h:b>and</h:b> 
+							<selectables onlyone="yes">
+								<selectable>160</selectable>
+								<selectable>no other size</selectable>
+							</selectables> <h:b>bits</h:b>
 					that meet the following: [<h:i>FIPS Pub 198-1, "The Keyed-Hash Message Authentication Code,"
 					and FIPS Pub 180-4, "Secure Hash Standard"</h:i>].
 				</title>
@@ -1699,13 +1703,17 @@ functionality (such as these)
 			<f-element id="fel-sign">
 				<title>
 					The <h:b>application</h:b> shall perform [<h:i>cryptographic signature services (generation and
-					verification)</h:i>] in accordance with a specified cryptographic algorithm <selectables linebreak="yes">
+					verification)</h:i>] in accordance with a specified cryptographic algorithm 
+					<selectables linebreak="yes">
 						<selectable><h:b>RSA schemes</h:b> using cryptographic key sizes of [2048-bit or greater] that meet the 
 							following: [FIPS PUB 186-4, “Digital Signature Standard (DSS),” Section 5]</selectable>
-						<selectable><h:b>ECDSA schemes</h:b> using [“NIST curves” P-256, P-384 and <selectables>
+						<selectable><h:b>ECDSA schemes</h:b> using [“NIST curves” P-256, P-384 and 
+							<selectables>
 							<selectable>P-521</selectable>
-							<selectable exclusive="yes">no other curves</selectable></selectables>]
-						that meet the following: [FIPS PUB 186-4, “Digital Signature Standard (DSS),” Section 6]</selectable></selectables>.
+							<selectable exclusive="yes">no other curves</selectable>
+							</selectables>]
+						that meet the following: [FIPS PUB 186-4, “Digital Signature Standard (DSS),” Section 6]</selectable>
+					</selectables>.
 				</title>
 				<note role="application">
 					This is dependent on implementing cryptographic functionality, as in FTP_DIT_EXT.1.<h:p/>
@@ -1944,7 +1952,7 @@ functionality (such as these)
 			<f-element id="fel-https-wath-m">
 				<title>
 					The application shall 
-					<selectables onlyone="yes">
+					<selectables>
 						<selectable>not establish the connection</selectable>
 						<selectable>establish or not establish the connection based on an administrative or user setting</selectable></selectables>
 					if the peer certificate is deemed invalid.
@@ -3337,9 +3345,9 @@ functionality (such as these)
       	
 	<f-element id="fel-transmit-pii">
 				<title>The application shall 
-					<selectables linebreak="yes">
-						<selectable exclusive="yes">not transmit PII over a network</selectable>
-						<selectable exclusive="yes"> require user approval before executing
+					<selectables onlyone="yes" linebreak="yes">
+						<selectable>not transmit PII over a network</selectable>
+						<selectable>require user approval before executing
 							<assignable>list of functions that transmit PII over a network</assignable>
 						</selectable></selectables>.
 				</title>
@@ -3462,9 +3470,9 @@ functionality (such as these)
     		<f-element id="fel-nwx">
     			<title>
     				The application shall 
-    				<selectables linebreak="yes">
-    					<selectable exclusive="yes">not allocate any memory region with both write and execute permissions</selectable>
-    					<selectable exclusive="yes">allocate memory regions with write and execute permissions for only
+    				<selectables onlyone="yes" linebreak="yes">
+    					<selectable>not allocate any memory region with both write and execute permissions</selectable>
+    					<selectable>allocate memory regions with write and execute permissions for only
     						<assignable> list of functions performing just-in-time compilation</assignable>
     					</selectable></selectables>.
     			</title>
@@ -4081,14 +4089,14 @@ functionality (such as these)
 				<title>The application shall 
 					<selectables linebreak="yes">
 						<selectable exclusive="yes">not transmit any 
-							<selectables>
-								<selectable exclusive="yes">data</selectable>
-								<selectable exclusive="yes">sensitive data</selectable></selectables>
+							<selectables onlyone="yes">
+								<selectable>data</selectable>
+								<selectable>sensitive data</selectable></selectables>
 						</selectable>
 						<selectable exclusive="yes">encrypt all transmitted 
-							<selectables>
-								<selectable exclusive="yes">sensitive data</selectable>
-								<selectable exclusive="yes">data</selectable></selectables> with
+							<selectables onlyone="yes">
+								<selectable>sensitive data</selectable>
+								<selectable>data</selectable></selectables> with
 							<selectables>
 								<selectable id="sel_all_https_cl">HTTPS as a client in accordance with FCS_HTTPS_EXT.1/Client</selectable>
 								<selectable id="sel_all_https_sv">HTTPS as a server in accordance with FCS_HTTPS_EXT.1/Server</selectable>
@@ -4121,22 +4129,22 @@ functionality (such as these)
 				</title>
 				<ext-comp-def-title>
 				<title>The application shall 
-					<selectables linebreak="yes">
-						<selectable exclusive="yes">not transmit any 
-							<selectables>
-								<selectable exclusive="yes">data</selectable>
-								<selectable exclusive="yes">sensitive data</selectable></selectables>
+					<selectables onlyone="yes" linebreak="yes">
+						<selectable>not transmit any 
+							<selectables onlyone="yes">
+								<selectable>data</selectable>
+								<selectable>sensitive data</selectable></selectables>
 						</selectable>
-						<selectable exclusive="yes">encrypt all transmitted 
-							<selectables>
-								<selectable exclusive="yes">sensitive data</selectable>
-								<selectable exclusive="yes">data</selectable></selectables> with
+						<selectable>encrypt all transmitted 
+							<selectables onlyone="yes">
+								<selectable>sensitive data</selectable>
+								<selectable>data</selectable></selectables> with
 								<assignable>trusted protocol</assignable>
 						</selectable>
-						<selectable exclusive="yes">invoke platform-provided functionality to encrypt all transmitted sensitive data with
+						<selectable>invoke platform-provided functionality to encrypt all transmitted sensitive data with
 						<assignable>trusted protocol</assignable>
 						</selectable>	    	      
-						<selectable exclusive="yes">invoke platform-provided functionality to encrypt all transmitted data with
+						<selectable>invoke platform-provided functionality to encrypt all transmitted data with
 						<assignable>trusted protocol</assignable>
 						</selectable></selectables> between itself and another trusted IT product.
 				</title>
