@@ -2449,24 +2449,31 @@ functionality (such as these)
     				shall be protected.  The only exception is if the user intentionally exports the sensitive data
     				to non-protected files. ST authors should select "<h:i>protect sensitive data in accordance with 
     					FCS_STO_EXT.1</h:i>" for the sensitive data that is covered by the FCS_STO_EXT.1 SFR.
+    				<h:p/>
+    				
     			</note>
     			<aactivity>
     				<TSS>
-    					The evaluator shall examine the TSS to ensure that it describes the sensitive data processed by the application. 
+    					If any selection other than <h:b>not store any sensitive data</h:b> is selected the evaluator shall examine the TSS 
+    					to ensure that it describes the sensitive data processed by the application. 
     					The evaluator shall then ensure that the following activities cover all of the sensitive data identified in the TSS.
     					<h:p/>
     					If <h:b>not store any sensitive data</h:b> is selected, the evaluator shall inspect the TSS to ensure 
     					that it describes how sensitive data cannot be written to non-volatile memory. The evaluator shall also 
     					ensure that this is consistent with the filesystem test below.<h:p/>
+    					If mulitple selections are included the evaluator shall ensure the TSS describes which sensative data is captures by which selection.
     				</TSS>
-    				<Guidance>None.<h:p/></Guidance>
+    				<Guidance>The evalutor shall confirm the operational guidance contains any instructions necessary configing the storage and protection of any sensative data.
+    					<h:p/>
+    					If <h:b>leverage platform-provided functionality to encrypt sensitive data</h:b> is selected the evalutor shall confirm the operational guidance contains the list of supported 
+    					operational environments and any steps necessary to ensure the platform captures any sensative data that is stored.
+    					<h:p/></Guidance>
     				<Tests>
-    					Evaluation activities (after the identification of the sensitive data) are to be performed on all sensitive data listed 
-    					that are not covered by FCS_STO_EXT.1. <h:p/>
-    					The evaluator shall inventory the filesystem locations where the application may write data. 
+    					If <h:b>implement functionality to encrypt sensitive data as defined in the PP-Module for File Encryption</h:b>
+    					the evaluator shall inventory the filesystem locations where the application may write data. 
     					The evaluator shall run the application and attempt to store sensitive data. The evaluator shall 
-    					then inspect those areas of the filesystem to note where data was stored (if any), and determine 
-    					whether it has been encrypted.<h:p/>
+    					then inspect those areas of the filesystem to note where data was stored (if any), and verify 
+    					it has been encrypted.<h:p/>
     					If "<h:i>leverage platform-provided functionality...</h:i>" is selected, the evaluation activities will be performed as 
     					stated in the following requirements, which vary on a per-platform basis.<h:p/>
     					<h:div><depends ref="android"/>
@@ -2475,9 +2482,7 @@ functionality (such as these)
     					</h:div>
     					<h:div><depends ref="windows"/>
     						The Windows platform currently does not provide data-at-rest
-    						encryption services which depend upon invocation by application developers. The evaluator shall
-    						verify that the Operational User Guidance makes the need to activate platform encryption, 
-    						such as BitLocker or Encrypting File System (EFS), clear to the end user.
+    						encryption services which depend upon invocation by application developers. No additional test is required.
     					</h:div>
     					<h:div><depends ref="ios"/>
     						The evaluator shall inspect the TSS and ensure that it describes how the 
@@ -2486,21 +2491,15 @@ functionality (such as these)
     					</h:div>
     					<h:div><depends ref="linux"/>
     						The Linux platform currently does not provide data-at-rest encryption services which depend
-    						upon invocation by application developers.  The evaluator shall verify that
-    						the Operational User Guidance makes the need to activate platform encryption clear 
-    						to the end user.
+    						upon invocation by application developers.  No additional test is required.
     					</h:div>
     					<h:div><depends ref="Solaris"/>
     						The Solaris platform currently does not provide data-at-rest encryption services which depend
-    						upon invocation by application developers.  The evaluator shall verify that
-    						the Operational User Guidance makes the need to activate platform encryption clear 
-    						to the end user.
+    						upon invocation by application developers.  No additional test is required.
     					</h:div>
     					<h:div><depends ref="mac"/>
     						The macOS platform currently does not provide data-at-rest encryption services which depend
-    						upon invocation by application developers.  The evaluator shall verify that
-    						the Operational User Guidance makes the need to activate platform encryption clear
-    						to the end user.
+    						upon invocation by application developers.  No additional test is required.
     					</h:div>
     				</Tests>
     			</aactivity>
