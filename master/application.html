@@ -1092,12 +1092,14 @@ The following sections list Common Criteria and technology terms used in this do
 						it identifies the usage for each scheme.<p></p>
 						If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> selects "<i>invoke platform-provided functionality</i>,"
 						then the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it describes 
-						how the key generation functionality is invoked.<p></p>
+						how the key generation functionality is invoked and that the invokation matches the algorithm and size selections for each 
+						supported platform. The evaluator shall confirm the invocation of the platform is using non-depricated functions 
+						provided by the platform(s).<p></p>
 					</div>
 					<div class="eacategory">Guidance</div><div class="ea"> 
 						The evaluator shall verify that the AGD guidance instructs the administrator how to 
 						configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use the selected key generation scheme(s) and 
-						key size(s) for all uses defined in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.<p></p>
+						key size(s) for all uses defined in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> if any configuration is required.<p></p>
 					</div>
 					<div class="eacategory">Tests</div><div class="ea">
 						If the application selects "<i>implement functionality</i>," then the following test
@@ -1242,7 +1244,7 @@ The following sections list Common Criteria and technology terms used in this do
 						documentation available for the operational environment to determine that the key
 						size being requested is identical to the key size and mode to be used for the
 						encryption/decryption of the user data.<p></p>
-					</div><div class="eacategory">Guidance</div><div class="ea">None.<p></p></div><div class="eacategory">Tests</div><div class="ea">None.</div></div></div></div>
+					</div><div class="eacategory">Guidance</div><div class="ea">The evaluator shall verify the guidance documention contains any informance necessary to configure key sizes.<p></p></div><div class="eacategory">Tests</div><div class="ea">None.</div></div></div></div>
 
 		
         <div class="comp" id="FCS_CKM.2"><h4>FCS_CKM.2 Cryptographic Key Establishment</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
@@ -1299,10 +1301,15 @@ The following sections list Common Criteria and technology terms used in this do
 						key generation schemes identified in <a href="#FCS_CKM.1.1/AK">FCS_CKM.1.1/AK</a>. If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> specifies more than one 
 						scheme, the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it identifies the usage for each 
 						scheme.<p></p>
+						If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> selects "<i>invoke platform-provided functionality</i>,"
+						then the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it describes 
+						how the key establishment functionality is invoked and that the invokation matches the algorithm selection for each 
+						supported platform. The evaluator shall confirm the invocation of the platform is using non-depricated functions 
+						provided by the platform(s).<p></p>
 					</div>
 					<div class="eacategory">Guidance</div><div class="ea"> 
 						The evaluator shall verify that the AGD guidance instructs the administrator how to configure 
-						the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use the selected key establishment scheme(s).  <p></p>  
+						the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use the selected key establishment scheme(s) if configuration is required.<p></p>  
 					</div>
 					<div class="eacategory">Tests</div><div class="ea">
 						Evaluation Activity Note: The following tests require the developer to provide access to a test 
@@ -1748,7 +1755,7 @@ The following sections list Common Criteria and technology terms used in this do
 						The evaluator shall check that the association of the hash function with other
 						application cryptographic functions (for example, the digital signature verification
 						function) is documented in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>.<p></p>
-					</div><div class="eacategory">Guidance</div><div class="ea">None.<p></p></div><div class="eacategory">Tests</div><div class="ea">
+					</div><div class="eacategory">Guidance</div><div class="ea">The evaluator shall verify the guidance documentation contains any information required for configuring the algorithm or size.<p></p></div><div class="eacategory">Tests</div><div class="ea">
 						The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> hashing functions can be implemented in one of two 
 						modes. The first mode is the byte-oriented mode. In this mode the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> 
 						hashes only messages that are an integral number of bytes in length; i.e., the length 
@@ -1835,7 +1842,7 @@ The following sections list Common Criteria and technology terms used in this do
 					
 					
 					
-				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">None.<p></p></div><div class="eacategory">Guidance</div><div class="ea">None.<p></p></div><div class="eacategory">Tests</div><div class="ea">
+				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">None.<p></p></div><div class="eacategory">Guidance</div><div class="ea">The evalutator shall verify the guidance documentation contains any infomration required for configuring the algorithm or size.<p></p></div><div class="eacategory">Tests</div><div class="ea">
 						For each of the supported parameter sets, the evaluator shall compose 15 sets of test data.
 						Each set shall consist of a key and message data.  The evaluator shall have the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> generate
 						<abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr> tags for these sets of test data.  The resulting MAC tags shall be compared to the 
@@ -1872,7 +1879,7 @@ The following sections list Common Criteria and technology terms used in this do
 					
 					
 					
-				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">None.<p></p></div><div class="eacategory">Guidance</div><div class="ea">None.<p></p></div><div class="eacategory">Tests</div><div class="ea">
+				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">None.<p></p></div><div class="eacategory">Guidance</div><div class="ea">The evaluator shall verify the guidance documentation contains any information required for configuring the algorithm or size.<p></p></div><div class="eacategory">Tests</div><div class="ea">
 						The following tests require the developer to provide access to a test application
 						that provides the evaluator with tools that are typically not found in the production
 						application. <p></p>
@@ -1950,7 +1957,8 @@ The following sections list Common Criteria and technology terms used in this do
 						explain how the implementation complies with <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 2818.<p></p>
 					</div>
 					<div class="eacategory">Guidance</div><div class="ea">
-						None.<p></p>
+						The evaluator shall verify the guidance documentation contains any information necessary to configure 
+						HTTPs as a client in alignment with <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 2818.<p></p>
 					</div>
 					<div class="eacategory">Tests</div><div class="ea">
 						The evaluator shall attempt to establish an <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> connection with a web server, 
@@ -1958,12 +1966,14 @@ The following sections list Common Criteria and technology terms used in this do
 						and that the traffic is identified as <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>.
 					</div>
 				<div class="element-activity-header"><a href="#FCS_HTTPS_EXT.1.2/Client">FCS_HTTPS_EXT.1.2/Client</a></div>
-					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">None<p></p></div>
+					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">None.<p></p></div>
 					<div class="eacategory">Guidance</div><div class="ea">None.<p></p></div>
 					<div class="eacategory">Tests</div><div class="ea">Other tests are performed in conjunction with the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> package.</div>
 				<div class="element-activity-header"><a href="#FCS_HTTPS_EXT.1.3/Client">FCS_HTTPS_EXT.1.3/Client</a></div>
-					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">None.<p></p></div>
-					<div class="eacategory">Guidance</div><div class="ea">None.<p></p></div>
+					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">The evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the supported options for responding to invalid certificates 
+						when acting as a client and verify that description matches the selections.<p></p></div>
+					<div class="eacategory">Guidance</div><div class="ea">The validator shall confirm the guidance documentation contains any information required for configuring the 
+						response to an invalid certificate.<p></p></div>
 					<div class="eacategory">Tests</div><div class="ea">
 						Certificate validity shall be tested in accordance with testing performed for 
 						<a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>, and the evaluator shall perform the following test:
@@ -2003,11 +2013,11 @@ The following sections list Common Criteria and technology terms used in this do
         		</div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_HTTPS_EXT.1.1/Server">FCS_HTTPS_EXT.1.1/Server</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
-						The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and determine that enough detail is provided to
+						The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> and determine that enough detail is provided to
 						explain how the implementation complies with <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 2818.<p></p>
 					</div>
 					<div class="eacategory">Guidance</div><div class="ea">
-						None.<p></p>
+						The evaluator shall confirm the guidance documentation contains any information necessary for configuring HTTPs as a server in alignment with <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 2818..<p></p>
 					</div>
 					<div class="eacategory">Tests</div><div class="ea">
 						The evaluator shall attempt to establish an <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> connection to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using a 
@@ -2019,8 +2029,9 @@ The following sections list Common Criteria and technology terms used in this do
 					<div class="eacategory">Guidance</div><div class="ea">None.<p></p></div>
 					<div class="eacategory">Tests</div><div class="ea">Other tests are performed in conjunction with the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> package.</div>
 				<div class="element-activity-header"><a href="#FCS_HTTPS_EXT.1.3/Server">FCS_HTTPS_EXT.1.3/Server</a></div>
-        			<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">None.</div>
-        			<div class="eacategory">Guidance</div><div class="ea">None.</div>
+        			<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">The evalutator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> describes how the application responds to an invalid certificate when acting as a server and verify the description matches the selection.</div>
+        			<div class="eacategory">Guidance</div><div class="ea">The evaluator shall verify the guidance documentation contains any information necessary to configure the response to an invalid
+        				certificates.</div>
         			<div class="eacategory">Tests</div><div class="ea">
         				Other tests are performed in conjunction with the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Functional Package, 
         				<a href="#FCS_HTTPS_EXT.2">FCS_HTTPS_EXT.2</a> (dependent on selections in <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a>), and <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>.
@@ -2052,8 +2063,8 @@ The following sections list Common Criteria and technology terms used in this do
 					 revocation status in accordance with <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 5280.
 				</span></div></div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_HTTPS_EXT.2.1">FCS_HTTPS_EXT.2.1</a></div>
-					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">None.<p></p></div>
-					<div class="eacategory">Guidance</div><div class="ea">None.<p></p></div>
+					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">The evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> contains a description of how invalid peer certificates are responded to and that it matches the selections.<p></p></div>
+					<div class="eacategory">Guidance</div><div class="ea">The evaluator shall verify the guidance documentation contains any information necessary to configure the response to invalid peer certificates.<p></p></div>
 					<div class="eacategory">Tests</div><div class="ea">
 						Certificate validity shall be tested in accordance with testing performed for 
 						<a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>, and the evaluator shall perform the following test:
@@ -2119,12 +2130,12 @@ The following sections list Common Criteria and technology terms used in this do
 						shall determine that for each of these functions, the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> states which 
 						platform interface (<abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>) is used to obtain the random numbers.  The evaluator shall confirm 
 						that each of these interfaces corresponds to the acceptable interfaces listed for each platform 
-						below.  <p></p>
+						below.<p></p>
 						It should be noted that there is no expectation that the evaluators attempt to confirm 
 						that the APIs are being used correctly for the functions identified in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>; 
 						the activity is to list the used APIs and then do an existence check via decompilation.
 						<p></p>
-					</div><div class="eacategory">Guidance</div><div class="ea">None.<p></p></div><div class="eacategory">Tests</div><div class="ea">
+					</div><div class="eacategory">Guidance</div><div class="ea">The evaluator shall verify the guidance documentation contains any information required for configuring the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>.<p></p></div><div class="eacategory">Tests</div><div class="ea">
 						If "<i>invoke platform-provided <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</i>" is selected, the following tests shall be performed: <p></p>
 						The evaluator shall decompile the application binary using a decompiler 
 						suitable for the application (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>).  The evaluator shall search the output of the 
@@ -2223,7 +2234,8 @@ The following sections list Common Criteria and technology terms used in this do
 						No explicit testing of the formation of the submask from the input password is required. 
 						<a href="#FCS_PBKDF_EXT.1">FCS_PBKDF_EXT.1</a>: The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author shall provide a description in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> regarding the salt generation. 
 						The evaluator shall confirm that the salt is generated using an <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> described in <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>.<p></p>
-					</div><div class="eacategory">Guidance</div><div class="ea">None.<p></p></div><div class="eacategory">Tests</div><div class="ea">None.</div></div></div></div>
+					</div><div class="eacategory">Guidance</div><div class="ea">The evaluator shall confirm the guidance documentation contains any information necesary for configuring
+						the password conditioning if any configuration is supported.<p></p></div><div class="eacategory">Tests</div><div class="ea">None.</div></div></div></div>
 	      
 		
         <div class="comp" id="FCS_RBG_EXT.2"><h4>FCS_RBG_EXT.2 Random Bit Generation from Application</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
@@ -2275,7 +2287,8 @@ The following sections list Common Criteria and technology terms used in this do
 				</span></div></div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_RBG_EXT.2.1">FCS_RBG_EXT.2.1</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">None.<p></p></div>
-					<div class="eacategory">Guidance</div><div class="ea">None.<p></p></div>
+					<div class="eacategory">Guidance</div><div class="ea">The evaluator shall verify the guidance documentation contains any information necessary for configuring the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> if any
+						configuration is required.<p></p></div>
 					<div class="eacategory">Tests</div><div class="ea">
 						The evaluator shall perform the following tests, depending on the standard
 						to which the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> conforms. <p></p>
@@ -2361,7 +2374,8 @@ The following sections list Common Criteria and technology terms used in this do
 						<a href="https://www.niap-ccevs.org/Documents_and_Guidance/ccevs/Entropy%20Documentation%20and%20Assessment%20Clarification.pdf">
 						Clarification to the Entropy Documentation and Assessment Annex</a>.<p></p>
 					</div>
-					<div class="eacategory">Guidance</div><div class="ea">None.<p></p></div>
+					<div class="eacategory">Guidance</div><div class="ea">The evaluator shall verify the guidance documentation contains any information necessary for configuring the noise sources or size outputs
+						if any configuration is supported.<p></p></div>
 					<div class="eacategory">Tests</div><div class="ea"> 
 						In the future, specific statistical testing (in line with <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90B) will 
 						be required to verify the entropy estimates.
@@ -2427,8 +2441,11 @@ The following sections list Common Criteria and technology terms used in this do
 						credentials (secret keys, <abbr class="dyn-abbr"><a href="#abbr_PKI">PKI</a></abbr> private keys, or passwords) needed to meet the 
 						requirements in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. For each of these items, the evaluator shall 
 						confirm that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> lists for what purpose it is used, and how it is stored. <p></p>
-						If <b>securely store</b> is selected the evalutor shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains the platform functions utilized and verify those functions 
+						If <b>securely store</b> is selected the evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains the platform functions utilized and verify those functions 
 						are documented by the platform to be non-depricated functions meeting the specifications in the requirement.
+						<p></p>If <b>invoke the functionality provided by the platform to securly store</b> is selected the evaluator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes
+						how the platform storaged is invoked for each supported platform. The evaluator shall confirm the invocation of the platform is using non-depricated functions 
+						provided by the platform(s).<p></p>
 					</div><div class="eacategory">Guidance</div><div class="ea">None.<p></p></div><div class="eacategory">Tests</div><div class="ea">
 						For all credentials for which the application implements functionality, the evaluator shall 
 						verify credentials are encrypted according to <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> or conditioned according to
@@ -2506,10 +2523,15 @@ The following sections list Common Criteria and technology terms used in this do
     					If <b>not store any sensitive data</b> is selected, the evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure 
     					that it describes how sensitive data cannot be written to non-volatile memory. The evaluator shall also 
     					ensure that this is consistent with the filesystem test below.<p></p>
+    					If <b>implement functionality to encrypt sensitive data</b> is selected the evalutator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the 
+    					application ensures all sensative data is protected by the file encryption functions.<p></p>
+    					If <b>protect sensative data in accordance with <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></b> is selected the evaluator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> desribes
+    					which data is protected via this mechanism and the selections within <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a> that are leveraged.
     					If mulitple selections are included the evaluator shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes which sensative data is captures by which selection.
-    				</div><div class="eacategory">Guidance</div><div class="ea">The evalutor shall confirm the operational guidance contains any instructions necessary configing the storage and protection of any sensative data.
+    					
+    				</div><div class="eacategory">Guidance</div><div class="ea">The evaluator shall confirm the operational guidance contains any instructions necessary configing the storage and protection of any sensative data.
     					<p></p>
-    					If <b>leverage platform-provided functionality to encrypt sensitive data</b> is selected the evalutor shall confirm the operational guidance contains the list of supported 
+    					If <b>leverage platform-provided functionality to encrypt sensitive data</b> is selected the evaluator shall confirm the operational guidance contains the list of supported 
     					operational environments and any steps necessary to ensure the platform captures any sensative data that is stored.
     					<p></p></div><div class="eacategory">Tests</div><div class="ea">
     					If <b>implement functionality to encrypt sensitive data as defined in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</b>
@@ -4005,11 +4027,11 @@ The following sections list Common Criteria and technology terms used in this do
 					
 					
 				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
-						The evaluator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> describes the data transmitted, and verify it matches the selections of all <i>data</i> or <i>sensative data</i>.
+						The evaluator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the data transmitted, and verify it matches the selections of all <i>data</i> or <i>sensative data</i>.
 						
 					<p></p>
-						The evalutator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> describes the method by which the data is protected and that is matches the chosen selections, if multiple selections
-						are included the evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> describes which data is sent over which trusted channels and the totallity of the data type selection is 
+						The evalutator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the method by which the data is protected and that is matches the chosen selections, if multiple selections
+						are included the evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes which data is sent over which trusted channels and the totallity of the data type selection is 
 						covered by all chosen selections.
 						
 						

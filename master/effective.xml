@@ -786,12 +786,14 @@
 						it identifies the usage for each scheme.<h:p/>
 						If the ST selects "<h:i>invoke platform-provided functionality</h:i>,"
 						then the evaluator shall examine the TSS to verify that it describes 
-						how the key generation functionality is invoked.<h:p/>
+						how the key generation functionality is invoked and that the invokation matches the algorithm and size selections for each 
+						supported platform. The evaluator shall confirm the invocation of the platform is using non-depricated functions 
+						provided by the platform(s).<h:p/>
 					</TSS>
 					<Guidance> 
 						The evaluator shall verify that the AGD guidance instructs the administrator how to 
 						configure the TOE to use the selected key generation scheme(s) and 
-						key size(s) for all uses defined in this PP.<h:p/>
+						key size(s) for all uses defined in this PP if any configuration is required.<h:p/>
 					</Guidance>
 					<Tests>
 						If the application selects "<h:i>implement functionality</h:i>," then the following test
@@ -950,7 +952,7 @@
 						size being requested is identical to the key size and mode to be used for the
 						encryption/decryption of the user data.<h:p/>
 					</TSS>
-					<Guidance>None.<h:p/></Guidance>
+					<Guidance>The evaluator shall verify the guidance documention contains any informance necessary to configure key sizes.<h:p/></Guidance>
 					<Tests>None.</Tests>
 				</aactivity>
 			</f-element>
@@ -1019,10 +1021,15 @@
 						key generation schemes identified in FCS_CKM.1.1/AK. If the ST specifies more than one 
 						scheme, the evaluator shall examine the TSS to verify that it identifies the usage for each 
 						scheme.<h:p/>
+						If the ST selects "<h:i>invoke platform-provided functionality</h:i>,"
+						then the evaluator shall examine the TSS to verify that it describes 
+						how the key establishment functionality is invoked and that the invokation matches the algorithm selection for each 
+						supported platform. The evaluator shall confirm the invocation of the platform is using non-depricated functions 
+						provided by the platform(s).<h:p/>
 					</TSS>
 					<Guidance> 
 						The evaluator shall verify that the AGD guidance instructs the administrator how to configure 
-						the TOE to use the selected key establishment scheme(s).  <h:p/>  
+						the TOE to use the selected key establishment scheme(s) if configuration is required.<h:p/>  
 					</Guidance>
 					<Tests>
 						Evaluation Activity Note: The following tests require the developer to provide access to a test 
@@ -1578,7 +1585,7 @@ functionality (such as these)
 						application cryptographic functions (for example, the digital signature verification
 						function) is documented in the TSS.<h:p/>
 					</TSS>
-					<Guidance>None.<h:p/></Guidance>
+					<Guidance>The evaluator shall verify the guidance documentation contains any information required for configuring the algorithm or size.<h:p/></Guidance>
 					<Tests>
 						The TSF hashing functions can be implemented in one of two 
 						modes. The first mode is the byte-oriented mode. In this mode the TSF 
@@ -1671,7 +1678,7 @@ functionality (such as these)
 				<aactivity>
 					The evaluator shall perform the following activities based on the selections in the ST.
 					<TSS>None.<h:p/></TSS>
-					<Guidance>None.<h:p/></Guidance>
+					<Guidance>The evalutator shall verify the guidance documentation contains any infomration required for configuring the algorithm or size.<h:p/></Guidance>
 					<Tests>
 						For each of the supported parameter sets, the evaluator shall compose 15 sets of test data.
 						Each set shall consist of a key and message data.  The evaluator shall have the TSF generate
@@ -1714,7 +1721,7 @@ functionality (such as these)
 				<aactivity>
 					The evaluator shall perform the following activities based on the selections in the ST.
 					<TSS>None.<h:p/></TSS>
-					<Guidance>None.<h:p/></Guidance>
+					<Guidance>The evaluator shall verify the guidance documentation contains any information required for configuring the algorithm or size.<h:p/></Guidance>
 					<Tests>
 						The following tests require the developer to provide access to a test application
 						that provides the evaluator with tools that are typically not found in the production
@@ -1810,7 +1817,8 @@ functionality (such as these)
 						explain how the implementation complies with RFC 2818.<h:p/>
 					</TSS>
 					<Guidance>
-						None.<h:p/>
+						The evaluator shall verify the guidance documentation contains any information necessary to configure 
+						HTTPs as a client in alignment with RFC 2818.<h:p/>
 					</Guidance>
 					<Tests>
 						The evaluator shall attempt to establish an HTTPS connection with a web server, 
@@ -1822,7 +1830,7 @@ functionality (such as these)
 			<f-element id="fel-https-how-cl">
 				<title>The application shall implement HTTPS using TLS as defined in the Functional Package for TLS.</title>
 				<aactivity level="element">
-					<TSS>None<h:p/></TSS>
+					<TSS>None.<h:p/></TSS>
 					<Guidance>None.<h:p/></Guidance>
 					<Tests>Other tests are performed in conjunction with the TLS package.</Tests>
 				</aactivity>
@@ -1847,8 +1855,10 @@ functionality (such as these)
 					revocation status in accordance with RFC 5280. 
 				</note>
 				<aactivity level="element">
-					<TSS>None.<h:p/></TSS>
-					<Guidance>None.<h:p/></Guidance>
+					<TSS>The evaluator shall verify the TSS describes the supported options for responding to invalid certificates 
+						when acting as a client and verify that description matches the selections.<h:p/></TSS>
+					<Guidance>The validator shall confirm the guidance documentation contains any information required for configuring the 
+						response to an invalid certificate.<h:p/></Guidance>
 					<Tests>
 						Certificate validity shall be tested in accordance with testing performed for 
 						FIA_X509_EXT.1, and the evaluator shall perform the following test:
@@ -1883,11 +1893,11 @@ functionality (such as these)
 				</title>
 				<aactivity level="element">
 					<TSS>
-						The evaluator shall examine the TSS and determine that enough detail is provided to
+						The evaluator shall examine the ST and determine that enough detail is provided to
 						explain how the implementation complies with RFC 2818.<h:p/>
 					</TSS>
 					<Guidance>
-						None.<h:p/>
+						The evaluator shall confirm the guidance documentation contains any information necessary for configuring HTTPs as a server in alignment with RFC 2818..<h:p/>
 					</Guidance>
 					<Tests>
 						The evaluator shall attempt to establish an HTTPS connection to the TOE using a 
@@ -1912,8 +1922,9 @@ functionality (such as these)
         			if the peer certificate is deemed invalid.
         		</title>
         		<aactivity level="element">
-        			<TSS>None.</TSS>
-        			<Guidance>None.</Guidance>
+        			<TSS>The evalutator shall confirm the ST describes how the application responds to an invalid certificate when acting as a server and verify the description matches the selection.</TSS>
+        			<Guidance>The evaluator shall verify the guidance documentation contains any information necessary to configure the response to an invalid
+        				certificates.</Guidance>
         			<Tests>
         				Other tests are performed in conjunction with the TLS Functional Package, 
         				FCS_HTTPS_EXT.2 (dependent on selections in FTP_DIT_EXT.1), and FIA_X509_EXT.1.
@@ -1950,8 +1961,8 @@ functionality (such as these)
 					 revocation status in accordance with RFC 5280.
 				</note>
 				<aactivity level="element">
-					<TSS>None.<h:p/></TSS>
-					<Guidance>None.<h:p/></Guidance>
+					<TSS>The evaluator shall verify the ST contains a description of how invalid peer certificates are responded to and that it matches the selections.<h:p/></TSS>
+					<Guidance>The evaluator shall verify the guidance documentation contains any information necessary to configure the response to invalid peer certificates.<h:p/></Guidance>
 					<Tests>
 						Certificate validity shall be tested in accordance with testing performed for 
 						FIA_X509_EXT.1, and the evaluator shall perform the following test:
@@ -2023,13 +2034,13 @@ functionality (such as these)
 						shall determine that for each of these functions, the TSS states which 
 						platform interface (API) is used to obtain the random numbers.  The evaluator shall confirm 
 						that each of these interfaces corresponds to the acceptable interfaces listed for each platform 
-						below.  <h:p/>
+						below.<h:p/>
 						It should be noted that there is no expectation that the evaluators attempt to confirm 
 						that the APIs are being used correctly for the functions identified in the TSS; 
 						the activity is to list the used APIs and then do an existence check via decompilation.
 						<h:p/>
 					</TSS>
-					<Guidance>None.<h:p/></Guidance>
+					<Guidance>The evaluator shall verify the guidance documentation contains any information required for configuring the DRBG.<h:p/></Guidance>
 					<Tests>
 						If "<h:i>invoke platform-provided DRBG functionality</h:i>" is selected, the following tests shall be performed: <h:p/>
 						The evaluator shall decompile the application binary using a decompiler 
@@ -2145,7 +2156,8 @@ functionality (such as these)
 						FCS_PBKDF_EXT.1: The ST author shall provide a description in the TSS regarding the salt generation. 
 						The evaluator shall confirm that the salt is generated using an RBG described in FCS_RBG_EXT.1.<h:p/>
 					</TSS>
-					<Guidance>None.<h:p/></Guidance>
+					<Guidance>The evaluator shall confirm the guidance documentation contains any information necesary for configuring
+						the password conditioning if any configuration is supported.<h:p/></Guidance>
 					<Tests>None.</Tests>
 				</aactivity>
 			</f-element>
@@ -2185,7 +2197,8 @@ functionality (such as these)
 				</note>
 				<aactivity level="element">
 					<TSS>None.<h:p/></TSS>
-					<Guidance>None.<h:p/></Guidance>
+					<Guidance>The evaluator shall verify the guidance documentation contains any information necessary for configuring the DRBG if any
+						configuration is required.<h:p/></Guidance>
 					<Tests>
 						The evaluator shall perform the following tests, depending on the standard
 						to which the RBG conforms. <h:p/>
@@ -2295,7 +2308,8 @@ functionality (such as these)
 						<h:a href="https://www.niap-ccevs.org/Documents_and_Guidance/ccevs/Entropy%20Documentation%20and%20Assessment%20Clarification.pdf">
 						Clarification to the Entropy Documentation and Assessment Annex</h:a>.<h:p/>
 					</TSS>
-					<Guidance>None.<h:p/></Guidance>
+					<Guidance>The evaluator shall verify the guidance documentation contains any information necessary for configuring the noise sources or size outputs
+						if any configuration is supported.<h:p/></Guidance>
 					<Tests> 
 						In the future, specific statistical testing (in line with NIST SP 800-90B) will 
 						be required to verify the entropy estimates.
@@ -2395,8 +2409,11 @@ functionality (such as these)
 						credentials (secret keys, PKI private keys, or passwords) needed to meet the 
 						requirements in the ST. For each of these items, the evaluator shall 
 						confirm that the TSS lists for what purpose it is used, and how it is stored. <h:p/>
-						If <h:b>securely store</h:b> is selected the evalutor shall verify the TSS contains the platform functions utilized and verify those functions 
+						If <h:b>securely store</h:b> is selected the evaluator shall verify the TSS contains the platform functions utilized and verify those functions 
 						are documented by the platform to be non-depricated functions meeting the specifications in the requirement.
+						<h:p/>If <h:b>invoke the functionality provided by the platform to securly store</h:b> is selected the evaluator shall confirm the TSS describes
+						how the platform storaged is invoked for each supported platform. The evaluator shall confirm the invocation of the platform is using non-depricated functions 
+						provided by the platform(s).<h:p/>
 					</TSS>              
 					<Guidance>None.<h:p/></Guidance>
 					<Tests>
@@ -2484,11 +2501,16 @@ functionality (such as these)
     					If <h:b>not store any sensitive data</h:b> is selected, the evaluator shall inspect the TSS to ensure 
     					that it describes how sensitive data cannot be written to non-volatile memory. The evaluator shall also 
     					ensure that this is consistent with the filesystem test below.<h:p/>
+    					If <h:b>implement functionality to encrypt sensitive data</h:b> is selected the evalutator shall confirm the TSS describes how the 
+    					application ensures all sensative data is protected by the file encryption functions.<h:p/>
+    					If <h:b>protect sensative data in accordance with FCS_STO_EXT.1</h:b> is selected the evaluator shall confirm the TSS desribes
+    					which data is protected via this mechanism and the selections within FCS_STO_EXT.1 that are leveraged.
     					If mulitple selections are included the evaluator shall ensure the TSS describes which sensative data is captures by which selection.
+    					
     				</TSS>
-    				<Guidance>The evalutor shall confirm the operational guidance contains any instructions necessary configing the storage and protection of any sensative data.
+    				<Guidance>The evaluator shall confirm the operational guidance contains any instructions necessary configing the storage and protection of any sensative data.
     					<h:p/>
-    					If <h:b>leverage platform-provided functionality to encrypt sensitive data</h:b> is selected the evalutor shall confirm the operational guidance contains the list of supported 
+    					If <h:b>leverage platform-provided functionality to encrypt sensitive data</h:b> is selected the evaluator shall confirm the operational guidance contains the list of supported 
     					operational environments and any steps necessary to ensure the platform captures any sensative data that is stored.
     					<h:p/></Guidance>
     				<Tests>
@@ -2528,7 +2550,7 @@ functionality (such as these)
     			</aactivity>
     		</f-element>
     	</f-component>
-      
+      <!-- RETURN HERE QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ in tribute to the kevin marker system -->
       <!-- FDR_DEC_EXT.1 -->
       <!-- Incorporates TD434 -->
       <!-- Incorporates TD515 -->
@@ -4204,11 +4226,11 @@ functionality (such as these)
 				</note>  
 				<aactivity>
 					<TSS>
-						The evaluator shall confirm the ST describes the data transmitted, and verify it matches the selections of all <h:i>data</h:i> or <h:i>sensative data</h:i>.
+						The evaluator shall confirm the TSS describes the data transmitted, and verify it matches the selections of all <h:i>data</h:i> or <h:i>sensative data</h:i>.
 						
 					<h:p/>
-						The evalutator shall confirm the ST describes the method by which the data is protected and that is matches the chosen selections, if multiple selections
-						are included the evaluator shall verify the ST describes which data is sent over which trusted channels and the totallity of the data type selection is 
+						The evalutator shall confirm the TSS describes the method by which the data is protected and that is matches the chosen selections, if multiple selections
+						are included the evaluator shall verify the TSS describes which data is sent over which trusted channels and the totallity of the data type selection is 
 						covered by all chosen selections.
 						
 						

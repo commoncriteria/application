@@ -623,14 +623,14 @@
                         <p></p>
                          If "<i>implement <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</i>" is selected, the evaluator shall ensure that additional <a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> elements are included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. 
                         <p></p>
-                         If "<i>invoke platform-provided <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</i>" is selected, the evaluator performs the following activities. The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to confirm that it identifies all functions (as described by the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>) that obtain random numbers from the platform <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr>. The evaluator shall determine that for each of these functions, the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> states which platform interface (<abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>) is used to obtain the random numbers. The evaluator shall confirm that each of these interfaces corresponds to the acceptable interfaces listed for each platform below. 
+                         If "<i>invoke platform-provided <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</i>" is selected, the evaluator performs the following activities. The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to confirm that it identifies all functions (as described by the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>) that obtain random numbers from the platform <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr>. The evaluator shall determine that for each of these functions, the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> states which platform interface (<abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>) is used to obtain the random numbers. The evaluator shall confirm that each of these interfaces corresponds to the acceptable interfaces listed for each platform below.
                         <p></p>
                          It should be noted that there is no expectation that the evaluators attempt to confirm that the APIs are being used correctly for the functions identified in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>; the activity is to list the used APIs and then do an existence check via decompilation. 
                         <p></p>
                     </div>
                     <div class="eacategory">Guidance</div>
                     <div class="ea">
-                        None.
+                        The evaluator shall verify the guidance documentation contains any information required for configuring the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>.
                         <p></p>
                     </div>
                     <div class="eacategory">Tests</div>
@@ -769,7 +769,10 @@
                     <div class="ea">
                         The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it lists all persistent credentials (secret keys, <abbr class="dyn-abbr"><a href="#abbr_PKI">PKI</a></abbr> private keys, or passwords) needed to meet the requirements in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. For each of these items, the evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> lists for what purpose it is used, and how it is stored. 
                         <p></p>
-                         If <b>securely store</b> is selected the evalutor shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains the platform functions utilized and verify those functions are documented by the platform to be non-depricated functions meeting the specifications in the requirement. 
+                         If <b>securely store</b> is selected the evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains the platform functions utilized and verify those functions are documented by the platform to be non-depricated functions meeting the specifications in the requirement. 
+                        <p></p>
+                        If <b>invoke the functionality provided by the platform to securly store</b> is selected the evaluator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the platform storaged is invoked for each supported platform. The evaluator shall confirm the invocation of the platform is using non-depricated functions provided by the platform(s).
+                        <p></p>
                     </div>
                     <div class="eacategory">Guidance</div>
                     <div class="ea">
@@ -878,13 +881,15 @@
                         <p></p>
                          If <b>not store any sensitive data</b> is selected, the evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it describes how sensitive data cannot be written to non-volatile memory. The evaluator shall also ensure that this is consistent with the filesystem test below.
                         <p></p>
-                         If mulitple selections are included the evaluator shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes which sensative data is captures by which selection. 
+                         If <b>implement functionality to encrypt sensitive data</b> is selected the evalutator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the application ensures all sensative data is protected by the file encryption functions.
+                        <p></p>
+                         If <b>protect sensative data in accordance with <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></b> is selected the evaluator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> desribes which data is protected via this mechanism and the selections within <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a> that are leveraged. If mulitple selections are included the evaluator shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes which sensative data is captures by which selection. 
                     </div>
                     <div class="eacategory">Guidance</div>
                     <div class="ea">
-                        The evalutor shall confirm the operational guidance contains any instructions necessary configing the storage and protection of any sensative data. 
+                        The evaluator shall confirm the operational guidance contains any instructions necessary configing the storage and protection of any sensative data. 
                         <p></p>
-                         If <b>leverage platform-provided functionality to encrypt sensitive data</b> is selected the evalutor shall confirm the operational guidance contains the list of supported operational environments and any steps necessary to ensure the platform captures any sensative data that is stored. 
+                         If <b>leverage platform-provided functionality to encrypt sensitive data</b> is selected the evaluator shall confirm the operational guidance contains the list of supported operational environments and any steps necessary to ensure the platform captures any sensative data that is stored. 
                         <p></p>
                     </div>
                     <div class="eacategory">Tests</div>
@@ -2326,9 +2331,9 @@
                         <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
                     </div>
                     <div class="ea">
-                         The evaluator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> describes the data transmitted, and verify it matches the selections of all <i>data</i> or <i>sensative data</i>. 
+                         The evaluator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the data transmitted, and verify it matches the selections of all <i>data</i> or <i>sensative data</i>. 
                         <p></p>
-                         The evalutator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> describes the method by which the data is protected and that is matches the chosen selections, if multiple selections are included the evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> describes which data is sent over which trusted channels and the totallity of the data type selection is covered by all chosen selections. 
+                         The evalutator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the method by which the data is protected and that is matches the chosen selections, if multiple selections are included the evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes which data is sent over which trusted channels and the totallity of the data type selection is covered by all chosen selections. 
                         <p></p>
                          For platform-provided functionality, the evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains the calls to the platform that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is leveraging to invoke the functionality.
                         <p></p>
@@ -3162,7 +3167,7 @@
                     </div>
                     <div class="eacategory">Guidance</div>
                     <div class="ea">
-                        None.
+                        The evaluator shall verify the guidance documention contains any informance necessary to configure key sizes.
                         <p></p>
                     </div>
                     <div class="eacategory">Tests</div>
@@ -3284,12 +3289,12 @@
                     <div class="ea">
                          The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> identifies the key sizes supported by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> specifies more than one scheme, the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it identifies the usage for each scheme.
                         <p></p>
-                         If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> selects "<i>invoke platform-provided functionality</i>," then the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it describes how the key generation functionality is invoked.
+                         If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> selects "<i>invoke platform-provided functionality</i>," then the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it describes how the key generation functionality is invoked and that the invokation matches the algorithm and size selections for each supported platform. The evaluator shall confirm the invocation of the platform is using non-depricated functions provided by the platform(s).
                         <p></p>
                     </div>
                     <div class="eacategory">Guidance</div>
                     <div class="ea">
-                         The evaluator shall verify that the AGD guidance instructs the administrator how to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use the selected key generation scheme(s) and key size(s) for all uses defined in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.
+                         The evaluator shall verify that the AGD guidance instructs the administrator how to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use the selected key generation scheme(s) and key size(s) for all uses defined in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> if any configuration is required.
                         <p></p>
                     </div>
                     <div class="eacategory">Tests</div>
@@ -3455,10 +3460,12 @@
                     <div class="ea">
                          The evaluator shall ensure that the supported key establishment schemes correspond to the key generation schemes identified in <a href="#FCS_CKM.1.1/AK">FCS_CKM.1.1/AK</a>. If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> specifies more than one scheme, the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it identifies the usage for each scheme.
                         <p></p>
+                         If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> selects "<i>invoke platform-provided functionality</i>," then the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it describes how the key establishment functionality is invoked and that the invokation matches the algorithm selection for each supported platform. The evaluator shall confirm the invocation of the platform is using non-depricated functions provided by the platform(s).
+                        <p></p>
                     </div>
                     <div class="eacategory">Guidance</div>
                     <div class="ea">
-                         The evaluator shall verify that the AGD guidance instructs the administrator how to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use the selected key establishment scheme(s). 
+                         The evaluator shall verify that the AGD guidance instructs the administrator how to configure the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use the selected key establishment scheme(s) if configuration is required.
                         <p></p>
                     </div>
                     <div class="eacategory">Tests</div>
@@ -3798,7 +3805,7 @@
                     </div>
                     <div class="eacategory">Guidance</div>
                     <div class="ea">
-                        None.
+                        The evaluator shall verify the guidance documentation contains any information required for configuring the algorithm or size.
                         <p></p>
                     </div>
                     <div class="eacategory">Tests</div>
@@ -3885,7 +3892,7 @@
                     </div>
                     <div class="eacategory">Guidance</div>
                     <div class="ea">
-                        None.
+                        The evalutator shall verify the guidance documentation contains any infomration required for configuring the algorithm or size.
                         <p></p>
                     </div>
                     <div class="eacategory">Tests</div>
@@ -3940,7 +3947,7 @@
                     </div>
                     <div class="eacategory">Guidance</div>
                     <div class="ea">
-                        None.
+                        The evaluator shall verify the guidance documentation contains any information required for configuring the algorithm or size.
                         <p></p>
                     </div>
                     <div class="eacategory">Tests</div>
@@ -4019,7 +4026,7 @@
                     </div>
                     <div class="eacategory">Guidance</div>
                     <div class="ea">
-                         None.
+                         The evaluator shall verify the guidance documentation contains any information necessary to configure HTTPs as a client in alignment with <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 2818.
                         <p></p>
                     </div>
                     <div class="eacategory">Tests</div>
@@ -4033,7 +4040,7 @@
                         <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
                     </div>
                     <div class="ea">
-                        None
+                        None.
                         <p></p>
                     </div>
                     <div class="eacategory">Guidance</div>
@@ -4052,12 +4059,12 @@
                         <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
                     </div>
                     <div class="ea">
-                        None.
+                        The evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the supported options for responding to invalid certificates when acting as a client and verify that description matches the selections.
                         <p></p>
                     </div>
                     <div class="eacategory">Guidance</div>
                     <div class="ea">
-                        None.
+                        The validator shall confirm the guidance documentation contains any information required for configuring the response to an invalid certificate.
                         <p></p>
                     </div>
                     <div class="eacategory">Tests</div>
@@ -4114,12 +4121,12 @@
                         <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
                     </div>
                     <div class="ea">
-                         The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and determine that enough detail is provided to explain how the implementation complies with <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 2818.
+                         The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> and determine that enough detail is provided to explain how the implementation complies with <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 2818.
                         <p></p>
                     </div>
                     <div class="eacategory">Guidance</div>
                     <div class="ea">
-                         None.
+                         The evaluator shall confirm the guidance documentation contains any information necessary for configuring HTTPs as a server in alignment with <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 2818..
                         <p></p>
                     </div>
                     <div class="eacategory">Tests</div>
@@ -4151,9 +4158,11 @@
                     <div class="eacategory">
                         <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
                     </div>
-                    <div class="ea">None.</div>
+                    <div class="ea">
+                        The evalutator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> describes how the application responds to an invalid certificate when acting as a server and verify the description matches the selection.
+                    </div>
                     <div class="eacategory">Guidance</div>
-                    <div class="ea">None.</div>
+                    <div class="ea">The evaluator shall verify the guidance documentation contains any information necessary to configure the response to an invalid certificates.</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
                          Other tests are performed in conjunction with the <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Functional Package, <a href="#FCS_HTTPS_EXT.2">FCS_HTTPS_EXT.2</a> (dependent on selections in <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a>), and <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>. 
@@ -4189,12 +4198,12 @@
                         <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
                     </div>
                     <div class="ea">
-                        None.
+                        The evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> contains a description of how invalid peer certificates are responded to and that it matches the selections.
                         <p></p>
                     </div>
                     <div class="eacategory">Guidance</div>
                     <div class="ea">
-                        None.
+                        The evaluator shall verify the guidance documentation contains any information necessary to configure the response to invalid peer certificates.
                         <p></p>
                     </div>
                     <div class="eacategory">Tests</div>
@@ -4255,7 +4264,7 @@
                     </div>
                     <div class="eacategory">Guidance</div>
                     <div class="ea">
-                        None.
+                        The evaluator shall confirm the guidance documentation contains any information necesary for configuring the password conditioning if any configuration is supported.
                         <p></p>
                     </div>
                     <div class="eacategory">Tests</div>
@@ -4332,7 +4341,7 @@
                     </div>
                     <div class="eacategory">Guidance</div>
                     <div class="ea">
-                        None.
+                        The evaluator shall verify the guidance documentation contains any information necessary for configuring the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> if any configuration is required.
                         <p></p>
                     </div>
                     <div class="eacategory">Tests</div>
@@ -4384,7 +4393,7 @@
                     </div>
                     <div class="eacategory">Guidance</div>
                     <div class="ea">
-                        None.
+                        The evaluator shall verify the guidance documentation contains any information necessary for configuring the noise sources or size outputs if any configuration is supported.
                         <p></p>
                     </div>
                     <div class="eacategory">Tests</div>
