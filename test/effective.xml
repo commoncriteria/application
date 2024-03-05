@@ -534,7 +534,6 @@
 				<addressed-by>FPT_TUD_EXT.1</addressed-by><rationale>The PP includes FPT_TUD_EXT.1 to define how updates to the TOE are deployed and verified.</rationale>
 				<addressed-by>FCS_COP.1/Sig</addressed-by><rationale>The PP includes FCS_COP.1/Sig to define the mechanism used to verify TOE updates if the TOE implements this functionality rather than the underlying platform.</rationale>
 
-
 <!--				<objective-refer ref="O.PROTECTED_COMMS">
 					<rationale>The threat T.NETWORK_EAVESDROP is countered by O.PROTECTED_COMMS as this
 					provides for confidentiality of transmitted data.</rationale>
@@ -575,7 +574,7 @@
 				<addressed-by>FMT_CFG_EXT.1</addressed-by><rationale>The PP includes FMT_CFG_EXT.1 for the TSP to limit unauthorized access to itself by preventing the use of default authentication credentials and by ensuring that the TOE uses appropriately restrictive platform permissions on its binaries and data</rationale>
 				<addressed-by>FPT_AEX_EXT.1</addressed-by><rationale>The PP includes FPT_AEX_EXT.1 to add complexity to the task of compromising systems by ensuring that application is compatible with security features provided by the platform vendor and that the application implements platform-provided anti-exploitations such as ASLR and stack overflow protection.</rationale>
 				<addressed-by>FPT_TUD_EXT.1</addressed-by><rationale>The PP includes FPT_TUD_EXT.1 to ensure that the TOE can be patched and that any updates to the TOE have appropriate integrity protection.</rationale>
-				
+			
 <!--				<objective-refer ref="O.PROTECTED_STORAGE">
 					<rationale>The objective O.PROTECTED_STORAGE protects against unauthorized attempts to access
 						physical storage used by the TOE.</rationale>
@@ -789,6 +788,10 @@
 		</ext-comp-def>
 		
         <f-component cc-id="fcs_ckm_ext.1" name="Cryptographic Key Generation Services">
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
         	<comp-lev> requires the TSF to specify whether asymmetric key generation is implemented by the TSF, 
         		invoked from the operational environment, or not used by the TOE.</comp-lev>
         	<management>No specific management functions are identified.</management>
@@ -826,6 +829,10 @@
 		<!-- FCS_CKM.1/AK -->
         <f-component cc-id="fcs_ckm.1" id="fcom_asym_key_gen" iteration="AK" name="Cryptographic Asymmetric Key Generation" status="sel-based">
 			<depends on="sel_invoke_genkey" and="sel_impl_genkey"/>
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 			<f-element id="fel-asym-key-gen-impl">
 				<title>            
 					The <h:b>application</h:b> shall <h:b><selectables linebreak="yes">
@@ -1019,6 +1026,10 @@
 
 		<!-- FCS_CKM.1/SK (formerly FCS_CKM.1/2) -->
         <f-component cc-id="fcs_ckm.1" id="fcom_sym_key_gen" iteration="SK" name="Cryptographic Symmetric Key Generation" status="optional">
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 			<f-element id="fel-sym-key-gen">
 				<title>
 					The <h:b>application</h:b> shall generate <h:b>symmetric</h:b> cryptographic keys <h:b>using a Random Bit
@@ -1077,6 +1088,10 @@
         	<depends on="sel_all_tlss"/>
         	<depends on="sel_all_dtlsc"/>
         	<depends on="sel_all_dtlss"/>
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 			<f-element id="fel-key-est">
 				<title>
 					<h:p>
@@ -1407,6 +1422,10 @@ functionality (such as these)
         	<depends on="sel_all_dtlsc"/>
         	<depends on="sel_all_dtlss"/>
 			<depends on="sel-fcs-sto-skc"/>
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 			<f-element id="fel-sym-encrypt">
 				<title>
 					The <h:b>application</h:b> shall perform [<h:i>encryption and decryption</h:i>] in accordance with a specified 
@@ -1744,6 +1763,10 @@ functionality (such as these)
         	<depends on="sel_all_tlss"/>
         	<depends on="sel_all_dtlsc"/>
         	<depends on="sel_all_dtlss"/>
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 			<f-element id="fel-crypt-hash">
 				<title>
 					The <h:b>application</h:b> shall perform [<h:i>cryptographic hashing services</h:i>] in accordance with a specified 
@@ -1852,6 +1875,10 @@ functionality (such as these)
         	<depends on="sel_all_tlss"/>
         	<depends on="sel_all_dtlsc"/>
         	<depends on="sel_all_dtlss"/>
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 			<f-element id="fel-keyed-hash">
 				<title>The <h:b>application</h:b> shall perform [<h:i>keyed-hash message authentication</h:i>] in accordance with a 
 					specified cryptographic algorithm <selectables linebreak="yes">
@@ -1906,6 +1933,10 @@ functionality (such as these)
         	<depends on="sel_all_tlss"/>
         	<depends on="sel_all_dtlsc"/>
         	<depends on="sel_all_dtlss"/>
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 			<f-element id="fel-sign">
 				<title>
 					The <h:b>application</h:b> shall perform [<h:i>cryptographic signature services (generation and
@@ -1990,6 +2021,10 @@ functionality (such as these)
         </ext-comp-def>
 		<!-- invisble SFR for the purpose of having an un-iterated copy of FCS_HTTPS_EXT.1 in the ECD -->
 		<f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol" status="invisible">
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 			
 			<comp-lev> defines the capability of the TOE to implement HTTPS.</comp-lev>
 			<management>No specific management functions are identified.</management>
@@ -2022,6 +2057,10 @@ functionality (such as these)
 	<!-- Added by TD0601 -->
 	<f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol" iteration="Client" status="sel-based">
 	  <depends on-se1="sel_all_https_cl"/>
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 
 			<f-element id="fel-https-wath-cl">
 				<title>
@@ -2105,6 +2144,10 @@ functionality (such as these)
         <f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol" iteration="Server" status="sel-based">
 			<depends on1="sel_all_https_sv"/>
 			<depends on1="sel_all_https_ma"/>
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 			<f-element id="fel-https-wath-sv">
 				<title>
 					The application shall implement the HTTPS protocol <h:b>as a server</h:b> that complies with RFC 2818.
@@ -2156,6 +2199,10 @@ functionality (such as these)
 	<!-- Added by TD0601 -->
 	<f-component cc-id="fcs_https_ext.2" name="HTTPS Protocol with Mutual Authentication" status="sel-based">
 	  <depends on1="sel_all_https_ma"/>
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 
 
 		<comp-lev> defines HTTPS capabilities relating specifically to the case where the TOE acts as an HTTPS server 
@@ -2212,6 +2259,10 @@ functionality (such as these)
 	<!-- TD416 incorporated -->
 	<!-- TD510 incorporated -->
 	<f-component cc-id="fcs_rbg_ext.1" name="Random Bit Generation Services">
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 	  
 		<comp-lev> requires the TSF to specify whether random bit generation is implemented by the TSF, 
 			invoked from the operational environment, or not used by the TOE.</comp-lev>
@@ -2326,6 +2377,10 @@ functionality (such as these)
 		
 		<f-component name="Password Conditioning" cc-id="fcs_pbkdf_ext.1" id="fcom_pass" status="sel-based">
 			<depends on="sel-fcs-sto-pbkdf"/>
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 			
 			<comp-lev> defines the capability of the TOE to implement PBKDF2 for key derivation.</comp-lev>
 			<management>No specific management functions are identified.</management>
@@ -2402,6 +2457,10 @@ functionality (such as these)
 		<!-- FCS_RBG_EXT.2 -->
         <f-component cc-id="fcs_rbg_ext.2" name="Random Bit Generation from Application" status="sel-based">
 	  <depends on="drbg"/>
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 
         	<comp-lev> specifies the mechanism by which the TSF generates random bits.</comp-lev>
         	<management>No specific management functions are identified.</management>
@@ -2582,6 +2641,10 @@ functionality (such as these)
 	
 	<!-- FCS_STO_EXT.1 Storage of Credential -->
 	<f-component cc-id="fcs_sto_ext.1" name="Storage of Credentials">
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 	  
 	  <comp-lev>requires the application to define how to store credentials to non-volatile memory.</comp-lev>
 		<management>No specific management functions are identified.</management>
@@ -2727,7 +2790,11 @@ functionality (such as these)
     	</ext-comp-def>
     	
     	<f-component cc-id="fdp_dar_ext.1" name="Encryption Of Sensitive Application Data">
-    		<comp-lev>requires the application to be able to protect all data with a chosen method of encryption.</comp-lev>
+ 			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
+   		<comp-lev>requires the application to be able to protect all data with a chosen method of encryption.</comp-lev>
     		<management>No specific management functions are identified.</management>
     		<audit>There are no auditable events foreseen.</audit>
     		<dependencies>
@@ -2828,6 +2895,10 @@ functionality (such as these)
 	<fam-behavior>This family defines requirements for accessing platform resources.</fam-behavior>
       </ext-comp-def>
       <f-component cc-id="fdp_dec_ext.1" name="Access to Platform Resources">
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 
       	<comp-lev> requires the application to restrict access to hardware sources and sensitive information repositories.</comp-lev>
       	<management>The following action could be considered for the management functions in FMT: <h:ul type="a">
@@ -2982,6 +3053,10 @@ functionality (such as these)
 	</ext-comp-def>
 	
         <f-component cc-id="fdp_net_ext.1" name="Network Communications">
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 
         	<comp-lev> identifies the purpose for each network interface used by the TOE and how that interface is invoked.</comp-lev>
         	<management>No specific management functions are identified.</management>
@@ -3057,6 +3132,10 @@ functionality (such as these)
 
 		<f-component cc-id="fia_x509_ext.1" name="X.509 Certificate Validation" status="sel-based">
 		  <depends on1="sel_all_https_cl" on2="sel_all_https_sv" on3="sel_all_https_ma" on4="sel_all_tlsc" on5="sel_all_tlss" on6="sel_all_dtlsc" on7="sel_all_dtlss"/>		  
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 			
 			<comp-lev>specifies the rules the TSF must follow to determine if an X.509 certificate is valid.</comp-lev>
 			<management>No specific management functions are identified.</management>
@@ -3286,6 +3365,10 @@ functionality (such as these)
 		<!-- Incorporates TD601 -->
         <f-component cc-id="fia_x509_ext.2" name="X.509 Certificate Authentication" status="sel-based">
 	  <depends on1="sel_all_https_cl" on2="sel_all_https_sv" on3="sel_all_https_ma" on4="sel_all_tls" on5="sel_all_dtls"/>
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 
 	  <comp-lev>defines the TOE’s usage of X.509 certificates and how it reacts to certificates that cannot be validated.</comp-lev>
         	<management>The following action could be considered for the management functions in FMT:
@@ -3404,7 +3487,11 @@ functionality (such as these)
       	<!-- FMT_CFG_EXT.1 Secure by Default Configuration -->
       	<!-- Incoporates TD519 -->
       	<f-component cc-id="fmt_cfg_ext.1" name="Secure by Default Configuration">
-      		
+ 			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
+     		
       		<comp-lev> requires the application to define how to set new credentials 
       			and protect the application from modification by unprivileged users.</comp-lev>
       		<management>No specific management functions are identified.</management>
@@ -3513,6 +3600,10 @@ functionality (such as these)
 	<!-- incorporates TD465 -->
 	<!-- incorporates TD543 -->
 	<f-component cc-id="fmt_mec_ext.1" name="Supported Configuration Mechanism">
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 	  
 		<comp-lev> requires the application to store configuration data either through the use of an appropriate environmental mechanism 
 			or through its own file encryption capability.</comp-lev>
@@ -3621,6 +3712,10 @@ functionality (such as these)
 	      
 	      
         <f-component cc-id="fmt_smf.1" name="Specification of Management Functions">
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 			<f-element id="fel-management-funcs">
 				<title> The TSF shall be capable of performing the following management functions 
 					<selectables linebreak="yes">
@@ -3669,6 +3764,10 @@ functionality (such as these)
       </ext-comp-def>
 	
       <f-component cc-id="fpr_ano_ext.1" name="User Consent for Transmission of Personally Identifiable Information">
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 	<comp-lev> requires the TSF to transmit personally identifiable information only with explicit approval.</comp-lev>
 	<management>The following action could be considered for the management functions in FMT: <h:ul type="a">
 		<h:li>Enabling and disabling the transmission of any PII.</h:li>
@@ -3734,6 +3833,10 @@ functionality (such as these)
     	</ext-comp-def>
     	
     	<f-component cc-id="fpt_aex_ext.1" name="Anti-Exploitation Capabilities">
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
     		<comp-lev> requires the application to implement functionality that protects against common software exploits.</comp-lev>
     		<management>No specific management functions are identified.</management>
     		<audit>There are no auditable events foreseen.</audit>
@@ -4021,6 +4124,10 @@ functionality (such as these)
 	</fam-behavior>
       </ext-comp-def>
       <f-component cc-id="fpt_api_ext.1" name="Use of Supported Services and APIs">
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 	<comp-lev>requires the application to use only documented platform APIs.</comp-lev>
     <management>No specific management functions are identified.</management>
     <audit>There are no auditable events foreseen.</audit>
@@ -4050,6 +4157,10 @@ functionality (such as these)
 	      
 	      
 		<f-component cc-id="fpt_api_ext.2" name="Use of Supported Services and APIs" status="objective">
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 		  <comp-lev>requires the application to implement media parsing in a specified manner.</comp-lev>
 			<management>No specific management functions are identified.</management>
 			<audit>There are no auditable events foreseen.</audit>
@@ -4096,6 +4207,10 @@ functionality (such as these)
 	</ext-comp-def>
 	<!-- FPT_IDV_EXT.1 Software Identification and Versions -->
 	<f-component cc-id="fpt_idv_ext.1" name="Software Identification and Versions">
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 	  <comp-lev> requires the TSF to specify the versioning mechanism used.</comp-lev>
 		<management>No specific management functions are identified.</management>
 		<audit>There are no auditable events foreseen.</audit>
@@ -4146,6 +4261,10 @@ functionality (such as these)
 	</ext-comp-def>
 	
         <f-component cc-id="fpt_lib_ext.1" name="Use of Third Party Libraries">
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 	  <comp-lev> requires the TOE to identify the third party libraries that it uses.</comp-lev>
       <management>No specific management functions are identified.</management>
       <audit>There are no auditable events foreseen.</audit>
@@ -4184,7 +4303,11 @@ functionality (such as these)
 	  </fam-behavior>
 	</ext-comp-def>
         <f-component cc-id="fpt_tud_ext.1" name="Integrity for Installation and Update">
-        	
+ 			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
+       	
 	  <comp-lev> requires the TSF to specify how updates to it are acquired and verified.</comp-lev>
       <management>No specific management functions are identified.</management>
       <audit>There are no auditable events foreseen.</audit>
@@ -4315,7 +4438,11 @@ functionality (such as these)
 		<!-- incorporates TD561 (adds FPT_TUD_EXT.2.3) -->
         <f-component cc-id="fpt_tud_ext.2" name="Integrity for Installation and Update" status="sel-based">
 	  <depends on-sel="sel_add_plat"/>
-        	
+ 			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
+       	
 	  <comp-lev> requires TOE updates to be packaged in a certain manner.</comp-lev>
       <management>No specific management functions are identified.</management>
       <audit>There are no auditable events foreseen.</audit>
@@ -4427,6 +4554,10 @@ functionality (such as these)
       </ext-comp-def>
 		
       <f-component cc-id="ftp_dit_ext.1" name="Protection of Data in Transit">
+			<threat-addr threat="T.NETWORK_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.NETWORK_EAVESDROP">This is the rationale.</threat-addr>
+			<threat-addr threat="T.LOCAL_ATTACK">This is the rationale.</threat-addr>
+			<threat-addr threat="T.PHYSICAL_ACCESS">This is the rationale.</threat-addr>
 	<comp-lev>requires the TSF to specify what data is transmitted outside the TOE over a trusted channel, 
 		what protocol is used for data transmission, and whether the TSF implements 
 		this protocol or invokes an environmental interface to do so.</comp-lev>
