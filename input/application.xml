@@ -411,17 +411,27 @@
 
 	<!-- 1.6 Management Roles -->
 	<section title="Management Roles" id="sec-roles">
-			This section defines the roles of users with respect to managagement of the TOE. These roles are described here and are formally 
-			specified in FMT_SMR.1.
-			<dl>
-				<dt>R.USER:</dt>
-					<dd>Unprivilged user of the device.<br/>
-						A user of the device who does not need additional credentials beyond those for using the device.</dd>
-				<dt>R.ADMIN</dt>
-					<dd>Administrator of the device.<br/>
-						A user of the device who has obtained additional privileges for managing the device on the device
-						my presenting credentials taht are accepted in accorance with FMT_BLAH. </dd>
-			</dl>
+		This section defines the roles of users with respect to managagement of the TOE. These roles are described here and are formally 
+		specified in FMT_SMR.1.
+		<roles>
+			<role name="R.USER" display-name="User" short="User">
+				<description>
+					A user of the device who does not need additional credentials beyond those for using the device.
+				</description>
+			</role>
+			<role name="R.ADMIN" display-name="Administrator" short="Admin">
+				<desscription>
+					A user of the device who has obtained additional privileges for managing the device on the device
+					my presenting credentials that are accepted in accordance with FMT_BLAH.
+				</description>
+			</role>
+			<role name="R.CRADMIN" display-name="CrAdministrator" short="CrAdmin">
+				<desscription>
+					A user of the device who has obtained additional privileges for managing the device on the device
+					my presenting credentials that are accepted in accordance with FMT_BLAH. Crud.
+				</description>
+			</role>
+		</roles>
 	</section>
 
 
@@ -3635,19 +3645,11 @@ functionality (such as these)
 			<f-element id="fmt-smr-1e1">
 				<title>The TSF shall maintain the roles <h:b>[</h:b>
 					<h:ul>
-						<h:li><role name="R.USER" display-name="User" short="User">
-							Unprivilged user of the device.
-						</role></h:li>
-						<h:li><role name="R.ADMIN" display-name="Administrator" short="Admin">
-						Authorized administrator of the device.
-						</role></h:li>
+						<h:li>R.USER (User): Unprivilged user of the device.</h:li>
+						<h:li>R.ADMIN (Administrator): Authorized administrator of the device.</h:li>
 						<h:li>
 							<selectables linebreak="yes">
-								<selectable id="sel-role-cradmin">
-									<role name="R.CRADMIN" display-name="Cradministrator" short="Cradmin">
-										Authorized cradministrator of the device.
-									</role>
-								</selectable>
+								<selectable id="sel-role-cradmin">R.CRADMIN (Cradministrator: Authorized cradministrator of the device.</selectable>
 								<selectable exclusive="yes">No other roles.</selectable>
 							</selectables>
 						</h:li>
