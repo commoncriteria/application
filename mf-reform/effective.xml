@@ -3629,6 +3629,37 @@ functionality (such as these)
         <f-component cc-id="fmt_smf.1" name="Specification of Management Functions">
 			<f-element id="fel-management-funcs">
 				<title> The TSF shall be capable of performing the following management functions
+
+					<mgmt-func-list display-in="hybrid-list">
+						<mgmt-func-def name="M.XMIT_SYSCONFIG">
+							<text>enable/disable the transmission of any information describing the
+								system's hardware, software, or configuration</text>
+						</mgmt-func-def>
+						<mgmt-func-def name="M.XMIT_PII">
+							<text>enable/disable the transmission of any PII</text>
+						</mgmt-func-def>
+						<mgmt-func-def name="M.XMIT_APP_STATE" display-as="first-selection">
+							<depends><optional/></depends>
+							<text>enable/disable transmission of any application state (e.g. crashdump)
+							information</text>
+						</mgmt-func-def>
+						<mgmt-func-def name="M.NW_BACKUP">
+							<depends><optional/></depends>
+							<text>enable/disable network backup functionality to <assignable> list of 
+							enterprise or commercial cloud backup systems</assignable></text>
+						</mgmt-func-def>
+						<mgmt-func-def type="open">
+							<depends><optional/></depends>
+							<text><assignable>list of other management functions to be provided by the TSF
+									</assignable></text>
+						</mgmt-func-def>
+						<mgmt-func-def type="exclusive" display-as="last-selection">
+							<depends><optional/></depends>
+							<text>no other management functions</text>
+						</mgmt-func-def>
+					</mgmt-func-list>
+
+
 				
 					<mgmt-func-list display-in="selectable-list">
 						<mgmt-func-def type="exclusive">
