@@ -148,7 +148,7 @@ function showTarget(id){
        max-width: 15px;
     }
 
-    a.definition{
+    a.defined{
       color: inherit;
       text-decoration: inherit;
     }
@@ -257,6 +257,21 @@ function showTarget(id){
        background-color:#F4F4F4;
    }
 
+   table.ecd_heir_dep{
+       width: 100%;
+   }
+   table.ecd_heir_dep tr{
+       background-color: inherit;
+   }
+       
+   table.ecd_heir_dep tr :first-child{
+       white-space: nowrap;
+   }
+   table.ecd_heir_dep tr :last-child{
+       width: 100%;
+   }
+
+       
    .dependent{
        border: 1px solid gray;
        border-radius: 1px
@@ -644,7 +659,7 @@ function showTarget(id){
 		</td></tr>
 </table><h2>Contents</h2><div class="toc" id="toc"><a href="#Introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#Overview" style="text-indent:10px">1.1<span>Overview</span></a><a href="#glossary" style="text-indent:10px">1.2<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.2.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.2.2<span>Technical Terms</span></a><a href="#TOEdescription" style="text-indent:10px">1.3<span>Compliant Targets of Evaluation</span></a><a href="#sec-platforms" style="text-indent:10px">1.4<span>Platforms with Specific EAs</span></a><a href="#Use_Cases" style="text-indent:10px">1.5<span>Use Cases</span></a><a href="#Conformance_Claims" style="text-indent:0px">2<span>Conformance Claims</span></a><a href="#Security_Problem_Description" style="text-indent:0px">3<span>Security Problem Description</span></a><a href="#Threats" style="text-indent:10px">3.1<span>Threats</span></a><a href="#Assumptions" style="text-indent:10px">3.2<span>Assumptions</span></a><a href="#Organizational_Security_Policies" style="text-indent:10px">3.3<span>Organizational Security Policies</span></a><a href="#Security_Objectives" style="text-indent:0px">4<span>Security Objectives</span></a><a href="#Security_Objectives_for_the_TOE" style="text-indent:10px">4.1<span>Security Objectives for the TOE</span></a><a href="#Security_Objectives_for_the_Operational_Environment" style="text-indent:10px">4.2<span>Security Objectives for the Operational Environment</span></a><a href="#" style="text-indent:10px">4.3<span>Security Objectives Rationale</span></a><a href="#req" style="text-indent:0px">5<span>Security Requirements</span></a><a href="#SFRs" style="text-indent:10px">5.1<span>Security Functional Requirements</span></a><a href="#fcs" style="text-indent:20px">5.1.1<span>Class: Cryptographic Support (FCS)</span></a><a href="#fdp" style="text-indent:20px">5.1.2<span>Class: User Data Protection (FDP)</span></a><a href="#fmt" style="text-indent:20px">5.1.3<span>Class: Security Management (FMT)</span></a><a href="#fpr" style="text-indent:20px">5.1.4<span>Class: Privacy (FPR)</span></a><a href="#fpt" style="text-indent:20px">5.1.5<span>Class: Protection of the TSF (FPT)</span></a><a href="#ftp" style="text-indent:20px">5.1.6<span>Class: Trusted Path/Channel (FTP)</span></a><a href="#obj-req-map" style="text-indent:20px">5.1.7<span>TOE Security Functional Requirements Rationale</span></a><a href="#opt-app" style="text-indent:0px">Appendix A - <span>Optional Requirements</span></a><a href="#optional-reqs" style="text-indent:10px">A.1<span>Strictly Optional  Requirements
     </span></a><a href="#fcs-optional" style="text-indent:20px">A.1.1<span>Class: Cryptographic Support (FCS)</span></a><a href="#objective-reqs" style="text-indent:10px">A.2<span>Objective  Requirements
-    </span></a><a href="#fpt-objective" style="text-indent:20px">A.2.1<span>Class: Protection of the TSF (FPT)</span></a><a href="#feat-based-reqs" style="text-indent:10px">A.3<span>Implementation-based  Requirements
+    </span></a><a href="#fpt-objective" style="text-indent:20px">A.2.1<span>Class: Protection of the TSF (FPT)</span></a><a href="#feat-based-reqs" style="text-indent:10px">A.3<span>Implementation-dependent  Requirements
     </span></a><a href="#sel-based-reqs" style="text-indent:0px">Appendix B - <span>Selection-based  Requirements
     </span></a><a href="#fcs-sel-based" style="text-indent:10px">B.1<span>Class: Cryptographic Support (FCS)</span></a><a href="#fia-sel-based" style="text-indent:10px">B.2<span>Class: Identification and Authentication (FIA)</span></a><a href="#fpt-sel-based" style="text-indent:10px">B.3<span>Class: Protection of the TSF (FPT)</span></a><a href="#entropyappendix" style="text-indent:0px">Appendix C - <span>Entropy Documentation and Assessment</span></a><a href="#acronyms" style="text-indent:0px">Appendix D - <span>Acronyms</span></a><a href="#appendix-bibliography" style="text-indent:0px">Appendix E - <span>Bibliography</span></a></div><h1 class="indexable" data-level="1" id="Introduction">1 Introduction</h1>
     <h2 class="indexable" data-level="2" id="Overview">1.1 Overview</h2>&lt;p&gt;The scope of this Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>) is to describe the security functionality of application software in terms of &lt;xref g="<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>"&gt;&lt;/xref&gt; and to define functional and assurance requirements for such software. In recent years, software attacks have shifted from targeting operating systems to targeting applications. This has been the natural response to improvements in operating system security and development processes. As a result, it is paramount that the security of applications be improved to reduce the risk of compromise.&lt;/p&gt;
@@ -720,18 +735,18 @@ The following sections list Common Criteria and technology terms used in this do
       <dl><dt id=""> [USE CASE 1] </dt><dd></dd><dt id=""> [USE CASE 2] </dt><dd></dd><dt id=""> [USE CASE 3] Content Creation</dt><dd></dd><dt id=""> [USE CASE 4] Content Consumption</dt><dd></dd><dt id=""> [USE CASE 5] Communication</dt><dd></dd></dl>
     
   <h1 class="indexable" data-level="1" id="Conformance_Claims">2 Conformance Claims</h1>
-    <dl><dt class="cclaim,defined" id="Conformance Statement">Conformance Statement</dt><dd><span class="description">&lt;p&gt;An <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> must claim exact conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, as defined in the <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr> addenda for Exact Conformance, Selection-Based <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>, and Optional <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> (dated May 2017).&lt;/p&gt;</span></dd><dt class="cclaim,defined" id="CC Conformance Claims">CC Conformance Claims</dt><dd><span class="description">&lt;p&gt;This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is conformant to Parts 2 (extended) and 3 (extended) of Common Criteria Version 3.1, Revision 5.&lt;/p&gt;</span></dd><dt class="cclaim,defined" id="PP Claim">PP Claim</dt><dd><span class="description">&lt;p&gt;This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> does not claim conformance to any other Protection Profile. The following <abbr class="dyn-abbr"><a href="#abbr_PP">PPs</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-Modules are allowed to be specified in a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> with this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Protection Profile for Mobile Device Management Version 4.0&lt;/li&gt;&lt;li&gt;<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption, Version 1.0&lt;/li&gt;&lt;li&gt;<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption Enterprise Management, Version 1.0&lt;/li&gt;&lt;li&gt;<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for VPN Clients, Version 2.2&lt;/li&gt;&lt;li&gt;<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for VPN Clients, Version 2.3&lt;/li&gt;&lt;li&gt;<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for Endpoint Detection and Response, Version 1.0&lt;/li&gt;&lt;li&gt;<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for Host Agent, Version 1.0&lt;/li&gt;&lt;li&gt;<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for Voice and Video over IP (VVoIP), Version 1.0&lt;/li&gt;&lt;li&gt;<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for Email Clients, Version 1.0&lt;/li&gt;&lt;/ul&gt;</span></dd><dt class="cclaim,defined" id="Package Claim">Package Claim</dt><dd><span class="description">&lt;ul&gt;&lt;li&gt;This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is Functional Package for TLS Version 1.1 Conformant.&lt;/li&gt;&lt;li&gt;This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is Functional Package for SSH Version 1.0 Conformant.&lt;/li&gt;&lt;/ul&gt;</span></dd></dl>
+    <dl><dt class="cclaim defined" id="Conformance Statement">Conformance Statement</dt><dd><span class="description">&lt;p&gt;An <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> must claim exact conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, as defined in the <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr> addenda for Exact Conformance, Selection-Based <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>, and Optional <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> (dated May 2017).&lt;/p&gt;</span></dd><dt class="cclaim defined" id="CC Conformance Claims">CC Conformance Claims</dt><dd><span class="description">&lt;p&gt;This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is conformant to Parts 2 (extended) and 3 (extended) of Common Criteria Version 3.1, Revision 5.&lt;/p&gt;</span></dd><dt class="cclaim defined" id="PP Claim">PP Claim</dt><dd><span class="description">&lt;p&gt;This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> does not claim conformance to any other Protection Profile. The following <abbr class="dyn-abbr"><a href="#abbr_PP">PPs</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-Modules are allowed to be specified in a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> with this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Protection Profile for Mobile Device Management Version 4.0&lt;/li&gt;&lt;li&gt;<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption, Version 1.0&lt;/li&gt;&lt;li&gt;<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption Enterprise Management, Version 1.0&lt;/li&gt;&lt;li&gt;<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for VPN Clients, Version 2.2&lt;/li&gt;&lt;li&gt;<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for VPN Clients, Version 2.3&lt;/li&gt;&lt;li&gt;<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for Endpoint Detection and Response, Version 1.0&lt;/li&gt;&lt;li&gt;<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for Host Agent, Version 1.0&lt;/li&gt;&lt;li&gt;<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for Voice and Video over IP (VVoIP), Version 1.0&lt;/li&gt;&lt;li&gt;<abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for Email Clients, Version 1.0&lt;/li&gt;&lt;/ul&gt;</span></dd><dt class="cclaim defined" id="Package Claim">Package Claim</dt><dd><span class="description">&lt;ul&gt;&lt;li&gt;This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is Functional Package for TLS Version 1.1 Conformant.&lt;/li&gt;&lt;li&gt;This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is Functional Package for SSH Version 1.0 Conformant.&lt;/li&gt;&lt;/ul&gt;</span></dd></dl>
   <h1 class="indexable" data-level="1" id="Security_Problem_Description">3 Security Problem Description</h1>
     
     <h2 class="indexable" data-level="2" id="Threats">3.1 Threats</h2>
       
-        <dl><dt class="threat,defined" id="T.LOCAL_ATTACK">T.LOCAL_ATTACK</dt><dd><span class="description">&lt;p&gt;An attacker can act through unprivileged software on the same computingplatform on which the application executes. Attackers may provide maliciously formattedinput to the application in the form of files or other localcommunications.&lt;/p&gt;</span></dd><dt class="threat,defined" id="T.NETWORK_ATTACK">T.NETWORK_ATTACK</dt><dd><span class="description">&lt;p&gt;An attacker is positioned on a communications channel or elsewhere on thenetwork infrastructure. Attackers may engage in communications with the applicationsoftware or alter communications between the application software and other endpoints inorder to compromise it.&lt;/p&gt;</span></dd><dt class="threat,defined" id="T.NETWORK_EAVESDROP">T.NETWORK_EAVESDROP</dt><dd><span class="description">&lt;p&gt;An attacker is positioned on a communications channel or elsewhere on thenetwork infrastructure. Attackers may monitor and gain access to data exchanged betweenthe application and other endpoints.&lt;/p&gt;</span></dd><dt class="threat,defined" id="T.PHYSICAL_ACCESS">T.PHYSICAL_ACCESS</dt><dd><span class="description">&lt;p&gt;An attacker may try to access sensitive data at rest.&lt;/p&gt;</span></dd></dl>
+        <dl><dt class="threat defined" id="T.LOCAL_ATTACK">T.LOCAL_ATTACK</dt><dd><span class="description">&lt;p&gt;An attacker can act through unprivileged software on the same computingplatform on which the application executes. Attackers may provide maliciously formattedinput to the application in the form of files or other localcommunications.&lt;/p&gt;</span></dd><dt class="threat defined" id="T.NETWORK_ATTACK">T.NETWORK_ATTACK</dt><dd><span class="description">&lt;p&gt;An attacker is positioned on a communications channel or elsewhere on thenetwork infrastructure. Attackers may engage in communications with the applicationsoftware or alter communications between the application software and other endpoints inorder to compromise it.&lt;/p&gt;</span></dd><dt class="threat defined" id="T.NETWORK_EAVESDROP">T.NETWORK_EAVESDROP</dt><dd><span class="description">&lt;p&gt;An attacker is positioned on a communications channel or elsewhere on thenetwork infrastructure. Attackers may monitor and gain access to data exchanged betweenthe application and other endpoints.&lt;/p&gt;</span></dd><dt class="threat defined" id="T.PHYSICAL_ACCESS">T.PHYSICAL_ACCESS</dt><dd><span class="description">&lt;p&gt;An attacker may try to access sensitive data at rest.&lt;/p&gt;</span></dd></dl>
       
     
     
     <h2 class="indexable" data-level="2" id="Assumptions">3.2 Assumptions</h2>
       
-        <dl><dt class="assumption,defined" id="A.PLATFORM">A.PLATFORM</dt><dd><span class="description">&lt;p&gt;The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> relies upon a trustworthy computing platform with a reliable time clock for its execution. This includes the underlying platform and whatever runtime environment it provides to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.&lt;/p&gt;</span></dd><dt class="assumption,defined" id="A.PROPER_ADMIN">A.PROPER_ADMIN</dt><dd><span class="description">&lt;p&gt;The administrator of the application software is not careless, willfully negligent or hostile, and administers the software in compliance with the applied enterprise security policy.&lt;/p&gt;</span></dd><dt class="assumption,defined" id="A.PROPER_USER">A.PROPER_USER</dt><dd><span class="description">&lt;p&gt;The user of the application software is not willfully negligent or hostile, and uses the software in compliance with the applied enterprise security policy.&lt;/p&gt;</span></dd></dl>
+        <dl><dt class="assumption defined" id="A.PLATFORM">A.PLATFORM</dt><dd><span class="description">&lt;p&gt;The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> relies upon a trustworthy computing platform with a reliable time clock for its execution. This includes the underlying platform and whatever runtime environment it provides to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.&lt;/p&gt;</span></dd><dt class="assumption defined" id="A.PROPER_ADMIN">A.PROPER_ADMIN</dt><dd><span class="description">&lt;p&gt;The administrator of the application software is not careless, willfully negligent or hostile, and administers the software in compliance with the applied enterprise security policy.&lt;/p&gt;</span></dd><dt class="assumption defined" id="A.PROPER_USER">A.PROPER_USER</dt><dd><span class="description">&lt;p&gt;The user of the application software is not willfully negligent or hostile, and uses the software in compliance with the applied enterprise security policy.&lt;/p&gt;</span></dd></dl>
       
     
     
@@ -744,17 +759,17 @@ The following sections list Common Criteria and technology terms used in this do
   <h1 class="indexable" data-level="1" id="Security_Objectives">4 Security Objectives</h1>
     
     <h2 class="indexable" data-level="2" id="Security_Objectives_for_the_TOE">4.1 Security Objectives for the TOE</h2>
-      <dl><dt class="SO,defined" id="O.INTEGRITY">O.INTEGRITY</dt><dd><span class="description">&lt;p&gt;Conformant <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> ensure the integrity of their installation and update packages, and also leverage execution environment-based mitigations. Software is seldom, if ever, shipped without errors. The ability to deploy patches and updates to fielded software with integrity is critical to enterprise network security. Processor manufacturers, compiler developers, execution environment vendors, and operating system vendors have developed execution environment-based mitigations that increase the cost to attackers by adding complexity to the task of compromising systems. Application software can often take advantage of these mechanisms by using APIs provided by the runtime environment or by enabling the mechanism through compiler or linker options.&lt;/p&gt;</span></dd><dt class="SO,defined" id="O.MANAGEMENT">O.MANAGEMENT</dt><dd><span class="description">&lt;p&gt;To facilitate management by users and the enterprise, conformant <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> provide consistent and supported interfaces for their security-relevant configuration and maintenance. This includes the deployment of applications and application updates through the use of platform-supported deployment mechanisms and formats, as well as providing mechanisms for configuration. This also includes providing control to the user regarding disclosure of any <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr>.&lt;/p&gt;</span></dd><dt class="SO,defined" id="O.PROTECTED_COMMS">O.PROTECTED_COMMS</dt><dd><span class="description">&lt;p&gt;To address both passive (eavesdropping) and active (packet modification) network attack threats, conformant <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> will use a trusted channel for sensitive data. Sensitive data includes cryptographic keys, passwords, and any other data specific to the application that should not be exposed outside of the application.&lt;/p&gt;</span></dd><dt class="SO,defined" id="O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</dt><dd><span class="description">&lt;p&gt;To address the issue of loss of confidentiality of user data in the event of loss of physical control of the storage medium, conformant <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> will use data-at-rest protection. This involves encrypting data and keys stored by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> in order to prevent unauthorized access to this data. This also includes unnecessary network communications whose consequence may be the loss of data.&lt;/p&gt;</span></dd><dt class="SO,defined" id="O.QUALITY">O.QUALITY</dt><dd><span class="description">&lt;p&gt;To ensure quality of implementation, conformant <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> leverage services and APIs provided by the runtime environment rather than implementing their own versions of these services and APIs. This is especially important for cryptographic services and other complex operations such as file and media parsing. Leveraging this platform behavior relies upon using only documented and supported APIs.&lt;/p&gt;</span></dd></dl>
+      <dl><dt class="SO defined" id="O.INTEGRITY">O.INTEGRITY</dt><dd><span class="description">&lt;p&gt;Conformant <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> ensure the integrity of their installation and update packages, and also leverage execution environment-based mitigations. Software is seldom, if ever, shipped without errors. The ability to deploy patches and updates to fielded software with integrity is critical to enterprise network security. Processor manufacturers, compiler developers, execution environment vendors, and operating system vendors have developed execution environment-based mitigations that increase the cost to attackers by adding complexity to the task of compromising systems. Application software can often take advantage of these mechanisms by using APIs provided by the runtime environment or by enabling the mechanism through compiler or linker options.&lt;/p&gt;</span></dd><dt class="SO defined" id="O.MANAGEMENT">O.MANAGEMENT</dt><dd><span class="description">&lt;p&gt;To facilitate management by users and the enterprise, conformant <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> provide consistent and supported interfaces for their security-relevant configuration and maintenance. This includes the deployment of applications and application updates through the use of platform-supported deployment mechanisms and formats, as well as providing mechanisms for configuration. This also includes providing control to the user regarding disclosure of any <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr>.&lt;/p&gt;</span></dd><dt class="SO defined" id="O.PROTECTED_COMMS">O.PROTECTED_COMMS</dt><dd><span class="description">&lt;p&gt;To address both passive (eavesdropping) and active (packet modification) network attack threats, conformant <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> will use a trusted channel for sensitive data. Sensitive data includes cryptographic keys, passwords, and any other data specific to the application that should not be exposed outside of the application.&lt;/p&gt;</span></dd><dt class="SO defined" id="O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</dt><dd><span class="description">&lt;p&gt;To address the issue of loss of confidentiality of user data in the event of loss of physical control of the storage medium, conformant <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> will use data-at-rest protection. This involves encrypting data and keys stored by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> in order to prevent unauthorized access to this data. This also includes unnecessary network communications whose consequence may be the loss of data.&lt;/p&gt;</span></dd><dt class="SO defined" id="O.QUALITY">O.QUALITY</dt><dd><span class="description">&lt;p&gt;To ensure quality of implementation, conformant <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> leverage services and APIs provided by the runtime environment rather than implementing their own versions of these services and APIs. This is especially important for cryptographic services and other complex operations such as file and media parsing. Leveraging this platform behavior relies upon using only documented and supported APIs.&lt;/p&gt;</span></dd></dl>
     
     
     <h2 class="indexable" data-level="2" id="Security_Objectives_for_the_Operational_Environment">4.2 Security Objectives for the Operational Environment</h2>
-      <dl><dt class="SOE,defined" id="OE.PLATFORM">OE.PLATFORM</dt><dd><span class="description">&lt;p&gt;The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> relies upon a trustworthy computing platform for its execution. This includes the underlying operating system and any discrete execution environment provided to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.&lt;/p&gt;</span></dd><dt class="SOE,defined" id="OE.PROPER_ADMIN">OE.PROPER_ADMIN</dt><dd><span class="description">&lt;p&gt;The administrator of the application software is not careless, willfully negligent or hostile, and administers the software within compliance of the applied enterprise security policy.&lt;/p&gt;</span></dd><dt class="SOE,defined" id="OE.PROPER_USER">OE.PROPER_USER</dt><dd><span class="description">&lt;p&gt;The user of the application software is not willfully negligent or hostile, and uses the software within compliance of the applied enterprise security policy.&lt;/p&gt;</span></dd></dl>
+      <dl><dt class="SOE defined" id="OE.PLATFORM">OE.PLATFORM</dt><dd><span class="description">&lt;p&gt;The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> relies upon a trustworthy computing platform for its execution. This includes the underlying operating system and any discrete execution environment provided to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.&lt;/p&gt;</span></dd><dt class="SOE defined" id="OE.PROPER_ADMIN">OE.PROPER_ADMIN</dt><dd><span class="description">&lt;p&gt;The administrator of the application software is not careless, willfully negligent or hostile, and administers the software within compliance of the applied enterprise security policy.&lt;/p&gt;</span></dd><dt class="SOE defined" id="OE.PROPER_USER">OE.PROPER_USER</dt><dd><span class="description">&lt;p&gt;The user of the application software is not willfully negligent or hostile, and uses the software within compliance of the applied enterprise security policy.&lt;/p&gt;</span></dd></dl>
     
     
     <h2 id="" class="indexable,h2" data-level="2">4.3 Security Objectives Rationale</h2>   
-    This section describes how the assumptions, threats, and organizational 
-    security policies map to the security objectives.
-    <table><caption><span class="ctr" data-myid="t-sec-obj-rat" data-counter-type="ct-Table" id="t-sec-obj-rat">Table <span class="counter">1</span></span>: Security Objectives Rationale</caption><tr class="header"><td>Threat, Assumption, or OSP</td><td>Security Objectives</td><td>Rationale</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.LOCAL_ATTACK">T.LOCAL_​ATTACK</a></td><td><a href="#O.QUALITY">O.QUALITY</a></td><td>The objective <a href="#O.QUALITY">O.QUALITY</a> protects against the use ofmechanisms that weaken the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with regard toattack by other software on the platform.</td></tr><tr class="major-row"><td rowspan="3"><a href="#T.NETWORK_ATTACK">T.NETWORK_​ATTACK</a></td><td><a href="#O.INTEGRITY">O.INTEGRITY</a></td><td>The threat <a href="#T.NETWORK_ATTACK">T.NETWORK_ATTACK</a> is countered by <a href="#O.INTEGRITY">O.INTEGRITY</a> as this providesfor integrity of software that is installed onto the system from thenetwork.</td></tr><tr><td><a href="#O.MANAGEMENT">O.MANAGEMENT</a></td><td>The threat <a href="#T.NETWORK_ATTACK">T.NETWORK_ATTACK</a> is countered by <a href="#O.MANAGEMENT">O.MANAGEMENT</a> as thisprovides for the ability to configure the application to defend against network attack.</td></tr><tr><td><a href="#O.PROTECTED_COMMS">O.PROTECTED_​COMMS</a></td><td>The threat <a href="#T.NETWORK_ATTACK">T.NETWORK_ATTACK</a> is countered by <a href="#O.PROTECTED_COMMS">O.PROTECTED_COMMS</a> as thisprovides for integrity of transmitted data.</td></tr><tr class="major-row"><td rowspan="3"><a href="#T.NETWORK_EAVESDROP">T.NETWORK_​EAVESDROP</a></td><td><a href="#O.MANAGEMENT">O.MANAGEMENT</a></td><td>The threat <a href="#T.NETWORK_EAVESDROP">T.NETWORK_EAVESDROP</a> is countered by <a href="#O.MANAGEMENT">O.MANAGEMENT</a> as thisprovides for the ability to configure the application to protect theconfidentiality of its transmitted data.</td></tr><tr><td><a href="#O.PROTECTED_COMMS">O.PROTECTED_​COMMS</a></td><td>The threat <a href="#T.NETWORK_EAVESDROP">T.NETWORK_EAVESDROP</a> is countered by <a href="#O.PROTECTED_COMMS">O.PROTECTED_COMMS</a> as thisprovides for confidentiality of transmitted data.</td></tr><tr><td><a href="#O.QUALITY">O.QUALITY</a></td><td>The objective <a href="#O.QUALITY">O.QUALITY</a> ensures use of mechanisms that provide protection against network-based attack.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.PHYSICAL_ACCESS">T.PHYSICAL_​ACCESS</a></td><td><a href="#O.PROTECTED_STORAGE">O.PROTECTED_​STORAGE</a></td><td>The objective <a href="#O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</a> protects against unauthorized attempts to accessphysical storage used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr></table>
+		This section describes how the assumptions, threats, and organizational 
+		security policies map to the security objectives.
+	<table><caption><span class="ctr" data-myid="t-sec-obj-rat" data-counter-type="ct-Table" id="t-sec-obj-rat">Table <span class="counter">1</span></span>: Security Objectives Rationale</caption><tr class="header"><td>Threat, Assumption, or OSP</td><td>Security Objectives</td><td>Rationale</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.LOCAL_ATTACK">T.LOCAL_​ATTACK</a></td><td><a href="#O.QUALITY">O.QUALITY</a></td><td>The objective <a href="#O.QUALITY">O.QUALITY</a> protects against the use ofmechanisms that weaken the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with regard toattack by other software on the platform.</td></tr><tr class="major-row"><td rowspan="3"><a href="#T.NETWORK_ATTACK">T.NETWORK_​ATTACK</a></td><td><a href="#O.INTEGRITY">O.INTEGRITY</a></td><td>The threat <a href="#T.NETWORK_ATTACK">T.NETWORK_ATTACK</a> is countered by <a href="#O.INTEGRITY">O.INTEGRITY</a> as this providesfor integrity of software that is installed onto the system from thenetwork.</td></tr><tr><td><a href="#O.MANAGEMENT">O.MANAGEMENT</a></td><td>The threat <a href="#T.NETWORK_ATTACK">T.NETWORK_ATTACK</a> is countered by <a href="#O.MANAGEMENT">O.MANAGEMENT</a> as thisprovides for the ability to configure the application to defend against network attack.</td></tr><tr><td><a href="#O.PROTECTED_COMMS">O.PROTECTED_​COMMS</a></td><td>The threat <a href="#T.NETWORK_ATTACK">T.NETWORK_ATTACK</a> is countered by <a href="#O.PROTECTED_COMMS">O.PROTECTED_COMMS</a> as thisprovides for integrity of transmitted data.</td></tr><tr class="major-row"><td rowspan="3"><a href="#T.NETWORK_EAVESDROP">T.NETWORK_​EAVESDROP</a></td><td><a href="#O.MANAGEMENT">O.MANAGEMENT</a></td><td>The threat <a href="#T.NETWORK_EAVESDROP">T.NETWORK_EAVESDROP</a> is countered by <a href="#O.MANAGEMENT">O.MANAGEMENT</a> as thisprovides for the ability to configure the application to protect theconfidentiality of its transmitted data.</td></tr><tr><td><a href="#O.PROTECTED_COMMS">O.PROTECTED_​COMMS</a></td><td>The threat <a href="#T.NETWORK_EAVESDROP">T.NETWORK_EAVESDROP</a> is countered by <a href="#O.PROTECTED_COMMS">O.PROTECTED_COMMS</a> as thisprovides for confidentiality of transmitted data.</td></tr><tr><td><a href="#O.QUALITY">O.QUALITY</a></td><td>The objective <a href="#O.QUALITY">O.QUALITY</a> ensures use of mechanisms that provide protection against network-based attack.</td></tr><tr class="major-row"><td rowspan="1"><a href="#T.PHYSICAL_ACCESS">T.PHYSICAL_​ACCESS</a></td><td><a href="#O.PROTECTED_STORAGE">O.PROTECTED_​STORAGE</a></td><td>The objective <a href="#O.PROTECTED_STORAGE">O.PROTECTED_STORAGE</a> protects against unauthorized attempts to accessphysical storage used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr></table>
   <h1 class="indexable" data-level="1" id="req">5 Security Requirements</h1>
       This chapter describes the security requirements which have to be fulfilled by the product under evaluation.
      Those requirements comprise functional components from Part 2 and assurance components from Part 3 of 
@@ -764,8 +779,7 @@ The following sections list Common Criteria and technology terms used in this do
      <ul>
        <li>
          <b>Refinement</b> operation (denoted by <b>bold text</b> or <strike>strikethrough
-         text</strike>): Is used to add details to a requirement (including replacing an assignment
-         with a more restrictive selection) or to remove part of the requirement that is made irrelevant
+         text</strike>): Is used to add details to a requirement or to remove part of the requirement that is made irrelevant
          through the completion of another operation, and thus further restricts a requirement.
          </li>
        <li>
@@ -873,7 +887,7 @@ The following sections list Common Criteria and technology terms used in this do
 						The following are the per-platform list of acceptable APIs:
 						
                 
-                  <li class="test-"><span id="_t_12">Test 1<a href="#_t_12" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_12" class="defined" href="#_t_12">Test FCS_RBG_EXT.1.1:1</a>:
        
 							The evaluator shall verify that the application uses at least one of &lt;code&gt;javax.crypto.KeyGenerator&lt;/code&gt; 
 							class or the &lt;code&gt;java.security.SecureRandom&lt;/code&gt; class or &lt;code&gt;/dev/random
@@ -881,7 +895,7 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_13">Test 2<a href="#_t_13" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_13" class="defined" href="#_t_13">Test FCS_RBG_EXT.1.1:2</a>:
       
 							The evaluator shall verify that rand_s, RtlGenRandom, BCryptGenRandom, or 
 							CryptGenRandom <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> is used for classic desktop applications. The evaluator shall 
@@ -893,27 +907,27 @@ The following sections list Common Criteria and technology terms used in this do
 							vendor documentation. </li>
                 
                 
-                  <li class="test-"><span id="_t_14">Test 3<a href="#_t_14" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_14" class="defined" href="#_t_14">Test FCS_RBG_EXT.1.1:3</a>:
        
 							The evaluator shall verify that the application invokes either
 							&lt;code&gt;SecRandomCopyBytes&lt;/code&gt;, &lt;code&gt;CCRandomGenerateBytes&lt;/code&gt;, or &lt;code&gt;CCRandomCopyBytes&lt;/code&gt;, or uses &lt;code&gt;/dev/random&lt;/code&gt; directly to acquire random.
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_15">Test 4<a href="#_t_15" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_15" class="defined" href="#_t_15">Test FCS_RBG_EXT.1.1:4</a>:
        
 							The evaluator shall verify that the application collects random from &lt;code&gt;/dev/random&lt;/code&gt;
 							or &lt;code&gt;/dev/urandom&lt;/code&gt;.
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_16">Test 5<a href="#_t_16" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_16" class="defined" href="#_t_16">Test FCS_RBG_EXT.1.1:5</a>:
       
 							The evaluator shall verify that the application collects random from &lt;code&gt;/dev/random&lt;/code&gt;.
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_17">Test 6<a href="#_t_17" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_17" class="defined" href="#_t_17">Test FCS_RBG_EXT.1.1:6</a>:
       
 							The evaluator shall verify that the application invokes either &lt;code&gt;CCRandomGenerateBytes&lt;/code&gt; or &lt;code&gt;CCRandomCopyBytes&lt;/code&gt;, or collects random from &lt;code&gt;/dev/random&lt;/code&gt;.
 						</li>
@@ -957,13 +971,13 @@ The following sections list Common Criteria and technology terms used in this do
 						functionality, the evaluator shall perform the following actions which vary per platform.
 						
                 
-                  <li class="test-"><span id="_t_21">Test 7<a href="#_t_21" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_21" class="defined" href="#_t_21">Test FCS_STO_EXT.1.1:1</a>:
       The evaluator shall verify that the application uses
 							the Android &lt;code&gt;KeyStore&lt;/code&gt; or the Android &lt;code&gt;KeyChain&lt;/code&gt; to store certificates.  
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_22">Test 8<a href="#_t_22" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_22" class="defined" href="#_t_22">Test FCS_STO_EXT.1.1:2</a>:
       The evaluator shall verify that all certificates are
 							stored in the Windows Certificate Store. The evaluator shall verify that other
 							credentials, like passwords, are stored in the Windows Credential Manager or stored 
@@ -973,27 +987,27 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_23">Test 9<a href="#_t_23" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_23" class="defined" href="#_t_23">Test FCS_STO_EXT.1.1:3</a>:
       
 							The evaluator shall verify that all credentials are stored
 							within a &lt;code&gt;Keychain&lt;/code&gt;.  
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_24">Test 10<a href="#_t_24" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_24" class="defined" href="#_t_24">Test FCS_STO_EXT.1.1:4</a>:
       
 							The evaluator shall verify that all keys are stored using Linux keyrings.
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_25">Test 11<a href="#_t_25" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_25" class="defined" href="#_t_25">Test FCS_STO_EXT.1.1:5</a>:
       
 							The evaluator shall verify that all keys are stored using Solaris 
 							&lt;code&gt;Key Management Framework (KMF)&lt;/code&gt;.
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_26">Test 12<a href="#_t_26" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_26" class="defined" href="#_t_26">Test FCS_STO_EXT.1.1:6</a>:
       The evaluator shall verify that all credentials are 
 							stored within &lt;code&gt;Keychain&lt;/code&gt;.</li>
                 
@@ -1034,14 +1048,14 @@ The following sections list Common Criteria and technology terms used in this do
 						If "&lt;i&gt;leverage platform-provided functionality&lt;/i&gt;" is selected, the evaluation activities will be performed as 
 						stated in the following requirements, which vary on a per-platform basis.&lt;p&gt;&lt;/p&gt;
                 
-                  <li class="test-"><span id="_t_27">Test 13<a href="#_t_27" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_27" class="defined" href="#_t_27">Test FDP_DAR_EXT.1.1:1</a>:
       
 							The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that it describes how files containing sensitive data are 
 							stored with the &lt;code&gt;MODE_PRIVATE&lt;/code&gt; flag set.
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_28">Test 14<a href="#_t_28" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_28" class="defined" href="#_t_28">Test FDP_DAR_EXT.1.1:2</a>:
       
 							The Windows platform currently does not provide data-at-rest
 							encryption services which depend upon invocation by application developers. The evaluator shall
@@ -1050,7 +1064,7 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_29">Test 15<a href="#_t_29" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_29" class="defined" href="#_t_29">Test FDP_DAR_EXT.1.1:3</a>:
       
 							The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and ensure that it describes how the 
 							application uses the Complete Protection, Protected Unless Open, or Protected Until 
@@ -1058,7 +1072,7 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_30">Test 16<a href="#_t_30" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_30" class="defined" href="#_t_30">Test FDP_DAR_EXT.1.1:4</a>:
       
 							The Linux platform currently does not provide data-at-rest encryption services which depend
 							upon invocation by application developers.  The evaluator shall verify that
@@ -1067,7 +1081,7 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_31">Test 17<a href="#_t_31" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_31" class="defined" href="#_t_31">Test FDP_DAR_EXT.1.1:5</a>:
       
 							The Solaris platform currently does not provide data-at-rest encryption services which depend
 							upon invocation by application developers.  The evaluator shall verify that
@@ -1076,7 +1090,7 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_32">Test 18<a href="#_t_32" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_32" class="defined" href="#_t_32">Test FDP_DAR_EXT.1.1:6</a>:
       
 							The macOS platform currently does not provide data-at-rest encryption services which depend
 							upon invocation by application developers.  The evaluator shall verify that
@@ -1126,14 +1140,14 @@ The following sections list Common Criteria and technology terms used in this do
 						justification as to why access is required.</div>
               <div class="eacategory">Tests</div><div class="ea">
                 
-                  <li class="test-"><span id="_t_33">Test 19<a href="#_t_33" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_33" class="defined" href="#_t_33">Test FDP_DEC_EXT.1.1:1</a>:
       
 							The evaluator shall verify that each &lt;code&gt;uses-permission&lt;/code&gt; entry in the AndroidManifest.xml file 
 							for access to a hardware resource is reflected in the selection.
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_34">Test 20<a href="#_t_34" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_34" class="defined" href="#_t_34">Test FDP_DEC_EXT.1.1:2</a>:
       For Windows Universal Applications the evaluator shall check 
 							the WMAppManifest.xml file for a list of required hardware capabilities. The evaluator
 							shall verify that the user is made aware of the required hardware capabilities when
@@ -1149,25 +1163,25 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_35">Test 21<a href="#_t_35" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_35" class="defined" href="#_t_35">Test FDP_DEC_EXT.1.1:3</a>:
       The evaluator shall verify that either the
 							application or the documentation provides a list of the
 							hardware resources it accesses. </li>
                 
                 
-                  <li class="test-"><span id="_t_36">Test 22<a href="#_t_36" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_36" class="defined" href="#_t_36">Test FDP_DEC_EXT.1.1:4</a>:
        The evaluator shall verify that either the
 							application software or its documentation provides a list of the
 							hardware resources it accesses. </li>
                 
                 
-                  <li class="test-"><span id="_t_37">Test 23<a href="#_t_37" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_37" class="defined" href="#_t_37">Test FDP_DEC_EXT.1.1:5</a>:
        The evaluator shall verify that either the
 							application software or its documentation provides a list of the
 							hardware resources it accesses. </li>
                 
                 
-                  <li class="test-"><span id="_t_38">Test 24<a href="#_t_38" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_38" class="defined" href="#_t_38">Test FDP_DEC_EXT.1.1:6</a>:
        The evaluator shall verify that either the application
 							software or its documentation provides a list of the hardware
 							resources it accesses.</li>
@@ -1183,14 +1197,14 @@ The following sections list Common Criteria and technology terms used in this do
 						justification as to why access is required.</div>
               <div class="eacategory">Tests</div><div class="ea">
                 
-                  <li class="test-"><span id="_t_39">Test 25<a href="#_t_39" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_39" class="defined" href="#_t_39">Test FDP_DEC_EXT.1.2:1</a>:
       
 							The evaluator shall verify that each &lt;code&gt;uses-permission&lt;/code&gt; entry in the AndroidManifest.xml file 
 							for access to a sensitive information repository is reflected in the selection.  
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_40">Test 26<a href="#_t_40" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_40" class="defined" href="#_t_40">Test FDP_DEC_EXT.1.2:2</a>:
       For Windows Universal Applications the evaluator shall check the
 							WMAppManifest.xml file for a list of required capabilities. The evaluator shall
 							identify the required information repositories when the
@@ -1205,26 +1219,26 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_41">Test 27<a href="#_t_41" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_41" class="defined" href="#_t_41">Test FDP_DEC_EXT.1.2:3</a>:
       The evaluator shall verify that either the application
 							software or its documentation provides a list of
 							the sensitive information repositories it accesses.</li>
                 
                 
-                  <li class="test-"><span id="_t_42">Test 28<a href="#_t_42" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_42" class="defined" href="#_t_42">Test FDP_DEC_EXT.1.2:4</a>:
        The evaluator shall verify that either the 
 							application software or its documentation provides a list of 
 							sensitive information repositories it accesses.
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_43">Test 29<a href="#_t_43" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_43" class="defined" href="#_t_43">Test FDP_DEC_EXT.1.2:5</a>:
       The evaluator shall verify that either the
 							application software or its documentation provides a list of
 							sensitive information repositories it accesses. </li>
                 
                 
-                  <li class="test-"><span id="_t_44">Test 30<a href="#_t_44" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_44" class="defined" href="#_t_44">Test FDP_DEC_EXT.1.2:6</a>:
       The evaluator shall verify that either the application
 							software or its documentation provides a list of
 							sensitive information repositories it accesses.</li>
@@ -1250,14 +1264,14 @@ The following sections list Common Criteria and technology terms used in this do
                 
                   The evaluator shall perform the following tests:
 						
-                  <li class="test-"><span id="_t_45">Test 31<a href="#_t_45" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_45" class="defined" href="#_t_45">Test FDP_NET_EXT.1.1:1</a>:
       
 								The evaluator shall run the application.  While the application is running,
 								the evaluator shall sniff network traffic ignoring all non-application 
 								associated traffic
 								and verify that any network communications witnessed are documented in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> or are user-initiated. 
 							</li>
-                  <li class="test-"><span id="_t_46">Test 32<a href="#_t_46" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_46" class="defined" href="#_t_46">Test FDP_NET_EXT.1.1:2</a>:
       
 								The evaluator shall run the application.  After the application initializes, the
 								evaluator shall run network port scans to verify that any ports
@@ -1268,7 +1282,7 @@ The following sections list Common Criteria and technology terms used in this do
 							</li>
                 
                 
-                  <li class="test-"><span id="_t_47">Test 33<a href="#_t_47" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_47" class="defined" href="#_t_47">Test FDP_NET_EXT.1.1:3</a>:
       
 							If "no network communication" is selected, the evaluator shall ensure that the application's
 							AndroidManifest.xml file does not contain a uses-permission or uses-permission-sdk-23 tag
@@ -1311,18 +1325,18 @@ The following sections list Common Criteria and technology terms used in this do
                 
                   If the application uses any default credentials the evaluator shall run the following tests.
 						
-                  <li class="test-"><span id="_t_61">Test 34<a href="#_t_61" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_61" class="defined" href="#_t_61">Test FMT_CFG_EXT.1.1:1</a>:
       
 								The evaluator shall install and run the application without generating or loading 
 								new credentials and verify that only the minimal
 								application functionality required to set new credentials is available.
 							</li>
-                  <li class="test-"><span id="_t_62">Test 35<a href="#_t_62" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_62" class="defined" href="#_t_62">Test FMT_CFG_EXT.1.1:2</a>:
       
 								The evaluator shall attempt to clear all credentials and verify that only
 								the minimal application functionality required to set new credentials is available.
 							</li>
-                  <li class="test-"><span id="_t_63">Test 36<a href="#_t_63" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_63" class="defined" href="#_t_63">Test FMT_CFG_EXT.1.1:3</a>:
       
 								The evaluator shall run the application, establish new credentials and
 								verify that the original default credentials no longer provide access to
@@ -1341,14 +1355,14 @@ The following sections list Common Criteria and technology terms used in this do
 						The method of doing so varies per platform.
 						
                 
-                  <li class="test-"><span id="_t_64">Test 37<a href="#_t_64" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_64" class="defined" href="#_t_64">Test FMT_CFG_EXT.1.2:1</a>:
       The evaluator shall run the command &lt;code&gt;find -L . -perm /002&lt;/code&gt; 
 							inside the application's data directories to ensure that all files are not world-writable. The command 
 							should not print any files.
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_65">Test 38<a href="#_t_65" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_65" class="defined" href="#_t_65">Test FMT_CFG_EXT.1.2:2</a>:
       The evaluator shall run the SysInternals tools,
 							Process Monitor and Access Check (or tools of equivalent capability, like 
 							icacls.exe) for Classic Desktop applications to verify that files written to disk 
@@ -1359,13 +1373,13 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_66">Test 39<a href="#_t_66" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_66" class="defined" href="#_t_66">Test FMT_CFG_EXT.1.2:3</a>:
       The evaluator shall determine whether the application
 							leverages the appropriate Data Protection Class for each data file stored
 							locally.</li>
                 
                 
-                  <li class="test-"><span id="_t_67">Test 40<a href="#_t_67" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_67" class="defined" href="#_t_67">Test FMT_CFG_EXT.1.2:4</a>:
        
 							The evaluator shall run the command &lt;code&gt;find -L . -perm /002&lt;/code&gt; 
 							inside the application's data directories to ensure that all files are 
@@ -1373,7 +1387,7 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_68">Test 41<a href="#_t_68" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_68" class="defined" href="#_t_68">Test FMT_CFG_EXT.1.2:5</a>:
       
 							The evaluator shall run the command &lt;code&gt;find . \( -perm -002 \)&lt;/code&gt;
 							inside the application's data directories to ensure that all files are not 
@@ -1381,7 +1395,7 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_69">Test 42<a href="#_t_69" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_69" class="defined" href="#_t_69">Test FMT_CFG_EXT.1.2:6</a>:
       
 							The evaluator shall run the command &lt;code&gt;find . -perm +002&lt;/code&gt; inside
 							the application's data directories to ensure that all files are not world-writable.
@@ -1418,7 +1432,7 @@ The following sections list Common Criteria and technology terms used in this do
 						the method of testing varies per platform as follows: 
 	                    
                 
-                  <li class="test-"><span id="_t_70">Test 43<a href="#_t_70" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_70" class="defined" href="#_t_70">Test FMT_MEC_EXT.1.1:1</a>:
       
 							The evaluator shall run the application and make security-related changes to its configuration.
 							The evaluator shall check that at least one XML file at location
@@ -1430,7 +1444,7 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_71">Test 44<a href="#_t_71" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_71" class="defined" href="#_t_71">Test FMT_MEC_EXT.1.1:2</a>:
       The evaluator shall determine and verify that Windows
 							Universal Applications use either the Windows.Storage namespace, Windows.UI.ApplicationSettings namespace,
 							or the IsolatedStorageSettings namespace for storing application specific settings.
@@ -1445,13 +1459,13 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_72">Test 45<a href="#_t_72" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_72" class="defined" href="#_t_72">Test FMT_MEC_EXT.1.1:3</a>:
       The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_app">app</a></abbr> uses the
 							&lt;code&gt;user defaults system&lt;/code&gt; or &lt;code&gt;key-value store&lt;/code&gt; for storing all
 							settings.</li>
                 
                 
-                  <li class="test-"><span id="_t_73">Test 46<a href="#_t_73" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_73" class="defined" href="#_t_73">Test FMT_MEC_EXT.1.1:4</a>:
        
 							The evaluator shall run the application while monitoring it with the utility .
 							The evaluator shall make security-related changes to its configuration.
@@ -1462,7 +1476,7 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_74">Test 47<a href="#_t_74" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_74" class="defined" href="#_t_74">Test FMT_MEC_EXT.1.1:5</a>:
       
 							The evaluator shall run the application while monitoring it with the utility 
 							.
@@ -1474,7 +1488,7 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_75">Test 48<a href="#_t_75" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_75" class="defined" href="#_t_75">Test FMT_MEC_EXT.1.1:6</a>:
       
 							The evaluator shall verify that the application stores and retrieves settings
 							using the &lt;code&gt;NSUserDefaults&lt;/code&gt; class.
@@ -1587,7 +1601,7 @@ The following sections list Common Criteria and technology terms used in this do
 						to collect the second instance of mappings.
 						
                 
-                  <li class="test-"><span id="_t_76">Test 49<a href="#_t_76" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_76" class="defined" href="#_t_76">Test FPT_AEX_EXT.1.1:1</a>:
       
 							The evaluator shall run the same application on two
 							different Android systems. Both devices do not need to be evaluated, as the second device is acting only as a tool. 
@@ -1596,7 +1610,7 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_77">Test 50<a href="#_t_77" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_77" class="defined" href="#_t_77">Test FPT_AEX_EXT.1.1:2</a>:
        
 							The evaluator shall run the same application on two
 							different Windows systems and run a tool that will list all memory mapped addresses
@@ -1608,7 +1622,7 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_78">Test 51<a href="#_t_78" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_78" class="defined" href="#_t_78">Test FPT_AEX_EXT.1.1:3</a>:
       
 							The evaluator shall perform a static analysis to search
 							for any mmap calls (or <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> calls that call mmap), and ensure that
@@ -1616,7 +1630,7 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_79">Test 52<a href="#_t_79" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_79" class="defined" href="#_t_79">Test FPT_AEX_EXT.1.1:4</a>:
        
 							The evaluator shall run the same application on two different Linux systems. 
 							The evaluator shall then compare their memory maps using 
@@ -1625,7 +1639,7 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_80">Test 53<a href="#_t_80" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_80" class="defined" href="#_t_80">Test FPT_AEX_EXT.1.1:5</a>:
       
 							The evaluator shall run the same application on two different Solaris systems. 
 							The evaluator shall then compare their memory maps using 
@@ -1634,7 +1648,7 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_81">Test 54<a href="#_t_81" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_81" class="defined" href="#_t_81">Test FPT_AEX_EXT.1.1:6</a>:
       
 							The evaluator shall run the same application on two different Mac systems. 
 							The evaluator shall then compare their memory maps using 
@@ -1652,13 +1666,13 @@ The following sections list Common Criteria and technology terms used in this do
 						execute permissions. The method of doing so varies per platform.
                         
                 
-                  <li class="test-"><span id="_t_82">Test 55<a href="#_t_82" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_82" class="defined" href="#_t_82">Test FPT_AEX_EXT.1.2:1</a>:
        
 							The evaluator shall perform static analysis on the application to verify that &lt;ul&gt;&lt;li&gt; mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions,
 									and &lt;/li&gt;&lt;li&gt; mprotect is never invoked.&lt;/li&gt;&lt;/ul&gt;</li>
                 
                 
-                  <li class="test-"><span id="_t_83">Test 56<a href="#_t_83" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_83" class="defined" href="#_t_83">Test FPT_AEX_EXT.1.2:2</a>:
        
 							The evaluator shall use a tool such as Microsoft's 
 							BinScope Binary Analyzer to confirm that the application passes the NXCheck. The 
@@ -1667,28 +1681,28 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_84">Test 57<a href="#_t_84" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_84" class="defined" href="#_t_84">Test FPT_AEX_EXT.1.2:3</a>:
        
 							The evaluator shall perform static analysis on the
 							application to verify that mprotect is never invoked with the PROT_EXEC permission. 
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_85">Test 58<a href="#_t_85" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_85" class="defined" href="#_t_85">Test FPT_AEX_EXT.1.2:4</a>:
        
 							The evaluator shall perform static analysis on the
 							application to verify that both &lt;ul&gt;&lt;li&gt; mmap is never be invoked with both the PROT_WRITE and PROT_EXEC permissions,
 									and &lt;/li&gt;&lt;li&gt; mprotect is never invoked with the PROT_EXEC permission.&lt;/li&gt;&lt;/ul&gt;</li>
                 
                 
-                  <li class="test-"><span id="_t_86">Test 59<a href="#_t_86" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_86" class="defined" href="#_t_86">Test FPT_AEX_EXT.1.2:5</a>:
        
 							The evaluator shall perform static analysis on the
 							application to verify that both &lt;ul&gt;&lt;li&gt; mmap is never be invoked with both the PROT_WRITE and PROT_EXEC permissions,
 									and &lt;/li&gt;&lt;li&gt; mprotect is never invoked with the PROT_EXEC permission.&lt;/li&gt;&lt;/ul&gt;</li>
                 
                 
-                  <li class="test-"><span id="_t_87">Test 60<a href="#_t_87" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_87" class="defined" href="#_t_87">Test FPT_AEX_EXT.1.2:6</a>:
        
 							The evaluator shall perform static analysis on the
 							application to verify that mprotect is never invoked with the PROT_EXEC permission.
@@ -1704,14 +1718,14 @@ The following sections list Common Criteria and technology terms used in this do
 						carry out one of the prescribed tests:
 	                    
                 
-                  <li class="test-"><span id="_t_88">Test 61<a href="#_t_88" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_88" class="defined" href="#_t_88">Test FPT_AEX_EXT.1.3:1</a>:
       
 							Applications running on Android cannot disable Android 
 							security features, therefore this requirement is met and no evaluation activity is required.
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_89">Test 62<a href="#_t_89" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_89" class="defined" href="#_t_89">Test FPT_AEX_EXT.1.3:2</a>:
       
 							If the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> platform supports Windows Defender Exploit Guard 
 							(Windows 10 version 1709 or later), then the evaluator shall ensure that the application can 
@@ -1729,28 +1743,28 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_90">Test 63<a href="#_t_90" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_90" class="defined" href="#_t_90">Test FPT_AEX_EXT.1.3:3</a>:
       
 							Applications running on iOS cannot disable
 							security features, therefore this requirement is met and no evaluation activity is required.
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_91">Test 64<a href="#_t_91" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_91" class="defined" href="#_t_91">Test FPT_AEX_EXT.1.3:4</a>:
        
 							The evaluator shall ensure that the application can
 							successfully run on a system with either SELinux or AppArmor enabled and in enforce mode.
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_92">Test 65<a href="#_t_92" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_92" class="defined" href="#_t_92">Test FPT_AEX_EXT.1.3:5</a>:
       
 							The evaluator shall ensure that the application can run with 
 							Solaris Trusted Extensions enabled and enforcing.
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_93">Test 66<a href="#_t_93" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_93" class="defined" href="#_t_93">Test FPT_AEX_EXT.1.3:6</a>:
        
 							The evaluator shall ensure that the application can
 							successfully run on macOS without disabling any security features. 
@@ -1767,14 +1781,14 @@ The following sections list Common Criteria and technology terms used in this do
 						This varies per platform: 
 	                    
                 
-                  <li class="test-"><span id="_t_94">Test 67<a href="#_t_94" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_94" class="defined" href="#_t_94">Test FPT_AEX_EXT.1.4:1</a>:
        
 							The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. 
 							The evaluator shall ensure that there are no executable files stored under  where &lt;i&gt;package&lt;/i&gt; is the Java package of the application.
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_95">Test 68<a href="#_t_95" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_95" class="defined" href="#_t_95">Test FPT_AEX_EXT.1.4:2</a>:
       For Windows Universal Applications the evaluator shall consider
 							the requirement met because the platform forces applications to write all data
 							within the application working directory (sandbox). For Windows Desktop Applications
@@ -1783,13 +1797,13 @@ The following sections list Common Criteria and technology terms used in this do
 							stored in the same directories to which the application wrote user-modifiable files.</li>
                 
                 
-                  <li class="test-"><span id="_t_96">Test 69<a href="#_t_96" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_96" class="defined" href="#_t_96">Test FPT_AEX_EXT.1.4:3</a>:
       The evaluator shall consider the requirement met because
 							the platform forces applications to write all data within the application working
 							directory (sandbox).</li>
                 
                 
-                  <li class="test-"><span id="_t_97">Test 70<a href="#_t_97" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_97" class="defined" href="#_t_97">Test FPT_AEX_EXT.1.4:4</a>:
        
 							The evaluator shall run the program, mimicking normal usage, 
 							and note where all user-modifiable files are written. 
@@ -1798,7 +1812,7 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_98">Test 71<a href="#_t_98" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_98" class="defined" href="#_t_98">Test FPT_AEX_EXT.1.4:5</a>:
       
 							The evaluator shall run the program, mimicking normal usage, 
 							and note where all user-modifiable files are written. 
@@ -1807,7 +1821,7 @@ The following sections list Common Criteria and technology terms used in this do
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_99">Test 72<a href="#_t_99" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_99" class="defined" href="#_t_99">Test FPT_AEX_EXT.1.4:6</a>:
        The evaluator shall run the program, mimicking normal
 							usage, and note where all user-modifiable files are written. The evaluator shall ensure that there
 							are no executable files stored in the same directories to which the application
@@ -1824,7 +1838,7 @@ The following sections list Common Criteria and technology terms used in this do
 						overflow protection is present.
 						
                 
-                  <li class="test-"><span id="_t_100">Test 73<a href="#_t_100" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_100" class="defined" href="#_t_100">Test FPT_AEX_EXT.1.5:1</a>:
       Applications that run as Managed Code in the .NET Framework do not require
 							these stack protections.
 							Applications developed in Object Pascal using the Delphi IDE compiled with RangeChecking enabled 
@@ -1963,7 +1977,7 @@ The following sections list Common Criteria and technology terms used in this do
 						not changed by the application. 
 						
                 
-                  <li class="test-"><span id="_t_101">Test 74<a href="#_t_101" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_101" class="defined" href="#_t_101">Test FPT_TUD_EXT.1.3:1</a>:
       The evaluator shall consider the requirement met because the platform forces
 							applications to write all data within the application working directory (sandbox).
 						</li>
@@ -1971,7 +1985,7 @@ The following sections list Common Criteria and technology terms used in this do
                 
                   For all other platforms, the evaluator shall perform the following test:
 						
-                  <li class="test-"><span id="_t_102">Test 75<a href="#_t_102" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_102" class="defined" href="#_t_102">Test FPT_TUD_EXT.1.3:2</a>:
       The evaluator shall install the application and then locate all of its executable files. 
 								The evaluator shall then, for each file, save off either a hash of the file or a copy of the file 
 								itself. The evaluator shall then run the application and exercise all features of the application as 
@@ -2042,7 +2056,7 @@ The following sections list Common Criteria and technology terms used in this do
                   
 						The evaluator shall perform the following tests.
 						
-                  <li class="test-"><span id="_t_115">Test 76<a href="#_t_115" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_115" class="defined" href="#_t_115">Test FTP_DIT_EXT.1.1:1</a>:
       
 								 The evaluator shall exercise the application (attempting to transmit data; for 
 								 example by connecting to remote systems or websites) while capturing packets from 
@@ -2050,14 +2064,14 @@ The following sections list Common Criteria and technology terms used in this do
 								 traffic is encrypted with HTTPS, TLS, DTLS, SSH, or IPsec in accordance with the
 								 selection in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
 							</li>
-                  <li class="test-"><span id="_t_116">Test 77<a href="#_t_116" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_116" class="defined" href="#_t_116">Test FTP_DIT_EXT.1.1:2</a>:
       
 								The evaluator shall exercise the application (attempting to transmit data; for
 								example by connecting to remote systems or websites) while capturing packets from 
 								the application. The evaluator shall review the packet capture and verify that no 
 								sensitive data is transmitted in the clear.
 							</li>
-                  <li class="test-"><span id="_t_117">Test 78<a href="#_t_117" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_117" class="defined" href="#_t_117">Test FTP_DIT_EXT.1.1:3</a>:
       
 								The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine if user credentials are transmitted.
 								If credentials are transmitted the evaluator shall set the credential to a known
@@ -2068,7 +2082,7 @@ The following sections list Common Criteria and technology terms used in this do
 							</li>
                 
                 
-                  <li class="test-"><span id="_t_118">Test 79<a href="#_t_118" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_118" class="defined" href="#_t_118">Test FTP_DIT_EXT.1.1:4</a>:
       
 							If "not transmit any data" is selected, the evaluator shall ensure that the application's 
 							AndroidManifest.xml file does not contain a uses-permission or uses-permission-sdk-23 tag 
@@ -2078,7 +2092,7 @@ The following sections list Common Criteria and technology terms used in this do
 							</li>
                 
                 
-                  <li class="test-"><span id="_t_119">Test 80<a href="#_t_119" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_119" class="defined" href="#_t_119">Test FTP_DIT_EXT.1.1:5</a>:
       
 							If "encrypt all transmitted data" is selected, the evaluator shall ensure that the application's
 							Info.plist file does not contain the NSAllowsArbitraryLoads or 
@@ -2138,25 +2152,21 @@ The following sections list Common Criteria and technology terms used in this do
   <h1 id="opt-app" class="indexable" data-level="A">Appendix A -  Optional Requirements</h1>
     As indicated in the introduction to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, the baseline requirements (those that must be
 	  performed by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>) are contained in the body of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.
-    This appendix contains three other types of optional requirements that may be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, but are not required in order
-	  to conform to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.
-    However, applied modules, packages and/or use cases may refine specific requirements as mandatory. <br/><br/>
+    This appendix contains three other types of optional requirements:<br/><br/>
 
-   The first type (<a href="#optional-reqs" class="dynref">A.1 Strictly Optional  Requirements</a>) are strictly optional requirements that are independent of the
-	  <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implementing any function.
-   If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of these requirements or supports a certain functionality, the vendor is encouraged to include the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>
-	  in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, but are not required in order to conform to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.<br/><br/>
+   The first type, defined in Appendix <a href="#optional-reqs" class="dynref">A.1 Strictly Optional  Requirements</a>, are strictly optional requirements.
+   If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> meets any of these requirements the vendor is encouraged to claim the associated <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>
+	  in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, but doing so is not required in order to conform to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.<br/><br/>
 
-  The second type (<a href="#objective-reqs" class="dynref">A.2 Objective  Requirements</a>) are objective requirements that describe security functionality not yet 
-	  widely available in commercial technology.
-   The requirements are not currently mandated in the body of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, but will be included in
-	  the baseline requirements in future versions of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Adoption by vendors is
-	  encouraged and expected as soon as possible.<br/><br/>
+  The second type, defined in Appendix <a href="#objective-reqs" class="dynref">A.2 Objective  Requirements</a>, are objective requirements. These describe security functionality that is not yet 
+	  widely available in commercial technology. 
+   Objective requirements are not currently mandated by this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, but will be mandated in
+	  the future. Adoption by vendors is encouraged, but claiming these <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> is not required in order to conform to this
+	  <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.<br/><br/>
 
-  The third type (<a href="#feat-based-reqs" class="dynref">A.3 Implementation-based  Requirements</a>) 
-are dependent on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implementing a particular function.
-If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of these requirements, the vendor must either add the related <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> or disable the functionality for the
-	  evaluated configuration. 
+  The third type, defined in Appendix <a href="#feat-based-reqs" class="dynref">A.3 Implementation-dependent  Requirements</a>, are Implementation-dependent requirements.
+	If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements the product features associated with the listed <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>, either the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> must be claimed
+	or the product features must be disabled in the evaluated ocnfiguration. 
   <h2 id="optional-reqs" class="indexable" data-level="2">A.1 Strictly Optional  Requirements
     </h2><h3 id="fcs-optional" class="indexable" data-level="3">A.1.1 Class: Cryptographic Support (FCS)</h3><div class="comp" id="FCS_CKM.1/SK"><h4>FCS_CKM.1/SK Cryptographic Symmetric Key Generation</h4>
           <div class="element"><div class="reqid" id="FCS_CKM.1.1/SK"><a href="#FCS_CKM.1.1/SK" class="abbr">FCS_CKM.1.1/SK</a></div><div class="reqdesc">The &lt;b&gt;application&lt;/b&gt;  shall generate &lt;b&gt;symmetric&lt;/b&gt;  cryptographic keys &lt;b&gt;using a Random Bit
@@ -2199,9 +2209,9 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						and that it maps those formats to parsing services provided by the platform.</div>
               <div class="eacategory">Guidance</div><div class="ea">None.&lt;p&gt;&lt;/p&gt;</div>
               <div class="eacategory">Tests</div><div class="ea">None.&lt;p&gt;&lt;/p&gt;</div>
-            </div></div></div><h2 id="feat-based-reqs" class="indexable" data-level="2">A.3 Implementation-based  Requirements
+            </div></div></div><h2 id="feat-based-reqs" class="indexable" data-level="2">A.3 Implementation-dependent  Requirements
     </h2><p>This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> does not define any 
-            Implementation-based requirements.</p><h1 id="sel-based-reqs" class="indexable" data-level="A">Appendix B -  Selection-based  Requirements
+            Implementation-dependent requirements.</p><h1 id="sel-based-reqs" class="indexable" data-level="A">Appendix B -  Selection-based  Requirements
     </h1><span class="description">
 	<p>As indicated in the introduction to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>,
         the baseline requirements
@@ -2502,14 +2512,14 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						The following tests require the developer to provide access to a test application
 						that provides the evaluator with tools that are typically not found in the production application.
 						
-                  <li class="test-"><span id="_t_1">Test 81<a href="#_t_1" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_1" class="defined" href="#_t_1">Test FCS_COP.1.1/Hash:1</a>:
       Short Messages Test - Bit oriented Mode. The evaluators devise an input set
 								consisting of m+1 messages, where m is the block length of the hash algorithm. The
 								length of the messages range sequentially from 0 to m bits. The message text shall
 								be pseudorandomly generated. The evaluators compute the message digest for each of
 								the messages and ensure that the correct result is produced when the messages are
 								provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. </li>
-                  <li class="test-"><span id="_t_2">Test 82<a href="#_t_2" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_2" class="defined" href="#_t_2">Test FCS_COP.1.1/Hash:2</a>:
       Short Messages Test - Byte oriented Mode. The evaluators devise an input set
 								consisting of m/8+1 messages, where m is the block length of the hash algorithm.
 								The length of the messages range sequentially from 0 to m/8 bytes, with each
@@ -2517,21 +2527,21 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 								pseudorandomly generated. The evaluators compute the message digest for each of
 								the messages and ensure that the correct result is produced when the messages are
 								provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. </li>
-                  <li class="test-"><span id="_t_3">Test 83<a href="#_t_3" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_3" class="defined" href="#_t_3">Test FCS_COP.1.1/Hash:3</a>:
       Selected Long Messages Test - Bit oriented Mode. The evaluators devise an input
 								set consisting of m messages, where m is the block length of the hash algorithm.
 								The length of the ith message is 512 + 99*i, where 1 ≤ i ≤ m. The message text
 								shall be pseudorandomly generated. The evaluators compute the message digest for
 								each of the messages and ensure that the correct result is produced when the
 								messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. </li>
-                  <li class="test-"><span id="_t_4">Test 84<a href="#_t_4" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_4" class="defined" href="#_t_4">Test FCS_COP.1.1/Hash:4</a>:
       Selected Long Messages Test - Byte oriented Mode. The evaluators devise an
 								input set consisting of m/8 messages, where m is the block length of the hash
 								algorithm. The length of the ith message is 512 + 8*99*i, where 1 ≤ i ≤ m/8. The
 								message text shall be pseudorandomly generated. The evaluators compute the message
 								digest for each of the messages and ensure that the correct result is produced
 								when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. </li>
-                  <li class="test-"><span id="_t_5">Test 85<a href="#_t_5" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_5" class="defined" href="#_t_5">Test FCS_COP.1.1/Hash:5</a>:
       Pseudorandomly Generated Messages Test. This test is for byte-oriented
 								implementations only. The evaluators randomly generate a seed that is n bits long,
 								where n is the length of the message digest produced by the hash function to be
@@ -2597,7 +2607,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
                   
 						ECDSA Algorithm Tests
 						
-                  <li class="test-"><span id="_t_6">Test 86<a href="#_t_6" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_6" class="defined" href="#_t_6">Test FCS_COP.1.1/Sig:1</a>:
       ECDSA FIPS 186-4 Signature Generation Test. For each
 								supported NIST curve (i.e., P-256, P-384 and P-521) and SHA function pair, the
 								evaluator shall generate 10 1024-bit long messages and obtain for each message a
@@ -2605,7 +2615,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 								the evaluator shall use the signature verification function of a known good
 								implementation. 
 							</li>
-                  <li class="test-"><span id="_t_7">Test 87<a href="#_t_7" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_7" class="defined" href="#_t_7">Test FCS_COP.1.1/Sig:2</a>:
       
 								ECDSA FIPS 186-4 Signature Verification Test. For each supported
 								NIST curve (i.e., P-256, P-384 and P-521) and SHA function pair, the evaluator
@@ -2618,7 +2628,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
                   
 						RSA Signature Algorithm Tests
 						
-                  <li class="test-"><span id="_t_8">Test 88<a href="#_t_8" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_8" class="defined" href="#_t_8">Test FCS_COP.1.1/Sig:3</a>:
       Signature Generation Test. The evaluator shall
 								verify the implementation of RSA Signature Generation by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
 								using the Signature Generation Test. To conduct this test the evaluator must 
@@ -2629,7 +2639,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 								<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>’s signature using a known good implementation and the 
 								associated public keys to verify the signatures.
 							</li>
-                  <li class="test-"><span id="_t_9">Test 89<a href="#_t_9" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_9" class="defined" href="#_t_9">Test FCS_COP.1.1/Sig:4</a>:
       Signature Verification Test. The 
 								evaluator shall perform the Signature Verification test to verify the ability of 
 								the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to recognize another party’s valid and invalid 
@@ -2910,7 +2920,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						Certificate validity shall be tested in accordance with testing performed for 
 						<a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>, and the evaluator shall perform the following test:
 						
-                  <li class="test-"><span id="_t_10">Test 90<a href="#_t_10" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_10" class="defined" href="#_t_10">Test FCS_HTTPS_EXT.1.3/Client:1</a>:
       
 							The evaluator shall demonstrate that using a certificate without a valid 
 							certification path results in the selected action in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>. If "notify the user" 
@@ -2970,7 +2980,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						Certificate validity shall be tested in accordance with testing performed for 
 						<a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>, and the evaluator shall perform the following test:
 						
-                  <li class="test-"><span id="_t_11">Test 91<a href="#_t_11" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_11" class="defined" href="#_t_11">Test FCS_HTTPS_EXT.2.1:1</a>:
        The evaluator shall demonstrate that using a certificate without a 
 							valid certification path results in the selected action in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>. Using the 
 							administrative guidance, the evaluator shall then load a certificate or 
@@ -3031,7 +3041,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						that the "expected values" are produced by a reference implementation of the algorithm 
 						that is known to be correct. Proof of correctness is left to each Scheme.
 						
-                  <li class="test-"><span id="_t_18">Test 92<a href="#_t_18" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_18" class="defined" href="#_t_18">Test FCS_RBG_EXT.2.1:1</a>:
       
 								The evaluators shall perform a Variable Seed Test. The evaluators shall
 								provide a set of 128 (Seed, DT) pairs to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> RBG function, 
@@ -3041,7 +3051,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 								the set. The evaluators ensure that the values returned by the 
 								<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> match the expected values.
 							</li>
-                  <li class="test-"><span id="_t_19">Test 93<a href="#_t_19" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_19" class="defined" href="#_t_19">Test FCS_RBG_EXT.2.1:2</a>:
       
 								The evaluators shall perform a Monte Carlo Test. For this test, they supply
 								an initial Seed and DT value to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> RBG function; each of 
@@ -3059,7 +3069,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
                   
 						Implementations Conforming to NIST Special Publication 800-90A
 						
-                  <li class="test-"><span id="_t_20">Test 94<a href="#_t_20" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_20" class="defined" href="#_t_20">Test FCS_RBG_EXT.2.1:3</a>:
       
 								The evaluator shall perform 15 trials for the RNG implementation. If the RNG is
 								configurable, the evaluator shall perform 15 trials for each configuration. The
@@ -3186,18 +3196,18 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						the application supports a maximum trust depth of two, then a chain with no Intermediate
 						CA should instead be created.
 						
-                  <li class="test-"><span id="_t_48">Test 95<a href="#_t_48" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_48" class="defined" href="#_t_48">Test FIA_X509_EXT.1.1:1</a>:
       
 								The evaluator shall demonstrate that validating a certificate without a valid certification path results in the function 
 								failing, for each of the following reasons, in turn:&lt;ul&gt;&lt;li&gt;by establishing a certificate path in which one of the issuing certificates is not a CA certificate,&lt;/li&gt;&lt;li&gt;by omitting the basicConstraints field in one of the issuing certificates,&lt;/li&gt;&lt;li&gt;by setting the basicConstraints field in an issuing certificate to have CA=False,&lt;/li&gt;&lt;li&gt;by omitting the CA signing bit of the key usage field in an issuing certificate, and&lt;/li&gt;&lt;li&gt;by setting the path length field of a valid CA field to a value strictly less than the certificate path.&lt;/li&gt;&lt;/ul&gt;
 								The evaluator shall then establish a valid certificate path consisting of valid CA certificates, and demonstrate that the 
 								function succeeds. The evaluator shall then remove trust in one of the CA certificates, and show that the function fails.
 							</li>
-                  <li class="test-"><span id="_t_49">Test 96<a href="#_t_49" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_49" class="defined" href="#_t_49">Test FIA_X509_EXT.1.1:2</a>:
       
 								The evaluator shall demonstrate that validating an expired certificate results in the function failing.
 							</li>
-                  <li class="test-"><span id="_t_50">Test 97<a href="#_t_50" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_50" class="defined" href="#_t_50">Test FIA_X509_EXT.1.1:3</a>:
       
 								The evaluator shall test that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can properly handle revoked certificates-“conditional on whether
 								CRL, OCSP, OCSP Stapling or OCSP Multi-stapling is selected; if multiple methods are selected, then
@@ -3208,7 +3218,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 									succeeds. The evaluator then attempts the test with a certificate that has been revoked (for each 
 									method chosen in the selection) to ensure when the certificate is no longer valid that the 
 									validation function fails.&lt;/li&gt;&lt;/ul&gt;</li>
-                  <li class="test-"><span id="_t_51">Test 98<a href="#_t_51" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_51" class="defined" href="#_t_51">Test FIA_X509_EXT.1.1:4</a>:
       
 								If any OCSP option is selected, the evaluator shall configure the OCSP server or use a
 								man-in-the-middle tool to present a certificate that does not have the OCSP signing purpose and verify
@@ -3216,22 +3226,22 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 								to sign a CRL with a certificate that does not have the cRLsign key usage bit set, and verify that
 								validation of the CRL fails.
 							</li>
-                  <li class="test-"><span id="_t_52">Test 99<a href="#_t_52" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_52" class="defined" href="#_t_52">Test FIA_X509_EXT.1.1:5</a>:
       
 								The evaluator shall modify any byte in the first eight bytes of the certificate and demonstrate that 
 								the certificate fails to validate. (The certificate will fail to parse correctly.)
 							</li>
-                  <li class="test-"><span id="_t_53">Test 100<a href="#_t_53" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_53" class="defined" href="#_t_53">Test FIA_X509_EXT.1.1:6</a>:
       
 								 The evaluator shall modify any byte in the last byte of the certificate and demonstrate that the 
 								 certificate fails to validate. (The signature on the certificate will not validate.)
 							</li>
-                  <li class="test-"><span id="_t_54">Test 101<a href="#_t_54" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_54" class="defined" href="#_t_54">Test FIA_X509_EXT.1.1:7</a>:
       
 								The evaluator shall modify any byte in the public key of the certificate and demonstrate that the
 								certificate fails to validate. (The signature on the certificate will not validate.)
 							</li>
-                  <li class="test-"><span id="_t_55">Test 102<a href="#_t_55" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_55" class="defined" href="#_t_55">Test FIA_X509_EXT.1.1:8</a>:
       
 								 (Conditional on support for EC certificates as indicated in <a href="#FCS_COP.1/Sig">FCS_COP.1/Sig</a>). The evaluator shall establish a valid,
 								 trusted certificate chain consisting of an EC leaf certificate, an EC Intermediate CA certificate not 
@@ -3239,7 +3249,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 								 curve parameters are specified as a named curve. The evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> validates 
 								 the certificate chain.
 							</li>
-                  <li class="test-"><span id="_t_56">Test 103<a href="#_t_56" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_56" class="defined" href="#_t_56">Test FIA_X509_EXT.1.1:9</a>:
       
 								(Conditional on support for EC certificates as indicated in <a href="#FCS_COP.1/Sig">FCS_COP.1/Sig</a>). The evaluator shall replace
 								the intermediate certificate in the certificate chain for Test 9 with a modified certificate, where 
@@ -3274,14 +3284,14 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						If the application supports a maximum trust depth of two, then a chain with
 						no Intermediate CA should instead be created.
 						
-                  <li class="test-"><span id="_t_57">Test 104<a href="#_t_57" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_57" class="defined" href="#_t_57">Test FIA_X509_EXT.1.2:1</a>:
       
 								The evaluator shall ensure that the certificate of at least one of the CAs in the chain does not contain the 
 								basicConstraints extension. The evaluator shall confirm that validation of the certificate path 
 								fails (i) as part of the validation of the peer certificate belonging to this chain; and/or 
 								(ii) when attempting to add the CA certificate without the basicConstraints extension to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s trust store.
 							</li>
-                  <li class="test-"><span id="_t_58">Test 105<a href="#_t_58" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_58" class="defined" href="#_t_58">Test FIA_X509_EXT.1.2:2</a>:
       
 								The evaluator shall ensure that the certificate of at least one of the CAs in the chain has the CA flag in the 
 								basicConstraints extension not set (or set to FALSE). The evaluator shall confirm that validation of the certificate 
@@ -3337,7 +3347,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
                   
 						The evaluator shall perform the following test for each trusted channel:
 						
-                  <li class="test-"><span id="_t_59">Test 106<a href="#_t_59" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_59" class="defined" href="#_t_59">Test FIA_X509_EXT.2.2:1</a>:
       
 								The evaluator shall demonstrate that using a valid certificate that requires 
 								certificate validation checking to be performed in at least some part by 
@@ -3349,7 +3359,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 								guidance to determine that all supported administrator-configurable options behave 
 								in their documented manner.
 							</li>
-                  <li class="test-"><span id="_t_60">Test 107<a href="#_t_60" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_60" class="defined" href="#_t_60">Test FIA_X509_EXT.2.2:2</a>:
       
 								The evaluator shall demonstrate that an invalid certificate that requires 
 								certificate validation checking to be performed in at least some part by 
@@ -3383,12 +3393,12 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						format supported by the platform. This varies per platform:               
 						
                 
-                  <li class="test-"><span id="_t_103">Test 108<a href="#_t_103" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_103" class="defined" href="#_t_103">Test FPT_TUD_EXT.2.1:1</a>:
        The evaluator shall ensure that the application is
 							packaged in the Android application package (APK) format. </li>
                 
                 
-                  <li class="test-"><span id="_t_104">Test 109<a href="#_t_104" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_104" class="defined" href="#_t_104">Test FPT_TUD_EXT.2.1:2</a>:
        The evaluator shall ensure that the application is
 							packaged in the standard Windows Installer (.MSI) format, the Windows Application 
 							Software (.EXE) format signed using the Microsoft Authenticode process, or the 
@@ -3398,12 +3408,12 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						</li>
                 
                 
-                  <li class="test-"><span id="_t_105">Test 110<a href="#_t_105" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_105" class="defined" href="#_t_105">Test FPT_TUD_EXT.2.1:3</a>:
        The evaluator shall ensure that the application is
 							packaged in the IPA format. </li>
                 
                 
-                  <li class="test-"><span id="_t_106">Test 111<a href="#_t_106" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_106" class="defined" href="#_t_106">Test FPT_TUD_EXT.2.1:4</a>:
        The evaluator shall ensure that the application is
 							packaged in the format of the package management infrastructure of the chosen
 							distribution. For example, applications running on Red Hat and Red Hat derivatives
@@ -3411,12 +3421,12 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 							derivatives shall be packaged in &lt;code&gt;DEB&lt;/code&gt; format. </li>
                 
                 
-                  <li class="test-"><span id="_t_107">Test 112<a href="#_t_107" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_107" class="defined" href="#_t_107">Test FPT_TUD_EXT.2.1:5</a>:
        The evaluator shall ensure that the application is
 							packaged in the PKG format. </li>
                 
                 
-                  <li class="test-"><span id="_t_108">Test 113<a href="#_t_108" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_108" class="defined" href="#_t_108">Test FPT_TUD_EXT.2.1:6</a>:
        The evaluator shall ensure that application is packaged
 							in the DMG format, the PKG format, or the MPKG format. </li>
                 
@@ -3426,13 +3436,13 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
               <div class="eacategory">Guidance</div><div class="ea">None.&lt;p&gt;&lt;/p&gt;</div>
               <div class="eacategory">Tests</div><div class="ea">
                 
-                  <li class="test-"><span id="_t_109">Test 114<a href="#_t_109" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_109" class="defined" href="#_t_109">Test FPT_TUD_EXT.2.2:1</a>:
       The evaluator shall consider the requirement met because 
 							the platform forces applications to write all data within the application working 
 							directory (sandbox).</li>
                 
                 
-                  <li class="test-"><span id="_t_110">Test 115<a href="#_t_110" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_110" class="defined" href="#_t_110">Test FPT_TUD_EXT.2.2:2</a>:
       
 							The evaluator shall install the application and then locate all of its executable files. 
 							The evaluator shall then, for each file, save off either a hash of the file or a copy of the
@@ -3442,13 +3452,13 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 							verify that these are identical.</li>
                 
                 
-                  <li class="test-"><span id="_t_111">Test 116<a href="#_t_111" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_111" class="defined" href="#_t_111">Test FPT_TUD_EXT.2.2:3</a>:
       The evaluator shall consider the requirement met because 
 							the platform forces applications to write all data within the application working 
 							directory (sandbox).</li>
                 
                 
-                  <li class="test-"><span id="_t_112">Test 117<a href="#_t_112" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_112" class="defined" href="#_t_112">Test FPT_TUD_EXT.2.2:4</a>:
       
 							The evaluator shall install the application and then locate all of its executable files. 
 							The evaluator shall then, for each file, save off either a hash of the file or a copy of the
@@ -3458,7 +3468,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 							verify that these are identical.</li>
                 
                 
-                  <li class="test-"><span id="_t_113">Test 118<a href="#_t_113" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_113" class="defined" href="#_t_113">Test FPT_TUD_EXT.2.2:5</a>:
       
 							The evaluator shall install the application and then locate all of its executable files. 
 							The evaluator shall then, for each file, save off either a hash of the file or a copy of the
@@ -3468,7 +3478,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 							verify that these are identical.</li>
                 
                 
-                  <li class="test-"><span id="_t_114">Test 119<a href="#_t_114" class="definition"></a></span>:
+                  <li class="test-"><a id="_t_114" class="defined" href="#_t_114">Test FPT_TUD_EXT.2.2:6</a>:
       
 							The evaluator shall install the application and then locate all of its executable files. 
 							The evaluator shall then, for each file, save off either a hash of the file or a copy of the
@@ -3484,7 +3494,8 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 						in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>.&lt;p&gt;&lt;/p&gt;</div>
               <div class="eacategory">Guidance</div><div class="ea">None.&lt;p&gt;&lt;/p&gt;</div>
               <div class="eacategory">Tests</div><div class="ea">None.</div>
-            </div></div></div><h1 id="entropyappendix" class="indexable" data-level="A">Appendix C -  Entropy Documentation and Assessment</h1><h1 id="acronyms" class="indexable" data-level="A">Appendix D -  Acronyms</h1><table><tr class="header"><th>Acronym</th><th>Meaning</th></tr><tr><td><span class="term" id="abbr_API"><abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr></span></td><td><span id="long_abbr_API">Application Programming Interface</span></td></tr>
+            </div></div></div><h1 id="entropyappendix" class="indexable" data-level="A">Appendix C -  Entropy Documentation and Assessment</h1><h1 id="acronyms" class="indexable" data-level="A">Appendix D -  Acronyms</h1><table><caption><span class="ctr" data-myid="t-acronyms" data-counter-type="ct-Table" id="t-acronyms">Table <span class="counter">3</span></span>: Acronyms
+		</caption><tr class="header"><th>Acronym</th><th>Meaning</th></tr><tr><td><span class="term" id="abbr_API"><abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr></span></td><td><span id="long_abbr_API">Application Programming Interface</span></td></tr>
 <tr><td><span class="term" id="abbr_app"><abbr class="dyn-abbr"><a href="#abbr_app">app</a></abbr></span></td><td><span id="long_abbr_app">Application</span></td></tr>
 <tr><td><span class="term" id="abbr_ASLR"><abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr></span></td><td><span id="long_abbr_ASLR">Address Space Layout Randomization</span></td></tr>
 <tr><td><span class="term" id="abbr_Base-PP" data-plural="Base-PPs"><abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr></span></td><td><span id="long_abbr_Base-PP">Base Protection Profile</span></td></tr>
@@ -3514,7 +3525,7 @@ If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> fulfills any of
 <tr><td><span class="term" id="abbr_TSF"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr></span></td><td><span id="long_abbr_TSF"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Security Functionality</span></td></tr>
 <tr><td><span class="term" id="abbr_TSFI" data-plural="TSFIs"><abbr class="dyn-abbr"><a href="#abbr_TSFI">TSFI</a></abbr></span></td><td><span id="long_abbr_TSFI"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> Interface</span></td></tr>
 <tr><td><span class="term" id="abbr_TSS"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></span></td><td><span id="long_abbr_TSS"><abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> Summary Specification</span></td></tr>
-</table><h1 id="appendix-bibliography" class="indexable" data-level="A">Appendix E -  Bibliography</h1><table><tr class="header"><th>Identifier</th><th>Title</th></tr><tr><td><span id="bibCC">[<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>]</span></td><td><span class="description">Common Criteria for Information Technology Security Evaluation - <ul>
+</table><h1 id="appendix-bibliography" class="indexable" data-level="A">Appendix E -  Bibliography</h1><table><caption><span class="ctr" data-myid="t-biblio" data-counter-type="ct-Table" id="t-biblio">Table <span class="counter">4</span></span>: Bibliography</caption><tr class="header"><th>Identifier</th><th>Title</th></tr><tr><td><span id="bibCC">[<abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>]</span></td><td><span class="description">Common Criteria for Information Technology Security Evaluation - <ul>
             <li><a href="http://www.commoncriteriaportal.org/files/ccfiles/CCPART1V3.1R5.pdf">Part
                 1: Introduction and General Model</a>, CCMB-2017-04-001, Version 3.1 Revision 5,
               April 2017.</li>
