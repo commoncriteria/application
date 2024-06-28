@@ -4,7 +4,7 @@
 <PP xmlns="https://niap-ccevs.org/cc/v1" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:sec="https://niap-ccevs.org/cc/v1/section" target-product="QQQQ" target-products="QQQQ" boilerplate="yes" short="QQQQ">
   <PPReference>
     <ReferenceTable>
-      <PPTitle>Protection Profile for Application Software</PPTitle>
+      <PPTitle>2 Protection Profile for Application Software</PPTitle>
       <PPVersion>1.4</PPVersion>
       <PPAuthor>NIAP</PPAuthor>
       <PPPubDate>2021-10-07</PPPubDate>
@@ -136,33 +136,18 @@
             updating application software.</term>
     </tech-terms>
     <section title="Compliant Targets of Evaluation" id="TOEdescription">&lt;p&gt;The requirements in this document apply to application software which runs on any type of platform. Some application types are covered by more specific PPs, which may be expressed as PP-Modules of this PP. Such applications are subject to the requirements of both this PP and the PP-Module that addresses their special functionality. PPs for some particularly specialized applications may not be expressed as PP-Modules at this time, though the requirements in this document should be seen as objectives for those highly specialized applications. Although the requirements in this document apply to a wide range of application software, consult guidance from the relevant national schemes to determine when formal Common Criteria evaluation is expected for a particular type of application. This may vary depending upon the nature of the security functionality of the application. The application, which consists of the software provided by its vendor, is installed onto the platform(s) it operates on. It executes on the platform, which may be an operating system (), hardware environment, a software based execution environment, or some combination of these (). Those platforms may themselves run within other environments, such as virtual machines or operating systems, that completely abstract away the underlying hardware from the application. The TOE is not accountable for security functionality that is implemented by platform layers that are abstracted away. Some evaluation activities are specific to the particular platform on which the application runs, in order to provide precision and repeatability. The only platforms currently recognized by the AppPP are those specified in SFR Evaluation Activities. To test on a platform for which there are no EAs, a Vendor should contact NIAP with recommended EAs. NIAP will determine if the proposed platform is appropriate for the PP and accept, reject, or develop EAs as necessary in coordination with the technical community. Applications include a diverse range of software such as office suites, thin clients, PDF readers, downloadable smartphone apps, and apps running in a cloud container. The TOE includes any software in the application installation package, even those pieces that may extend or modify the functionality of the underlying platform, such as kernel drivers. Many platforms come bundled with applications such as web browsers, email clients and media players and these too should be considered subject to the requirements defined in this document although the expectation of formal Common Criteria evaluation depends upon the national scheme. BIOS and other firmware, the operating system kernel, and other systems software (and drivers) provided as part of the platform are outside the scope of this document.&lt;/p&gt;</section>
-    <section title="Platforms with Specific EAs" id="sec-platforms">
-		<choice prefix="Platforms:" >
-			This PP includes platform-specific EAs for the below-listed operating system platforms. For "bare-metal" applications, applications that run on
-				other OS platforms, and applications that run in software-based execution environments contact the Technical Community for guidance.<h:p/>  
-			<selectables linebreak="yes">
-				<selectable id="android"><h:b><snip>Android</snip></h:b>: <h:i>Mobile operating systems based on Google Android.</h:i></selectable>
-				<selectable id="windows"><h:b><snip>Microsoft Windows</snip></h:b>: <h:i>Microsoft Windows operating systems.</h:i></selectable>
-				<selectable id="ios"><h:b><snip>Apple iOS</snip></h:b>: <h:i>Apple's mobile operating system for iPhones.</h:i></selectable>
-				<selectable id="linux"><h:b><snip>Linux</snip></h:b>: <h:i>Linux-based operating systems other than Android.</h:i></selectable>
-				<selectable id="Solaris"><h:b><snip>Oracle Solaris</snip></h:b>: <h:i>Oracle's enterprise operating system.</h:i></selectable>
-				<selectable id="mac"><h:b><snip>Apple macOS</snip></h:b>: <h:i>Apple's operating system for MACs.</h:i></selectable>
-			</selectables> 
-		</choice>
-	</section>
+    <section title="Platforms with Specific EAs" id="sec-platforms">"&lt;choice prefix=\"Platforms:\"&gt;\n\t\t\tThis PP includes platform-specific EAs for the below-listed operating system platforms. For \"bare-metal\" applications, applications that run on\n\t\t    \tother OS platforms, and applications that run in software-based execution environments contact the Technical Community for guidance.&lt;h:p&gt;&lt;/h:p&gt;&lt;selectables linebreak=\"yes\"&gt;&lt;selectable id=\"android\"&gt;&lt;h:b&gt;&lt;snip&gt;Android&lt;/snip&gt;&lt;/h:b&gt;: &lt;h:i&gt;Mobile operating systems based on Google Android.&lt;/h:i&gt;&lt;/selectable&gt;&lt;selectable id=\"windows\"&gt;&lt;h:b&gt;&lt;snip&gt;Microsoft Windows&lt;/snip&gt;&lt;/h:b&gt;: &lt;h:i&gt;Microsoft Windows operating systems.&lt;/h:i&gt;&lt;/selectable&gt;&lt;selectable id=\"ios\"&gt;&lt;h:b&gt;&lt;snip&gt;Apple iOS&lt;/snip&gt;&lt;/h:b&gt;: &lt;h:i&gt;Apple's mobile operating system for iPhones.&lt;/h:i&gt;&lt;/selectable&gt;&lt;selectable id=\"linux\"&gt;&lt;h:b&gt;&lt;snip&gt;Linux&lt;/snip&gt;&lt;/h:b&gt;: &lt;h:i&gt;Linux-based operating systems other than Android.&lt;/h:i&gt;&lt;/selectable&gt;&lt;selectable id=\"Solaris\"&gt;&lt;h:b&gt;&lt;snip&gt;Oracle Solaris&lt;/snip&gt;&lt;/h:b&gt;: &lt;h:i&gt;Oracle's enterprise operating system.&lt;/h:i&gt;&lt;/selectable&gt;&lt;selectable id=\"mac\"&gt;&lt;h:b&gt;&lt;snip&gt;Apple macOS&lt;/snip&gt;&lt;/h:b&gt;: &lt;h:i&gt;Apple's operating system for MACs.&lt;/h:i&gt;&lt;/selectable&gt;&lt;/selectables&gt;&lt;/choice&gt;"</section>
     <sec:Use_Cases>
       &lt;p&gt;Requirements in this Protection Profile are designed to address the security problem in the following use cases. These use cases are intentionally very broad, as many specific use cases exist for application software. Many applications may be used in combinations of these broad use cases, and evaluation against PP-Modules of this PP, when available, may be most appropriate for some application types.&lt;/p&gt;
       <usecases>
-        <usecase/>
-        <usecase/>
-        <usecase title="Content Creation">
-          <definition>&lt;p&gt;The application allows a user to create content, saving it to either local or remote storage. Example content includes text documents, presentations, and images.&lt;/p&gt;</definition>
+        <usecase title="Content Creation" id="contentcreation">
+          <description>&lt;p&gt;The application allows a user to create content, saving it to either local or remote storage. Example content includes text documents, presentations, and images.&lt;/p&gt;</description>
         </usecase>
-        <usecase title="Content Consumption">
-          <definition>&lt;p&gt;The application allows a user to consume content, retrieving it from either local or remote storage. Example content includes web pages and video.&lt;/p&gt;</definition>
+        <usecase title="Content Consumption" id="contentconsumption">
+          <description>&lt;p&gt;The application allows a user to consume content, retrieving it from either local or remote storage. Example content includes web pages and video.&lt;/p&gt;</description>
         </usecase>
-        <usecase title="Communication">
-          <definition>&lt;p&gt;The application allows for communication interactively or non-interactively with other users or applications over a communications channel. Example communications include instant messages, email, and voice.&lt;/p&gt;</definition>
+        <usecase title="Communication" id="interactivecomms">
+          <description>&lt;p&gt;The application allows for communication interactively or non-interactively with other users or applications over a communications channel. Example communications include instant messages, email, and voice.&lt;/p&gt;</description>
         </usecase>
       </usecases>
     </sec:Use_Cases>
