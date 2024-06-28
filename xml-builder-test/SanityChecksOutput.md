@@ -52,3 +52,4 @@
         on/PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[2]""/depends[5]""/on[1]""
 * Error: Detected dangling id-reference to sel_add_plat from attribute
         on/PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]""/f-component[7]""/depends[1]""/on[1]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[2]""/choice[1]"This PP i"/h:p[1]""
