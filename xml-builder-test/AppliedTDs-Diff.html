@@ -523,25 +523,43 @@
                     <div class="ea">None.&lt;p&gt;&lt;/p&gt;</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         If "&lt;i&gt;invoke platform-provided DRBG functionality&lt;/i&gt;" is selected, the following tests shall be performed: &lt;p&gt;&lt;/p&gt; The evaluator shall decompile the application binary using a decompiler suitable for the application (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>). The evaluator shall search the output of the decompiler to determine that, for each <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> listed in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>, that <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> appears in the output. If the representation of the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> does not correspond directly to the strings in the following list, the evaluator shall provide a mapping from the decompiled text to its corresponding <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>, with a description of why the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> text does not directly correspond to the decompiled text and justification that the decompiled text corresponds to the associated <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>. &lt;p&gt;&lt;/p&gt; The following are the per-platform list of acceptable APIs: 
-                        <li class="test-">
-                            <a id="_t_12" class="defined" href="#_t_12">Test FCS_RBG_EXT.1.1:1</a>: The evaluator shall verify that the application uses at least one of &lt;code&gt;javax.crypto.KeyGenerator&lt;/code&gt; class or the &lt;code&gt;java.security.SecureRandom&lt;/code&gt; class or &lt;code&gt;/dev/random &lt;/code&gt; or &lt;code&gt;/dev/urandom&lt;/code&gt;. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_13" class="defined" href="#_t_13">Test FCS_RBG_EXT.1.1:2</a>: The evaluator shall verify that rand_s, RtlGenRandom, BCryptGenRandom, or CryptGenRandom <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> is used for classic desktop applications. The evaluator shall verify the application uses the RNGCryptoServiceProvider class or derives a class from System.Security.Cryptography.RandomNumberGenerator <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> for Windows Universal Applications. It is only required that the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> is called/invoked, there is no requirement that the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> be used directly. In future versions of this document, CryptGenRandom may be removed as an option as it is no longer the preferred <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> per vendor documentation. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_14" class="defined" href="#_t_14">Test FCS_RBG_EXT.1.1:3</a>: The evaluator shall verify that the application invokes either &lt;code&gt;SecRandomCopyBytes&lt;/code&gt;, &lt;code&gt;CCRandomGenerateBytes&lt;/code&gt;, or &lt;code&gt;CCRandomCopyBytes&lt;/code&gt;, or uses &lt;code&gt;/dev/random&lt;/code&gt; directly to acquire random. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_15" class="defined" href="#_t_15">Test FCS_RBG_EXT.1.1:4</a>: The evaluator shall verify that the application collects random from &lt;code&gt;/dev/random&lt;/code&gt; or &lt;code&gt;/dev/urandom&lt;/code&gt;. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_16" class="defined" href="#_t_16">Test FCS_RBG_EXT.1.1:5</a>: The evaluator shall verify that the application collects random from &lt;code&gt;/dev/random&lt;/code&gt;. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_17" class="defined" href="#_t_17">Test FCS_RBG_EXT.1.1:6</a>: The evaluator shall verify that the application invokes either &lt;code&gt;CCRandomGenerateBytes&lt;/code&gt; or &lt;code&gt;CCRandomCopyBytes&lt;/code&gt;, or collects random from &lt;code&gt;/dev/random&lt;/code&gt;. 
-                        </li>
+                         If "&lt;i&gt;invoke platform-provided DRBG functionality&lt;/i&gt;" is selected, the following tests shall be performed: &lt;p&gt;&lt;/p&gt; The evaluator shall decompile the application binary using a decompiler suitable for the application (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>). The evaluator shall search the output of the decompiler to determine that, for each <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> listed in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>, that <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> appears in the output. If the representation of the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> does not correspond directly to the strings in the following list, the evaluator shall provide a mapping from the decompiled text to its corresponding <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>, with a description of why the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> text does not directly correspond to the decompiled text and justification that the decompiled text corresponds to the associated <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>. &lt;p&gt;&lt;/p&gt; The following are the per-platform list of acceptable APIs: <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_12" class="defined" href="#_t_12">Test FCS_RBG_EXT.1.1:1</a>: The evaluator shall verify that the application uses at least one of &lt;code&gt;javax.crypto.KeyGenerator&lt;/code&gt; class or the &lt;code&gt;java.security.SecureRandom&lt;/code&gt; class or &lt;code&gt;/dev/random &lt;/code&gt; or &lt;code&gt;/dev/urandom&lt;/code&gt;. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_13" class="defined" href="#_t_13">Test FCS_RBG_EXT.1.1:2</a>: The evaluator shall verify that rand_s, RtlGenRandom, BCryptGenRandom, or CryptGenRandom <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> is used for classic desktop applications. The evaluator shall verify the application uses the RNGCryptoServiceProvider class or derives a class from System.Security.Cryptography.RandomNumberGenerator <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> for Windows Universal Applications. It is only required that the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> is called/invoked, there is no requirement that the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> be used directly. In future versions of this document, CryptGenRandom may be removed as an option as it is no longer the preferred <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> per vendor documentation. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_14" class="defined" href="#_t_14">Test FCS_RBG_EXT.1.1:3</a>: The evaluator shall verify that the application invokes either &lt;code&gt;SecRandomCopyBytes&lt;/code&gt;, &lt;code&gt;CCRandomGenerateBytes&lt;/code&gt;, or &lt;code&gt;CCRandomCopyBytes&lt;/code&gt;, or uses &lt;code&gt;/dev/random&lt;/code&gt; directly to acquire random. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_15" class="defined" href="#_t_15">Test FCS_RBG_EXT.1.1:4</a>: The evaluator shall verify that the application collects random from &lt;code&gt;/dev/random&lt;/code&gt; or &lt;code&gt;/dev/urandom&lt;/code&gt;. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_16" class="defined" href="#_t_16">Test FCS_RBG_EXT.1.1:5</a>: The evaluator shall verify that the application collects random from &lt;code&gt;/dev/random&lt;/code&gt;. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_17" class="defined" href="#_t_17">Test FCS_RBG_EXT.1.1:6</a>: The evaluator shall verify that the application invokes either &lt;code&gt;CCRandomGenerateBytes&lt;/code&gt; or &lt;code&gt;CCRandomCopyBytes&lt;/code&gt;, or collects random from &lt;code&gt;/dev/random&lt;/code&gt;. 
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                 </div>
             </div>
@@ -577,25 +595,43 @@
                     <div class="ea">None.&lt;p&gt;&lt;/p&gt;</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         For all credentials for which the application implements functionality, the evaluator shall verify credentials are encrypted according to <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> or conditioned according to <a href="#FCS_CKM.1.1/AK">FCS_CKM.1.1/AK</a> and <a href="#FCS_CKM.1/PBKDF">FCS_CKM.1/PBKDF</a>. For all credentials for which the application invokes platform-provided functionality, the evaluator shall perform the following actions which vary per platform. 
-                        <li class="test-">
-                            <a id="_t_21" class="defined" href="#_t_21">Test FCS_STO_EXT.1.1:1</a>: The evaluator shall verify that the application uses the Android &lt;code&gt;KeyStore&lt;/code&gt; or the Android &lt;code&gt;KeyChain&lt;/code&gt; to store certificates. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_22" class="defined" href="#_t_22">Test FCS_STO_EXT.1.1:2</a>: The evaluator shall verify that all certificates are stored in the Windows Certificate Store. The evaluator shall verify that other credentials, like passwords, are stored in the Windows Credential Manager or stored using the Data Protection <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> (DPAPI). For Windows Universal Applications, the evaluator shall verify that the application is using the ProtectData class and storing credentials in IsolatedStorage. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_23" class="defined" href="#_t_23">Test FCS_STO_EXT.1.1:3</a>: The evaluator shall verify that all credentials are stored within a &lt;code&gt;Keychain&lt;/code&gt;. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_24" class="defined" href="#_t_24">Test FCS_STO_EXT.1.1:4</a>: The evaluator shall verify that all keys are stored using Linux keyrings. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_25" class="defined" href="#_t_25">Test FCS_STO_EXT.1.1:5</a>: The evaluator shall verify that all keys are stored using Solaris &lt;code&gt;Key Management Framework (KMF)&lt;/code&gt;. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_26" class="defined" href="#_t_26">Test FCS_STO_EXT.1.1:6</a>: The evaluator shall verify that all credentials are stored within &lt;code&gt;Keychain&lt;/code&gt;.
-                        </li>
+                         For all credentials for which the application implements functionality, the evaluator shall verify credentials are encrypted according to <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> or conditioned according to <a href="#FCS_CKM.1.1/AK">FCS_CKM.1.1/AK</a> and <a href="#FCS_CKM.1/PBKDF">FCS_CKM.1/PBKDF</a>. For all credentials for which the application invokes platform-provided functionality, the evaluator shall perform the following actions which vary per platform. <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_21" class="defined" href="#_t_21">Test FCS_STO_EXT.1.1:1</a>: The evaluator shall verify that the application uses the Android &lt;code&gt;KeyStore&lt;/code&gt; or the Android &lt;code&gt;KeyChain&lt;/code&gt; to store certificates. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_22" class="defined" href="#_t_22">Test FCS_STO_EXT.1.1:2</a>: The evaluator shall verify that all certificates are stored in the Windows Certificate Store. The evaluator shall verify that other credentials, like passwords, are stored in the Windows Credential Manager or stored using the Data Protection <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> (DPAPI). For Windows Universal Applications, the evaluator shall verify that the application is using the ProtectData class and storing credentials in IsolatedStorage. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_23" class="defined" href="#_t_23">Test FCS_STO_EXT.1.1:3</a>: The evaluator shall verify that all credentials are stored within a &lt;code&gt;Keychain&lt;/code&gt;. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_24" class="defined" href="#_t_24">Test FCS_STO_EXT.1.1:4</a>: The evaluator shall verify that all keys are stored using Linux keyrings. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_25" class="defined" href="#_t_25">Test FCS_STO_EXT.1.1:5</a>: The evaluator shall verify that all keys are stored using Solaris &lt;code&gt;Key Management Framework (KMF)&lt;/code&gt;. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_26" class="defined" href="#_t_26">Test FCS_STO_EXT.1.1:6</a>: The evaluator shall verify that all credentials are stored within &lt;code&gt;Keychain&lt;/code&gt;.
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                 </div>
             </div>
@@ -632,25 +668,43 @@
                     <div class="ea">None.&lt;p&gt;&lt;/p&gt;</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         Evaluation activities (after the identification of the sensitive data) are to be performed on all sensitive data listed that are not covered by <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>. &lt;p&gt;&lt;/p&gt; The evaluator shall inventory the filesystem locations where the application may write data. The evaluator shall run the application and attempt to store sensitive data. The evaluator shall then inspect those areas of the filesystem to note where data was stored (if any), and determine whether it has been encrypted.&lt;p&gt;&lt;/p&gt; If "&lt;i&gt;leverage platform-provided functionality&lt;/i&gt;" is selected, the evaluation activities will be performed as stated in the following requirements, which vary on a per-platform basis.&lt;p&gt;&lt;/p&gt; 
-                        <li class="test-">
-                            <a id="_t_27" class="defined" href="#_t_27">Test FDP_DAR_EXT.1.1:1</a>: The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that it describes how files containing sensitive data are stored with the &lt;code&gt;MODE_PRIVATE&lt;/code&gt; flag set. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_28" class="defined" href="#_t_28">Test FDP_DAR_EXT.1.1:2</a>: The Windows platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers. The evaluator shall verify that the Operational User Guidance makes the need to activate platform encryption, such as BitLocker or Encrypting File System (EFS), clear to the end user. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_29" class="defined" href="#_t_29">Test FDP_DAR_EXT.1.1:3</a>: The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and ensure that it describes how the application uses the Complete Protection, Protected Unless Open, or Protected Until First User Authentication Data Protection Class for each data file stored locally. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_30" class="defined" href="#_t_30">Test FDP_DAR_EXT.1.1:4</a>: The Linux platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers. The evaluator shall verify that the Operational User Guidance makes the need to activate platform encryption clear to the end user. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_31" class="defined" href="#_t_31">Test FDP_DAR_EXT.1.1:5</a>: The Solaris platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers. The evaluator shall verify that the Operational User Guidance makes the need to activate platform encryption clear to the end user. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_32" class="defined" href="#_t_32">Test FDP_DAR_EXT.1.1:6</a>: The macOS platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers. The evaluator shall verify that the Operational User Guidance makes the need to activate platform encryption clear to the end user. 
-                        </li>
+                         Evaluation activities (after the identification of the sensitive data) are to be performed on all sensitive data listed that are not covered by <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>. &lt;p&gt;&lt;/p&gt; The evaluator shall inventory the filesystem locations where the application may write data. The evaluator shall run the application and attempt to store sensitive data. The evaluator shall then inspect those areas of the filesystem to note where data was stored (if any), and determine whether it has been encrypted.&lt;p&gt;&lt;/p&gt; If "&lt;i&gt;leverage platform-provided functionality&lt;/i&gt;" is selected, the evaluation activities will be performed as stated in the following requirements, which vary on a per-platform basis.&lt;p&gt;&lt;/p&gt; <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_27" class="defined" href="#_t_27">Test FDP_DAR_EXT.1.1:1</a>: The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that it describes how files containing sensitive data are stored with the &lt;code&gt;MODE_PRIVATE&lt;/code&gt; flag set. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_28" class="defined" href="#_t_28">Test FDP_DAR_EXT.1.1:2</a>: The Windows platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers. The evaluator shall verify that the Operational User Guidance makes the need to activate platform encryption, such as BitLocker or Encrypting File System (EFS), clear to the end user. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_29" class="defined" href="#_t_29">Test FDP_DAR_EXT.1.1:3</a>: The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and ensure that it describes how the application uses the Complete Protection, Protected Unless Open, or Protected Until First User Authentication Data Protection Class for each data file stored locally. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_30" class="defined" href="#_t_30">Test FDP_DAR_EXT.1.1:4</a>: The Linux platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers. The evaluator shall verify that the Operational User Guidance makes the need to activate platform encryption clear to the end user. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_31" class="defined" href="#_t_31">Test FDP_DAR_EXT.1.1:5</a>: The Solaris platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers. The evaluator shall verify that the Operational User Guidance makes the need to activate platform encryption clear to the end user. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_32" class="defined" href="#_t_32">Test FDP_DAR_EXT.1.1:6</a>: The macOS platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers. The evaluator shall verify that the Operational User Guidance makes the need to activate platform encryption clear to the end user. 
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                 </div>
             </div>
@@ -695,24 +749,43 @@
                     <div class="ea">The evaluator shall perform the platform-specific actions below and inspect user documentation to determine the application's access to hardware resources. The evaluator shall ensure that this is consistent with the selections indicated. The evaluator shall review documentation provided by the application developer and for each resource which it accesses, identify the justification as to why access is required.</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                        <li class="test-">
-                            <a id="_t_33" class="defined" href="#_t_33">Test FDP_DEC_EXT.1.1:1</a>: The evaluator shall verify that each &lt;code&gt;uses-permission&lt;/code&gt; entry in the AndroidManifest.xml file for access to a hardware resource is reflected in the selection. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_34" class="defined" href="#_t_34">Test FDP_DEC_EXT.1.1:2</a>: For Windows Universal Applications the evaluator shall check the WMAppManifest.xml file for a list of required hardware capabilities. The evaluator shall verify that the user is made aware of the required hardware capabilities when the application is first installed. This includes permissions such as ID_CAP_ISV_CAMERA, ID_CAP_LOCATION, ID_CAP_NETWORKING, ID_CAP_MICROPHONE, ID_CAP_PROXIMITY and so on. A complete list of Windows App permissions can be found at: &lt;ul&gt;&lt;li&gt; &lt;a href=http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx&gt; http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt; For Windows Desktop Applications the evaluator shall identify in either the application software or its documentation the list of the required hardware resources. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_35" class="defined" href="#_t_35">Test FDP_DEC_EXT.1.1:3</a>: The evaluator shall verify that either the application or the documentation provides a list of the hardware resources it accesses. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_36" class="defined" href="#_t_36">Test FDP_DEC_EXT.1.1:4</a>: The evaluator shall verify that either the application software or its documentation provides a list of the hardware resources it accesses. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_37" class="defined" href="#_t_37">Test FDP_DEC_EXT.1.1:5</a>: The evaluator shall verify that either the application software or its documentation provides a list of the hardware resources it accesses. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_38" class="defined" href="#_t_38">Test FDP_DEC_EXT.1.1:6</a>: The evaluator shall verify that either the application software or its documentation provides a list of the hardware resources it accesses.
-                        </li>
+                         <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_33" class="defined" href="#_t_33">Test FDP_DEC_EXT.1.1:1</a>: The evaluator shall verify that each &lt;code&gt;uses-permission&lt;/code&gt; entry in the AndroidManifest.xml file for access to a hardware resource is reflected in the selection. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_34" class="defined" href="#_t_34">Test FDP_DEC_EXT.1.1:2</a>: For Windows Universal Applications the evaluator shall check the WMAppManifest.xml file for a list of required hardware capabilities. The evaluator shall verify that the user is made aware of the required hardware capabilities when the application is first installed. This includes permissions such as ID_CAP_ISV_CAMERA, ID_CAP_LOCATION, ID_CAP_NETWORKING, ID_CAP_MICROPHONE, ID_CAP_PROXIMITY and so on. A complete list of Windows App permissions can be found at: &lt;ul&gt;&lt;li&gt; &lt;a href=http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx&gt; http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt; For Windows Desktop Applications the evaluator shall identify in either the application software or its documentation the list of the required hardware resources. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_35" class="defined" href="#_t_35">Test FDP_DEC_EXT.1.1:3</a>: The evaluator shall verify that either the application or the documentation provides a list of the hardware resources it accesses. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_36" class="defined" href="#_t_36">Test FDP_DEC_EXT.1.1:4</a>: The evaluator shall verify that either the application software or its documentation provides a list of the hardware resources it accesses. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_37" class="defined" href="#_t_37">Test FDP_DEC_EXT.1.1:5</a>: The evaluator shall verify that either the application software or its documentation provides a list of the hardware resources it accesses. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_38" class="defined" href="#_t_38">Test FDP_DEC_EXT.1.1:6</a>: The evaluator shall verify that either the application software or its documentation provides a list of the hardware resources it accesses.
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                     <div class="element-activity-header">
                         <a href="#FDP_DEC_EXT.1.2">FDP_DEC_EXT.1.2</a>
@@ -725,24 +798,43 @@
                     <div class="ea">The evaluator shall perform the platform-specific actions below and inspect user documentation to determine the application's access to sensitive information repositories. The evaluator shall ensure that this is consistent with the selections indicated. The evaluator shall review documentation provided by the application developer and for each sensitive information repository which it accesses, identify the justification as to why access is required.</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                        <li class="test-">
-                            <a id="_t_39" class="defined" href="#_t_39">Test FDP_DEC_EXT.1.2:1</a>: The evaluator shall verify that each &lt;code&gt;uses-permission&lt;/code&gt; entry in the AndroidManifest.xml file for access to a sensitive information repository is reflected in the selection. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_40" class="defined" href="#_t_40">Test FDP_DEC_EXT.1.2:2</a>: For Windows Universal Applications the evaluator shall check the WMAppManifest.xml file for a list of required capabilities. The evaluator shall identify the required information repositories when the application is first installed. This includes permissions such as ID_CAP_CONTACTS,ID_CAP_APPOINTMENTS,ID_CAP_MEDIALIB and so on. A complete list of Windows App permissions can be found at: &lt;ul&gt;&lt;li&gt; &lt;a href=http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx&gt; http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt; For Windows Desktop Applications the evaluator shall identify in either the application software or its documentation the list of sensitive information repositories it accesses. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_41" class="defined" href="#_t_41">Test FDP_DEC_EXT.1.2:3</a>: The evaluator shall verify that either the application software or its documentation provides a list of the sensitive information repositories it accesses.
-                        </li>
-                        <li class="test-">
-                            <a id="_t_42" class="defined" href="#_t_42">Test FDP_DEC_EXT.1.2:4</a>: The evaluator shall verify that either the application software or its documentation provides a list of sensitive information repositories it accesses. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_43" class="defined" href="#_t_43">Test FDP_DEC_EXT.1.2:5</a>: The evaluator shall verify that either the application software or its documentation provides a list of sensitive information repositories it accesses. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_44" class="defined" href="#_t_44">Test FDP_DEC_EXT.1.2:6</a>: The evaluator shall verify that either the application software or its documentation provides a list of sensitive information repositories it accesses.
-                        </li>
+                         <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_39" class="defined" href="#_t_39">Test FDP_DEC_EXT.1.2:1</a>: The evaluator shall verify that each &lt;code&gt;uses-permission&lt;/code&gt; entry in the AndroidManifest.xml file for access to a sensitive information repository is reflected in the selection. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_40" class="defined" href="#_t_40">Test FDP_DEC_EXT.1.2:2</a>: For Windows Universal Applications the evaluator shall check the WMAppManifest.xml file for a list of required capabilities. The evaluator shall identify the required information repositories when the application is first installed. This includes permissions such as ID_CAP_CONTACTS,ID_CAP_APPOINTMENTS,ID_CAP_MEDIALIB and so on. A complete list of Windows App permissions can be found at: &lt;ul&gt;&lt;li&gt; &lt;a href=http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx&gt; http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt; For Windows Desktop Applications the evaluator shall identify in either the application software or its documentation the list of sensitive information repositories it accesses. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_41" class="defined" href="#_t_41">Test FDP_DEC_EXT.1.2:3</a>: The evaluator shall verify that either the application software or its documentation provides a list of the sensitive information repositories it accesses.
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_42" class="defined" href="#_t_42">Test FDP_DEC_EXT.1.2:4</a>: The evaluator shall verify that either the application software or its documentation provides a list of sensitive information repositories it accesses. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_43" class="defined" href="#_t_43">Test FDP_DEC_EXT.1.2:5</a>: The evaluator shall verify that either the application software or its documentation provides a list of sensitive information repositories it accesses. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_44" class="defined" href="#_t_44">Test FDP_DEC_EXT.1.2:6</a>: The evaluator shall verify that either the application software or its documentation provides a list of sensitive information repositories it accesses.
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                 </div>
             </div>
@@ -776,16 +868,23 @@
                     <div class="ea">None.&lt;p&gt;&lt;/p&gt;</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         The evaluator shall perform the following tests: 
-                        <li class="test-">
-                            <a id="_t_45" class="defined" href="#_t_45">Test FDP_NET_EXT.1.1:1</a>: The evaluator shall run the application. While the application is running, the evaluator shall sniff network traffic ignoring all non-application associated traffic and verify that any network communications witnessed are documented in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> or are user-initiated. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_46" class="defined" href="#_t_46">Test FDP_NET_EXT.1.1:2</a>: The evaluator shall run the application. After the application initializes, the evaluator shall run network port scans to verify that any ports opened by the application have been captured in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> for the third selection and its assignment. This includes connection-based protocols (e.g. TCP, DCCP) as well as connectionless protocols (e.g. UDP). 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_47" class="defined" href="#_t_47">Test FDP_NET_EXT.1.1:3</a>: If "no network communication" is selected, the evaluator shall ensure that the application's AndroidManifest.xml file does not contain a uses-permission or uses-permission-sdk-23 tag containing android:name="android.permission.INTERNET". In this case, it is not necessary to perform the above Tests 1 and 2, as the platform will not allow the application to perform any network communication. 
-                        </li>
+                         <span class="testlist-">
+                            <ul>
+                                 The evaluator shall perform the following tests: 
+                                <li class="test-">
+                                    <a id="_t_45" class="defined" href="#_t_45">Test FDP_NET_EXT.1.1:1</a>: The evaluator shall run the application. While the application is running, the evaluator shall sniff network traffic ignoring all non-application associated traffic and verify that any network communications witnessed are documented in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> or are user-initiated. 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_46" class="defined" href="#_t_46">Test FDP_NET_EXT.1.1:2</a>: The evaluator shall run the application. After the application initializes, the evaluator shall run network port scans to verify that any ports opened by the application have been captured in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> for the third selection and its assignment. This includes connection-based protocols (e.g. TCP, DCCP) as well as connectionless protocols (e.g. UDP). 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_47" class="defined" href="#_t_47">Test FDP_NET_EXT.1.1:3</a>: If "no network communication" is selected, the evaluator shall ensure that the application's AndroidManifest.xml file does not contain a uses-permission or uses-permission-sdk-23 tag containing android:name="android.permission.INTERNET". In this case, it is not necessary to perform the above Tests 1 and 2, as the platform will not allow the application to perform any network communication. 
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                 </div>
             </div>
@@ -833,16 +932,20 @@
                     <div class="ea">None.</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         If the application uses any default credentials the evaluator shall run the following tests. If the application uses any default credentials the evaluator shall run the following tests. 
-                        <li class="test-">
-                            <a id="_t_61" class="defined" href="#_t_61">Test FMT_CFG_EXT.1.1:1</a>: The evaluator shall install and run the application without generating or loading new credentials and verify that only the minimal application functionality required to set new credentials is available. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_62" class="defined" href="#_t_62">Test FMT_CFG_EXT.1.1:2</a>: The evaluator shall attempt to clear all credentials and verify that only the minimal application functionality required to set new credentials is available. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_63" class="defined" href="#_t_63">Test FMT_CFG_EXT.1.1:3</a>: The evaluator shall run the application, establish new credentials and verify that the original default credentials no longer provide access to the application. 
-                        </li>
+                         If the application uses any default credentials the evaluator shall run the following tests. <span class="testlist-">
+                            <ul>
+                                 If the application uses any default credentials the evaluator shall run the following tests. 
+                                <li class="test-">
+                                    <a id="_t_61" class="defined" href="#_t_61">Test FMT_CFG_EXT.1.1:1</a>: The evaluator shall install and run the application without generating or loading new credentials and verify that only the minimal application functionality required to set new credentials is available. 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_62" class="defined" href="#_t_62">Test FMT_CFG_EXT.1.1:2</a>: The evaluator shall attempt to clear all credentials and verify that only the minimal application functionality required to set new credentials is available. 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_63" class="defined" href="#_t_63">Test FMT_CFG_EXT.1.1:3</a>: The evaluator shall run the application, establish new credentials and verify that the original default credentials no longer provide access to the application. 
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                     <div class="element-activity-header">
                         <a href="#FMT_CFG_EXT.1.2">FMT_CFG_EXT.1.2</a>
@@ -855,25 +958,43 @@
                     <div class="ea">None.</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         The evaluator shall install and run the application. The evaluator shall inspect the filesystem of the platform (to the extent possible) for any files created by the application and ensure that their permissions are adequate to protect them. The method of doing so varies per platform. 
-                        <li class="test-">
-                            <a id="_t_64" class="defined" href="#_t_64">Test FMT_CFG_EXT.1.2:1</a>: The evaluator shall run the command &lt;code&gt;find -L . -perm /002&lt;/code&gt; inside the application's data directories to ensure that all files are not world-writable. The command should not print any files. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_65" class="defined" href="#_t_65">Test FMT_CFG_EXT.1.2:2</a>: The evaluator shall run the SysInternals tools, Process Monitor and Access Check (or tools of equivalent capability, like icacls.exe) for Classic Desktop applications to verify that files written to disk during an application's installation have the correct file permissions, such that a standard user cannot modify the application or its data files. For Windows Universal Applications the evaluator shall consider the requirement met because of the AppContainer sandbox. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_66" class="defined" href="#_t_66">Test FMT_CFG_EXT.1.2:3</a>: The evaluator shall determine whether the application leverages the appropriate Data Protection Class for each data file stored locally.
-                        </li>
-                        <li class="test-">
-                            <a id="_t_67" class="defined" href="#_t_67">Test FMT_CFG_EXT.1.2:4</a>: The evaluator shall run the command &lt;code&gt;find -L . -perm /002&lt;/code&gt; inside the application's data directories to ensure that all files are not world-writable. The command should not print any files. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_68" class="defined" href="#_t_68">Test FMT_CFG_EXT.1.2:5</a>: The evaluator shall run the command &lt;code&gt;find . \( -perm -002 \)&lt;/code&gt; inside the application's data directories to ensure that all files are not world-writable. The command should not print any files. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_69" class="defined" href="#_t_69">Test FMT_CFG_EXT.1.2:6</a>: The evaluator shall run the command &lt;code&gt;find . -perm +002&lt;/code&gt; inside the application's data directories to ensure that all files are not world-writable. The command should not print any files. 
-                        </li>
+                         The evaluator shall install and run the application. The evaluator shall inspect the filesystem of the platform (to the extent possible) for any files created by the application and ensure that their permissions are adequate to protect them. The method of doing so varies per platform. <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_64" class="defined" href="#_t_64">Test FMT_CFG_EXT.1.2:1</a>: The evaluator shall run the command &lt;code&gt;find -L . -perm /002&lt;/code&gt; inside the application's data directories to ensure that all files are not world-writable. The command should not print any files. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_65" class="defined" href="#_t_65">Test FMT_CFG_EXT.1.2:2</a>: The evaluator shall run the SysInternals tools, Process Monitor and Access Check (or tools of equivalent capability, like icacls.exe) for Classic Desktop applications to verify that files written to disk during an application's installation have the correct file permissions, such that a standard user cannot modify the application or its data files. For Windows Universal Applications the evaluator shall consider the requirement met because of the AppContainer sandbox. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_66" class="defined" href="#_t_66">Test FMT_CFG_EXT.1.2:3</a>: The evaluator shall determine whether the application leverages the appropriate Data Protection Class for each data file stored locally.
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_67" class="defined" href="#_t_67">Test FMT_CFG_EXT.1.2:4</a>: The evaluator shall run the command &lt;code&gt;find -L . -perm /002&lt;/code&gt; inside the application's data directories to ensure that all files are not world-writable. The command should not print any files. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_68" class="defined" href="#_t_68">Test FMT_CFG_EXT.1.2:5</a>: The evaluator shall run the command &lt;code&gt;find . \( -perm -002 \)&lt;/code&gt; inside the application's data directories to ensure that all files are not world-writable. The command should not print any files. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_69" class="defined" href="#_t_69">Test FMT_CFG_EXT.1.2:6</a>: The evaluator shall run the command &lt;code&gt;find . -perm +002&lt;/code&gt; inside the application's data directories to ensure that all files are not world-writable. The command should not print any files. 
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                 </div>
             </div>
@@ -909,25 +1030,43 @@
                     <div class="ea">None.&lt;p&gt;&lt;/p&gt;</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         If "invoke the mechanisms recommended by the platform vendor for storing and setting configuration options" is chosen, the method of testing varies per platform as follows: 
-                        <li class="test-">
-                            <a id="_t_70" class="defined" href="#_t_70">Test FMT_MEC_EXT.1.1:1</a>: The evaluator shall run the application and make security-related changes to its configuration. The evaluator shall check that at least one XML file at location reflects the changes made to the configuration to verify that the application used &lt;code&gt;SharedPreferences&lt;/code&gt; and/or &lt;code&gt;PreferenceActivity&lt;/code&gt; classes for storing configuration data, where &lt;i&gt;package&lt;/i&gt; is the Java package of the application. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_71" class="defined" href="#_t_71">Test FMT_MEC_EXT.1.1:2</a>: The evaluator shall determine and verify that Windows Universal Applications use either the Windows.Storage namespace, Windows.UI.ApplicationSettings namespace, or the IsolatedStorageSettings namespace for storing application specific settings. For .NET applications, the evaluator shall determine and verify that the application uses one of the locations listed in &lt;a href=https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/&gt; https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/&lt;/a&gt; for storing application specific settings. For Classic Desktop applications, the evaluator shall run the application while monitoring it with the SysInternals tool and make changes to its configuration. The evaluator shall verify that logs show corresponding changes to the the Windows Registry or C:\ProgramData\ directory. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_72" class="defined" href="#_t_72">Test FMT_MEC_EXT.1.1:3</a>: The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_app">app</a></abbr> uses the &lt;code&gt;user defaults system&lt;/code&gt; or &lt;code&gt;key-value store&lt;/code&gt; for storing all settings.
-                        </li>
-                        <li class="test-">
-                            <a id="_t_73" class="defined" href="#_t_73">Test FMT_MEC_EXT.1.1:4</a>: The evaluator shall run the application while monitoring it with the utility . The evaluator shall make security-related changes to its configuration. The evaluator shall verify that logs corresponding changes to configuration files that reside in /etc (for system-specific configuration), in the user's home directory (for user-specific configuration), or /var/lib/ (for configurations controlled by UI and not intended to be directly modified by an administrator). 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_74" class="defined" href="#_t_74">Test FMT_MEC_EXT.1.1:5</a>: The evaluator shall run the application while monitoring it with the utility . The evaluator shall make security-related changes to its configuration. The evaluator shall verify that logs corresponding changes to configuration files that reside in /etc (for system-specific configuration) or in the user's home directory(for user-specific configuration). 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_75" class="defined" href="#_t_75">Test FMT_MEC_EXT.1.1:6</a>: The evaluator shall verify that the application stores and retrieves settings using the &lt;code&gt;NSUserDefaults&lt;/code&gt; class. 
-                        </li>
+                         If "invoke the mechanisms recommended by the platform vendor for storing and setting configuration options" is chosen, the method of testing varies per platform as follows: <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_70" class="defined" href="#_t_70">Test FMT_MEC_EXT.1.1:1</a>: The evaluator shall run the application and make security-related changes to its configuration. The evaluator shall check that at least one XML file at location reflects the changes made to the configuration to verify that the application used &lt;code&gt;SharedPreferences&lt;/code&gt; and/or &lt;code&gt;PreferenceActivity&lt;/code&gt; classes for storing configuration data, where &lt;i&gt;package&lt;/i&gt; is the Java package of the application. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_71" class="defined" href="#_t_71">Test FMT_MEC_EXT.1.1:2</a>: The evaluator shall determine and verify that Windows Universal Applications use either the Windows.Storage namespace, Windows.UI.ApplicationSettings namespace, or the IsolatedStorageSettings namespace for storing application specific settings. For .NET applications, the evaluator shall determine and verify that the application uses one of the locations listed in &lt;a href=https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/&gt; https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/&lt;/a&gt; for storing application specific settings. For Classic Desktop applications, the evaluator shall run the application while monitoring it with the SysInternals tool and make changes to its configuration. The evaluator shall verify that logs show corresponding changes to the the Windows Registry or C:\ProgramData\ directory. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_72" class="defined" href="#_t_72">Test FMT_MEC_EXT.1.1:3</a>: The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_app">app</a></abbr> uses the &lt;code&gt;user defaults system&lt;/code&gt; or &lt;code&gt;key-value store&lt;/code&gt; for storing all settings.
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_73" class="defined" href="#_t_73">Test FMT_MEC_EXT.1.1:4</a>: The evaluator shall run the application while monitoring it with the utility . The evaluator shall make security-related changes to its configuration. The evaluator shall verify that logs corresponding changes to configuration files that reside in /etc (for system-specific configuration), in the user's home directory (for user-specific configuration), or /var/lib/ (for configurations controlled by UI and not intended to be directly modified by an administrator). 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_74" class="defined" href="#_t_74">Test FMT_MEC_EXT.1.1:5</a>: The evaluator shall run the application while monitoring it with the utility . The evaluator shall make security-related changes to its configuration. The evaluator shall verify that logs corresponding changes to configuration files that reside in /etc (for system-specific configuration) or in the user's home directory(for user-specific configuration). 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_75" class="defined" href="#_t_75">Test FMT_MEC_EXT.1.1:6</a>: The evaluator shall verify that the application stores and retrieves settings using the &lt;code&gt;NSUserDefaults&lt;/code&gt; class. 
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                 </div>
             </div>
@@ -1081,25 +1220,43 @@
                     <div class="ea">None.</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         The evaluator shall perform either a static or dynamic analysis to determine that no memory mappings are placed at an explicit and consistent address. The method of doing so varies per platform. For those platforms requiring the same application running on two different systems, the evaluator may alternatively use the same device. After collecting the first instance of mappings, the evaluator must uninstall the application, reboot the device, and reinstall the application to collect the second instance of mappings. 
-                        <li class="test-">
-                            <a id="_t_76" class="defined" href="#_t_76">Test FPT_AEX_EXT.1.1:1</a>: The evaluator shall run the same application on two different Android systems. Both devices do not need to be evaluated, as the second device is acting only as a tool. Connect via ADB and inspect /proc/PID/maps. Ensure the two different instances share no memory mappings made by the application at the same location. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_77" class="defined" href="#_t_77">Test FPT_AEX_EXT.1.1:2</a>: The evaluator shall run the same application on two different Windows systems and run a tool that will list all memory mapped addresses for the application. The evaluator shall then verify the two different instances share no mapping locations. The Microsoft SysInternals tool, VMMap, could be used to view memory addresses of a running application. The evaluator shall use a tool such as Microsoft's BinScope Binary Analyzer to confirm that the application has <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> enabled. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_78" class="defined" href="#_t_78">Test FPT_AEX_EXT.1.1:3</a>: The evaluator shall perform a static analysis to search for any mmap calls (or <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> calls that call mmap), and ensure that no arguments are provided that request a mapping at a fixed address. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_79" class="defined" href="#_t_79">Test FPT_AEX_EXT.1.1:4</a>: The evaluator shall run the same application on two different Linux systems. The evaluator shall then compare their memory maps using &lt;code&gt;pmap -x &lt;i&gt;PID&lt;/i&gt;&lt;/code&gt; to ensure the two different instances share no mapping locations. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_80" class="defined" href="#_t_80">Test FPT_AEX_EXT.1.1:5</a>: The evaluator shall run the same application on two different Solaris systems. The evaluator shall then compare their memory maps using &lt;code&gt;pmap -x &lt;i&gt;PID&lt;/i&gt;&lt;/code&gt; to ensure the two different instances share no mapping locations. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_81" class="defined" href="#_t_81">Test FPT_AEX_EXT.1.1:6</a>: The evaluator shall run the same application on two different Mac systems. The evaluator shall then compare their memory maps using &lt;code&gt;vmmap &lt;i&gt;PID&lt;/i&gt;&lt;/code&gt; to ensure the two different instances share no mapping locations. 
-                        </li>
+                         The evaluator shall perform either a static or dynamic analysis to determine that no memory mappings are placed at an explicit and consistent address. The method of doing so varies per platform. For those platforms requiring the same application running on two different systems, the evaluator may alternatively use the same device. After collecting the first instance of mappings, the evaluator must uninstall the application, reboot the device, and reinstall the application to collect the second instance of mappings. <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_76" class="defined" href="#_t_76">Test FPT_AEX_EXT.1.1:1</a>: The evaluator shall run the same application on two different Android systems. Both devices do not need to be evaluated, as the second device is acting only as a tool. Connect via ADB and inspect /proc/PID/maps. Ensure the two different instances share no memory mappings made by the application at the same location. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_77" class="defined" href="#_t_77">Test FPT_AEX_EXT.1.1:2</a>: The evaluator shall run the same application on two different Windows systems and run a tool that will list all memory mapped addresses for the application. The evaluator shall then verify the two different instances share no mapping locations. The Microsoft SysInternals tool, VMMap, could be used to view memory addresses of a running application. The evaluator shall use a tool such as Microsoft's BinScope Binary Analyzer to confirm that the application has <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> enabled. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_78" class="defined" href="#_t_78">Test FPT_AEX_EXT.1.1:3</a>: The evaluator shall perform a static analysis to search for any mmap calls (or <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> calls that call mmap), and ensure that no arguments are provided that request a mapping at a fixed address. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_79" class="defined" href="#_t_79">Test FPT_AEX_EXT.1.1:4</a>: The evaluator shall run the same application on two different Linux systems. The evaluator shall then compare their memory maps using &lt;code&gt;pmap -x &lt;i&gt;PID&lt;/i&gt;&lt;/code&gt; to ensure the two different instances share no mapping locations. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_80" class="defined" href="#_t_80">Test FPT_AEX_EXT.1.1:5</a>: The evaluator shall run the same application on two different Solaris systems. The evaluator shall then compare their memory maps using &lt;code&gt;pmap -x &lt;i&gt;PID&lt;/i&gt;&lt;/code&gt; to ensure the two different instances share no mapping locations. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_81" class="defined" href="#_t_81">Test FPT_AEX_EXT.1.1:6</a>: The evaluator shall run the same application on two different Mac systems. The evaluator shall then compare their memory maps using &lt;code&gt;vmmap &lt;i&gt;PID&lt;/i&gt;&lt;/code&gt; to ensure the two different instances share no mapping locations. 
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                     <div class="element-activity-header">
                         <a href="#FPT_AEX_EXT.1.2">FPT_AEX_EXT.1.2</a>
@@ -1112,25 +1269,43 @@
                     <div class="ea">None.</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         The evaluator shall verify that no memory mapping requests are made with write and execute permissions. The method of doing so varies per platform. 
-                        <li class="test-">
-                            <a id="_t_82" class="defined" href="#_t_82">Test FPT_AEX_EXT.1.2:1</a>: The evaluator shall perform static analysis on the application to verify that &lt;ul&gt;&lt;li&gt; mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions, and &lt;/li&gt;&lt;li&gt; mprotect is never invoked.&lt;/li&gt;&lt;/ul&gt;
-                        </li>
-                        <li class="test-">
-                            <a id="_t_83" class="defined" href="#_t_83">Test FPT_AEX_EXT.1.2:2</a>: The evaluator shall use a tool such as Microsoft's BinScope Binary Analyzer to confirm that the application passes the NXCheck. The evaluator may also ensure that the &lt;code&gt;/NXCOMPAT&lt;/code&gt; flag was used during compilation to verify that <abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr> protections are enabled for the application. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_84" class="defined" href="#_t_84">Test FPT_AEX_EXT.1.2:3</a>: The evaluator shall perform static analysis on the application to verify that mprotect is never invoked with the PROT_EXEC permission. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_85" class="defined" href="#_t_85">Test FPT_AEX_EXT.1.2:4</a>: The evaluator shall perform static analysis on the application to verify that both &lt;ul&gt;&lt;li&gt; mmap is never be invoked with both the PROT_WRITE and PROT_EXEC permissions, and &lt;/li&gt;&lt;li&gt; mprotect is never invoked with the PROT_EXEC permission.&lt;/li&gt;&lt;/ul&gt;
-                        </li>
-                        <li class="test-">
-                            <a id="_t_86" class="defined" href="#_t_86">Test FPT_AEX_EXT.1.2:5</a>: The evaluator shall perform static analysis on the application to verify that both &lt;ul&gt;&lt;li&gt; mmap is never be invoked with both the PROT_WRITE and PROT_EXEC permissions, and &lt;/li&gt;&lt;li&gt; mprotect is never invoked with the PROT_EXEC permission.&lt;/li&gt;&lt;/ul&gt;
-                        </li>
-                        <li class="test-">
-                            <a id="_t_87" class="defined" href="#_t_87">Test FPT_AEX_EXT.1.2:6</a>: The evaluator shall perform static analysis on the application to verify that mprotect is never invoked with the PROT_EXEC permission. 
-                        </li>
+                         The evaluator shall verify that no memory mapping requests are made with write and execute permissions. The method of doing so varies per platform. <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_82" class="defined" href="#_t_82">Test FPT_AEX_EXT.1.2:1</a>: The evaluator shall perform static analysis on the application to verify that &lt;ul&gt;&lt;li&gt; mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions, and &lt;/li&gt;&lt;li&gt; mprotect is never invoked.&lt;/li&gt;&lt;/ul&gt;
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_83" class="defined" href="#_t_83">Test FPT_AEX_EXT.1.2:2</a>: The evaluator shall use a tool such as Microsoft's BinScope Binary Analyzer to confirm that the application passes the NXCheck. The evaluator may also ensure that the &lt;code&gt;/NXCOMPAT&lt;/code&gt; flag was used during compilation to verify that <abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr> protections are enabled for the application. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_84" class="defined" href="#_t_84">Test FPT_AEX_EXT.1.2:3</a>: The evaluator shall perform static analysis on the application to verify that mprotect is never invoked with the PROT_EXEC permission. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_85" class="defined" href="#_t_85">Test FPT_AEX_EXT.1.2:4</a>: The evaluator shall perform static analysis on the application to verify that both &lt;ul&gt;&lt;li&gt; mmap is never be invoked with both the PROT_WRITE and PROT_EXEC permissions, and &lt;/li&gt;&lt;li&gt; mprotect is never invoked with the PROT_EXEC permission.&lt;/li&gt;&lt;/ul&gt;
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_86" class="defined" href="#_t_86">Test FPT_AEX_EXT.1.2:5</a>: The evaluator shall perform static analysis on the application to verify that both &lt;ul&gt;&lt;li&gt; mmap is never be invoked with both the PROT_WRITE and PROT_EXEC permissions, and &lt;/li&gt;&lt;li&gt; mprotect is never invoked with the PROT_EXEC permission.&lt;/li&gt;&lt;/ul&gt;
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_87" class="defined" href="#_t_87">Test FPT_AEX_EXT.1.2:6</a>: The evaluator shall perform static analysis on the application to verify that mprotect is never invoked with the PROT_EXEC permission. 
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                     <div class="element-activity-header">
                         <a href="#FPT_AEX_EXT.1.3">FPT_AEX_EXT.1.3</a>
@@ -1143,25 +1318,43 @@
                     <div class="ea">None.</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         The evaluator shall configure the platform in the ascribed manner and carry out one of the prescribed tests: 
-                        <li class="test-">
-                            <a id="_t_88" class="defined" href="#_t_88">Test FPT_AEX_EXT.1.3:1</a>: Applications running on Android cannot disable Android security features, therefore this requirement is met and no evaluation activity is required. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_89" class="defined" href="#_t_89">Test FPT_AEX_EXT.1.3:2</a>: If the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> platform supports Windows Defender Exploit Guard (Windows 10 version 1709 or later), then the evaluator shall ensure that the application can run successfully with Windows Defender Exploit Guard Exploit Protection configured with the following minimum mitigations enabled; Control Flow Guard (CFG), Randomize memory allocations (Bottom-Up <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr>), Export address filtering (EAF), Import address filtering (IAF), and Data Execution Prevention (<abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr>). The following link describes how to enable Exploit Protection, https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-exploit-guard/customize-exploit-protection. &lt;p&gt;&lt;/p&gt; If the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> platform supports the Enhanced Mitigation Experience Toolkit (EMET) which can be installed on Windows 10 version 1703 and earlier, then the evaluator shall ensure that the application can run successfully with EMET configured with the following minimum mitigations enabled; Memory Protection Check, Randomize memory allocations (Bottom-Up <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr>), Export address filtering (EAF), and Data Execution Prevention (<abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr>). 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_90" class="defined" href="#_t_90">Test FPT_AEX_EXT.1.3:3</a>: Applications running on iOS cannot disable security features, therefore this requirement is met and no evaluation activity is required. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_91" class="defined" href="#_t_91">Test FPT_AEX_EXT.1.3:4</a>: The evaluator shall ensure that the application can successfully run on a system with either SELinux or AppArmor enabled and in enforce mode. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_92" class="defined" href="#_t_92">Test FPT_AEX_EXT.1.3:5</a>: The evaluator shall ensure that the application can run with Solaris Trusted Extensions enabled and enforcing. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_93" class="defined" href="#_t_93">Test FPT_AEX_EXT.1.3:6</a>: The evaluator shall ensure that the application can successfully run on macOS without disabling any security features. 
-                        </li>
+                         The evaluator shall configure the platform in the ascribed manner and carry out one of the prescribed tests: <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_88" class="defined" href="#_t_88">Test FPT_AEX_EXT.1.3:1</a>: Applications running on Android cannot disable Android security features, therefore this requirement is met and no evaluation activity is required. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_89" class="defined" href="#_t_89">Test FPT_AEX_EXT.1.3:2</a>: If the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> platform supports Windows Defender Exploit Guard (Windows 10 version 1709 or later), then the evaluator shall ensure that the application can run successfully with Windows Defender Exploit Guard Exploit Protection configured with the following minimum mitigations enabled; Control Flow Guard (CFG), Randomize memory allocations (Bottom-Up <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr>), Export address filtering (EAF), Import address filtering (IAF), and Data Execution Prevention (<abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr>). The following link describes how to enable Exploit Protection, https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-exploit-guard/customize-exploit-protection. &lt;p&gt;&lt;/p&gt; If the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> platform supports the Enhanced Mitigation Experience Toolkit (EMET) which can be installed on Windows 10 version 1703 and earlier, then the evaluator shall ensure that the application can run successfully with EMET configured with the following minimum mitigations enabled; Memory Protection Check, Randomize memory allocations (Bottom-Up <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr>), Export address filtering (EAF), and Data Execution Prevention (<abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr>). 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_90" class="defined" href="#_t_90">Test FPT_AEX_EXT.1.3:3</a>: Applications running on iOS cannot disable security features, therefore this requirement is met and no evaluation activity is required. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_91" class="defined" href="#_t_91">Test FPT_AEX_EXT.1.3:4</a>: The evaluator shall ensure that the application can successfully run on a system with either SELinux or AppArmor enabled and in enforce mode. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_92" class="defined" href="#_t_92">Test FPT_AEX_EXT.1.3:5</a>: The evaluator shall ensure that the application can run with Solaris Trusted Extensions enabled and enforcing. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_93" class="defined" href="#_t_93">Test FPT_AEX_EXT.1.3:6</a>: The evaluator shall ensure that the application can successfully run on macOS without disabling any security features. 
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                     <div class="element-activity-header">
                         <a href="#FPT_AEX_EXT.1.4">FPT_AEX_EXT.1.4</a>
@@ -1174,25 +1367,43 @@
                     <div class="ea">None.</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         The evaluator shall run the application and determine where it writes its files. For files where the user does not choose the destination, the evaluator shall check whether the destination directory contains executable files. This varies per platform: 
-                        <li class="test-">
-                            <a id="_t_94" class="defined" href="#_t_94">Test FPT_AEX_EXT.1.4:1</a>: The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. The evaluator shall ensure that there are no executable files stored under where &lt;i&gt;package&lt;/i&gt; is the Java package of the application. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_95" class="defined" href="#_t_95">Test FPT_AEX_EXT.1.4:2</a>: For Windows Universal Applications the evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox). For Windows Desktop Applications the evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. The evaluator shall ensure that there are no executable files stored in the same directories to which the application wrote user-modifiable files.
-                        </li>
-                        <li class="test-">
-                            <a id="_t_96" class="defined" href="#_t_96">Test FPT_AEX_EXT.1.4:3</a>: The evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox).
-                        </li>
-                        <li class="test-">
-                            <a id="_t_97" class="defined" href="#_t_97">Test FPT_AEX_EXT.1.4:4</a>: The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. The evaluator shall ensure that there are no executable files stored in the same directories to which the application wrote user-modifiable files. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_98" class="defined" href="#_t_98">Test FPT_AEX_EXT.1.4:5</a>: The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. The evaluator shall ensure that there are no executable files stored in the same directories to which the application wrote user-modifiable files. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_99" class="defined" href="#_t_99">Test FPT_AEX_EXT.1.4:6</a>: The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. The evaluator shall ensure that there are no executable files stored in the same directories to which the application wrote user-modifiable files. 
-                        </li>
+                         The evaluator shall run the application and determine where it writes its files. For files where the user does not choose the destination, the evaluator shall check whether the destination directory contains executable files. This varies per platform: <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_94" class="defined" href="#_t_94">Test FPT_AEX_EXT.1.4:1</a>: The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. The evaluator shall ensure that there are no executable files stored under where &lt;i&gt;package&lt;/i&gt; is the Java package of the application. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_95" class="defined" href="#_t_95">Test FPT_AEX_EXT.1.4:2</a>: For Windows Universal Applications the evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox). For Windows Desktop Applications the evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. The evaluator shall ensure that there are no executable files stored in the same directories to which the application wrote user-modifiable files.
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_96" class="defined" href="#_t_96">Test FPT_AEX_EXT.1.4:3</a>: The evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox).
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_97" class="defined" href="#_t_97">Test FPT_AEX_EXT.1.4:4</a>: The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. The evaluator shall ensure that there are no executable files stored in the same directories to which the application wrote user-modifiable files. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_98" class="defined" href="#_t_98">Test FPT_AEX_EXT.1.4:5</a>: The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. The evaluator shall ensure that there are no executable files stored in the same directories to which the application wrote user-modifiable files. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_99" class="defined" href="#_t_99">Test FPT_AEX_EXT.1.4:6</a>: The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. The evaluator shall ensure that there are no executable files stored in the same directories to which the application wrote user-modifiable files. 
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                     <div class="element-activity-header">
                         <a href="#FPT_AEX_EXT.1.5">FPT_AEX_EXT.1.5</a>
@@ -1205,10 +1416,13 @@
                     <div class="ea">None.</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         The evaluator will inspect every native executable included in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to ensure that stack-based buffer overflow protection is present. 
-                        <li class="test-">
-                            <a id="_t_100" class="defined" href="#_t_100">Test FPT_AEX_EXT.1.5:1</a>: Applications that run as Managed Code in the .NET Framework do not require these stack protections. Applications developed in Object Pascal using the Delphi IDE compiled with RangeChecking enabled comply with this element. For other code, the evaluator shall review the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that the /GS flag was used during compilation. The evaluator shall run a tool like, BinScope, that can verify the correct usage of /GS.
-                        </li>
+                         The evaluator will inspect every native executable included in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to ensure that stack-based buffer overflow protection is present. <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_100" class="defined" href="#_t_100">Test FPT_AEX_EXT.1.5:1</a>: Applications that run as Managed Code in the .NET Framework do not require these stack protections. Applications developed in Object Pascal using the Delphi IDE compiled with RangeChecking enabled comply with this element. For other code, the evaluator shall review the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that the /GS flag was used during compilation. The evaluator shall run a tool like, BinScope, that can verify the correct usage of /GS.
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                 </div>
             </div>
@@ -1410,14 +1624,20 @@
                     <div class="ea">None.</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         The evaluator shall verify that the application's executable files are not changed by the application. 
-                        <li class="test-">
-                            <a id="_t_101" class="defined" href="#_t_101">Test FPT_TUD_EXT.1.3:1</a>: The evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox). 
-                        </li>
-                         For all other platforms, the evaluator shall perform the following test: 
-                        <li class="test-">
-                            <a id="_t_102" class="defined" href="#_t_102">Test FPT_TUD_EXT.1.3:2</a>: The evaluator shall install the application and then locate all of its executable files. The evaluator shall then, for each file, save off either a hash of the file or a copy of the file itself. The evaluator shall then run the application and exercise all features of the application as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable file with the either the saved hash or the saved copy of the files. The evaluator shall verify that these are identical. 
-                        </li>
+                         The evaluator shall verify that the application's executable files are not changed by the application. <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_101" class="defined" href="#_t_101">Test FPT_TUD_EXT.1.3:1</a>: The evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox). 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                 For all other platforms, the evaluator shall perform the following test: 
+                                <li class="test-">
+                                    <a id="_t_102" class="defined" href="#_t_102">Test FPT_TUD_EXT.1.3:2</a>: The evaluator shall install the application and then locate all of its executable files. The evaluator shall then, for each file, save off either a hash of the file or a copy of the file itself. The evaluator shall then run the application and exercise all features of the application as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable file with the either the saved hash or the saved copy of the files. The evaluator shall verify that these are identical. 
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                     <div class="element-activity-header">
                         <a href="#FPT_TUD_EXT.1.4">FPT_TUD_EXT.1.4</a>
@@ -1480,22 +1700,32 @@
                     <div class="ea">None.&lt;p&gt;&lt;/p&gt;</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         The evaluator shall perform the following tests. 
-                        <li class="test-">
-                            <a id="_t_115" class="defined" href="#_t_115">Test FTP_DIT_EXT.1.1:1</a>: The evaluator shall exercise the application (attempting to transmit data; for example by connecting to remote systems or websites) while capturing packets from the application. The evaluator shall verify from the packet capture that the traffic is encrypted with HTTPS, TLS, DTLS, SSH, or IPsec in accordance with the selection in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_116" class="defined" href="#_t_116">Test FTP_DIT_EXT.1.1:2</a>: The evaluator shall exercise the application (attempting to transmit data; for example by connecting to remote systems or websites) while capturing packets from the application. The evaluator shall review the packet capture and verify that no sensitive data is transmitted in the clear. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_117" class="defined" href="#_t_117">Test FTP_DIT_EXT.1.1:3</a>: The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine if user credentials are transmitted. If credentials are transmitted the evaluator shall set the credential to a known value. The evaluator shall capture packets from the application while causing credentials to be transmitted as described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. The evaluator shall perform a string search of the captured network packets and verify that the plaintext credential previously set by the evaluator is not found. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_118" class="defined" href="#_t_118">Test FTP_DIT_EXT.1.1:4</a>: If "not transmit any data" is selected, the evaluator shall ensure that the application's AndroidManifest.xml file does not contain a uses-permission or uses-permission-sdk-23 tag containing android:name="android.permission.INTERNET". In this case, it is not necessary to perform the above Tests 1, 2, or 3, as the platform will not allow the application to perform any network communication. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_119" class="defined" href="#_t_119">Test FTP_DIT_EXT.1.1:5</a>: If "encrypt all transmitted data" is selected, the evaluator shall ensure that the application's Info.plist file does not contain the NSAllowsArbitraryLoads or NSExceptionAllowsInsecureHTTPLoads keys, as these keys disable iOS's Application Transport Security feature. 
-                        </li>
+                         <span class="testlist-">
+                            <ul>
+                                 The evaluator shall perform the following tests. 
+                                <li class="test-">
+                                    <a id="_t_115" class="defined" href="#_t_115">Test FTP_DIT_EXT.1.1:1</a>: The evaluator shall exercise the application (attempting to transmit data; for example by connecting to remote systems or websites) while capturing packets from the application. The evaluator shall verify from the packet capture that the traffic is encrypted with HTTPS, TLS, DTLS, SSH, or IPsec in accordance with the selection in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_116" class="defined" href="#_t_116">Test FTP_DIT_EXT.1.1:2</a>: The evaluator shall exercise the application (attempting to transmit data; for example by connecting to remote systems or websites) while capturing packets from the application. The evaluator shall review the packet capture and verify that no sensitive data is transmitted in the clear. 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_117" class="defined" href="#_t_117">Test FTP_DIT_EXT.1.1:3</a>: The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine if user credentials are transmitted. If credentials are transmitted the evaluator shall set the credential to a known value. The evaluator shall capture packets from the application while causing credentials to be transmitted as described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. The evaluator shall perform a string search of the captured network packets and verify that the plaintext credential previously set by the evaluator is not found. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_118" class="defined" href="#_t_118">Test FTP_DIT_EXT.1.1:4</a>: If "not transmit any data" is selected, the evaluator shall ensure that the application's AndroidManifest.xml file does not contain a uses-permission or uses-permission-sdk-23 tag containing android:name="android.permission.INTERNET". In this case, it is not necessary to perform the above Tests 1, 2, or 3, as the platform will not allow the application to perform any network communication. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_119" class="defined" href="#_t_119">Test FTP_DIT_EXT.1.1:5</a>: If "encrypt all transmitted data" is selected, the evaluator shall ensure that the application's Info.plist file does not contain the NSAllowsArbitraryLoads or NSExceptionAllowsInsecureHTTPLoads keys, as these keys disable iOS's Application Transport Security feature. 
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                 </div>
             </div>
@@ -1908,22 +2138,26 @@
                     <div class="ea">None.&lt;p&gt;&lt;/p&gt;</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> hashing functions can be implemented in one of two modes. The first mode is the byte-oriented mode. In this mode the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> hashes only messages that are an integral number of bytes in length; i.e., the length (in bits) of the message to be hashed is divisible by 8. The second mode is the bit-oriented mode. In this mode the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> hashes messages of arbitrary length. As there are different tests for each mode, an indication is given in the following sections for the bit-oriented vs. the byte-oriented test MACs. The evaluator shall perform all of the following tests for each hash algorithm implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and used to satisfy the requirements of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.&lt;p&gt;&lt;/p&gt; The following tests require the developer to provide access to a test application that provides the evaluator with tools that are typically not found in the production application. The following tests require the developer to provide access to a test application that provides the evaluator with tools that are typically not found in the production application. 
-                        <li class="test-">
-                            <a id="_t_1" class="defined" href="#_t_1">Test FCS_COP.1.1/Hash:1</a>: Short Messages Test - Bit oriented Mode. The evaluators devise an input set consisting of m+1 messages, where m is the block length of the hash algorithm. The length of the messages range sequentially from 0 to m bits. The message text shall be pseudorandomly generated. The evaluators compute the message digest for each of the messages and ensure that the correct result is produced when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_2" class="defined" href="#_t_2">Test FCS_COP.1.1/Hash:2</a>: Short Messages Test - Byte oriented Mode. The evaluators devise an input set consisting of m/8+1 messages, where m is the block length of the hash algorithm. The length of the messages range sequentially from 0 to m/8 bytes, with each message being an integral number of bytes. The message text shall be pseudorandomly generated. The evaluators compute the message digest for each of the messages and ensure that the correct result is produced when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_3" class="defined" href="#_t_3">Test FCS_COP.1.1/Hash:3</a>: Selected Long Messages Test - Bit oriented Mode. The evaluators devise an input set consisting of m messages, where m is the block length of the hash algorithm. The length of the ith message is 512 + 99*i, where 1 &le; i &le; m. The message text shall be pseudorandomly generated. The evaluators compute the message digest for each of the messages and ensure that the correct result is produced when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_4" class="defined" href="#_t_4">Test FCS_COP.1.1/Hash:4</a>: Selected Long Messages Test - Byte oriented Mode. The evaluators devise an input set consisting of m/8 messages, where m is the block length of the hash algorithm. The length of the ith message is 512 + 8*99*i, where 1 &le; i &le; m/8. The message text shall be pseudorandomly generated. The evaluators compute the message digest for each of the messages and ensure that the correct result is produced when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_5" class="defined" href="#_t_5">Test FCS_COP.1.1/Hash:5</a>: Pseudorandomly Generated Messages Test. This test is for byte-oriented implementations only. The evaluators randomly generate a seed that is n bits long, where n is the length of the message digest produced by the hash function to be tested. The evaluators then formulate a set of 100 messages and associated digests by following the algorithm provided in Figure 1 of [SHAVS]. The evaluators then ensure that the correct result is produced when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. 
-                        </li>
+                         The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> hashing functions can be implemented in one of two modes. The first mode is the byte-oriented mode. In this mode the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> hashes only messages that are an integral number of bytes in length; i.e., the length (in bits) of the message to be hashed is divisible by 8. The second mode is the bit-oriented mode. In this mode the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> hashes messages of arbitrary length. As there are different tests for each mode, an indication is given in the following sections for the bit-oriented vs. the byte-oriented test MACs. The evaluator shall perform all of the following tests for each hash algorithm implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and used to satisfy the requirements of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.&lt;p&gt;&lt;/p&gt; The following tests require the developer to provide access to a test application that provides the evaluator with tools that are typically not found in the production application. <span class="testlist-">
+                            <ul>
+                                 The following tests require the developer to provide access to a test application that provides the evaluator with tools that are typically not found in the production application. 
+                                <li class="test-">
+                                    <a id="_t_1" class="defined" href="#_t_1">Test FCS_COP.1.1/Hash:1</a>: Short Messages Test - Bit oriented Mode. The evaluators devise an input set consisting of m+1 messages, where m is the block length of the hash algorithm. The length of the messages range sequentially from 0 to m bits. The message text shall be pseudorandomly generated. The evaluators compute the message digest for each of the messages and ensure that the correct result is produced when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_2" class="defined" href="#_t_2">Test FCS_COP.1.1/Hash:2</a>: Short Messages Test - Byte oriented Mode. The evaluators devise an input set consisting of m/8+1 messages, where m is the block length of the hash algorithm. The length of the messages range sequentially from 0 to m/8 bytes, with each message being an integral number of bytes. The message text shall be pseudorandomly generated. The evaluators compute the message digest for each of the messages and ensure that the correct result is produced when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_3" class="defined" href="#_t_3">Test FCS_COP.1.1/Hash:3</a>: Selected Long Messages Test - Bit oriented Mode. The evaluators devise an input set consisting of m messages, where m is the block length of the hash algorithm. The length of the ith message is 512 + 99*i, where 1 &le; i &le; m. The message text shall be pseudorandomly generated. The evaluators compute the message digest for each of the messages and ensure that the correct result is produced when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_4" class="defined" href="#_t_4">Test FCS_COP.1.1/Hash:4</a>: Selected Long Messages Test - Byte oriented Mode. The evaluators devise an input set consisting of m/8 messages, where m is the block length of the hash algorithm. The length of the ith message is 512 + 8*99*i, where 1 &le; i &le; m/8. The message text shall be pseudorandomly generated. The evaluators compute the message digest for each of the messages and ensure that the correct result is produced when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_5" class="defined" href="#_t_5">Test FCS_COP.1.1/Hash:5</a>: Pseudorandomly Generated Messages Test. This test is for byte-oriented implementations only. The evaluators randomly generate a seed that is n bits long, where n is the length of the message digest produced by the hash function to be tested. The evaluators then formulate a set of 100 messages and associated digests by following the algorithm provided in Figure 1 of [SHAVS]. The evaluators then ensure that the correct result is produced when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. 
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                 </div>
             </div>
@@ -1995,20 +2229,27 @@
                     <div class="ea">None.&lt;p&gt;&lt;/p&gt;</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         The following tests require the developer to provide access to a test application that provides the evaluator with tools that are typically not found in the production application. &lt;p&gt;&lt;/p&gt; ECDSA Algorithm Tests ECDSA Algorithm Tests 
-                        <li class="test-">
-                            <a id="_t_6" class="defined" href="#_t_6">Test FCS_COP.1.1/Sig:1</a>: ECDSA FIPS 186-4 Signature Generation Test. For each supported NIST curve (i.e., P-256, P-384 and P-521) and SHA function pair, the evaluator shall generate 10 1024-bit long messages and obtain for each message a public key and the resulting signature values R and S. To determine correctness, the evaluator shall use the signature verification function of a known good implementation. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_7" class="defined" href="#_t_7">Test FCS_COP.1.1/Sig:2</a>: ECDSA FIPS 186-4 Signature Verification Test. For each supported NIST curve (i.e., P-256, P-384 and P-521) and SHA function pair, the evaluator shall generate a set of 10 1024-bit message, public key and signature tuples and modify one of the values (message, public key or signature) in five of the 10 tuples. The evaluator shall obtain in response a set of 10 PASS/FAIL values. 
-                        </li>
-                         RSA Signature Algorithm Tests 
-                        <li class="test-">
-                            <a id="_t_8" class="defined" href="#_t_8">Test FCS_COP.1.1/Sig:3</a>: Signature Generation Test. The evaluator shall verify the implementation of RSA Signature Generation by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using the Signature Generation Test. To conduct this test the evaluator must generate or obtain 10 messages from a trusted reference implementation for each modulus size/SHA combination supported by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. The evaluator shall have the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> use their private key and modulus value to sign these messages. The evaluator shall verify the correctness of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>&rsquo;s signature using a known good implementation and the associated public keys to verify the signatures. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_9" class="defined" href="#_t_9">Test FCS_COP.1.1/Sig:4</a>: Signature Verification Test. The evaluator shall perform the Signature Verification test to verify the ability of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to recognize another party&rsquo;s valid and invalid signatures. The evaluator shall inject errors into the test vectors produced during the Signature Verification Test by introducing errors in some of the public keys, e, messages, IR format, and/or signatures. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> attempts to verify the signatures and returns success or failure. 
-                        </li>
+                         The following tests require the developer to provide access to a test application that provides the evaluator with tools that are typically not found in the production application. &lt;p&gt;&lt;/p&gt; ECDSA Algorithm Tests <span class="testlist-">
+                            <ul>
+                                 ECDSA Algorithm Tests 
+                                <li class="test-">
+                                    <a id="_t_6" class="defined" href="#_t_6">Test FCS_COP.1.1/Sig:1</a>: ECDSA FIPS 186-4 Signature Generation Test. For each supported NIST curve (i.e., P-256, P-384 and P-521) and SHA function pair, the evaluator shall generate 10 1024-bit long messages and obtain for each message a public key and the resulting signature values R and S. To determine correctness, the evaluator shall use the signature verification function of a known good implementation. 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_7" class="defined" href="#_t_7">Test FCS_COP.1.1/Sig:2</a>: ECDSA FIPS 186-4 Signature Verification Test. For each supported NIST curve (i.e., P-256, P-384 and P-521) and SHA function pair, the evaluator shall generate a set of 10 1024-bit message, public key and signature tuples and modify one of the values (message, public key or signature) in five of the 10 tuples. The evaluator shall obtain in response a set of 10 PASS/FAIL values. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                 RSA Signature Algorithm Tests 
+                                <li class="test-">
+                                    <a id="_t_8" class="defined" href="#_t_8">Test FCS_COP.1.1/Sig:3</a>: Signature Generation Test. The evaluator shall verify the implementation of RSA Signature Generation by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using the Signature Generation Test. To conduct this test the evaluator must generate or obtain 10 messages from a trusted reference implementation for each modulus size/SHA combination supported by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. The evaluator shall have the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> use their private key and modulus value to sign these messages. The evaluator shall verify the correctness of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>&rsquo;s signature using a known good implementation and the associated public keys to verify the signatures. 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_9" class="defined" href="#_t_9">Test FCS_COP.1.1/Sig:4</a>: Signature Verification Test. The evaluator shall perform the Signature Verification test to verify the ability of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to recognize another party&rsquo;s valid and invalid signatures. The evaluator shall inject errors into the test vectors produced during the Signature Verification Test by introducing errors in some of the public keys, e, messages, IR format, and/or signatures. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> attempts to verify the signatures and returns success or failure. 
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                 </div>
             </div>
@@ -2124,10 +2365,14 @@
                     <div class="ea">None.&lt;p&gt;&lt;/p&gt;</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         Certificate validity shall be tested in accordance with testing performed for <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>, and the evaluator shall perform the following test: Certificate validity shall be tested in accordance with testing performed for <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>, and the evaluator shall perform the following test: 
-                        <li class="test-">
-                            <a id="_t_10" class="defined" href="#_t_10">Test FCS_HTTPS_EXT.1.3/Client:1</a>: The evaluator shall demonstrate that using a certificate without a valid certification path results in the selected action in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>. If "notify the user" is selected in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>, then the evaluator shall also determine that the user is notified of the certificate validation failure. Using the administrative guidance, the evaluator shall then load a certificate or certificates to the Trust Anchor Database needed to validate the certificate to be used in the function, and demonstrate that the function succeeds. The evaluator then shall delete one of the certificates, and show that again, using a certificate without a valid certification path results in the selected action in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>, and if "notify the user" was selected in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>, the user is notified of the validation failure. 
-                        </li>
+                         Certificate validity shall be tested in accordance with testing performed for <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>, and the evaluator shall perform the following test: <span class="testlist-">
+                            <ul>
+                                 Certificate validity shall be tested in accordance with testing performed for <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>, and the evaluator shall perform the following test: 
+                                <li class="test-">
+                                    <a id="_t_10" class="defined" href="#_t_10">Test FCS_HTTPS_EXT.1.3/Client:1</a>: The evaluator shall demonstrate that using a certificate without a valid certification path results in the selected action in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>. If "notify the user" is selected in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>, then the evaluator shall also determine that the user is notified of the certificate validation failure. Using the administrative guidance, the evaluator shall then load a certificate or certificates to the Trust Anchor Database needed to validate the certificate to be used in the function, and demonstrate that the function succeeds. The evaluator then shall delete one of the certificates, and show that again, using a certificate without a valid certification path results in the selected action in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>, and if "notify the user" was selected in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>, the user is notified of the validation failure. 
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                 </div>
             </div>
@@ -2221,10 +2466,14 @@
                     <div class="ea">None.&lt;p&gt;&lt;/p&gt;</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         Certificate validity shall be tested in accordance with testing performed for <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>, and the evaluator shall perform the following test: Certificate validity shall be tested in accordance with testing performed for <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>, and the evaluator shall perform the following test: 
-                        <li class="test-">
-                            <a id="_t_11" class="defined" href="#_t_11">Test FCS_HTTPS_EXT.2.1:1</a>: The evaluator shall demonstrate that using a certificate without a valid certification path results in the selected action in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>. Using the administrative guidance, the evaluator shall then load a certificate or certificates to the Trust Anchor Database needed to validate the certificate to be used in the function, and demonstrate that the function succeeds. The evaluator then shall delete one of the certificates, and show that again, using a certificate without a valid certification path results in the selected action in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>.
-                        </li>
+                         Certificate validity shall be tested in accordance with testing performed for <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>, and the evaluator shall perform the following test: <span class="testlist-">
+                            <ul>
+                                 Certificate validity shall be tested in accordance with testing performed for <a href="#FIA_X509_EXT.1">FIA_X509_EXT.1</a>, and the evaluator shall perform the following test: 
+                                <li class="test-">
+                                    <a id="_t_11" class="defined" href="#_t_11">Test FCS_HTTPS_EXT.2.1:1</a>: The evaluator shall demonstrate that using a certificate without a valid certification path results in the selected action in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>. Using the administrative guidance, the evaluator shall then load a certificate or certificates to the Trust Anchor Database needed to validate the certificate to be used in the function, and demonstrate that the function succeeds. The evaluator then shall delete one of the certificates, and show that again, using a certificate without a valid certification path results in the selected action in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>.
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                 </div>
             </div>
@@ -2270,17 +2519,24 @@
                     <div class="ea">None.&lt;p&gt;&lt;/p&gt;</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         The evaluator shall perform the following tests, depending on the standard to which the RBG conforms. &lt;p&gt;&lt;/p&gt; Implementations Conforming to FIPS 140-2 Annex C. &lt;p&gt;&lt;/p&gt; The reference for the tests contained in this section is The Random Number Generator Validation System (RNGVS). The evaluators shall conduct the following two tests. Note that the "expected values" are produced by a reference implementation of the algorithm that is known to be correct. Proof of correctness is left to each Scheme. The reference for the tests contained in this section is The Random Number Generator Validation System (RNGVS). The evaluators shall conduct the following two tests. Note that the "expected values" are produced by a reference implementation of the algorithm that is known to be correct. Proof of correctness is left to each Scheme. 
-                        <li class="test-">
-                            <a id="_t_18" class="defined" href="#_t_18">Test FCS_RBG_EXT.2.1:1</a>: The evaluators shall perform a Variable Seed Test. The evaluators shall provide a set of 128 (Seed, DT) pairs to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> RBG function, each 128 bits. The evaluators shall also provide a key (of the length appropriate to the AES algorithm) that is constant for all 128 (Seed, DT) pairs. The DT value is incremented by 1 for each set. The seed values shall have no repeats within the set. The evaluators ensure that the values returned by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> match the expected values. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_19" class="defined" href="#_t_19">Test FCS_RBG_EXT.2.1:2</a>: The evaluators shall perform a Monte Carlo Test. For this test, they supply an initial Seed and DT value to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> RBG function; each of these is 128 bits. The evaluators shall also provide a key (of the length appropriate to the AES algorithm) that is constant throughout the test. The evaluators then invoke the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> RBG 10,000 times, with the DT value being incremented by 1 on each iteration, and the new seed for the subsequent iteration produced as specified in NIST-Recommended Random Number Generator Based on ANSI X9.31 Appendix A.2.4 Using the 3-Key Triple DES and AES Algorithms, Section E.3. The evaluators ensure that the 10,000th value produced matches the expected value. 
-                        </li>
-                         Implementations Conforming to NIST Special Publication 800-90A 
-                        <li class="test-">
-                            <a id="_t_20" class="defined" href="#_t_20">Test FCS_RBG_EXT.2.1:3</a>: The evaluator shall perform 15 trials for the RNG implementation. If the RNG is configurable, the evaluator shall perform 15 trials for each configuration. The evaluator shall also confirm that the operational guidance contains appropriate instructions for configuring the RNG functionality. &lt;p&gt;&lt;/p&gt; If the RNG has prediction resistance enabled, each trial consists of (1) instantiate DRBG, (2) generate the first block of random bits (3) generate a second block of random bits (4) uninstantiate. The evaluator verifies that the second block of random bits is the expected value. The evaluator shall generate eight input values for each trial. The first is a count (0 &ndash; 14). The next three are entropy input, nonce, and personalization string for the instantiate operation. The next two are additional input and entropy input for the first call to generate. The final two are additional input and entropy input for the second call to generate. These values are randomly generated. &ldquo;generate one block of random bits&rdquo; means to generate random bits with number of returned bits equal to the Output Block Length (as defined in NIST SP 800-90A). &lt;p&gt;&lt;/p&gt; If the RNG does not have prediction resistance, each trial consists of (1) instantiate DRBG, (2) generate the first block of random bits (3) reseed, (4) generate a second block of random bits (5) uninstantiate. The evaluator verifies that the second block of random bits is the expected value. The evaluator shall generate eight input values for each trial. The first is a count (0 &ndash; 14). The next three are entropy input, nonce, and personalization string for the instantiate operation. The fifth value is additional input to the first call to generate. The sixth and seventh are additional input and entropy input to the call to reseed. The final value is additional input to the second generate call. &lt;p&gt;&lt;/p&gt; The following paragraphs contain more information on some of the input values to be generated/selected by the evaluator. &lt;p&gt;&lt;/p&gt;&lt;b&gt;Entropy input:&lt;/b&gt; the length of the entropy input value must equal the seed length.&lt;p&gt;&lt;/p&gt;&lt;b&gt;Nonce:&lt;/b&gt; If a nonce is supported (CTR_DRBG with no Derivation Function does not use a nonce), the nonce bit length is one-half the seed length. &lt;p&gt;&lt;/p&gt;&lt;b&gt;Personalization string:&lt;/b&gt; The length of the personalization string must be less then or equal to seed length. If the implementation only supports one personalization string length, then the same length can be used for both values. If more than one string length is support, the evaluator shall use personalization strings of two different lengths. If the implementation does not use a personalization string, no value needs to be supplied. &lt;p&gt;&lt;/p&gt;&lt;b&gt;Additional input:&lt;/b&gt; the additional input bit lengths have the same defaults and restrictions as the personalization string lengths. 
-                        </li>
+                         The evaluator shall perform the following tests, depending on the standard to which the RBG conforms. &lt;p&gt;&lt;/p&gt; Implementations Conforming to FIPS 140-2 Annex C. &lt;p&gt;&lt;/p&gt; The reference for the tests contained in this section is The Random Number Generator Validation System (RNGVS). The evaluators shall conduct the following two tests. Note that the "expected values" are produced by a reference implementation of the algorithm that is known to be correct. Proof of correctness is left to each Scheme. <span class="testlist-">
+                            <ul>
+                                 The reference for the tests contained in this section is The Random Number Generator Validation System (RNGVS). The evaluators shall conduct the following two tests. Note that the "expected values" are produced by a reference implementation of the algorithm that is known to be correct. Proof of correctness is left to each Scheme. 
+                                <li class="test-">
+                                    <a id="_t_18" class="defined" href="#_t_18">Test FCS_RBG_EXT.2.1:1</a>: The evaluators shall perform a Variable Seed Test. The evaluators shall provide a set of 128 (Seed, DT) pairs to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> RBG function, each 128 bits. The evaluators shall also provide a key (of the length appropriate to the AES algorithm) that is constant for all 128 (Seed, DT) pairs. The DT value is incremented by 1 for each set. The seed values shall have no repeats within the set. The evaluators ensure that the values returned by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> match the expected values. 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_19" class="defined" href="#_t_19">Test FCS_RBG_EXT.2.1:2</a>: The evaluators shall perform a Monte Carlo Test. For this test, they supply an initial Seed and DT value to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> RBG function; each of these is 128 bits. The evaluators shall also provide a key (of the length appropriate to the AES algorithm) that is constant throughout the test. The evaluators then invoke the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> RBG 10,000 times, with the DT value being incremented by 1 on each iteration, and the new seed for the subsequent iteration produced as specified in NIST-Recommended Random Number Generator Based on ANSI X9.31 Appendix A.2.4 Using the 3-Key Triple DES and AES Algorithms, Section E.3. The evaluators ensure that the 10,000th value produced matches the expected value. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                 Implementations Conforming to NIST Special Publication 800-90A 
+                                <li class="test-">
+                                    <a id="_t_20" class="defined" href="#_t_20">Test FCS_RBG_EXT.2.1:3</a>: The evaluator shall perform 15 trials for the RNG implementation. If the RNG is configurable, the evaluator shall perform 15 trials for each configuration. The evaluator shall also confirm that the operational guidance contains appropriate instructions for configuring the RNG functionality. &lt;p&gt;&lt;/p&gt; If the RNG has prediction resistance enabled, each trial consists of (1) instantiate DRBG, (2) generate the first block of random bits (3) generate a second block of random bits (4) uninstantiate. The evaluator verifies that the second block of random bits is the expected value. The evaluator shall generate eight input values for each trial. The first is a count (0 &ndash; 14). The next three are entropy input, nonce, and personalization string for the instantiate operation. The next two are additional input and entropy input for the first call to generate. The final two are additional input and entropy input for the second call to generate. These values are randomly generated. &ldquo;generate one block of random bits&rdquo; means to generate random bits with number of returned bits equal to the Output Block Length (as defined in NIST SP 800-90A). &lt;p&gt;&lt;/p&gt; If the RNG does not have prediction resistance, each trial consists of (1) instantiate DRBG, (2) generate the first block of random bits (3) reseed, (4) generate a second block of random bits (5) uninstantiate. The evaluator verifies that the second block of random bits is the expected value. The evaluator shall generate eight input values for each trial. The first is a count (0 &ndash; 14). The next three are entropy input, nonce, and personalization string for the instantiate operation. The fifth value is additional input to the first call to generate. The sixth and seventh are additional input and entropy input to the call to reseed. The final value is additional input to the second generate call. &lt;p&gt;&lt;/p&gt; The following paragraphs contain more information on some of the input values to be generated/selected by the evaluator. &lt;p&gt;&lt;/p&gt;&lt;b&gt;Entropy input:&lt;/b&gt; the length of the entropy input value must equal the seed length.&lt;p&gt;&lt;/p&gt;&lt;b&gt;Nonce:&lt;/b&gt; If a nonce is supported (CTR_DRBG with no Derivation Function does not use a nonce), the nonce bit length is one-half the seed length. &lt;p&gt;&lt;/p&gt;&lt;b&gt;Personalization string:&lt;/b&gt; The length of the personalization string must be less then or equal to seed length. If the implementation only supports one personalization string length, then the same length can be used for both values. If more than one string length is support, the evaluator shall use personalization strings of two different lengths. If the implementation does not use a personalization string, no value needs to be supplied. &lt;p&gt;&lt;/p&gt;&lt;b&gt;Additional input:&lt;/b&gt; the additional input bit lengths have the same defaults and restrictions as the personalization string lengths. 
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                     <div class="element-activity-header">
                         <a href="#FCS_RBG_EXT.2.2">FCS_RBG_EXT.2.2</a>
@@ -2340,34 +2596,38 @@
                     <div class="ea">None.&lt;p&gt;&lt;/p&gt;</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         The tests described must be performed in conjunction with the other certificate services evaluation activities, including the functions in <a href="#FIA_X509_EXT.2.1">FIA_X509_EXT.2.1</a>. The tests for the extendedKeyUsage rules are performed in conjunction with the uses that require those rules. If the application supports chains of length four or greater, the evaluator shall create a chain of at least four certificates: the node certificate to be tested, two Intermediate CAs, and the self-signed Root CA. If the application supports a maximum trust depth of two, then a chain with no Intermediate CA should instead be created. The tests described must be performed in conjunction with the other certificate services evaluation activities, including the functions in <a href="#FIA_X509_EXT.2.1">FIA_X509_EXT.2.1</a>. The tests for the extendedKeyUsage rules are performed in conjunction with the uses that require those rules. If the application supports chains of length four or greater, the evaluator shall create a chain of at least four certificates: the node certificate to be tested, two Intermediate CAs, and the self-signed Root CA. If the application supports a maximum trust depth of two, then a chain with no Intermediate CA should instead be created. 
-                        <li class="test-">
-                            <a id="_t_48" class="defined" href="#_t_48">Test FIA_X509_EXT.1.1:1</a>: The evaluator shall demonstrate that validating a certificate without a valid certification path results in the function failing, for each of the following reasons, in turn:&lt;ul&gt;&lt;li&gt;by establishing a certificate path in which one of the issuing certificates is not a CA certificate,&lt;/li&gt;&lt;li&gt;by omitting the basicConstraints field in one of the issuing certificates,&lt;/li&gt;&lt;li&gt;by setting the basicConstraints field in an issuing certificate to have CA=False,&lt;/li&gt;&lt;li&gt;by omitting the CA signing bit of the key usage field in an issuing certificate, and&lt;/li&gt;&lt;li&gt;by setting the path length field of a valid CA field to a value strictly less than the certificate path.&lt;/li&gt;&lt;/ul&gt; The evaluator shall then establish a valid certificate path consisting of valid CA certificates, and demonstrate that the function succeeds. The evaluator shall then remove trust in one of the CA certificates, and show that the function fails. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_49" class="defined" href="#_t_49">Test FIA_X509_EXT.1.1:2</a>: The evaluator shall demonstrate that validating an expired certificate results in the function failing. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_50" class="defined" href="#_t_50">Test FIA_X509_EXT.1.1:3</a>: The evaluator shall test that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can properly handle revoked certificates-&ldquo;conditional on whether CRL, OCSP, OCSP Stapling or OCSP Multi-stapling is selected; if multiple methods are selected, then the following tests shall be performed for each method: &lt;ul&gt;&lt;li&gt;The evaluator shall test revocation of the node certificate.&lt;/li&gt;&lt;li&gt;The evaluator shall also test revocation of an intermediate CA certificate (i.e. the intermediate CA certificate should be revoked by the root CA), if intermediate CA certificates are supported. If OCSP stapling per RFC 6066 is the only supported revocation method, this test is omitted.&lt;/li&gt;&lt;li&gt;The evaluator shall ensure that a valid certificate is used, and that the validation function succeeds. The evaluator then attempts the test with a certificate that has been revoked (for each method chosen in the selection) to ensure when the certificate is no longer valid that the validation function fails.&lt;/li&gt;&lt;/ul&gt;
-                        </li>
-                        <li class="test-">
-                            <a id="_t_51" class="defined" href="#_t_51">Test FIA_X509_EXT.1.1:4</a>: If any OCSP option is selected, the evaluator shall configure the OCSP server or use a man-in-the-middle tool to present a certificate that does not have the OCSP signing purpose and verify that validation of the OCSP response fails. If CRL is selected, the evaluator shall configure the CA to sign a CRL with a certificate that does not have the cRLsign key usage bit set, and verify that validation of the CRL fails. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_52" class="defined" href="#_t_52">Test FIA_X509_EXT.1.1:5</a>: The evaluator shall modify any byte in the first eight bytes of the certificate and demonstrate that the certificate fails to validate. (The certificate will fail to parse correctly.) 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_53" class="defined" href="#_t_53">Test FIA_X509_EXT.1.1:6</a>: The evaluator shall modify any byte in the last byte of the certificate and demonstrate that the certificate fails to validate. (The signature on the certificate will not validate.) 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_54" class="defined" href="#_t_54">Test FIA_X509_EXT.1.1:7</a>: The evaluator shall modify any byte in the public key of the certificate and demonstrate that the certificate fails to validate. (The signature on the certificate will not validate.) 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_55" class="defined" href="#_t_55">Test FIA_X509_EXT.1.1:8</a>: (Conditional on support for EC certificates as indicated in <a href="#FCS_COP.1/Sig">FCS_COP.1/Sig</a>). The evaluator shall establish a valid, trusted certificate chain consisting of an EC leaf certificate, an EC Intermediate CA certificate not designated as a trust anchor, and an EC certificate designated as a trusted anchor, where the elliptic curve parameters are specified as a named curve. The evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> validates the certificate chain. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_56" class="defined" href="#_t_56">Test FIA_X509_EXT.1.1:9</a>: (Conditional on support for EC certificates as indicated in <a href="#FCS_COP.1/Sig">FCS_COP.1/Sig</a>). The evaluator shall replace the intermediate certificate in the certificate chain for Test 9 with a modified certificate, where the modified intermediate CA has a public key information field where the EC parameters uses an explicit format version of the Elliptic Curve parameters in the public key information field of the intermediate CA certificate from Test 9, and the modified Intermediate CA certificate is signed by the trusted EC root CA, but having no other changes. The evaluator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> treats the certificate as invalid. 
-                        </li>
+                         The tests described must be performed in conjunction with the other certificate services evaluation activities, including the functions in <a href="#FIA_X509_EXT.2.1">FIA_X509_EXT.2.1</a>. The tests for the extendedKeyUsage rules are performed in conjunction with the uses that require those rules. If the application supports chains of length four or greater, the evaluator shall create a chain of at least four certificates: the node certificate to be tested, two Intermediate CAs, and the self-signed Root CA. If the application supports a maximum trust depth of two, then a chain with no Intermediate CA should instead be created. <span class="testlist-">
+                            <ul>
+                                 The tests described must be performed in conjunction with the other certificate services evaluation activities, including the functions in <a href="#FIA_X509_EXT.2.1">FIA_X509_EXT.2.1</a>. The tests for the extendedKeyUsage rules are performed in conjunction with the uses that require those rules. If the application supports chains of length four or greater, the evaluator shall create a chain of at least four certificates: the node certificate to be tested, two Intermediate CAs, and the self-signed Root CA. If the application supports a maximum trust depth of two, then a chain with no Intermediate CA should instead be created. 
+                                <li class="test-">
+                                    <a id="_t_48" class="defined" href="#_t_48">Test FIA_X509_EXT.1.1:1</a>: The evaluator shall demonstrate that validating a certificate without a valid certification path results in the function failing, for each of the following reasons, in turn:&lt;ul&gt;&lt;li&gt;by establishing a certificate path in which one of the issuing certificates is not a CA certificate,&lt;/li&gt;&lt;li&gt;by omitting the basicConstraints field in one of the issuing certificates,&lt;/li&gt;&lt;li&gt;by setting the basicConstraints field in an issuing certificate to have CA=False,&lt;/li&gt;&lt;li&gt;by omitting the CA signing bit of the key usage field in an issuing certificate, and&lt;/li&gt;&lt;li&gt;by setting the path length field of a valid CA field to a value strictly less than the certificate path.&lt;/li&gt;&lt;/ul&gt; The evaluator shall then establish a valid certificate path consisting of valid CA certificates, and demonstrate that the function succeeds. The evaluator shall then remove trust in one of the CA certificates, and show that the function fails. 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_49" class="defined" href="#_t_49">Test FIA_X509_EXT.1.1:2</a>: The evaluator shall demonstrate that validating an expired certificate results in the function failing. 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_50" class="defined" href="#_t_50">Test FIA_X509_EXT.1.1:3</a>: The evaluator shall test that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can properly handle revoked certificates-&ldquo;conditional on whether CRL, OCSP, OCSP Stapling or OCSP Multi-stapling is selected; if multiple methods are selected, then the following tests shall be performed for each method: &lt;ul&gt;&lt;li&gt;The evaluator shall test revocation of the node certificate.&lt;/li&gt;&lt;li&gt;The evaluator shall also test revocation of an intermediate CA certificate (i.e. the intermediate CA certificate should be revoked by the root CA), if intermediate CA certificates are supported. If OCSP stapling per RFC 6066 is the only supported revocation method, this test is omitted.&lt;/li&gt;&lt;li&gt;The evaluator shall ensure that a valid certificate is used, and that the validation function succeeds. The evaluator then attempts the test with a certificate that has been revoked (for each method chosen in the selection) to ensure when the certificate is no longer valid that the validation function fails.&lt;/li&gt;&lt;/ul&gt;
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_51" class="defined" href="#_t_51">Test FIA_X509_EXT.1.1:4</a>: If any OCSP option is selected, the evaluator shall configure the OCSP server or use a man-in-the-middle tool to present a certificate that does not have the OCSP signing purpose and verify that validation of the OCSP response fails. If CRL is selected, the evaluator shall configure the CA to sign a CRL with a certificate that does not have the cRLsign key usage bit set, and verify that validation of the CRL fails. 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_52" class="defined" href="#_t_52">Test FIA_X509_EXT.1.1:5</a>: The evaluator shall modify any byte in the first eight bytes of the certificate and demonstrate that the certificate fails to validate. (The certificate will fail to parse correctly.) 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_53" class="defined" href="#_t_53">Test FIA_X509_EXT.1.1:6</a>: The evaluator shall modify any byte in the last byte of the certificate and demonstrate that the certificate fails to validate. (The signature on the certificate will not validate.) 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_54" class="defined" href="#_t_54">Test FIA_X509_EXT.1.1:7</a>: The evaluator shall modify any byte in the public key of the certificate and demonstrate that the certificate fails to validate. (The signature on the certificate will not validate.) 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_55" class="defined" href="#_t_55">Test FIA_X509_EXT.1.1:8</a>: (Conditional on support for EC certificates as indicated in <a href="#FCS_COP.1/Sig">FCS_COP.1/Sig</a>). The evaluator shall establish a valid, trusted certificate chain consisting of an EC leaf certificate, an EC Intermediate CA certificate not designated as a trust anchor, and an EC certificate designated as a trusted anchor, where the elliptic curve parameters are specified as a named curve. The evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> validates the certificate chain. 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_56" class="defined" href="#_t_56">Test FIA_X509_EXT.1.1:9</a>: (Conditional on support for EC certificates as indicated in <a href="#FCS_COP.1/Sig">FCS_COP.1/Sig</a>). The evaluator shall replace the intermediate certificate in the certificate chain for Test 9 with a modified certificate, where the modified intermediate CA has a public key information field where the EC parameters uses an explicit format version of the Elliptic Curve parameters in the public key information field of the intermediate CA certificate from Test 9, and the modified Intermediate CA certificate is signed by the trusted EC root CA, but having no other changes. The evaluator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> treats the certificate as invalid. 
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                     <div class="element-activity-header">
                         <a href="#FIA_X509_EXT.1.2">FIA_X509_EXT.1.2</a>
@@ -2380,13 +2640,17 @@
                     <div class="ea">None.&lt;p&gt;&lt;/p&gt;</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         The tests described must be performed in conjunction with the other certificate services evaluation activities, including the functions in <a href="#FIA_X509_EXT.2.1">FIA_X509_EXT.2.1</a>. If the application supports chains of length four or greater, the evaluator shall create a chain of at least four certificates: the node certificate to be tested, two Intermediate CAs, and the self-signed Root CA. If the application supports a maximum trust depth of two, then a chain with no Intermediate CA should instead be created. The tests described must be performed in conjunction with the other certificate services evaluation activities, including the functions in <a href="#FIA_X509_EXT.2.1">FIA_X509_EXT.2.1</a>. If the application supports chains of length four or greater, the evaluator shall create a chain of at least four certificates: the node certificate to be tested, two Intermediate CAs, and the self-signed Root CA. If the application supports a maximum trust depth of two, then a chain with no Intermediate CA should instead be created. 
-                        <li class="test-">
-                            <a id="_t_57" class="defined" href="#_t_57">Test FIA_X509_EXT.1.2:1</a>: The evaluator shall ensure that the certificate of at least one of the CAs in the chain does not contain the basicConstraints extension. The evaluator shall confirm that validation of the certificate path fails (i) as part of the validation of the peer certificate belonging to this chain; and/or (ii) when attempting to add the CA certificate without the basicConstraints extension to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s trust store. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_58" class="defined" href="#_t_58">Test FIA_X509_EXT.1.2:2</a>: The evaluator shall ensure that the certificate of at least one of the CAs in the chain has the CA flag in the basicConstraints extension not set (or set to FALSE). The evaluator shall confirm that validation of the certificate path fails (i) as part of the validation of the peer certificate belonging to this chain; and/or (ii) when attempting to add the CA certificate with the CA flag not set (or set to FALSE) in the basicConstraints extension to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s trust store. 
-                        </li>
+                         The tests described must be performed in conjunction with the other certificate services evaluation activities, including the functions in <a href="#FIA_X509_EXT.2.1">FIA_X509_EXT.2.1</a>. If the application supports chains of length four or greater, the evaluator shall create a chain of at least four certificates: the node certificate to be tested, two Intermediate CAs, and the self-signed Root CA. If the application supports a maximum trust depth of two, then a chain with no Intermediate CA should instead be created. <span class="testlist-">
+                            <ul>
+                                 The tests described must be performed in conjunction with the other certificate services evaluation activities, including the functions in <a href="#FIA_X509_EXT.2.1">FIA_X509_EXT.2.1</a>. If the application supports chains of length four or greater, the evaluator shall create a chain of at least four certificates: the node certificate to be tested, two Intermediate CAs, and the self-signed Root CA. If the application supports a maximum trust depth of two, then a chain with no Intermediate CA should instead be created. 
+                                <li class="test-">
+                                    <a id="_t_57" class="defined" href="#_t_57">Test FIA_X509_EXT.1.2:1</a>: The evaluator shall ensure that the certificate of at least one of the CAs in the chain does not contain the basicConstraints extension. The evaluator shall confirm that validation of the certificate path fails (i) as part of the validation of the peer certificate belonging to this chain; and/or (ii) when attempting to add the CA certificate without the basicConstraints extension to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s trust store. 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_58" class="defined" href="#_t_58">Test FIA_X509_EXT.1.2:2</a>: The evaluator shall ensure that the certificate of at least one of the CAs in the chain has the CA flag in the basicConstraints extension not set (or set to FALSE). The evaluator shall confirm that validation of the certificate path fails (i) as part of the validation of the peer certificate belonging to this chain; and/or (ii) when attempting to add the CA certificate with the CA flag not set (or set to FALSE) in the basicConstraints extension to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s trust store. 
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                 </div>
             </div>
@@ -2437,13 +2701,17 @@
                     <div class="ea">None.&lt;p&gt;&lt;/p&gt;</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         The evaluator shall perform the following test for each trusted channel: The evaluator shall perform the following test for each trusted channel: 
-                        <li class="test-">
-                            <a id="_t_59" class="defined" href="#_t_59">Test FIA_X509_EXT.2.2:1</a>: The evaluator shall demonstrate that using a valid certificate that requires certificate validation checking to be performed in at least some part by communicating with a non-TOE IT entity. The evaluator shall then manipulate the environment so that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is unable to verify the validity of the certificate, and observe that the action selected in <a href="#FIA_X509_EXT.2.2">FIA_X509_EXT.2.2</a> is performed. If the selected action is administrator-configurable, then the evaluator shall follow the operational guidance to determine that all supported administrator-configurable options behave in their documented manner. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_60" class="defined" href="#_t_60">Test FIA_X509_EXT.2.2:2</a>: The evaluator shall demonstrate that an invalid certificate that requires certificate validation checking to be performed in at least some part by communicating with a non-TOE IT entity cannot be accepted. 
-                        </li>
+                         The evaluator shall perform the following test for each trusted channel: <span class="testlist-">
+                            <ul>
+                                 The evaluator shall perform the following test for each trusted channel: 
+                                <li class="test-">
+                                    <a id="_t_59" class="defined" href="#_t_59">Test FIA_X509_EXT.2.2:1</a>: The evaluator shall demonstrate that using a valid certificate that requires certificate validation checking to be performed in at least some part by communicating with a non-TOE IT entity. The evaluator shall then manipulate the environment so that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is unable to verify the validity of the certificate, and observe that the action selected in <a href="#FIA_X509_EXT.2.2">FIA_X509_EXT.2.2</a> is performed. If the selected action is administrator-configurable, then the evaluator shall follow the operational guidance to determine that all supported administrator-configurable options behave in their documented manner. 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_60" class="defined" href="#_t_60">Test FIA_X509_EXT.2.2:2</a>: The evaluator shall demonstrate that an invalid certificate that requires certificate validation checking to be performed in at least some part by communicating with a non-TOE IT entity cannot be accepted. 
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                 </div>
             </div>
@@ -2501,25 +2769,43 @@
                     <div class="ea">None.&lt;p&gt;&lt;/p&gt;</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         The evaluator shall verify that application updates are distributed in the format supported by the platform. This varies per platform: 
-                        <li class="test-">
-                            <a id="_t_103" class="defined" href="#_t_103">Test FPT_TUD_EXT.2.1:1</a>: The evaluator shall ensure that the application is packaged in the Android application package (APK) format. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_104" class="defined" href="#_t_104">Test FPT_TUD_EXT.2.1:2</a>: The evaluator shall ensure that the application is packaged in the standard Windows Installer (.MSI) format, the Windows Application Software (.EXE) format signed using the Microsoft Authenticode process, or the Windows Universal Application package (.APPX) format. See https://msdn.microsoft.com/en-us/library/ms537364(v=vs.85).aspx for details regarding Authenticode signing. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_105" class="defined" href="#_t_105">Test FPT_TUD_EXT.2.1:3</a>: The evaluator shall ensure that the application is packaged in the IPA format. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_106" class="defined" href="#_t_106">Test FPT_TUD_EXT.2.1:4</a>: The evaluator shall ensure that the application is packaged in the format of the package management infrastructure of the chosen distribution. For example, applications running on Red Hat and Red Hat derivatives shall be packaged in &lt;code&gt;RPM&lt;/code&gt; format. Applications running on Debian and Debian derivatives shall be packaged in &lt;code&gt;DEB&lt;/code&gt; format. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_107" class="defined" href="#_t_107">Test FPT_TUD_EXT.2.1:5</a>: The evaluator shall ensure that the application is packaged in the PKG format. 
-                        </li>
-                        <li class="test-">
-                            <a id="_t_108" class="defined" href="#_t_108">Test FPT_TUD_EXT.2.1:6</a>: The evaluator shall ensure that application is packaged in the DMG format, the PKG format, or the MPKG format. 
-                        </li>
+                         The evaluator shall verify that application updates are distributed in the format supported by the platform. This varies per platform: <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_103" class="defined" href="#_t_103">Test FPT_TUD_EXT.2.1:1</a>: The evaluator shall ensure that the application is packaged in the Android application package (APK) format. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_104" class="defined" href="#_t_104">Test FPT_TUD_EXT.2.1:2</a>: The evaluator shall ensure that the application is packaged in the standard Windows Installer (.MSI) format, the Windows Application Software (.EXE) format signed using the Microsoft Authenticode process, or the Windows Universal Application package (.APPX) format. See https://msdn.microsoft.com/en-us/library/ms537364(v=vs.85).aspx for details regarding Authenticode signing. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_105" class="defined" href="#_t_105">Test FPT_TUD_EXT.2.1:3</a>: The evaluator shall ensure that the application is packaged in the IPA format. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_106" class="defined" href="#_t_106">Test FPT_TUD_EXT.2.1:4</a>: The evaluator shall ensure that the application is packaged in the format of the package management infrastructure of the chosen distribution. For example, applications running on Red Hat and Red Hat derivatives shall be packaged in &lt;code&gt;RPM&lt;/code&gt; format. Applications running on Debian and Debian derivatives shall be packaged in &lt;code&gt;DEB&lt;/code&gt; format. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_107" class="defined" href="#_t_107">Test FPT_TUD_EXT.2.1:5</a>: The evaluator shall ensure that the application is packaged in the PKG format. 
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_108" class="defined" href="#_t_108">Test FPT_TUD_EXT.2.1:6</a>: The evaluator shall ensure that application is packaged in the DMG format, the PKG format, or the MPKG format. 
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                     <div class="element-activity-header">
                         <a href="#FPT_TUD_EXT.2.2">FPT_TUD_EXT.2.2</a>
@@ -2532,24 +2818,43 @@
                     <div class="ea">None.&lt;p&gt;&lt;/p&gt;</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                        <li class="test-">
-                            <a id="_t_109" class="defined" href="#_t_109">Test FPT_TUD_EXT.2.2:1</a>: The evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox).
-                        </li>
-                        <li class="test-">
-                            <a id="_t_110" class="defined" href="#_t_110">Test FPT_TUD_EXT.2.2:2</a>: The evaluator shall install the application and then locate all of its executable files. The evaluator shall then, for each file, save off either a hash of the file or a copy of the file itself. The evaluator shall then run the application and exercise all features of the application as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable file with the either the saved hash or the saved copy of the files. The evaluator shall verify that these are identical.
-                        </li>
-                        <li class="test-">
-                            <a id="_t_111" class="defined" href="#_t_111">Test FPT_TUD_EXT.2.2:3</a>: The evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox).
-                        </li>
-                        <li class="test-">
-                            <a id="_t_112" class="defined" href="#_t_112">Test FPT_TUD_EXT.2.2:4</a>: The evaluator shall install the application and then locate all of its executable files. The evaluator shall then, for each file, save off either a hash of the file or a copy of the file itself. The evaluator shall then run the application and exercise all features of the application as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable file with the either the saved hash or the saved copy of the files. The evaluator shall verify that these are identical.
-                        </li>
-                        <li class="test-">
-                            <a id="_t_113" class="defined" href="#_t_113">Test FPT_TUD_EXT.2.2:5</a>: The evaluator shall install the application and then locate all of its executable files. The evaluator shall then, for each file, save off either a hash of the file or a copy of the file itself. The evaluator shall then run the application and exercise all features of the application as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable file with the either the saved hash or the saved copy of the files. The evaluator shall verify that these are identical.
-                        </li>
-                        <li class="test-">
-                            <a id="_t_114" class="defined" href="#_t_114">Test FPT_TUD_EXT.2.2:6</a>: The evaluator shall install the application and then locate all of its executable files. The evaluator shall then, for each file, save off either a hash of the file or a copy of the file itself. The evaluator shall then run the application and exercise all features of the application as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable file with the either the saved hash or the saved copy of the files. The evaluator shall verify that these are identical.
-                        </li>
+                         <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_109" class="defined" href="#_t_109">Test FPT_TUD_EXT.2.2:1</a>: The evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox).
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_110" class="defined" href="#_t_110">Test FPT_TUD_EXT.2.2:2</a>: The evaluator shall install the application and then locate all of its executable files. The evaluator shall then, for each file, save off either a hash of the file or a copy of the file itself. The evaluator shall then run the application and exercise all features of the application as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable file with the either the saved hash or the saved copy of the files. The evaluator shall verify that these are identical.
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_111" class="defined" href="#_t_111">Test FPT_TUD_EXT.2.2:3</a>: The evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox).
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_112" class="defined" href="#_t_112">Test FPT_TUD_EXT.2.2:4</a>: The evaluator shall install the application and then locate all of its executable files. The evaluator shall then, for each file, save off either a hash of the file or a copy of the file itself. The evaluator shall then run the application and exercise all features of the application as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable file with the either the saved hash or the saved copy of the files. The evaluator shall verify that these are identical.
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_113" class="defined" href="#_t_113">Test FPT_TUD_EXT.2.2:5</a>: The evaluator shall install the application and then locate all of its executable files. The evaluator shall then, for each file, save off either a hash of the file or a copy of the file itself. The evaluator shall then run the application and exercise all features of the application as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable file with the either the saved hash or the saved copy of the files. The evaluator shall verify that these are identical.
+                                </li>
+                            </ul>
+                        </span> <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_114" class="defined" href="#_t_114">Test FPT_TUD_EXT.2.2:6</a>: The evaluator shall install the application and then locate all of its executable files. The evaluator shall then, for each file, save off either a hash of the file or a copy of the file itself. The evaluator shall then run the application and exercise all features of the application as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable file with the either the saved hash or the saved copy of the files. The evaluator shall verify that these are identical.
+                                </li>
+                            </ul>
+                        </span> 
                     </div>
                     <div class="element-activity-header">
                         <a href="#FPT_TUD_EXT.2.3">FPT_TUD_EXT.2.3</a>
