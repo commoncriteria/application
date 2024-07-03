@@ -450,9 +450,8 @@
                 <f-component cc-id="fcs_ckm.1" id="fcom_pass" name="Password Conditioning" iteration="PBKDF" status="sel-based">
                     <depends on="sel-fcs-sto-pbkdf"/>
                     <f-element id="fel-pass">
-                        <title>A password/passphrase shall perform<assignable>Password-based Key Derivation Functions</assignable>in accordance with a specified cryptographic algorithm as specified in FCS_COP.1/KeyedHash, with<assignable>positive integer of 1,000 or more</assignable>iterations, and output cryptographic key sizes<selectables ><selectable id="fcs_ckm.1.1_PBKDF_3" >128</selectable><selectable id="fcs_ckm.1.1_PBKDF_4" >256</selectable></selectables>that meet the following <h:b>[NIST SP 800-132]</h:b>  .</title>
+                        <title>A password/passphrase shall perform<assignable>Password-based Key Derivation Functions</assignable>in accordance with a specified cryptographic algorithm as specified in FCS_COP.1/KeyedHash, with<assignable>positive integer of 1,000 or more</assignable>iterations, and output cryptographic key sizes<selectables ><selectable id="fcs_ckm.1.1_PBKDF_3" >128</selectable><selectable id="fcs_ckm.1.1_PBKDF_4" >256</selectable></selectables><h:p>that meet the following &lt;strong>[NIST SP 800-132]&lt;/strong> .</h:p></title>
                         <note role="application"/>
-                        <aactivity level="element"/>
                     </f-element>
                     <f-element id="fel-gen-salts">
                         <title>The TSF shall generate salts using a RBG that meets FCS_RBG_EXT.1 and with entropy corresponding to the security strength selected for PBKDF in FCS_CKM.1.1/PBKDF.</title>
@@ -468,21 +467,9 @@
                             iteration based on SP800-63.
                         </note>
                         <aactivity level="element">
-                            <TSS>Support for PBKDF: The evaluator shall examine the password hierarchy TSS to ensure that
-                                the formation of all password based derived keys is described and that the key sizes match that
-                                described by the ST author.
-                                The evaluator shall check that the TSS describes the method by which the password/passphrase is first encoded and then fed to
-                                the SHA algorithm. The settings for the algorithm (padding, blocking, etc.) shall be described, and the evaluator shall verify
-                                that these are supported by the selections in this component as well as the selections concerning the hash function itself.
-                                The evaluator shall verify that the TSS contains a description of how the output of the hash function is used to form the
-                                submask that will be input into the function.
-                                For the NIST SP 800-132-based conditioning of the password/passphrase, the required evaluation activities will be performed when
-                                doing the evaluation activities for the appropriate requirements (FCS_COP.1.1/KeyedHash).
-                                No explicit testing of the formation of the submask from the input password is required.
-                                FCS_CKM.1.1/PBKDF: The ST author shall provide a description in the TSS regarding the salt generation.
-                                The evaluator shall confirm that the salt is generated using an RBG described in FCS_RBG_EXT.1.<h:p/></TSS>
-                            <Guidance>None.<h:p/></Guidance>
-                            <Tests>None.</Tests>
+                            <TSS><h:p>Support for PBKDF: The evaluator shall examine the password hierarchy TSS to ensure that the formation of all password based derived keys is described and that the key sizes match that described by the ST author. The evaluator shall check that the TSS describes the method by which the password/passphrase is first encoded and then fed to the SHA algorithm. The settings for the algorithm (padding, blocking, etc.) shall be described, and the evaluator shall verify that these are supported by the selections in this component as well as the selections concerning the hash function itself. The evaluator shall verify that the TSS contains a description of how the output of the hash function is used to form the submask that will be input into the function. For the NIST SP 800-132-based conditioning of the password/passphrase, the required evaluation activities will be performed when doing the evaluation activities for the appropriate requirements (FCS_COP.1.1/KeyedHash). No explicit testing of the formation of the submask from the input password is required. FCS_CKM.1.1/PBKDF: The ST author shall provide a description in the TSS regarding the salt generation. The evaluator shall confirm that the salt is generated using an RBG described in FCS_RBG_EXT.1.</h:p></TSS>
+                            <Guidance><h:p>None.</h:p></Guidance>
+                            <Tests><h:p>None.</h:p></Tests>
                         </aactivity>
                     </f-element>
                 </f-component>
@@ -1931,7 +1918,6 @@
                             with no mutual authentication, X509 authentication is not claimed for TLS. If the TOE or platform operates
                             as a TLS client, X509 authentication must be claimed.
                         </note>
-                        <aactivity level="element"/>
                     </f-element>
                     <f-element id="fel-cert-fail">
                         <title>When the application cannot establish a connection to determine the validity of a certificate, the application shall<selectables onlyone="yes"><selectable id="fia_x509_ext.2.2_1" >allow the administrator to choose whether to accept the certificate in these cases</selectable><selectable id="fia_x509_ext.2.2_2" >accept the certificate</selectable><selectable id="fia_x509_ext.2.2_3" >not accept the certificate</selectable></selectables>.</title>
