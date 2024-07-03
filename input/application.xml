@@ -1397,23 +1397,8 @@
         <!--FCS_STO_EXT.1 Storage of Credentials-->
         <f-component cc-id="fcs_sto_ext.1" id="fcs-sto-ext-1" name="Storage of Credentials">
           <f-element id="fel-store-creds">
-            <title>The application shall<selectables ><selectable id="fcs_sto_ext.1.1_1" exclusive="yes">not store any credentials</selectable><selectable id="fcs_sto_ext.1.1_3" >list of credentials </selectable><selectable>invoke the functionality provided by the platform to securely store </selectable><selectable>implement functionality to securely store according to <selectables ><selectable id="fcs_sto_ext.1.1_4" >list of credentials </selectable></selectables><selectables ><selectable id="sel-fcs-sto-skc" >FCS_COP.1/SKC</selectable><selectable id="sel-fcs-sto-pbkdf" >FCS_CKM.1/PBKDF</selectable></selectables></selectable></selectables>to non-volatile memory.</title>
-            <note role="application">
-					This requirement ensures that persistent credentials (secret keys, PKI private keys, passwords, etc) 
-					are stored securely, and never persisted in cleartext form. 
-					Application developers are encouraged to use platform mechanisms for the secure storage of credentials. 
-					Depending on the platform that may include hardware-backed protection for credential storage. Application
-					developers must choose a selection, or multiple selections, based on all credentials that the application
-					stores. If "<h:i>not store any credentials</h:i>" is selected then the application must not store any credentials.
-					If "<h:i>invoke the functionality provided by the platform to securely store</h:i>" is selected then the 
-					Application developer must closely review the EA for their platform and provide documentation indicating
-					which platform mechanisms are used to store credentials. 
-					If "<h:i>implement functionality to securely store credentials</h:i>" is selected, then the following components 
-					must be included in the ST: FCS_COP.1/SKC or FCS_CKM.1/PBKDF.
-					If other cryptographic operations are used to implement the secure storage of credentials, the corresponding 
-					requirements must be included in the ST. If the OS is Linux and Java KeyStores are used to store 
-					credentials, "<h:i>implement functionality to securely store credentials</h:i>" must be selected.
-				</note>
+            <title>The application shall<selectables ><selectable id="fcs_sto_ext.1.1_1" exclusive="yes">not store any credentials</selectable><selectable>invoke the functionality provided by the platform to securely store <selectables ><selectable id="fcs_sto_ext.1.1_3" >list of credentials </selectable></selectables></selectable><selectable>implement functionality to securely store according to <selectables ><selectable id="fcs_sto_ext.1.1_4" >list of credentials </selectable></selectables><selectables ><selectable id="sel-fcs-sto-skc" >FCS_COP.1/SKC</selectable><selectable id="sel-fcs-sto-pbkdf" >FCS_CKM.1/PBKDF</selectable></selectables></selectable></selectables>to non-volatile memory.</title>
+            <note role="application"><h:p>This requirement ensures that persistent credentials (secret keys, PKI private keys, passwords, etc) are stored securely, and never persisted in cleartext form. Application developers are encouraged to use platform mechanisms for the secure storage of credentials. Depending on the platform that may include hardware-backed protection for credential storage. Application developers must choose a selection, or multiple selections, based on all credentials that the application stores. If "<em>not store any credentials</em>" is selected then the application must not store any credentials. If "<em>invoke the functionality provided by the platform to securely store</em>" is selected then the Application developer must closely review the EA for their platform and provide documentation indicating which platform mechanisms are used to store credentials. If "<em>implement functionality to securely store credentials</em>" is selected, then the following components must be included in the ST: FCS_COP.1/SKC or FCS_CKM.1/PBKDF. If other cryptographic operations are used to implement the secure storage of credentials, the corresponding requirements must be included in the ST. If the OS is Linux and Java KeyStores are used to store credentials, "<em>implement functionality to securely store credentials</em>" must be selected.</h:p></note>
             <aactivity level="element">
               <TSS>The evaluator shall check the TSS to ensure that it lists all persistent 
 						credentials (secret keys, PKI private keys, or passwords) needed to meet the 
@@ -1690,7 +1675,7 @@
         <!--FDP_NET_EXT.1 Network Communications-->
         <f-component cc-id="fdp_net_ext.1" id="fdp-net-ext-1" name="Network Communications">
           <f-element id="fel-network-access">
-            <title>The application shall restrict network communication to<selectables ><selectable id="fdp_net_ext.1.1_1" exclusive="yes">no network communication</selectable><selectable id="fdp_net_ext.1.1_3" >list of functions for which the user can initiate network communication </selectable><selectable>user-initiated communication for </selectable><selectable id="fdp_net_ext.1.1_5" >list of remotely initiated communication  </selectable><selectable>respond to </selectable><selectable id="fdp_net_ext.1.1_7" >list of application-initiated network communication </selectable></selectables>.</title>
+            <title>The application shall restrict network communication to<selectables ><selectable id="fdp_net_ext.1.1_1" exclusive="yes">no network communication</selectable><selectable>user-initiated communication for <selectables ><selectable id="fdp_net_ext.1.1_3" >list of functions for which the user can initiate network communication </selectable></selectables></selectable><selectable>respond to <selectables ><selectable id="fdp_net_ext.1.1_5" >list of remotely initiated communication  </selectable></selectables></selectable><selectable id="fdp_net_ext.1.1_7" >list of application-initiated network communication </selectable></selectables>.</title>
             <note role="application">
 					This requirement is intended to restrict both inbound and
 					outbound network communications to only those required, or to network
@@ -2181,7 +2166,7 @@
           <f-element id="fel-management-funcs">
             <title>The TSF shall be capable of performing the following management functions<selectables ><selectable id="fmt_smf.1.1_1" exclusive="yes">no management functions</selectable><selectable id="fmt_smf.1.1_2" > enable/disable the transmission of any information describing the
 							system's hardware, software, or configuration</selectable><selectable id="fmt_smf.1.1_3" > enable/disable the transmission of any PII</selectable><selectable id="fmt_smf.1.1_4" > enable/disable transmission of any application state (e.g. crashdump)
-							information</selectable><selectable id="fmt_smf.1.1_6" > list of enterprise or commercial cloud backup systems </selectable><selectable> enable/disable network backup functionality to </selectable><selectable id="fmt_smf.1.1_8" > list of other management functions to be provided bythe TSF </selectable></selectables>.</title>
+							information</selectable><selectable> enable/disable network backup functionality to <selectables ><selectable id="fmt_smf.1.1_6" > list of enterprise or commercial cloud backup systems </selectable></selectables></selectable><selectable id="fmt_smf.1.1_8" > list of other management functions to be provided bythe TSF </selectable></selectables>.</title>
             <note role="application">
 					This requirement stipulates that an application needs to provide the ability to 
 					enable/disable only those functions that it actually implements. The application
@@ -2209,7 +2194,7 @@
         <!--FPR_ANO_EXT.1 User Consent for Transmission of Personally Identifiable Information-->
         <f-component cc-id="fpr_ano_ext.1" id="fpr-ano-ext-1" name="User Consent for Transmission of Personally Identifiable Information">
           <f-element id="fel-transmit-pii">
-            <title>The application shall<selectables ><selectable id="fpr_ano_ext.1.1_1" exclusive="yes">not transmit PII over a network</selectable><selectable id="fpr_ano_ext.1.1_3" >list of functions that transmit PII over a network </selectable><selectable> require user approval before executing </selectable></selectables>.</title>
+            <title>The application shall<selectables ><selectable id="fpr_ano_ext.1.1_1" exclusive="yes">not transmit PII over a network</selectable><selectable> require user approval before executing <selectables ><selectable id="fpr_ano_ext.1.1_3" >list of functions that transmit PII over a network </selectable></selectables></selectable></selectables>.</title>
             <note role="application">
 					This requirement applies only to PII that is specifically requested by the application;
 					it does not apply if the user volunteers PII without prompting from the application 
@@ -2307,7 +2292,7 @@
             </aactivity>
           </f-element>
           <f-element id="fel-nwx">
-            <title>The application shall<selectables ><selectable id="fpt_aex_ext.1.2_1" exclusive="yes">not allocate any memory region with both write and execute permissions</selectable><selectable id="fpt_aex_ext.1.2_3" > list of functions performing just-in-time compilation </selectable><selectable>allocate memory regions with write and execute permissions for only </selectable></selectables>.</title>
+            <title>The application shall<selectables ><selectable id="fpt_aex_ext.1.2_1" exclusive="yes">not allocate any memory region with both write and execute permissions</selectable><selectable>allocate memory regions with write and execute permissions for only <selectables ><selectable id="fpt_aex_ext.1.2_3" > list of functions performing just-in-time compilation </selectable></selectables></selectable></selectables>.</title>
             <note role="application"> 
 					Requesting a memory mapping with both write and execute permissions subverts the
 					platform protection provided by DEP.  If the application performs no just-in-time 
