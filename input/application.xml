@@ -325,7 +325,7 @@
         <!--FCS_CKM.1 Cryptographic Key Generation Services-->
         <f-component cc-id="fcs_ckm.1" id="fcs-ckm-1" name="Cryptographic Key Generation Services">
           <f-element id="fel-asym-key-gen">
-            <title>The application shall<selectables ><selectable id="fcs_ckm.1.1:1" exclusive="yes">generate no asymmetric cryptographic keys</selectable><selectable id="sel_invoke_genkey" >invoke platform-provided functionality for asymmetric key generation</selectable><selectable id="sel_impl_genkey" >implement asymmetric key generation</selectable></selectables>.</title>
+            <title>The application shall<selectables ><selectable id="fcs_ckm.1.1_1" exclusive="yes">generate no asymmetric cryptographic keys</selectable><selectable id="sel_invoke_genkey" >invoke platform-provided functionality for asymmetric key generation</selectable><selectable id="sel_impl_genkey" >implement asymmetric key generation</selectable></selectables>.</title>
             <note role="application">If "<h:i>implement asymmetric key generation</h:i>" or 
 					"<h:i>invoke platform-provided functionality for asymmetric key generation</h:i>" is chosen, then
 					additional FCS_CKM.1/AK elements shall be included in the ST.
@@ -346,10 +346,10 @@
           <depends on="sel_invoke_genkey"/>
           <depends on="sel_impl_genkey"/>
           <f-element id="fel-asym-key-gen-impl">
-            <title>The <h:b>application</h:b>  shall<selectables onlyone="yes"><selectable id="fcs_ckm.1.1/AK:1" >invoke platform-provided functionality</selectable><selectable id="fcs_ckm.1.1/AK:2" >implement functionality</selectable></selectables>to generate <h:b>asymmetric</h:b>  cryptographic keys in accordance with a specified cryptographic key generation algorithm<selectables ><selectable id="fcs_ckm.1.1/AK:3" ><h:b>[RSA schemes]</h:b> using cryptographic key sizes of <h:b>[2048-bit or greater]</h:b> that meet
-							the following <h:b> FIPS PUB 186-4, "Digital Signature Standard (DSS), Appendix B.3"</h:b></selectable><selectable><h:b>[ECC schemes]</h:b> using <h:b>[“NIST curves” P-256, P-384 and <selectables ><selectable id="fcs_ckm.1.1/AK:5" exclusive="yes"> P-521 </selectable><selectable id="fcs_ckm.1.1/AK:6" exclusive="yes"> no other curves </selectable></selectables> ]</h:b>that meet the following: <h:b>[FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.4]</h:b></selectable><selectable id="fcs_ckm.1.1/AK:7" ><h:b>[FFC schemes]</h:b> using cryptographic key sizes of <h:b>[2048-bit or greater]</h:b> 
-							that meet the following: <h:b>[FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.1]</h:b></selectable><selectable id="fcs_ckm.1.1/AK:8" ><h:b>[FFC Schemes]</h:b><h:b> using Diffie-Hellman group 14</h:b> that meet the following: 
-							<h:b>RFC 3526, Section 3</h:b></selectable><selectable><h:b>[FFC Schemes]</h:b><h:b> using “safe-prime” groups</h:b> that meet the following: <h:b>NIST Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”</h:b> and <selectables ><selectable id="fcs_ckm.1.1/AK:10" >RFC 3526</selectable><selectable id="fcs_ckm.1.1/AK:11" >RFC 7919</selectable></selectables></selectable></selectables>.</title>
+            <title>The <h:b>application</h:b>  shall<selectables onlyone="yes"><selectable id="fcs_ckm.1.1/AK_1" >invoke platform-provided functionality</selectable><selectable id="fcs_ckm.1.1/AK_2" >implement functionality</selectable></selectables>to generate <h:b>asymmetric</h:b>  cryptographic keys in accordance with a specified cryptographic key generation algorithm<selectables ><selectable id="fcs_ckm.1.1/AK_3" ><h:b>[RSA schemes]</h:b> using cryptographic key sizes of <h:b>[2048-bit or greater]</h:b> that meet
+							the following <h:b> FIPS PUB 186-4, "Digital Signature Standard (DSS), Appendix B.3"</h:b></selectable><selectable><h:b>[ECC schemes]</h:b> using <h:b>[“NIST curves” P-256, P-384 and <selectables ><selectable id="fcs_ckm.1.1/AK_5" exclusive="yes"> P-521 </selectable><selectable id="fcs_ckm.1.1/AK_6" exclusive="yes"> no other curves </selectable></selectables> ]</h:b>that meet the following: <h:b>[FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.4]</h:b></selectable><selectable id="fcs_ckm.1.1/AK_7" ><h:b>[FFC schemes]</h:b> using cryptographic key sizes of <h:b>[2048-bit or greater]</h:b> 
+							that meet the following: <h:b>[FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Appendix B.1]</h:b></selectable><selectable id="fcs_ckm.1.1/AK_8" ><h:b>[FFC Schemes]</h:b><h:b> using Diffie-Hellman group 14</h:b> that meet the following: 
+							<h:b>RFC 3526, Section 3</h:b></selectable><selectable><h:b>[FFC Schemes]</h:b><h:b> using “safe-prime” groups</h:b> that meet the following: <h:b>NIST Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”</h:b> and <selectables ><selectable id="fcs_ckm.1.1/AK_10" >RFC 3526</selectable><selectable id="fcs_ckm.1.1/AK_11" >RFC 7919</selectable></selectables></selectable></selectables>.</title>
             <note role="application">
 					The ST author shall select all key generation schemes used for key 
 					establishment and entity authentication. When key generation is used for key 
@@ -450,7 +450,7 @@
         <f-component cc-id="fcs_ckm.1" id="fcom_pass" name="Password Conditioning" iteration="PBKDF" status="sel-based">
           <depends on="sel-fcs-sto-pbkdf"/>
           <f-element id="fel-pass">
-            <title>A password/passphrase shall perform<assignable>Password-based Key Derivation Functions</assignable>in accordance with a specified cryptographic algorithm as specified in FCS_COP.1/KeyedHash, with<assignable>positive integer of 1,000 or more</assignable>iterations, and output cryptographic key sizes<selectables ><selectable id="fcs_ckm.1.1/PBKDF:3" >128</selectable><selectable id="fcs_ckm.1.1/PBKDF:4" >256</selectable></selectables>that meet the following <h:b>[NIST SP 800-132]</h:b>  .</title>
+            <title>A password/passphrase shall perform<assignable>Password-based Key Derivation Functions</assignable>in accordance with a specified cryptographic algorithm as specified in FCS_COP.1/KeyedHash, with<assignable>positive integer of 1,000 or more</assignable>iterations, and output cryptographic key sizes<selectables ><selectable id="fcs_ckm.1.1/PBKDF_3" >128</selectable><selectable id="fcs_ckm.1.1/PBKDF_4" >256</selectable></selectables>that meet the following <h:b>[NIST SP 800-132]</h:b>  .</title>
             <note role="application"/>
             <aactivity level="element"/>
           </f-element>
@@ -490,7 +490,7 @@
         <f-component cc-id="fcs_ckm.1" id="fcom_sym_key_gen" name="Cryptographic Symmetric Key Generation" iteration="SK" status="optional">
           <f-element id="fel-sym-key-gen">
             <title>The <h:b>application</h:b>  shall generate <h:b>symmetric</h:b>  cryptographic keys <h:b>using a Random Bit
-					Generator as specified in FCS_RBG_EXT.1</h:b>  and specified cryptographic key sizes<selectables ><selectable id="fcs_ckm.1.1/SK:1" >128 bit</selectable><selectable id="fcs_ckm.1.1/SK:2" >256 bit</selectable></selectables>.</title>
+					Generator as specified in FCS_RBG_EXT.1</h:b>  and specified cryptographic key sizes<selectables ><selectable id="fcs_ckm.1.1/SK_1" >128 bit</selectable><selectable id="fcs_ckm.1.1/SK_2" >256 bit</selectable></selectables>.</title>
             <note role="application">
 					Symmetric keys may be used to generate keys along the key chain.</note>
             <aactivity level="element">
@@ -516,16 +516,16 @@
         <f-component cc-id="fcs_ckm.2" id="fcs-ckm-2" name="Cryptographic Key Establishment" status="sel-based">
           <depends on="sel_all_tls"/>
           <f-element id="fel-key-est">
-            <title>The application shall<selectables onlyone="yes"><selectable id="fcs_ckm.2.1:1" >invoke platform-provided functionality</selectable><selectable id="fcs_ckm.2.1:2" >implement functionality</selectable></selectables>to perform cryptographic key establishment in accordance with a specified cryptographic key establishment method: <h:p></h:p><selectables ><selectable id="fcs_ckm.2.1:3" ><h:b>[RSA-based key establishment schemes]</h:b> that meets the following: <h:b>[NIST 
+            <title>The application shall<selectables onlyone="yes"><selectable id="fcs_ckm.2.1_1" >invoke platform-provided functionality</selectable><selectable id="fcs_ckm.2.1_2" >implement functionality</selectable></selectables>to perform cryptographic key establishment in accordance with a specified cryptographic key establishment method: <h:p></h:p><selectables ><selectable id="fcs_ckm.2.1_3" ><h:b>[RSA-based key establishment schemes]</h:b> that meets the following: <h:b>[NIST 
 							Special Publication 800-56B, “Recommendation for Pair-Wise Key Establishment 
-							Schemes Using Integer Factorization Cryptography”]</h:b></selectable><selectable id="fcs_ckm.2.1:4" ><h:b>[RSA-based key establishment schemes]</h:b>
+							Schemes Using Integer Factorization Cryptography”]</h:b></selectable><selectable id="fcs_ckm.2.1_4" ><h:b>[RSA-based key establishment schemes]</h:b>
 							that meet the following: <h:b>RSAES-PKCS1-v1_5 as specified in Section 7.2 of RFC 8017,
-							“Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1”</h:b></selectable><selectable id="fcs_ckm.2.1:5" ><h:b>[Elliptic curve-based key establishment schemes]</h:b> that meets the 
+							“Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1”</h:b></selectable><selectable id="fcs_ckm.2.1_5" ><h:b>[Elliptic curve-based key establishment schemes]</h:b> that meets the 
 							following: <h:b>[NIST Special Publication 800-56A, “Recommendation for Pair-Wise Key Establishment 
-							Schemes Using Discrete Logarithm Cryptography”]</h:b></selectable><selectable id="fcs_ckm.2.1:6" ><h:b>[Finite field-based key establishment schemes]</h:b> that meets the following: 
+							Schemes Using Discrete Logarithm Cryptography”]</h:b></selectable><selectable id="fcs_ckm.2.1_6" ><h:b>[Finite field-based key establishment schemes]</h:b> that meets the following: 
 							<h:b>[NIST Special Publication 800-56A, “Recommendation for Pair-Wise Key 
-							Establishment Schemes Using Discrete Logarithm Cryptography”]</h:b></selectable><selectable id="fcs_ckm.2.1:7" ><h:b>[Key establishment scheme using Diffie-Hellman group 14]</h:b>
-							that meets the following: <h:b>RFC 3526, Section 3</h:b></selectable><selectable><h:b>[FFC Schemes using “safe-prime” groups]</h:b> that meet the following: <h:b>‘NIST Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”</h:b> and <selectables ><selectable id="fcs_ckm.2.1:9" >RFC 3526</selectable><selectable id="fcs_ckm.2.1:10" >RFC 7919</selectable></selectables>. </selectable></selectables>.</title>
+							Establishment Schemes Using Discrete Logarithm Cryptography”]</h:b></selectable><selectable id="fcs_ckm.2.1_7" ><h:b>[Key establishment scheme using Diffie-Hellman group 14]</h:b>
+							that meets the following: <h:b>RFC 3526, Section 3</h:b></selectable><selectable><h:b>[FFC Schemes using “safe-prime” groups]</h:b> that meet the following: <h:b>‘NIST Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”</h:b> and <selectables ><selectable id="fcs_ckm.2.1_9" >RFC 3526</selectable><selectable id="fcs_ckm.2.1_10" >RFC 7919</selectable></selectables>. </selectable></selectables>.</title>
             <note role="application">
 					The ST author shall select all key establishment schemes used for the selected cryptographic 
 					protocols. TLS requires cipher suites that use RSA-based key establishment 
@@ -633,7 +633,7 @@
         <f-component cc-id="fcs_cop.1" id="fcom_hash" name="Cryptographic Operation - Hashing" iteration="Hash" status="sel-based">
           <depends on="sel_all_tls"/>
           <f-element id="fel-crypt-hash">
-            <title>The <h:b>application</h:b>  shall perform <h:i>cryptographic hashing</h:i>  services in accordance with a specified cryptographic algorithm<selectables ><selectable id="fcs_cop.1.1/Hash:1" >SHA-1</selectable><selectable id="fcs_cop.1.1/Hash:2" >SHA-256</selectable><selectable id="fcs_cop.1.1/Hash:3" >SHA-384</selectable><selectable id="fcs_cop.1.1/Hash:4" >SHA-512</selectable><selectable id="fcs_cop.1.1/Hash:5" exclusive="yes">no other</selectable></selectables>and message digest sizes<selectables ><selectable id="fcs_cop.1.1/Hash:6" >160</selectable><selectable id="fcs_cop.1.1/Hash:7" >256</selectable><selectable id="fcs_cop.1.1/Hash:8" >384</selectable><selectable id="fcs_cop.1.1/Hash:9" >512</selectable><selectable id="fcs_cop.1.1/Hash:10" exclusive="yes">no other</selectable></selectables>bits that meet the following: FIPS Pub 180-4.</title>
+            <title>The <h:b>application</h:b>  shall perform <h:i>cryptographic hashing</h:i>  services in accordance with a specified cryptographic algorithm<selectables ><selectable id="fcs_cop.1.1/Hash_1" >SHA-1</selectable><selectable id="fcs_cop.1.1/Hash_2" >SHA-256</selectable><selectable id="fcs_cop.1.1/Hash_3" >SHA-384</selectable><selectable id="fcs_cop.1.1/Hash_4" >SHA-512</selectable><selectable id="fcs_cop.1.1/Hash_5" exclusive="yes">no other</selectable></selectables>and message digest sizes<selectables ><selectable id="fcs_cop.1.1/Hash_6" >160</selectable><selectable id="fcs_cop.1.1/Hash_7" >256</selectable><selectable id="fcs_cop.1.1/Hash_8" >384</selectable><selectable id="fcs_cop.1.1/Hash_9" >512</selectable><selectable id="fcs_cop.1.1/Hash_10" exclusive="yes">no other</selectable></selectables>bits that meet the following: FIPS Pub 180-4.</title>
             <note role="application">
 					This is dependent on implementing cryptographic functionality, as in FTP_DIT_EXT.1.<h:p></h:p>
 					Per NIST SP 800-131A, SHA-1 for generating digital signatures is no
@@ -714,7 +714,7 @@
         <f-component cc-id="fcs_cop.1" id="fcom_key_hash" name="Cryptographic Operation - Keyed-Hash Message Authentication" iteration="KeyedHash" status="sel-based">
           <depends on="sel_all_tls"/>
           <f-element id="fel-keyed-hash">
-            <title>The <h:b>application</h:b>  shall perform <h:i>keyed-hash message authentication</h:i>  in accordance with a specified cryptographic algorithm <h:ul><h:li>HMAC-SHA-256</h:li></h:ul>  and<selectables ><selectable id="fcs_cop.1.1/KeyedHash:1" >HMAC-SHA-1</selectable><selectable id="fcs_cop.1.1/KeyedHash:2" >HMAC-SHA-384</selectable><selectable id="fcs_cop.1.1/KeyedHash:3" >HMAC-SHA-512</selectable><selectable id="fcs_cop.1.1/KeyedHash:4" exclusive="yes">no other algorithms</selectable></selectables>with key sizes<assignable>key size (in bits) used in HMAC</assignable>and message digest sizes 256 and<selectables ><selectable id="fcs_cop.1.1/KeyedHash:6" >160</selectable><selectable id="fcs_cop.1.1/KeyedHash:7" >384</selectable><selectable id="fcs_cop.1.1/KeyedHash:8" >512</selectable><selectable id="fcs_cop.1.1/KeyedHash:9" exclusive="yes">no other size</selectable></selectables>bits that meet the following: FIPS Pub 198-1 <h:i>The Keyed-Hash Message Authentication Code</h:i>  and FIPS Pub 180-4 <h:i>Secure Hash Standard</h:i>  .</title>
+            <title>The <h:b>application</h:b>  shall perform <h:i>keyed-hash message authentication</h:i>  in accordance with a specified cryptographic algorithm <h:ul><h:li>HMAC-SHA-256</h:li></h:ul>  and<selectables ><selectable id="fcs_cop.1.1/KeyedHash_1" >HMAC-SHA-1</selectable><selectable id="fcs_cop.1.1/KeyedHash_2" >HMAC-SHA-384</selectable><selectable id="fcs_cop.1.1/KeyedHash_3" >HMAC-SHA-512</selectable><selectable id="fcs_cop.1.1/KeyedHash_4" exclusive="yes">no other algorithms</selectable></selectables>with key sizes<assignable>key size (in bits) used in HMAC</assignable>and message digest sizes 256 and<selectables ><selectable id="fcs_cop.1.1/KeyedHash_6" >160</selectable><selectable id="fcs_cop.1.1/KeyedHash_7" >384</selectable><selectable id="fcs_cop.1.1/KeyedHash_8" >512</selectable><selectable id="fcs_cop.1.1/KeyedHash_9" exclusive="yes">no other size</selectable></selectables>bits that meet the following: FIPS Pub 198-1 <h:i>The Keyed-Hash Message Authentication Code</h:i>  and FIPS Pub 180-4 <h:i>Secure Hash Standard</h:i>  .</title>
             <note role="application">
 					This is dependent on implementing cryptographic functionality, as in FTP_DIT_EXT.1.<h:p></h:p>
 					The intent of this requirement is to specify the keyed-hash
@@ -744,8 +744,8 @@
           <depends on="sel_all_tls"/>
           <f-element id="fel-sign">
             <title>The <h:b>application</h:b>  shall perform <h:i>cryptographic signature services (generation and
-					verification)</h:i>  in accordance with a specified cryptographic algorithm<selectables ><selectable id="fcs_cop.1.1/Sig:1" ><h:b>RSA schemes</h:b> using cryptographic key sizes of 2048-bit or greater that meet the 
-							following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 4</selectable><selectable><h:b>ECDSA schemes</h:b> using “NIST curves” P-256, P-384 and <selectables ><selectable id="fcs_cop.1.1/Sig:3" >P-521</selectable><selectable id="fcs_cop.1.1/Sig:4" exclusive="yes">no other curves</selectable></selectables> that meet the following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 5</selectable></selectables>.</title>
+					verification)</h:i>  in accordance with a specified cryptographic algorithm<selectables ><selectable id="fcs_cop.1.1/Sig_1" ><h:b>RSA schemes</h:b> using cryptographic key sizes of 2048-bit or greater that meet the 
+							following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 4</selectable><selectable><h:b>ECDSA schemes</h:b> using “NIST curves” P-256, P-384 and <selectables ><selectable id="fcs_cop.1.1/Sig_3" >P-521</selectable><selectable id="fcs_cop.1.1/Sig_4" exclusive="yes">no other curves</selectable></selectables> that meet the following: FIPS PUB 186-4, “Digital Signature Standard (DSS)”, Section 5</selectable></selectables>.</title>
             <note role="application">
 					This is dependent on implementing cryptographic functionality, as in FTP_DIT_EXT.1.<h:p></h:p>
 					The ST Author should choose the algorithm implemented to perform
@@ -818,7 +818,7 @@
           <depends on="sel_all_tls"/>
           <depends on="sel-fcs-sto-skc"/>
           <f-element id="fel-sym-encrypt">
-            <title>The <h:b>application</h:b>  shall perform <h:i>encryption/decryption</h:i>  in accordance with a specified cryptographic algorithm<selectables ><selectable id="fcs_cop.1.1/SKC:1" >AES-CBC (as defined in NIST SP 800-38A) mode</selectable><selectable id="fcs_cop.1.1/SKC:2" >AES-GCM (as defined in NIST SP 800-38D) mode</selectable><selectable id="fcs_cop.1.1/SKC:3" >AES-XTS (as defined in NIST SP 800-38E) mode</selectable><selectable id="fcs_cop.1.1/SKC:4" >AES-CCM (as defined in NIST SP 800-38C) mode</selectable><selectable id="fcs_cop.1.1/SKC:5" >AES-CTR (as defined in NIST SP 800-38A) mode</selectable></selectables>and cryptographic key sizes<selectables ><selectable id="fcs_cop.1.1/SKC:6" >128-bit</selectable><selectable id="fcs_cop.1.1/SKC:7" >256-bit</selectable></selectables>.</title>
+            <title>The <h:b>application</h:b>  shall perform <h:i>encryption/decryption</h:i>  in accordance with a specified cryptographic algorithm<selectables ><selectable id="fcs_cop.1.1/SKC_1" >AES-CBC (as defined in NIST SP 800-38A) mode</selectable><selectable id="fcs_cop.1.1/SKC_2" >AES-GCM (as defined in NIST SP 800-38D) mode</selectable><selectable id="fcs_cop.1.1/SKC_3" >AES-XTS (as defined in NIST SP 800-38E) mode</selectable><selectable id="fcs_cop.1.1/SKC_4" >AES-CCM (as defined in NIST SP 800-38C) mode</selectable><selectable id="fcs_cop.1.1/SKC_5" >AES-CTR (as defined in NIST SP 800-38A) mode</selectable></selectables>and cryptographic key sizes<selectables ><selectable id="fcs_cop.1.1/SKC_6" >128-bit</selectable><selectable id="fcs_cop.1.1/SKC_7" >256-bit</selectable></selectables>.</title>
             <note role="application">
 					This is dependent on implementing cryptographic functionality, as in FTP_DIT_EXT.1.
 					For the first selection, the ST author should choose
@@ -1074,7 +1074,7 @@
             </aactivity>
           </f-element>
           <f-element id="fel-https-who-cl">
-            <title>The application shall<selectables onlyone="yes"><selectable id="fcs_https_ext.1.3/Client:1" >not establish the application-initiated connection</selectable><selectable id="fcs_https_ext.1.3/Client:2" >notify the user and not establish the user-initiated connection</selectable><selectable id="fcs_https_ext.1.3/Client:3" >notify the user and request authorization to establish the user-initiated connection</selectable></selectables>if the peer certificate is deemed invalid.</title>
+            <title>The application shall<selectables onlyone="yes"><selectable id="fcs_https_ext.1.3/Client_1" >not establish the application-initiated connection</selectable><selectable id="fcs_https_ext.1.3/Client_2" >notify the user and not establish the user-initiated connection</selectable><selectable id="fcs_https_ext.1.3/Client_3" >notify the user and request authorization to establish the user-initiated connection</selectable></selectables>if the peer certificate is deemed invalid.</title>
             <note role="application">
 					Validity is determined by the certificate path, the expiration date, and the 
 					revocation status in accordance with RFC 5280. 
@@ -1143,7 +1143,7 @@
         <f-component cc-id="fcs_https_ext.2" id="fcs-https-ext-2" name="HTTPS Protocol with Mutual Authentication" status="sel-based">
           <depends on="sel_all_https_ma"/>
           <f-element id="fel-https-wath-m">
-            <title>The application shall<selectables onlyone="yes"><selectable id="fcs_https_ext.2.1:1" >not establish the connection</selectable><selectable id="fcs_https_ext.2.1:2" >establish or not establish the connection based on an administrative or user setting</selectable></selectables>if the peer certificate is deemed invalid.</title>
+            <title>The application shall<selectables onlyone="yes"><selectable id="fcs_https_ext.2.1_1" >not establish the connection</selectable><selectable id="fcs_https_ext.2.1_2" >establish or not establish the connection based on an administrative or user setting</selectable></selectables>if the peer certificate is deemed invalid.</title>
             <note role="application">
 					 Validity is determined by the certificate path, the expiration date, and the 
 					 revocation status in accordance with RFC 5280.
@@ -1177,7 +1177,7 @@
         <!--FCS_RBG_EXT.1 Random Bit Generation Services-->
         <f-component cc-id="fcs_rbg_ext.1" id="fcs-rbg-ext-1" name="Random Bit Generation Services">
           <f-element id="fel-rbg">
-            <title>The application shall<selectables ><selectable id="fcs_rbg_ext.1.1:1" exclusive="yes">use no DRBG functionality</selectable><selectable id="fcs_rbg_ext.1.1:2" >invoke platform-provided DRBG functionality</selectable><selectable id="drbg" >implement DRBG functionality</selectable></selectables>for its cryptographic operations.</title>
+            <title>The application shall<selectables ><selectable id="fcs_rbg_ext.1.1_1" exclusive="yes">use no DRBG functionality</selectable><selectable id="fcs_rbg_ext.1.1_2" >invoke platform-provided DRBG functionality</selectable><selectable id="drbg" >implement DRBG functionality</selectable></selectables>for its cryptographic operations.</title>
             <note role="application"> The selection "<h:i>invoke platform-provided DRBG functionality</h:i>"
 					should only be chosen for direct invocations of the platform DRBG, calls to platform protocols
 					that may then call the platform's DRBG are not directly using DRBG functionality  and should
@@ -1269,7 +1269,7 @@
         <f-component cc-id="fcs_rbg_ext.2" id="fcs-rbg-ext-2" name="Random Bit Generation from Application" status="sel-based">
           <depends on="drbg"/>
           <f-element id="fel-drbg-how">
-            <title>The application shall perform all deterministic random bit generation (DRBG) services in accordance with NIST Special Publication 800-90A using<selectables ><selectable id="fcs_rbg_ext.2.1:1" >Hash_DRBG (any)</selectable><selectable id="fcs_rbg_ext.2.1:2" >HMAC_DRBG (any)</selectable><selectable id="fcs_rbg_ext.2.1:3" >CTR_DRBG (AES)</selectable></selectables></title>
+            <title>The application shall perform all deterministic random bit generation (DRBG) services in accordance with NIST Special Publication 800-90A using<selectables ><selectable id="fcs_rbg_ext.2.1_1" >Hash_DRBG (any)</selectable><selectable id="fcs_rbg_ext.2.1_2" >HMAC_DRBG (any)</selectable><selectable id="fcs_rbg_ext.2.1_3" >CTR_DRBG (AES)</selectable></selectables></title>
             <note role="application">This requirement shall be included in STs in which 
 					"<h:i>implement DRBG functionality</h:i>" is chosen in FCS_RBG_EXT.1.1. 
 					The ST author should select the standard to which the RBG services comply (either SP 800-90A or FIPS 
@@ -1369,7 +1369,7 @@
             </aactivity>
           </f-element>
           <f-element id="fel-drbg-seed">
-            <title>The deterministic RBG shall be seeded by an entropy source that accumulates entropy from a platform-based DRBG and<selectables ><selectable id="fcs_rbg_ext.2.2:1" >a software-based noise source</selectable><selectable id="fcs_rbg_ext.2.2:2" >a hardware-based noise source</selectable><selectable id="fcs_rbg_ext.2.2:3" exclusive="yes">no other noise source</selectable></selectables>with a minimum of<selectables onlyone="yes"><selectable id="fcs_rbg_ext.2.2:4" >128 bits</selectable><selectable id="fcs_rbg_ext.2.2:5" >256 bits</selectable></selectables>of entropy at least equal to the greatest security strength (according to NIST SP 800-57) of the keys and hashes that it will generate.</title>
+            <title>The deterministic RBG shall be seeded by an entropy source that accumulates entropy from a platform-based DRBG and<selectables ><selectable id="fcs_rbg_ext.2.2_1" >a software-based noise source</selectable><selectable id="fcs_rbg_ext.2.2_2" >a hardware-based noise source</selectable><selectable id="fcs_rbg_ext.2.2_3" exclusive="yes">no other noise source</selectable></selectables>with a minimum of<selectables onlyone="yes"><selectable id="fcs_rbg_ext.2.2_4" >128 bits</selectable><selectable id="fcs_rbg_ext.2.2_5" >256 bits</selectable></selectables>of entropy at least equal to the greatest security strength (according to NIST SP 800-57) of the keys and hashes that it will generate.</title>
             <note role="application">This requirement shall be included in STs in which 
 					"<h:i>implement DRBG functionality</h:i>" is chosen in FCS_RBG_EXT.1.1. For the first
 					selection in this requirement, the ST author selects "<h:i>software-based noise source</h:i>" if 
@@ -1398,7 +1398,7 @@
         <!--FCS_STO_EXT.1 Storage of Credentials-->
         <f-component cc-id="fcs_sto_ext.1" id="fcs-sto-ext-1" name="Storage of Credentials">
           <f-element id="fel-store-creds">
-            <title>The application shall<selectables ><selectable id="fcs_sto_ext.1.1:1" exclusive="yes">not store any credentials</selectable><selectable id="fcs_sto_ext.1.1:3" >list of credentials </selectable><selectable>invoke the functionality provided by the platform to securely store </selectable><selectable>implement functionality to securely store according to <selectables ><selectable id="fcs_sto_ext.1.1:4" >list of credentials </selectable></selectables><selectables ><selectable id="sel-fcs-sto-skc" >FCS_COP.1/SKC</selectable><selectable id="sel-fcs-sto-pbkdf" >FCS_CKM.1/PBKDF</selectable></selectables></selectable></selectables>to non-volatile memory.</title>
+            <title>The application shall<selectables ><selectable id="fcs_sto_ext.1.1_1" exclusive="yes">not store any credentials</selectable><selectable id="fcs_sto_ext.1.1:3" >list of credentials </selectable><selectable>invoke the functionality provided by the platform to securely store </selectable><selectable>implement functionality to securely store according to <selectables ><selectable id="fcs_sto_ext.1.1:4" >list of credentials </selectable></selectables><selectables ><selectable id="sel-fcs-sto-skc" >FCS_COP.1/SKC</selectable><selectable id="sel-fcs-sto-pbkdf" >FCS_CKM.1/PBKDF</selectable></selectables></selectable></selectables>to non-volatile memory.</title>
             <note role="application">
 					This requirement ensures that persistent credentials (secret keys, PKI private keys, passwords, etc) 
 					are stored securely, and never persisted in cleartext form. 
@@ -1474,7 +1474,7 @@
         <!--FDP_DAR_EXT.1 Encryption Of Sensitive Application Data-->
         <f-component cc-id="fdp_dar_ext.1" id="fdp-dar-ext-1" name="Encryption Of Sensitive Application Data">
           <f-element id="fel-dar-how">
-            <title>The application shall<selectables ><selectable id="fdp_dar_ext.1.1:1" >leverage platform-provided functionality to encrypt sensitive data</selectable><selectable id="fdp_dar_ext.1.1:2" >implement functionality to encrypt sensitive data as defined in the PP-Module for File Encryption</selectable><selectable id="fdp_dar_ext.1.1:3" >protect sensitive data in accordance with FCS_STO_EXT.1</selectable><selectable id="fdp_dar_ext.1.1:4" exclusive="yes">not store any sensitive data</selectable></selectables>in non-volatile memory.</title>
+            <title>The application shall<selectables ><selectable id="fdp_dar_ext.1.1_1" >leverage platform-provided functionality to encrypt sensitive data</selectable><selectable id="fdp_dar_ext.1.1_2" >implement functionality to encrypt sensitive data as defined in the PP-Module for File Encryption</selectable><selectable id="fdp_dar_ext.1.1_3" >protect sensitive data in accordance with FCS_STO_EXT.1</selectable><selectable id="fdp_dar_ext.1.1_4" exclusive="yes">not store any sensitive data</selectable></selectables>in non-volatile memory.</title>
             <note role="application">
 					If "<h:i>implement functionality to encrypt sensitive data as defined in the PP-Module for File Encryption</h:i>"
 					is selected, the TSF must claim conformance to a PP-Configuration that includes the File Encryption PP-Module. 
@@ -1554,7 +1554,7 @@
         <!--FDP_DEC_EXT.1 Access to Platform Resources-->
         <f-component cc-id="fdp_dec_ext.1" id="fdp-dec-ext-1" name="Access to Platform Resources">
           <f-element id="fel-hardware-access">
-            <title>The application shall restrict its access to<selectables ><selectable id="fdp_dec_ext.1.1:1" exclusive="yes">no hardware resources</selectable><selectable id="fdp_dec_ext.1.1:2" >network connectivity</selectable><selectable id="fdp_dec_ext.1.1:3" >camera</selectable><selectable id="fdp_dec_ext.1.1:4" >microphone</selectable><selectable id="fdp_dec_ext.1.1:5" >location services</selectable><selectable id="fdp_dec_ext.1.1:6" >NFC</selectable><selectable id="fdp_dec_ext.1.1:7" >USB</selectable><selectable id="fdp_dec_ext.1.1:8" >Bluetooth</selectable><selectable id="fdp_dec_ext.1.1:10" >list of additional hardware resources </selectable></selectables>.</title>
+            <title>The application shall restrict its access to<selectables ><selectable id="fdp_dec_ext.1.1_1" exclusive="yes">no hardware resources</selectable><selectable id="fdp_dec_ext.1.1_2" >network connectivity</selectable><selectable id="fdp_dec_ext.1.1_3" >camera</selectable><selectable id="fdp_dec_ext.1.1_4" >microphone</selectable><selectable id="fdp_dec_ext.1.1_5" >location services</selectable><selectable id="fdp_dec_ext.1.1_6" >NFC</selectable><selectable id="fdp_dec_ext.1.1_7" >USB</selectable><selectable id="fdp_dec_ext.1.1_8" >Bluetooth</selectable><selectable id="fdp_dec_ext.1.1:10" >list of additional hardware resources </selectable></selectables>.</title>
             <note role="application">
 					The intent is for the evaluator to ensure that the selection captures all
 					hardware resources which the application accesses, and that these are 
@@ -1628,7 +1628,7 @@
             </aactivity>
           </f-element>
           <f-element id="fel-info-access">
-            <title>The application shall restrict its access to<selectables ><selectable id="fdp_dec_ext.1.2:1" exclusive="yes">no sensitive information repositories</selectable><selectable id="fdp_dec_ext.1.2:2" >address book</selectable><selectable id="fdp_dec_ext.1.2:3" >calendar</selectable><selectable id="fdp_dec_ext.1.2:4" >call lists</selectable><selectable id="fdp_dec_ext.1.2:5" >system logs</selectable><selectable id="fdp_dec_ext.1.2:7" >list of additional sensitive information repositories </selectable></selectables>.</title>
+            <title>The application shall restrict its access to<selectables ><selectable id="fdp_dec_ext.1.2_1" exclusive="yes">no sensitive information repositories</selectable><selectable id="fdp_dec_ext.1.2_2" >address book</selectable><selectable id="fdp_dec_ext.1.2_3" >calendar</selectable><selectable id="fdp_dec_ext.1.2_4" >call lists</selectable><selectable id="fdp_dec_ext.1.2_5" >system logs</selectable><selectable id="fdp_dec_ext.1.2:7" >list of additional sensitive information repositories </selectable></selectables>.</title>
             <note role="application"> 
 					"<h:i>Sensitive information repositories</h:i>" are defined as those collections of sensitive data that 
 					could be expected to be shared among some applications, users, or user roles, but to which not all
@@ -1691,7 +1691,7 @@
         <!--FDP_NET_EXT.1 Network Communications-->
         <f-component cc-id="fdp_net_ext.1" id="fdp-net-ext-1" name="Network Communications">
           <f-element id="fel-network-access">
-            <title>The application shall restrict network communication to<selectables ><selectable id="fdp_net_ext.1.1:1" exclusive="yes">no network communication</selectable><selectable id="fdp_net_ext.1.1:3" >list of functions for which the user can initiate network communication </selectable><selectable>user-initiated communication for </selectable><selectable id="fdp_net_ext.1.1:5" >list of remotely initiated communication  </selectable><selectable>respond to </selectable><selectable id="fdp_net_ext.1.1:7" >list of application-initiated network communication </selectable></selectables>.</title>
+            <title>The application shall restrict network communication to<selectables ><selectable id="fdp_net_ext.1.1_1" exclusive="yes">no network communication</selectable><selectable id="fdp_net_ext.1.1:3" >list of functions for which the user can initiate network communication </selectable><selectable>user-initiated communication for </selectable><selectable id="fdp_net_ext.1.1:5" >list of remotely initiated communication  </selectable><selectable>respond to </selectable><selectable id="fdp_net_ext.1.1:7" >list of application-initiated network communication </selectable></selectables>.</title>
             <note role="application">
 					This requirement is intended to restrict both inbound and
 					outbound network communications to only those required, or to network
@@ -1747,12 +1747,12 @@
           <depends on="sel_all_tls"/>
           <depends on="sel_all_dtls"/>
           <f-element id="fel-certauth-how">
-            <title>The application shall<selectables onlyone="yes"><selectable id="fia_x509_ext.1.1:1" >invoke platform-provided functionality</selectable><selectable id="fia_x509_ext.1.1:2" >implement functionality</selectable></selectables>to validate certificates in accordance with the following rules:  <h:ul><h:li>RFC 5280 certificate validation and certificate path validation.</h:li><h:li>The certificate path must terminate with a trusted CA certificate.</h:li><h:li>The application shall validate a certificate path by ensuring the presence of the 
+            <title>The application shall<selectables onlyone="yes"><selectable id="fia_x509_ext.1.1_1" >invoke platform-provided functionality</selectable><selectable id="fia_x509_ext.1.1_2" >implement functionality</selectable></selectables>to validate certificates in accordance with the following rules:  <h:ul><h:li>RFC 5280 certificate validation and certificate path validation.</h:li><h:li>The certificate path must terminate with a trusted CA certificate.</h:li><h:li>The application shall validate a certificate path by ensuring the presence of the 
 							basicConstraints extension and that the CA flag is set to TRUE for all CA 
 							certificates, and that any path constraints are met.
 						</h:li><h:li>The application shall validate that any CA certificate includes caSigning purpose in the key
 							usage field</h:li><h:li>The application shall validate the revocation status of the certificate using 
-							<selectables ><selectable id="fia_x509_ext.1.1:3" >OCSP as specified in RFC 6960</selectable><selectable id="fia_x509_ext.1.1:4" >CRL as specified in RFC 5280 Section 6.3</selectable><selectable id="fia_x509_ext.1.1:5" >CRL as specified in RFC 8603</selectable><selectable id="fia_x509_ext.1.1:6" >an OCSP TLS Status Request Extension (OCSP stapling) as specified in RFC 6066</selectable><selectable id="fia_x509_ext.1.1:7" >OCSP TLS Multi-Certificate Status Request Extension (i.e., OCSP Multi-Stapling) as specified in RFC 6961</selectable></selectables>.
+							<selectables ><selectable id="fia_x509_ext.1.1_3" >OCSP as specified in RFC 6960</selectable><selectable id="fia_x509_ext.1.1_4" >CRL as specified in RFC 5280 Section 6.3</selectable><selectable id="fia_x509_ext.1.1_5" >CRL as specified in RFC 8603</selectable><selectable id="fia_x509_ext.1.1_6" >an OCSP TLS Status Request Extension (OCSP stapling) as specified in RFC 6066</selectable><selectable id="fia_x509_ext.1.1_7" >OCSP TLS Multi-Certificate Status Request Extension (i.e., OCSP Multi-Stapling) as specified in RFC 6961</selectable></selectables>.
 						</h:li><h:li>The application shall validate the extendedKeyUsage (EKU) field according to the 
 							following rules:<h:ul><h:li>Certificates used for trusted updates and executable code integrity verification 
 								shall have the Code Signing Purpose (id-kp 3 with OID 1.3.6.1.5.5.7.3.3) in the 
@@ -1924,7 +1924,7 @@
           <depends on="sel_all_tls"/>
           <depends on="sel_all_dtls"/>
           <f-element id="fel-certs-who">
-            <title>The application shall use X.509v3 certificates as defined by RFC 5280 to support authentication for<selectables ><selectable id="fia_x509_ext.2.1:1" >HTTPS</selectable><selectable id="fia_x509_ext.2.1:2" >TLS</selectable><selectable id="fia_x509_ext.2.1:3" >DTLS</selectable><selectable id="fia_x509_ext.2.1:4" >SSH</selectable><selectable id="fia_x509_ext.2.1:5" >IPsec</selectable></selectables>.</title>
+            <title>The application shall use X.509v3 certificates as defined by RFC 5280 to support authentication for<selectables ><selectable id="fia_x509_ext.2.1_1" >HTTPS</selectable><selectable id="fia_x509_ext.2.1_2" >TLS</selectable><selectable id="fia_x509_ext.2.1_3" >DTLS</selectable><selectable id="fia_x509_ext.2.1_4" >SSH</selectable><selectable id="fia_x509_ext.2.1_5" >IPsec</selectable></selectables>.</title>
             <note role="application">
 					This requirement is included if the protocol(s) selected in FTP_DIT_EXT.1.1 require the use of certificates
 					to authenticate the remote entity. For example, if the TOE or platform implements TLS as a HTTPS/TLS server
@@ -1934,7 +1934,7 @@
             <aactivity level="element"/>
           </f-element>
           <f-element id="fel-cert-fail">
-            <title>When the application cannot establish a connection to determine the validity of a certificate, the application shall<selectables onlyone="yes"><selectable id="fia_x509_ext.2.2:1" >allow the administrator to choose whether to accept the certificate in these cases</selectable><selectable id="fia_x509_ext.2.2:2" >accept the certificate</selectable><selectable id="fia_x509_ext.2.2:3" >not accept the certificate</selectable></selectables>.</title>
+            <title>When the application cannot establish a connection to determine the validity of a certificate, the application shall<selectables onlyone="yes"><selectable id="fia_x509_ext.2.2_1" >allow the administrator to choose whether to accept the certificate in these cases</selectable><selectable id="fia_x509_ext.2.2_2" >accept the certificate</selectable><selectable id="fia_x509_ext.2.2_3" >not accept the certificate</selectable></selectables>.</title>
             <note role="application">
 					Often a connection must be established to perform a verification of the revocation 
 					status of a certificate - either to download a CRL or to perform OCSP. The selection 
@@ -2093,7 +2093,7 @@
         <!--FMT_MEC_EXT.1 Supported Configuration Mechanism-->
         <f-component cc-id="fmt_mec_ext.1" id="fmt-mec-ext-1" name="Supported Configuration Mechanism">
           <f-element id="fel-config-store">
-            <title>The application shall<selectables ><selectable id="fmt_mec_ext.1.1:1" >invoke the mechanisms recommended by the platform vendor for storing and setting configuration options</selectable><selectable id="fmt_mec_ext.1.1:2" >implement functionality to encrypt and store configuration options as defined by FDP_PRT_EXT.1 in the PP-Module for File Encryption</selectable></selectables></title>
+            <title>The application shall<selectables ><selectable id="fmt_mec_ext.1.1_1" >invoke the mechanisms recommended by the platform vendor for storing and setting configuration options</selectable><selectable id="fmt_mec_ext.1.1_2" >implement functionality to encrypt and store configuration options as defined by FDP_PRT_EXT.1 in the PP-Module for File Encryption</selectable></selectables></title>
             <note role="application"> 
 					Configuration options that are stored remotely are not subject to this requirement. 
 					Sensitive Data is generally not considered part of configuration options
@@ -2181,8 +2181,8 @@
         <!--FMT_SMF.1 Specification of Management Functions-->
         <f-component cc-id="fmt_smf.1" id="fmt-smf-1" name="Specification of Management Functions">
           <f-element id="fel-management-funcs">
-            <title>The TSF shall be capable of performing the following management functions<selectables ><selectable id="fmt_smf.1.1:1" exclusive="yes">no management functions</selectable><selectable id="fmt_smf.1.1:2" > enable/disable the transmission of any information describing the
-							system's hardware, software, or configuration</selectable><selectable id="fmt_smf.1.1:3" > enable/disable the transmission of any PII</selectable><selectable id="fmt_smf.1.1:4" > enable/disable transmission of any application state (e.g. crashdump)
+            <title>The TSF shall be capable of performing the following management functions<selectables ><selectable id="fmt_smf.1.1_1" exclusive="yes">no management functions</selectable><selectable id="fmt_smf.1.1_2" > enable/disable the transmission of any information describing the
+							system's hardware, software, or configuration</selectable><selectable id="fmt_smf.1.1_3" > enable/disable the transmission of any PII</selectable><selectable id="fmt_smf.1.1_4" > enable/disable transmission of any application state (e.g. crashdump)
 							information</selectable><selectable id="fmt_smf.1.1:6" > list of enterprise or commercial cloud backup systems </selectable><selectable> enable/disable network backup functionality to </selectable><selectable id="fmt_smf.1.1:8" > list of other management functions to be provided bythe TSF </selectable></selectables>.</title>
             <note role="application">
 					This requirement stipulates that an application needs to provide the ability to 
@@ -2211,7 +2211,7 @@
         <!--FPR_ANO_EXT.1 User Consent for Transmission of Personally Identifiable Information-->
         <f-component cc-id="fpr_ano_ext.1" id="fpr-ano-ext-1" name="User Consent for Transmission of Personally Identifiable Information">
           <f-element id="fel-transmit-pii">
-            <title>The application shall<selectables ><selectable id="fpr_ano_ext.1.1:1" exclusive="yes">not transmit PII over a network</selectable><selectable id="fpr_ano_ext.1.1:3" >list of functions that transmit PII over a network </selectable><selectable> require user approval before executing </selectable></selectables>.</title>
+            <title>The application shall<selectables ><selectable id="fpr_ano_ext.1.1_1" exclusive="yes">not transmit PII over a network</selectable><selectable id="fpr_ano_ext.1.1:3" >list of functions that transmit PII over a network </selectable><selectable> require user approval before executing </selectable></selectables>.</title>
             <note role="application">
 					This requirement applies only to PII that is specifically requested by the application;
 					it does not apply if the user volunteers PII without prompting from the application 
@@ -2309,7 +2309,7 @@
             </aactivity>
           </f-element>
           <f-element id="fel-nwx">
-            <title>The application shall<selectables ><selectable id="fpt_aex_ext.1.2:1" exclusive="yes">not allocate any memory region with both write and execute permissions</selectable><selectable id="fpt_aex_ext.1.2:3" > list of functions performing just-in-time compilation </selectable><selectable>allocate memory regions with write and execute permissions for only </selectable></selectables>.</title>
+            <title>The application shall<selectables ><selectable id="fpt_aex_ext.1.2_1" exclusive="yes">not allocate any memory region with both write and execute permissions</selectable><selectable id="fpt_aex_ext.1.2:3" > list of functions performing just-in-time compilation </selectable><selectable>allocate memory regions with write and execute permissions for only </selectable></selectables>.</title>
             <note role="application"> 
 					Requesting a memory mapping with both write and execute permissions subverts the
 					platform protection provided by DEP.  If the application performs no just-in-time 
@@ -2543,7 +2543,7 @@
         <!--FPT_API_EXT.2 Use of Supported Services and APIs-->
         <f-component cc-id="fpt_api_ext.2" id="fpt-api-ext-2" name="Use of Supported Services and APIs" status="objective">
           <f-element id="fel-api-parsers">
-            <title>The application<selectables onlyone="yes"><selectable id="fpt_api_ext.2.1:1" >shall use platform-provided libraries</selectable><selectable id="fpt_api_ext.2.1:2" >does not implement functionality</selectable></selectables>for parsing<assignable> list of formats parsed that are included in the IANA MIME media types</assignable>.</title>
+            <title>The application<selectables onlyone="yes"><selectable id="fpt_api_ext.2.1_1" >shall use platform-provided libraries</selectable><selectable id="fpt_api_ext.2.1_2" >does not implement functionality</selectable></selectables>for parsing<assignable> list of formats parsed that are included in the IANA MIME media types</assignable>.</title>
             <note role="application">
 					The IANA MIME types are listed at
 					 <h:a href="http://www.iana.org/assignments/media-types">http://www.iana.org/assignments/media-types</h:a> 
@@ -2565,7 +2565,7 @@
         <!--FPT_IDV_EXT.1 Software Identification and Versions-->
         <f-component cc-id="fpt_idv_ext.1" id="fpt-idv-ext-1" name="Software Identification and Versions">
           <f-element id="fel-swid">
-            <title>The application shall be versioned with<selectables ><selectable id="fpt_idv_ext.1.1:1" >SWID tags 
+            <title>The application shall be versioned with<selectables ><selectable id="fpt_idv_ext.1.1_1" >SWID tags 
 							that comply with minimum requirements from ISO/IEC 19770-2:2015                 
 						</selectable><selectable id="fpt_idv_ext.1.1:3" >other version information </selectable></selectables>.</title>
             <note role="application">The use of SWID tag to identify application software
@@ -2616,7 +2616,7 @@
         <!--FPT_TUD_EXT.1 Integrity for Installation and Update-->
         <f-component cc-id="fpt_tud_ext.1" id="fpt-tud-ext-1" name="Integrity for Installation and Update">
           <f-element id="fel-update-check">
-            <title>The application shall<selectables ><selectable id="fpt_tud_ext.1.1:1" >provide the ability</selectable><selectable id="fpt_tud_ext.1.1:2" >leverage the platform</selectable></selectables>to check for updates and patches to the application software.</title>
+            <title>The application shall<selectables ><selectable id="fpt_tud_ext.1.1_1" >provide the ability</selectable><selectable id="fpt_tud_ext.1.1_2" >leverage the platform</selectable></selectables>to check for updates and patches to the application software.</title>
             <note role="application">
 					This requirement is about the ability to "check" for updates.
 					The actual installation of any updates should be done by the platform. This requirement
@@ -2635,7 +2635,7 @@
             </aactivity>
           </f-element>
           <f-element id="fel-version-check">
-            <title>The application shall<selectables ><selectable id="fpt_tud_ext.1.2:1" >provide the ability</selectable><selectable id="fpt_tud_ext.1.2:2" >leverage the platform</selectable></selectables>to query the current version of the application software.</title>
+            <title>The application shall<selectables ><selectable id="fpt_tud_ext.1.2_1" >provide the ability</selectable><selectable id="fpt_tud_ext.1.2_2" >leverage the platform</selectable></selectables>to query the current version of the application software.</title>
             <note role="application"/>
             <aactivity level="element">
               <TSS>None.</TSS>
@@ -2845,7 +2845,7 @@
         <!--FTP_DIT_EXT.1 Protection of Data in Transit-->
         <f-component cc-id="ftp_dit_ext.1" id="ftp-dit-ext-1" name="Protection of Data in Transit">
           <f-element id="fel-transmit">
-            <title>The application shall<selectables ><selectable>not transmit any <selectables ><selectable id="ftp_dit_ext.1.1:2" exclusive="yes">data</selectable><selectable id="ftp_dit_ext.1.1:3" exclusive="yes">sensitive data</selectable></selectables></selectable><selectable>encrypt all transmitted <selectables ><selectable id="ftp_dit_ext.1.1:5" exclusive="yes">sensitive data</selectable><selectable id="ftp_dit_ext.1.1:6" exclusive="yes">data</selectable></selectables> with <selectables ><selectable id="sel_all_https_cl" >HTTPS as a client in accordance with FCS_HTTPS_EXT.1/Client</selectable><selectable id="sel_all_https_sv" >HTTPS as a server in accordance with FCS_HTTPS_EXT.1/Server</selectable><selectable id="sel_all_https_ma" >HTTPS as a server using mutual authentication in accordance with FCS_HTTPS_EXT.2</selectable><selectable id="sel_all_tls" >TLS as defined in the  <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for TLS</h:a></selectable><selectable id="sel_all_dtls" >DTLS as defined in the  <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for TLS</h:a></selectable><selectable id="sel_all_ssh" >SSH as defined in the  <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459">Functional Package for Secure Shell</h:a></selectable><selectable id="ftp_dit_ext.1.1:7" >IPsec as defined in the  <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=419&amp;id=419">PP-Module for VPN Client</h:a></selectable></selectables></selectable><selectable>invoke platform-provided functionality to encrypt all transmitted sensitive data with <selectables ><selectable id="ftp_dit_ext.1.1:9" >HTTPS</selectable><selectable id="ftp_dit_ext.1.1:10" >TLS</selectable><selectable id="ftp_dit_ext.1.1:11" >DTLS</selectable><selectable id="ftp_dit_ext.1.1:12" >SSH</selectable></selectables></selectable><selectable>invoke platform-provided functionality to encrypt all transmitted data with <selectables ><selectable id="ftp_dit_ext.1.1:14" >HTTPS</selectable><selectable id="ftp_dit_ext.1.1:15" >TLS</selectable><selectable id="ftp_dit_ext.1.1:16" >DTLS</selectable><selectable id="ftp_dit_ext.1.1:17" >SSH</selectable></selectables></selectable></selectables>between itself and another trusted IT product.</title>
+            <title>The application shall<selectables ><selectable>not transmit any <selectables ><selectable id="ftp_dit_ext.1.1_2" exclusive="yes">data</selectable><selectable id="ftp_dit_ext.1.1_3" exclusive="yes">sensitive data</selectable></selectables></selectable><selectable>encrypt all transmitted <selectables ><selectable id="ftp_dit_ext.1.1_5" exclusive="yes">sensitive data</selectable><selectable id="ftp_dit_ext.1.1_6" exclusive="yes">data</selectable></selectables> with <selectables ><selectable id="sel_all_https_cl" >HTTPS as a client in accordance with FCS_HTTPS_EXT.1/Client</selectable><selectable id="sel_all_https_sv" >HTTPS as a server in accordance with FCS_HTTPS_EXT.1/Server</selectable><selectable id="sel_all_https_ma" >HTTPS as a server using mutual authentication in accordance with FCS_HTTPS_EXT.2</selectable><selectable id="sel_all_tls" >TLS as defined in the  <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for TLS</h:a></selectable><selectable id="sel_all_dtls" >DTLS as defined in the  <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for TLS</h:a></selectable><selectable id="sel_all_ssh" >SSH as defined in the  <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459">Functional Package for Secure Shell</h:a></selectable><selectable id="ftp_dit_ext.1.1_7" >IPsec as defined in the  <h:a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=419&amp;id=419">PP-Module for VPN Client</h:a></selectable></selectables></selectable><selectable>invoke platform-provided functionality to encrypt all transmitted sensitive data with <selectables ><selectable id="ftp_dit_ext.1.1_9" >HTTPS</selectable><selectable id="ftp_dit_ext.1.1_10" >TLS</selectable><selectable id="ftp_dit_ext.1.1_11" >DTLS</selectable><selectable id="ftp_dit_ext.1.1_12" >SSH</selectable></selectables></selectable><selectable>invoke platform-provided functionality to encrypt all transmitted data with <selectables ><selectable id="ftp_dit_ext.1.1_14" >HTTPS</selectable><selectable id="ftp_dit_ext.1.1_15" >TLS</selectable><selectable id="ftp_dit_ext.1.1_16" >DTLS</selectable><selectable id="ftp_dit_ext.1.1_17" >SSH</selectable></selectables></selectable></selectables>between itself and another trusted IT product.</title>
             <note role="application">
 					Encryption is not required for applications transmitting data that is not sensitive.<h:p></h:p>
 					If "<h:i>encrypt all transmitted</h:i>" is selected and "<h:i>TLS</h:i>" is selected, then 
