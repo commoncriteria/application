@@ -6,6 +6,10 @@
         on-sel/PP[1]""/include-pkg[1]""/depends[1]""/on-sel[1]""
 * Error: Detected dangling id-reference to QQQQ from attribute
         on-also/PP[1]""/include-pkg[1]""/depends[1]""/on-also[1]""
+* Error: Detected multiple elements with an id of 'CEM'.
+* Error: Detected multiple elements with an id of 'CEM'.
+* Error: Detected multiple elements with an id of 'CEM'.
+* Error: Detected multiple elements with an id of 'CEM'.
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[2]""/choice[1]"This PP i"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Conformance_Claims[1]""/cclaims[1]""/cclaim[3]""/description[1]"This PP d"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Conformance_Claims[1]""/cclaims[1]""/cclaim[3]""/description[1]"This PP d"/h:p[2]""
@@ -238,7 +242,3 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]"The Secur"/section[6]"For the c"/a-component[1]""/a-element[5]""/aactivity[1]"The evalu"/h:p[2]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]"The Secur"/section[6]"For the c"/a-component[1]""/a-element[5]""/aactivity[1]"The evalu"/h:p[3]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]"The Secur"/section[6]"For the c"/a-component[1]""/a-element[5]""/aactivity[1]"The evalu"/h:p[4]""
- Failed to find a reference to bibCEM.
- Failed to find a reference to bibCEM.
- Failed to find a reference to bibCEM.
- Failed to find a reference to entropyappendix.
