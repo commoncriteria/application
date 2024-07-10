@@ -1240,14 +1240,19 @@
 						The following are the per-platform list of acceptable APIs:
 						
                 <testlist>
-                  <test> 
+                  <test>
+                    <depends ref="android"/>
+                     
 							The evaluator shall verify that the application uses at least one of <h:code>javax.crypto.KeyGenerator</h:code> 
 							class or the <h:code>java.security.SecureRandom</h:code> class or <h:code>/dev/random
 							</h:code> or <h:code>/dev/urandom</h:code>.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="windows"/>
+                    
 							The evaluator shall verify that rand_s, RtlGenRandom, BCryptGenRandom, or 
 							CryptGenRandom API is used for classic desktop applications. The evaluator shall 
 							verify the application uses the RNGCryptoServiceProvider class or derives a class 
@@ -1255,29 +1260,42 @@
 							Applications. It is only required that the API is called/invoked, there is no 
 							requirement that the API be used directly. In future versions of this document, 
 							CryptGenRandom may be removed as an option as it is no longer the preferred API per
-							vendor documentation. </test>
+							vendor documentation. 
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> 
+                  <test>
+                    <depends ref="ios"/>
+                     
 							The evaluator shall verify that the application invokes either
 							<h:code>SecRandomCopyBytes</h:code>, <h:code>CCRandomGenerateBytes</h:code>, or <h:code>CCRandomCopyBytes</h:code>, or uses <h:code>/dev/random</h:code> directly to acquire random.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> 
+                  <test>
+                    <depends ref="linux"/>
+                     
 							The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>
 							or <h:code>/dev/urandom</h:code>.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="Solaris"/>
+                    
 							The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="mac"/>
+                    
 							The evaluator shall verify that the application invokes either <h:code>CCRandomGenerateBytes</h:code> or <h:code>CCRandomCopyBytes</h:code>, or collects random from <h:code>/dev/random</h:code>.
-						</test>
+						
+                  </test>
                 </testlist>
               </Tests>
             </aactivity>
@@ -1439,39 +1457,57 @@
 						functionality, the evaluator shall perform the following actions which vary per platform.
 						
                 <testlist>
-                  <test>The evaluator shall verify that the application uses
+                  <test>
+                    <depends ref="android"/>
+                    The evaluator shall verify that the application uses
 							the Android <h:code>KeyStore</h:code> or the Android <h:code>KeyChain</h:code> to store certificates.  
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
-                  <test>The evaluator shall verify that all certificates are
+                  <test>
+                    <depends ref="windows"/>
+                    The evaluator shall verify that all certificates are
 							stored in the Windows Certificate Store. The evaluator shall verify that other
 							credentials, like passwords, are stored in the Windows Credential Manager or stored 
 							using the Data Protection API (DPAPI). For Windows Universal Applications, the evaluator shall 
 							verify that the application is using the ProtectData class and storing credentials 
 							in IsolatedStorage.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="ios"/>
+                    
 							The evaluator shall verify that all credentials are stored
 							within a <h:code>Keychain</h:code>.  
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="linux"/>
+                    
 							The evaluator shall verify that all keys are stored using Linux keyrings.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="Solaris"/>
+                    
 							The evaluator shall verify that all keys are stored using Solaris 
 							<h:code>Key Management Framework (KMF)</h:code>.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
-                  <test>The evaluator shall verify that all credentials are 
-							stored within <h:code>Keychain</h:code>.</test>
+                  <test>
+                    <depends ref="mac"/>
+                    The evaluator shall verify that all credentials are 
+							stored within <h:code>Keychain</h:code>.
+                  </test>
                 </testlist>
               </Tests>
             </aactivity>
@@ -1513,48 +1549,66 @@
 						stated in the following requirements, which vary on a per-platform basis.<h:p/>
                 <testlist>
                   <test>
+                    <depends ref="android"/>
+                    
 							The evaluator shall inspect the TSS and verify that it describes how files containing sensitive data are 
 							stored with the <h:code>MODE_PRIVATE</h:code> flag set.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="windows"/>
+                    
 							The Windows platform currently does not provide data-at-rest
 							encryption services which depend upon invocation by application developers. The evaluator shall
 							verify that the Operational User Guidance makes the need to activate platform encryption, 
 							such as BitLocker or Encrypting File System (EFS), clear to the end user.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="ios"/>
+                    
 							The evaluator shall inspect the TSS and ensure that it describes how the 
 							application uses the Complete Protection, Protected Unless Open, or Protected Until 
 							First User Authentication Data Protection Class for each data file stored locally. 
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="linux"/>
+                    
 							The Linux platform currently does not provide data-at-rest encryption services which depend
 							upon invocation by application developers.  The evaluator shall verify that
 							the Operational User Guidance makes the need to activate platform encryption clear 
 							to the end user.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="Solaris"/>
+                    
 							The Solaris platform currently does not provide data-at-rest encryption services which depend
 							upon invocation by application developers.  The evaluator shall verify that
 							the Operational User Guidance makes the need to activate platform encryption clear 
 							to the end user.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="mac"/>
+                    
 							The macOS platform currently does not provide data-at-rest encryption services which depend
 							upon invocation by application developers.  The evaluator shall verify that
 							the Operational User Guidance makes the need to activate platform encryption clear
 							to the end user.
-						</test>
+						
+                  </test>
                 </testlist>
               </Tests>
             </aactivity>
@@ -1594,12 +1648,17 @@
               <Tests>
                 <testlist>
                   <test>
+                    <depends ref="android"/>
+                    
 							The evaluator shall verify that each <h:code>uses-permission</h:code> entry in the AndroidManifest.xml file 
 							for access to a hardware resource is reflected in the selection.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
-                  <test>For Windows Universal Applications the evaluator shall check 
+                  <test>
+                    <depends ref="windows"/>
+                    For Windows Universal Applications the evaluator shall check 
 							the WMAppManifest.xml file for a list of required hardware capabilities. The evaluator
 							shall verify that the user is made aware of the required hardware capabilities when
 							the application is first installed. This includes permissions such as
@@ -1611,27 +1670,40 @@
 							For Windows Desktop Applications the evaluator shall identify in either the
 							application software or its documentation the list of the required
 							hardware resources. 
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
-                  <test>The evaluator shall verify that either the
+                  <test>
+                    <depends ref="ios"/>
+                    The evaluator shall verify that either the
 							application or the documentation provides a list of the
-							hardware resources it accesses. </test>
+							hardware resources it accesses. 
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> The evaluator shall verify that either the
+                  <test>
+                    <depends ref="linux"/>
+                     The evaluator shall verify that either the
 							application software or its documentation provides a list of the
-							hardware resources it accesses. </test>
+							hardware resources it accesses. 
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> The evaluator shall verify that either the
+                  <test>
+                    <depends ref="Solaris"/>
+                     The evaluator shall verify that either the
 							application software or its documentation provides a list of the
-							hardware resources it accesses. </test>
+							hardware resources it accesses. 
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> The evaluator shall verify that either the application
+                  <test>
+                    <depends ref="mac"/>
+                     The evaluator shall verify that either the application
 							software or its documentation provides a list of the hardware
-							resources it accesses.</test>
+							resources it accesses.
+                  </test>
                 </testlist>
               </Tests>
             </aactivity>
@@ -1654,12 +1726,17 @@
               <Tests>
                 <testlist>
                   <test>
+                    <depends ref="android"/>
+                    
 							The evaluator shall verify that each <h:code>uses-permission</h:code> entry in the AndroidManifest.xml file 
 							for access to a sensitive information repository is reflected in the selection.  
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
-                  <test>For Windows Universal Applications the evaluator shall check the
+                  <test>
+                    <depends ref="windows"/>
+                    For Windows Universal Applications the evaluator shall check the
 							WMAppManifest.xml file for a list of required capabilities. The evaluator shall
 							identify the required information repositories when the
 							application is first installed. This includes permissions such as
@@ -1670,28 +1747,41 @@
 							For Windows Desktop Applications the evaluator shall identify in either the
 							application software or its documentation the list of 
 							sensitive information repositories it accesses. 
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
-                  <test>The evaluator shall verify that either the application
+                  <test>
+                    <depends ref="ios"/>
+                    The evaluator shall verify that either the application
 							software or its documentation provides a list of
-							the sensitive information repositories it accesses.</test>
+							the sensitive information repositories it accesses.
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> The evaluator shall verify that either the 
+                  <test>
+                    <depends ref="linux"/>
+                     The evaluator shall verify that either the 
 							application software or its documentation provides a list of 
 							sensitive information repositories it accesses.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
-                  <test>The evaluator shall verify that either the
+                  <test>
+                    <depends ref="Solaris"/>
+                    The evaluator shall verify that either the
 							application software or its documentation provides a list of
-							sensitive information repositories it accesses. </test>
+							sensitive information repositories it accesses. 
+                  </test>
                 </testlist>
                 <testlist>
-                  <test>The evaluator shall verify that either the application
+                  <test>
+                    <depends ref="mac"/>
+                    The evaluator shall verify that either the application
 							software or its documentation provides a list of
-							sensitive information repositories it accesses.</test>
+							sensitive information repositories it accesses.
+                  </test>
                 </testlist>
               </Tests>
             </aactivity>
@@ -1735,13 +1825,16 @@
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="android"/>
+                    
 							If "no network communication" is selected, the evaluator shall ensure that the application's
 							AndroidManifest.xml file does not contain a uses-permission or uses-permission-sdk-23 tag
 							containing android:name="android.permission.INTERNET".
 							In this case,
 							it is not necessary to perform the above Tests 1 and 2, as the platform will not allow the
 							application to perform any network communication.
-						</test>
+						
+                  </test>
                 </testlist>
               </Tests>
             </aactivity>
@@ -2032,46 +2125,64 @@
 						The method of doing so varies per platform.
 						
                 <testlist>
-                  <test>The evaluator shall run the command <h:code>find -L . -perm /002</h:code> 
+                  <test>
+                    <depends ref="android"/>
+                    The evaluator shall run the command <h:code>find -L . -perm /002</h:code> 
 							inside the application's data directories to ensure that all files are not world-writable. The command 
 							should not print any files.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
-                  <test>The evaluator shall run the SysInternals tools,
+                  <test>
+                    <depends ref="windows"/>
+                    The evaluator shall run the SysInternals tools,
 							Process Monitor and Access Check (or tools of equivalent capability, like 
 							icacls.exe) for Classic Desktop applications to verify that files written to disk 
 							during an application's installation have the correct file permissions, such that a 
 							standard user cannot modify the application or its data files. For Windows Universal 
 							Applications the evaluator shall consider the requirement met because of the AppContainer 
 							sandbox.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
-                  <test>The evaluator shall determine whether the application
+                  <test>
+                    <depends ref="ios"/>
+                    The evaluator shall determine whether the application
 							leverages the appropriate Data Protection Class for each data file stored
-							locally.</test>
+							locally.
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> 
+                  <test>
+                    <depends ref="linux"/>
+                     
 							The evaluator shall run the command <h:code>find -L . -perm /002</h:code> 
 							inside the application's data directories to ensure that all files are 
 							not world-writable. The command should not print any files.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="Solaris"/>
+                    
 							The evaluator shall run the command <h:code>find . \( -perm -002 \)</h:code>
 							inside the application's data directories to ensure that all files are not 
 							world-writable. The command should not print any files.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="mac"/>
+                    
 							The evaluator shall run the command <h:code>find . -perm +002</h:code> inside
 							the application's data directories to ensure that all files are not world-writable.
 							The command should not print any files.
-						</test>
+						
+                  </test>
                 </testlist>
               </Tests>
             </aactivity>
@@ -2106,6 +2217,8 @@
 	                    
                 <testlist>
                   <test>
+                    <depends ref="android"/>
+                    
 							The evaluator shall run the application and make security-related changes to its configuration.
 							The evaluator shall check that at least one XML file at location
 							
@@ -2113,10 +2226,13 @@
 							<h:code>SharedPreferences</h:code> and/or <h:code>PreferenceActivity</h:code> classes
 							for storing configuration data, where <h:i>package</h:i> is the Java package
 							of the application.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
-                  <test>The evaluator shall determine and verify that Windows
+                  <test>
+                    <depends ref="windows"/>
+                    The evaluator shall determine and verify that Windows
 							Universal Applications use either the Windows.Storage namespace, Windows.UI.ApplicationSettings namespace,
 							or the IsolatedStorageSettings namespace for storing application specific settings.
 							For .NET applications, the evaluator shall determine and verify that the application 
@@ -2127,25 +2243,34 @@
 							make changes to its configuration. 
 							The evaluator shall verify that  logs show corresponding changes to the
 							the Windows Registry or C:\ProgramData\ directory.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
-                  <test>The evaluator shall verify that the app uses the
+                  <test>
+                    <depends ref="ios"/>
+                    The evaluator shall verify that the app uses the
 							<h:code>user defaults system</h:code> or <h:code>key-value store</h:code> for storing all
-							settings.</test>
+							settings.
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> 
+                  <test>
+                    <depends ref="linux"/>
+                     
 							The evaluator shall run the application while monitoring it with the utility .
 							The evaluator shall make security-related changes to its configuration.
 							The evaluator shall verify that  logs corresponding changes to configuration 
 							files that reside in /etc (for system-specific configuration), 
 							in the user's home directory (for user-specific configuration), or /var/lib/ (for configurations 
 							controlled by UI and not intended to be directly modified by an administrator).
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="Solaris"/>
+                    
 							The evaluator shall run the application while monitoring it with the utility 
 							.
 							The evaluator shall make security-related changes to its configuration.
@@ -2153,13 +2278,17 @@
 							configuration 
 							files that reside in /etc (for system-specific configuration) or 
 							in the user's home directory(for user-specific configuration).
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="mac"/>
+                    
 							The evaluator shall verify that the application stores and retrieves settings
 							using the <h:code>NSUserDefaults</h:code> class.
-						</test>
+						
+                  </test>
                 </testlist>
               </Tests>
             </aactivity>
@@ -2244,14 +2373,19 @@
 						
                 <testlist>
                   <test>
+                    <depends ref="android"/>
+                    
 							The evaluator shall run the same application on two
 							different Android systems. Both devices do not need to be evaluated, as the second device is acting only as a tool. 
 							Connect via ADB and inspect /proc/PID/maps. Ensure the two different instances share no memory mappings made by the 
 							application at the same location.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> 
+                  <test>
+                    <depends ref="windows"/>
+                     
 							The evaluator shall run the same application on two
 							different Windows systems and run a tool that will list all memory mapped addresses
 							for the application. The evaluator shall then verify the two different instances
@@ -2259,38 +2393,51 @@
 							view memory addresses of a running application.  The evaluator shall use a tool
 							such as Microsoft's BinScope Binary Analyzer to confirm that the application has
 							ASLR enabled.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="ios"/>
+                    
 							The evaluator shall perform a static analysis to search
 							for any mmap calls (or API calls that call mmap), and ensure that
 							no arguments are provided that request a mapping at a fixed address.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> 
+                  <test>
+                    <depends ref="linux"/>
+                     
 							The evaluator shall run the same application on two different Linux systems. 
 							The evaluator shall then compare their memory maps using 
 							<h:code>pmap -x <h:i>PID</h:i></h:code>
 							to ensure the two different instances share no mapping locations.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="Solaris"/>
+                    
 							The evaluator shall run the same application on two different Solaris systems. 
 							The evaluator shall then compare their memory maps using 
 							<h:code>pmap -x <h:i>PID</h:i></h:code>
 							to ensure the two different instances share no mapping locations.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="mac"/>
+                    
 							The evaluator shall run the same application on two different Mac systems. 
 							The evaluator shall then compare their memory maps using 
 							<h:code>vmmap <h:i>PID</h:i></h:code>
 							to ensure the two different instances share no mapping locations.
-						</test>
+						
+                  </test>
                 </testlist>
               </Tests>
             </aactivity>
@@ -2311,41 +2458,59 @@
 						execute permissions. The method of doing so varies per platform.
                         
                 <testlist>
-                  <test> 
+                  <test>
+                    <depends ref="android"/>
+                     
 							The evaluator shall perform static analysis on the application to verify that <h:ul><h:li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions,
-									and </h:li><h:li> mprotect is never invoked.</h:li></h:ul></test>
+									and </h:li><h:li> mprotect is never invoked.</h:li></h:ul>
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> 
+                  <test>
+                    <depends ref="windows"/>
+                     
 							The evaluator shall use a tool such as Microsoft's 
 							BinScope Binary Analyzer to confirm that the application passes the NXCheck. The 
 							evaluator may also ensure that the <h:code>/NXCOMPAT</h:code> flag was used during 
 							compilation to verify that DEP protections are enabled for the application. 
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> 
+                  <test>
+                    <depends ref="ios"/>
+                     
 							The evaluator shall perform static analysis on the
 							application to verify that mprotect is never invoked with the PROT_EXEC permission. 
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> 
+                  <test>
+                    <depends ref="linux"/>
+                     
 							The evaluator shall perform static analysis on the
 							application to verify that both <h:ul><h:li> mmap is never be invoked with both the PROT_WRITE and PROT_EXEC permissions,
-									and </h:li><h:li> mprotect is never invoked with the PROT_EXEC permission.</h:li></h:ul></test>
+									and </h:li><h:li> mprotect is never invoked with the PROT_EXEC permission.</h:li></h:ul>
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> 
+                  <test>
+                    <depends ref="Solaris"/>
+                     
 							The evaluator shall perform static analysis on the
 							application to verify that both <h:ul><h:li> mmap is never be invoked with both the PROT_WRITE and PROT_EXEC permissions,
-									and </h:li><h:li> mprotect is never invoked with the PROT_EXEC permission.</h:li></h:ul></test>
+									and </h:li><h:li> mprotect is never invoked with the PROT_EXEC permission.</h:li></h:ul>
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> 
+                  <test>
+                    <depends ref="mac"/>
+                     
 							The evaluator shall perform static analysis on the
 							application to verify that mprotect is never invoked with the PROT_EXEC permission.
-						</test>
+						
+                  </test>
                 </testlist>
               </Tests>
             </aactivity>
@@ -2366,12 +2531,17 @@
 	                    
                 <testlist>
                   <test>
+                    <depends ref="android"/>
+                    
 							Applications running on Android cannot disable Android 
 							security features, therefore this requirement is met and no evaluation activity is required.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="windows"/>
+                    
 							If the OS platform supports Windows Defender Exploit Guard 
 							(Windows 10 version 1709 or later), then the evaluator shall ensure that the application can 
 							run successfully with Windows Defender Exploit Guard Exploit Protection configured with the 
@@ -2385,31 +2555,44 @@
 							the application can run successfully with EMET configured with the following minimum 
 							mitigations enabled; Memory Protection Check, Randomize memory allocations (Bottom-Up ASLR), 
 							Export address filtering (EAF), and Data Execution Prevention (DEP).
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="ios"/>
+                    
 							Applications running on iOS cannot disable
 							security features, therefore this requirement is met and no evaluation activity is required.
-						</test>
-                </testlist>
-                <testlist>
-                  <test> 
-							The evaluator shall ensure that the application can
-							successfully run on a system with either SELinux or AppArmor enabled and in enforce mode.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
-							The evaluator shall ensure that the application can run with 
-							Solaris Trusted Extensions enabled and enforcing.
-						</test>
+                    <depends ref="linux"/>
+                     
+							The evaluator shall ensure that the application can
+							successfully run on a system with either SELinux or AppArmor enabled and in enforce mode.
+						
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> 
+                  <test>
+                    <depends ref="Solaris"/>
+                    
+							The evaluator shall ensure that the application can run with 
+							Solaris Trusted Extensions enabled and enforcing.
+						
+                  </test>
+                </testlist>
+                <testlist>
+                  <test>
+                    <depends ref="mac"/>
+                     
 							The evaluator shall ensure that the application can
 							successfully run on macOS without disabling any security features. 
-						</test>
+						
+                  </test>
                 </testlist>
               </Tests>
             </aactivity>
@@ -2439,46 +2622,64 @@
 						This varies per platform: 
 	                    
                 <testlist>
-                  <test> 
+                  <test>
+                    <depends ref="android"/>
+                     
 							The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. 
 							The evaluator shall ensure that there are no executable files stored under  where <h:i>package</h:i> is the Java package of the application.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
-                  <test>For Windows Universal Applications the evaluator shall consider
+                  <test>
+                    <depends ref="windows"/>
+                    For Windows Universal Applications the evaluator shall consider
 							the requirement met because the platform forces applications to write all data
 							within the application working directory (sandbox). For Windows Desktop Applications
 							the evaluator shall run the program, mimicking normal usage, and note where all user-modifiable
 							files are written. The evaluator shall ensure that there are no executable files
-							stored in the same directories to which the application wrote user-modifiable files.</test>
-                </testlist>
-                <testlist>
-                  <test>The evaluator shall consider the requirement met because
-							the platform forces applications to write all data within the application working
-							directory (sandbox).</test>
-                </testlist>
-                <testlist>
-                  <test> 
-							The evaluator shall run the program, mimicking normal usage, 
-							and note where all user-modifiable files are written. 
-							The evaluator shall ensure that there are no executable files stored in the 
-							same directories to which the application wrote user-modifiable files.
-						</test>
+							stored in the same directories to which the application wrote user-modifiable files.
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="ios"/>
+                    The evaluator shall consider the requirement met because
+							the platform forces applications to write all data within the application working
+							directory (sandbox).
+                  </test>
+                </testlist>
+                <testlist>
+                  <test>
+                    <depends ref="linux"/>
+                     
 							The evaluator shall run the program, mimicking normal usage, 
 							and note where all user-modifiable files are written. 
 							The evaluator shall ensure that there are no executable files stored in the 
 							same directories to which the application wrote user-modifiable files.
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> The evaluator shall run the program, mimicking normal
+                  <test>
+                    <depends ref="Solaris"/>
+                    
+							The evaluator shall run the program, mimicking normal usage, 
+							and note where all user-modifiable files are written. 
+							The evaluator shall ensure that there are no executable files stored in the 
+							same directories to which the application wrote user-modifiable files.
+						
+                  </test>
+                </testlist>
+                <testlist>
+                  <test>
+                    <depends ref="mac"/>
+                     The evaluator shall run the program, mimicking normal
 							usage, and note where all user-modifiable files are written. The evaluator shall ensure that there
 							are no executable files stored in the same directories to which the application
 							wrote user-modifiable files.
-						</test>
+						
+                  </test>
                 </testlist>
               </Tests>
             </aactivity>
@@ -2494,12 +2695,15 @@
 						overflow protection is present.
 						
                 <testlist>
-                  <test>Applications that run as Managed Code in the .NET Framework do not require
+                  <test>
+                    <depends ref="windows"/>
+                    Applications that run as Managed Code in the .NET Framework do not require
 							these stack protections.
 							Applications developed in Object Pascal using the Delphi IDE compiled with RangeChecking enabled 
 							comply with this element. For other code, 
 							the evaluator shall review the TSS and verify that the /GS flag was used during compilation. The 
-							evaluator shall run a tool like, BinScope, that can verify the correct usage of /GS.</test>
+							evaluator shall run a tool like, BinScope, that can verify the correct usage of /GS.
+                  </test>
                 </testlist>
               </Tests>
             </aactivity>
@@ -2649,9 +2853,12 @@
 						not changed by the application. 
 						
                 <testlist>
-                  <test>The evaluator shall consider the requirement met because the platform forces
+                  <test>
+                    <depends ref="ios"/>
+                    The evaluator shall consider the requirement met because the platform forces
 							applications to write all data within the application working directory (sandbox).
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
                   For all other platforms, the evaluator shall perform the following test:
@@ -2715,36 +2922,54 @@
 						format supported by the platform. This varies per platform:               
 						
                 <testlist>
-                  <test> The evaluator shall ensure that the application is
-							packaged in the Android application package (APK) format. </test>
+                  <test>
+                    <depends ref="android"/>
+                     The evaluator shall ensure that the application is
+							packaged in the Android application package (APK) format. 
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> The evaluator shall ensure that the application is
+                  <test>
+                    <depends ref="windows"/>
+                     The evaluator shall ensure that the application is
 							packaged in the standard Windows Installer (.MSI) format, the Windows Application 
 							Software (.EXE) format signed using the Microsoft Authenticode process, or the 
 							Windows Universal Application package (.APPX) format. See 
 							https://msdn.microsoft.com/en-us/library/ms537364(v=vs.85).aspx for details 
 							regarding Authenticode signing.  
-						</test>
+						
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> The evaluator shall ensure that the application is
-							packaged in the IPA format. </test>
+                  <test>
+                    <depends ref="ios"/>
+                     The evaluator shall ensure that the application is
+							packaged in the IPA format. 
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> The evaluator shall ensure that the application is
+                  <test>
+                    <depends ref="linux"/>
+                     The evaluator shall ensure that the application is
 							packaged in the format of the package management infrastructure of the chosen
 							distribution. For example, applications running on Red Hat and Red Hat derivatives
 							shall be packaged in <h:code>RPM</h:code> format. Applications running on Debian and Debian
-							derivatives shall be packaged in <h:code>DEB</h:code> format. </test>
+							derivatives shall be packaged in <h:code>DEB</h:code> format. 
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> The evaluator shall ensure that the application is
-							packaged in the PKG format. </test>
+                  <test>
+                    <depends ref="Solaris"/>
+                     The evaluator shall ensure that the application is
+							packaged in the PKG format. 
+                  </test>
                 </testlist>
                 <testlist>
-                  <test> The evaluator shall ensure that application is packaged
-							in the DMG format, the PKG format, or the MPKG format. </test>
+                  <test>
+                    <depends ref="mac"/>
+                     The evaluator shall ensure that application is packaged
+							in the DMG format, the PKG format, or the MPKG format. 
+                  </test>
                 </testlist>
               </Tests>
             </aactivity>
@@ -2760,50 +2985,68 @@
               <Guidance>None.<h:p/></Guidance>
               <Tests>
                 <testlist>
-                  <test>The evaluator shall consider the requirement met because 
+                  <test>
+                    <depends ref="android"/>
+                    The evaluator shall consider the requirement met because 
 							the platform forces applications to write all data within the application working 
-							directory (sandbox).</test>
+							directory (sandbox).
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="windows"/>
+                    
 							The evaluator shall install the application and then locate all of its executable files. 
 							The evaluator shall then, for each file, save off either a hash of the file or a copy of the
 							file itself. The evaluator shall then run the application and exercise all features of
 							the application as described in the ST. The evaluator shall then compare each executable
 							file with the either the saved hash or the saved copy of the files. The evaluator shall 
-							verify that these are identical.</test>
+							verify that these are identical.
+                  </test>
                 </testlist>
                 <testlist>
-                  <test>The evaluator shall consider the requirement met because 
+                  <test>
+                    <depends ref="ios"/>
+                    The evaluator shall consider the requirement met because 
 							the platform forces applications to write all data within the application working 
-							directory (sandbox).</test>
+							directory (sandbox).
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="linux"/>
+                    
 							The evaluator shall install the application and then locate all of its executable files. 
 							The evaluator shall then, for each file, save off either a hash of the file or a copy of the
 							file itself. The evaluator shall then run the application and exercise all features of
 							the application as described in the ST. The evaluator shall then compare each executable
 							file with the either the saved hash or the saved copy of the files. The evaluator shall 
-							verify that these are identical.</test>
+							verify that these are identical.
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="Solaris"/>
+                    
 							The evaluator shall install the application and then locate all of its executable files. 
 							The evaluator shall then, for each file, save off either a hash of the file or a copy of the
 							file itself. The evaluator shall then run the application and exercise all features of
 							the application as described in the ST. The evaluator shall then compare each executable
 							file with the either the saved hash or the saved copy of the files. The evaluator shall 
-							verify that these are identical.</test>
+							verify that these are identical.
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="mac"/>
+                    
 							The evaluator shall install the application and then locate all of its executable files. 
 							The evaluator shall then, for each file, save off either a hash of the file or a copy of the
 							file itself. The evaluator shall then run the application and exercise all features of
 							the application as described in the ST. The evaluator shall then compare each executable
 							file with the either the saved hash or the saved copy of the files. The evaluator shall 
-							verify that these are identical.</test>
+							verify that these are identical.
+                  </test>
                 </testlist>
               </Tests>
             </aactivity>
@@ -2893,20 +3136,26 @@
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="android"/>
+                    
 							If "not transmit any data" is selected, the evaluator shall ensure that the application's 
 							AndroidManifest.xml file does not contain a uses-permission or uses-permission-sdk-23 tag 
 							containing android:name="android.permission.INTERNET". In this case, it is not necessary to perform 
 							the above Tests 1, 2, or 3, as the platform will not allow the application to perform any network 
 							communication.
-							</test>
+							
+                  </test>
                 </testlist>
                 <testlist>
                   <test>
+                    <depends ref="ios"/>
+                    
 							If "encrypt all transmitted data" is selected, the evaluator shall ensure that the application's
 							Info.plist file does not contain the NSAllowsArbitraryLoads or 
 							NSExceptionAllowsInsecureHTTPLoads keys, as these keys disable iOS's Application 
 							Transport Security feature.
-							</test>
+							
+                  </test>
                 </testlist>
               </Tests>
             </aactivity>
