@@ -2,29 +2,6 @@
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[3]""/f-element[1]""
 * Error: f-element FIA_X509_EXT.2.1  appears not to have an associated evaluation activity.:
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[2]""/f-element[1]""
-* Error: Detected dangling id-reference to s-provides-vpnclient from attribute
-        on/PP[1]""/modules[1]""/module[1]""/depends[1]""/on[1]""
-* Error: Detected multiple elements with an id of 'bibCEM'.
-* Error: Detected multiple elements with an id of 'bibCEM'.
-* Error: Detected multiple elements with an id of 'bibNCSC'.
-* Error: Detected multiple elements with an id of 'bibCSA'.
-* Error: Detected multiple elements with an id of 'bibOMB'.
-* Error: Detected multiple elements with an id of 'bib-shavs'.
-* Error: Detected multiple elements with an id of 'bibx509'.
-* Error: Detected multiple elements with an id of 'bibCEM'.
-* Error: Detected multiple elements with an id of 'bibNCSC'.
-* Error: Detected multiple elements with an id of 'bibCSA'.
-* Error: Detected multiple elements with an id of 'bibOMB'.
-* Error: Detected multiple elements with an id of 'bib-shavs'.
-* Error: Detected multiple elements with an id of 'bibx509'.
-* Error: Detected multiple elements with an id of 'bibCEM'.
-* Error: Detected multiple elements with an id of 'bibNCSC'.
-* Error: Detected multiple elements with an id of 'bibCSA'.
-* Error: Detected multiple elements with an id of 'bibOMB'.
-* Error: Detected multiple elements with an id of 'bib-shavs'.
-* Error: Detected multiple elements with an id of 'bibx509'.
-* Error: Detected multiple elements with an id of 'bibCEM'.
-* Error: Detected multiple elements with an id of 'bibOMB'.
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[2]""/choice[1]"This PP i"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Conformance_Claims[1]""/cclaims[1]""/cclaim[3]""/description[1]"This PP d"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Conformance_Claims[1]""/cclaims[1]""/cclaim[3]""/description[1]"This PP d"/h:p[2]""
