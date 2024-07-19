@@ -971,11 +971,21 @@
         </f-component>
 
 		<!-- FCS_CKM.1/SK (formerly FCS_CKM.1/2) -->
-        <f-component cc-id="fcs_ckm.1" id="fcom_sym_key_gen" iteration="SK" name="Cryptographic Symmetric Key Generation" status="optional">
+		<f-component cc-id="fcs_ckm.1" id="fcom_sym_key_gen" iteration="SK" name="Cryptographic Symmetric Key Generation" status="sel-based">
+			<depends on="sel_aes_cbc"/>
+			<depends on="sel_aes_gcm"/>
+			<depends on="sel_aes_xts"/>
+			<depends on="sel_aes_ccm"/>
+			<depends on="sel_aes_ctr"/>
 			<f-element id="fel-sym-key-gen">
 				<title>
-					The <h:b>application</h:b> shall generate <h:b>symmetric</h:b> cryptographic keys <h:b>using a Random Bit
-					Generator as specified in FCS_RBG_EXT.1</h:b>  and specified
+					The <h:b>application</h:b> shall 
+					<selectables>
+						<selectable>invoke platform-provided functionality</selectable>
+						<selectable>implement functionality</selectable>
+					</selectables>
+					generate <h:b>symmetric</h:b> cryptographic keys <h:b>using a Random Bit
+						Generator as specified in FCS_RBG_EXT.1</h:b>  and specified
 					cryptographic key sizes <selectables linebreak="yes">
 						<selectable>128-bit</selectable>
 						<selectable>256-bit</selectable></selectables>. 
@@ -998,31 +1008,31 @@
 					encryption/decryption of the user data (<linkref linkend="FCS_COP.1(f)" />. </tss> -->
 					<TSS>
 						<h:p>
-						The evaluator shall review the TSS to determine that it describes how the functionality described by
-						FCS_RBG_EXT.1 is invoked.
+							The evaluator shall review the TSS to determine that it describes how the functionality described by
+							FCS_RBG_EXT.1 is invoked.
 						</h:p><h:p>
-						If the application is relying on random bit generation from the
-						host platform, the evaluator shall verify the TSS includes the
-						name/manufacturer of the external RBG and describes the function call and parameters
-						used when calling the external DRBG function. If different external RBGs are used
-						for different platforms, the evaluator shall verify the TSS identifies each RBG for
-						each platform. Also, the evaluator shall verify the TSS includes a short description
-						of the vendor's assumption for the amount of entropy seeding the external DRBG. The
-						evaluator uses the description of the RBG functionality in FCS_RBG_EXT or
-						documentation available for the operational environment to determine that the key
-						size being requested is identical to the key size and mode to be used for the
-						encryption/decryption of the user data.
+							If the application is relying on random bit generation from the
+							host platform, the evaluator shall verify the TSS includes the
+							name/manufacturer of the external RBG and describes the function call and parameters
+							used when calling the external DRBG function. If different external RBGs are used
+							for different platforms, the evaluator shall verify the TSS identifies each RBG for
+							each platform. Also, the evaluator shall verify the TSS includes a short description
+							of the vendor's assumption for the amount of entropy seeding the external DRBG. The
+							evaluator uses the description of the RBG functionality in FCS_RBG_EXT or
+							documentation available for the operational environment to determine that the key
+							size being requested is identical to the key size and mode to be used for the
+							encryption/decryption of the user data.
 						</h:p>
 					</TSS>
 					<Guidance>
 						<h:p>
-						The evaluator shall verify the guidance documention contains any informance necessary to configure key sizes.
+							The evaluator shall verify the guidance documention contains any informance necessary to configure key sizes.
 						</h:p>
 					</Guidance>
 					<Tests>None.</Tests>
 				</aactivity>
 			</f-element>
-        </f-component>
+		</f-component>
 
 		<!-- FCS_CKM.2 -->
         <f-component cc-id="fcs_ckm.2" name="Cryptographic Key Establishment" status="sel-based">
@@ -1365,11 +1375,11 @@ functionality (such as these)
 					The <h:b>application</h:b> shall perform [<h:i>encryption and decryption</h:i>] in accordance with a specified 
 					cryptographic algorithm  
 					<selectables linebreak="yes">
-						<selectable>AES-CBC (as defined in NIST SP 800-38A) mode</selectable>
-						<selectable>AES-GCM (as defined in NIST SP 800-38D) mode</selectable>
-						<selectable>AES-XTS (as defined in NIST SP 800-38E) mode</selectable>
-						<selectable>AES-CCM (as defined in NIST SP 800-38C) mode</selectable>
-						<selectable>AES-CTR (as defined in NIST SP 800-38A) mode</selectable></selectables>
+						<selectable id="sel_aes_cbc">AES-CBC (as defined in NIST SP 800-38A) mode</selectable>
+						<selectable id="sel_aes_gcm">AES-GCM (as defined in NIST SP 800-38D) mode</selectable>
+						<selectable id="sel_aes_xts">AES-XTS (as defined in NIST SP 800-38E) mode</selectable>
+						<selectable id="sel_aes_ccm">AES-CCM (as defined in NIST SP 800-38C) mode</selectable>
+						<selectable id="sel_aes_ctr">AES-CTR (as defined in NIST SP 800-38A) mode</selectable></selectables>
 					and cryptographic key sizes 
 					<selectables>
 						<selectable>128-bit</selectable>
