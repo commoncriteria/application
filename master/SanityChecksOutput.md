@@ -7,6 +7,7 @@
 * Error: Detected multiple elements with an id of 'sel_impl_sto'.
 * Error: Detected multiple elements with an id of 'sel_impl_sto'.
  Failed to find a reference to bibCEM.
+ Failed to find a reference to Security_Objectives_for_the_TOE.
  Failed to find a reference to bibCEM.
  Failed to find a reference to bibCEM.
  Failed to find a reference to bibCEM.
