@@ -1778,7 +1778,7 @@ functionality (such as these)
 						<selectable>384</selectable>
 						<selectable>512</selectable></selectables> <h:b>bits</h:b>
 					that meet the following: [<h:i>FIPS Pub 198-1, "The Keyed-Hash Message Authentication Code,"
-					and FIPS Pub 180-4, "Secure Hash Standard"</h:i>].
+					and FIPS Pub 180-4, "Secure Hash Standard"</	h:i>].
 				</title>
 				<note role="application">
 				<h:p>
@@ -3611,7 +3611,8 @@ functionality (such as these)
     			<title>The application shall be built with stack-based buffer overflow protection
     				enabled.</title>
     			<aactivity level="element">
-    				<TSS><h:p>None.</h:p></TSS>
+    				<TSS><h:p>(Conditional: The PE or ELF automated tests fail) The evaluator shall ensure that the TSS describes 
+    					the stack-based buffer overflow compiler flags.</h:p></TSS>
     				<Guidance><h:p>None.</h:p></Guidance>
     				<Tests>
     					The evaluator will inspect every native executable included in the TOE to ensure that stack-based buffer 
@@ -3621,7 +3622,7 @@ functionality (such as these)
     						Applications developed in Object Pascal using the Delphi IDE compiled with RangeChecking enabled 
     						comply with this element. For other code, 
     						the evaluator shall review the TSS and verify that the /GS flag was used during compilation. The 
-    						evaluator shall run a tool like, BinScope, that can verify the correct usage of /GS.</h:div>
+    						evaluator shall run a tool like, BinSkim, that can verify the correct usage of /GS.</h:div>
     					<h:div class="subaact"> <h:p><h:i><h:b>For PE</h:b></h:i>
     						, the evaluator will disassemble each and ensure the following sequence appears:</h:p>
     						<h:table class="code-table">
@@ -3632,6 +3633,7 @@ functionality (such as these)
     					</h:div>
     					<h:div class="subaact"><h:p> <h:i><h:b>For ELF executables</h:b></h:i>, the evaluator will ensure that each 
     						contains references to the symbol <h:b>__stack_chk_fail</h:b>.</h:p>
+    						<h:p>If these automated tests fail, the evaluator shall perform the above, conditional TSS activity.</h:p>
     					</h:div>
     					<h:p>
     						Tools such as <h:a href="https://github.com/commoncriteria/canary-detector">Canary Detector</h:a> may help
