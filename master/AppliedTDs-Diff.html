@@ -1693,7 +1693,7 @@
                     </div>
                     <div class="ea">
                         <p>
-                             The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the compiler flags used to enable <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> when the application is compiled. 
+                             The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the compiler flags used to enable <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> when the application is compiled. If any explicitly-mapped exceptions are claimed, the evaluator shall check that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> identifies these exceptions, describes the static memory mapping that is used, and provides justification for why static memory mapping is appropriate in this case. 
                         </p>
                     </div>
                     <div class="eacategory">Guidance</div>
@@ -1702,7 +1702,7 @@
                     </div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         The evaluator shall perform either a static or dynamic analysis to determine that no memory mappings are placed at an explicit and consistent address. The method of doing so varies per platform. For those platforms requiring the same application running on two different systems, the evaluator may alternatively use the same device. After collecting the first instance of mappings, the evaluator must uninstall the application, reboot the device, and reinstall the application to collect the second instance of mappings. 
+                         The evaluator shall perform either a static or dynamic analysis to determine that no memory mappings are placed at an explicit and consistent address except for any exceptions claimed in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>. For these exceptions, the evaluator shall verify that this analysis shows explicit mappings that are consistent with what is claimed in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. The method of doing so varies per platform. For those platforms requiring the same application running on two different systems, the evaluator may alternatively use the same device. After collecting the first instance of mappings, the evaluator must uninstall the application, reboot the device, and reinstall the application to collect the second instance of mappings. 
                         <div class="dependent">
                             Platforms:<a href="#android"><b>Android</b>: <i>Mobile operating systems based on Google Android.</i></a>
                             <div class="dependent-content">
@@ -3861,7 +3861,7 @@
                                  This is dependent on implementing cryptographic functionality, as in <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a>.
                             </p>
                             <p>
-                                 For the first selection, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should choose the mode or modes in which <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> operates.
+                                 For the selection, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should choose the mode or modes in which <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> operates.
                             </p>
                         </span>
                     </div>
@@ -3888,7 +3888,7 @@
                     <div class="eacategory">Guidance</div>
                     <div class="ea">
                         <div class="ea">
-                            <p>The evaluator checks the AGD documents to determine that any configuration that is required to be done to configure the functionality for the required modes and key sizes is present.</p>
+                            <p>The evaluator checks the AGD documents to determine that any configuration that is required to be done to configure the functionality for the required modes and key size is present.</p>
                         </div>
                     </div>
                     <div class="eacategory">Tests</div>
@@ -4174,9 +4174,7 @@
                             <p>
                                  This is dependent on implementing cryptographic functionality, as in <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a>. 
                             </p>
-                            <p>
-                                 The intent of this requirement is to specify the keyed-hash message authentication function used for key establishment purposes for the various cryptographic protocols used by the application (e.g., trusted channel). The hash selection must support the message digest size selection. The hash selection should be consistent with the overall strength of the algorithm used for <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a>. 
-                            </p>
+                            <p> The intent of this requirement is to specify the keyed-hash message authentication function used for key establishment purposes for the various cryptographic protocols used by the application (e.g., trusted channel). The hash selection must support the message digest size selection. </p>
                         </span>
                     </div>
                 </div>
@@ -4623,7 +4621,7 @@
                                  This requirement shall be included in <abbr class="dyn-abbr"><a href="#abbr_ST">STs</a></abbr> in which "<b>implement <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</b>" is chosen in <a href="#FCS_RBG_EXT.1.1">FCS_RBG_EXT.1.1</a>. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should select the standard to which the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> services comply (either <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A or <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 140-2 Annex C). 
                             </p>
                             <p>
-                                 <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A contains three different methods of generating random numbers; each of these, in turn, depends on underlying cryptographic primitives (hash functions/ciphers). The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author will select the function used (if <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A is selected), and include the specific underlying cryptographic primitives used in the requirement or in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. While any of the identified hash functions (<abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-224, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512) are allowed for Hash_DRBG or HMAC_DRBG, only <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-based implementations for CTR_DRBG are allowed. 
+                                 <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A contains three different methods of generating random numbers; each of these, in turn, depends on underlying cryptographic primitives (hash functions/ciphers). The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author will select the function used (if <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A is selected), and include the specific underlying cryptographic primitives used in the requirement or in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. While any of the identified hash functions (<abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512) are allowed for Hash_DRBG or HMAC_DRBG, only <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-based implementations for CTR_DRBG are allowed. 
                             </p>
                         </span>
                     </div>

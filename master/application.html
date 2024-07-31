@@ -1505,7 +1505,7 @@ The following sections list Common Criteria and technology terms used in this do
 					<p>
 					This is dependent on implementing cryptographic functionality, as in <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a>.</p>
 					<p>
-					For the first selection, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should choose
+					For the selection, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should choose
 					the mode or modes in which <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> operates.</p>
 				</span></div></div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a></div>
@@ -1517,7 +1517,7 @@ The following sections list Common Criteria and technology terms used in this do
 					<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38D.</p></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea"> 
 						<p>The evaluator checks the AGD documents to determine that any configuration that 
 						is required to be done to configure the functionality for the required modes
-						and key sizes is present.</p>
+						and key size is present.</p>
 					</div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">
 						<p>
 						The evaluator shall perform all of the following tests for each algorithm implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> and used to
@@ -1933,8 +1933,7 @@ The following sections list Common Criteria and technology terms used in this do
 					message authentication function used for key
 					establishment purposes for the various cryptographic protocols
 					used by the application (e.g., trusted channel). The hash selection must
-					support the message digest size selection. The hash selection
-					should be consistent with the overall strength of the algorithm used for <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a>.
+					support the message digest size selection. 
 				</p>
 				</span></div></div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a></div>
@@ -2389,8 +2388,8 @@ The following sections list Common Criteria and technology terms used in this do
 					these, in turn, depends on underlying cryptographic primitives 
 					(hash functions/ciphers). The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author will select the function used (if <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A 
 					is selected), and include the specific underlying cryptographic primitives used in the 
-					requirement or in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. While any of the identified hash functions (<abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-224, 
-					<abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512) are allowed for Hash_DRBG or HMAC_DRBG, only <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-based 
+					requirement or in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. While any of the identified hash functions (<abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512) 
+					are allowed for Hash_DRBG or HMAC_DRBG, only <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-based 
 					implementations for CTR_DRBG are allowed.
 					</p>
 				</span></div></div></div>
@@ -3334,13 +3333,17 @@ The following sections list Common Criteria and technology terms used in this do
     	<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FPT_AEX_EXT.1.1">FPT_AEX_EXT.1.1</a></div> 
     				<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><p>
     					The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the compiler flags used to 
-    					enable <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> when the application is compiled.
+    					enable <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> when the application is compiled. If any explicitly-mapped exceptions are claimed, 
+    					the evaluator shall check that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> identifies these exceptions, describes the static memory 
+    					mapping that is used, and provides justification for why static memory mapping is appropriate in this case.
     				</p></div>
     				<div class="eacategory">Guidance</div><div class="ea"><p>None.</p></div>
     				<div class="eacategory">Tests</div><div class="ea"> 
     					The evaluator shall perform either a static or dynamic
     					analysis to determine that no memory mappings are placed at an explicit and
-    					consistent address. The method of doing so varies per platform. For those platforms 
+    					consistent address  except for any exceptions claimed in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>. For these exceptions, 
+    					the evaluator shall verify that this analysis shows explicit mappings that are consistent 
+    					with what is claimed in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. The method of doing so varies per platform. For those platforms 
     					requiring the same application running on two different systems, the evaluator may 
     					alternatively use the same device. After collecting the first instance of mappings, 
     					the evaluator must uninstall the application, reboot the device, and reinstall the application 

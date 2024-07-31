@@ -1343,7 +1343,7 @@ functionality (such as these)
 					<h:p>
 					This is dependent on implementing cryptographic functionality, as in FTP_DIT_EXT.1.</h:p>
 					<h:p>
-					For the first selection, the ST author should choose
+					For the selection, the ST author should choose
 					the mode or modes in which AES operates.</h:p>
 				</note>
 				<aactivity>
@@ -1353,7 +1353,7 @@ functionality (such as these)
 					<Guidance> 
 						<h:p>The evaluator checks the AGD documents to determine that any configuration that 
 						is required to be done to configure the functionality for the required modes
-						and key sizes is present.</h:p>
+						and key size is present.</h:p>
 					</Guidance>
 					<Tests>
 						<h:p>
@@ -1777,8 +1777,7 @@ functionality (such as these)
 					message authentication function used for key
 					establishment purposes for the various cryptographic protocols
 					used by the application (e.g., trusted channel). The hash selection must
-					support the message digest size selection. The hash selection
-					should be consistent with the overall strength of the algorithm used for FCS_COP.1/SKC.
+					support the message digest size selection. 
 				</h:p>
 				</note>
 				<aactivity>
@@ -2320,8 +2319,8 @@ functionality (such as these)
 					these, in turn, depends on underlying cryptographic primitives 
 					(hash functions/ciphers). The ST author will select the function used (if SP 800-90A 
 					is selected), and include the specific underlying cryptographic primitives used in the 
-					requirement or in the TSS. While any of the identified hash functions (SHA-224, 
-					SHA-256, SHA-384, SHA-512) are allowed for Hash_DRBG or HMAC_DRBG, only AES-based 
+					requirement or in the TSS. While any of the identified hash functions (SHA-256, SHA-384, SHA-512) 
+					are allowed for Hash_DRBG or HMAC_DRBG, only AES-based 
 					implementations for CTR_DRBG are allowed.
 					</h:p>
 				</note>
@@ -3364,13 +3363,17 @@ functionality (such as these)
     			<aactivity level="element"> 
     				<TSS><h:p>
     					The evaluator shall ensure that the TSS describes the compiler flags used to 
-    					enable ASLR when the application is compiled.
+    					enable ASLR when the application is compiled. If any explicitly-mapped exceptions are claimed, 
+    					the evaluator shall check that the TSS identifies these exceptions, describes the static memory 
+    					mapping that is used, and provides justification for why static memory mapping is appropriate in this case.
     				</h:p></TSS>
     				<Guidance><h:p>None.</h:p></Guidance>
     				<Tests> 
     					The evaluator shall perform either a static or dynamic
     					analysis to determine that no memory mappings are placed at an explicit and
-    					consistent address. The method of doing so varies per platform. For those platforms 
+    					consistent address  except for any exceptions claimed in the SFR. For these exceptions, 
+    					the evaluator shall verify that this analysis shows explicit mappings that are consistent 
+    					with what is claimed in the TSS. The method of doing so varies per platform. For those platforms 
     					requiring the same application running on two different systems, the evaluator may 
     					alternatively use the same device. After collecting the first instance of mappings, 
     					the evaluator must uninstall the application, reboot the device, and reinstall the application 
