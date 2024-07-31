@@ -2842,7 +2842,7 @@ functionality (such as these)
 							for access to a hardware resource is reflected in the selection.
 						</h:div>
 						<h:div><depends ref="windows"/>For Windows Universal Applications the evaluator shall check 
-							the WMAppManifest.xml file for a list of required hardware capabilities. The evaluator
+							the AppxManifest.xml file for a list of required hardware capabilities. The evaluator
 							shall verify that the user is made aware of the required hardware capabilities when
 							the application is first installed. This includes permissions such as
 							ID_CAP_ISV_CAMERA, ID_CAP_LOCATION, ID_CAP_NETWORKING, ID_CAP_MICROPHONE,
@@ -2901,7 +2901,7 @@ functionality (such as these)
 							for access to a sensitive information repository is reflected in the selection.  
 						</h:div>
 						<h:div><depends ref="windows"/>For Windows Universal Applications the evaluator shall check the
-							WMAppManifest.xml file for a list of required capabilities. The evaluator shall
+							AppxManifest.xml file for a list of required capabilities. The evaluator shall
 							identify the required information repositories when the
 							application is first installed. This includes permissions such as
 							ID_CAP_CONTACTS,ID_CAP_APPOINTMENTS,ID_CAP_MEDIALIB and so on. A complete list of
@@ -3506,7 +3506,7 @@ functionality (such as these)
     						following minimum mitigations enabled; Control Flow Guard (CFG), Randomize memory allocations 
     						(Bottom-Up ASLR), Export address filtering (EAF), Import address filtering (IAF), and
     						Data Execution Prevention (DEP). The following link describes how to enable Exploit Protection, 
-    						https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-exploit-guard/customize-exploit-protection.
+    						https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/enable-exploit-protection?view=o365-worldwide.
     						</h:p><h:p>
     						If the OS platform supports the Enhanced Mitigation Experience Toolkit (EMET) which can be 
     						installed on Windows 10 version 1703 and earlier, then the evaluator shall ensure that 
@@ -3600,7 +3600,8 @@ functionality (such as these)
     			<title>The application shall be built with stack-based buffer overflow protection
     				enabled.</title>
     			<aactivity level="element">
-    				<TSS><h:p>None.</h:p></TSS>
+    				<TSS><h:p>(Conditional: The PE or ELF automated tests fail) The evaluator shall ensure that the TSS describes 
+    					the stack-based buffer overflow compiler flags.</h:p></TSS>
     				<Guidance><h:p>None.</h:p></Guidance>
     				<Tests>
     					The evaluator will inspect every native executable included in the TOE to ensure that stack-based buffer 
@@ -3610,7 +3611,7 @@ functionality (such as these)
     						Applications developed in Object Pascal using the Delphi IDE compiled with RangeChecking enabled 
     						comply with this element. For other code, 
     						the evaluator shall review the TSS and verify that the /GS flag was used during compilation. The 
-    						evaluator shall run a tool like, BinScope, that can verify the correct usage of /GS.</h:div>
+    						evaluator shall run a tool like, BinSkim, that can verify the correct usage of /GS.</h:div>
     					<h:div class="subaact"> <h:p><h:i><h:b>For PE</h:b></h:i>
     						, the evaluator will disassemble each and ensure the following sequence appears:</h:p>
     						<h:table class="code-table">
@@ -3621,6 +3622,7 @@ functionality (such as these)
     					</h:div>
     					<h:div class="subaact"><h:p> <h:i><h:b>For ELF executables</h:b></h:i>, the evaluator will ensure that each 
     						contains references to the symbol <h:b>__stack_chk_fail</h:b>.</h:p>
+    						<h:p>If these automated tests fail, the evaluator shall perform the above, conditional TSS activity.</h:p>
     					</h:div>
     					<h:p>
     						Tools such as <h:a href="https://github.com/commoncriteria/canary-detector">Canary Detector</h:a> may help

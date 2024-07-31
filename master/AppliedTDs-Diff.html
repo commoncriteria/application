@@ -1080,7 +1080,7 @@
                             Platforms:<a href="#windows"><b>Microsoft Windows</b>: <i>Microsoft Windows operating systems.</i></a>
                             <div class="dependent-content">
                                 <div>
-                                    For Windows Universal Applications the evaluator shall check the WMAppManifest.xml file for a list of required hardware capabilities. The evaluator shall verify that the user is made aware of the required hardware capabilities when the application is first installed. This includes permissions such as ID_CAP_ISV_CAMERA, ID_CAP_LOCATION, ID_CAP_NETWORKING, ID_CAP_MICROPHONE, ID_CAP_PROXIMITY and so on. A complete list of Windows App permissions can be found at: 
+                                    For Windows Universal Applications the evaluator shall check the AppxManifest.xml file for a list of required hardware capabilities. The evaluator shall verify that the user is made aware of the required hardware capabilities when the application is first installed. This includes permissions such as ID_CAP_ISV_CAMERA, ID_CAP_LOCATION, ID_CAP_NETWORKING, ID_CAP_MICROPHONE, ID_CAP_PROXIMITY and so on. A complete list of Windows App permissions can be found at: 
                                     <ul>
                                         <li>
                                              <a href="http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx"> http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx</a> 
@@ -1142,7 +1142,7 @@
                             Platforms:<a href="#windows"><b>Microsoft Windows</b>: <i>Microsoft Windows operating systems.</i></a>
                             <div class="dependent-content">
                                 <div>
-                                    For Windows Universal Applications the evaluator shall check the WMAppManifest.xml file for a list of required capabilities. The evaluator shall identify the required information repositories when the application is first installed. This includes permissions such as ID_CAP_CONTACTS,ID_CAP_APPOINTMENTS,ID_CAP_MEDIALIB and so on. A complete list of Windows App permissions can be found at: 
+                                    For Windows Universal Applications the evaluator shall check the AppxManifest.xml file for a list of required capabilities. The evaluator shall identify the required information repositories when the application is first installed. This includes permissions such as ID_CAP_CONTACTS,ID_CAP_APPOINTMENTS,ID_CAP_MEDIALIB and so on. A complete list of Windows App permissions can be found at: 
                                     <ul>
                                         <li>
                                              <a href="http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx"> http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx</a> 
@@ -1852,7 +1852,7 @@
                             <div class="dependent-content">
                                 <div>
                                     <p>
-                                         If the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> platform supports Windows Defender Exploit Guard (Windows 10 version 1709 or later), then the evaluator shall ensure that the application can run successfully with Windows Defender Exploit Guard Exploit Protection configured with the following minimum mitigations enabled; Control Flow Guard (CFG), Randomize memory allocations (Bottom-Up <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr>), Export address filtering (EAF), Import address filtering (IAF), and Data Execution Prevention (<abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr>). The following link describes how to enable Exploit Protection, https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-exploit-guard/customize-exploit-protection. 
+                                         If the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> platform supports Windows Defender Exploit Guard (Windows 10 version 1709 or later), then the evaluator shall ensure that the application can run successfully with Windows Defender Exploit Guard Exploit Protection configured with the following minimum mitigations enabled; Control Flow Guard (CFG), Randomize memory allocations (Bottom-Up <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr>), Export address filtering (EAF), Import address filtering (IAF), and Data Execution Prevention (<abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr>). The following link describes how to enable Exploit Protection, https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/enable-exploit-protection?view=o365-worldwide. 
                                     </p>
                                     <p>
                                          If the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> platform supports the Enhanced Mitigation Experience Toolkit (<abbr class="dyn-abbr"><a href="#abbr_EMET">EMET</a></abbr>) which can be installed on Windows 10 version 1703 and earlier, then the evaluator shall ensure that the application can run successfully with <abbr class="dyn-abbr"><a href="#abbr_EMET">EMET</a></abbr> configured with the following minimum mitigations enabled; Memory Protection Check, Randomize memory allocations (Bottom-Up <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr>), Export address filtering (EAF), and Data Execution Prevention (<abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr>). 
@@ -1947,7 +1947,9 @@
                         <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
                     </div>
                     <div class="ea">
-                        <p>None.</p>
+                        <p>
+                            (Conditional: The <abbr class="dyn-abbr"><a href="#abbr_PE">PE</a></abbr> or <abbr class="dyn-abbr"><a href="#abbr_ELF">ELF</a></abbr> automated tests fail) The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the stack-based buffer overflow compiler flags.
+                        </p>
                     </div>
                     <div class="eacategory">Guidance</div>
                     <div class="ea">
@@ -1960,7 +1962,7 @@
                             Platforms:<a href="#windows"><b>Microsoft Windows</b>: <i>Microsoft Windows operating systems.</i></a>
                             <div class="dependent-content">
                                 <div>
-                                    Applications that run as Managed Code in the .NET Framework do not require these stack protections. Applications developed in Object Pascal using the Delphi IDE compiled with RangeChecking enabled comply with this element. For other code, the evaluator shall review the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that the /GS flag was used during compilation. The evaluator shall run a tool like, BinScope, that can verify the correct usage of /GS.
+                                    Applications that run as Managed Code in the .NET Framework do not require these stack protections. Applications developed in Object Pascal using the Delphi IDE compiled with RangeChecking enabled comply with this element. For other code, the evaluator shall review the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that the /GS flag was used during compilation. The evaluator shall run a tool like, BinSkim, that can verify the correct usage of /GS.
                                 </div>
                             </div>
                         </div>
@@ -1983,6 +1985,9 @@
                         <div class="subaact">
                             <p>
                                  <i><b>For <abbr class="dyn-abbr"><a href="#abbr_ELF">ELF</a></abbr> executables</b></i>, the evaluator will ensure that each contains references to the symbol <b>__stack_chk_fail</b>.
+                            </p>
+                            <p>
+                                If these automated tests fail, the evaluator shall perform the above, conditional <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> activity.
                             </p>
                         </div>
                         <p>
