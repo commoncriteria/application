@@ -1236,10 +1236,10 @@
                             The evaluator shall perform the following tests: <span class="testlist-">
                                 <ul>
                                     <li class="test-">
-                                        <a id="_t_19" class="defined" href="#_t_19">Test FDP_NET_EXT.1:1</a>: The evaluator shall run the application. While the application is running, the evaluator shall sniff network traffic ignoring all non-application associated traffic and verify that any network communications witnessed are documented in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> or are user-initiated. 
+                                        <a id="_t_15" class="defined" href="#_t_15">Test FDP_NET_EXT.1:1</a>: The evaluator shall run the application. While the application is running, the evaluator shall sniff network traffic ignoring all non-application associated traffic and verify that any network communications witnessed are documented in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> or are user-initiated. 
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_20" class="defined" href="#_t_20">Test FDP_NET_EXT.1:2</a>: The evaluator shall run the application. After the application initializes, the evaluator shall run network port scans to verify that any ports opened by the application have been captured in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> for the third selection and its assignment. This includes connection-based protocols (e.g. TCP, DCCP) as well as connectionless protocols (e.g. UDP). 
+                                        <a id="_t_16" class="defined" href="#_t_16">Test FDP_NET_EXT.1:2</a>: The evaluator shall run the application. After the application initializes, the evaluator shall run network port scans to verify that any ports opened by the application have been captured in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> for the third selection and its assignment. This includes connection-based protocols (e.g. TCP, DCCP) as well as connectionless protocols (e.g. UDP). 
                                     </li>
                                 </ul>
                             </span> 
@@ -1306,13 +1306,13 @@
                         If the application uses any default credentials the evaluator shall run the following tests. <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_21" class="defined" href="#_t_21">Test FMT_CFG_EXT.1.1:1</a>: The evaluator shall install and run the application without generating or loading new credentials and verify that only the minimal application functionality required to set new credentials is available. 
+                                    <a id="_t_17" class="defined" href="#_t_17">Test FMT_CFG_EXT.1.1:1</a>: The evaluator shall install and run the application without generating or loading new credentials and verify that only the minimal application functionality required to set new credentials is available. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_22" class="defined" href="#_t_22">Test FMT_CFG_EXT.1.1:2</a>: The evaluator shall attempt to clear all credentials and verify that only the minimal application functionality required to set new credentials is available. 
+                                    <a id="_t_18" class="defined" href="#_t_18">Test FMT_CFG_EXT.1.1:2</a>: The evaluator shall attempt to clear all credentials and verify that only the minimal application functionality required to set new credentials is available. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_23" class="defined" href="#_t_23">Test FMT_CFG_EXT.1.1:3</a>: The evaluator shall run the application, establish new credentials and verify that the original default credentials no longer provide access to the application. 
+                                    <a id="_t_19" class="defined" href="#_t_19">Test FMT_CFG_EXT.1.1:3</a>: The evaluator shall run the application, establish new credentials and verify that the original default credentials no longer provide access to the application. 
                                 </li>
                             </ul>
                         </span> 
@@ -2159,9 +2159,14 @@
                     <a href="#FPT_TUD_EXT.1.3" class="abbr">FPT_TUD_EXT.1.3</a>
                 </div>
                 <div class="reqdesc">
-                     The application shall not download, modify, replace or update its own binary code. 
+                     The application shall [<b>selection</b>: <span class="selectable-content" id="toe-update">perform trusted updates</span>, <span class="selectable-content" id="_s_159">not download, modify, replace or update its own binary code</span>]. 
                     <div class="appnote">
-                        <span class="note-header">Application Note: </span><span class="note"> This requirement applies to the code of the application; it does not apply to mobile code technologies that are designed for download and execution by the application. </span>
+                        <span class="note-header">Application Note: </span><span class="note">
+                            <p>This requirement applies to the code of the application; it does not apply to mobile code technologies that are designed for download and execution by the application. </p>
+                            <p>
+                                If "perform trusted updates" is selected then FPT_TUD_EXT must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
+                            </p>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -2237,7 +2242,7 @@
                     </div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         The evaluator shall verify that the application's executable files are not changed by the application. 
+                         Conditional: If "not download, modify, replace or update its own binary code" is selected the evaluator shall verify that the application's executable files are not changed by the application with the following tests: 
                         <div class="dependent">
                             Platforms:<a href="#ios"><b>Apple iOS</b>: <i>Apple's mobile operating system for iPhones.</i></a>
                             <div class="dependent-content">
@@ -2248,7 +2253,7 @@
                          <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_24" class="defined" href="#_t_24">Test FPT_TUD_EXT.1.3:1</a>: The evaluator shall install the application and then locate all of its executable files. The evaluator shall then, for each file, save off either a hash of the file or a copy of the file itself. The evaluator shall then run the application and exercise all features of the application as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable file with either the saved hash or the saved copy of the files. The evaluator shall verify that these are identical. 
+                                    <a id="_t_20" class="defined" href="#_t_20">Test FPT_TUD_EXT.1.3:1</a>: The evaluator shall install the application and then locate all of its executable files. The evaluator shall then, for each file, save off either a hash of the file or a copy of the file itself. The evaluator shall then run the application and exercise all features of the application as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable file with either the saved hash or the saved copy of the files. The evaluator shall verify that these are identical. 
                                 </li>
                             </ul>
                         </span> 
@@ -2303,10 +2308,10 @@
                     The application shall [<b>selection</b>: 
                     <ul>
                         <li style="">
-                            <span class="selectable-content" id="_s_162">not transmit any [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_163">data</span>, <span class="selectable-content" id="_s_164">sensitive data</span>] </span>
+                            <span class="selectable-content" id="_s_168">not transmit any [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_169">data</span>, <span class="selectable-content" id="_s_170">sensitive data</span>] </span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_165">encrypt all transmitted [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_166">sensitive data</span>, <span class="selectable-content" id="_s_167">data</span>] with [<b>selection</b>: 
+                            <span class="selectable-content" id="_s_171">encrypt all transmitted [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_172">sensitive data</span>, <span class="selectable-content" id="_s_173">data</span>] with [<b>selection</b>: 
                                 <ul>
                                     <li style="">
                                         <span class="selectable-content" id="sel_all_https_cl"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a client in accordance with <a href="#FCS_HTTPS_EXT.1/Client">FCS_HTTPS_EXT.1/Client</a></span>
@@ -2318,13 +2323,13 @@
                                         <span class="selectable-content" id="sel_all_https_ma"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a server using mutual authentication in accordance with <a href="#FCS_HTTPS_EXT.2">FCS_HTTPS_EXT.2</a></span>
                                     </li>
                                     <li style="">
-                                        <span class="selectable-content" id="sel_all_tlss"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a server as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a> and also supports functionality for [<b>selection</b>: <span class="selectable-content" id="_s_172">mutual authentication</span>, <span class="selectable-content" id="_s_173">none</span>]</span>
+                                        <span class="selectable-content" id="sel_all_tlss"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a server as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a> and also supports functionality for [<b>selection</b>: <span class="selectable-content" id="_s_178">mutual authentication</span>, <span class="selectable-content" id="_s_179">none</span>]</span>
                                     </li>
                                     <li style="">
                                         <span class="selectable-content" id="sel_all_tlsc"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a client as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a></span>
                                     </li>
                                     <li style="">
-                                        <span class="selectable-content" id="sel_all_dtlss"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a server as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a> and also supports functionality for [<b>selection</b>: <span class="selectable-content" id="_s_176">mutual authentication</span>, <span class="selectable-content" id="_s_177">none</span>]</span>
+                                        <span class="selectable-content" id="sel_all_dtlss"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a server as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a> and also supports functionality for [<b>selection</b>: <span class="selectable-content" id="_s_182">mutual authentication</span>, <span class="selectable-content" id="_s_183">none</span>]</span>
                                     </li>
                                     <li style="">
                                         <span class="selectable-content" id="sel_all_dtlsc"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a client as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a></span>
@@ -2339,10 +2344,10 @@
                                 ] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] using certificates as defined in the <i>Functional Package for X.509</i> </span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_181">invoke platform-provided functionality to encrypt all transmitted sensitive data with [<b>selection</b>: <span class="selectable-content" id="_s_182"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span>, <span class="selectable-content" id="_s_183"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>, <span class="selectable-content" id="_s_184"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span>, <span class="selectable-content" id="_s_185"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></span>, <span class="selectable-content" id="_s_186">IPsec</span>] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] using certificates as defined in the <i>Functional Package for X.509</i> </span>
+                            <span class="selectable-content" id="_s_187">invoke platform-provided functionality to encrypt all transmitted sensitive data with [<b>selection</b>: <span class="selectable-content" id="_s_188"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span>, <span class="selectable-content" id="_s_189"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>, <span class="selectable-content" id="_s_190"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span>, <span class="selectable-content" id="_s_191"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></span>, <span class="selectable-content" id="_s_192">IPsec</span>] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] using certificates as defined in the <i>Functional Package for X.509</i> </span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_187">invoke platform-provided functionality to encrypt all transmitted data with [<b>selection</b>: <span class="selectable-content" id="_s_188"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span>, <span class="selectable-content" id="_s_189"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>, <span class="selectable-content" id="_s_190"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span>, <span class="selectable-content" id="_s_191"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></span>, <span class="selectable-content" id="_s_192">IPsec</span>] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] using certificates as defined in the <i>Functional Package for X.509</i> </span>
+                            <span class="selectable-content" id="_s_193">invoke platform-provided functionality to encrypt all transmitted data with [<b>selection</b>: <span class="selectable-content" id="_s_194"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span>, <span class="selectable-content" id="_s_195"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>, <span class="selectable-content" id="_s_196"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span>, <span class="selectable-content" id="_s_197"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></span>, <span class="selectable-content" id="_s_198">IPsec</span>] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] using certificates as defined in the <i>Functional Package for X.509</i> </span>
                         </li>
                     </ul>
                     ] between itself and another trusted <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr> product. 
@@ -2431,13 +2436,13 @@
                              The evaluator shall perform the following tests. <span class="testlist-">
                                 <ul>
                                     <li class="test-">
-                                        <a id="_t_25" class="defined" href="#_t_25">Test FTP_DIT_EXT.1:1</a>: The evaluator shall exercise the application (attempting to transmit data; for example by connecting to remote systems or websites) while capturing packets from the application. The evaluator shall verify from the packet capture that the traffic is encrypted with <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>, or IPsec in accordance with the selection in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. 
+                                        <a id="_t_23" class="defined" href="#_t_23">Test FTP_DIT_EXT.1:1</a>: The evaluator shall exercise the application (attempting to transmit data; for example by connecting to remote systems or websites) while capturing packets from the application. The evaluator shall verify from the packet capture that the traffic is encrypted with <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>, or IPsec in accordance with the selection in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. 
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_26" class="defined" href="#_t_26">Test FTP_DIT_EXT.1:2</a>: The evaluator shall exercise the application (attempting to transmit data; for example by connecting to remote systems or websites) while capturing packets from the application. The evaluator shall review the packet capture and verify that no sensitive data is transmitted in the clear. 
+                                        <a id="_t_24" class="defined" href="#_t_24">Test FTP_DIT_EXT.1:2</a>: The evaluator shall exercise the application (attempting to transmit data; for example by connecting to remote systems or websites) while capturing packets from the application. The evaluator shall review the packet capture and verify that no sensitive data is transmitted in the clear. 
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_27" class="defined" href="#_t_27">Test FTP_DIT_EXT.1:3</a>: The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine if user credentials are transmitted. If credentials are transmitted the evaluator shall set the credential to a known value. The evaluator shall capture packets from the application while causing credentials to be transmitted as described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. The evaluator shall perform a string search of the captured network packets and verify that the plaintext credential previously set by the evaluator is not found. 
+                                        <a id="_t_25" class="defined" href="#_t_25">Test FTP_DIT_EXT.1:3</a>: The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine if user credentials are transmitted. If credentials are transmitted the evaluator shall set the credential to a known value. The evaluator shall capture packets from the application while causing credentials to be transmitted as described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. The evaluator shall perform a string search of the captured network packets and verify that the plaintext credential previously set by the evaluator is not found. 
                                     </li>
                                 </ul>
                             </span> 
@@ -4260,24 +4265,18 @@
                         <div class="ea">
                             <p>The following tests require the developer to provide access to a test application that provides the evaluator with tools that are typically not found in the production application. </p>
                             <p>
-                                 <abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr> Algorithm Tests 
+                                 <abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr> Algorithm Test 
                             </p>
                              <span class="testlist-">
                                 <ul>
                                     <li class="test-">
                                         <a id="_t_6" class="defined" href="#_t_6">Test FCS_COP.1/SigGen:1</a>: <abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 186-5 Signature Generation Test. For each supported <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curve (i.e., P-384 and P-521) and <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr> function pair, the evaluator shall generate 10 1024-bit long messages and obtain for each message a public key and the resulting signature values R and S. To determine correctness, the evaluator shall use the signature verification function of a known good implementation. 
                                     </li>
-                                    <li class="test-">
-                                        <a id="_t_7" class="defined" href="#_t_7">Test FCS_COP.1/SigGen:2</a>: <abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 186-5 Signature Verification Test. For each supported <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curve (i.e., P-384 and P-521) and <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr> function pair, the evaluator shall generate a set of 10 1024-bit message, public key and signature tuples and modify one of the values (message, public key or signature) in five of the 10 tuples. The evaluator shall obtain in response a set of 10 PASS/FAIL values. 
-                                    </li>
                                 </ul>
-                            </span> RSA Signature Algorithm Tests <span class="testlist-">
+                            </span> RSA Signature Algorithm Test <span class="testlist-">
                                 <ul>
                                     <li class="test-">
-                                        <a id="_t_8" class="defined" href="#_t_8">Test FCS_COP.1/SigGen:3</a>: Signature Generation Test. The evaluator shall verify the implementation of RSA Signature Generation by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using the Signature Generation Test. To conduct this test the evaluator must generate or obtain 10 messages from a trusted reference implementation for each modulus size/<abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr> combination supported by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. The evaluator shall have the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> use their private key and modulus value to sign these messages. The evaluator shall verify the correctness of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>&rsquo;s signature using a known good implementation and the associated public keys to verify the signatures. 
-                                    </li>
-                                    <li class="test-">
-                                        <a id="_t_9" class="defined" href="#_t_9">Test FCS_COP.1/SigGen:4</a>: Signature Verification Test. The evaluator shall perform the Signature Verification test to verify the ability of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to recognize another party&rsquo;s valid and invalid signatures. The evaluator shall inject errors into the test vectors produced during the Signature Verification Test by introducing errors in some of the public keys, e, messages, <abbr class="dyn-abbr"><a href="#abbr_IR">IR</a></abbr> format, and/or signatures. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> attempts to verify the signatures and returns success or failure. 
+                                        <a id="_t_7" class="defined" href="#_t_7">Test FCS_COP.1/SigGen:2</a>: Signature Generation Test. The evaluator shall verify the implementation of RSA Signature Generation by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using the Signature Generation Test. To conduct this test the evaluator must generate or obtain 10 messages from a trusted reference implementation for each modulus size/<abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr> combination supported by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. The evaluator shall have the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> use their private key and modulus value to sign these messages. The evaluator shall verify the correctness of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>&rsquo;s signature using a known good implementation and the associated public keys to verify the signatures. 
                                     </li>
                                 </ul>
                             </span> 
@@ -4289,7 +4288,7 @@
         <div class="comp" id="FCS_COP.1/SigVer">
             <h4>FCS_COP.1/SigVer Cryptographic Operation - Signing Verification</h4>
             <div class="statustag">
-                <b><i>The inclusion of this selection-based component depends upon selection in <a href="#FTP_DIT_EXT.1.1">FTP_DIT_EXT.1.1</a>. </i></b>
+                <b><i>The inclusion of this selection-based component depends upon selection in <a href="#FPT_TUD_EXT.2.3">FPT_TUD_EXT.2.3</a>, <a href="#FTP_DIT_EXT.1.1">FTP_DIT_EXT.1.1</a>. </i></b>
             </div>
             <div class="element">
                 <div class="reqid" id="FCS_COP.1.1/SigVer">
@@ -4305,10 +4304,10 @@
                             <span class="selectable-content" id="_s_62"><b><abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr> schemes</b> using [&ldquo;<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curves&rdquo; [<b>selection</b>: <span class="selectable-content" id="_s_63">P-384</span>, <span class="selectable-content" id="_s_64">P-521</span>]] that meet the following: [<abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-5, &ldquo;Digital Signature Standard (<abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr>),&rdquo; Section 6]</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_65">Leighton-Micali Signature Algorithm for verification using cryptographic key sizes of [<b>selection</b>: <span class="selectable-content" id="_s_66">192</span>, <span class="selectable-content" id="_s_67">256</span>] bits that meet the following[<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"] </span>
+                            <span class="selectable-content" id="_s_65"><b>Leighton-Micali Signature</b> Algorithm for verification using cryptographic key sizes of [<b>selection</b>: <span class="selectable-content" id="_s_66">192</span>, <span class="selectable-content" id="_s_67">256</span>] bits that meet the following[<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"] </span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_68">eXtended Merkle Signature Scheme Algorithm for verification using cryptographic key sizes of [<b>selection</b>: <span class="selectable-content" id="_s_69">192</span>, <span class="selectable-content" id="_s_70">256</span>] bits that meets the following: [<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"] </span>
+                            <span class="selectable-content" id="_s_68"><b>eXtended Merkle Signature Scheme Algorithm</b> for verification using cryptographic key sizes of [<b>selection</b>: <span class="selectable-content" id="_s_69">192</span>, <span class="selectable-content" id="_s_70">256</span>] bits that meets the following: [<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"] </span>
                         </li>
                     </ul>
                     ]. 
@@ -4352,24 +4351,18 @@
                         <div class="ea">
                             <p>The following tests require the developer to provide access to a test application that provides the evaluator with tools that are typically not found in the production application. </p>
                             <p>
-                                 <abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr> Algorithm Tests 
+                                 <abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr> Algorithm Test 
                             </p>
                              <span class="testlist-">
                                 <ul>
                                     <li class="test-">
-                                        <a id="_t_10" class="defined" href="#_t_10">Test FCS_COP.1/SigVer:1</a>: <abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 186-5 Signature Generation Test. For each supported <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curve (i.e., P-384 and P-521) and <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr> function pair, the evaluator shall generate 10 1024-bit long messages and obtain for each message a public key and the resulting signature values R and S. To determine correctness, the evaluator shall use the signature verification function of a known good implementation. 
-                                    </li>
-                                    <li class="test-">
-                                        <a id="_t_11" class="defined" href="#_t_11">Test FCS_COP.1/SigVer:2</a>: <abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 186-5 Signature Verification Test. For each supported <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curve (i.e., P-384 and P-521) and <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr> function pair, the evaluator shall generate a set of 10 1024-bit message, public key and signature tuples and modify one of the values (message, public key or signature) in five of the 10 tuples. The evaluator shall obtain in response a set of 10 PASS/FAIL values. 
+                                        <a id="_t_8" class="defined" href="#_t_8">Test FCS_COP.1/SigVer:1</a>: <abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 186-5 Signature Verification Test. For each supported <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curve (i.e., P-384 and P-521) and <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr> function pair, the evaluator shall generate a set of 10 1024-bit message, public key and signature tuples and modify one of the values (message, public key or signature) in five of the 10 tuples. The evaluator shall obtain in response a set of 10 PASS/FAIL values. 
                                     </li>
                                 </ul>
-                            </span> RSA Signature Algorithm Tests <span class="testlist-">
+                            </span> RSA Signature Algorithm Test <span class="testlist-">
                                 <ul>
                                     <li class="test-">
-                                        <a id="_t_12" class="defined" href="#_t_12">Test FCS_COP.1/SigVer:3</a>: Signature Generation Test. The evaluator shall verify the implementation of RSA Signature Generation by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> using the Signature Generation Test. To conduct this test the evaluator must generate or obtain 10 messages from a trusted reference implementation for each modulus size/<abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr> combination supported by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. The evaluator shall have the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> use their private key and modulus value to sign these messages. The evaluator shall verify the correctness of the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>&rsquo;s signature using a known good implementation and the associated public keys to verify the signatures. 
-                                    </li>
-                                    <li class="test-">
-                                        <a id="_t_13" class="defined" href="#_t_13">Test FCS_COP.1/SigVer:4</a>: Signature Verification Test. The evaluator shall perform the Signature Verification test to verify the ability of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to recognize another party&rsquo;s valid and invalid signatures. The evaluator shall inject errors into the test vectors produced during the Signature Verification Test by introducing errors in some of the public keys, e, messages, <abbr class="dyn-abbr"><a href="#abbr_IR">IR</a></abbr> format, and/or signatures. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> attempts to verify the signatures and returns success or failure. 
+                                        <a id="_t_9" class="defined" href="#_t_9">Test FCS_COP.1/SigVer:2</a>: Signature Verification Test. The evaluator shall perform the Signature Verification test to verify the ability of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to recognize another party&rsquo;s valid and invalid signatures. The evaluator shall inject errors into the test vectors produced during the Signature Verification Test by introducing errors in some of the public keys, e, messages, <abbr class="dyn-abbr"><a href="#abbr_IR">IR</a></abbr> format, and/or signatures. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> attempts to verify the signatures and returns success or failure. 
                                     </li>
                                 </ul>
                             </span> 
@@ -4473,7 +4466,7 @@
                          Certificate validity shall be tested in accordance with testing performed for FIA_X509_EXT.1, and the evaluator shall perform the following test: <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_14" class="defined" href="#_t_14">Test FCS_HTTPS_EXT.1.3/Client:1</a>: The evaluator shall demonstrate that using a certificate without a valid certification path results in the selected action in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>. If "notify the user" is selected in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>, then the evaluator shall also determine that the user is notified of the certificate validation failure. Using the administrative guidance, the evaluator shall then load a certificate or certificates to the Trust Anchor Database needed to validate the certificate to be used in the function, and demonstrate that the function succeeds. The evaluator then shall delete one of the certificates, and show that again, using a certificate without a valid certification path results in the selected action in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>, and if "notify the user" was selected in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>, the user is notified of the validation failure. 
+                                    <a id="_t_10" class="defined" href="#_t_10">Test FCS_HTTPS_EXT.1.3/Client:1</a>: The evaluator shall demonstrate that using a certificate without a valid certification path results in the selected action in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>. If "notify the user" is selected in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>, then the evaluator shall also determine that the user is notified of the certificate validation failure. Using the administrative guidance, the evaluator shall then load a certificate or certificates to the Trust Anchor Database needed to validate the certificate to be used in the function, and demonstrate that the function succeeds. The evaluator then shall delete one of the certificates, and show that again, using a certificate without a valid certification path results in the selected action in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>, and if "notify the user" was selected in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>, the user is notified of the validation failure. 
                                 </li>
                             </ul>
                         </span> 
@@ -4612,7 +4605,7 @@
                          Certificate validity shall be tested in accordance with testing performed for FIA_X509_EXT.1, and the evaluator shall perform the following test: <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_15" class="defined" href="#_t_15">Test FCS_HTTPS_EXT.2.1:1</a>: The evaluator shall demonstrate that using a certificate without a valid certification path results in the selected action in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>. Using the administrative guidance, the evaluator shall then load a certificate or certificates to the Trust Anchor Database needed to validate the certificate to be used in the function, and demonstrate that the function succeeds. The evaluator then shall delete one of the certificates, and show that again, using a certificate without a valid certification path results in the selected action in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>.
+                                    <a id="_t_11" class="defined" href="#_t_11">Test FCS_HTTPS_EXT.2.1:1</a>: The evaluator shall demonstrate that using a certificate without a valid certification path results in the selected action in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>. Using the administrative guidance, the evaluator shall then load a certificate or certificates to the Trust Anchor Database needed to validate the certificate to be used in the function, and demonstrate that the function succeeds. The evaluator then shall delete one of the certificates, and show that again, using a certificate without a valid certification path results in the selected action in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>.
                                 </li>
                             </ul>
                         </span> 
@@ -4769,16 +4762,16 @@
                          <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_16" class="defined" href="#_t_16">Test FCS_RBG_EXT.2.1:1</a>: The evaluators shall perform a Variable Seed Test. The evaluators shall provide a set of 128 (Seed, <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr>) pairs to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> function, each 128 bits. The evaluators shall also provide a key (of the length appropriate to the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> algorithm) that is constant for all 128 (Seed, <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr>) pairs. The <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr> value is incremented by 1 for each set. The seed values shall have no repeats within the set. The evaluators ensure that the values returned by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> match the expected values. 
+                                    <a id="_t_12" class="defined" href="#_t_12">Test FCS_RBG_EXT.2.1:1</a>: The evaluators shall perform a Variable Seed Test. The evaluators shall provide a set of 128 (Seed, <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr>) pairs to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> function, each 128 bits. The evaluators shall also provide a key (of the length appropriate to the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> algorithm) that is constant for all 128 (Seed, <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr>) pairs. The <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr> value is incremented by 1 for each set. The seed values shall have no repeats within the set. The evaluators ensure that the values returned by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> match the expected values. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_17" class="defined" href="#_t_17">Test FCS_RBG_EXT.2.1:2</a>: The evaluators shall perform a Monte Carlo Test. For this test, they supply an initial Seed and <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr> value to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> function; each of these is 128 bits. The evaluators shall also provide a key (of the length appropriate to the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> algorithm) that is constant throughout the test. The evaluators then invoke the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> 10,000 times, with the <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr> value being incremented by 1 on each iteration, and the new seed for the subsequent iteration produced as specified in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr>-Recommended Random Number Generator Based on <abbr class="dyn-abbr"><a href="#abbr_ANSI">ANSI</a></abbr> X9.31 Appendix A.2.4 Using the 3-Key Triple <abbr class="dyn-abbr"><a href="#abbr_DES">DES</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> Algorithms, Section E.3. The evaluators ensure that the 10,000th value produced matches the expected value. 
+                                    <a id="_t_13" class="defined" href="#_t_13">Test FCS_RBG_EXT.2.1:2</a>: The evaluators shall perform a Monte Carlo Test. For this test, they supply an initial Seed and <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr> value to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> function; each of these is 128 bits. The evaluators shall also provide a key (of the length appropriate to the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> algorithm) that is constant throughout the test. The evaluators then invoke the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> 10,000 times, with the <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr> value being incremented by 1 on each iteration, and the new seed for the subsequent iteration produced as specified in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr>-Recommended Random Number Generator Based on <abbr class="dyn-abbr"><a href="#abbr_ANSI">ANSI</a></abbr> X9.31 Appendix A.2.4 Using the 3-Key Triple <abbr class="dyn-abbr"><a href="#abbr_DES">DES</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> Algorithms, Section E.3. The evaluators ensure that the 10,000th value produced matches the expected value. 
                                 </li>
                             </ul>
                         </span> <b>Implementations Conforming to <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-90A</b> <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_18" class="defined" href="#_t_18">Test FCS_RBG_EXT.2.1:3</a>: 
+                                    <a id="_t_14" class="defined" href="#_t_14">Test FCS_RBG_EXT.2.1:3</a>: 
                                     <p>
                                          The evaluator shall perform 15 trials for the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> implementation. If the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> is configurable, the evaluator shall perform 15 trials for each configuration. The evaluator shall also confirm that the operational guidance contains appropriate instructions for configuring the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> functionality. 
                                     </p>
@@ -4927,14 +4920,14 @@
         <div class="comp" id="FPT_TUD_EXT.2">
             <h4>FPT_TUD_EXT.2 Integrity for Installation and Update</h4>
             <div class="statustag">
-                <b><i>The inclusion of this selection-based component depends upon selection in <a href="#FPT_TUD_EXT.1.5">FPT_TUD_EXT.1.5</a>. </i></b>
+                <b><i>The inclusion of this selection-based component depends upon selection in <a href="#FPT_TUD_EXT.1.3">FPT_TUD_EXT.1.3</a>, <a href="#FPT_TUD_EXT.1.5">FPT_TUD_EXT.1.5</a>. </i></b>
             </div>
             <div class="element">
                 <div class="reqid" id="FPT_TUD_EXT.2.1">
                     <a href="#FPT_TUD_EXT.2.1" class="abbr">FPT_TUD_EXT.2.1</a>
                 </div>
                 <div class="reqdesc">
-                     The application shall be distributed using [<b>selection</b>: <span class="selectable-content" id="_s_160">the format of the platform-supported package manager</span>, <span class="selectable-content" id="_s_161">a container image</span>]. 
+                     The application shall be distributed using [<b>selection</b>: <span class="selectable-content" id="_s_162">the format of the platform-supported package manager</span>, <span class="selectable-content" id="_s_163">a container image</span>]. 
                 </div>
             </div>
             <div class="element">
@@ -4953,9 +4946,23 @@
                     <a href="#FPT_TUD_EXT.2.3" class="abbr">FPT_TUD_EXT.2.3</a>
                 </div>
                 <div class="reqdesc">
-                     The application installation package shall be digitally signed such that its platform can cryptographically verify them prior to installation. 
+                     The application installation package shall be digitally signed such that [<b>selection</b>: 
+                    <ul>
+                        <li style="">
+                            <span class="selectable-content" id="_s_164">it's platform can cryptographically verify them prior to installation.</span>
+                        </li>
+                        <li style="">
+                            <span class="selectable-content" id="_s_165">the application can verify them using [<b>selection</b>: <span class="selectable-content" id="toe-lms">Leighton-Micali Signature.</span>, <span class="selectable-content" id="toe-xmss">eXtended Merkle Signature Scheme.</span>] </span>
+                        </li>
+                    </ul>
+                    ] 
                     <div class="appnote">
-                        <span class="note-header">Application Note: </span><span class="note"> The specifics of the verification of installation packages involves requirements on the platform (and not the application), so these are not fully specified here. </span>
+                        <span class="note-header">Application Note: </span><span class="note">
+                            <p>The specifics of the verification of installation packages involves requirements on the platform (and not the application), so these are not fully specified here.</p>
+                            <p>
+                                If Leighton-Micali Signature or eXtended Merkle Signature Scheme is selected, the corresponding selection must be made in <a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a>.
+                            </p>
+                        </span>
                     </div>
                 </div>
             </div>
@@ -5076,7 +5083,18 @@
                         <p>None.</p>
                     </div>
                     <div class="eacategory">Tests</div>
-                    <div class="ea">None.</div>
+                    <div class="ea">
+                        Conditional: if "" the evaluator shall perform the following tests: <span class="testlist-">
+                            <ul>
+                                <li class="test-">
+                                    <a id="_t_21" class="defined" href="#_t_21">Test FPT_TUD_EXT.2.3:1</a>: The evaluator shall ensure that the update has a digital signature belonging to the vendor prior to its installation. The evaluator shall modify the downloaded update in such a way that the digital signature is no longer valid. The evaluator will then attempt to install the modified update. The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> does not install the modified update. 
+                                </li>
+                                <li class="test-">
+                                    <a id="_t_22" class="defined" href="#_t_22">Test FPT_TUD_EXT.2.3:2</a>: The evaluator shall ensure that the update has a digital signature belonging to the vendor. The evaluator shall then attempt to install the update (or permit installation to continue). The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> successfully installs the update. 
+                                </li>
+                            </ul>
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -5700,7 +5718,7 @@
                         <h4 id="ext-comp-FPT_TUD_EXT.1.2">FPT_TUD_EXT.1.2</h4>
                         The application shall [<b>selection</b>: <span class="selectable-content" id="_s_156">provide the ability</span>, <span class="selectable-content" id="_s_157">leverage the platform</span>] to query the current version of the application software. 
                         <h4 id="ext-comp-FPT_TUD_EXT.1.3">FPT_TUD_EXT.1.3</h4>
-                         The application shall not download, modify, replace or update its own binary code. 
+                         The application shall [<b>selection</b>: <span class="selectable-content" id="toe-update">perform trusted updates</span>, <span class="selectable-content" id="_s_159">not download, modify, replace or update its own binary code</span>]. 
                         <h4 id="ext-comp-FPT_TUD_EXT.1.4">FPT_TUD_EXT.1.4</h4>
                          Application updates shall be digitally signed such that the application platform can cryptographically verify them prior to installation. 
                         <h4 id="ext-comp-FPT_TUD_EXT.1.5">FPT_TUD_EXT.1.5</h4>
@@ -5721,11 +5739,20 @@
                             </tr>
                         </table>
                         <h4 id="ext-comp-FPT_TUD_EXT.2.1">FPT_TUD_EXT.2.1</h4>
-                         The application shall be distributed using [<b>selection</b>: <span class="selectable-content" id="_s_160">the format of the platform-supported package manager</span>, <span class="selectable-content" id="_s_161">a container image</span>]. 
+                         The application shall be distributed using [<b>selection</b>: <span class="selectable-content" id="_s_162">the format of the platform-supported package manager</span>, <span class="selectable-content" id="_s_163">a container image</span>]. 
                         <h4 id="ext-comp-FPT_TUD_EXT.2.2">FPT_TUD_EXT.2.2</h4>
                          The application shall be packaged such that its removal results in the deletion of all traces of the application, with the exception of configuration settings, output files, and audit/log events. 
                         <h4 id="ext-comp-FPT_TUD_EXT.2.3">FPT_TUD_EXT.2.3</h4>
-                         The application installation package shall be digitally signed such that its platform can cryptographically verify them prior to installation. 
+                         The application installation package shall be digitally signed such that [<b>selection</b>: 
+                        <ul>
+                            <li style="">
+                                <span class="selectable-content" id="_s_164">it's platform can cryptographically verify them prior to installation.</span>
+                            </li>
+                            <li style="">
+                                <span class="selectable-content" id="_s_165">the application can verify them using [<b>selection</b>: <span class="selectable-content" id="toe-lms">Leighton-Micali Signature.</span>, <span class="selectable-content" id="toe-xmss">eXtended Merkle Signature Scheme.</span>] </span>
+                            </li>
+                        </ul>
+                        ] 
                     </div>
                 </div>
             </span><span data-sortkey="Security Management (FMT)">
@@ -5837,16 +5864,16 @@
                         The application shall [<b>selection</b><b>, choose one of</b>: 
                         <ul>
                             <li style="">
-                                <span class="selectable-content" id="_s_193">not transmit any [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_194">data</span>, <span class="selectable-content" id="_s_195">sensitive data</span>] </span>
+                                <span class="selectable-content" id="_s_199">not transmit any [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_200">data</span>, <span class="selectable-content" id="_s_201">sensitive data</span>] </span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_196">encrypt all transmitted [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_197">sensitive data</span>, <span class="selectable-content" id="_s_198">data</span>] with [<b>assignment</b>: <span class="assignable-content">trusted protocol</span>] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] </span>
+                                <span class="selectable-content" id="_s_202">encrypt all transmitted [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_203">sensitive data</span>, <span class="selectable-content" id="_s_204">data</span>] with [<b>assignment</b>: <span class="assignable-content">trusted protocol</span>] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] </span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_199">invoke platform-provided functionality to encrypt all transmitted sensitive data with [<b>assignment</b>: <span class="assignable-content">trusted protocol</span>] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] </span>
+                                <span class="selectable-content" id="_s_205">invoke platform-provided functionality to encrypt all transmitted sensitive data with [<b>assignment</b>: <span class="assignable-content">trusted protocol</span>] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] </span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_200">invoke platform-provided functionality to encrypt all transmitted data with [<b>assignment</b>: <span class="assignable-content">trusted protocol</span>] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] </span>
+                                <span class="selectable-content" id="_s_206">invoke platform-provided functionality to encrypt all transmitted data with [<b>assignment</b>: <span class="assignable-content">trusted protocol</span>] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] </span>
                             </li>
                         </ul>
                         ] between itself and another trusted <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr> product. 
