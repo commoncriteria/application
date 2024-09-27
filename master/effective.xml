@@ -1772,7 +1772,7 @@ functionality (such as these)
 			</f-element>
         </f-component> 
 
-	    <!-- FCS_COP.1/Sig (formerly FCS_COP.1/3) -->
+	    <!-- FCS_COP.1/SigGen (formerly FCS_COP.1/3) -->
         <f-component cc-id="fcs_cop.1" id="fcom_sign" iteration="Sig" name="Cryptographic Operation - Signing" status="sel-based">
         	<depends on="sel_all_tlsc"/>
         	<depends on="sel_all_tlss"/>
@@ -1789,7 +1789,6 @@ functionality (such as these)
 							<selectables>
 							<selectable>P-384</selectable>
 							<selectable>P-521</selectable>
-							<selectable exclusive="yes">no other curves</selectable>
 							</selectables>]
 						that meet the following: [FIPS PUB 186-5, “Digital Signature Standard (DSS),” Section 6]</selectable>
 					</selectables>.
@@ -1857,8 +1856,107 @@ functionality (such as these)
 				</aactivity>
 			</f-element>
         </f-component>
+
+		<!-- FCS_COP.1/SigVer (formerly FCS_COP.1/3) -->
+		<f-component cc-id="fcs_cop.1" id="fcom_sign" iteration="Sig" name="Cryptographic Operation - Signing" status="sel-based">
+			<depends on="sel_all_tlsc"/>
+			<depends on="sel_all_tlss"/>
+			<depends on="sel_all_dtlsc"/>
+			<depends on="sel_all_dtlss"/>
+			<!-- INSERT NEW DEPENDS FOR TUD -->
+			<f-element id="fel-sign">
+				<title>
+					The <h:b>application</h:b> shall perform [<h:i>cryptographic signature services (generation and
+						verification)</h:i>] in accordance with a specified cryptographic algorithm 
+					<selectables linebreak="yes">
+						<selectable><h:b>RSA schemes</h:b> using cryptographic key sizes of [3072-bit or greater] that meet the 
+							following: [FIPS PUB 186-5, “Digital Signature Standard (DSS),” Section 5]</selectable>
+						<selectable><h:b>ECDSA schemes</h:b> using [“NIST curves”  
+							<selectables>
+								<selectable>P-384</selectable>
+								<selectable>P-521</selectable>
+							</selectables>]
+							that meet the following: [FIPS PUB 186-5, “Digital Signature Standard (DSS),” Section 6]</selectable>
+						<selectable>Leighton-Micali Signature Algorithm for verification using cryptographic key sizes of 
+						<selectables>
+							<selectable>192</selectable>
+							<selectable>256</selectable>
+						</selectables>
+							bits that meet the following[NIST SP 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"]						</selectable>
+						<selectable>eXtended Merkle Signature Scheme Algorithm for verification using cryptographic key sizes of 
+						<selectables>
+							<selectable>192</selectable>
+							<selectable>256</selectable>
+						</selectables>
+							bits that meets the following: [NIST SP 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"]
+						</selectable>
+					</selectables>.
+				</title>
+				<note role="application">
+					<h:p>
+						This is dependent on implementing cryptographic functionality, as in FTP_DIT_EXT.1.
+					</h:p><h:p>
+						The ST author should choose the algorithm implemented to perform
+						digital signatures; if more than one algorithm is available, this requirement should be iterated
+						to specify the functionality. For the algorithm chosen, the ST author should make the
+						appropriate assignments/selections to specify the parameters that are implemented for that
+						algorithm.
+					</h:p>
+				</note>
+				<aactivity>
+					The evaluator shall perform the following activities based on the selections in the ST.
+					<TSS><h:p>None.</h:p></TSS>
+					<Guidance><h:p>The evaluator shall verify the guidance documentation contains any information required for configuring the algorithm or size.</h:p></Guidance>
+					<Tests>
+						<h:p>The following tests require the developer to provide access to a test application
+							that provides the evaluator with tools that are typically not found in the production
+							application. 
+						</h:p><h:p>
+							ECDSA Algorithm Tests
+						</h:p>
+						<testlist>
+							<test>ECDSA FIPS 186-5 Signature Generation Test. For each
+								supported NIST curve (i.e., P-384 and P-521) and SHA function pair, the
+								evaluator shall generate 10 1024-bit long messages and obtain for each message a
+								public key and the resulting signature values R and S. To determine correctness,
+								the evaluator shall use the signature verification function of a known good
+								implementation. 
+							</test>
+							<test>
+								ECDSA FIPS 186-5 Signature Verification Test. For each supported
+								NIST curve (i.e., P-384 and P-521) and SHA function pair, the evaluator
+								shall generate a set of 10 1024-bit message, public key and signature tuples and
+								modify one of the values (message, public key or signature) in five of the 10
+								tuples. The evaluator shall obtain in response a set of 10 PASS/FAIL values.
+							</test>
+						</testlist>
+						RSA Signature Algorithm Tests
+						<testlist>
+							<test>Signature Generation Test. The evaluator shall
+								verify the implementation of RSA Signature Generation by the TOE
+								using the Signature Generation Test. To conduct this test the evaluator must 
+								generate or obtain 10 messages from a trusted reference implementation for each 
+								modulus size/SHA combination supported by the TSF. The evaluator 
+								shall have the TOE use their private key and modulus value to 
+								sign these messages. The evaluator shall verify the correctness of the 
+								TSF’s signature using a known good implementation and the 
+								associated public keys to verify the signatures.
+							</test>
+							<test>Signature Verification Test. The 
+								evaluator shall perform the Signature Verification test to verify the ability of 
+								the TOE to recognize another party’s valid and invalid 
+								signatures. The evaluator shall inject errors into the test vectors produced 
+								during the Signature Verification Test by introducing errors in some of the public 
+								keys, e, messages, IR format, and/or signatures. The TOE attempts 
+								to verify the signatures and returns success or failure.
+							</test>
+						</testlist>
+					</Tests>
+				</aactivity>
+			</f-element>
+		</f-component>
 		
-        <ext-comp-def fam-id="FCS_HTTPS_EXT" title="HTTPS Protocol">
+		<ext-comp-def fam-id="FCS_HTTPS_EXT" title="HTTPS Protocol">
           <fam-behavior>This family defines requirements for implementation of the HTTPS protocol.</fam-behavior>
         </ext-comp-def>
 		<!-- invisble SFR for the purpose of having an un-iterated copy of FCS_HTTPS_EXT.1 in the ECD -->
