@@ -796,7 +796,27 @@
 							Using Discrete Logarithm Cryptography” and 
 							<selectables>
 								<selectable>RFC 3526</selectable>
-								<selectable>RFC 7919</selectable></selectables></h:i>]</selectable></selectables>.
+								<selectable>RFC 7919</selectable>
+							</selectables></h:i>]
+						</selectable>
+						<selectable><h:b>Leighton-Micali Signature</h:b> Algorithm using cryptographic key sizes of 
+							<selectables>
+								<selectable>192</selectable>
+								<selectable>256</selectable>
+							</selectables>
+							bits that meet the following[NIST SP 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"]						</selectable>
+						<selectable><h:b>eXtended Merkle Signature Scheme Algorithm</h:b> using cryptographic key sizes of 
+							<selectables>
+								<selectable>192</selectable>
+								<selectable>256</selectable>
+							</selectables>
+							bits that meets the following: [NIST SP 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"]
+						</selectable>
+						<selectable><h:b>Module-Lattice-Based Key-Encapsulation Mechanism Standard</h:b> that meets the following: 
+							[FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard]</selectable>
+						<selectable><h:b>Module-Lattice-Based Digital Signature Standard</h:b> that meets the following 
+							[FIPS 204, Module-Lattice-Based Digital Signature Standard]</selectable>
+						</selectables>.
 				</title>
 				<note role="application">
 					<h:p>
@@ -809,6 +829,8 @@
 					If the TOE acts as a receiver in the RSA key establishment scheme, 
 					the TOE does not need to implement RSA key generation.
 					</h:p>
+					<h:p>Note that ML-DSA and ML-KEM are not usable in any functions at the time of initial publication, 
+						they are added to this requirement in support of future protocol updates.</h:p>
 				</note>
 				<aactivity level="element">
 					<TSS>
@@ -955,6 +977,21 @@
 						</h:p><h:p>
 						<h:b>Diffie-Hellman Group 14 and FFC Schemes using “safe-prime” groups</h:b>
 						</h:p>
+						<h:p>
+							<h:b>Key Generation for LMS/XMSS</h:b>
+						</h:p><h:p>							
+							For each supported LMS/LMSOTS pair, the evaluator will provide 1, 2, 3, 4, 5 seeds for H = 25, 20, 15, 10, 5 respectively 
+							where H = the height of the LMS tree.  For each seed, the ToE will generate the corresponding public key which is to be 
+							verified by the evaluator using a known good implementation.</h:p>
+					
+						<h:p>
+							<h:b>Key Generation for ML-DSA</h:b>
+						</h:p><h:p>							
+							10x confirm correct key pair is generated from a random seed.</h:p>
+						<h:p>
+							<h:b>Key Generation for ML-KEM</h:b>
+						</h:p><h:p>							
+							10x confirm correct key pair is generated from a random seed</h:p>
 					</Tests>
 				</aactivity>
 			</f-element>
