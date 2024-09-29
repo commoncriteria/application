@@ -5,7 +5,7 @@
       <PPTitle>Protection Profile for Application Software</PPTitle>
       <PPVersion>2.0</PPVersion>
       <PPAuthor>National Information Assurance Partnership</PPAuthor>
-      <PPPubDate>2024-09-27</PPPubDate>
+      <PPPubDate>2024-09-30</PPPubDate>
       <Keywords>application; software</Keywords>
     </ReferenceTable>
   </PPReference>
@@ -50,7 +50,7 @@
     </entry>
   	<entry>
   		<version>v 2.0</version>
-  		<date>2024-09-27</date>
+  		<date>2024-09-30</date>
   		<subject>CC2022 conversion
 		<h:br/>Updating for TLS FP, SSH FP, and X509 FP
 		<h:br/>TDs and Github Issues
@@ -785,7 +785,30 @@
 							Using Discrete Logarithm Cryptography” and 
 							<selectables>
 								<selectable>RFC 3526</selectable>
-								<selectable>RFC 7919</selectable></selectables></h:i>]</selectable></selectables>.
+								<selectable>RFC 7919</selectable>
+							</selectables></h:i>]
+						</selectable>
+						<selectable><h:b>Leighton-Micali Signature</h:b> Algorithm using cryptographic key sizes of 
+							<selectables>
+								<selectable>192</selectable>
+								<selectable>256</selectable>
+							</selectables>
+							bits that meet the following[NIST SP 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"]
+						</selectable>
+						<selectable><h:b>eXtended Merkle Signature Scheme Algorithm</h:b> using cryptographic key sizes of 
+							<selectables>
+								<selectable>192</selectable>
+								<selectable>256</selectable>
+							</selectables>
+							bits that meets the following: [NIST SP 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"]
+						</selectable>
+						<selectable><h:b>Module-Lattice-Based Key-Encapsulation Mechanism Standard</h:b> that meets the following: 
+							[FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard]
+						</selectable>
+						<selectable><h:b>Module-Lattice-Based Digital Signature Standard</h:b> that meets the following 
+							[FIPS 204, Module-Lattice-Based Digital Signature Standard]
+						</selectable>
+						</selectables>.
 				</title>
 				<note role="application">
 					<h:p>
@@ -798,6 +821,8 @@
 					If the TOE acts as a receiver in the RSA key establishment scheme, 
 					the TOE does not need to implement RSA key generation.
 					</h:p>
+					<h:p>Note that ML-DSA and ML-KEM are not usable in any functions at the time of initial publication, 
+						they are added to this requirement in support of future protocol updates.</h:p>
 				</note>
 				<aactivity level="element">
 					<TSS>
@@ -944,6 +969,21 @@
 						</h:p><h:p>
 						<h:b>Diffie-Hellman Group 14 and FFC Schemes using “safe-prime” groups</h:b>
 						</h:p>
+						<h:p>
+							<h:b>Key Generation for LMS/XMSS</h:b>
+						</h:p><h:p>							
+							For each supported LMS/LMSOTS pair, the evaluator will provide 1, 2, 3, 4, 5 seeds for H = 25, 20, 15, 10, 5 respectively 
+							where H = the height of the LMS tree.  For each seed, the ToE will generate the corresponding public key which is to be 
+							verified by the evaluator using a known good implementation.</h:p>
+					
+						<h:p>
+							<h:b>Key Generation for ML-DSA</h:b>
+						</h:p><h:p>							
+							10x confirm correct key pair is generated from a random seed.</h:p>
+						<h:p>
+							<h:b>Key Generation for ML-KEM</h:b>
+						</h:p><h:p>							
+							10x confirm correct key pair is generated from a random seed</h:p>
 					</Tests>
 				</aactivity>
 			</f-element>
@@ -1033,11 +1073,7 @@
 							Special Publication 800-56B, “Recommendation for Pair-Wise Key Establishment 
 							Schemes Using Integer Factorization Cryptography”]</h:b>
 						</selectable>
-						<selectable><h:b>[RSA-based key establishment schemes]</h:b>
-							that meet the following: <h:b>RSAES-PKCS1-v1_5 as specified in Section 7.2 of RFC 8017,
-							“Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.1”</h:b>
-						</selectable>
-						<selectable>
+												<selectable>
 							<h:b>[Elliptic curve-based key establishment schemes]</h:b> that meets the 
 							following: <h:b>[NIST Special Publication 800-56A, “Recommendation for Pair-Wise Key Establishment 
 							Schemes Using Discrete Logarithm Cryptography”]</h:b>
@@ -1218,11 +1254,6 @@
 						values that trigger each of the three decryption error checks described in NIST Special 
 						Publication 800-56B section 7.2.3.3, ensure that each decryption attempt results in an error, 
 						and ensure that any outputted or logged error message is identical for each.
-						</h:p><h:p>
-						<h:b>RSA-based key establishment</h:b>
-						</h:p><h:p>
-						The evaluator shall verify the correctness of the TSF’s implementation of RSAES-PKCS1-v1_5 by using a
-						known good implementation for each protocol selected in FTP_DIT_EXT.1 that uses RSAES-PKCS1-v1_5. 
 						</h:p><h:p>
 						<h:b>FFC Schemes using “safe-prime” groups</h:b>
 						</h:p><h:p>
@@ -1824,6 +1855,8 @@ functionality (such as these)
 							<selectable>P-521</selectable>
 							</selectables>]
 						that meet the following: [FIPS PUB 186-5, “Digital Signature Standard (DSS),” Section 6]</selectable>
+						<selectable><h:b>Module-Lattice-Based Digital Signature Standard</h:b> that meets the following 
+							[FIPS 204, Module-Lattice-Based Digital Signature Standard]</selectable>
 					</selectables>.
 				</title>
 				<note role="application">
@@ -1836,6 +1869,8 @@ functionality (such as these)
 					appropriate assignments/selections to specify the parameters that are implemented for that
 					algorithm.
 					</h:p>
+					<h:p>Note ML-DSA is not able to be used in any functions at the time of publication, it is being added for future support.</h:p>
+					
 				</note>
 				<aactivity>
 					The evaluator shall perform the following activities based on the selections in the ST.
@@ -1868,6 +1903,11 @@ functionality (such as these)
 								sign these messages. The evaluator shall verify the correctness of the 
 								TSF’s signature using a known good implementation and the 
 								associated public keys to verify the signatures.
+							</test>
+						</testlist>
+						ML-DSA Test
+						<testlist>
+							<test>10x confirm correct signature is generated from a randomly generated message and key pair.
 							</test>
 						</testlist>
 					</Tests>
@@ -1909,6 +1949,8 @@ functionality (such as these)
 						</selectables>
 							bits that meets the following: [NIST SP 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"]
 						</selectable>
+						<selectable><h:b>Module-Lattice-Based Digital Signature Standard</h:b> that meets the following 
+							[FIPS 204, Module-Lattice-Based Digital Signature Standard]</selectable>
 					</selectables>.
 				</title>
 				<note role="application">
@@ -1921,6 +1963,7 @@ functionality (such as these)
 						appropriate assignments/selections to specify the parameters that are implemented for that
 						algorithm.
 					</h:p>
+					<h:p>Note ML-DSA is not able to be used in any functions at the time of publication, it is being added for future support.</h:p>
 				</note>
 				<aactivity>
 					The evaluator shall perform the following activities based on the selections in the ST.
@@ -1952,6 +1995,28 @@ functionality (such as these)
 								during the Signature Verification Test by introducing errors in some of the public 
 								keys, e, messages, IR format, and/or signatures. The TOE attempts 
 								to verify the signatures and returns success or failure.
+							</test>
+						</testlist>
+						LMS/XMSS Signature Algorithm Test
+						<testlist>
+							
+							<test>
+								For each supported LMS/LMSOTS pair, the evaluator generates a private/public key pair.  
+								With the private key, the evaluator generates 4 messages of length 1024 bits.  The messages 
+								and public key are provided to the ToE.  The signatures for each message is generated with 
+								the following error types "none", “modify message”, “modify signature”, “modify header”.  For
+								"none" the message is unmodified and the signature is correct.  For "modify message" the signature 
+								is for a modified message where a single bit is flipped.  For "modify signature", one bit of the 
+								signature is flipped. For "modify header" the signature uses a different LMS/LMSOTS pair. Each error 
+								type is represented.  For each message, signature pair the ToE returns "true" or "false" depending 
+								on whether the signature verifies or not.
+							</test>
+						</testlist>
+						ML-DSA Test
+						<testlist>
+							
+							<test>10x given a key pair, message and signature, verify the signature
+								Tests should invovle a mix of good signatures and bad signatures generated using different messages, keys, etc.
 							</test>
 						</testlist>
 					</Tests>
@@ -2711,13 +2776,14 @@ functionality (such as these)
 						<selectable>create IVs in the following manner 
 							<selectables linebreak="yes">
 								<selectable>CBC: IVs shall be non-repeating and unpredictable;</selectable>
-								<selectable>CCM: Nonce shall be non-repeating and unpredictable;</selectable>
+								<selectable>CCM: Nonce shall be non-repeating;</selectable>
 								<selectable>CTR: "Initial Counter" shall be non-repeating. No counter value shall be repeated
 								across multiple messages with the same secret key.</selectable>
 								<selectable>XTS: No IV. Tweak values shall be non-negative integers, assigned consecutively,
 									and starting at an arbitrary non-negative integer;</selectable>
 								<selectable>GCM: IV shall be non-repeating. The number of invocations of GCM shall not exceed
-									 2^32 for a given secret key].</selectable>
+									2^32 for a given secret key]. The IV constructed using one of two allowed construction methods 
+									given in Section 8.2 of NIST SP 800-38D.</selectable>
 							</selectables>
 						</selectable>
 					</selectables>
@@ -3115,7 +3181,7 @@ functionality (such as these)
       				Default credentials are credentials (e.g., passwords, keys) that are automatically 
       				(without user interaction) loaded onto the platform during application installation.
       				Credentials that are generated during installation using requirements laid out in 
-      				FCS_RBG_EXT.1 are not by definition default credentials.
+      				FCS_RBG_EXT.1 or established by leveraging platform accounts are not by definition default credentials.  
       			</note>
       			<aactivity level="element">
       				<TSS><h:p>
