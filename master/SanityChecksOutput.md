@@ -1,7 +1,3 @@
-* Error: Detected multiple elements with an id of 'fcom_sign'.
-* Error: Detected multiple elements with an id of 'fel-sign'.
-* Error: Detected multiple elements with an id of 'fcom_sign'.
-* Error: Detected multiple elements with an id of 'fel-sign'.
 * Error: Detected multiple elements with an id of 'fel-https-who-cl'.
 * Error: Detected multiple elements with an id of 'fel-https-who-cl'.
  Failed to find a reference to bibCEM.
