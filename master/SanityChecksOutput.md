@@ -8,8 +8,6 @@
 * Error: Detected multiple elements with an id of 'fel-sign'.
 * Error: Detected multiple elements with an id of 'fel-https-who-cl'.
 * Error: Detected multiple elements with an id of 'fel-https-who-cl'.
-* Error: Detected multiple elements with an id of 'sel_impl_sto'.
-* Error: Detected multiple elements with an id of 'sel_impl_sto'.
  Failed to find a reference to bibCEM.
  Failed to find a reference to bibCEM.
  Failed to find a reference to bibCEM.
