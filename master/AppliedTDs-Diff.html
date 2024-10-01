@@ -17,6 +17,22 @@
                 </tr>
             </table>
         </div>
+        <div id="commmentbox-">
+            <a href="#Comment-1-">Comment: Comment-1-</a>
+            <br>
+            <a href="#Comment-2-">Comment: Comment-2-</a>
+            <br>
+            <a href="#Comment-3-">Comment: Comment-3-</a>
+            <br>
+            <a href="#Comment-4-">Comment: Comment-4-</a>
+            <br>
+            <a href="#Comment-5-">Comment: Comment-5-</a>
+            <br>
+            <a href="#Comment-6-">Comment: Comment-6-</a>
+            <br>
+            <a href="#Comment-7-">Comment: Comment-7-</a>
+            <br>
+        </div>
         <h1 class="title" style="page-break-before:auto;">Protection Profile for Application Software</h1>
         <h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1>
         <div class="center">
@@ -530,6 +546,162 @@
                 </div>
             </div>
         </div>
+        <div class="comp" id="FCS_RBG.1">
+            <h4>FCS_RBG.1 Random Bit Generation (RBG)</h4>
+            <div class="element">
+                <div class="reqid" id="FCS_RBG.1.1">
+                    <a href="#FCS_RBG.1.1" class="abbr">FCS_RBG.1.1</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall perform deterministic random bit generation services using [<b>selection</b>: 
+                    <ul>
+                        <li style="">
+                            <span class="selectable-content" id="_s_111">Hash_DRBG (any)</span>
+                        </li>
+                        <li style="">
+                            <span class="selectable-content" id="_s_112">HMAC_DRBG (any)</span>
+                        </li>
+                        <li style="">
+                            <span class="selectable-content" id="_s_113">CTR_DRBG (<abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>)</span>
+                        </li>
+                    </ul>
+                    ] in accordance with [<i><abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A</i>] after initialization with a seed. 
+                    <div class="appnote">
+                        <span class="note-header">Application Note: </span><span class="note"> <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A contains three different methods of generating random numbers; each of these, in turn, depends on underlying cryptographic primitives (hash functions/ciphers). The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author will select the function used and include the specific underlying cryptographic primitives used in the requirement or in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. While any of the identified hash functions (<abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-224, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512) are allowed for Hash_DRBG or HMAC_DRBG, only <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-based implementations for CTR_DRBG are allowed. </span>
+                    </div>
+                </div>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_RBG.1.2">
+                    <a href="#FCS_RBG.1.2" class="abbr">FCS_RBG.1.2</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall use a [<b>selection</b>: <span class="selectable-content" id="internal-seed"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source [<b>assignment</b>: <span class="assignable-content">name of noise source</span>]</span>, <span class="selectable-content" id="internal-seeds"><b>multiple <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise sources [<b>assignment</b>: <span class="assignable-content">names of noise sources</span>]</b></span>, <span class="selectable-content" id="external-seed"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface for seeding</span>] for initialized seeding. 
+                    <div class="appnote">
+                        <span class="note-header">Application Note: </span><span class="note">
+                            <p>
+                                 For the selection in this requirement, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source" if a single noise source is used as input to the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "multiple <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise sources" if the seed is formed from a combination of two or more noise sources. If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements two or more separate DRBGs, this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> should be isolated. It multiple distinct noise sources exist such that each <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> only uses one of them, then each iteration would select "<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source." 
+                            </p>
+                            <p>
+                                 If "<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source" is selected, <a href="#FCS_RBG.3">FCS_RBG.3</a> must be claimed. 
+                            </p>
+                            <p>
+                                 If "multiple <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise sources" is selected, <a href="#FCS_RBG.4">FCS_RBG.4</a> and <a href="#FCS_RBG.5">FCS_RBG.5</a> must be claimed. 
+                            </p>
+                            <p>
+                                 If "<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface for seeding" is selected, <a href="#FCS_RBG.2">FCS_RBG.2</a> must be claimed. 
+                            </p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_RBG.1.3">
+                    <a href="#FCS_RBG.1.3" class="abbr">FCS_RBG.1.3</a>
+                </div>
+                <div class="reqdesc">
+                     <span style="" class="comment " id="Comment-1-">do we want to require 'reseeding' for this? Or is uninstantiation still permissible?</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall update the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> state by [<b>selection</b>: <span class="selectable-content" id="_s_117">reseeding</span>, <span class="selectable-content" id="_s_118">uninstantiating and reinstantiating</span>] using a [<b>selection</b>: <span class="selectable-content" id="_s_119"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source [<b>assignment</b>: <span class="assignable-content">name of noise source</span>]</span>, <span class="selectable-content" id="_s_120"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface for seeding</span>] in the following situations: [<b>selection</b>: 
+                    <ul>
+                        <li style="">
+                            <span class="selectable-content" id="_s_121">on demand</span>
+                        </li>
+                        <li style="">
+                            <span class="selectable-content" id="_s_122">on the condition: [<b>assignment</b>: <span class="assignable-content">condition</span>]</span>
+                        </li>
+                        <li style="">
+                            <span class="selectable-content" id="_s_123">after [<b>assignment</b>: <span class="assignable-content">time</span>]</span>
+                        </li>
+                    </ul>
+                    ] in accordance with [<b>assignment</b>: <span class="assignable-content">list of standards</span>]. 
+                </div>
+            </div>
+            <div class="activity_pane hide">
+                <div class="activity_pane_header">
+                    <a href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a>
+                </div>
+                <div class="activity_pane_body">
+                    <div class="element-activity-header">
+                        <a href="#FCS_RBG.1.1">FCS_RBG.1.1</a>
+                    </div>
+                    <div class="eacategory">
+                        <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                    </div>
+                     There are no additional <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> evaluation activities for this element.
+                    <br>
+                    <br>
+                    <div class="eacategory">Guidance</div>
+                     There are no additional Guidance evaluation activities for this element.
+                    <br>
+                    <br>
+                    <div class="eacategory">Tests</div>
+                    <div class="ea">
+                        <p> The evaluator shall perform the following tests: </p>
+                        <p>
+                             The evaluator shall perform 15 trials for the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> implementation. If the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> is configurable, the evaluator shall perform 15 trials for each configuration. The evaluator shall also confirm that the operational guidance contains appropriate instructions for configuring the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> functionality. 
+                        </p>
+                        <p>
+                             If the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> has prediction resistance enabled, each trial consists of (1) instantiate <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>, (2) generate the first block of random bits (3) generate a second block of random bits (4) uninstantiate. The evaluator verifies that the second block of random bits is the expected value. The evaluator shall generate eight input values for each trial. The first is a count (0 &ndash; 14). The next three are entropy input, nonce, and personalization string for the instantiate operation. The next two are additional input and entropy input for the first call to generate. The final two are additional input and entropy input for the second call to generate. These values are randomly generated. "generate one block of random bits" means to generate random bits with number of returned bits equal to the Output Block Length (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A). 
+                        </p>
+                        <p>
+                             If the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> does not have prediction resistance, each trial consists of (1) instantiate <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>, (2) generate the first block of random bits (3) reseed, (4) generate a second block of random bits (5) uninstantiate. The evaluator verifies that the second block of random bits is the expected value. The evaluator shall generate eight input values for each trial. The first is a count (0 &ndash; 14). The next three are entropy input, nonce, and personalization string for the instantiate operation. The fifth value is additional input to the first call to generate. The sixth and seventh are additional input and entropy input to the call to reseed. The final value is additional input to the second generate call. 
+                        </p>
+                        <p>
+                             The following list contains more information on some of the input values to be generated/selected by the evaluator. 
+                            <ul>
+                                <li>
+                                     <b>Entropy input:</b> The length of the entropy input value must equal the seed length.
+                                </li>
+                                <li>
+                                    <b>Nonce:</b> If a nonce is supported (CTR_DRBG with no Derivation Function does not use a nonce), the nonce bit length is one-half the seed length. 
+                                </li>
+                                <li>
+                                    <b>Personalization string:</b> The length of the personalization string must be less than or equal to seed length. If the implementation only supports one personalization string length, then the same length can be used for both values. If more than one string length is support, the evaluator shall use personalization strings of two different lengths. If the implementation does not use a personalization string, no value needs to be supplied. 
+                                </li>
+                                <li>
+                                    <b>Additional input:</b> The additional input bit lengths have the same defaults and restrictions as the personalization string lengths.
+                                </li>
+                            </ul>
+                        </p>
+                    </div>
+                    <div class="element-activity-header">
+                        <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a>
+                    </div>
+                    <div class="eacategory">
+                        <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                    </div>
+                     There are no additional <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> evaluation activities for this element.
+                    <br>
+                    <br>
+                    <div class="eacategory">Guidance</div>
+                     There are no additional Guidance evaluation activities for this element.
+                    <br>
+                    <br>
+                    <div class="eacategory">Tests</div>
+                    <div class="ea">
+                        <p>
+                             Documentation will be produced - and the evaluator shall perform the activities - in accordance with <a href="#entropyappendix" class="dynref">Appendix D - Entropy Documentation and Assessment</a> and the <a href="https://old.niap-ccevs.org/Documents_and_Guidance/ccevs/Entropy%20Documentation%20and%20Assessment%20Clarification.pdf">Clarification to the Entropy Documentation and Assessment Annex</a>. 
+                        </p>
+                    </div>
+                    <div class="element-activity-header">
+                        <a href="#FCS_RBG.1.3">FCS_RBG.1.3</a>
+                    </div>
+                    <div class="eacategory">
+                        <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                    </div>
+                    <div class="ea">
+                         <span style="" class="comment " id="Comment-2-">EAs needed for this</span> 
+                    </div>
+                    <div class="eacategory">Guidance</div>
+                     There are no additional Guidance evaluation activities for this element.
+                    <br>
+                    <br>
+                    <div class="eacategory">Tests</div>
+                     There are no test activities for this element.
+                    <br>
+                    <br>
+                </div>
+            </div>
+        </div>
         <div class="comp" id="FCS_RBG_EXT.1">
             <h4>FCS_RBG_EXT.1 Random Bit Generation Services</h4>
             <div class="element">
@@ -540,10 +712,10 @@
                      The application shall [<b>selection</b>: 
                     <ul>
                         <li style="">
-                            <span class="selectable-content" id="_s_111">use no <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span>
+                            <span class="selectable-content" id="_s_130">use no <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_112">invoke platform-provided <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span>
+                            <span class="selectable-content" id="_s_131">invoke platform-provided <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span>
                         </li>
                         <li style="">
                             <span class="selectable-content" id="drbg">implement <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span>
@@ -556,7 +728,7 @@
                                  The selection "<b>invoke platform-provided <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</b>" should only be chosen for direct invocations of the platform <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>, calls to platform protocols that may then call the platform's <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> are not directly using <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality and should select "<b>use no <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</b>." 
                             </p>
                             <p>
-                                 If "<b>implement <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</b>" is selected, then additional <a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> elements shall be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. 
+                                 If "<b>implement <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</b>" is selected, then additional FCS_RBG_EXT.2 elements shall be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. 
                             </p>
                             <p>
                                  In this requirement, cryptographic operations include all cryptographic key generation/derivation/agreement, IVs (for certain modes), as well as protocol-specific random values. Cryptographic operations in this requirement refer to the other cryptographic requirements in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, not additional functionality that is not in scope. 
@@ -582,7 +754,7 @@
                                  If "<b>use no <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</b>" is selected, the evaluator shall inspect the application and its developer documentation and verify that the application needs no random bit generation services. 
                             </p>
                             <p>
-                                 If "<b>implement <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</b>" is selected, the evaluator shall ensure that additional <a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> elements are included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. 
+                                 If "<b>implement <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</b>" is selected, the evaluator shall ensure that additional FCS_RBG_EXT.2 elements are included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. 
                             </p>
                             <p>
                                  If "<b>invoke platform-provided <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</b>" is selected, the evaluator performs the following activities. The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to confirm that it identifies all functions (as described by the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>) that obtain random numbers from the platform <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr>. The evaluator shall determine that for each of these functions, the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> states which platform interface (<abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>) is used to obtain the random numbers. The evaluator shall confirm that each of these interfaces corresponds to the acceptable interfaces listed for each platform below. 
@@ -677,40 +849,40 @@
                     The application shall [<b>selection</b>: 
                     <ul>
                         <li style="">
-                            <span class="selectable-content" id="_s_120">not store any credentials</span>
+                            <span class="selectable-content" id="_s_133">not store any credentials</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_121">invoke the functionality provided by the platform to securely store [<b>assignment</b>: <span class="assignable-content">list of credentials</span>] </span>
+                            <span class="selectable-content" id="_s_134">invoke the functionality provided by the platform to securely store [<b>assignment</b>: <span class="assignable-content">list of credentials</span>] </span>
                         </li>
                         <li style="">
                             <span class="selectable-content" id="sel_plat_sto"> securely store [<b>assignment</b>: <span class="assignable-content">list of credentials</span>] with platform provided [<b>selection</b>: 
                                 <ul>
                                     <li style="">
-                                        <span class="selectable-content" id="_s_123"> [<b>selection</b>: 
+                                        <span class="selectable-content" id="_s_136"> [<b>selection</b>: 
                                             <ul>
                                                 <li style="">
-                                                    <span class="selectable-content" id="_s_124"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38A) mode</span>
+                                                    <span class="selectable-content" id="_s_137"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-CBC (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38A) mode</span>
                                                 </li>
                                                 <li style="">
-                                                    <span class="selectable-content" id="_s_125"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-GCM (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38D) mode</span>
+                                                    <span class="selectable-content" id="_s_138"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-GCM (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38D) mode</span>
                                                 </li>
                                                 <li style="">
-                                                    <span class="selectable-content" id="_s_126"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-XTS (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38E) mode</span>
+                                                    <span class="selectable-content" id="_s_139"><abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-XTS (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38E) mode</span>
                                                 </li>
                                             </ul>
                                             ] and cryptographic key size of 256-bits. </span>
                                     </li>
                                     <li style="">
-                                        <span class="selectable-content" id="_s_127">PBKDF2 function that uses [<b>selection</b>: 
+                                        <span class="selectable-content" id="_s_140">PBKDF2 function that uses [<b>selection</b>: 
                                             <ul>
                                                 <li style="">
-                                                    <span class="selectable-content" id="_s_128"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA256</span>
+                                                    <span class="selectable-content" id="_s_141"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA256</span>
                                                 </li>
                                                 <li style="">
-                                                    <span class="selectable-content" id="_s_129"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA384</span>
+                                                    <span class="selectable-content" id="_s_142"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA384</span>
                                                 </li>
                                                 <li style="">
-                                                    <span class="selectable-content" id="_s_130"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA512</span>
+                                                    <span class="selectable-content" id="_s_143"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA512</span>
                                                 </li>
                                             </ul>
                                             ] with [<b>assignment</b>: <span class="assignable-content">positive integer of 1,000 or more</span>] iterations and output cryptographic key size of [<b>assignment</b>: <span class="assignable-content">positive integer of 256 of greater</span>] bits that meet the following [<i><abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-132</i>]. </span>
@@ -824,16 +996,16 @@
                      The application shall [<b>selection</b>: 
                     <ul>
                         <li style="">
-                            <span class="selectable-content" id="_s_148">leverage platform-provided functionality to encrypt sensitive data</span>
+                            <span class="selectable-content" id="_s_161">leverage platform-provided functionality to encrypt sensitive data</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_149">implement functionality to encrypt sensitive data as defined in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</span>
+                            <span class="selectable-content" id="_s_162">implement functionality to encrypt sensitive data as defined in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_150">protect sensitive data in accordance with <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></span>
+                            <span class="selectable-content" id="_s_163">protect sensitive data in accordance with <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_151">not store any sensitive data</span>
+                            <span class="selectable-content" id="_s_164">not store any sensitive data</span>
                         </li>
                     </ul>
                     ] in non-volatile memory. 
@@ -951,31 +1123,31 @@
                      The application shall restrict its access to [<b>selection</b>: 
                     <ul>
                         <li style="">
-                            <span class="selectable-content" id="_s_152">no hardware resources</span>
+                            <span class="selectable-content" id="_s_165">no hardware resources</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_153">network connectivity</span>
+                            <span class="selectable-content" id="_s_166">network connectivity</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_154">camera</span>
+                            <span class="selectable-content" id="_s_167">camera</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_155">microphone</span>
+                            <span class="selectable-content" id="_s_168">microphone</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_156">location services</span>
+                            <span class="selectable-content" id="_s_169">location services</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_157"><abbr class="dyn-abbr"><a href="#abbr_NFC">NFC</a></abbr></span>
+                            <span class="selectable-content" id="_s_170"><abbr class="dyn-abbr"><a href="#abbr_NFC">NFC</a></abbr></span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_158"><abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr></span>
+                            <span class="selectable-content" id="_s_171"><abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr></span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_159">Bluetooth</span>
+                            <span class="selectable-content" id="_s_172">Bluetooth</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_160">[<b>assignment</b>: <span class="assignable-content">list of additional hardware resources</span>]</span>
+                            <span class="selectable-content" id="_s_173">[<b>assignment</b>: <span class="assignable-content">list of additional hardware resources</span>]</span>
                         </li>
                     </ul>
                     ]. 
@@ -992,22 +1164,22 @@
                     The application shall restrict its access to [<b>selection</b>: 
                     <ul>
                         <li style="">
-                            <span class="selectable-content" id="_s_161">no sensitive information repositories</span>
+                            <span class="selectable-content" id="_s_174">no sensitive information repositories</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_162">address book</span>
+                            <span class="selectable-content" id="_s_175">address book</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_163">calendar</span>
+                            <span class="selectable-content" id="_s_176">calendar</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_164">call lists</span>
+                            <span class="selectable-content" id="_s_177">call lists</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_165">system logs</span>
+                            <span class="selectable-content" id="_s_178">system logs</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_166">[<b>assignment</b>: <span class="assignable-content">list of additional sensitive information repositories</span>]</span>
+                            <span class="selectable-content" id="_s_179">[<b>assignment</b>: <span class="assignable-content">list of additional sensitive information repositories</span>]</span>
                         </li>
                     </ul>
                     ]. 
@@ -1158,16 +1330,16 @@
                     The application shall restrict network communication to [<b>selection</b>: 
                     <ul>
                         <li style="">
-                            <span class="selectable-content" id="_s_167">no network communication</span>
+                            <span class="selectable-content" id="_s_180">no network communication</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_168">user-initiated communication for [<b>assignment</b>: <span class="assignable-content">list of functions for which the user can initiate network communication</span>]</span>
+                            <span class="selectable-content" id="_s_181">user-initiated communication for [<b>assignment</b>: <span class="assignable-content">list of functions for which the user can initiate network communication</span>]</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_169">respond to [<b>assignment</b>: <span class="assignable-content">list of remotely initiated communication</span>]</span>
+                            <span class="selectable-content" id="_s_182">respond to [<b>assignment</b>: <span class="assignable-content">list of remotely initiated communication</span>]</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_170">[<b>assignment</b>: <span class="assignable-content">list of application-initiated network communication</span>]</span>
+                            <span class="selectable-content" id="_s_183">[<b>assignment</b>: <span class="assignable-content">list of application-initiated network communication</span>]</span>
                         </li>
                     </ul>
                     ]. 
@@ -1204,10 +1376,10 @@
                             The evaluator shall perform the following tests: <span class="testlist-">
                                 <ul>
                                     <li class="test-">
-                                        <a id="_t_18" class="defined" href="#_t_18">Test FDP_NET_EXT.1:1</a>: The evaluator shall run the application. While the application is running, the evaluator shall sniff network traffic ignoring all non-application associated traffic and verify that any network communications witnessed are documented in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> or are user-initiated. 
+                                        <a id="_t_15" class="defined" href="#_t_15">Test FDP_NET_EXT.1:1</a>: The evaluator shall run the application. While the application is running, the evaluator shall sniff network traffic ignoring all non-application associated traffic and verify that any network communications witnessed are documented in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> or are user-initiated. 
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_19" class="defined" href="#_t_19">Test FDP_NET_EXT.1:2</a>: The evaluator shall run the application. After the application initializes, the evaluator shall run network port scans to verify that any ports opened by the application have been captured in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> for the third selection and its assignment. This includes connection-based protocols (e.g. TCP, DCCP) as well as connectionless protocols (e.g. UDP). 
+                                        <a id="_t_16" class="defined" href="#_t_16">Test FDP_NET_EXT.1:2</a>: The evaluator shall run the application. After the application initializes, the evaluator shall run network port scans to verify that any ports opened by the application have been captured in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> for the third selection and its assignment. This includes connection-based protocols (e.g. TCP, DCCP) as well as connectionless protocols (e.g. UDP). 
                                     </li>
                                 </ul>
                             </span> 
@@ -1274,13 +1446,13 @@
                         If the application uses any default credentials the evaluator shall run the following tests. <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_20" class="defined" href="#_t_20">Test FMT_CFG_EXT.1.1:1</a>: The evaluator shall install and run the application without generating or loading new credentials and verify that only the minimal application functionality required to set new credentials is available. 
+                                    <a id="_t_17" class="defined" href="#_t_17">Test FMT_CFG_EXT.1.1:1</a>: The evaluator shall install and run the application without generating or loading new credentials and verify that only the minimal application functionality required to set new credentials is available. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_21" class="defined" href="#_t_21">Test FMT_CFG_EXT.1.1:2</a>: The evaluator shall attempt to clear all credentials and verify that only the minimal application functionality required to set new credentials is available. 
+                                    <a id="_t_18" class="defined" href="#_t_18">Test FMT_CFG_EXT.1.1:2</a>: The evaluator shall attempt to clear all credentials and verify that only the minimal application functionality required to set new credentials is available. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_22" class="defined" href="#_t_22">Test FMT_CFG_EXT.1.1:3</a>: The evaluator shall run the application, establish new credentials and verify that the original default credentials no longer provide access to the application. 
+                                    <a id="_t_19" class="defined" href="#_t_19">Test FMT_CFG_EXT.1.1:3</a>: The evaluator shall run the application, establish new credentials and verify that the original default credentials no longer provide access to the application. 
                                 </li>
                             </ul>
                         </span> 
@@ -1356,7 +1528,7 @@
                     <a href="#FMT_MEC_EXT.1.1" class="abbr">FMT_MEC_EXT.1.1</a>
                 </div>
                 <div class="reqdesc">
-                    The application shall [<b>selection</b>: <span class="selectable-content" id="_s_171">invoke the mechanisms recommended by the platform vendor for storing and setting configuration options</span>, <span class="selectable-content" id="_s_172">implement functionality to encrypt and store configuration options as defined by FDP_PRT_EXT.1 in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</span>]. 
+                    The application shall [<b>selection</b>: <span class="selectable-content" id="_s_184">invoke the mechanisms recommended by the platform vendor for storing and setting configuration options</span>, <span class="selectable-content" id="_s_185">implement functionality to encrypt and store configuration options as defined by FDP_PRT_EXT.1 in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</span>]. 
                     <div class="appnote">
                         <span class="note-header">Application Note: </span><span class="note">
                             <p>
@@ -1467,22 +1639,22 @@
                      The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of performing the following management functions [<b>selection</b>: 
                     <ul>
                         <li style="">
-                            <span class="selectable-content" id="_s_173">no management functions</span>
+                            <span class="selectable-content" id="_s_186">no management functions</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_174"> enable/disable the transmission of any information describing the system's hardware, software, or configuration</span>
+                            <span class="selectable-content" id="_s_187"> enable/disable the transmission of any information describing the system's hardware, software, or configuration</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_175"> enable/disable the transmission of any <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr></span>
+                            <span class="selectable-content" id="_s_188"> enable/disable the transmission of any <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr></span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_176"> enable/disable transmission of any application state (e.g. crashdump) information</span>
+                            <span class="selectable-content" id="_s_189"> enable/disable transmission of any application state (e.g. crashdump) information</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_177"> enable/disable network backup functionality to [<b>assignment</b>: <span class="assignable-content"> list of enterprise or commercial cloud backup systems</span>] </span>
+                            <span class="selectable-content" id="_s_190"> enable/disable network backup functionality to [<b>assignment</b>: <span class="assignable-content"> list of enterprise or commercial cloud backup systems</span>] </span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_178"> [<b>assignment</b>: <span class="assignable-content"> list of other management functions to be provided by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr></span>]</span>
+                            <span class="selectable-content" id="_s_191"> [<b>assignment</b>: <span class="assignable-content"> list of other management functions to be provided by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr></span>]</span>
                         </li>
                     </ul>
                     ]. 
@@ -1535,10 +1707,10 @@
                     The application shall [<b>selection</b><b>, choose one of</b>: 
                     <ul>
                         <li style="">
-                            <span class="selectable-content" id="_s_179">not transmit <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr> over a network</span>
+                            <span class="selectable-content" id="_s_192">not transmit <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr> over a network</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_180">require user approval before executing [<b>assignment</b>: <span class="assignable-content">list of functions that transmit <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr> over a network</span>] </span>
+                            <span class="selectable-content" id="_s_193">require user approval before executing [<b>assignment</b>: <span class="assignable-content">list of functions that transmit <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr> over a network</span>] </span>
                         </li>
                     </ul>
                     ]. 
@@ -1604,10 +1776,10 @@
                      The application shall [<b>selection</b><b>, choose one of</b>: 
                     <ul>
                         <li style="">
-                            <span class="selectable-content" id="_s_181">not allocate any memory region with both write and execute permissions</span>
+                            <span class="selectable-content" id="_s_194">not allocate any memory region with both write and execute permissions</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_182">allocate memory regions with write and execute permissions for only [<b>assignment</b>: <span class="assignable-content"> list of functions performing just-in-time compilation</span>] </span>
+                            <span class="selectable-content" id="_s_195">allocate memory regions with write and execute permissions for only [<b>assignment</b>: <span class="assignable-content"> list of functions performing just-in-time compilation</span>] </span>
                         </li>
                     </ul>
                     ]. 
@@ -2010,6 +2182,48 @@
                 </div>
             </div>
         </div>
+        <div class="comp" id="FPT_FLS.1">
+            <h4>FPT_FLS.1 Failure with Preservation of Secure State</h4>
+            <div class="element">
+                <div class="reqid" id="FPT_FLS.1.1">
+                    <a href="#FPT_FLS.1.1" class="abbr">FPT_FLS.1.1</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall preserve a secure state when the following types of failures occur: [<i><abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> failure</i>]. 
+                    <div class="appnote">
+                        <span class="note-header">Application Note: </span><span class="note">The intent of this requirement is to ensure that cryptographic services requiring random bit generation cannot be performed if a failure of a self-test defined in <a href="#FPT_TST.1">FPT_TST.1</a> occurs.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="activity_pane hide">
+                <div class="activity_pane_header">
+                    <a href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a>
+                </div>
+                <div class="activity_pane_body">
+                    <div class="component-activity-header">
+                        <a href="#FPT_FLS.1">FPT_FLS.1</a>
+                    </div>
+                    <div class="eacategory">
+                        <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                    </div>
+                    <div class="ea">
+                        <div class="ea">
+                             <span style="" class="comment " id="Comment-4-">EAs needed for this.</span> 
+                        </div>
+                    </div>
+                    <div class="eacategory">Guidance</div>
+                    <div class="ea">
+                         There are no additional Guidance evaluation activities for this component.
+                        <br>
+                    </div>
+                    <div class="eacategory">Tests</div>
+                    <div class="ea">
+                         There are no test activities for this component.
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="comp" id="FPT_IDV_EXT.1">
             <h4>FPT_IDV_EXT.1 Software Identification and Versions</h4>
             <div class="element">
@@ -2101,6 +2315,69 @@
                 </div>
             </div>
         </div>
+        <div class="comp" id="FPT_TST.1">
+            <h4>FPT_TST.1 TSF Self-Testing</h4>
+            <div class="element">
+                <div class="reqid" id="FPT_TST.1.1">
+                    <a href="#FPT_TST.1.1" class="abbr">FPT_TST.1.1</a>
+                </div>
+                <div class="reqdesc">
+                     <span style="" class="comment " id="Comment-5-">The whole <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is added for <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>:2022 dependency purposes - it (along with the EAs) should be reviewed for appropriateness.</span> <span style="" class="comment " id="Comment-6-">Do we want to mandate any specific tests to be done or specific situations the testing should be done? Generally we would assume that it be run at startup and then continuously, but not sure if that will always be true.</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall run a suite of the following self-tests [<b>selection</b>: <span class="selectable-content" id="_s_200">during initial start-up</span>, <span class="selectable-content" id="_s_201">periodically during normal operation</span>, <span class="selectable-content" id="_s_202">at the request of the authorized user</span>, <span class="selectable-content" id="_s_203">at the conditions [<b>assignment</b>: <span class="assignable-content">conditions under which self-test should occur</span>]</span>] to demonstrate the correct operation of [<i><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> specified in <a href="#FCS_RBG.1">FCS_RBG.1</a></i>]. 
+                </div>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FPT_TST.1.2">
+                    <a href="#FPT_TST.1.2" class="abbr">FPT_TST.1.2</a>
+                </div>
+                <div class="reqdesc">
+                     <span style="" class="comment " id="Comment-7-">Not sure what we should do with this as the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> health testing doesn't actually verify the integrity of any data.</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide authorized users with the capability to verify the integrity of [<b>selection</b>: <span class="selectable-content" id="_s_204">[<b>assignment</b>: <span class="assignable-content">parts of <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> data</span>]</span>, <span class="selectable-content" id="_s_205"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> data</span>] 
+                </div>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FPT_TST.1.3">
+                    <a href="#FPT_TST.1.3" class="abbr">FPT_TST.1.3</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide authorized users with the capability to verify the integrity of [<i><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> specified in <a href="#FCS_RBG.1">FCS_RBG.1</a></i>]. 
+                    <div class="appnote">
+                        <span class="note-header">Application Note: </span><span class="note">This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is a required dependency of <a href="#FCS_RBG.1">FCS_RBG.1</a>. It is intended to require that any <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> undergo health testing to ensure that the random bit generation functionality has not been degraded. If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports multiple DRBGs, this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> should be iterated to describe the self-test behavior for each.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="activity_pane hide">
+                <div class="activity_pane_header">
+                    <a href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a>
+                </div>
+                <div class="activity_pane_body">
+                    <div class="component-activity-header">
+                        <a href="#FPT_TST.1">FPT_TST.1</a>
+                    </div>
+                    <div class="eacategory">
+                        <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                    </div>
+                    <div class="ea">
+                        <div class="ea">
+                             The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it details the self-tests that are run by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> along with how they are run. The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> makes an argument that the tests are sufficient to demonstrate that the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> is operating correctly. 
+                        </div>
+                    </div>
+                    <div class="eacategory">Guidance</div>
+                    <div class="ea">
+                        <div class="ea">
+                            <p> If a self-test can be executed at the request of an authorized user, the evaluator shall verify that the operational guidance provides instructions on how to execute that self-test. </p>
+                        </div>
+                    </div>
+                    <div class="eacategory">Tests</div>
+                    <div class="ea">
+                        <div class="ea">
+                            <p>
+                                 For each self-test, the evaluator shall verify that evidence is produced that the self-test is executed when specified by <a href="#FPT_TST.1.1">FPT_TST.1.1</a>. 
+                            </p>
+                            <p> If a self-test can be executed at the request of an authorized user, the evaluator shall verify that following the steps documented in the operational guidance to perform the self-test will result in execution of the self-test. </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="comp" id="FPT_TUD_EXT.1">
             <h4>FPT_TUD_EXT.1 Integrity for Installation and Update</h4>
             <div class="element">
@@ -2108,7 +2385,7 @@
                     <a href="#FPT_TUD_EXT.1.1" class="abbr">FPT_TUD_EXT.1.1</a>
                 </div>
                 <div class="reqdesc">
-                    The application shall [<b>selection</b>: <span class="selectable-content" id="_s_187">provide the ability</span>, <span class="selectable-content" id="_s_188">leverage the platform</span>] to check for updates and patches to the application software. 
+                    The application shall [<b>selection</b>: <span class="selectable-content" id="_s_206">provide the ability</span>, <span class="selectable-content" id="_s_207">leverage the platform</span>] to check for updates and patches to the application software. 
                     <div class="appnote">
                         <span class="note-header">Application Note: </span><span class="note"> This requirement is about the ability to "check" for updates. The actual installation of any updates should be done by the platform. This requirement is intended to ensure that the application can check for updates provided by the vendor, as updates provided by another source may contain malicious code. </span>
                     </div>
@@ -2119,7 +2396,7 @@
                     <a href="#FPT_TUD_EXT.1.2" class="abbr">FPT_TUD_EXT.1.2</a>
                 </div>
                 <div class="reqdesc">
-                    The application shall [<b>selection</b>: <span class="selectable-content" id="_s_189">provide the ability</span>, <span class="selectable-content" id="_s_190">leverage the platform</span>] to query the current version of the application software. 
+                    The application shall [<b>selection</b>: <span class="selectable-content" id="_s_208">provide the ability</span>, <span class="selectable-content" id="_s_209">leverage the platform</span>] to query the current version of the application software. 
                 </div>
             </div>
             <div class="element">
@@ -2127,7 +2404,7 @@
                     <a href="#FPT_TUD_EXT.1.3" class="abbr">FPT_TUD_EXT.1.3</a>
                 </div>
                 <div class="reqdesc">
-                     The application shall [<b>selection</b>: <span class="selectable-content" id="toe-update">perform trusted updates</span>, <span class="selectable-content" id="_s_192">not download, modify, replace or update its own binary code</span>]. 
+                     The application shall [<b>selection</b>: <span class="selectable-content" id="toe-update">perform trusted updates</span>, <span class="selectable-content" id="_s_211">not download, modify, replace or update its own binary code</span>]. 
                     <div class="appnote">
                         <span class="note-header">Application Note: </span><span class="note">
                             <p>This requirement applies to the code of the application; it does not apply to mobile code technologies that are designed for download and execution by the application. </p>
@@ -2221,7 +2498,7 @@
                          <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_23" class="defined" href="#_t_23">Test FPT_TUD_EXT.1.3:1</a>: The evaluator shall install the application and then locate all of its executable files. The evaluator shall then, for each file, save off either a hash of the file or a copy of the file itself. The evaluator shall then run the application and exercise all features of the application as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable file with either the saved hash or the saved copy of the files. The evaluator shall verify that these are identical. 
+                                    <a id="_t_20" class="defined" href="#_t_20">Test FPT_TUD_EXT.1.3:1</a>: The evaluator shall install the application and then locate all of its executable files. The evaluator shall then, for each file, save off either a hash of the file or a copy of the file itself. The evaluator shall then run the application and exercise all features of the application as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable file with either the saved hash or the saved copy of the files. The evaluator shall verify that these are identical. 
                                 </li>
                             </ul>
                         </span> 
@@ -2276,10 +2553,10 @@
                     The application shall [<b>selection</b>: 
                     <ul>
                         <li style="">
-                            <span class="selectable-content" id="_s_201">not transmit any [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_202">data</span>, <span class="selectable-content" id="_s_203">sensitive data</span>] </span>
+                            <span class="selectable-content" id="_s_220">not transmit any [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_221">data</span>, <span class="selectable-content" id="_s_222">sensitive data</span>] </span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_204">encrypt all transmitted [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_205">sensitive data</span>, <span class="selectable-content" id="_s_206">data</span>] with [<b>selection</b>: 
+                            <span class="selectable-content" id="_s_223">encrypt all transmitted [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_224">sensitive data</span>, <span class="selectable-content" id="_s_225">data</span>] with [<b>selection</b>: 
                                 <ul>
                                     <li style="">
                                         <span class="selectable-content" id="sel_all_https_cl"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a client in accordance with <a href="#FCS_HTTPS_EXT.1/Client">FCS_HTTPS_EXT.1/Client</a></span>
@@ -2291,13 +2568,13 @@
                                         <span class="selectable-content" id="sel_all_https_ma"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a server using mutual authentication in accordance with <a href="#FCS_HTTPS_EXT.2">FCS_HTTPS_EXT.2</a></span>
                                     </li>
                                     <li style="">
-                                        <span class="selectable-content" id="sel_all_tlss"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a server as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a> and also supports functionality for [<b>selection</b>: <span class="selectable-content" id="_s_211">mutual authentication</span>, <span class="selectable-content" id="_s_212">none</span>]</span>
+                                        <span class="selectable-content" id="sel_all_tlss"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a server as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a> and also supports functionality for [<b>selection</b>: <span class="selectable-content" id="_s_230">mutual authentication</span>, <span class="selectable-content" id="_s_231">none</span>]</span>
                                     </li>
                                     <li style="">
                                         <span class="selectable-content" id="sel_all_tlsc"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a client as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a></span>
                                     </li>
                                     <li style="">
-                                        <span class="selectable-content" id="sel_all_dtlss"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a server as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a> and also supports functionality for [<b>selection</b>: <span class="selectable-content" id="_s_215">mutual authentication</span>, <span class="selectable-content" id="_s_216">none</span>]</span>
+                                        <span class="selectable-content" id="sel_all_dtlss"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a server as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a> and also supports functionality for [<b>selection</b>: <span class="selectable-content" id="_s_234">mutual authentication</span>, <span class="selectable-content" id="_s_235">none</span>]</span>
                                     </li>
                                     <li style="">
                                         <span class="selectable-content" id="sel_all_dtlsc"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a client as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a></span>
@@ -2312,10 +2589,10 @@
                                 ] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] using certificates as defined in the <i>Functional Package for X.509</i> </span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_220">invoke platform-provided functionality to encrypt all transmitted sensitive data with [<b>selection</b>: <span class="selectable-content" id="_s_221"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span>, <span class="selectable-content" id="_s_222"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>, <span class="selectable-content" id="_s_223"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span>, <span class="selectable-content" id="_s_224"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></span>, <span class="selectable-content" id="_s_225">IPsec</span>] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] using certificates as defined in the <i>Functional Package for X.509</i> </span>
+                            <span class="selectable-content" id="_s_239">invoke platform-provided functionality to encrypt all transmitted sensitive data with [<b>selection</b>: <span class="selectable-content" id="_s_240"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span>, <span class="selectable-content" id="_s_241"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>, <span class="selectable-content" id="_s_242"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span>, <span class="selectable-content" id="_s_243"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></span>, <span class="selectable-content" id="_s_244">IPsec</span>] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] using certificates as defined in the <i>Functional Package for X.509</i> </span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_226">invoke platform-provided functionality to encrypt all transmitted data with [<b>selection</b>: <span class="selectable-content" id="_s_227"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span>, <span class="selectable-content" id="_s_228"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>, <span class="selectable-content" id="_s_229"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span>, <span class="selectable-content" id="_s_230"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></span>, <span class="selectable-content" id="_s_231">IPsec</span>] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] using certificates as defined in the <i>Functional Package for X.509</i> </span>
+                            <span class="selectable-content" id="_s_245">invoke platform-provided functionality to encrypt all transmitted data with [<b>selection</b>: <span class="selectable-content" id="_s_246"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span>, <span class="selectable-content" id="_s_247"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>, <span class="selectable-content" id="_s_248"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span>, <span class="selectable-content" id="_s_249"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></span>, <span class="selectable-content" id="_s_250">IPsec</span>] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] using certificates as defined in the <i>Functional Package for X.509</i> </span>
                         </li>
                     </ul>
                     ] between itself and another trusted <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr> product. 
@@ -2404,13 +2681,13 @@
                              The evaluator shall perform the following tests. <span class="testlist-">
                                 <ul>
                                     <li class="test-">
-                                        <a id="_t_26" class="defined" href="#_t_26">Test FTP_DIT_EXT.1:1</a>: The evaluator shall exercise the application (attempting to transmit data; for example by connecting to remote systems or websites) while capturing packets from the application. The evaluator shall verify from the packet capture that the traffic is encrypted with <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>, or IPsec in accordance with the selection in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. 
+                                        <a id="_t_23" class="defined" href="#_t_23">Test FTP_DIT_EXT.1:1</a>: The evaluator shall exercise the application (attempting to transmit data; for example by connecting to remote systems or websites) while capturing packets from the application. The evaluator shall verify from the packet capture that the traffic is encrypted with <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>, or IPsec in accordance with the selection in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. 
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_27" class="defined" href="#_t_27">Test FTP_DIT_EXT.1:2</a>: The evaluator shall exercise the application (attempting to transmit data; for example by connecting to remote systems or websites) while capturing packets from the application. The evaluator shall review the packet capture and verify that no sensitive data is transmitted in the clear. 
+                                        <a id="_t_24" class="defined" href="#_t_24">Test FTP_DIT_EXT.1:2</a>: The evaluator shall exercise the application (attempting to transmit data; for example by connecting to remote systems or websites) while capturing packets from the application. The evaluator shall review the packet capture and verify that no sensitive data is transmitted in the clear. 
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_28" class="defined" href="#_t_28">Test FTP_DIT_EXT.1:3</a>: The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine if user credentials are transmitted. If credentials are transmitted the evaluator shall set the credential to a known value. The evaluator shall capture packets from the application while causing credentials to be transmitted as described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. The evaluator shall perform a string search of the captured network packets and verify that the plaintext credential previously set by the evaluator is not found. 
+                                        <a id="_t_25" class="defined" href="#_t_25">Test FTP_DIT_EXT.1:3</a>: The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine if user credentials are transmitted. If credentials are transmitted the evaluator shall set the credential to a known value. The evaluator shall capture packets from the application while causing credentials to be transmitted as described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. The evaluator shall perform a string search of the captured network packets and verify that the plaintext credential previously set by the evaluator is not found. 
                                     </li>
                                 </ul>
                             </span> 
@@ -2488,7 +2765,7 @@
                     <td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> to define whether the random bit generation services used in establishing trusted communications are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or by the platform.</td>
                 </tr>
                 <tr>
-                    <td><a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> to define the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> algorithms used in support of trusted communications.</td>
+                    <td>FCS_RBG_EXT.2 (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes FCS_RBG_EXT.2 to define the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> algorithms used in support of trusted communications.</td>
                 </tr>
                 <tr>
                     <td>FCS_SNI_EXT. (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_SNI_EXT.1">FCS_SNI_EXT.1</a> to define the proper salt, nonce, and initialization vector usage to ensure proper cryptographic operation.</td>
@@ -2562,7 +2839,7 @@
                     <td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> to define whether the random bit generation services used in establishing trusted communications are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or by the platform.</td>
                 </tr>
                 <tr>
-                    <td><a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> to define the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> algorithms used in support of trusted communications.</td>
+                    <td>FCS_RBG_EXT.2 (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes FCS_RBG_EXT.2 to define the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> algorithms used in support of trusted communications.</td>
                 </tr>
                 <tr>
                     <td><a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided credential storage services.</td>
@@ -2662,7 +2939,7 @@
                     </td><td><a href="#FCS_CKM.1/SK">FCS_CKM.1/SK</a> (optional)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/SK">FCS_CKM.1/SK</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>&rsquo;s capability to generate symmetric keys. These keys may subsequently be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td>
                 </tr>
                 <tr>
-                    <td><a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>&rsquo;s implementation of random bit generation functionality in the event that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> provides this function in support of generating keys that are used for data protection.</td>
+                    <td>FCS_RBG_EXT.2 (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes FCS_RBG_EXT.2 to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>&rsquo;s implementation of random bit generation functionality in the event that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> provides this function in support of generating keys that are used for data protection.</td>
                 </tr>
                 <tr>
                     <td><a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a> to define <abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr> mechanisms that may be used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as part of ensuring that data at rest is protected.</td>
@@ -3583,7 +3860,7 @@
                     <a href="#FPT_API_EXT.2.1" class="abbr">FPT_API_EXT.2.1</a>
                 </div>
                 <div class="reqdesc">
-                     The application [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_183">shall use platform-provided libraries</span>, <span class="selectable-content" id="_s_184">does not implement functionality</span>] for parsing [<b>assignment</b>: <span class="assignable-content"> list of formats parsed that are included in the <abbr class="dyn-abbr"><a href="#abbr_IANA">IANA</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_MIME">MIME</a></abbr> media types</span>]. 
+                     The application [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_196">shall use platform-provided libraries</span>, <span class="selectable-content" id="_s_197">does not implement functionality</span>] for parsing [<b>assignment</b>: <span class="assignable-content"> list of formats parsed that are included in the <abbr class="dyn-abbr"><a href="#abbr_IANA">IANA</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_MIME">MIME</a></abbr> media types</span>]. 
                     <div class="appnote">
                         <span class="note-header">Application Note: </span><span class="note">
                             <p>
@@ -4873,6 +5150,183 @@
                 </div>
             </div>
         </div>
+        <div class="comp" id="FCS_RBG.2">
+            <h4>FCS_RBG.2 Random Bit Generation (External Seeding)</h4>
+            <div class="statustag">
+                <b><i>The inclusion of this selection-based component depends upon selection in <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a>. </i></b>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_RBG.2.1">
+                    <a href="#FCS_RBG.2.1" class="abbr">FCS_RBG.2.1</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to accept a minimum input of [<b>assignment</b>: <span class="assignable-content">minimum input length greater than zero</span>] from a <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface for the purpose of seeding. 
+                    <div class="appnote">
+                        <span class="note-header">Application Note: </span><span class="note"> This requirement is claimed when a <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> is seeded with entropy from one or more noise source that is outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary. Typically the entropy produced by an environmental noise source is conditioned such that the input length has full entropy and is therefore usable as the seed. However, if this is not the case, it should be noted what the minimum entropy rate of the noise source is so that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can collect a sufficiently large sample of noise data to be conditioned into a seed value. </span>
+                    </div>
+                </div>
+            </div>
+            <div class="activity_pane hide">
+                <div class="activity_pane_header">
+                    <a href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a>
+                </div>
+                <div class="activity_pane_body">
+                    <div class="component-activity-header">
+                        <a href="#FCS_RBG.2">FCS_RBG.2</a>
+                    </div>
+                     The evaluator shall examine the entropy documentation required by <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a> to verify that it identifies, for each <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> function implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> external interface used to seed the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data such that it can be determined that sufficient entropy can be made available for the highest strength keys that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> applies to the output data to create a seed of sufficient size with full entropy. 
+                    <div class="eacategory">
+                        <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                    </div>
+                    <div class="ea">
+                         There are no additional <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> evaluation activities for this component.
+                        <br>
+                    </div>
+                    <div class="eacategory">Guidance</div>
+                    <div class="ea">
+                         There are no additional Guidance evaluation activities for this component.
+                        <br>
+                    </div>
+                    <div class="eacategory">Tests</div>
+                    <div class="ea">
+                         There are no test activities for this component.
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="comp" id="FCS_RBG.3">
+            <h4>FCS_RBG.3 Random Bit Generation (Internal Seeding - Single Source)</h4>
+            <div class="statustag">
+                <b><i>The inclusion of this selection-based component depends upon selection in <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a>. </i></b>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_RBG.3.1">
+                    <a href="#FCS_RBG.3.1" class="abbr">FCS_RBG.3.1</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to seed the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> using a [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_124"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> software-based noise source</span>, <span class="selectable-content" id="_s_125"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> hardware-based noise source [<b>assignment</b>: <span class="assignable-content">name of noise source</span>]</span>] with a minimum of [<b>assignment</b>: <span class="assignable-content">number of bits</span>] bits of min-entropy. 
+                    <div class="appnote">
+                        <span class="note-header">Application Note: </span><span class="note">This requirement is claimed when a <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> is seeded with entropy from a single noise source that is within the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary. Min-entropy should be expressed as a ratio of entropy bits to sampled bits so that the total amount of data needed to ensure full entropy is known, as well as the conditioning function by which that data is reduced in size to the seed.</span>
+                    </div>
+                </div>
+            </div>
+            <div class="activity_pane hide">
+                <div class="activity_pane_header">
+                    <a href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a>
+                </div>
+                <div class="activity_pane_body">
+                    <div class="component-activity-header">
+                        <a href="#FCS_RBG.3">FCS_RBG.3</a>
+                    </div>
+                     The evaluator shall examine the entropy documentation required by <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a> to verify that it identifies, for each <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> function implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source used to seed the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data such that it can be determined that sufficient entropy can be made available for the highest strength keys that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> applies to the output data to create a seed of sufficient size with full entropy. 
+                    <div class="eacategory">
+                        <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                    </div>
+                    <div class="ea">
+                         There are no additional <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> evaluation activities for this component.
+                        <br>
+                    </div>
+                    <div class="eacategory">Guidance</div>
+                    <div class="ea">
+                         There are no additional Guidance evaluation activities for this component.
+                        <br>
+                    </div>
+                    <div class="eacategory">Tests</div>
+                    <div class="ea">
+                         There are no test activities for this component.
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="comp" id="FCS_RBG.4">
+            <h4>FCS_RBG.4 Random Bit Generation (Internal Seeding - Multiple Sources)</h4>
+            <div class="statustag">
+                <b><i>The inclusion of this selection-based component depends upon selection in <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a>. </i></b>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_RBG.4.1">
+                    <a href="#FCS_RBG.4.1" class="abbr">FCS_RBG.4.1</a>
+                </div>
+                <div class="reqdesc">
+                     The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to seed the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> using [<b>selection</b>: <span class="selectable-content" id="_s_126">[<b>assignment</b>: <span class="assignable-content">number</span>] <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> software-based noise source(s)</span>, <span class="selectable-content" id="_s_127">[<b>assignment</b>: <span class="assignable-content">number</span>] <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> hardware-based noise source(s)</span>]. 
+                    <div class="appnote">
+                        <span class="note-header">Application Note: </span><span class="note"> This requirement is claimed when a <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> is seeded with entropy from multiple noise sources that are within the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary. <a href="#FCS_RBG.5">FCS_RBG.5</a> defines the mechanism by which these sources are combined to ensure sufficient minimum entropy. </span>
+                    </div>
+                </div>
+            </div>
+            <div class="activity_pane hide">
+                <div class="activity_pane_header">
+                    <a href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a>
+                </div>
+                <div class="activity_pane_body">
+                    <div class="component-activity-header">
+                        <a href="#FCS_RBG.4">FCS_RBG.4</a>
+                    </div>
+                     The evaluator shall examine the entropy documentation required by <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a> to verify that it identifies, for each <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> function implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, each <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source used to seed the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data from each data source. 
+                    <div class="eacategory">
+                        <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                    </div>
+                    <div class="ea">
+                         There are no additional <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> evaluation activities for this component.
+                        <br>
+                    </div>
+                    <div class="eacategory">Guidance</div>
+                    <div class="ea">
+                         There are no additional Guidance evaluation activities for this component.
+                        <br>
+                    </div>
+                    <div class="eacategory">Tests</div>
+                    <div class="ea">
+                         There are no test activities for this component.
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="comp" id="FCS_RBG.5">
+            <h4>FCS_RBG.5 Random Bit Generation (Combining Noise Sources)</h4>
+            <div class="statustag">
+                <b><i>The inclusion of this selection-based component depends upon selection in <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a>. </i></b>
+            </div>
+            <div class="element">
+                <div class="reqid" id="FCS_RBG.5.1">
+                    <a href="#FCS_RBG.5.1" class="abbr">FCS_RBG.5.1</a>
+                </div>
+                <div class="reqdesc">
+                     <span style="" class="comment " id="Comment-3-">Note right now that we only have this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> when <a href="#FCS_RBG.4">FCS_RBG.4</a> (multiple internal seeds) is claimed. But technically the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> allows combining of both internal and external sources. I don't know if that use case is something we should realistically try to account for this because it may be very confusing to express in terms of defining the conditions for when this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> applies. i.e. it would apply if at least one of the following is true: - <a href="#FCS_RBG.4">FCS_RBG.4</a> is claimed (with or without <a href="#FCS_RBG.2">FCS_RBG.2</a>) - <a href="#FCS_RBG.2">FCS_RBG.2</a> and <a href="#FCS_RBG.3">FCS_RBG.3</a> are claimed</span> The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall [<b>assignment</b>: <span class="assignable-content">combining operation</span>] [<b>selection</b>: <span class="selectable-content" id="_s_128">output from <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source(s)</span>, <span class="selectable-content" id="_s_129">input from <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface(s) for seeding</span>] to create the entropy input into the derivation function as defined in [<b>assignment</b>: <span class="assignable-content">list of standards</span>], resulting in a minimum of [<b>assignment</b>: <span class="assignable-content">number of bits</span>] bits of min-entropy. 
+                </div>
+            </div>
+            <div class="activity_pane hide">
+                <div class="activity_pane_header">
+                    <a href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a>
+                </div>
+                <div class="activity_pane_body">
+                    <div class="component-activity-header">
+                        <a href="#FCS_RBG.5">FCS_RBG.5</a>
+                    </div>
+                     Using the entropy sources specified in <a href="#FCS_RBG.4">FCS_RBG.4</a>, the evaluator shall examine the entropy documentation required by <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a> to verify that it describes the method by which the various entropy sources are combined into a single seed. This should include an estimation of the rate at which each noise source outputs data and whether this is dependent on any system-specific factors so that each source's relative contribution to the overall entropy is understood. The evaluator shall verify that the resulting combination of sampled data and the min-entropy rate of the sampled data is described in sufficient detail to determine that sufficient entropy can be made available for the highest strength keys that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> applies to the output data to create a seed of sufficient size with full entropy. 
+                    <div class="eacategory">
+                        <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                    </div>
+                    <div class="ea">
+                         There are no additional <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> evaluation activities for this component.
+                        <br>
+                    </div>
+                    <div class="eacategory">Guidance</div>
+                    <div class="ea">
+                         There are no additional Guidance evaluation activities for this component.
+                        <br>
+                    </div>
+                    <div class="eacategory">Tests</div>
+                    <div class="ea">
+                         There are no test activities for this component.
+                        <br>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="comp" id="FCS_PBKDF_EXT.1">
             <h4>FCS_PBKDF_EXT.1 Password Conditioning</h4>
             <div class="statustag">
@@ -4938,148 +5392,6 @@
                 </div>
             </div>
         </div>
-        <div class="comp" id="FCS_RBG_EXT.2">
-            <h4>FCS_RBG_EXT.2 Random Bit Generation from Application</h4>
-            <div class="statustag">
-                <b><i>The inclusion of this selection-based component depends upon selection in <a href="#FCS_RBG_EXT.1.1">FCS_RBG_EXT.1.1</a>. </i></b>
-            </div>
-            <div class="element">
-                <div class="reqid" id="FCS_RBG_EXT.2.1">
-                    <a href="#FCS_RBG_EXT.2.1" class="abbr">FCS_RBG_EXT.2.1</a>
-                </div>
-                <div class="reqdesc">
-                     The application shall perform all deterministic random bit generation (<abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>) services in accordance with <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-90A using [<b>selection</b>: <span class="selectable-content" id="_s_114">Hash_DRBG (any)</span>, <span class="selectable-content" id="_s_115">HMAC_DRBG (any)</span>, <span class="selectable-content" id="_s_116">CTR_DRBG (<abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>)</span>]. 
-                    <div class="appnote">
-                        <span class="note-header">Application Note: </span><span class="note">
-                            <p>
-                                 This requirement shall be included in <abbr class="dyn-abbr"><a href="#abbr_ST">STs</a></abbr> in which "<b>implement <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</b>" is chosen in <a href="#FCS_RBG_EXT.1.1">FCS_RBG_EXT.1.1</a>. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author should select the standard to which the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> services comply (either <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A or <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 140-2 Annex C). 
-                            </p>
-                            <p>
-                                 <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A contains three different methods of generating random numbers; each of these, in turn, depends on underlying cryptographic primitives (hash functions/ciphers). The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author will select the function used (if <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A is selected), and include the specific underlying cryptographic primitives used in the requirement or in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. While any of the identified hash functions (<abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384, <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512) are allowed for Hash_DRBG or HMAC_DRBG, only <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>-based implementations for CTR_DRBG are allowed. 
-                            </p>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="element">
-                <div class="reqid" id="FCS_RBG_EXT.2.2">
-                    <a href="#FCS_RBG_EXT.2.2" class="abbr">FCS_RBG_EXT.2.2</a>
-                </div>
-                <div class="reqdesc">
-                     The deterministic <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> shall be seeded by an entropy source that accumulates entropy from a platform-based <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> and [<b>selection</b>: 
-                    <ul>
-                        <li style="">
-                            <span class="selectable-content" id="_s_117">a software-based noise source</span>
-                        </li>
-                        <li style="">
-                            <span class="selectable-content" id="_s_118">a hardware-based noise source</span>
-                        </li>
-                        <li style="">
-                            <span class="selectable-content" id="_s_119">no other noise source</span>
-                        </li>
-                    </ul>
-                    ] with a minimum of <i>256 bits</i> of entropy at least equal to the greatest security strength (according to <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-57) of the keys and hashes that it will generate. 
-                    <div class="appnote">
-                        <span class="note-header">Application Note: </span><span class="note">
-                            <p>
-                                 This requirement shall be included in <abbr class="dyn-abbr"><a href="#abbr_ST">STs</a></abbr> in which "<b>implement <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</b>" is selected in <a href="#FCS_RBG_EXT.1.1">FCS_RBG_EXT.1.1</a>. For the first selection in this requirement, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "<b>software-based noise source</b>" or "<b>hardware-based noise source</b>"if any additional noise sources are used as input to the application's <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. Note that the application must use the platform's <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> to seed its <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. 
-                            </p>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="activity_pane hide">
-                <div class="activity_pane_header">
-                    <a href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a>
-                </div>
-                <div class="activity_pane_body">
-                    <div class="element-activity-header">
-                        <a href="#FCS_RBG_EXT.2.1">FCS_RBG_EXT.2.1</a>
-                    </div>
-                    <div class="eacategory">
-                        <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
-                    </div>
-                    <div class="ea">
-                        <p>None.</p>
-                    </div>
-                    <div class="eacategory">Guidance</div>
-                    <div class="ea">
-                        <p>
-                            The evaluator shall verify the guidance documentation contains any information necessary for configuring the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> if any configuration is required.
-                        </p>
-                    </div>
-                    <div class="eacategory">Tests</div>
-                    <div class="ea">
-                        <p>
-                            The evaluator shall perform the following tests, depending on the standard to which the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> conforms. 
-                        </p>
-                        <p>
-                             <b>Implementations Conforming to <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 140-2 Annex C.</b> 
-                        </p>
-                        <p>
-                             The reference for the tests contained in this section is The Random Number Generator Validation System (<abbr class="dyn-abbr"><a href="#abbr_RNGVS">RNGVS</a></abbr>). The evaluators shall conduct the following two tests. Note that the "expected values" are produced by a reference implementation of the algorithm that is known to be correct. Proof of correctness is left to each Scheme. 
-                        </p>
-                         <span class="testlist-">
-                            <ul>
-                                <li class="test-">
-                                    <a id="_t_15" class="defined" href="#_t_15">Test FCS_RBG_EXT.2.1:1</a>: The evaluators shall perform a Variable Seed Test. The evaluators shall provide a set of 128 (Seed, <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr>) pairs to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> function, each 128 bits. The evaluators shall also provide a key (of the length appropriate to the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> algorithm) that is constant for all 128 (Seed, <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr>) pairs. The <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr> value is incremented by 1 for each set. The seed values shall have no repeats within the set. The evaluators ensure that the values returned by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> match the expected values. 
-                                </li>
-                                <li class="test-">
-                                    <a id="_t_16" class="defined" href="#_t_16">Test FCS_RBG_EXT.2.1:2</a>: The evaluators shall perform a Monte Carlo Test. For this test, they supply an initial Seed and <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr> value to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> function; each of these is 128 bits. The evaluators shall also provide a key (of the length appropriate to the <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> algorithm) that is constant throughout the test. The evaluators then invoke the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> 10,000 times, with the <abbr class="dyn-abbr"><a href="#abbr_DT">DT</a></abbr> value being incremented by 1 on each iteration, and the new seed for the subsequent iteration produced as specified in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr>-Recommended Random Number Generator Based on <abbr class="dyn-abbr"><a href="#abbr_ANSI">ANSI</a></abbr> X9.31 Appendix A.2.4 Using the 3-Key Triple <abbr class="dyn-abbr"><a href="#abbr_DES">DES</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr> Algorithms, Section E.3. The evaluators ensure that the 10,000th value produced matches the expected value. 
-                                </li>
-                            </ul>
-                        </span> <b>Implementations Conforming to <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-90A</b> <span class="testlist-">
-                            <ul>
-                                <li class="test-">
-                                    <a id="_t_17" class="defined" href="#_t_17">Test FCS_RBG_EXT.2.1:3</a>: 
-                                    <p>
-                                         The evaluator shall perform 15 trials for the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> implementation. If the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> is configurable, the evaluator shall perform 15 trials for each configuration. The evaluator shall also confirm that the operational guidance contains appropriate instructions for configuring the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> functionality. 
-                                    </p>
-                                    <p>
-                                         If the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> has prediction resistance enabled, each trial consists of (1) instantiate <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>, (2) generate the first block of random bits (3) generate a second block of random bits (4) uninstantiate. The evaluator verifies that the second block of random bits is the expected value. The evaluator shall generate eight input values for each trial. The first is a count (0 &ndash; 14). The next three are entropy input, nonce, and personalization string for the instantiate operation. The next two are additional input and entropy input for the first call to generate. The final two are additional input and entropy input for the second call to generate. These values are randomly generated. The operation to &ldquo;generate one block of random bits&rdquo; means to generate random bits with number of returned bits equal to the Output Block Length (as defined in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90A). 
-                                    </p>
-                                    <p>
-                                         If the <abbr class="dyn-abbr"><a href="#abbr_RNG">RNG</a></abbr> does not have prediction resistance, each trial consists of (1) instantiate <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>, (2) generate the first block of random bits (3) reseed, (4) generate a second block of random bits (5) uninstantiate. The evaluator verifies that the second block of random bits is the expected value. The evaluator shall generate eight input values for each trial. The first is a count (0 &ndash; 14). The next three are entropy input, nonce, and personalization string for the instantiate operation. The fifth value is additional input to the first call to generate. The sixth and seventh are additional input and entropy input to the call to reseed. The final value is additional input to the second generate call. 
-                                    </p>
-                                    <p> The following paragraphs contain more information on some of the input values to be generated/selected by the evaluator. </p>
-                                    <p>
-                                         <b>Entropy input:</b> The length of the entropy input value must equal the seed length. 
-                                    </p>
-                                    <p>
-                                         <b>Nonce:</b> If a nonce is supported (CTR_DRBG with no Derivation Function does not use a nonce), the nonce bit length is one-half the seed length. 
-                                    </p>
-                                    <p>
-                                         <b>Personalization string:</b> The length of the personalization string must be less then or equal to seed length. If the implementation only supports one personalization string length, then the same length can be used for both values. If more than one string length is supported, the evaluator shall use personalization strings of two different lengths. If the implementation does not use a personalization string, no value needs to be supplied. 
-                                    </p>
-                                    <p>
-                                         <b>Additional input:</b> The additional input bit lengths have the same defaults and restrictions as the personalization string lengths. 
-                                    </p>
-                                </li>
-                            </ul>
-                        </span> 
-                    </div>
-                    <div class="element-activity-header">
-                        <a href="#FCS_RBG_EXT.2.2">FCS_RBG_EXT.2.2</a>
-                    </div>
-                    <div class="eacategory">
-                        <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
-                    </div>
-                    <div class="ea">
-                        <p>
-                             Documentation shall be produced - and the evaluator shall perform the activities - in accordance with <a href="#entropyappendix" class="dynref">Appendix D - Entropy Documentation and Assessment</a> and the <a href="https://www.niap-ccevs.org/Documents_and_Guidance/ccevs/Entropy%20Documentation%20and%20Assessment%20Clarification.pdf"> Clarification to the Entropy Documentation and Assessment Annex</a>.
-                        </p>
-                    </div>
-                    <div class="eacategory">Guidance</div>
-                    <div class="ea">
-                        <p> The evaluator shall verify the guidance documentation contains any information necessary for configuring the noise sources or size outputs if any configuration is supported.</p>
-                    </div>
-                    <div class="eacategory">Tests</div>
-                    <div class="ea">
-                         In the future, specific statistical testing (in line with <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-90B) will be required to verify the entropy estimates. 
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="comp" id="FCS_SNI_EXT.1">
             <h4>FCS_SNI_EXT.1 Cryptographic Operation (Salt, Nonce, and Initialization Vector Generation)</h4>
             <div class="statustag">
@@ -5090,7 +5402,7 @@
                     <a href="#FCS_SNI_EXT.1.1" class="abbr">FCS_SNI_EXT.1.1</a>
                 </div>
                 <div class="reqdesc">
-                    The application shall [<b>selection</b>: <span class="selectable-content" id="_s_137">use no salts</span>, <span class="selectable-content" id="_s_138">use salts that are generated by a <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> as specified in <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></span>] 
+                    The application shall [<b>selection</b>: <span class="selectable-content" id="_s_150">use no salts</span>, <span class="selectable-content" id="_s_151">use salts that are generated by a <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> as specified in <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></span>] 
                 </div>
             </div>
             <div class="element">
@@ -5098,7 +5410,7 @@
                     <a href="#FCS_SNI_EXT.1.2" class="abbr">FCS_SNI_EXT.1.2</a>
                 </div>
                 <div class="reqdesc">
-                    The application shall use [<b>selection</b>: <span class="selectable-content" id="_s_139">no nonces</span>, <span class="selectable-content" id="_s_140">unique nonces with a minimum size of [64] bits].</span>] 
+                    The application shall use [<b>selection</b>: <span class="selectable-content" id="_s_152">no nonces</span>, <span class="selectable-content" id="_s_153">unique nonces with a minimum size of [64] bits].</span>] 
                 </div>
             </div>
             <div class="element">
@@ -5109,25 +5421,25 @@
                     The application shall [<b>selection</b>: 
                     <ul>
                         <li style="">
-                            <span class="selectable-content" id="_s_141">use no IVs</span>
+                            <span class="selectable-content" id="_s_154">use no IVs</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_142">create IVs in the following manner [<b>selection</b>: 
+                            <span class="selectable-content" id="_s_155">create IVs in the following manner [<b>selection</b>: 
                                 <ul>
                                     <li style="">
-                                        <span class="selectable-content" id="_s_143">CBC: IVs shall be non-repeating and unpredictable;</span>
+                                        <span class="selectable-content" id="_s_156">CBC: IVs shall be non-repeating and unpredictable;</span>
                                     </li>
                                     <li style="">
-                                        <span class="selectable-content" id="_s_144">CCM: Nonce shall be non-repeating;</span>
+                                        <span class="selectable-content" id="_s_157">CCM: Nonce shall be non-repeating;</span>
                                     </li>
                                     <li style="">
-                                        <span class="selectable-content" id="_s_145">CTR: "Initial Counter" shall be non-repeating. No counter value shall be repeated across multiple messages with the same secret key.</span>
+                                        <span class="selectable-content" id="_s_158">CTR: "Initial Counter" shall be non-repeating. No counter value shall be repeated across multiple messages with the same secret key.</span>
                                     </li>
                                     <li style="">
-                                        <span class="selectable-content" id="_s_146">XTS: No IV. Tweak values shall be non-negative integers, assigned consecutively, and starting at an arbitrary non-negative integer;</span>
+                                        <span class="selectable-content" id="_s_159">XTS: No IV. Tweak values shall be non-negative integers, assigned consecutively, and starting at an arbitrary non-negative integer;</span>
                                     </li>
                                     <li style="">
-                                        <span class="selectable-content" id="_s_147">GCM: IV shall be non-repeating. The number of invocations of GCM shall not exceed 2^32 for a given secret key]. The IV constructed using one of two allowed construction methods given in Section 8.2 of <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38D.</span>
+                                        <span class="selectable-content" id="_s_160">GCM: IV shall be non-repeating. The number of invocations of GCM shall not exceed 2^32 for a given secret key]. The IV constructed using one of two allowed construction methods given in Section 8.2 of <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-38D.</span>
                                     </li>
                                 </ul>
                                 ] </span>
@@ -5187,7 +5499,7 @@
                     <a href="#FPT_TUD_EXT.2.1" class="abbr">FPT_TUD_EXT.2.1</a>
                 </div>
                 <div class="reqdesc">
-                     The application shall be distributed using [<b>selection</b>: <span class="selectable-content" id="_s_195">the format of the platform-supported package manager</span>, <span class="selectable-content" id="_s_196">a container image</span>]. 
+                     The application shall be distributed using [<b>selection</b>: <span class="selectable-content" id="_s_214">the format of the platform-supported package manager</span>, <span class="selectable-content" id="_s_215">a container image</span>]. 
                 </div>
             </div>
             <div class="element">
@@ -5209,10 +5521,10 @@
                      The application installation package shall be digitally signed such that [<b>selection</b>: 
                     <ul>
                         <li style="">
-                            <span class="selectable-content" id="_s_197">it's platform can cryptographically verify them prior to installation.</span>
+                            <span class="selectable-content" id="_s_216">it's platform can cryptographically verify them prior to installation.</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="_s_198">the application can verify them using [<b>selection</b>: <span class="selectable-content" id="toe-lms">Leighton-Micali Signature.</span>, <span class="selectable-content" id="toe-xmss">eXtended Merkle Signature Scheme.</span>] </span>
+                            <span class="selectable-content" id="_s_217">the application can verify them using [<b>selection</b>: <span class="selectable-content" id="toe-lms">Leighton-Micali Signature.</span>, <span class="selectable-content" id="toe-xmss">eXtended Merkle Signature Scheme.</span>] </span>
                         </li>
                     </ul>
                     ] 
@@ -5347,10 +5659,10 @@
                         Conditional: if "the application can verify them using" is selected the evaluator shall perform the following tests: <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_24" class="defined" href="#_t_24">Test FPT_TUD_EXT.2.3:1</a>: The evaluator shall ensure that the update has a digital signature belonging to the vendor prior to its installation. The evaluator shall modify the downloaded update in such a way that the digital signature is no longer valid. The evaluator will then attempt to install the modified update. The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> does not install the modified update. 
+                                    <a id="_t_21" class="defined" href="#_t_21">Test FPT_TUD_EXT.2.3:1</a>: The evaluator shall ensure that the update has a digital signature belonging to the vendor prior to its installation. The evaluator shall modify the downloaded update in such a way that the digital signature is no longer valid. The evaluator will then attempt to install the modified update. The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> does not install the modified update. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_25" class="defined" href="#_t_25">Test FPT_TUD_EXT.2.3:2</a>: The evaluator shall ensure that the update has a digital signature belonging to the vendor. The evaluator shall then attempt to install the update (or permit installation to continue). The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> successfully installs the update. 
+                                    <a id="_t_22" class="defined" href="#_t_22">Test FPT_TUD_EXT.2.3:2</a>: The evaluator shall ensure that the update has a digital signature belonging to the vendor. The evaluator shall then attempt to install the update (or permit installation to continue). The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> successfully installs the update. 
                                 </li>
                             </ul>
                         </span>
@@ -5542,21 +5854,15 @@
                     <h4>Family Behavior</h4>
                     <div>This family defines requirements for the generation of random bits.</div>
                     <h4>Component Leveling</h4>
-                    <svg style="max-height: 50px;">
-                        <text x="4" fill="black" font-size="15" y="44">FCS_RBG_EXT</text>
-                        <rect x="2" y="31" width="150" height="16" fill="none" stroke="black"></rect>
+                    <svg style="max-height: 30px;">
+                        <text x="4" fill="black" font-size="15" y="24">FCS_RBG_EXT</text>
+                        <rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect>
                         <text x="234" fill="black" font-size="15" y="24">1</text>
                         <rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect>
-                        <line x1="152" y1="37" x2="231" y2="17" stroke="black"></line>
-                        <text x="234" fill="black" font-size="15" y="44">2</text>
-                        <rect x="232" y="31" width="12" height="16" fill="none" stroke="black"></rect>
-                        <line x1="152" y1="37" x2="231" y2="37" stroke="black"></line>
+                        <line x1="152" y1="17" x2="231" y2="17" stroke="black"></line>
                     </svg>
                     <p>
                         <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a>, Random Bit Generation Services, requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to specify whether random bit generation is implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>, invoked from the operational environment, or not used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.
-                    </p>
-                    <p>
-                        <a href="#FCS_RBG_EXT.2">FCS_RBG_EXT.2</a>, Random Bit Generation from Application, specifies the mechanism by which the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> generates random bits.
                     </p>
                     <h4>Management: FCS_RBG_EXT.1</h4>
                     <p>No specific management functions are identified.</p>
@@ -5576,49 +5882,16 @@
                          The application shall [<b>selection</b>: 
                         <ul>
                             <li style="">
-                                <span class="selectable-content" id="_s_111">use no <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span>
+                                <span class="selectable-content" id="_s_130">use no <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_112">invoke platform-provided <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span>
+                                <span class="selectable-content" id="_s_131">invoke platform-provided <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span>
                             </li>
                             <li style="">
                                 <span class="selectable-content" id="drbg">implement <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</span>
                             </li>
                         </ul>
                         ] for its cryptographic operations. 
-                    </div>
-                    <h4>Management: FCS_RBG_EXT.2</h4>
-                    <p>No specific management functions are identified.</p>
-                    <h4>Audit: FCS_RBG_EXT.2</h4>
-                    <p>There are no auditable events foreseen.</p>
-                    <h4>FCS_RBG_EXT.2 Random Bit Generation from Application</h4>
-                    <div style="margin-left: 1em;">
-                        <table class="ecd_heir_dep" style="width: 100%">
-                            <tr>
-                                <td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td>
-                            </tr>
-                            <tr style="background-color: inherit">
-                                <td>Dependencies to:</td><td> FCS_COP.1 Cryptographic Operation 
-                                    <br>
-                                     <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> Random Bit Generation Services </td>
-                            </tr>
-                        </table>
-                        <h4 id="ext-comp-FCS_RBG_EXT.2.1">FCS_RBG_EXT.2.1</h4>
-                         The application shall perform all deterministic random bit generation (<abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>) services in accordance with <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-90A using [<b>selection</b>: <span class="selectable-content" id="_s_114">Hash_DRBG (any)</span>, <span class="selectable-content" id="_s_115">HMAC_DRBG (any)</span>, <span class="selectable-content" id="_s_116">CTR_DRBG (<abbr class="dyn-abbr"><a href="#abbr_AES">AES</a></abbr>)</span>]. 
-                        <h4 id="ext-comp-FCS_RBG_EXT.2.2">FCS_RBG_EXT.2.2</h4>
-                         The deterministic <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> shall be seeded by an entropy source that accumulates entropy from a platform-based <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> and [<b>selection</b>: 
-                        <ul>
-                            <li style="">
-                                <span class="selectable-content" id="_s_117">a software-based noise source</span>
-                            </li>
-                            <li style="">
-                                <span class="selectable-content" id="_s_118">a hardware-based noise source</span>
-                            </li>
-                            <li style="">
-                                <span class="selectable-content" id="_s_119">no other noise source</span>
-                            </li>
-                        </ul>
-                        ] with a minimum of <i>256 bits</i> of entropy at least equal to the greatest security strength (according to <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_SP">SP</a></abbr> 800-57) of the keys and hashes that it will generate. 
                     </div>
                 </div>
                 <h3 id="ext-comp-FCS_PBKDF_EXT" class="indexable" data-level="4">C.2.1.4 FCS_PBKDF_EXT Password Conditioning</h3>
@@ -5691,13 +5964,13 @@
                         The application shall [<b>selection</b>: 
                         <ul>
                             <li style="">
-                                <span class="selectable-content" id="_s_134">not store any credentials</span>
+                                <span class="selectable-content" id="_s_147">not store any credentials</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_135">invoke the functionality provided by the platform to securely store [<b>assignment</b>: <span class="assignable-content">list of credentials</span>] </span>
+                                <span class="selectable-content" id="_s_148">invoke the functionality provided by the platform to securely store [<b>assignment</b>: <span class="assignable-content">list of credentials</span>] </span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_136">implement functionality to securely store [<b>assignment</b>: <span class="assignable-content">list of credentials</span>] according to [<b>assignment</b>: <span class="assignable-content">cryptographic mechanisms</span>] </span>
+                                <span class="selectable-content" id="_s_149">implement functionality to securely store [<b>assignment</b>: <span class="assignable-content">list of credentials</span>] according to [<b>assignment</b>: <span class="assignable-content">cryptographic mechanisms</span>] </span>
                             </li>
                         </ul>
                         ] to non-volatile memory. 
@@ -5746,10 +6019,10 @@
                         The application shall [<b>selection</b><b>, choose one of</b>: 
                         <ul>
                             <li style="">
-                                <span class="selectable-content" id="_s_179">not transmit <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr> over a network</span>
+                                <span class="selectable-content" id="_s_192">not transmit <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr> over a network</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_180">require user approval before executing [<b>assignment</b>: <span class="assignable-content">list of functions that transmit <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr> over a network</span>] </span>
+                                <span class="selectable-content" id="_s_193">require user approval before executing [<b>assignment</b>: <span class="assignable-content">list of functions that transmit <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr> over a network</span>] </span>
                             </li>
                         </ul>
                         ]. 
@@ -5793,10 +6066,10 @@
                          The application shall [<b>selection</b><b>, choose one of</b>: 
                         <ul>
                             <li style="">
-                                <span class="selectable-content" id="_s_181">not allocate any memory region with both write and execute permissions</span>
+                                <span class="selectable-content" id="_s_194">not allocate any memory region with both write and execute permissions</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_182">allocate memory regions with write and execute permissions for only [<b>assignment</b>: <span class="assignable-content"> list of functions performing just-in-time compilation</span>] </span>
+                                <span class="selectable-content" id="_s_195">allocate memory regions with write and execute permissions for only [<b>assignment</b>: <span class="assignable-content"> list of functions performing just-in-time compilation</span>] </span>
                             </li>
                         </ul>
                         ]. 
@@ -5863,7 +6136,7 @@
                             </tr>
                         </table>
                         <h4 id="ext-comp-FPT_API_EXT.2.1">FPT_API_EXT.2.1</h4>
-                         The application [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_183">shall use platform-provided libraries</span>, <span class="selectable-content" id="_s_184">does not implement functionality</span>] for parsing [<b>assignment</b>: <span class="assignable-content"> list of formats parsed that are included in the <abbr class="dyn-abbr"><a href="#abbr_IANA">IANA</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_MIME">MIME</a></abbr> media types</span>]. 
+                         The application [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_196">shall use platform-provided libraries</span>, <span class="selectable-content" id="_s_197">does not implement functionality</span>] for parsing [<b>assignment</b>: <span class="assignable-content"> list of formats parsed that are included in the <abbr class="dyn-abbr"><a href="#abbr_IANA">IANA</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_MIME">MIME</a></abbr> media types</span>]. 
                     </div>
                 </div>
                 <h3 id="ext-comp-FPT_IDV_EXT" class="indexable" data-level="4">C.2.3.3 FPT_IDV_EXT Software Identification and Versions</h3>
@@ -5898,7 +6171,7 @@
                             </tr>
                         </table>
                         <h4 id="ext-comp-FPT_IDV_EXT.1.1">FPT_IDV_EXT.1.1</h4>
-                        The application shall be versioned with [<b>selection</b>: <span class="selectable-content" id="_s_185"><abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags that comply with minimum requirements from <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_IEC">IEC</a></abbr> 19770-2:2015</span>, <span class="selectable-content" id="_s_186">[<b>assignment</b>: <span class="assignable-content">other version information</span>]</span>]. 
+                        The application shall be versioned with [<b>selection</b>: <span class="selectable-content" id="_s_198"><abbr class="dyn-abbr"><a href="#abbr_SWID">SWID</a></abbr> tags that comply with minimum requirements from <abbr class="dyn-abbr"><a href="#abbr_ISO">ISO</a></abbr>/<abbr class="dyn-abbr"><a href="#abbr_IEC">IEC</a></abbr> 19770-2:2015</span>, <span class="selectable-content" id="_s_199">[<b>assignment</b>: <span class="assignable-content">other version information</span>]</span>]. 
                     </div>
                 </div>
                 <h3 id="ext-comp-FPT_LIB_EXT" class="indexable" data-level="4">C.2.3.4 FPT_LIB_EXT TSF Use of Third Party Libraries</h3>
@@ -5974,11 +6247,11 @@
                             </tr>
                         </table>
                         <h4 id="ext-comp-FPT_TUD_EXT.1.1">FPT_TUD_EXT.1.1</h4>
-                        The application shall [<b>selection</b>: <span class="selectable-content" id="_s_187">provide the ability</span>, <span class="selectable-content" id="_s_188">leverage the platform</span>] to check for updates and patches to the application software. 
+                        The application shall [<b>selection</b>: <span class="selectable-content" id="_s_206">provide the ability</span>, <span class="selectable-content" id="_s_207">leverage the platform</span>] to check for updates and patches to the application software. 
                         <h4 id="ext-comp-FPT_TUD_EXT.1.2">FPT_TUD_EXT.1.2</h4>
-                        The application shall [<b>selection</b>: <span class="selectable-content" id="_s_189">provide the ability</span>, <span class="selectable-content" id="_s_190">leverage the platform</span>] to query the current version of the application software. 
+                        The application shall [<b>selection</b>: <span class="selectable-content" id="_s_208">provide the ability</span>, <span class="selectable-content" id="_s_209">leverage the platform</span>] to query the current version of the application software. 
                         <h4 id="ext-comp-FPT_TUD_EXT.1.3">FPT_TUD_EXT.1.3</h4>
-                         The application shall [<b>selection</b>: <span class="selectable-content" id="toe-update">perform trusted updates</span>, <span class="selectable-content" id="_s_192">not download, modify, replace or update its own binary code</span>]. 
+                         The application shall [<b>selection</b>: <span class="selectable-content" id="toe-update">perform trusted updates</span>, <span class="selectable-content" id="_s_211">not download, modify, replace or update its own binary code</span>]. 
                         <h4 id="ext-comp-FPT_TUD_EXT.1.4">FPT_TUD_EXT.1.4</h4>
                          Application updates shall be digitally signed such that the application platform can cryptographically verify them prior to installation. 
                         <h4 id="ext-comp-FPT_TUD_EXT.1.5">FPT_TUD_EXT.1.5</h4>
@@ -5999,17 +6272,17 @@
                             </tr>
                         </table>
                         <h4 id="ext-comp-FPT_TUD_EXT.2.1">FPT_TUD_EXT.2.1</h4>
-                         The application shall be distributed using [<b>selection</b>: <span class="selectable-content" id="_s_195">the format of the platform-supported package manager</span>, <span class="selectable-content" id="_s_196">a container image</span>]. 
+                         The application shall be distributed using [<b>selection</b>: <span class="selectable-content" id="_s_214">the format of the platform-supported package manager</span>, <span class="selectable-content" id="_s_215">a container image</span>]. 
                         <h4 id="ext-comp-FPT_TUD_EXT.2.2">FPT_TUD_EXT.2.2</h4>
                          The application shall be packaged such that its removal results in the deletion of all traces of the application, with the exception of configuration settings, output files, and audit/log events. 
                         <h4 id="ext-comp-FPT_TUD_EXT.2.3">FPT_TUD_EXT.2.3</h4>
                          The application installation package shall be digitally signed such that [<b>selection</b>: 
                         <ul>
                             <li style="">
-                                <span class="selectable-content" id="_s_197">it's platform can cryptographically verify them prior to installation.</span>
+                                <span class="selectable-content" id="_s_216">it's platform can cryptographically verify them prior to installation.</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_198">the application can verify them using [<b>selection</b>: <span class="selectable-content" id="toe-lms">Leighton-Micali Signature.</span>, <span class="selectable-content" id="toe-xmss">eXtended Merkle Signature Scheme.</span>] </span>
+                                <span class="selectable-content" id="_s_217">the application can verify them using [<b>selection</b>: <span class="selectable-content" id="toe-lms">Leighton-Micali Signature.</span>, <span class="selectable-content" id="toe-xmss">eXtended Merkle Signature Scheme.</span>] </span>
                             </li>
                         </ul>
                         ] 
@@ -6085,7 +6358,7 @@
                             </tr>
                         </table>
                         <h4 id="ext-comp-FMT_MEC_EXT.1.1">FMT_MEC_EXT.1.1</h4>
-                        The application shall [<b>selection</b>: <span class="selectable-content" id="_s_171">invoke the mechanisms recommended by the platform vendor for storing and setting configuration options</span>, <span class="selectable-content" id="_s_172">implement functionality to encrypt and store configuration options as defined by FDP_PRT_EXT.1 in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</span>]. 
+                        The application shall [<b>selection</b>: <span class="selectable-content" id="_s_184">invoke the mechanisms recommended by the platform vendor for storing and setting configuration options</span>, <span class="selectable-content" id="_s_185">implement functionality to encrypt and store configuration options as defined by FDP_PRT_EXT.1 in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</span>]. 
                     </div>
                 </div>
             </span><span data-sortkey="Trusted Path/Channel (FTP)">
@@ -6124,16 +6397,16 @@
                         The application shall [<b>selection</b><b>, choose one of</b>: 
                         <ul>
                             <li style="">
-                                <span class="selectable-content" id="_s_232">not transmit any [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_233">data</span>, <span class="selectable-content" id="_s_234">sensitive data</span>] </span>
+                                <span class="selectable-content" id="_s_251">not transmit any [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_252">data</span>, <span class="selectable-content" id="_s_253">sensitive data</span>] </span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_235">encrypt all transmitted [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_236">sensitive data</span>, <span class="selectable-content" id="_s_237">data</span>] with [<b>assignment</b>: <span class="assignable-content">trusted protocol</span>] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] </span>
+                                <span class="selectable-content" id="_s_254">encrypt all transmitted [<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_255">sensitive data</span>, <span class="selectable-content" id="_s_256">data</span>] with [<b>assignment</b>: <span class="assignable-content">trusted protocol</span>] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] </span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_238">invoke platform-provided functionality to encrypt all transmitted sensitive data with [<b>assignment</b>: <span class="assignable-content">trusted protocol</span>] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] </span>
+                                <span class="selectable-content" id="_s_257">invoke platform-provided functionality to encrypt all transmitted sensitive data with [<b>assignment</b>: <span class="assignable-content">trusted protocol</span>] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] </span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_239">invoke platform-provided functionality to encrypt all transmitted data with [<b>assignment</b>: <span class="assignable-content">trusted protocol</span>] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] </span>
+                                <span class="selectable-content" id="_s_258">invoke platform-provided functionality to encrypt all transmitted data with [<b>assignment</b>: <span class="assignable-content">trusted protocol</span>] for [<b>assignment</b>: <span class="assignable-content">function(s)</span>] </span>
                             </li>
                         </ul>
                         ] between itself and another trusted <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr> product. 
@@ -6175,16 +6448,16 @@
                          The application shall [<b>selection</b>: 
                         <ul>
                             <li style="">
-                                <span class="selectable-content" id="_s_148">leverage platform-provided functionality to encrypt sensitive data</span>
+                                <span class="selectable-content" id="_s_161">leverage platform-provided functionality to encrypt sensitive data</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_149">implement functionality to encrypt sensitive data as defined in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</span>
+                                <span class="selectable-content" id="_s_162">implement functionality to encrypt sensitive data as defined in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_150">protect sensitive data in accordance with <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></span>
+                                <span class="selectable-content" id="_s_163">protect sensitive data in accordance with <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_151">not store any sensitive data</span>
+                                <span class="selectable-content" id="_s_164">not store any sensitive data</span>
                             </li>
                         </ul>
                         ] in non-volatile memory. 
@@ -6230,31 +6503,31 @@
                          The application shall restrict its access to [<b>selection</b>: 
                         <ul>
                             <li style="">
-                                <span class="selectable-content" id="_s_152">no hardware resources</span>
+                                <span class="selectable-content" id="_s_165">no hardware resources</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_153">network connectivity</span>
+                                <span class="selectable-content" id="_s_166">network connectivity</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_154">camera</span>
+                                <span class="selectable-content" id="_s_167">camera</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_155">microphone</span>
+                                <span class="selectable-content" id="_s_168">microphone</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_156">location services</span>
+                                <span class="selectable-content" id="_s_169">location services</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_157"><abbr class="dyn-abbr"><a href="#abbr_NFC">NFC</a></abbr></span>
+                                <span class="selectable-content" id="_s_170"><abbr class="dyn-abbr"><a href="#abbr_NFC">NFC</a></abbr></span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_158"><abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr></span>
+                                <span class="selectable-content" id="_s_171"><abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr></span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_159">Bluetooth</span>
+                                <span class="selectable-content" id="_s_172">Bluetooth</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_160">[<b>assignment</b>: <span class="assignable-content">list of additional hardware resources</span>]</span>
+                                <span class="selectable-content" id="_s_173">[<b>assignment</b>: <span class="assignable-content">list of additional hardware resources</span>]</span>
                             </li>
                         </ul>
                         ]. 
@@ -6262,22 +6535,22 @@
                         The application shall restrict its access to [<b>selection</b>: 
                         <ul>
                             <li style="">
-                                <span class="selectable-content" id="_s_161">no sensitive information repositories</span>
+                                <span class="selectable-content" id="_s_174">no sensitive information repositories</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_162">address book</span>
+                                <span class="selectable-content" id="_s_175">address book</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_163">calendar</span>
+                                <span class="selectable-content" id="_s_176">calendar</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_164">call lists</span>
+                                <span class="selectable-content" id="_s_177">call lists</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_165">system logs</span>
+                                <span class="selectable-content" id="_s_178">system logs</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_166">[<b>assignment</b>: <span class="assignable-content">list of additional sensitive information repositories</span>]</span>
+                                <span class="selectable-content" id="_s_179">[<b>assignment</b>: <span class="assignable-content">list of additional sensitive information repositories</span>]</span>
                             </li>
                         </ul>
                         ]. 
@@ -6318,16 +6591,16 @@
                         The application shall restrict network communication to [<b>selection</b>: 
                         <ul>
                             <li style="">
-                                <span class="selectable-content" id="_s_167">no network communication</span>
+                                <span class="selectable-content" id="_s_180">no network communication</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_168">user-initiated communication for [<b>assignment</b>: <span class="assignable-content">list of functions for which the user can initiate network communication</span>]</span>
+                                <span class="selectable-content" id="_s_181">user-initiated communication for [<b>assignment</b>: <span class="assignable-content">list of functions for which the user can initiate network communication</span>]</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_169">respond to [<b>assignment</b>: <span class="assignable-content">list of remotely initiated communication</span>]</span>
+                                <span class="selectable-content" id="_s_182">respond to [<b>assignment</b>: <span class="assignable-content">list of remotely initiated communication</span>]</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="_s_170">[<b>assignment</b>: <span class="assignable-content">list of application-initiated network communication</span>]</span>
+                                <span class="selectable-content" id="_s_183">[<b>assignment</b>: <span class="assignable-content">list of application-initiated network communication</span>]</span>
                             </li>
                         </ul>
                         ]. 
