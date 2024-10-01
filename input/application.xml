@@ -2560,25 +2560,31 @@ only AES-based implementations for CTR_DRBG are allowed.
               <Tests/>
             </aactivity>
           </f-element>
-        </f-component>        
-
-		<f-component cc-id="fcs_rbg.2" name="Random Bit Generation (External Seeding)" status="sel-based">
+        </f-component>    
+		
+		<f-component cc-id="fcs_rbg.2" name="Random Bit Generation (External Seeding)"  status="sel-based">
 			<depends on="external-seed"/>
-			<f-element id="fel-rbg-seed-purpose">
+			<f-element id="fe1-rbg-seed">
 				<title>
 					The TSF shall be able to accept a minimum input of <assignable>minimum input length greater than zero</assignable>
 					from a TSF interface for the purpose of seeding.
-				</title>        
-				<note role="application">This requirement is claimed when a DRBG is seeded with entropy from one or more noise source that is outside the TOE boundary. Typically the entropy produced by an environmental noise source is conditioned such that the input length has full entropy and is therefore usable as the seed. However, if this is not the case, it should be noted what the minimum entropy rate of the noise source is so that the TSF can collect a sufficiently large sample of noise data to be conditioned into a seed value.</note>
-			</f-element>
+				</title>
+				<note role="application">
+					This requirement is claimed when a DRBG is seeded with entropy from one or more noise source that is outside the TOE
+					boundary. Typically the entropy produced by an environmental noise source is conditioned such that the input length has
+					full entropy and is therefore  usable as the seed. However, if this is not the case, it should be noted what the minimum
+					entropy rate of the noise source is so that the TSF can collect a sufficiently large sample of noise data to be
+					conditioned into a seed value.
+				</note>
 			<aactivity>
 				The evaluator shall examine the entropy documentation required by FCS_RBG.1.2 to verify that it identifies, for each DRBG function implemented by the TOE, the TSF external interface used to seed the TOE's DRBG. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data such that it can be determined that sufficient entropy can be made available for the highest strength keys that the TSF can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the TOE estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the TSF applies to the output data to create a seed of sufficient size with full entropy.  
 				<TSS/>
 				<Guidance/>
 				<Tests/>
 			</aactivity>
+			</f-element>
 		</f-component>
-        
+
         <f-component cc-id="fcs_rbg.3" name="Random Bit Generation (Internal Seeding - Single Source)" status="sel-based">
           <depends on="internal-seed"/>
           <f-element id="fel-rbg-seed-int-sing">
@@ -2589,13 +2595,14 @@ only AES-based implementations for CTR_DRBG are allowed.
                 with a minimum of <assignable>number of bits</assignable> bits of min-entropy.
             </title>        
             <note role="application">This requirement is claimed when a DRBG is seeded with entropy from a single noise source that is within the TOE boundary. Min-entropy should be expressed as a ratio of entropy bits to sampled bits so that the total amount of data needed to ensure full entropy is known, as well as the conditioning function by which that data is reduced in size to the seed.</note>
-          </f-element>
+
           <aactivity>
             The evaluator shall examine the entropy documentation required by FCS_RBG.1.2 to verify that it identifies, for each DRBG function implemented by the TOE, the TSF noise source used to seed the TOE's DRBG. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data such that it can be determined that sufficient entropy can be made available for the highest strength keys that the TSF can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the TOE estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the TSF applies to the output data to create a seed of sufficient size with full entropy. 
             <TSS/>
             <Guidance/>
             <Tests/>
           </aactivity>
+                </f-element>
         </f-component>
         
         <f-component cc-id="fcs_rbg.4" name="Random Bit Generation (Internal Seeding - Multiple Sources)" status="sel-based">
@@ -2611,13 +2618,13 @@ only AES-based implementations for CTR_DRBG are allowed.
               This requirement is claimed when a DRBG is seeded with entropy from multiple noise sources that are within the TOE boundary. 
               FCS_RBG.5 defines the mechanism by which these sources are combined to ensure sufficient minimum entropy.
             </note>
-          </f-element>
           <aactivity>
             The evaluator shall examine the entropy documentation required by FCS_RBG.1.2 to verify that it identifies, for each DRBG function implemented by the TOE, each TSF noise source used to seed the TOE's DRBG. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data from each data source.
             <TSS/>
             <Guidance/>
             <Tests/>
           </aactivity>
+          </f-element>
         </f-component>
           
         <f-component cc-id="fcs_rbg.5" name="Random Bit Generation (Combining Noise Sources)" status="sel-based">
@@ -2635,13 +2642,13 @@ only AES-based implementations for CTR_DRBG are allowed.
                 to create the entropy input into the derivation function as defined in <assignable>list of standards</assignable>, resulting
                 in a minimum of <assignable>number of bits</assignable> bits of min-entropy.              
             </title>        
-          </f-element>
           <aactivity>
             Using the entropy sources specified in FCS_RBG.4, the evaluator shall examine the entropy documentation required by FCS_RBG.1.2 to verify that it describes the method by which the various entropy sources are combined into a single seed. This should include an estimation of the rate at which each noise source outputs data and whether this is dependent on any system-specific factors so that each source's relative contribution to the overall entropy is understood. The evaluator shall verify that the resulting combination of sampled data and the min-entropy rate of the sampled data is described in sufficient detail to determine that sufficient entropy can be made available for the highest strength keys that the TSF can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the TOE estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the TSF applies to the output data to create a seed of sufficient size with full entropy. 
             <TSS/>
             <Guidance/>
             <Tests/>
           </aactivity>
+          </f-element>
         </f-component>  
 		
 		<ext-comp-def fam-id="FCS_RBG_EXT" title="Random Bit Generation">
@@ -2758,7 +2765,8 @@ only AES-based implementations for CTR_DRBG are allowed.
 					</Tests>
 				</aactivity>
 			</f-element>		
-			
+		</f-component>
+		
 			<!-- FCS_PBKDF_EXT.1 (formerly FCS_CKM.1/3, FCS_CKM.1/PBKDF, FCS_CKM_EXT.1) -->
 			<ext-comp-def fam-id="FCS_PBKDF_EXT" title="Password Conditioning">
 				<fam-behavior>This family defines requirements for implementation of password-based key derivation functions.</fam-behavior>
@@ -4092,7 +4100,6 @@ only AES-based implementations for CTR_DRBG are allowed.
     				The TSF shall preserve a secure state when the following types of failures occur: [<h:i>DRBG failure</h:i>].              
     			</title>
     			<note role="application">The intent of this requirement is to ensure that cryptographic services requiring random bit generation cannot be performed if a failure of a self-test defined in FPT_TST.1 occurs.</note>
-    		</f-element>
     		<aactivity>              
     			<TSS>
     				<comment>EAs needed for this.</comment>
@@ -4100,6 +4107,7 @@ only AES-based implementations for CTR_DRBG are allowed.
     			<Guidance/>
     			<Tests/>
     		</aactivity>
+    		</f-element>
     	</f-component>	     
 	
 	<ext-comp-def fam-id="FPT_IDV_EXT" title="Software Identification and Versions">
@@ -4216,10 +4224,7 @@ only AES-based implementations for CTR_DRBG are allowed.
     			<title>
     				The TSF shall provide authorized users with the capability to verify the integrity of [<h:i>TSF DRBG specified in FCS_RBG.1</h:i>].
     			</title>
-    		</f-element>
-    		
     		<note role="application">This SFR is a required dependency of FCS_RBG.1. It is intended to require that any DRBG implemented by the TOE undergo health testing to ensure that the random bit generation functionality has not been degraded. If the TSF supports multiple DRBGs, this SFR should be iterated to describe the self-test behavior for each.</note>
-    		
     		<aactivity>
     			<TSS>
     				The	evaluator	shall examine the TSS to ensure that it details the self-tests that are run by the TSF along with how they are run. The evaluator shall ensure that the TSS makes an argument that the tests are sufficient to demonstrate that the DRBG is operating correctly.
@@ -4237,7 +4242,7 @@ only AES-based implementations for CTR_DRBG are allowed.
     				</h:p>
     			</Tests>
     		</aactivity>
-    		
+    		</f-element>    		
     	</f-component>
 
 	<!-- FPT_TUD_EXT.1 Integrity of Installation and Update -->
