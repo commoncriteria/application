@@ -643,7 +643,7 @@ function showTarget(id){
 	            img[src="images/collapsed.png"] { display:none;}
 
           }
-    </style></head><body onLoad="init()"><div id="commmentbox-"><a href="#Comment-1-">Comment: Comment-1-</a><br/><a href="#Comment-2-">Comment: Comment-2-</a><br/><a href="#Comment-3-">Comment: Comment-3-</a><br/><a href="#Comment-4-">Comment: Comment-4-</a><br/><a href="#Comment-5-">Comment: Comment-5-</a><br/><a href="#Comment-6-">Comment: Comment-6-</a><br/><a href="#Comment-7-">Comment: Comment-7-</a><br/><a href="#Comment-8-">Comment: Comment-8-</a><br/></div><h1 class="title" style="page-break-before:auto;">Protection Profile for Application Software</h1><noscript><h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1></noscript><div class="center"><img src="images/niaplogo.png" alt="NIAP Logo"></img><br/>
+    </style></head><body onLoad="init()"><h1 class="title" style="page-break-before:auto;">Protection Profile for Application Software</h1><noscript><h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1></noscript><div class="center"><img src="images/niaplogo.png" alt="NIAP Logo"></img><br/>
       Version: 2.0<br/>2024-09-30<br/><b>National Information Assurance Partnership</b><br/></div><h2 style="page-break-before:always;">Revision History</h2><table><tr class="header"><th>Version</th><th>Date</th><th>Comment</th></tr><tr><td>v 1.0</td><td>2014-10-20</td><td>Initial release</td></tr>
 <tr><td>v 1.1</td><td>2014-11-05</td><td>Addition to <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> cipher suite selections</td></tr>
 <tr><td>v 1.2</td><td>2016-04-22</td><td>Added server-side <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> requirements (selection-based)
@@ -2368,13 +2368,13 @@ The following sections list Common Criteria and technology terms used in this do
               <p>
                 For the 
                 selection in this requirement, the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source" if
-                a single noise source is used as input to the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "multiple <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise sources" if the seed is formed from a combination of two or more noise sources. If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements two or more separate DRBGs, this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> should be isolated. It multiple distinct noise sources exist such that each <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> only uses one of them, then each iteration would select "<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source."
+                a single noise source is used as input to the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "multiple <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise sources" if a seed is formed from a combination of two or more noise sources within the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary. If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements two or more separate DRBGs that are seeded in separate manners, this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> should be iterated for each <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. It multiple distinct noise sources exist such that each <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> only uses one of them, then each iteration would select "<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source"; "multiple <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise sources" is only selected if a single <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> uses multiple noise sources for its seed. The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> author selects "<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface for seeding" if noise source data is generated outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary.
               </p>
               <p>
                 If "<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source" is selected, <a href="#FCS_RBG.3">FCS_RBG.3</a> must be claimed.
               </p>
               <p>
-                If "multiple <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise sources" is selected, <a href="#FCS_RBG.4">FCS_RBG.4</a> and <a href="#FCS_RBG.5">FCS_RBG.5</a> must be claimed. <span style="" class="comment " id="Comment-1-">Technically <a href="#FCS_RBG.5">FCS_RBG.5</a> looks like it can also be claimed if the entropy source is a combination of an external interface (<abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr>.2) and one or more internal interfaces (<abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr>.3 or <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr>.4) but it's unclear whether that use case is common enough to warrant noting this, or if describing that situation just adds unnecessary complexity.</span>
+                If "multiple <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise sources" is selected, <a href="#FCS_RBG.4">FCS_RBG.4</a> and <a href="#FCS_RBG.5">FCS_RBG.5</a> must be claimed. 
               </p>
               <p>
                 If "<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface for seeding" is selected, <a href="#FCS_RBG.2">FCS_RBG.2</a> must be claimed. 
@@ -2382,7 +2382,6 @@ The following sections list Common Criteria and technology terms used in this do
             </span></div></div></div>
           
           <div class="element"><div class="reqid" id="FCS_RBG.1.3"><a href="#FCS_RBG.1.3" class="abbr">FCS_RBG.1.3</a></div><div class="reqdesc">
-              <span style="" class="comment " id="Comment-2-">do we want to require 'reseeding' for this? Or is uninstantiation still permissible?</span>
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall update the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> state by [<b>selection</b>: <span class="selectable-content" id="_s_117">reseeding</span>, <span class="selectable-content" id="_s_118">uninstantiating and reinstantiating</span>] using a [<b>selection</b>: <span class="selectable-content" id="_s_119"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source [<b>assignment</b>: 
      <span class="assignable-content">name of noise source</span>]</span>, <span class="selectable-content" id="_s_120"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface for seeding</span>]
               in the following situations: [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_121">on demand</span></li><li style=""><span class="selectable-content" id="_s_122">on the condition: [<b>assignment</b>: 
@@ -2392,10 +2391,8 @@ The following sections list Common Criteria and technology terms used in this do
      <span class="assignable-content">list of standards</span>].
             </div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="element-activity-header"><a href="#FCS_RBG.1.1">FCS_RBG.1.1</a></div>
-              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
-			There are no additional <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> evaluation activities for this element.<br/><br/>
-              <div class="eacategory">Guidance</div>
-			There are no additional Guidance evaluation activities for this element.<br/><br/>
+              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> identifies the DRBGs used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</div>
+              <div class="eacategory">Guidance</div><div class="ea">If the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality is configurable, the evaluator shall verify that the operational guidance includes instructions on how to configure this behavior.</div>
               <div class="eacategory">Tests</div><div class="ea">
                 <p>
                   The evaluator shall perform the following tests:
@@ -2447,14 +2444,14 @@ The following sections list Common Criteria and technology terms used in this do
                 </p>
               </div>
             <div class="element-activity-header"><a href="#FCS_RBG.1.2">FCS_RBG.1.2</a></div>
-              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
-              	<p>
-              		Documentation will be produced - and the evaluator shall perform the
-              		activities - in accordance with <a href="#entropyappendix" class="dynref">Appendix C -  Entropy Documentation and Assessment</a> and
-              		the
-              		<a href="https://old.niap-ccevs.org/Documents_and_Guidance/ccevs/Entropy%20Documentation%20and%20Assessment%20Clarification.pdf">Clarification to the Entropy Documentation and Assessment Annex</a>.
-              	</p>
-              </div>
+            	
+            		Documentation will be produced - and the evaluator shall perform the
+            		activities - in accordance with  and
+            		the
+            		Clarification to the Entropy Documentation and Assessment Annex.
+            	
+              <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+			There are no additional <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> evaluation activities for this element.<br/><br/>
               <div class="eacategory">Guidance</div>
 			There are no additional Guidance evaluation activities for this element.<br/><br/>
               <div class="eacategory">Tests</div>
@@ -2462,10 +2459,9 @@ The following sections list Common Criteria and technology terms used in this do
               
             <div class="element-activity-header"><a href="#FCS_RBG.1.3">FCS_RBG.1.3</a></div>              
               <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
-                <span style="" class="comment " id="Comment-3-">EAs needed for this</span>
+                The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> identifies how the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> state is updated, and the situations under which this may occur.
               </div>
-              <div class="eacategory">Guidance</div>
-			There are no additional Guidance evaluation activities for this element.<br/><br/>
+              <div class="eacategory">Guidance</div><div class="ea">If the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> claims that the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> state can be updated on demand, the evaluator shall verify that the operational guidance has instructions for how to perform this operation.</div>
               <div class="eacategory">Tests</div>
 			There are no test activities for this element.<br/><br/>
             </div></div></div>    
@@ -2488,7 +2484,9 @@ The following sections list Common Criteria and technology terms used in this do
 					conditioned into a seed value.
 				</span></div></div></div>
 		<div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_RBG.2">FCS_RBG.2</a></div>
-				The evaluator shall examine the entropy documentation required by <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a> to verify that it identifies, for each <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> function implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> external interface used to seed the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data such that it can be determined that sufficient entropy can be made available for the highest strength keys that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> applies to the output data to create a seed of sufficient size with full entropy.  
+				<p>
+				The evaluator shall examine the entropy documentation required by <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a> to verify that it identifies, for each <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> function implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> external interface used to seed the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data such that it can be determined that sufficient entropy can be made available for the highest strength keys that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> applies to the output data to create a seed of sufficient size with full entropy.
+				</p>
 				
 				
 				
@@ -2510,7 +2508,9 @@ The following sections list Common Criteria and technology terms used in this do
       Note:
     </span><span class="note">This requirement is claimed when a <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> is seeded with entropy from a single noise source that is within the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary. Min-entropy should be expressed as a ratio of entropy bits to sampled bits so that the total amount of data needed to ensure full entropy is known, as well as the conditioning function by which that data is reduced in size to the seed.</span></div></div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_RBG.3">FCS_RBG.3</a></div>
-            The evaluator shall examine the entropy documentation required by <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a> to verify that it identifies, for each <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> function implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source used to seed the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data such that it can be determined that sufficient entropy can be made available for the highest strength keys that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> applies to the output data to create a seed of sufficient size with full entropy. 
+          <p>
+            The evaluator shall examine the entropy documentation required by <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a> to verify that it identifies, for each <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> function implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source used to seed the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data such that it can be determined that sufficient entropy can be made available for the highest strength keys that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> applies to the output data to create a seed of sufficient size with full entropy.
+          </p>
             
             
             
@@ -2534,7 +2534,9 @@ The following sections list Common Criteria and technology terms used in this do
               <a href="#FCS_RBG.5">FCS_RBG.5</a> defines the mechanism by which these sources are combined to ensure sufficient minimum entropy.
             </span></div></div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_RBG.4">FCS_RBG.4</a></div>
+          <p>
             The evaluator shall examine the entropy documentation required by <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a> to verify that it identifies, for each <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> function implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, each <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source used to seed the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data from each data source.
+          </p>
             
             
             
@@ -2548,11 +2550,6 @@ The following sections list Common Criteria and technology terms used in this do
       </i></b></div>
           
           <div class="element"><div class="reqid" id="FCS_RBG.5.1"><a href="#FCS_RBG.5.1" class="abbr">FCS_RBG.5.1</a></div><div class="reqdesc">
-              <span style="" class="comment " id="Comment-4-">Note right now that we only have this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> when <a href="#FCS_RBG.4">FCS_RBG.4</a> (multiple internal seeds) is claimed. But technically the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>
-              allows combining of both internal and external sources. I don't know if that use case is something we should realistically try to account for
-              this because it may be very confusing to express in terms of defining the conditions for when this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> applies. i.e. it would apply if at least one of the following is true:
-              - <a href="#FCS_RBG.4">FCS_RBG.4</a> is claimed (with or without <a href="#FCS_RBG.2">FCS_RBG.2</a>)
-              - <a href="#FCS_RBG.2">FCS_RBG.2</a> and <a href="#FCS_RBG.3">FCS_RBG.3</a> are claimed</span>
               The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall [<b>assignment</b>: 
      <span class="assignable-content">combining operation</span>] [<b>selection</b>: <span class="selectable-content" id="_s_128">output from <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source(s)</span>, <span class="selectable-content" id="_s_129">input from <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface(s) for seeding</span>]
                 to create the entropy input into the derivation function as defined in [<b>assignment</b>: 
@@ -2561,7 +2558,9 @@ The following sections list Common Criteria and technology terms used in this do
      <span class="assignable-content">number of bits</span>] bits of min-entropy.              
             </div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_RBG.5">FCS_RBG.5</a></div>
-            Using the entropy sources specified in <a href="#FCS_RBG.4">FCS_RBG.4</a>, the evaluator shall examine the entropy documentation required by <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a> to verify that it describes the method by which the various entropy sources are combined into a single seed. This should include an estimation of the rate at which each noise source outputs data and whether this is dependent on any system-specific factors so that each source's relative contribution to the overall entropy is understood. The evaluator shall verify that the resulting combination of sampled data and the min-entropy rate of the sampled data is described in sufficient detail to determine that sufficient entropy can be made available for the highest strength keys that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> applies to the output data to create a seed of sufficient size with full entropy. 
+          	<p>
+            Using the entropy sources specified in <a href="#FCS_RBG.4">FCS_RBG.4</a>, the evaluator shall examine the entropy documentation required by <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a> to verify that it describes the method by which the various entropy sources are combined into a single seed. This should include an estimation of the rate at which each noise source outputs data and whether this is dependent on any system-specific factors so that each source's relative contribution to the overall entropy is understood. The evaluator shall verify that the resulting combination of sampled data and the min-entropy rate of the sampled data is described in sufficient detail to determine that sufficient entropy can be made available for the highest strength keys that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> applies to the output data to create a seed of sufficient size with full entropy.
+          	</p>
             
             
             
@@ -3773,7 +3772,7 @@ The following sections list Common Criteria and technology terms used in this do
       </i></b></div>
     		
     		<div class="element"><div class="reqid" id="FPT_FLS.1.1"><a href="#FPT_FLS.1.1" class="abbr">FPT_FLS.1.1</a></div><div class="reqdesc">
-    				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall preserve a secure state when the following types of failures occur: [<i><abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> failure</i>].              
+    				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall preserve a secure state when the following types of failures occur: [<i><abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> self-test failure</i>].              
     			<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">The intent of this requirement is to ensure that cryptographic services requiring random bit generation cannot be performed if a failure of a self-test defined in <a href="#FPT_TST.1">FPT_TST.1</a> occurs.</span></div></div></div>
@@ -3782,9 +3781,10 @@ The following sections list Common Criteria and technology terms used in this do
     			
     			
     		<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><div class="ea">
-    				<span style="" class="comment " id="Comment-5-">EAs needed for this.</span>
-    			</div></div><div class="eacategory">Guidance</div><div class="ea">
-			There are no additional Guidance evaluation activities for this component.<br/></div><div class="eacategory">Tests</div><div class="ea">
+    				The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> describes how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> enters an error state in the event of a <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> self-test failure.
+    			</div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea">
+    				The evaluator shall verify that the guidance documentation describes the error state that results from a <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> self-test failure and the actions that a user or administrator should take in response to attempt to resolve the error state.
+    			</div></div><div class="eacategory">Tests</div><div class="ea">
 			There are no test activities for this component.<br/></div></div></div></div>	     
 	
 	
@@ -3858,21 +3858,17 @@ The following sections list Common Criteria and technology terms used in this do
       </i></b></div>
     		
     		<div class="element"><div class="reqid" id="FPT_TST.1.1"><a href="#FPT_TST.1.1" class="abbr">FPT_TST.1.1</a></div><div class="reqdesc">
-    				<span style="" class="comment " id="Comment-6-">The whole <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is added for <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr>:2022 dependency purposes - it (along with the EAs) should be reviewed for appropriateness.</span>
-    				<span style="" class="comment " id="Comment-7-">Do we want to mandate any specific tests to be done or specific situations the testing should be done? Generally we would assume that it be run at startup and then continuously, but not sure if that will always be true.</span>
     				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall run a suite of the following self-tests [<b>selection</b>: <span class="selectable-content" id="_s_200">during initial start-up</span>, <span class="selectable-content" id="_s_201">periodically during normal operation</span>, <span class="selectable-content" id="_s_202">at the request of the authorized user</span>, <span class="selectable-content" id="_s_203">at the conditions [<b>assignment</b>: 
      <span class="assignable-content">conditions under which self-test should occur</span>]</span>]
     				to demonstrate the correct operation of [<i><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> specified in <a href="#FCS_RBG.1">FCS_RBG.1</a></i>].              
     			</div></div>
     		
     		<div class="element"><div class="reqid" id="FPT_TST.1.2"><a href="#FPT_TST.1.2" class="abbr">FPT_TST.1.2</a></div><div class="reqdesc">
-    				<span style="" class="comment " id="Comment-8-">Not sure what we should do with this as the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> health testing doesn't actually verify the integrity of any data.</span>
-    				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide authorized users with the capability to verify the integrity of [<b>selection</b>: <span class="selectable-content" id="_s_204">[<b>assignment</b>: 
-     <span class="assignable-content">parts of <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> data</span>]</span>, <span class="selectable-content" id="_s_205"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> data</span>]
+    				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide authorized users with the capability to verify the integrity of [<i>[<abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> seed/output data]</i>].
     			</div></div>
     		
     		<div class="element"><div class="reqid" id="FPT_TST.1.3"><a href="#FPT_TST.1.3" class="abbr">FPT_TST.1.3</a></div><div class="reqdesc">
-    				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide authorized users with the capability to verify the integrity of [<i><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> specified in <a href="#FCS_RBG.1">FCS_RBG.1</a></i>].
+    				The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall provide authorized users with the capability to verify the integrity of [<i>[<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> specified in <a href="#FCS_RBG.1">FCS_RBG.1</a>]</i>].
     			<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is a required dependency of <a href="#FCS_RBG.1">FCS_RBG.1</a>. It is intended to require that any <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> undergo health testing to ensure that the random bit generation functionality has not been degraded. If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> supports multiple DRBGs, this <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> should be iterated to describe the self-test behavior for each.</span></div></div></div>    		
@@ -3881,7 +3877,11 @@ The following sections list Common Criteria and technology terms used in this do
     			
     			
     		<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><div class="ea">
-    				The	evaluator	shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it details the self-tests that are run by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> along with how they are run. The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> makes an argument that the tests are sufficient to demonstrate that the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> is operating correctly.
+    				<p>
+    				The	evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it details the self-tests that are run by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> along with how they are run. This description should include an outline of what the tests are actually doing. The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> makes an argument that the tests are sufficient to demonstrate that the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> is operating correctly.
+    				</p><p>
+    					Note that this information may also be placed in the entropy documentation specified by <a href="#entropyappendix" class="dynref">Appendix C -  Entropy Documentation and Assessment</a>. 
+    				</p>
     			</div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea">
     				<p>
     					If a self-test can be executed at the request of an authorized user, the evaluator shall verify that the operational guidance provides instructions on how to execute that self-test.
@@ -3905,7 +3905,7 @@ The following sections list Common Criteria and technology terms used in this do
       
 	  
         	
-	  <div class="element"><div class="reqid" id="FPT_TUD_EXT.1.1"><a href="#FPT_TUD_EXT.1.1" class="abbr">FPT_TUD_EXT.1.1</a></div><div class="reqdesc">The application shall [<b>selection</b>: <span class="selectable-content" id="_s_206">provide the ability</span>, <span class="selectable-content" id="_s_207">leverage the platform</span>]
+	  <div class="element"><div class="reqid" id="FPT_TUD_EXT.1.1"><a href="#FPT_TUD_EXT.1.1" class="abbr">FPT_TUD_EXT.1.1</a></div><div class="reqdesc">The application shall [<b>selection</b>: <span class="selectable-content" id="_s_204">provide the ability</span>, <span class="selectable-content" id="_s_205">leverage the platform</span>]
 					 to check for updates and patches to the application software. 
 				<div class="appnote"><span class="note-header">Application
       Note:
@@ -3915,12 +3915,12 @@ The following sections list Common Criteria and technology terms used in this do
 					is intended to ensure that the application can check for updates provided by the vendor,
 					as updates provided by another source may contain malicious code.
 				</span></div></div></div>
-			<div class="element"><div class="reqid" id="FPT_TUD_EXT.1.2"><a href="#FPT_TUD_EXT.1.2" class="abbr">FPT_TUD_EXT.1.2</a></div><div class="reqdesc">The application shall [<b>selection</b>: <span class="selectable-content" id="_s_208">provide the ability</span>, <span class="selectable-content" id="_s_209">leverage the platform</span>]
+			<div class="element"><div class="reqid" id="FPT_TUD_EXT.1.2"><a href="#FPT_TUD_EXT.1.2" class="abbr">FPT_TUD_EXT.1.2</a></div><div class="reqdesc">The application shall [<b>selection</b>: <span class="selectable-content" id="_s_206">provide the ability</span>, <span class="selectable-content" id="_s_207">leverage the platform</span>]
 					to query the current version of the application software.
 				</div></div>
 			<div class="element"><div class="reqid" id="FPT_TUD_EXT.1.3"><a href="#FPT_TUD_EXT.1.3" class="abbr">FPT_TUD_EXT.1.3</a></div><div class="reqdesc"> 
 					The application shall 
-					[<b>selection</b>: <span class="selectable-content" id="toe-update">perform trusted updates</span>, <span class="selectable-content" id="_s_211">not download, modify, replace or update its own binary code</span>]. 
+					[<b>selection</b>: <span class="selectable-content" id="toe-update">perform trusted updates</span>, <span class="selectable-content" id="_s_209">not download, modify, replace or update its own binary code</span>]. 
 				<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -4027,7 +4027,7 @@ The following sections list Common Criteria and technology terms used in this do
 	  
 			<div class="element"><div class="reqid" id="FPT_TUD_EXT.2.1"><a href="#FPT_TUD_EXT.2.1" class="abbr">FPT_TUD_EXT.2.1</a></div><div class="reqdesc">
 					The application shall be distributed using 
-					[<b>selection</b>: <span class="selectable-content" id="_s_214">the format of the platform-supported package manager</span>, <span class="selectable-content" id="_s_215">a container image</span>].
+					[<b>selection</b>: <span class="selectable-content" id="_s_212">the format of the platform-supported package manager</span>, <span class="selectable-content" id="_s_213">a container image</span>].
 				</div></div>
 			<div class="element"><div class="reqid" id="FPT_TUD_EXT.2.2"><a href="#FPT_TUD_EXT.2.2" class="abbr">FPT_TUD_EXT.2.2</a></div><div class="reqdesc">
 					The application shall be packaged such that its removal results in the deletion 
@@ -4041,7 +4041,7 @@ The following sections list Common Criteria and technology terms used in this do
 				</span></div></div></div>        
 			<div class="element"><div class="reqid" id="FPT_TUD_EXT.2.3"><a href="#FPT_TUD_EXT.2.3" class="abbr">FPT_TUD_EXT.2.3</a></div><div class="reqdesc">
 					The application installation package shall be digitally signed such that 
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_216">its platform can cryptographically verify them prior to installation.</span></li><li style=""><span class="selectable-content" id="_s_217">the application can verify them using 
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_214">its platform can cryptographically verify them prior to installation.</span></li><li style=""><span class="selectable-content" id="_s_215">the application can verify them using 
 							[<b>selection</b>: <span class="selectable-content" id="toe-lms">Leighton-Micali Signature.</span>, <span class="selectable-content" id="toe-xmss">eXtended Merkle Signature Scheme.</span>]
 						</span></li></ul>] 
 				<div class="appnote"><span class="note-header">Application
@@ -4149,22 +4149,22 @@ The following sections list Common Criteria and technology terms used in this do
 	
 	
 			<div class="element"><div class="reqid" id="FTP_DIT_EXT.1.1"><a href="#FTP_DIT_EXT.1.1" class="abbr">FTP_DIT_EXT.1.1</a></div><div class="reqdesc">The application shall 
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_220">not transmit any 
-							[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_221">data</span>, <span class="selectable-content" id="_s_222">sensitive data</span>]
-						</span></li><li style=""><span class="selectable-content" id="_s_223">encrypt all transmitted 
-							[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_224">sensitive data</span>, <span class="selectable-content" id="_s_225">data</span>] with
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_218">not transmit any 
+							[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_219">data</span>, <span class="selectable-content" id="_s_220">sensitive data</span>]
+						</span></li><li style=""><span class="selectable-content" id="_s_221">encrypt all transmitted 
+							[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_222">sensitive data</span>, <span class="selectable-content" id="_s_223">data</span>] with
 							[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="sel_all_https_cl"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a client in accordance with <a href="#FCS_HTTPS_EXT.1/Client">FCS_HTTPS_EXT.1/Client</a></span></li><li style=""><span class="selectable-content" id="sel_all_https_sv"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a server in accordance with <a href="#FCS_HTTPS_EXT.1/Server">FCS_HTTPS_EXT.1/Server</a></span></li><li style=""><span class="selectable-content" id="sel_all_https_ma"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a server using mutual authentication in accordance with <a href="#FCS_HTTPS_EXT.2">FCS_HTTPS_EXT.2</a></span></li><li style=""><span class="selectable-content" id="sel_all_tlss"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a server as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a> and also supports functionality for
-									[<b>selection</b>: <span class="selectable-content" id="_s_230">mutual authentication</span>, <span class="selectable-content" id="_s_231">none</span>]</span></li><li style=""><span class="selectable-content" id="sel_all_tlsc"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a client as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a></span></li><li style=""><span class="selectable-content" id="sel_all_dtlss"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a server as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a> and also supports functionality for
-									[<b>selection</b>: <span class="selectable-content" id="_s_234">mutual authentication</span>, <span class="selectable-content" id="_s_235">none</span>]</span></li><li style=""><span class="selectable-content" id="sel_all_dtlsc"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a client as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a></span></li><li style=""><span class="selectable-content" id="sel_all_ssh"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459"><i>Functional Package for Secure Shell</i></a></span></li><li style=""><span class="selectable-content" id="sel_all_ipsec">IPsec as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=419&amp;id=419"><i>PP-Module for VPN Client</i></a></span></li></ul>]
+									[<b>selection</b>: <span class="selectable-content" id="_s_228">mutual authentication</span>, <span class="selectable-content" id="_s_229">none</span>]</span></li><li style=""><span class="selectable-content" id="sel_all_tlsc"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a client as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a></span></li><li style=""><span class="selectable-content" id="sel_all_dtlss"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a server as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a> and also supports functionality for
+									[<b>selection</b>: <span class="selectable-content" id="_s_232">mutual authentication</span>, <span class="selectable-content" id="_s_233">none</span>]</span></li><li style=""><span class="selectable-content" id="sel_all_dtlsc"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr> as a client as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439"><i>Functional Package for TLS</i></a></span></li><li style=""><span class="selectable-content" id="sel_all_ssh"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr> as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459"><i>Functional Package for Secure Shell</i></a></span></li><li style=""><span class="selectable-content" id="sel_all_ipsec">IPsec as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=419&amp;id=419"><i>PP-Module for VPN Client</i></a></span></li></ul>]
 							for [<b>assignment</b>: 
      <span class="assignable-content">function(s)</span>]
 							using certificates as defined in the <i>Functional Package for X.509</i>
-						</span></li><li style=""><span class="selectable-content" id="_s_239">invoke platform-provided functionality to encrypt all transmitted sensitive data with
-							[<b>selection</b>: <span class="selectable-content" id="_s_240"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span>, <span class="selectable-content" id="_s_241"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>, <span class="selectable-content" id="_s_242"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span>, <span class="selectable-content" id="_s_243"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></span>, <span class="selectable-content" id="_s_244">IPsec</span>] for [<b>assignment</b>: 
+						</span></li><li style=""><span class="selectable-content" id="_s_237">invoke platform-provided functionality to encrypt all transmitted sensitive data with
+							[<b>selection</b>: <span class="selectable-content" id="_s_238"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span>, <span class="selectable-content" id="_s_239"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>, <span class="selectable-content" id="_s_240"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span>, <span class="selectable-content" id="_s_241"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></span>, <span class="selectable-content" id="_s_242">IPsec</span>] for [<b>assignment</b>: 
      <span class="assignable-content">function(s)</span>]
 							using certificates as defined in the <i>Functional Package for X.509</i>
-						</span></li><li style=""><span class="selectable-content" id="_s_245">invoke platform-provided functionality to encrypt all transmitted data with
-							[<b>selection</b>: <span class="selectable-content" id="_s_246"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span>, <span class="selectable-content" id="_s_247"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>, <span class="selectable-content" id="_s_248"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span>, <span class="selectable-content" id="_s_249"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></span>, <span class="selectable-content" id="_s_250">IPsec</span>] for [<b>assignment</b>: 
+						</span></li><li style=""><span class="selectable-content" id="_s_243">invoke platform-provided functionality to encrypt all transmitted data with
+							[<b>selection</b>: <span class="selectable-content" id="_s_244"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr></span>, <span class="selectable-content" id="_s_245"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr></span>, <span class="selectable-content" id="_s_246"><abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr></span>, <span class="selectable-content" id="_s_247"><abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr></span>, <span class="selectable-content" id="_s_248">IPsec</span>] for [<b>assignment</b>: 
      <span class="assignable-content">function(s)</span>]
 							using certificates as defined in the <i>Functional Package for X.509</i>
 						</span></li></ul>] between itself and another trusted <abbr class="dyn-abbr"><a href="#abbr_IT">IT</a></abbr> product.
@@ -4206,6 +4206,15 @@ The following sections list Common Criteria and technology terms used in this do
 					</p><p>
 					If "<b>encrypt all transmitted</b>" is selected the corresponding FCS_COP.1 
 					requirements will be included.
+					</p>
+					<p>
+						Claims from the Functional Package for X.509 are only required to the extent that they are needed to support the functionality required by the trusted protocols that are claimed.
+					</p><p>
+						If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements a protocol that requires the validation of a certificate from an external entity, FIA_X509_EXT.1 and FIA_X509_EXT.2 will be claimed. FIA_TSM_EXT.1 may also be claimed if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements its own trust store. Note that FIA_X509_EXT.1 and FIA_X509_EXT.2 have selections for invocation of platform-provided functionality, so it is expected that these claims are made and tested even when the trusted protocol is implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> platform. 
+					</p><p>
+						If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements a protocol that requires the presentation of any certificates to an external entity, FIA_XCU_EXT.2 will be claimed. FIA_X509_EXT.3 will also be claimed, along with any applicable dependencies, depending on how the certificates presented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> are obtained.  
+					</p><p>
+						If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements a protocol that does not require presenting or validating X.509 certificates, no claims from the Functional Package for X.509 are required. 
 					</p>
 				</span></div></div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a></div>
@@ -4333,10 +4342,10 @@ The following sections list Common Criteria and technology terms used in this do
 <tr><td><a href="#FMT_SMF.1">FMT_SMF.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FMT_SMF.1">FMT_SMF.1</a> to define the security-relevant management functions that are supported by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, which may include configuration of network behavior.</td></tr>
 <tr><td><a href="#FPR_ANO_EXT.1">FPR_ANO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPR_ANO_EXT.1">FPR_ANO_EXT.1</a> to define how the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> provides control to the user regarding the disclosure of any <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr>.</td></tr>
 <tr><td><a href="#FPT_AEX_EXT.1">FPT_AEX_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_AEX_EXT.1">FPT_AEX_EXT.1</a> to add complexity to the task of compromising systems by ensuring that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements various platform security features and can operate on a platform that is configured securely.</td></tr>
-<tr><td><a href="#FPT_FLS.1">FPT_FLS.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_FLS.1">FPT_FLS.1</a> ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> will not operate when it is in a state where it is unable to generate secure random numbers.</td></tr>
+<tr><td><a href="#FPT_FLS.1">FPT_FLS.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_FLS.1">FPT_FLS.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> will not operate when it is in a state where it is unable to generate secure random numbers.</td></tr>
 <tr><td><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a> to provide a mechanism to identify the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> version so that it can be determined whether a vulnerability is present on the system based on the installed version.</td></tr>
-<tr><td><a href="#FPT_TST.1">FPT_TST.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_FLS.1">FPT_FLS.1</a> ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can determine whether or not it is capable of generating secure random numbers.</td></tr>
-<tr><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a> to ensure that updates to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> have integrity prtoection and cannot be altered via network attack.</td></tr>
+<tr><td><a href="#FPT_TST.1">FPT_TST.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TST.1">FPT_TST.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can determine whether or not it is capable of generating secure random numbers.</td></tr>
+<tr><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a> to ensure that updates to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> have integrity protection and cannot be altered via network attack.</td></tr>
 <tr><td><a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a> to define specific integrity protections for certain types of updates.</td></tr>
 <tr><td><a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> to define the trusted channels used to protect data in transit, the data that is protected, and whether the trusted channels are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform.</td></tr>
 <tr class="major-row"><td rowspan="30"><a href="#T.NETWORK_EAVESDROP">T.NETWORK_​EAVESDROP</a><br/></td><td><a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> to define whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform generates asymmetric keys that are used in support of trusted communications.</td></tr>
@@ -4364,9 +4373,9 @@ The following sections list Common Criteria and technology terms used in this do
 <tr><td><a href="#FPR_ANO_EXT.1">FPR_ANO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPR_ANO_EXT.1">FPR_ANO_EXT.1</a> to define how the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> provides control to the user regarding the disclosure of any <abbr class="dyn-abbr"><a href="#abbr_PII">PII</a></abbr>.</td></tr>
 <tr><td><a href="#FPT_API_EXT.1">FPT_API_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_API_EXT.1">FPT_API_EXT.1</a> to require the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to leverage platform functionality by using only documented and supported APIs.</td></tr>
 <tr><td><a href="#FPT_API_EXT.2">FPT_API_EXT.2</a> (objective)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_API_EXT.2">FPT_API_EXT.2</a> to permit the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use platform-provided libraries for parsing <abbr class="dyn-abbr"><a href="#abbr_IANA">IANA</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_MIME">MIME</a></abbr> media formats.</td></tr>
-<tr><td><a href="#FPT_FLS.1">FPT_FLS.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_FLS.1">FPT_FLS.1</a> ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> will not operate when it is in a state where it is unable to generate secure random numbers.</td></tr>
+<tr><td><a href="#FPT_FLS.1">FPT_FLS.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_FLS.1">FPT_FLS.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> will not operate when it is in a state where it is unable to generate secure random numbers.</td></tr>
 <tr><td><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a> to provide a mechanism to identify the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> version so that it can be determined whether a vulnerability is present on the system based on the installed version.</td></tr>
-<tr><td><a href="#FPT_TST.1">FPT_TST.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_FLS.1">FPT_FLS.1</a> ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can determine whether or not it is capable of generating secure random numbers.</td></tr>
+<tr><td><a href="#FPT_TST.1">FPT_TST.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TST.1">FPT_TST.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can determine whether or not it is capable of generating secure random numbers.</td></tr>
 <tr><td><a href="#FPT_LIB_EXT.1">FPT_LIB_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_LIB_EXT.1">FPT_LIB_EXT.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not include any unnecessary or unexpected third-party libraries which could present a privacy threat or vulnerability.</td></tr>
 <tr><td><a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> to define the trusted channels used to protect data in transit, the data that is protected, and whether the trusted channels are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform.</td></tr>
 <tr class="major-row"><td rowspan="15"><a href="#T.LOCAL_ATTACK">T.LOCAL_​ATTACK</a><br/></td><td><a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided asymmetric key generation services.</td></tr>
@@ -4397,9 +4406,9 @@ The following sections list Common Criteria and technology terms used in this do
 <tr><td><a href="#FCS_RBG.5">FCS_RBG.5</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.5">FCS_RBG.5</a> to define how entropy is obtained for secure <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> seeding.</td></tr>
 <tr><td><a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a> to define the mechanism that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses or relies upon to protect stored credential data.</td></tr>
 <tr><td><a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a> to define the mechanism that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses or relies upon to protect sensitive data at rest.</td></tr>
-<tr><td><a href="#FPT_FLS.1">FPT_FLS.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_FLS.1">FPT_FLS.1</a> ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> will not operate when it is in a state where it is unable to generate secure random numbers.</td></tr>
+<tr><td><a href="#FPT_FLS.1">FPT_FLS.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_FLS.1">FPT_FLS.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> will not operate when it is in a state where it is unable to generate secure random numbers.</td></tr>
 <tr><td><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a> to provide a mechanism to identify the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> version so that it can be determined whether a vulnerability is present on the system based on the installed version.</td></tr>
-<tr><td><a href="#FPT_TST.1">FPT_TST.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_FLS.1">FPT_FLS.1</a> ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can determine whether or not it is capable of generating secure random numbers.</td></tr>
+<tr><td><a href="#FPT_TST.1">FPT_TST.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TST.1">FPT_TST.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can determine whether or not it is capable of generating secure random numbers.</td></tr>
 </table></p>  
 	  
 	  
@@ -5094,13 +5103,13 @@ The following sections list Common Criteria and technology terms used in this do
              Integrity for Installation and Update,
               requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to specify how updates to it are acquired and verified.</p><p><a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a>,
              Integrity for Installation and Update,
-              requires <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> updates to be packaged in a certain manner.</p><h4>Management: FPT_TUD_EXT.1</h4><p>No specific management functions are identified.</p><h4>Audit: FPT_TUD_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FPT_TUD_EXT.1 Integrity for Installation and Update</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a> Software Identification and Versions</td></tr></table><h4 id="ext-comp-FPT_TUD_EXT.1.1">FPT_TUD_EXT.1.1</h4>The application shall [<b>selection</b>: <span class="selectable-content" id="_s_206">provide the ability</span>, <span class="selectable-content" id="_s_207">leverage the platform</span>]
+              requires <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> updates to be packaged in a certain manner.</p><h4>Management: FPT_TUD_EXT.1</h4><p>No specific management functions are identified.</p><h4>Audit: FPT_TUD_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FPT_TUD_EXT.1 Integrity for Installation and Update</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a> Software Identification and Versions</td></tr></table><h4 id="ext-comp-FPT_TUD_EXT.1.1">FPT_TUD_EXT.1.1</h4>The application shall [<b>selection</b>: <span class="selectable-content" id="_s_204">provide the ability</span>, <span class="selectable-content" id="_s_205">leverage the platform</span>]
 					 to check for updates and patches to the application software. 
-				<h4 id="ext-comp-FPT_TUD_EXT.1.2">FPT_TUD_EXT.1.2</h4>The application shall [<b>selection</b>: <span class="selectable-content" id="_s_208">provide the ability</span>, <span class="selectable-content" id="_s_209">leverage the platform</span>]
+				<h4 id="ext-comp-FPT_TUD_EXT.1.2">FPT_TUD_EXT.1.2</h4>The application shall [<b>selection</b>: <span class="selectable-content" id="_s_206">provide the ability</span>, <span class="selectable-content" id="_s_207">leverage the platform</span>]
 					to query the current version of the application software.
 				<h4 id="ext-comp-FPT_TUD_EXT.1.3">FPT_TUD_EXT.1.3</h4> 
 					The application shall 
-					[<b>selection</b>: <span class="selectable-content" id="toe-update">perform trusted updates</span>, <span class="selectable-content" id="_s_211">not download, modify, replace or update its own binary code</span>]. 
+					[<b>selection</b>: <span class="selectable-content" id="toe-update">perform trusted updates</span>, <span class="selectable-content" id="_s_209">not download, modify, replace or update its own binary code</span>]. 
 				<h4 id="ext-comp-FPT_TUD_EXT.1.4">FPT_TUD_EXT.1.4</h4> 
 					Application updates shall be digitally signed such that the application platform can cryptographically 
 					verify them prior to installation.
@@ -5109,14 +5118,14 @@ The following sections list Common Criteria and technology terms used in this do
 					[<b>selection</b>: <span class="selectable-content" id="sel_with_plat">with the platform <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr></span>, <span class="selectable-content" id="sel_add_plat">as an additional software package to the platform <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr></span>].
 				</div><h4>Management: FPT_TUD_EXT.2</h4><p>No specific management functions are identified.</p><h4>Audit: FPT_TUD_EXT.2</h4><p>There are no auditable events foreseen.</p><h4>FPT_TUD_EXT.2 Integrity for Installation and Update</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a> Integrity for Installation and Update</td></tr></table><h4 id="ext-comp-FPT_TUD_EXT.2.1">FPT_TUD_EXT.2.1</h4>
 					The application shall be distributed using 
-					[<b>selection</b>: <span class="selectable-content" id="_s_214">the format of the platform-supported package manager</span>, <span class="selectable-content" id="_s_215">a container image</span>].
+					[<b>selection</b>: <span class="selectable-content" id="_s_212">the format of the platform-supported package manager</span>, <span class="selectable-content" id="_s_213">a container image</span>].
 				<h4 id="ext-comp-FPT_TUD_EXT.2.2">FPT_TUD_EXT.2.2</h4>
 					The application shall be packaged such that its removal results in the deletion 
 					of all traces of the application, with the exception of configuration settings, output
 					files, and audit/log events.
 				<h4 id="ext-comp-FPT_TUD_EXT.2.3">FPT_TUD_EXT.2.3</h4>
 					The application installation package shall be digitally signed such that 
-					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_216">its platform can cryptographically verify them prior to installation.</span></li><li style=""><span class="selectable-content" id="_s_217">the application can verify them using 
+					[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="_s_214">its platform can cryptographically verify them prior to installation.</span></li><li style=""><span class="selectable-content" id="_s_215">the application can verify them using 
 							[<b>selection</b>: <span class="selectable-content" id="toe-lms">Leighton-Micali Signature.</span>, <span class="selectable-content" id="toe-xmss">eXtended Merkle Signature Scheme.</span>]
 						</span></li></ul>] 
 				</div></div></span><span data-sortkey="Security Management (FMT)"><h3 id="ext-comp-FMT" class="indexable" data-level="3">B.2.4 Security Management (FMT)</h3>This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> defines the following extended components as part of the
@@ -5147,18 +5156,18 @@ The following sections list Common Criteria and technology terms used in this do
              requires the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> to specify what data is transmitted outside the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> over a trusted channel, 
 		what protocol is used for data transmission, and whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements 
 		this protocol or invokes an environmental interface to do so.</p><h4>Management: FTP_DIT_EXT.1</h4><p>No specific management functions are identified.</p><h4>Audit: FTP_DIT_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FTP_DIT_EXT.1 Protection of Data in Transit</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>No dependencies.</td></tr></table><h4 id="ext-comp-FTP_DIT_EXT.1.1">FTP_DIT_EXT.1.1</h4>The application shall 
-					[<b>selection</b><b>, choose one of</b>: <ul><li style=""><span class="selectable-content" id="_s_251">not transmit any 
-							[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_252">data</span>, <span class="selectable-content" id="_s_253">sensitive data</span>]
-						</span></li><li style=""><span class="selectable-content" id="_s_254">encrypt all transmitted 
-							[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_255">sensitive data</span>, <span class="selectable-content" id="_s_256">data</span>] with
+					[<b>selection</b><b>, choose one of</b>: <ul><li style=""><span class="selectable-content" id="_s_249">not transmit any 
+							[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_250">data</span>, <span class="selectable-content" id="_s_251">sensitive data</span>]
+						</span></li><li style=""><span class="selectable-content" id="_s_252">encrypt all transmitted 
+							[<b>selection</b><b>, choose one of</b>: <span class="selectable-content" id="_s_253">sensitive data</span>, <span class="selectable-content" id="_s_254">data</span>] with
 							[<b>assignment</b>: 
      <span class="assignable-content">trusted protocol</span>] for [<b>assignment</b>: 
      <span class="assignable-content">function(s)</span>]
-						</span></li><li style=""><span class="selectable-content" id="_s_257">invoke platform-provided functionality to encrypt all transmitted sensitive data with
+						</span></li><li style=""><span class="selectable-content" id="_s_255">invoke platform-provided functionality to encrypt all transmitted sensitive data with
 							[<b>assignment</b>: 
      <span class="assignable-content">trusted protocol</span>] for [<b>assignment</b>: 
      <span class="assignable-content">function(s)</span>]
-						</span></li><li style=""><span class="selectable-content" id="_s_258">invoke platform-provided functionality to encrypt all transmitted data with
+						</span></li><li style=""><span class="selectable-content" id="_s_256">invoke platform-provided functionality to encrypt all transmitted data with
 							[<b>assignment</b>: 
      <span class="assignable-content">trusted protocol</span>] for [<b>assignment</b>: 
      <span class="assignable-content">function(s)</span>]

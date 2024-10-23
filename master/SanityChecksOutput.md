@@ -1,4 +1,3 @@
-* Warning: This document still has at least one comment.
 * Error: Detected multiple elements with an id of 'fel-https-who-cl'.
 * Error: Detected multiple elements with an id of 'fel-https-who-cl'.
  Failed to find a reference to bibCEM.
