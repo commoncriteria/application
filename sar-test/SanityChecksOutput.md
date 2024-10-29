@@ -1,7 +1,3 @@
-* Error: Detected dangling id-reference to macOS from attribute
-        ref/PP[1]""/sec:req[1]""/section[1]""/section[6]"For the c"/a-component[1]""/a-element[5]""/aactivity[1]""/h:p[4]""/h:div[1]""/depends[3]""/ref[1]""
-* Error: Detected dangling id-reference to solaris from attribute
-        ref/PP[1]""/sec:req[1]""/section[1]""/section[6]"For the c"/a-component[1]""/a-element[5]""/aactivity[1]""/h:p[4]""/h:div[1]""/depends[4]""/ref[1]""
 * Error: Detected multiple elements with an id of 'fel-https-who-cl'.
 * Error: Detected multiple elements with an id of 'fel-https-who-cl'.
  Failed to find a reference to bibCEM.
