@@ -1,4 +1,4 @@
-name: QuickBuild v4.4
+name: QuickBuild v4.5 20241220
 
 on:
   push:
@@ -18,14 +18,13 @@ jobs:
     name: Quick Build
     steps:
     - name: Checkout project and transforms
-      uses: actions/checkout@v4
+      uses: actions/checkout@v3
       with:
         submodules: true
 
     - name: Install Build Packages
 #      run: "sudo apt-get update && sudo apt-get install -y xsltproc hunspell pandoc"
-#      run: "sudo apt-get update && sudo apt-get install -y xsltproc hunspell python3-lxml"
-      run: "sudo apt-get update && sudo apt-get install -y xsltproc hunspell python3-pip && pip install lxml==5.3.0"
+      run: "sudo apt-get update && sudo apt-get install -y xsltproc hunspell python3-lxml"
 
     - name: Install Jing
       run: wget -O - https://github.com/relaxng/jing-trang/releases/download/V20181222/jing-20181222.zip | jar -x
@@ -100,15 +99,15 @@ jobs:
     - name: Outstanding TDs
       id: tds
       run: |
-        make effective
-        PP_XML=output/effective.xml RNG_OUT=output/TDValidationReport.txt make validate || true
         if [ "${{steps.extract_branch.outputs.branch}}" == "master" ] &&
            ls input/tds/*.xml ; then
           echo "Master branch should not have TDs" >> output/TDValidationReport.txt
         fi
-        PP_XML=output/effective.xml PP_RELEASE_HTML=output/AppliedTDs.html make release
-        java -jar ExecuteDaisy-master/*.jar output/*-release.html output/AppliedTDs.html --file=output/AppliedTDs-Diff.html
-
+    #        make effective
+    #        PP_XML=output/effective.xml RNG_OUT=output/TDValidationReport.txt make validate || true
+    # IF STATEMENT HERE
+    #        PP_XML=output/effective.xml PP_RELEASE_HTML=output/AppliedTDs.html make release
+    #        java -jar ExecuteDaisy-master/*.jar output/*-release.html output/AppliedTDs.html --file=output/AppliedTDs-Diff.html
 
     - name: Set TD badge attributes
       run: |
@@ -141,7 +140,7 @@ jobs:
 
 
     - name: Generate the spelling badge SVG image
-      uses: emibcn/badge-action@v2.0.3
+      uses: emibcn/badge-action@v2.0.2
       with:
         label: 'Misspellings'
         status: ${{ env.action_spellerrors }}
@@ -151,7 +150,7 @@ jobs:
 
 
     - name: Generate the validation badge SVG image
-      uses: emibcn/badge-action@v2.0.3
+      uses: emibcn/badge-action@v2.0.2
       with:
         label: 'Validation'
         status: ${{ env.action_valerrors }}
@@ -160,7 +159,7 @@ jobs:
 
 
     - name: Generate the warnings badge
-      uses: emibcn/badge-action@v2.0.3
+      uses: emibcn/badge-action@v2.0.2
       with:
         label: 'Warnings'
         status: ${{ env.action_sanitystatus }}
@@ -169,7 +168,7 @@ jobs:
 
 
     - name: Generate the transforms badge
-      uses: emibcn/badge-action@v2.0.3
+      uses: emibcn/badge-action@v2.0.2
       with:
         label: 'Transforms'
         status: ${{ env.action_tdate }}
@@ -177,7 +176,7 @@ jobs:
         path: output/transforms.svg
 
     - name: TD Badge
-      uses: emibcn/badge-action@v2.0.3
+      uses: emibcn/badge-action@v2.0.2
       with:
         label: 'TDs'
         status: ${{ env.action_tdwarns }}
@@ -233,7 +232,7 @@ jobs:
 
 
     - name: HTML Badge
-      uses: emibcn/badge-action@v2.0.3
+      uses: emibcn/badge-action@v2.0.2
       with:
         label: 'HTMLs'
         status: ${{ env.action_html_count }}
@@ -241,7 +240,7 @@ jobs:
         path: output/html_count.svg
 
     - name: PDF Badge
-      uses: emibcn/badge-action@v2.0.3
+      uses: emibcn/badge-action@v2.0.2
       with:
         label: 'PDFs'
         status: ${{ env.action_pdf_count }}
@@ -253,7 +252,7 @@ jobs:
       run: |
         mkdir gh-pages
 
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v3
       with:
         ref: gh-pages
         path: gh-pages
