@@ -1037,11 +1037,13 @@
 						<h:p>
 							<h:b>Key Generation for ML-DSA</h:b>
 						</h:p><h:p>							
-							10x confirm correct key pair is generated from a random seed.</h:p>
+							The evaluator shall 10x input to the internal KeyGen function a 32-byte random seed.  Verify the returned public-private key pair is correct using a known good implementation.
+							Here internal KeyGen refers to the TOE’s implementation of the function ML-DSA.KeyGen_internal(-) as described in FIPS.204.</h:p>
 						<h:p>
 							<h:b>Key Generation for ML-KEM</h:b>
 						</h:p><h:p>							
-							10x confirm correct key pair is generated from a random seed</h:p>
+							The evaluator shall 10x input to the internal KeyGen function a pair of 32-byte random string.  Verify the returned encapsulation and decapsulation key pair is correct using a known good implementation.  
+							Here internal KeyGen refers to the TOE’s implementation of the function ML-KEM.KeyGen_internal(-,-) as described in FIPS.203.</h:p>
 					</Tests>
 				</aactivity>
 			</f-element>
@@ -1324,8 +1326,12 @@
 						</h:p><h:p>
 						<h:b>ML-KEM Key Establishment Schemes</h:b>
 						</h:p><h:p>
-							INSERT - Test to be added later.
+						To test encapsulation the evaluator shall 10x input to the internal Encaps function a random 32-byte string and an encapsulation key.  Verify the returned cipher text and shared secret is correct using a known good implementation.
+						Here internal  refers to the TOE’s implementation of the function ML-KEM.Encaps_internal(-,-) as described in FIPS.203.
 						</h:p>
+						To test decapsulation the evaluator shall 10x Input to the internal Decaps function a cipher text and decapsulation key.  Verify the returned shared secret is correct using a known good implementation.  The tests should include a mix of valid and invalid/garbled cipher texts.
+						Here internal  refers to the TOE’s implementation of the function ML-KEM.Decaps_internal(-,-) as described in FIPS.203.
+						
 					</Tests>
 				</aactivity>
 			</f-element>
@@ -1971,7 +1977,8 @@ functionality (such as these)
 						</testlist>
 						ML-DSA Test
 						<testlist>
-							<test>10x confirm correct signature is generated from a randomly generated message and key pair.
+							<test>The evaluator shall 10x input to the internal Sign function a 32-byte random string, private key, and a randomly generated message.  Check and confirm the value of the returned signature using a known good implementation.
+								Here internal Sign refers to the TOE’s implementation of the function ML-DSA.Sign_internal(-,-,-) as described in FIPS.204.
 							</test>
 						</testlist>
 					</Tests>
@@ -2079,8 +2086,8 @@ functionality (such as these)
 						ML-DSA Test
 						<testlist>
 							
-							<test>10x given a key pair, message and signature, verify the signature
-								Tests should involve a mix of good signatures and bad signatures generated using different messages, keys, etc.
+							<test>Tbe evaluator shall 10x input to the internal SigVer function, a public key, message and signature.  Verify the signature.  Tests should involve a mix of good and bad signatures generated using different messages, keys, etc.
+								Here internal SigVer refers to the TOE’s implementation of the function ML-DSA.Verify_internal(-,-,-) as described in FIPS.204.
 							</test>
 						</testlist>
 					</Tests>
