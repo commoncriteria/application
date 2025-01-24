@@ -872,7 +872,7 @@ The following sections list Common Criteria and technology terms used in this do
 					This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> does not claim conformance to 
 					any Protection Profile.
 				</dd><p></p><dd>The following <abbr class="dyn-abbr"><a href="#abbr_PP">PPs</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-Modules are allowed to be specified in a 
-					<abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> with this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.
+					<abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> with this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>:
 					<ul><li><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for Email Clients, Version 1.0</li><li><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for Web Browsers, Version 1.0</li><li><abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for VPN Client, Version 2.5</li></ul></dd><dt>Package Claim</dt><p></p><dd><ul><li>This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is 
 					    Functional Package for Secure Shell Version 1.1 conformant.</li><li>This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is 
 					    Functional Package for Transport Layer Security Version 2.1 conformant.</li><li>This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> is 
@@ -1216,11 +1216,13 @@ The following sections list Common Criteria and technology terms used in this do
 						<p>
 							<b>Key Generation for ML-DSA</b>
 						</p><p>							
-							10x confirm correct key pair is generated from a random seed.</p>
+							The evaluator shall 10x input to the internal KeyGen function a 32-byte random seed.  Verify the returned public-private key pair is correct using a known good implementation.
+							Here internal KeyGen refers to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s implementation of the function ML-DSA.KeyGen_internal(-) as described in <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr>.204.</p>
 						<p>
 							<b>Key Generation for ML-KEM</b>
 						</p><p>							
-							10x confirm correct key pair is generated from a random seed</p>
+							The evaluator shall 10x input to the internal KeyGen function a pair of 32-byte random string.  Verify the returned encapsulation and decapsulation key pair is correct using a known good implementation.  
+							Here internal KeyGen refers to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s implementation of the function ML-KEM.KeyGen_internal(-,-) as described in <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr>.203.</p>
 					</div>
 				</div></div></div>
 
@@ -1478,8 +1480,12 @@ The following sections list Common Criteria and technology terms used in this do
 						</p><p>
 						<b>ML-KEM Key Establishment Schemes</b>
 						</p><p>
-							INSERT - Test to be added later.
+						To test encapsulation the evaluator shall 10x input to the internal Encaps function a random 32-byte string and an encapsulation key.  Verify the returned cipher text and shared secret is correct using a known good implementation.
+						Here internal  refers to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s implementation of the function ML-KEM.Encaps_internal(-,-) as described in <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr>.203.
 						</p>
+						To test decapsulation the evaluator shall 10x Input to the internal Decaps function a cipher text and decapsulation key.  Verify the returned shared secret is correct using a known good implementation.  The tests should include a mix of valid and invalid/garbled cipher texts.
+						Here internal  refers to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s implementation of the function ML-KEM.Decaps_internal(-,-) as described in <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr>.203.
+						
 					</div>
 				</div></div></div>
 
@@ -2013,7 +2019,8 @@ The following sections list Common Criteria and technology terms used in this do
 						ML-DSA Test
 						<span class="testlist-"><ul>
 							<li class="test-"><a id="_t_8" class="defined" href="#_t_8">Test FCS_COP.1/SigGen:3</a>:
-      10x confirm correct signature is generated from a randomly generated message and key pair.
+      The evaluator shall 10x input to the internal Sign function a 32-byte random string, private key, and a randomly generated message.  Check and confirm the value of the returned signature using a known good implementation.
+								Here internal Sign refers to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s implementation of the function ML-DSA.Sign_internal(-,-,-) as described in <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr>.204.
 							</li>
 						</ul></span>
 					</div></div></div></div></div>
@@ -2110,8 +2117,8 @@ The following sections list Common Criteria and technology terms used in this do
 						<span class="testlist-"><ul>
 							
 							<li class="test-"><a id="_t_12" class="defined" href="#_t_12">Test FCS_COP.1/SigVer:4</a>:
-      10x given a key pair, message and signature, verify the signature
-								Tests should involve a mix of good signatures and bad signatures generated using different messages, keys, etc.
+      Tbe evaluator shall 10x input to the internal SigVer function, a public key, message and signature.  Verify the signature.  Tests should involve a mix of good and bad signatures generated using different messages, keys, etc.
+								Here internal SigVer refers to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s implementation of the function ML-DSA.Verify_internal(-,-,-) as described in <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr>.204.
 							</li>
 						</ul></span>
 					</div></div></div></div></div>
