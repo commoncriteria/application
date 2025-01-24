@@ -3447,8 +3447,13 @@ only AES-based implementations for CTR_DRBG are allowed.
       		
       		<f-element id="fel-default-config">
       			<title>
-      				The application shall provide only enough functionality to set new credentials when 
-      				configured with default credentials or no credentials.
+      				The application 
+      				<selectables>
+      					<selectable>does not use credentials</selectable>
+      					<selectable>leverages platform credentials</selectable>
+      					<selectable>provide only enough functionality to set new credentials when 
+      						configured with default credentials or no credentials for application provided credentials.</selectable>
+      				</selectables>
       			</title>
       			<note role="application">
       				Default credentials are credentials (e.g., passwords, keys) that are automatically 
@@ -3459,24 +3464,25 @@ only AES-based implementations for CTR_DRBG are allowed.
       			<aactivity level="element">
       				<TSS><h:p>
       					The evaluator shall check the TSS to determine if the application requires any type
-      					of credentials and if the application installs with default credentials.</h:p>
+      					of application provided credentials and if the application installs with default credentials. 
+      					The evalutor shall verify that the TSS details how the TOE is restricted until new credentials are set.</h:p>
       				</TSS>
-      				<Guidance><h:p>The evaluator shall verify the guidance documentation details regarding any default or null credentials being used
+      				<Guidance><h:p>The evaluator shall verify the guidance documentation details regarding any default or null application provided credentials being used
       					and how they would be updated.</h:p>
       				</Guidance>
       				<Tests>If the application uses any default credentials the evaluator shall run the following tests.
       					<testlist>
       						<test>
-      							The evaluator shall install and run the application without generating or loading 
+      							For any application provided credentials the evaluator shall install and run the application without generating or loading 
       							new credentials and verify that only the minimal
       							application functionality required to set new credentials is available.
       						</test>
       						<test>
-      							The evaluator shall attempt to clear all credentials and verify that only
+      							For any application provided credentials the evaluator shall attempt to clear all credentials and verify that only
       							the minimal application functionality required to set new credentials is available.
       						</test>
       						<test>
-      							The evaluator shall run the application, establish new credentials and
+      							For any application provided credentials the evaluator shall run the application, establish new credentials and
       							verify that the original default credentials no longer provide access to
       							the application.
       						</test>
