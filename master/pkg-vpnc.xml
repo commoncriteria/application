@@ -60,7 +60,7 @@
       <url>https://github.com/commoncriteria/ssh</url>
       <branch>master</branch>
     </git>
-    <url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=465&amp;id=465</url>
+    <url>https://www.niap-ccevs.org/protectionprofiles/515</url>
     
   </include-pkg>
   <include-pkg id="pkg-tls">
@@ -68,7 +68,7 @@
       <url>https://github.com/commoncriteria/tls</url>
       <branch>release-2.0</branch>
     </git>
-    <url>https://www.niap-ccevs.org/protectionprofiles/515</url>
+    <url>https://www.niap-ccevs.org/protectionprofiles/465</url>
     <depends on="fcs-eap-ext-1"/>
   </include-pkg>
   <include-pkg id="pkg-x509">
@@ -406,6 +406,8 @@ requirements defined by the PP-Module, expressed as Evaluation Activities (EAs).
       <cc-pp-config-with> 
         <PP-cc-ref>Protection Profile for General Purpose Operating Systems, Version 4.3</PP-cc-ref>
         <PP-cc-ref>Protection Profile for Mobile Device Fundamentals, Version 3.3</PP-cc-ref>
+        <PP-cc-ref>Protection Profile for Mobile Device Management, Version 4.0</PP-cc-ref>
+        <PP-cc-ref>Protection Profile for Application Software, Version 2.0</PP-cc-ref>
         <Mod-cc-ref>cPP-Module for Wireless LAN Clients, version 1.1</Mod-cc-ref>
         <Mod-cc-ref>PP-Module for Bluetooth, version 1.1</Mod-cc-ref>
         <Mod-cc-ref>PP-Module for Mobile Device Management Agent, version 1.2</Mod-cc-ref>
@@ -519,7 +521,7 @@ expected to enforce.<h:br/><h:br/>
             aspects of configuring the TOE or using its security mechanisms (for example, the update process)
             may also result in a reduction in the trustworthiness of the VPN client.</description>
           
-          <addressed-by>FIA_X509_EXT.3 (additional to GPOS PP)</addressed-by><rationale>This SFR mitigates the threat by providing the ability to verify the integrity of the TSF using X.509 certificates.</rationale>
+          <addressed-by>FIA_X509_EXT.4 (additional to GPOS PP)</addressed-by><rationale>This SFR mitigates the threat by providing the ability to verify the integrity of the TSF using X.509 certificates.</rationale>
           <addressed-by>FMT_SMF.1/VPN</addressed-by>
           <rationale>This SFR mitigates the threat by requiring the TOE
             to implement certain administratively-configurable functions.</rationale>
@@ -528,7 +530,7 @@ expected to enforce.<h:br/><h:br/>
             to execute self-tests that demonstrate that its integrity is maintained.</rationale>
           <addressed-by>FAU_GEN.1/VPN (optional)</addressed-by>
           <rationale>This SFR mitigates the threat by optionally
-            requiring the TOE to generate audit records of its behavior.</rationale>
+            requiring the TOE to generate audit data for its behavior.</rationale>
           <addressed-by>FAU_SEL.1/VPN (optional)</addressed-by>
           <rationale>This SFR mitigates the threat by optionally
             requiring the TOE to allow for the configuration of what behavior is audited.</rationale>
@@ -580,7 +582,7 @@ expected to enforce.<h:br/><h:br/>
             to execute self-tests that demonstrate that its integrity is maintained.</rationale>
           <addressed-by>FAU_GEN.1/VPN (optional)</addressed-by>
           <rationale>This SFR mitigates the threat by optionally
-            requiring the TOE to generate audit records of its behavior.</rationale>
+            requiring the TOE to generate audit data for its behavior.</rationale>
           <addressed-by>FAU_SEL.1/VPN (optional)</addressed-by>
           <rationale>This SFR mitigates the threat by optionally
             requiring the TOE to allow for the configuration of what behavior is audited.</rationale>
@@ -821,9 +823,6 @@ expected to enforce.<h:br/><h:br/>
                 </h:li></h:i>
               </h:ul></h:b>
               <h:b>[selection: </h:b><h:i><h:ul>
-                <h:li>RSA-based key establishment schemes that meet the following: RSAES-PKCS1-v1_5 as specified in Section 7.2 of RFC 8017,
-                  “Public-Key Cryptography Standards (PKCS) #1: RSA Cryptography Specifications Version 2.2"
-                </h:li>
                 <h:li>Finite field-based key establishment schemes that meets NIST Special Publication 800-56A Revision 3, “Recommendation 
                   for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”
                 </h:li>
@@ -842,9 +841,6 @@ expected to enforce.<h:br/><h:br/>
                     </h:li>
                   </h:ul>
                   <selectables linebreak="yes">
-                    <selectable>RSA-based key establishment schemes that meet the following: RSAES-PKCS1-v1_5 as specified in Section 7.2 of RFC 8017, “Public-Key
-                      Cryptography Standards (PKCS) #1: RSA Cryptography Specifications
-                      Version 2.2"</selectable>
                     <selectable>Finite field-based key establishment schemes that meets NIST
                       Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key
                       Establishment Schemes Using Discrete Logarithm Cryptography”</selectable>
@@ -873,7 +869,7 @@ expected to enforce.<h:br/><h:br/>
               The TSF shall perform [<h:i>encryption/decryption services for data</h:i>] in accordance with a 
               specified cryptographic algorithm <h:b><h:ul>
                 <h:li><h:b>AES-CBC (as defined in NIST SP 800-38A),</h:b></h:li>
-                <h:li><h:b>AES-GCM (as defined in NIST SP 800-38D), and</h:b></h:li>
+                <h:li><h:b>AES-GCM (as defined in NIST SP 800-38D),</h:b></h:li>
               </h:ul> and [selection:</h:b><h:i><h:ul>
                 <h:li><h:b>AES-XTS (as defined in NIST SP 800-38E)</h:b></h:li>
                 <h:li><h:b>AES-CTR (as defined in NIST SP 800-38A)</h:b></h:li>
@@ -894,7 +890,7 @@ expected to enforce.<h:br/><h:br/>
                   accordance with a specified cryptographic algorithm<h:b>
                       <h:ul><h:b>
                         <h:li>AES-CBC (as defined in NIST SP 800-38A),</h:li>
-                        <h:li>AES-GCM (as defined in NIST SP 800-38D), and</h:li></h:b>
+                        <h:li>AES-GCM (as defined in NIST SP 800-38D),</h:li></h:b>
                       </h:ul></h:b>
                     and
                     <selectables linebreak="yes">
@@ -980,8 +976,8 @@ expected to enforce.<h:br/><h:br/>
               through the VPN client.</fam-behavior>
           </ext-comp-def>
           
-          <!-- 5.1.2.2 FIA_X509_EXT.3 X.509 Certificate Authentication -->
-          <f-component cc-id="fia_x509_ext.3" id="os-fia-x509-ext-3" name="X.509 Certificate Use and Management">
+          <!-- 5.1.2.2 FIA_X509_EXT.4 X.509 Certificate Authentication -->
+          <f-component cc-id="fia_x509_ext.4" id="os-fia-x509-ext-4" name="X.509 Certificate Use and Management">
             <consistency-rationale>This SFR defines additional uses for X.509 certificate functionality that
               do not conflict with those defined in the GPOS PP.</consistency-rationale>
             <comp-lev>requires the TOE to perform X.509 certificate
@@ -992,7 +988,7 @@ expected to enforce.<h:br/><h:br/>
             <dependencies>FIA_X509_EXT.1 X.509 Certificate Validation<h:br/><h:br/>
               <no-link>FPT_TST_EXT.1</no-link> TSF Self-Test<h:br/><h:br/>
             FPT_TUD_EXT.1 Trusted Update</dependencies>
-            <f-element id="os-fia-x509-ext-3e1">
+            <f-element id="os-fia-x509-ext-4e1">
               <title>The TSF shall use X.509v3 certificates as defined by RFC 5280 to support
               authentication for IPsec exchanges, and <selectables>
                 <selectable>digital signatures for FPT_TUD_EXT.1</selectable>
@@ -1001,12 +997,12 @@ expected to enforce.<h:br/><h:br/>
               </selectables>.
               </title>
               <aactivity level="element">
-                <no-tests><no-link>FIA_X509_EXT.3.1</no-link> is evaluated as part of <no-link>FCS_IPSEC_EXT.1</no-link> (and
+                <no-tests><no-link>FIA_X509_EXT.4.1</no-link> is evaluated as part of <no-link>FCS_IPSEC_EXT.1</no-link> (and
                   conditionally as part of <no-link>FPT_TUD_EXT.1</no-link> or <no-link>FPT_TST_EXT.1</no-link>).
                 </no-tests>
               </aactivity>
             </f-element>
-            <f-element id="os-fia-x509-ext-3e2">
+            <f-element id="os-fia-x509-ext-4e2">
                 <title>
                   When a connection to determine the validity of a certificate cannot be
                   established, the <selectables onlyone="yes">
@@ -1033,10 +1029,7 @@ expected to enforce.<h:br/><h:br/>
                     FMT_SMF.1/VPN.
                 </note>
               <aactivity level="element">
-                <!-- 
-                The EAs below apply to <no-link>FIA_X509_EXT.3.2</no-link>. <no-link>FIA_X509_EXT.3.1</no-link> is evaluated as part of <no-link>FCS_IPSEC_EXT.1</no-link> (and
-                conditionally as part of <no-link>FPT_TUD_EXT.1</no-link> or <no-link>FPT_TST_EXT.1</no-link>) and <no-link>FIA_X509_EXT.3.3</no-link> is evaluated as part
-                of <no-link>FCS_IPSEC_EXT.1.11</no-link>.<h:br/><h:br/>  -->
+
                 <TSS>The evaluator shall check the TSS to ensure that it describes whether the VPN client or the OS implements
                   the certificate validation functionality, how the VPN client/OS chooses which certificates to use, and any
                   necessary instructions in the administrative guidance for configuring the OS so that desired certificates
@@ -1056,7 +1049,7 @@ expected to enforce.<h:br/><h:br/>
                     <test>The evaluator shall demonstrate that using a valid certificate that requires certificate validation
                       checking to be performed in at least some part by communicating with a non-TOE IT entity. The evaluator
                       shall then manipulate the environment so that the TOE is unable to verify the validity of the certificate,
-                      and observe that the action selected in FIA_X509_EXT.3.2 is performed. If the selected action is
+                      and observe that the action selected in FIA_X509_EXT.4.2 is performed. If the selected action is
                       administrator-configurable, then the evaluator shall follow the operational guidance to determine that all
                       supported administrator-configurable options behave in their documented manner.
                     </test>
@@ -1064,7 +1057,7 @@ expected to enforce.<h:br/><h:br/>
                 </Tests>
               </aactivity>
             </f-element>
-            <f-element id="os-fia-x509-ext-3e3">
+            <f-element id="os-fia-x509-ext-4e3">
               <title>
                 The <selectables onlyone="yes">
                   <selectable>VPN client</selectable>
@@ -1073,7 +1066,7 @@ expected to enforce.<h:br/><h:br/>
                 certificate path is deemed invalid.
               </title>
               <aactivity level="element">
-                <no-tests>FIA_X509_EXT.3.3 is evaluated as part of FCS_IPSEC_EXT.1.11.
+                <no-tests>FIA_X509_EXT.4.3 is evaluated as part of FCS_IPSEC_EXT.1.11.
                 </no-tests>
               </aactivity>
             </f-element>
@@ -1260,10 +1253,10 @@ expected to enforce.<h:br/><h:br/>
       <con-mod ref="fpt-tst-ext-1-vpn">Self-testing of the VPN client functionality does not impact the ability of the
 		GPOS to perform its security functions.</con-mod>
 
-      <con-mod ref="fau-gen-1-vpn">Audit records generated by the VPN client do not interfere with GPOS
+      <con-mod ref="fau-gen-1-vpn">Audit data generated by the VPN client does not interfere with GPOS
 		functionality. The possibility of the underlying OS platform generating audit
 		records is consistent with the GPOS PP, which already contains FAU_GEN.1.</con-mod>
-      <con-mod ref="fau-sel-1-vpn">The ability to suppress the generation of certain audit records related to
+      <con-mod ref="fau-sel-1-vpn">The ability to suppress the generation of certain audit data related to
 		VPN activity does not interfere with the ability of the GPOS to satisfy its
 		security functionality.</con-mod>
       <con-mod ref="fdp-vpn-ext-1">The ability of the VPN client to prevent split tunneling of IPsec traffic
@@ -1336,7 +1329,7 @@ expected to enforce.<h:br/><h:br/>
                     </h:ul> and</h:b>
                     [<h:b>selection:</h:b><h:i>
                     <h:ul>
-                      <h:li>RSA schemes using cryptographic key sizes of 3072 bits that meet the following: [FIPS PUB 186-5, “Digital Signature Standard (DSS),” Appendix A.1]</h:li>
+                      <h:li>RSA schemes using cryptographic key sizes of [<h:b>assignment:</h:b> <h:i>3072-bit or greater</h:i>] that meet the following: [FIPS PUB 186-5, “Digital Signature Standard (DSS),” Appendix A.1]</h:li>
                       <h:li><h:b>ECC schemes using Curve25519 schemes that meet the following: [RFC 7748]</h:b></h:li>
                       <h:li>FFC schemes using "safe-prime" groups that meet the following: 'NIST Special Publication 800-56A Revision 3, "Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography"', and [<h:b>selection:</h:b> RFC 3526, RFC 7919]</h:li>
                       <h:li><h:b>no other key generation methods</h:b></h:li>
@@ -1579,7 +1572,7 @@ expected to enforce.<h:br/><h:br/>
                 <h:li>mutually authenticated DTLS as defined in the Functional Package for TLS, version 2.1</h:li>
                 <h:li>HTTPS</h:li>
                 <h:li><h:b>no other</h:b></h:li>
-              </h:ul></h:i> protocols to provide a communication channel between itself and another trusted IT product using certificates as defined in [<h:i>Functional Package for X.509, version 1.0</h:i>] that is logically distinct from other communication channels, 
+              </h:ul></h:i>] protocols to provide a communication channel between itself and another trusted IT product using certificates as defined in [<h:i>Functional Package for X.509, version 1.0</h:i>] that is logically distinct from other communication channels, 
               provides assured identification of its end points, protects channel data from disclosure, and detects modification of the channel data.
               
               
@@ -1839,11 +1832,11 @@ expected to enforce.<h:br/><h:br/>
       <con-mod ref="fpt-tst-ext-1-vpn">Self-testing of the VPN client functionality does not impact the ability of the
 		MDF to perform its security functions.</con-mod>
 		
-      <con-mod ref="fau-gen-1-vpn">Audit records generated by the VPN client do not interfere with MDF
+      <con-mod ref="fau-gen-1-vpn">Audit data generated by the VPN client does not interfere with MDF
 		functionality. The possibility of the underlying MDF platform generating
-		audit records is consistent with the MDF PP, which already contains
+		audit data is consistent with the MDF PP, which already contains
 		FAU_GEN.1.</con-mod>
-      <con-mod ref="fau-sel-1-vpn">The ability to suppress the generation of certain VPN client audit records
+      <con-mod ref="fau-sel-1-vpn">The ability to suppress the generation of certain VPN client audit data
 		does not interfere with MDM functionality. The MDF PP already contains
 		FAU_SEL.1 as an objective SFR which means that this functionality does not
 		conflict with the expected behavior of a mobile device.</con-mod>
@@ -1944,7 +1937,7 @@ expected to enforce.<h:br/><h:br/>
                       <h:li>ffdhe-6144</h:li>
                       <h:li>ffdhe-8192</h:li>
                     </h:ul>
-                    that meet the following: 
+                    ] that meet the following: 
                     [NIST Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes
                     Using Discrete Logarithm Cryptography” and [<h:b>selection:</h:b> RFC 3526, RFC 7919]]
                   </h:li>
@@ -1967,7 +1960,7 @@ expected to enforce.<h:br/><h:br/>
                       <h:li>LMS_SHA256_M32_H15</h:li>
                       <h:li>LMS_SHA256_M32_H25</h:li>
                     </h:ul>
-                    that meet the following[NIST SP 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"]
+                    ] that meet the following: [NIST SP 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"]
                   </h:li>
                   <h:li><h:b>eXtended Merkle Signature Scheme Algorithm</h:b> using the parameter sets 
                     <h:ul>
@@ -1984,7 +1977,7 @@ expected to enforce.<h:br/><h:br/>
                       <h:li>XMSS-SHAKE_16_256</h:li>
                       <h:li>XMSS-SHAKE_20_256</h:li>
                     </h:ul>
-                    bits that meets the following: [NIST SP 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"]
+                    ] bits that meets the following: [NIST SP 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"]
                   </h:li>
                   <h:li><h:b>Module-Lattice-Based Key-Encapsulation Mechanism Standard</h:b> using the parameter set ML-KEM-1024 
                     that meets the following: [FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard]</h:li>
@@ -2102,7 +2095,11 @@ expected to enforce.<h:br/><h:br/>
               </h:p>
               The text of the requirement is replaced with:<h:br/><h:br/>
               
-              The TSF shall perform <h:b>cryptographic key establishment</h:b> in accordance with a specified cryptographic key establishment method:
+              The <h:b>application</h:b> shall <h:b>[selection:<h:i><h:ul>
+                <h:li>invoke platform-provided functionality</h:li>
+                <h:li>implement functionality</h:li></h:ul></h:i>]</h:b> to
+              
+              perform cryptographic key establishment in accordance with a specified cryptographic key establishment method:
               <h:ul>
                 <h:li><h:b>[Elliptic curve-based key establishment schemes] that meet the following: [NIST Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”]</h:b></h:li>
               </h:ul>
@@ -2275,7 +2272,7 @@ expected to enforce.<h:br/><h:br/>
               The text of the requirement is replaced with:<h:br/><h:br/>
               
               The application shall [<h:b>selection:</h:b><h:i><h:ul>
-                <h:li>encrypt all transmitted [<h:b>selection, choose one of:</h:b> sensitive data, data] with <h:b>IPsec as defined in the PP-Module for VPN Client and </h:b>[<h:b>selection:</h:b><h:ul>
+                <h:li>encrypt all transmitted [<h:i>sensitive data</h:i>] with <h:b>IPsec as defined in the PP-Module for VPN Client and </h:b>[<h:b>selection:</h:b><h:ul>
                 <h:li>HTTPS as a client in accordance with FCS_HTTPS_EXT.1/Client</h:li>
                 <h:li>HTTPS as a server in accordance with FCS_HTTPS_EXT.1/Server</h:li>
                 <h:li>HTTPS as a server using mutual authentication in accordance with FCS_HTTPS_EXT.2</h:li>
@@ -2287,8 +2284,7 @@ expected to enforce.<h:br/><h:br/>
                   <h:li><h:b>no other functions</h:b></h:li></h:ul>  
                 ] for [<h:b>assignment:</h:b> function(s)] using certificates as defined in the Functional Package for X.509</h:li>
               
-                <h:li>invoke platform-provided functionality to encrypt all transmitted sensitive data with [<h:b>selection:</h:b> HTTPS, TLS, DTLS, SSH] for [<h:b>assignment: function(s</h:b>)] using certificates as defined in the Functional Package for X.509</h:li>
-                <h:li>invoke platform-provided functionality to encrypt all transmitted data with [<h:b>selection:</h:b> HTTPS, TLS, DTLS, SSH, IPsec] for [<h:b>assignment:</h:b> function(s)] using certificates as defined in the Functional Package for X.509</h:li>
+                <h:li>invoke platform-provided functionality to encrypt all transmitted sensitive data with [<h:b>selection:</h:b> HTTPS, TLS, DTLS, SSH] for [<h:b>assignment:</h:b> function(s)] using certificates as defined in the Functional Package for X.509</h:li>
               </h:ul></h:i>] between itself and another trusted IT product.
               
             </description>
@@ -2296,22 +2292,20 @@ expected to enforce.<h:br/><h:br/>
               <xpath-specified xpath="*//cc:f-element[@id='fel-transmit']//cc:title">
                 <title>The application shall 
                   <selectables linebreak="yes">
-                    <selectable>encrypt all transmitted 
-                      <selectables onlyone="yes">
-                        <selectable>sensitive data</selectable>
-                        <selectable>data</selectable></selectables> with
+                    <selectable>encrypt all transmitted [<h:i>sensitive data</h:i>]
+                       with
                       <h:b>IPsec as defined in the PP-Module for VPN Client, version 2.6 and</h:b>
                       <selectables>
                         <selectable id="sel_all_https_cl">HTTPS as a client in accordance with FCS_HTTPS_EXT.1/Client</selectable>
                         <selectable id="sel_all_https_sv">HTTPS as a server in accordance with FCS_HTTPS_EXT.1/Server</selectable>
                         <selectable id="sel_all_https_ma">HTTPS as a server using mutual authentication in accordance with FCS_HTTPS_EXT.2</selectable>
-                        <selectable id="sel_all_tlss">TLS as a server as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/439"><h:i>Functional Package for TLS</h:i></h:a> and also supports functionality for
+                        <selectable id="sel_all_tlss">TLS as a server as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/465"><h:i>Functional Package for TLS</h:i></h:a> and also supports functionality for
                           <selectables><selectable>mutual authentication</selectable><selectable>none</selectable></selectables></selectable>
-                        <selectable id="sel_all_tlsc">TLS as a client as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/439"><h:i>Functional Package for TLS</h:i></h:a></selectable>
-                        <selectable id="sel_all_dtlss">DTLS as a server as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/439"><h:i>Functional Package for TLS</h:i></h:a> and also supports functionality for
+                        <selectable id="sel_all_tlsc">TLS as a client as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/465"><h:i>Functional Package for TLS</h:i></h:a></selectable>
+                        <selectable id="sel_all_dtlss">DTLS as a server as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/465"><h:i>Functional Package for TLS</h:i></h:a> and also supports functionality for
                           <selectables><selectable>mutual authentication</selectable><selectable>none</selectable></selectables></selectable>
-                        <selectable id="sel_all_dtlsc">DTLS as a client as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/439"><h:i>Functional Package for TLS</h:i></h:a></selectable>
-                        <selectable id="sel_all_ssh">SSH as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/459"><h:i>Functional Package for Secure Shell</h:i></h:a></selectable>
+                        <selectable id="sel_all_dtlsc">DTLS as a client as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/465"><h:i>Functional Package for TLS</h:i></h:a></selectable>
+                        <selectable id="sel_all_ssh">SSH as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/515"><h:i>Functional Package for Secure Shell</h:i></h:a></selectable>
                         <selectable><h:b>no other protocols</h:b></selectable></selectables>
                       for <assignable>function(s)</assignable>
                       using certificates as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/511">Functional Package for X.509</h:a>
@@ -2325,15 +2319,6 @@ expected to enforce.<h:br/><h:br/>
                       </selectables> for <assignable>function(s)</assignable>
                       using certificates as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/511">Functional Package for X.509</h:a>
                     </selectable>	    	      
-                    <selectable>invoke platform-provided functionality to encrypt all transmitted data with
-                      <selectables>
-                        <selectable>HTTPS</selectable>
-                        <selectable>TLS</selectable>
-                        <selectable>DTLS</selectable>
-                        <selectable>SSH</selectable> 
-                      </selectables> for <assignable>function(s)</assignable>
-                      using certificates as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/511">Functional Package for X.509</h:a>
-                    </selectable>
                   </selectables> between itself and another trusted IT product.
                 </title>
               </xpath-specified>
@@ -2612,12 +2597,12 @@ expected to enforce.<h:br/><h:br/>
       <con-mod ref="fpt-tst-ext-1-vpn">Self-testing of the VPN client functionality does not impact the ability of the
 		application to perform its security functions.</con-mod>
 		
-      <con-mod ref="fau-gen-1-vpn">Audit records generated by the VPN client do not interfere with application
+      <con-mod ref="fau-gen-1-vpn">Audit data generated by the VPN client does not interfere with application
 		functionality. For cases where auditing is performed by the TOE platform, a
 		software application is installed on a general-purpose OS or
 		mobile device, both of which can reasonably be expected to provide audit
 		functionality.</con-mod>
-      <con-mod ref="fau-sel-1-vpn">The ability to suppress the generation of certain audit records related to VPN
+      <con-mod ref="fau-sel-1-vpn">The ability to suppress the generation of certain audit data related to VPN
 		activity does not interfere with the ability of the application to satisfy its security functionality.</con-mod>
       <con-mod ref="fdp-vpn-ext-1">The ability of the VPN client to prevent split tunneling of IPsec traffic
 		requires it to have hooks into lower-level OS behavior, but there are no
@@ -2820,11 +2805,11 @@ expected to enforce.<h:br/><h:br/>
             </consistency-rationale>
             <description>
               <h:p>
-                When the MDM TOE claims this PP-Module, at least one of its interfaces will implement IPsec communications. However, this PP-Module does not specify that any one particular interface must be implemented using IPsec. If the TOE is distributed and uses IPsec to secure communications between its distributed components, FPT_ITT.1/INTER_XFER) is refined as below.
+                When the MDM TOE claims this PP-Module, at least one of its interfaces will implement IPsec communications. However, this PP-Module does not specify that any one particular interface must be implemented using IPsec. If the TOE is distributed and uses IPsec to secure communications between its distributed components, FPT_ITT.1/INTER_XFER is defined as below.
               </h:p>
               The text of the requirement is replaced with:<h:br/><h:br/>
               
-              The TSF shall [<h:i>implement functionality using [IPsec as defined in the PP-Module for VPN Clients]</h:i>] to protect all data from [<h:i>disclosure and modification</h:i>] when it is transferred between separate parts of the TOE.
+              The TSF shall [<h:i>implement functionality using [IPsec as defined in the PP-Module for VPN Clients]</h:i>] <h:b>to</h:b> protect <h:b>all</h:b> data from [<h:i>disclosure and modification</h:i>] when it is <h:b>transferred</h:b> between separate parts of the TOE.
               
               <h:br/><h:br/><h:p>
                 This SFR is selection-based in the Base-PP depending on the selections made in the Base-PP requirement FTP_ITC_EXT.1. This is not changed by the PP-Module.
@@ -2836,7 +2821,7 @@ expected to enforce.<h:br/><h:br/>
             <replace>
               <xpath-specified xpath="*//cc:f-element[@id='fel-interxfer']//cc:title">
                 
-                The TSF shall [<h:i>implement functionality using [IPsec as defined in the PP-Module for VPN Clients]</h:i>] to protect <h:b>all</h:b> data from [<h:i>disclosure and modification</h:i>] when it is transferred between <h:b>separate</h:b> parts of the TOE.
+                The TSF shall [<h:i>implement functionality using [IPsec as defined in the PP-Module for VPN Clients]</h:i>] <h:b>to</h:b> protect <h:b>all</h:b> data from [<h:i>disclosure and modification</h:i>] when it is <h:b>transferred</h:b> between separate parts of the TOE.
                 
               </xpath-specified>
             </replace>
@@ -2876,7 +2861,7 @@ expected to enforce.<h:br/><h:br/>
                     <h:li>mutually authenticated DTLS as defined in the Package for Transport Layer Security</h:li>
                     <h:li>HTTPS in accordance with FCS_HTTPS_EXT.1</h:li></h:ul></h:li>
                   <h:li>not invoke or implement any other protocol functionality</h:li></h:ul></h:b></h:i>] <h:b>to</h:b> provide a <h:b>trusted</h:b>
-                communication channel between itself and <h:b>authorized</h:b> IT entities supporting the following capabilities: audit server, [<h:b>selection:</h:b> <h:i>authentication server, [<h:b>assignment:</h:b> other capabilities]</h:i>]
+              communication channel between itself and <h:b>authorized</h:b> IT <h:b>entities supporting the following capabilities: audit server, [<h:b>selection:</h:b> <h:i>authentication server, [assignment: other capabilities]</h:i>]</h:b>
 that is logically distinct from other communication channels and provides assured identification of its endpoints
                 and protection of the channel data from modification or disclosure.
               
@@ -2943,8 +2928,8 @@ that is logically distinct from other communication channels and provides assure
                   <h:li>not invoke or implement any other protocol functionality</h:li>
                 </h:ul></h:b></h:i>] <h:b>to</h:b> provide a <h:b>trusted</h:b>
                 communication path between itself <h:b>as a [selection: <h:i>server, peer</h:i>]
-                and another trusted IT product</h:b> that is logically distinct from other communication <h:b>channels</h:b> and provides assured
-                identification of its endpoints and protection of the channel data from [<h:i>modification or disclosure</h:i>]. 
+                and another trusted IT product</h:b> that is logically distinct from other communication paths and provides assured
+                identification of its endpoints and protection of the communicated data from [<h:i>modification or disclosure</h:i>]. 
               
             </description>
             <replace>
@@ -3073,10 +3058,10 @@ that is logically distinct from other communication channels and provides assure
       <con-mod ref="fpt-tst-ext-1-vpn">Self-testing of the VPN client functionality does not impact the ability of the
 		MDM to perform its security functions.</con-mod>
 		
-      <con-mod ref="fau-gen-1-vpn">Audit records generated by the VPN client do not interfere with MDM
+      <con-mod ref="fau-gen-1-vpn">Audit data generated by the VPN client do not interfere with MDM
 		functionality. The possibility of the MDM as a whole generating audit
 		records is consistent with the MDM PP, which already contains FAU_GEN.1.</con-mod>
-      <con-mod ref="fau-sel-1-vpn">The ability to suppress the generation of certain VPN client audit records
+      <con-mod ref="fau-sel-1-vpn">The ability to suppress the generation of certain VPN client audit data
 		does not interfere with MDM functionality. The MDM PP already contains FAU_SEL.1 as an optional SFR which
 		means that this functionality does not conflict with the expected behavior of an MDM.</con-mod>
       <con-mod ref="fdp-vpn-ext-1">The ability of the VPN client to prevent split tunneling of IPsec traffic
@@ -3888,7 +3873,7 @@ that is logically distinct from other communication channels and provides assure
 		The evaluator shall also ensure that the operational guidance includes the configuration of the reference
 		identifiers for the peer.<h:br/><h:br/></Guidance>
               <Tests>For efficiency’s sake, the testing that is performed here has been combined with the testing for
-                <no-link>FIA_X509_EXT.2</no-link> in <xref to="pkg-x509"/> and <no-link>FIA_X509_EXT.3</no-link> (for IPsec connections and depending on the Base-PP),
+                <no-link>FIA_X509_EXT.2</no-link> in <xref to="pkg-x509"/> and <no-link>FIA_X509_EXT.4</no-link> (for IPsec connections and depending on the Base-PP),
                 <no-link>FCS_IPSEC_EXT.1.12</no-link>, and <no-link>FCS_IPSEC_EXT.1.13</no-link>. The following tests shall be repeated for each peer
                 authentication protocol selected in the <no-link>FCS_IPSEC_EXT.1.11</no-link> selection above:
               <testlist>
@@ -4757,7 +4742,7 @@ that is logically distinct from other communication channels and provides assure
             </title>
             <ext-comp-def-title>
               <title>       The TSF shall perform Password-based Key Derivation Functions in accordance with a specified cryptographic algorithm <assignable>cryptographic algorithm used for key derivation</assignable>, with 
-                <assignable>positive integer of 4096 or more</assignable> iterations, and output cryptographic key sizes <assignable>outupt key size</assignable>
+                <assignable>positive integer of 4096 or more</assignable> iterations, and output cryptographic key sizes <assignable>output key size</assignable>
                 that meet the following: <assignable>list of standards</assignable>.</title>
             </ext-comp-def-title>
           </f-element>
@@ -5026,7 +5011,7 @@ that is logically distinct from other communication channels and provides assure
 		include those attributes listed in the assignment. The administrative guidance shall also contain
 		instructions on how to set the pre-selection or how the VPN gateway will configure the client, as well as
 		explain the syntax (if present) for multi-value pre-selection. The administrative guidance shall also identify
-		those audit records that are always recorded, regardless of the selection criteria currently being enforced.<h:br/><h:br/></Guidance>
+		the audit data that are always recorded, regardless of the selection criteria currently being enforced.<h:br/><h:br/></Guidance>
               <Tests>The evaluator shall perform the following tests:
               <testlist>
                 <test>For each attribute listed in the requirement, the evaluator shall devise a test to show that selecting
@@ -5132,7 +5117,7 @@ that is logically distinct from other communication channels and provides assure
 	        <TSS>The evaluator shall examine the TSS to determine that it describes the auditable events and the
 	          component that is responsible for each type of auditable event.<h:br/><h:br/></TSS>
 	        <Guidance>The evaluator shall check the operational guidance and ensure that it lists all of the auditable events and
-	          provides a format for audit records. Each audit record format type must be covered, along with a brief
+	          provides a format for audit data. All audit data format types must be covered, along with a brief
 	          description of each field. The evaluator shall check to make sure that every audit event type mandated by
 	          the PP-Module for VPN Clients is described and that the description of the fields contains the information
 	          required in FAU_GEN.1.2/VPN, and the additional information specified in the Auditable Events table of
@@ -5163,18 +5148,18 @@ that is logically distinct from other communication channels and provides assure
 	          that it is clear to the reader where each event is generated (e.g. the TSF may generate its own audit logs
 	          in one location while the platform-provided auditable events are generated elsewhere).<h:br/><h:br/>
 	        </Guidance>
-	        <Tests>The evaluator shall test the TOE’s ability to correctly generate audit records by having the TOE generate
-	          audit records in accordance with the EAs associated with the functional requirements in the PP-Module for VPN Clients. 
+	        <Tests>The evaluator shall test the TOE’s ability to correctly generate audit data by having the TOE generate
+	          audit data in accordance with the EAs associated with the functional requirements in the PP-Module for VPN Clients. 
 	          Additionally, the evaluator shall test that each administrative action applicable in the context
 	          of the PP-Module for VPN Clients is auditable. When verifying the test results, the evaluator shall ensure the
-	          audit records generated during testing match the format specified in the guidance and that
+	          audit data generated during testing match the format specified in the guidance and that
 	          the fields in each audit record have the proper entries.
 	          <h:br/><h:br/>
 	          
 	          Note that the testing here can be accomplished in conjunction with the testing of the security mechanisms
 	          directly. For example, testing performed to ensure that the administrative guidance provided is correct
 	          verifies that AGD_OPE.1 is satisfied and should address the invocation of the administrative actions that
-	          are needed to verify the audit records are generated as expected.
+	          are needed to verify the audit data is generated as expected.
 	        </Tests>
 	      </aactivity>
 	    </f-element>
@@ -5267,7 +5252,7 @@ that is logically distinct from other communication channels and provides assure
 		<h:td><h:b>FPT_STM.1 – Reliable Time Stamps</h:b></h:td>
 	<h:td>
 	  FAU_GEN.1/VPN has a dependency on FPT_STM.1 because
-		audit records are required to have timestamps that are based
+		audit data is required to have timestamps that are based
 		on reliable clock data. All of the supported Base-PPs either
 		define this requirement explicitly or provide rationale for why
 		the reader should expect that a reliable clock service should
