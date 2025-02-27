@@ -632,17 +632,17 @@ function showTarget(id){
     </style></head><body onLoad="init()"><h1 class="title" style="page-break-before:auto;">Protection Profile for Application Software</h1><noscript><h1 style="text-align:center; border-style: dashed; border-width: medium; border-color: red;">This page is best viewed with JavaScript enabled!</h1></noscript><div class="center"><img src="images/niaplogo.png" alt="NIAP Logo"></img><br/>
       Version: 2.0<br/>2024-09-30<br/><b>National Information Assurance Partnership</b><br/></div><h2 style="page-break-before:always;">Revision History</h2><table><tr class="header"><th>Version</th><th>Date</th><th>Comment</th></tr><tr><td>v 1.0</td><td>2014-10-20</td><td>Initial release</td></tr>
 <tr><td>v 1.1</td><td>2014-11-05</td><td>Addition to TLS cipher suite selections</td></tr>
-<tr><td>v 1.2</td><td>2016-04-22</td><td>Added server-side TLS requirements (selection-based)<br/>Multiple clarification based on NIAP TRRT inquiries<br/>Refactored <a href="#FDP_DEC_EXT.1">FDP_DEC_EXT.1</a> into separate components<br/></td></tr>
-<tr><td>v 1.3</td><td>2019-03-01</td><td>Incorporated available Technical Decisions<br/>Refactored FPT_TUD<br/>Added a selection to FTP_DIT<br/>Moved SWID Tags requirement<br/>Leveraged TLS Package<br/>Added equivalency section<br/></td></tr>
-<tr><td>v 1.4</td><td>2021-10-07</td><td>Incorporated applicable Technical Decisions<br/>Updated to TLS <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr> 1.1<br/>Incorporated SSH <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr> 1.0<br/></td></tr>
-<tr><td>v 2.0</td><td>2024-09-30</td><td>CC2022 conversion<br/>Updating for TLS <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr>, SSH <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr>, and X509 <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr><br/>TDs and GitHub Issues<br/>CNSA 2.0 updates<br/>ALC FLR Updates<br/></td></tr>
-</table><h3>TDs Applied</h3><div class="td-">0719</div><div class="td-">0717</div><div class="td-">0709</div><div class="td-">0669</div><div class="td-">0664</div><div class="td-">0655</div><div class="td-">0650</div><div class="td-">0628</div><div class="td-">0624</div><h2>Contents</h2><div class="toc" id="toc"><a href="#Introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#Overview" style="text-indent:10px">1.1<span>Overview</span></a><a href="#glossary" style="text-indent:10px">1.2<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.2.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.2.2<span>Technical Terms</span></a><a href="#TOEdescription" style="text-indent:10px">1.3<span>Compliant Targets of Evaluation</span></a><a href="#TOE_Boundary" style="text-indent:20px">1.3.1<span>TOE Boundary</span></a><a href="#sec-platforms" style="text-indent:10px">1.4<span>Platforms with Specific EAs</span></a><a href="#Use_Cases" style="text-indent:10px">1.5<span>Use Cases</span></a><a href="#Conformance_Claims" style="text-indent:0px">2<span>Conformance Claims</span></a><a href="#Security_Problem_Definition" style="text-indent:0px">3<span>Security Problem Definition</span></a><a href="#Threats" style="text-indent:10px">3.1<span>Threats</span></a><a href="#Assumptions" style="text-indent:10px">3.2<span>Assumptions</span></a><a href="#Organizational_Security_Policies" style="text-indent:10px">3.3<span>Organizational Security Policies</span></a><a href="#Security_Objectives" style="text-indent:0px">4<span>Security Objectives</span></a><a href="#Security_Objectives_for_the_Operational_Environment" style="text-indent:10px">4.1<span>Security Objectives for the Operational Environment</span></a><a href="#" style="text-indent:10px">4.2<span>Security Objectives Rationale</span></a><a href="#req" style="text-indent:0px">5<span>Security Requirements</span></a><a href="#SFRs" style="text-indent:10px">5.1<span>Security Functional Requirements</span></a><a href="#fcs" style="text-indent:20px">5.1.1<span>Class: Cryptographic Support (FCS)</span></a><a href="#fdp" style="text-indent:20px">5.1.2<span>Class: User Data Protection (FDP)</span></a><a href="#fmt" style="text-indent:20px">5.1.3<span>Class: Security Management (FMT)</span></a><a href="#fpr" style="text-indent:20px">5.1.4<span>Class: Privacy (FPR)</span></a><a href="#fpt" style="text-indent:20px">5.1.5<span>Class: Protection of the TSF (FPT)</span></a><a href="#ftp" style="text-indent:20px">5.1.6<span>Class: Trusted Path/Channel (FTP)</span></a><a href="#obj-req-map" style="text-indent:20px">5.1.7<span>TOE Security Functional Requirements Rationale</span></a><a href="#SARs" style="text-indent:10px">5.2<span>Security Assurance Requirements</span></a><a href="#ase" style="text-indent:20px">5.2.1<span>Class ASE: Security Target</span></a><a href="#adv" style="text-indent:20px">5.2.2<span>Class ADV: Development</span></a><a href="#agd" style="text-indent:20px">5.2.3<span>Class AGD: Guidance Documentation</span></a><a href="#alc" style="text-indent:20px">5.2.4<span>Class ALC: Life-cycle Support</span></a><a href="#ate" style="text-indent:20px">5.2.5<span>Class ATE: Tests</span></a><a href="#ava" style="text-indent:20px">5.2.6<span>Class AVA: Vulnerability Assessment</span></a><a href="#opt-app" style="text-indent:0px">Appendix A - <span>Optional Requirements</span></a><a href="#optional-reqs" style="text-indent:10px">A.1<span>Strictly Optional  Requirements
+<tr><td>v 1.2</td><td>2016-04-22</td><td>Added server-side TLS requirements (selection-based)Multiple clarification based on NIAP TRRT inquiriesRefactored <a href="#FDP_DEC_EXT.1">FDP_DEC_EXT.1</a> into separate components</td></tr>
+<tr><td>v 1.3</td><td>2019-03-01</td><td>Incorporated available Technical DecisionsRefactored FPT_TUDAdded a selection to FTP_DITMoved SWID Tags requirementLeveraged TLS PackageAdded equivalency section</td></tr>
+<tr><td>v 1.4</td><td>2021-10-07</td><td>Incorporated applicable Technical DecisionsUpdated to TLS <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr> 1.1Incorporated SSH <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr> 1.0</td></tr>
+<tr><td>v 2.0</td><td>2024-09-30</td><td>CC2022 conversionUpdating for TLS <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr>, SSH <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr>, and X509 FPTDs and GitHub IssuesCNSA 2.0 updatesALC FLR Updates</td></tr>
+</table><h3>TDs Applied</h3><div class="td-">0719</div><div class="td-">0717</div><div class="td-">0709</div><div class="td-">0669</div><div class="td-">0664</div><div class="td-">0655</div><div class="td-">0650</div><div class="td-">0628</div><div class="td-">0624</div><h2>Contents</h2><div class="toc" id="toc"><a href="#Introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#Overview" style="text-indent:10px">1.1<span>Overview</span></a><a href="#glossary" style="text-indent:10px">1.2<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.2.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.2.2<span>Technical Terms</span></a><a href="#TOEdescription" style="text-indent:10px">1.3<span>Compliant Targets of Evaluation</span></a><a href="#TOE_Boundary" style="text-indent:20px">1.3.1<span>TOE Boundary</span></a><a href="#sec-platforms" style="text-indent:10px">1.4<span>Platforms with Specific EAs</span></a><a href="#Use_Cases" style="text-indent:10px">1.5<span>Use Cases</span></a><a href="#Conformance_Claims" style="text-indent:0px">2<span>Conformance Claims</span></a><a href="#Security_Problem_Definition" style="text-indent:0px">3<span>Security Problem Definition</span></a><a href="#Threats" style="text-indent:10px">3.1<span>Threats</span></a><a href="#Assumptions" style="text-indent:10px">3.2<span>Assumptions</span></a><a href="#Organizational_Security_Policies" style="text-indent:10px">3.3<span>Organizational Security Policies</span></a><a href="#Security_Objectives" style="text-indent:0px">4<span>Security Objectives</span></a><a href="#Security_Objectives_for_the_TOE" style="text-indent:10px">4.1<span>Security Objectives for the TOE</span></a><a href="#Security_Objectives_for_the_Operational_Environment" style="text-indent:10px">4.2<span>Security Objectives for the Operational Environment</span></a><a href="#" style="text-indent:10px">4.3<span>Security Objectives Rationale</span></a><a href="#req" style="text-indent:0px">5<span>Security Requirements</span></a><a href="#SFRs" style="text-indent:10px">5.1<span>Security Functional Requirements</span></a><a href="#fcs" style="text-indent:20px">5.1.1<span>Class: Cryptographic Support (FCS)</span></a><a href="#fdp" style="text-indent:20px">5.1.2<span>Class: User Data Protection (FDP)</span></a><a href="#fmt" style="text-indent:20px">5.1.3<span>Class: Security Management (FMT)</span></a><a href="#fpr" style="text-indent:20px">5.1.4<span>Class: Privacy (FPR)</span></a><a href="#fpt" style="text-indent:20px">5.1.5<span>Class: Protection of the TSF (FPT)</span></a><a href="#ftp" style="text-indent:20px">5.1.6<span>Class: Trusted Path/Channel (FTP)</span></a><a href="#obj-req-map" style="text-indent:20px">5.1.7<span>TOE Security Functional Requirements Rationale</span></a><a href="#SARs" style="text-indent:10px">5.2<span>Security Assurance Requirements</span></a><a href="#ase" style="text-indent:20px">5.2.1<span>Class ASE: Security Target</span></a><a href="#adv" style="text-indent:20px">5.2.2<span>Class ADV: Development</span></a><a href="#agd" style="text-indent:20px">5.2.3<span>Class AGD: Guidance Documentation</span></a><a href="#alc" style="text-indent:20px">5.2.4<span>Class ALC: Life-cycle Support</span></a><a href="#ate" style="text-indent:20px">5.2.5<span>Class ATE: Tests</span></a><a href="#ava" style="text-indent:20px">5.2.6<span>Class AVA: Vulnerability Assessment</span></a><a href="#opt-app" style="text-indent:0px">Appendix A - <span>Optional Requirements</span></a><a href="#optional-reqs" style="text-indent:10px">A.1<span>Strictly Optional  Requirements
     </span></a><a href="#objective-reqs" style="text-indent:10px">A.2<span>Objective  Requirements
     </span></a><a href="#fpt-objective" style="text-indent:20px">A.2.1<span>Class: Protection of the TSF (FPT)</span></a><a href="#feat-based-reqs" style="text-indent:10px">A.3<span>Implementation-dependent  Requirements
     </span></a><a href="#sel-based-reqs" style="text-indent:0px">Appendix B - <span>Selection-based  Requirements
     </span></a><a href="#fcs-sel-based" style="text-indent:10px">B.1<span>Class: Cryptographic Support (FCS)</span></a><a href="#fpt-sel-based" style="text-indent:10px">B.2<span>Class: Protection of the TSF (FPT)</span></a><a href="#ext-comp-defs" style="text-indent:0px">Appendix C - <span>Extended Component Definitions</span></a><a href="#ext-comp-defs-bg" style="text-indent:10px">C.1<span>Extended Components Table</span></a><a href="#ext-comp-defs-bg" style="text-indent:10px">C.2<span>Extended Component Definitions</span></a><a href="#ext-comp-FCS" style="text-indent:20px">C.2.1<span>Class: Cryptographic Support (FCS)</span></a><a href="#ext-comp-FCS_CKM_EXT" style="text-indent:30px">C.2.1.1<span>FCS_CKM_EXT Cryptographic Key Management</span></a><a href="#ext-comp-FCS_HTTPS_EXT" style="text-indent:30px">C.2.1.2<span>FCS_HTTPS_EXT HTTPS Protocol</span></a><a href="#ext-comp-FCS_PBKDF_EXT" style="text-indent:30px">C.2.1.3<span>FCS_PBKDF_EXT Password Conditioning</span></a><a href="#ext-comp-FCS_RBG_EXT" style="text-indent:30px">C.2.1.4<span>FCS_RBG_EXT Random Bit Generation</span></a><a href="#ext-comp-FCS_STO_EXT" style="text-indent:30px">C.2.1.5<span>FCS_STO_EXT Storage of Credentials</span></a><a href="#ext-comp-FPR" style="text-indent:20px">C.2.2<span>Class: Privacy (FPR)</span></a><a href="#ext-comp-FPR_ANO_EXT" style="text-indent:30px">C.2.2.1<span>FPR_ANO_EXT User Consent for Transmission of Personally Identifiable Information</span></a><a href="#ext-comp-FPT" style="text-indent:20px">C.2.3<span>Class: Protection of the TSF (FPT)</span></a><a href="#ext-comp-FPT_AEX_EXT" style="text-indent:30px">C.2.3.1<span>FPT_AEX_EXT Anti-Exploitation Capabilities</span></a><a href="#ext-comp-FPT_API_EXT" style="text-indent:30px">C.2.3.2<span>FPT_API_EXT Use of Supported Services and APIs</span></a><a href="#ext-comp-FPT_IDV_EXT" style="text-indent:30px">C.2.3.3<span>FPT_IDV_EXT Software Identification and Versions</span></a><a href="#ext-comp-FPT_LIB_EXT" style="text-indent:30px">C.2.3.4<span>FPT_LIB_EXT TSF Use of Third Party Libraries</span></a><a href="#ext-comp-FPT_TUD_EXT" style="text-indent:30px">C.2.3.5<span>FPT_TUD_EXT Trusted Updates</span></a><a href="#ext-comp-FMT" style="text-indent:20px">C.2.4<span>Class: Security Management (FMT)</span></a><a href="#ext-comp-FMT_CFG_EXT" style="text-indent:30px">C.2.4.1<span>FMT_CFG_EXT Secure by Default Configuration</span></a><a href="#ext-comp-FMT_MEC_EXT" style="text-indent:30px">C.2.4.2<span>FMT_MEC_EXT Supported Configuration Mechanism</span></a><a href="#ext-comp-FTP" style="text-indent:20px">C.2.5<span>Class: Trusted Path/Channel (FTP)</span></a><a href="#ext-comp-FTP_DIT_EXT" style="text-indent:30px">C.2.5.1<span>FTP_DIT_EXT Protection of Data in Transit</span></a><a href="#ext-comp-FDP" style="text-indent:20px">C.2.6<span>Class: User Data Protection (FDP)</span></a><a href="#ext-comp-FDP_DAR_EXT" style="text-indent:30px">C.2.6.1<span>FDP_DAR_EXT Data-at-Rest Encryption</span></a><a href="#ext-comp-FDP_DEC_EXT" style="text-indent:30px">C.2.6.2<span>FDP_DEC_EXT Access to Platform Resources</span></a><a href="#ext-comp-FDP_NET_EXT" style="text-indent:30px">C.2.6.3<span>FDP_NET_EXT Network Communications</span></a><a href="#entropyappendix" style="text-indent:0px">Appendix D - <span>Entropy Documentation and Assessment</span></a><a href="#entropydesign" style="text-indent:10px">D.1<span>Design Description</span></a><a href="#entropyjustification" style="text-indent:10px">D.2<span>Entropy Justification</span></a><a href="#entropyoperatingconditions" style="text-indent:10px">D.3<span>Operating Conditions</span></a><a href="#entropyhealthtesting" style="text-indent:10px">D.4<span>Health Testing</span></a><a href="#equiv" style="text-indent:0px">Appendix E - <span>Application Software Equivalency Guidelines</span></a><a href="#app-intro" style="text-indent:10px">E.1<span>Introduction</span></a><a href="#approach" style="text-indent:10px">E.2<span>Approach to Equivalency Analysis</span></a><a href="#modelequiv" style="text-indent:10px">E.3<span>Specific Guidance for Determining Product Model Equivalence</span></a><a href="#versionequiv" style="text-indent:10px">E.4<span>Specific Guidance for Determining Product Version Equivalence</span></a><a href="#platformequiv" style="text-indent:10px">E.5<span>Specific Guidance for Determining Platform Equivalence</span></a><a href="#hardware-equiv" style="text-indent:20px">E.5.1<span>Platform Equivalence—Hardware/Virtual Hardware Platforms</span></a><a href="#os-equiv" style="text-indent:20px">E.5.2<span>Platform Equivalence—OS Platforms</span></a><a href="#software-equiv" style="text-indent:20px">E.5.3<span>Software-based Execution Environment Platform Equivalence</span></a><a href="#specificity" style="text-indent:10px">E.6<span>Level of Specificity for Tested Configurations and Claimed Equivalent Configurations</span></a><a href="#acronyms" style="text-indent:0px">Appendix F - <span>Acronyms</span></a><a href="#appendix-bibliography" style="text-indent:0px">Appendix G - <span>Bibliography</span></a></div><h1 class="indexable" data-level="1" id="Introduction">1 Introduction</h1>
     <h2 class="indexable" data-level="2" id="Overview">1.1 Overview</h2>The scope of this Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>) is to
-		describe the security functionality of application software in terms of  <a href="#bibCC">[CC]</a>
+		describe the security functionality of application software in terms of   <a href="#bibCC">[CC]</a>
 		and to define functional and assurance requirements for such software. In recent years,
 		software attacks have shifted from targeting operating systems to targeting applications. This
 		has been the natural response to improvements in operating system security and development
@@ -742,6 +742,7 @@ The following sections list Common Criteria and technology terms used in this do
 </table></div>
     <h2 class="indexable" data-level="2" id="TOEdescription">1.3 Compliant Targets of Evaluation</h2>
       
+      
 		The requirements in this document apply to application software which runs on any type of 
 		platform. Some application types are covered by more specific <abbr class="dyn-abbr"><a href="#abbr_PP">PPs</a></abbr>, which may be expressed as
 		<abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-Modules of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Such applications are subject to the requirements of both this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and the
@@ -754,11 +755,12 @@ The following sections list Common Criteria and technology terms used in this do
 		determine when formal Common Criteria evaluation is expected for a
 		particular type of application.  This may vary depending upon the nature
 		of the security functionality of the application.
+      
       <h3 class="indexable" data-level="3" id="TOE_Boundary">1.3.1 TOE Boundary</h3>
 		The application, which consists of the software provided by its vendor,
 		is installed onto the platform(s) it operates on.  It executes on the platform, which
-		may be an operating system ( <a onclick="showTarget('toe-as-apponos')" href="#toe-as-apponos" class="toe-as-apponos-ref">Figure  <span class="counter">1</span></a>), hardware environment, 
-	    a software based execution environment, or some combination of these ( <a onclick="showTarget('toe-as-apponee')" href="#toe-as-apponee" class="toe-as-apponee-ref">Figure  <span class="counter">2</span></a>). 
+		may be an operating system (  <a onclick="showTarget('toe-as-apponos')" href="#toe-as-apponos" class="toe-as-apponos-ref">Figure  <span class="counter">1</span></a>), hardware environment, 
+	    a software based execution environment, or some combination of these (  <a onclick="showTarget('toe-as-apponee')" href="#toe-as-apponee" class="toe-as-apponee-ref">Figure  <span class="counter">2</span></a>). 
 		Those platforms may themselves run within other environments, such as virtual machines or operating 
 		systems, that completely abstract away the underlying hardware from the application. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is not 
 		accountable for security functionality that is implemented by platform layers that are abstracted 
@@ -778,12 +780,13 @@ The following sections list Common Criteria and technology terms used in this do
 		depends upon the national scheme.  BIOS and other firmware, the operating system kernel,
 		and other systems software (and drivers) provided as part of the platform are outside the scope
 		of this document.  
-		 <div class="figure" id="figure-toe-as-apponos"><img id="toe-as-apponos" src="images/toe.png" width="" height=""></img><br/><span class="ctr" data-myid="toe-as-apponos" data-counter-type="ct-figure">Figure <span class="counter">1</span></span>:
+		  <div class="figure" id="figure-toe-as-apponos"><img id="toe-as-apponos" src="images/toe.png" width="" height=""></img><br/><span class="ctr" data-myid="toe-as-apponos" data-counter-type="ct-figure">Figure <span class="counter">1</span></span>:
       <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as an Application and Kernel Module Running on an Operating System</div> <div class="figure" id="figure-toe-as-apponee"><img id="toe-as-apponee" src="images/toeruntime.png" width="" height=""></img><br/><span class="ctr" data-myid="toe-as-apponee" data-counter-type="ct-figure">Figure <span class="counter">2</span></span>:
       <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as an Application Running in an Execution Environment Plus Native Code</div>
     
     <h2 class="indexable" data-level="2" id="sec-platforms">1.4 Platforms with Specific EAs</h2><p>This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes platform-specific EAs for the below-listed operating system platforms. For "bare-metal" applications, applications that run on other OS platforms, and applications that run in software-based execution environments, contact the Technical Community for guidance.</p><ul><li><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></li><li><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></li><li><b>Apple iOS</b>:<i>Apple's mobile operating system for iPhones.</i></li><li><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></li><li><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></li><li><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></li></ul>
     <h2 class="indexable" data-level="2" id="Use_Cases">1.5 Use Cases</h2>
+      
       
 		Requirements in this Protection Profile are designed to
 		address the security problem in the following use cases. These use cases are intentionally
@@ -791,6 +794,7 @@ The following sections list Common Criteria and technology terms used in this do
 		be used in combinations of these broad use cases, and evaluation against <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-Modules
 		of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, when available, may be most appropriate for some application types. 
 		
+      
       <dl><dt id="contentcreation"> [USE CASE 1] Content Creation</dt><dd><span class="description">The application allows a user to create content, saving it to either local or
 					remote storage.  Example content includes text documents, presentations, and images.
 				</span></dd><dt id="contentconsumption"> [USE CASE 2] Content Consumption</dt><dd><span class="description">The application allows a user to consume content, retrieving it from either
@@ -863,8 +867,13 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
     
   <h1 class="indexable" data-level="1" id="Security_Objectives">4 Security Objectives</h1>
     
+    <h2 class="indexable" data-level="2" id="Security_Objectives_for_the_TOE">4.1 Security Objectives for the TOE</h2>
+      
+      This document does not define any additional SOs.
     
-    <h2 class="indexable" data-level="2" id="Security_Objectives_for_the_Operational_Environment">4.1 Security Objectives for the Operational Environment</h2>
+    
+    
+    <h2 class="indexable" data-level="2" id="Security_Objectives_for_the_Operational_Environment">4.2 Security Objectives for the Operational Environment</h2>
       <dl><dt class="SOE defined" id="OE.PLATFORM">OE.PLATFORM</dt><dd><span class="description">The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> relies upon a trustworthy computing platform for
 					its execution. This includes the underlying operating system and any discrete execution 
 					environment provided to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</span></dd><dt class="SOE defined" id="OE.PROPER_ADMIN">OE.PROPER_ADMIN</dt><dd><span class="description">The administrator of the application software is not careless, willfully
@@ -874,7 +883,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 					policy.</span></dd></dl>
     
     
-    <h2 id="" class="indexable,h2" data-level="2">4.2 Security Objectives Rationale</h2>   
+    <h2 id="" class="indexable,h2" data-level="2">4.3 Security Objectives Rationale</h2>   
 		This section describes how the assumptions and organizational 
 		security policies map to operational environment security objectives.
 	<table><caption><span class="ctr" data-myid="t-sec-obj-rat" data-counter-type="ct-Table" id="t-sec-obj-rat">Table <span class="counter">1</span></span>: Security Objectives Rationale</caption><tr class="header"><td>Assumption or OSP</td><td>Security Objectives</td><td>Rationale</td></tr><tr class="major-row"><td rowspan="1"><a href="#A.PLATFORM">A.PLATFORM</a></td><td><a href="#OE.PLATFORM">OE.PLATFORM</a></td><td>The operational environment objective <a href="#OE.PLATFORM">OE.PLATFORM</a> is realized through
@@ -1103,25 +1112,25 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 						If <b>invoke the functionality provided by the platform to securely store</b> is selected, the evaluator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes
 						how the platform storage is invoked for each supported platform. The evaluator shall confirm the invocation of the platform is using non-deprecated functions 
 						provided by the platform(s).</p></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea"><p>None.</p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">
+                <span class="testlist-"><ul>
+                  
                 
 						For all credentials for which the application implements functionality, the evaluator shall 
 						verify credentials are encrypted according to <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> or conditioned according to <a href="#FCS_PBKDF_EXT.1">FCS_PBKDF_EXT.1</a>.
 						For all credentials for which the application invokes platform-provided
 						functionality, the evaluator shall perform the following actions which vary per platform.
 						
-                <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_15" class="defined" href="#_t_15">Test FCS_STO_EXT.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                
+                  <li class="test-"><a id="_t_15" class="defined" href="#_t_15">Test FCS_STO_EXT.1:1</a>:
       
-                    
                     The evaluator shall verify that the application uses
 							the Android <code>KeyStore</code> or the Android <code>KeyChain</code> to store certificates.  
 						
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_16" class="defined" href="#_t_16">Test FCS_STO_EXT.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                  <li class="test-"><a id="_t_16" class="defined" href="#_t_16">Test FCS_STO_EXT.1:2</a>:
       
-                    
                     The evaluator shall verify that all certificates are
 							stored in the Windows Certificate Store. The evaluator shall verify that other
 							credentials, like passwords, are stored in the Windows Credential Manager or stored 
@@ -1132,9 +1141,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_17" class="defined" href="#_t_17">Test FCS_STO_EXT.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS</b>:<i>Apple's mobile operating system for iPhones.</i></a>]:
+                  <li class="test-"><a id="_t_17" class="defined" href="#_t_17">Test FCS_STO_EXT.1:3</a>:
       
-                    
                     
 							The evaluator shall verify that all credentials are stored
 							within a <code>Keychain</code>. 
@@ -1142,18 +1150,16 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_18" class="defined" href="#_t_18">Test FCS_STO_EXT.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+                  <li class="test-"><a id="_t_18" class="defined" href="#_t_18">Test FCS_STO_EXT.1:4</a>:
       
-                    
                     
 							The evaluator shall verify that all keys are stored using Linux keyrings.
 						
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_19" class="defined" href="#_t_19">Test FCS_STO_EXT.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+                  <li class="test-"><a id="_t_19" class="defined" href="#_t_19">Test FCS_STO_EXT.1:5</a>:
       
-                    
                     
 							The evaluator shall verify that all keys are stored using Solaris 
 							<code>Key Management Framework (KMF)</code>.
@@ -1161,9 +1167,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_20" class="defined" href="#_t_20">Test FCS_STO_EXT.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+                  <li class="test-"><a id="_t_20" class="defined" href="#_t_20">Test FCS_STO_EXT.1:6</a>:
       
-                    
                     The evaluator shall verify that all credentials are 
 							stored within <code>Keychain</code>.
                   </li>
@@ -1252,7 +1257,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
           
           
           
-          <div class="element"><div class="reqid" id="FDP_DEC_EXT.1.1"><a href="#FDP_DEC_EXT.1.1" class="abbr">FDP_DEC_EXT.1.1</a></div><div class="reqdesc">The application shall restrict its access to[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_1">no hardware resources</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_2">network connectivity</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_3">camera</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_4">microphone</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_5">location services</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_6">NFC</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_7">USB</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_8">Bluetooth</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_10">[<b>assignment</b>: 
+          <div class="element"><div class="reqid" id="FDP_DEC_EXT.1.1"><a href="#FDP_DEC_EXT.1.1" class="abbr">FDP_DEC_EXT.1.1</a></div><div class="reqdesc">The application shall restrict its access to[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_1">no hardware resources</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_2">network connectivity</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_3">camera</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_4">microphone</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_5">location services</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_6">NFC</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_7">USB</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_8">Bluetooth</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_1">[<b>assignment</b>: 
      <span class="assignable-content">list of additional hardware resources</span>]</span></li></ul>].<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -1274,7 +1279,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 					main memory, displays, input devices (e.g. keyboards, mice), and
 					persistent storage devices provided by the platform.
 				</span></div></div></div>
-          <div class="element"><div class="reqid" id="FDP_DEC_EXT.1.2"><a href="#FDP_DEC_EXT.1.2" class="abbr">FDP_DEC_EXT.1.2</a></div><div class="reqdesc">The application shall restrict its access to[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_1">no sensitive information repositories</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_2">address book</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_3">calendar</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_4">call lists</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_5">system logs</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_7">[<b>assignment</b>: 
+          <div class="element"><div class="reqid" id="FDP_DEC_EXT.1.2"><a href="#FDP_DEC_EXT.1.2" class="abbr">FDP_DEC_EXT.1.2</a></div><div class="reqdesc">The application shall restrict its access to[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_1">no sensitive information repositories</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_2">address book</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_3">calendar</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_4">call lists</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_5">system logs</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_1">[<b>assignment</b>: 
      <span class="assignable-content">list of additional sensitive information repositories</span>]</span></li></ul>].<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note"> 
@@ -1292,9 +1297,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 						justification as to why access is required.</p></div>
               <div class="eacategory">Tests</div><div class="ea">
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_21" class="defined" href="#_t_21">Test FDP_DEC_EXT.1.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                  <li class="test-"><a id="_t_21" class="defined" href="#_t_21">Test FDP_DEC_EXT.1.1:1</a>:
       
-                    
                     
 							The evaluator shall verify that each <code>uses-permission</code> entry in the AndroidManifest.xml file 
 							for access to a hardware resource is reflected in the selection.
@@ -1302,9 +1306,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_22" class="defined" href="#_t_22">Test FDP_DEC_EXT.1.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                  <li class="test-"><a id="_t_22" class="defined" href="#_t_22">Test FDP_DEC_EXT.1.1:2</a>:
       
-                    
                     For Windows Universal Applications the evaluator shall check 
 							the AppxManifest.xml file for a list of required hardware capabilities. The evaluator
 							shall verify that the user is made aware of the required hardware capabilities when
@@ -1321,36 +1324,32 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_23" class="defined" href="#_t_23">Test FDP_DEC_EXT.1.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS</b>:<i>Apple's mobile operating system for iPhones.</i></a>]:
+                  <li class="test-"><a id="_t_23" class="defined" href="#_t_23">Test FDP_DEC_EXT.1.1:3</a>:
       
-                    
                     The evaluator shall verify that either the
 							application or the documentation provides a list of the
 							hardware resources it accesses. 
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_24" class="defined" href="#_t_24">Test FDP_DEC_EXT.1.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+                  <li class="test-"><a id="_t_24" class="defined" href="#_t_24">Test FDP_DEC_EXT.1.1:4</a>:
       
-                    
                      The evaluator shall verify that either the
 							application software or its documentation provides a list of the
 							hardware resources it accesses. 
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_25" class="defined" href="#_t_25">Test FDP_DEC_EXT.1.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+                  <li class="test-"><a id="_t_25" class="defined" href="#_t_25">Test FDP_DEC_EXT.1.1:5</a>:
       
-                    
                      The evaluator shall verify that either the
 							application software or its documentation provides a list of the
 							hardware resources it accesses. 
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_26" class="defined" href="#_t_26">Test FDP_DEC_EXT.1.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+                  <li class="test-"><a id="_t_26" class="defined" href="#_t_26">Test FDP_DEC_EXT.1.1:6</a>:
       
-                    
                      The evaluator shall verify that either the application
 							software or its documentation provides a list of the hardware
 							resources it accesses.
@@ -1367,9 +1366,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 						justification as to why access is required.</p></div>
               <div class="eacategory">Tests</div><div class="ea">
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_27" class="defined" href="#_t_27">Test FDP_DEC_EXT.1.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                  <li class="test-"><a id="_t_27" class="defined" href="#_t_27">Test FDP_DEC_EXT.1.2:1</a>:
       
-                    
                     
 							The evaluator shall verify that each <code>uses-permission</code> entry in the AndroidManifest.xml file 
 							for access to a sensitive information repository is reflected in the selection.  
@@ -1377,9 +1375,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_28" class="defined" href="#_t_28">Test FDP_DEC_EXT.1.2:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                  <li class="test-"><a id="_t_28" class="defined" href="#_t_28">Test FDP_DEC_EXT.1.2:2</a>:
       
-                    
                     For Windows Universal Applications the evaluator shall check the
 							AppxManifest.xml file for a list of required capabilities. The evaluator shall
 							identify the required information repositories when the
@@ -1395,18 +1392,16 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_29" class="defined" href="#_t_29">Test FDP_DEC_EXT.1.2:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS</b>:<i>Apple's mobile operating system for iPhones.</i></a>]:
+                  <li class="test-"><a id="_t_29" class="defined" href="#_t_29">Test FDP_DEC_EXT.1.2:3</a>:
       
-                    
                     The evaluator shall verify that either the application
 							software or its documentation provides a list of
 							the sensitive information repositories it accesses.
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_30" class="defined" href="#_t_30">Test FDP_DEC_EXT.1.2:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+                  <li class="test-"><a id="_t_30" class="defined" href="#_t_30">Test FDP_DEC_EXT.1.2:4</a>:
       
-                    
                      The evaluator shall verify that either the 
 							application software or its documentation provides a list of 
 							sensitive information repositories it accesses.
@@ -1414,18 +1409,16 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_31" class="defined" href="#_t_31">Test FDP_DEC_EXT.1.2:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+                  <li class="test-"><a id="_t_31" class="defined" href="#_t_31">Test FDP_DEC_EXT.1.2:5</a>:
       
-                    
                     The evaluator shall verify that either the
 							application software or its documentation provides a list of
 							sensitive information repositories it accesses. 
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_32" class="defined" href="#_t_32">Test FDP_DEC_EXT.1.2:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+                  <li class="test-"><a id="_t_32" class="defined" href="#_t_32">Test FDP_DEC_EXT.1.2:6</a>:
       
-                    
                     The evaluator shall verify that either the application
 							software or its documentation provides a list of
 							sensitive information repositories it accesses.
@@ -1441,7 +1434,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
           
           <div class="element"><div class="reqid" id="FDP_NET_EXT.1.1"><a href="#FDP_NET_EXT.1.1" class="abbr">FDP_NET_EXT.1.1</a></div><div class="reqdesc">The application shall restrict network communication to[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="fdp_net_ext.1.1_1">no network communication</span></li><li style=""><span class="selectable-content" id="fdp_net_ext.1.1_2">user-initiated communication for[<b>assignment</b>: 
      <span class="assignable-content">list of functions for which the user can initiate network communication</span>]</span></li><li style=""><span class="selectable-content" id="fdp_net_ext.1.1_4">respond to[<b>assignment</b>: 
-     <span class="assignable-content">list of remotely initiated communication</span>]</span></li><li style=""><span class="selectable-content" id="fdp_net_ext.1.1_7">[<b>assignment</b>: 
+     <span class="assignable-content">list of remotely initiated communication</span>]</span></li><li style=""><span class="selectable-content" id="fdp_net_ext.1.1_3">[<b>assignment</b>: 
      <span class="assignable-content">list of application-initiated network communication</span>]</span></li></ul>].<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -1458,11 +1451,11 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
               
             <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><div class="ea"><p>None.</p></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea"><p>The evaluator shall verify the guidance documents contain any instructions necessary to configure the restriction of network
 						communications.</p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">
+                <span class="testlist-"><ul>
+                  
                 The evaluator shall perform the following tests:
 						
-                <span class="testlist-"><ul>
-                  The evaluator shall perform the following tests:
-						
+                
                   <li class="test-"><a id="_t_33" class="defined" href="#_t_33">Test FDP_NET_EXT.1:1</a>:
       
 								The evaluator shall run the application.  While the application is running,
@@ -1481,9 +1474,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 							</li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_35" class="defined" href="#_t_35">Test FDP_NET_EXT.1:3</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                  <li class="test-"><a id="_t_35" class="defined" href="#_t_35">Test FDP_NET_EXT.1:3</a>:
       
-                    
                     
 							If "<b>no network communication</b>" is selected, the evaluator shall ensure that the application's
 							AndroidManifest.xml file does not contain a uses-permission or uses-permission-sdk-23 tag
@@ -1529,8 +1521,6 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
       					and how they would be updated.</p></div>
               <div class="eacategory">Tests</div><div class="ea">
                 <span class="testlist-"><ul>
-                  If the application uses any default credentials the evaluator shall run the following tests.
-      					
                   <li class="test-"><a id="_t_36" class="defined" href="#_t_36">Test FMT_CFG_EXT.1.1:1</a>:
       
       							For any application provided credentials the evaluator shall install and run the application without generating or loading 
@@ -1554,16 +1544,17 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
               <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><p>None.</p></div>
               <div class="eacategory">Guidance</div><div class="ea"><p>None.</p></div>
               <div class="eacategory">Tests</div><div class="ea">
+                <span class="testlist-"><ul>
+                  
                 
       					The evaluator shall install and run the application. The evaluator shall
       					inspect the filesystem of the platform (to the extent possible) for any files created
       					by the application and ensure that their permissions are adequate to protect them.
       					The method of doing so varies per platform.
       					
-                <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_39" class="defined" href="#_t_39">Test FMT_CFG_EXT.1.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                
+                  <li class="test-"><a id="_t_39" class="defined" href="#_t_39">Test FMT_CFG_EXT.1.2:1</a>:
       
-                    
                     The evaluator shall run the command <code>find -L . -perm /002</code> 
       						inside the application's data directories to ensure that all files are not world-writable. The command 
       						should not print any files (for this test, directories are not considered to be files).
@@ -1571,9 +1562,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_40" class="defined" href="#_t_40">Test FMT_CFG_EXT.1.2:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                  <li class="test-"><a id="_t_40" class="defined" href="#_t_40">Test FMT_CFG_EXT.1.2:2</a>:
       
-                    
                     The evaluator shall run the SysInternals tools,
       						Process Monitor and Access Check (or tools of equivalent capability, like 
       						icacls.exe) for Classic Desktop applications to verify that files written to disk 
@@ -1585,18 +1575,16 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_41" class="defined" href="#_t_41">Test FMT_CFG_EXT.1.2:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS</b>:<i>Apple's mobile operating system for iPhones.</i></a>]:
+                  <li class="test-"><a id="_t_41" class="defined" href="#_t_41">Test FMT_CFG_EXT.1.2:3</a>:
       
-                    
                     The evaluator shall determine whether the application
       						leverages the appropriate Data Protection Class for each data file stored
       						locally.
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_42" class="defined" href="#_t_42">Test FMT_CFG_EXT.1.2:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+                  <li class="test-"><a id="_t_42" class="defined" href="#_t_42">Test FMT_CFG_EXT.1.2:4</a>:
       
-                    
                      
       						The evaluator shall run the command <code>find -L . -perm /002</code> 
       						inside the application's data directories to ensure that all files are 
@@ -1605,9 +1593,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_43" class="defined" href="#_t_43">Test FMT_CFG_EXT.1.2:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+                  <li class="test-"><a id="_t_43" class="defined" href="#_t_43">Test FMT_CFG_EXT.1.2:5</a>:
       
-                    
                     
       						The evaluator shall run the command <code>find . \( -perm -002 \)</code>
       						inside the application's data directories to ensure that all files are not 
@@ -1616,9 +1603,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_44" class="defined" href="#_t_44">Test FMT_CFG_EXT.1.2:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+                  <li class="test-"><a id="_t_44" class="defined" href="#_t_44">Test FMT_CFG_EXT.1.2:6</a>:
       
-                    
                     
       						The evaluator shall run the command <code>find . -perm +002</code> inside
       						the application's data directories to ensure that all files are not world-writable.
@@ -1662,15 +1648,13 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 						</p></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea"><p>
 						The evaluator shall verify the guidance documentation contains any 
 						information necessary to configure the protection of configuration settings.</p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">
-                
-						If "<b>invoke the mechanisms recommended by the platform vendor for storing and setting configuration options</b>" is selected,
+                <span class="testlist-"><ul>
+                  " is selected,
 						the method of testing varies per platform as follows: 
 						
-                <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_45" class="defined" href="#_t_45">Test FMT_MEC_EXT.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
-      
-                    
-                    <p>
+                
+                  <li class="test-"><a id="_t_45" class="defined" href="#_t_45">Test FMT_MEC_EXT.1:1</a>:
+      <p>
 	                    	The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that it describes what Android API is used 
 	                    	(and provides a link to the documentation of the API) when storing configuration data.
 							The evaluator shall run the application and verify that the behavior of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is consistent with where and 
@@ -1681,18 +1665,16 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 	                    	to store the configuration data. For DataStore, the evaluator shall use a protocol 
 	                    	buffer analyzer to examine the file to make sure it reflects the changes made to the 
 	                    	configuration to verify that the application used DataStore to store the configuration data.
-	                    	</p>
-                  </li>
+	                    	</p></li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_46" class="defined" href="#_t_46">Test FMT_MEC_EXT.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                  <li class="test-"><a id="_t_46" class="defined" href="#_t_46">Test FMT_MEC_EXT.1:2</a>:
       
-                    
                     The evaluator shall determine and verify that Windows
 							Universal Applications use either the Windows.Storage namespace, Windows.UI.ApplicationSettings namespace,
 							or the IsolatedStorageSettings namespace for storing application specific settings.
 							For .NET applications, the evaluator shall determine and verify that the application 
-							uses one of the locations listed in  <a href="https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/">
+							uses one of the locations listed in   <a href="https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/">
 							https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/</a> for storing application specific 
 							(whether application-wide or user-specific) settings.
 							For Classic Desktop applications, the evaluator shall run the application while 
@@ -1704,18 +1686,16 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_47" class="defined" href="#_t_47">Test FMT_MEC_EXT.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS</b>:<i>Apple's mobile operating system for iPhones.</i></a>]:
+                  <li class="test-"><a id="_t_47" class="defined" href="#_t_47">Test FMT_MEC_EXT.1:3</a>:
       
-                    
                     The evaluator shall verify that the app uses the
 							<code>user defaults system</code> or <code>key-value store</code> for storing all
 							settings.
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_48" class="defined" href="#_t_48">Test FMT_MEC_EXT.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+                  <li class="test-"><a id="_t_48" class="defined" href="#_t_48">Test FMT_MEC_EXT.1:4</a>:
       
-                    
                      
 							The evaluator shall run the application while monitoring it with the utility <span class="util">strace</span>.
 							The evaluator shall make security-related changes to its configuration.
@@ -1727,9 +1707,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_49" class="defined" href="#_t_49">Test FMT_MEC_EXT.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+                  <li class="test-"><a id="_t_49" class="defined" href="#_t_49">Test FMT_MEC_EXT.1:5</a>:
       
-                    
                     
 							The evaluator shall run the application while monitoring it with the utility 
 							<span class="util">dtrace</span>.
@@ -1742,9 +1721,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_50" class="defined" href="#_t_50">Test FMT_MEC_EXT.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+                  <li class="test-"><a id="_t_50" class="defined" href="#_t_50">Test FMT_MEC_EXT.1:6</a>:
       
-                    
                     
 							The evaluator shall verify that the application stores and retrieves settings
 							using the <code>NSUserDefaults</code> class.
@@ -1755,7 +1733,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
         
         <div class="comp" id="FMT_SMF.1"><h4>FMT_SMF.1 Specification of Management Functions</h4>
           <div class="element"><div class="reqid" id="FMT_SMF.1.1"><a href="#FMT_SMF.1.1" class="abbr">FMT_SMF.1.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be capable of performing the following management functions[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="fmt_smf.1.1_1">no management functions</span></li><li style=""><span class="selectable-content" id="fmt_smf.1.1_2">enable/disable the transmission of any information describing the system's hardware, software, or configuration</span></li><li style=""><span class="selectable-content" id="fmt_smf.1.1_3">enable/disable the transmission of any PII</span></li><li style=""><span class="selectable-content" id="fmt_smf.1.1_4">enable/disable transmission of any application state (e.g. crashdump) information</span></li><li style=""><span class="selectable-content" id="fmt_smf.1.1_5">enable/disable network backup functionality to[<b>assignment</b>: 
-     <span class="assignable-content">list of enterprise or commercial cloud backup systems</span>]</span></li><li style=""><span class="selectable-content" id="fmt_smf.1.1_8">[<b>assignment</b>: 
+     <span class="assignable-content">list of enterprise or commercial cloud backup systems</span>]</span></li><li style=""><span class="selectable-content" id="fmt_smf.1.1_2">[<b>assignment</b>: 
      <span class="assignable-content">list of other management functions to be provided by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr></span>]</span></li></ul>].<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -1798,10 +1776,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
             <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><div class="ea"><p>The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> documentation to verify it contains a list of functionality in the
 						application where PII can be transmitted.</p></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea"><p>The evaluator shall verify the guidance documentation contains any instructions to configure the
 						transmission of PII and details any prompts that would approve or deny transmission of PII.</p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">
-						If "<b>require user approval before executing...</b>" is selected, the evaluator shall run the application and exercise the functionality responsible
-						for transmitting PII and verify that user approval is required before transmission
-						of the PII.
-						</div></div></div></div></div>
+						If "<b>require user approval before executing...</b></div></div></div></div></div>
       
       
       <h3 id="fpt" class="indexable" data-level="3">5.1.5 Class: Protection of the TSF (FPT)</h3>
@@ -1863,6 +1838,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
     				</p></div>
               <div class="eacategory">Guidance</div><div class="ea"><p>None.</p></div>
               <div class="eacategory">Tests</div><div class="ea">
+                <span class="testlist-"><ul>
+                  
                  
     					The evaluator shall perform either a static or dynamic
     					analysis to determine that no memory mappings are placed at an explicit and
@@ -1874,10 +1851,9 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
     					the evaluator must uninstall the application, reboot the device, and reinstall the application 
     					to collect the second instance of mappings.
     					
-                <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_51" class="defined" href="#_t_51">Test FPT_AEX_EXT.1.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                
+                  <li class="test-"><a id="_t_51" class="defined" href="#_t_51">Test FPT_AEX_EXT.1.1:1</a>:
       
-                    
                     
     						The evaluator shall run the same application on two
     						different Android systems. Both devices do not need to be evaluated, as the second device is acting only as a tool. 
@@ -1887,9 +1863,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_52" class="defined" href="#_t_52">Test FPT_AEX_EXT.1.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                  <li class="test-"><a id="_t_52" class="defined" href="#_t_52">Test FPT_AEX_EXT.1.1:2</a>:
       
-                    
                      
     						The evaluator shall run the same application on two
     						different Windows systems and run a tool that will list all memory mapped addresses
@@ -1902,9 +1877,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_53" class="defined" href="#_t_53">Test FPT_AEX_EXT.1.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS</b>:<i>Apple's mobile operating system for iPhones.</i></a>]:
+                  <li class="test-"><a id="_t_53" class="defined" href="#_t_53">Test FPT_AEX_EXT.1.1:3</a>:
       
-                    
                     
     						The evaluator shall perform a static analysis to search
     						for any mmap calls (or API calls that call mmap), and ensure that
@@ -1913,9 +1887,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_54" class="defined" href="#_t_54">Test FPT_AEX_EXT.1.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+                  <li class="test-"><a id="_t_54" class="defined" href="#_t_54">Test FPT_AEX_EXT.1.1:4</a>:
       
-                    
                      
     						The evaluator shall run the same application on two different Linux systems. 
     						The evaluator shall then compare their memory maps using 
@@ -1925,9 +1898,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_55" class="defined" href="#_t_55">Test FPT_AEX_EXT.1.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+                  <li class="test-"><a id="_t_55" class="defined" href="#_t_55">Test FPT_AEX_EXT.1.1:5</a>:
       
-                    
                     
     						The evaluator shall run the same application on two different Solaris systems. 
     						The evaluator shall then compare their memory maps using 
@@ -1937,9 +1909,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_56" class="defined" href="#_t_56">Test FPT_AEX_EXT.1.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+                  <li class="test-"><a id="_t_56" class="defined" href="#_t_56">Test FPT_AEX_EXT.1.1:6</a>:
       
-                    
                     
     						The evaluator shall run the same application on two different Mac systems. 
     						The evaluator shall then compare their memory maps using 
@@ -1953,23 +1924,22 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
               <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><p>None.</p></div>
               <div class="eacategory">Guidance</div><div class="ea"><p>None.</p></div>
               <div class="eacategory">Tests</div><div class="ea">
+                <span class="testlist-"><ul>
+                  
                 
     					The evaluator shall verify that no memory mapping requests are made with write and
     					execute permissions. The method of doing so varies per platform.
     					
-                <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_57" class="defined" href="#_t_57">Test FPT_AEX_EXT.1.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                
+                  <li class="test-"><a id="_t_57" class="defined" href="#_t_57">Test FPT_AEX_EXT.1.2:1</a>:
       
-                    
                      
     						The evaluator shall perform static analysis on the application to verify that <ul><li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions,
-    								and </li><li> mprotect is never invoked.</li></ul>
-                  </li>
+    								and </li><li> mprotect is never invoked.</li></ul></li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_58" class="defined" href="#_t_58">Test FPT_AEX_EXT.1.2:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                  <li class="test-"><a id="_t_58" class="defined" href="#_t_58">Test FPT_AEX_EXT.1.2:2</a>:
       
-                    
                      
     						The evaluator shall use a tool such as Microsoft's 
     						BinScope Binary Analyzer to confirm that the application passes the NXCheck. The 
@@ -1979,9 +1949,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_59" class="defined" href="#_t_59">Test FPT_AEX_EXT.1.2:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS</b>:<i>Apple's mobile operating system for iPhones.</i></a>]:
+                  <li class="test-"><a id="_t_59" class="defined" href="#_t_59">Test FPT_AEX_EXT.1.2:3</a>:
       
-                    
                      
     						The evaluator shall perform static analysis on the
     						application to verify that mprotect is never invoked with the PROT_EXEC permission. 
@@ -1989,29 +1958,24 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_60" class="defined" href="#_t_60">Test FPT_AEX_EXT.1.2:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+                  <li class="test-"><a id="_t_60" class="defined" href="#_t_60">Test FPT_AEX_EXT.1.2:4</a>:
       
-                    
                      
     						The evaluator shall perform static analysis on the
     						application to verify that both <ul><li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions,
-    								and </li><li> mprotect is never invoked with the PROT_EXEC permission.</li></ul>
-                  </li>
+    								and </li><li> mprotect is never invoked with the PROT_EXEC permission.</li></ul></li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_61" class="defined" href="#_t_61">Test FPT_AEX_EXT.1.2:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+                  <li class="test-"><a id="_t_61" class="defined" href="#_t_61">Test FPT_AEX_EXT.1.2:5</a>:
       
-                    
                      
     						The evaluator shall perform static analysis on the
     						application to verify that both <ul><li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions,
-    								and </li><li> mprotect is never invoked with the PROT_EXEC permission.</li></ul>
-                  </li>
+    								and </li><li> mprotect is never invoked with the PROT_EXEC permission.</li></ul></li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_62" class="defined" href="#_t_62">Test FPT_AEX_EXT.1.2:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+                  <li class="test-"><a id="_t_62" class="defined" href="#_t_62">Test FPT_AEX_EXT.1.2:6</a>:
       
-                    
                      
     						The evaluator shall perform static analysis on the
     						application to verify that mprotect is never invoked with the PROT_EXEC permission.
@@ -2023,14 +1987,15 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
               <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><p>None.</p></div>
               <div class="eacategory">Guidance</div><div class="ea"><p>None.</p></div>
               <div class="eacategory">Tests</div><div class="ea">
+                <span class="testlist-"><ul>
+                  
                 
     					The evaluator shall configure the platform in the necessary manner and 
     					carry out one of the prescribed tests:
     					
-                <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_63" class="defined" href="#_t_63">Test FPT_AEX_EXT.1.3:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                
+                  <li class="test-"><a id="_t_63" class="defined" href="#_t_63">Test FPT_AEX_EXT.1.3:1</a>:
       
-                    
                     
     						Applications running on Android cannot disable Android 
     						security features, therefore this requirement is met and no evaluation activity is required.
@@ -2038,10 +2003,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_64" class="defined" href="#_t_64">Test FPT_AEX_EXT.1.3:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
-      
-                    
-                    <p>
+                  <li class="test-"><a id="_t_64" class="defined" href="#_t_64">Test FPT_AEX_EXT.1.3:2</a>:
+      <p>
     						If the OS platform supports Windows Defender Exploit Guard 
     						(Windows 10 version 1709 or later), then the evaluator shall ensure that the application can 
     						run successfully with Windows Defender Exploit Guard Exploit Protection configured with the 
@@ -2055,13 +2018,11 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
     						the application can run successfully with EMET configured with the following minimum 
     						mitigations enabled; Memory Protection Check, Randomize memory allocations (Bottom-Up ASLR), 
     						Export address filtering (EAF), and Data Execution Prevention (DEP).
-    						</p>
-                  </li>
+    						</p></li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_65" class="defined" href="#_t_65">Test FPT_AEX_EXT.1.3:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS</b>:<i>Apple's mobile operating system for iPhones.</i></a>]:
+                  <li class="test-"><a id="_t_65" class="defined" href="#_t_65">Test FPT_AEX_EXT.1.3:3</a>:
       
-                    
                     
     						Applications running on iOS cannot disable
     						security features, therefore this requirement is met and no evaluation activity is required.
@@ -2069,9 +2030,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_66" class="defined" href="#_t_66">Test FPT_AEX_EXT.1.3:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+                  <li class="test-"><a id="_t_66" class="defined" href="#_t_66">Test FPT_AEX_EXT.1.3:4</a>:
       
-                    
                      
     						The evaluator shall ensure that the application can
     						successfully run on a system with either SELinux or AppArmor enabled and in enforce mode.
@@ -2079,9 +2039,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_67" class="defined" href="#_t_67">Test FPT_AEX_EXT.1.3:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+                  <li class="test-"><a id="_t_67" class="defined" href="#_t_67">Test FPT_AEX_EXT.1.3:5</a>:
       
-                    
                     
     						The evaluator shall ensure that the application can run with 
     						Solaris Trusted Extensions enabled and enforcing.
@@ -2089,9 +2048,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_68" class="defined" href="#_t_68">Test FPT_AEX_EXT.1.3:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+                  <li class="test-"><a id="_t_68" class="defined" href="#_t_68">Test FPT_AEX_EXT.1.3:6</a>:
       
-                    
                      
     						The evaluator shall ensure that the application can
     						successfully run on macOS without disabling any security features. 
@@ -2103,15 +2061,16 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
               <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><p>None.</p></div>
               <div class="eacategory">Guidance</div><div class="ea"><p>None.</p></div>
               <div class="eacategory">Tests</div><div class="ea">
+                <span class="testlist-"><ul>
+                  
                 The evaluator shall run the application and determine where it writes its files.
     					For files where the user does not choose the destination, the evaluator shall 
     					check whether the destination directory contains executable files.
     					This varies per platform: 
     					
-                <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_69" class="defined" href="#_t_69">Test FPT_AEX_EXT.1.4:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                
+                  <li class="test-"><a id="_t_69" class="defined" href="#_t_69">Test FPT_AEX_EXT.1.4:1</a>:
       
-                    
                      
     						The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. 
     						The evaluator shall ensure that there are no executable files stored under <span style="path">/data/data/<i>package</i>/</span> where <i>package</i> is the Java package of the application.
@@ -2119,9 +2078,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_70" class="defined" href="#_t_70">Test FPT_AEX_EXT.1.4:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                  <li class="test-"><a id="_t_70" class="defined" href="#_t_70">Test FPT_AEX_EXT.1.4:2</a>:
       
-                    
                     For Windows Universal Applications the evaluator shall consider
     						the requirement met because the platform forces applications to write all data
     						within the application working directory (sandbox). For Windows Desktop Applications
@@ -2131,18 +2089,16 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_71" class="defined" href="#_t_71">Test FPT_AEX_EXT.1.4:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS</b>:<i>Apple's mobile operating system for iPhones.</i></a>]:
+                  <li class="test-"><a id="_t_71" class="defined" href="#_t_71">Test FPT_AEX_EXT.1.4:3</a>:
       
-                    
                     The evaluator shall consider the requirement met because
     						the platform forces applications to write all data within the application working
     						directory (sandbox).
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_72" class="defined" href="#_t_72">Test FPT_AEX_EXT.1.4:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+                  <li class="test-"><a id="_t_72" class="defined" href="#_t_72">Test FPT_AEX_EXT.1.4:4</a>:
       
-                    
                      
     						The evaluator shall run the program, mimicking normal usage, 
     						and note where all user-modifiable files are written. 
@@ -2152,9 +2108,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_73" class="defined" href="#_t_73">Test FPT_AEX_EXT.1.4:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+                  <li class="test-"><a id="_t_73" class="defined" href="#_t_73">Test FPT_AEX_EXT.1.4:5</a>:
       
-                    
                     
     						The evaluator shall run the program, mimicking normal usage, 
     						and note where all user-modifiable files are written. 
@@ -2164,9 +2119,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_74" class="defined" href="#_t_74">Test FPT_AEX_EXT.1.4:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+                  <li class="test-"><a id="_t_74" class="defined" href="#_t_74">Test FPT_AEX_EXT.1.4:6</a>:
       
-                    
                      The evaluator shall run the program, mimicking normal
     						usage, and note where all user-modifiable files are written. The evaluator shall ensure that there
     						are no executable files stored in the same directories to which the application
@@ -2180,14 +2134,15 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
     					the stack-based buffer overflow compiler flags.</p></div>
               <div class="eacategory">Guidance</div><div class="ea"><p>None.</p></div>
               <div class="eacategory">Tests</div><div class="ea">
+                <span class="testlist-"><ul>
+                  
                 
     					The evaluator will inspect every native executable included in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to ensure that stack-based buffer 
     					overflow protection is present.
     					
-                <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_75" class="defined" href="#_t_75">Test FPT_AEX_EXT.1.5:1</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                
+                  <li class="test-"><a id="_t_75" class="defined" href="#_t_75">Test FPT_AEX_EXT.1.5:1</a>:
       
-                    
                     Applications that run as Managed Code in the .NET Framework do not require
     						these stack protections.
     						Applications developed in Object Pascal using the Delphi IDE compiled with RangeChecking enabled 
@@ -2305,14 +2260,15 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
               <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><p>None.</p></div>
               <div class="eacategory">Guidance</div><div class="ea"><p>None.</p></div>
               <div class="eacategory">Tests</div><div class="ea">
+                <span class="testlist-"><ul>
+                  
                 
 						Conditional: If "not download, modify, replace or update its own binary code" is selected the 
 						evaluator shall verify that the application's executable files are not changed by the application with the following tests: 
 						
-                <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_78" class="defined" href="#_t_78">Test FPT_TUD_EXT.1.3:1</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS</b>:<i>Apple's mobile operating system for iPhones.</i></a>]:
+                
+                  <li class="test-"><a id="_t_78" class="defined" href="#_t_78">Test FPT_TUD_EXT.1.3:1</a>:
       
-                    
                     The evaluator shall consider the requirement met because the platform forces
 							applications to write all data within the application working directory (sandbox).
 						
@@ -2392,7 +2348,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 					Protocol selections and function assignments should be made to cover all data/sensitive data.
 					<p></p>
 					If "<b>encrypt all transmitted</b>" is selected and "<b>TLS</b>" or "<b>DTLS</b>" as a client or server is selected, then 
-						corresponding components from  <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS),
+						corresponding components from   <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS),
         version 
         2.0</a> must be selected.
 					<p></p>
@@ -2406,16 +2362,16 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 					then <a href="#FCS_HTTPS_EXT.2">FCS_HTTPS_EXT.2</a> is also required.
 					<p></p>
 					If "<b>encrypt all transmitted</b>" is selected and "<b>SSH</b>" is selected, then the 
-						<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be validated against the   <a href="https://www.niap-ccevs.org/protectionprofiles/459">Functional Package for Secure Shell</a>.
+						<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be validated against the    <a href="https://www.niap-ccevs.org/protectionprofiles/459">Functional Package for Secure Shell</a>.
 					<p></p>
 					If "<b>encrypt all transmitted</b>" is selected and "<b>IPsec</b>" is selected, then the
 					<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> must claim conformance to a <i><abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> that includes the
-						 <a href="https://www.niap-ccevs.org/protectionprofiles/487">
+						  <a href="https://www.niap-ccevs.org/protectionprofiles/487">
 					VPN Client PP-Module</a></i><p></p>
 					If "<b>encrypt all transmitted</b>" is selected the corresponding FCS_COP.1 
 					requirements will be included.
 					<p></p>
-						Claims from the  <a href="https://commoncriteria.github.io/X509/master/X509.html">,
+						Claims from the   <a href="https://commoncriteria.github.io/X509/master/X509.html">,
         version 
         </a> are only required to the extent that they are needed to support the functionality required by the trusted protocols that are claimed.
 					<p></p>
@@ -2423,7 +2379,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 					<p></p>
 						If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements a protocol that requires the presentation of any certificates to an external entity, FIA_XCU_EXT.2 will be claimed. FIA_X509_EXT.3 will also be claimed, along with any applicable dependencies, depending on how the certificates presented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> are obtained.  
 					<p></p>
-						If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements a protocol that does not require presenting or validating X.509 certificates, no claims from the  <a href="https://commoncriteria.github.io/X509/master/X509.html">,
+						If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements a protocol that does not require presenting or validating X.509 certificates, no claims from the   <a href="https://commoncriteria.github.io/X509/master/X509.html">,
         version 
         </a> are required. 
 					</p></span></div></div></div>
@@ -2446,7 +2402,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 						or allows the end users to specify cipher suites, support for mutual authentication, support for session renegotiation, hash algorithms 
 						for the signature_algorithms extension in the Client Hello with the supported_signature_algorithms value, and the supported groups in the 
 						Supported Groups Extension in Client Hello.  The evaluator shall verify any calls the product specifies align with the options provided 
-						in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and the  <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS),
+						in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and the   <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS),
         version 
         2.0</a>.
 					<p></p>
@@ -2454,7 +2410,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 						or allows the end users to specify cipher suites, which protocols are denied connection requests, key establishment algorithms, 
 						support for mutual authentication, response to an invalid client certificate, and support for session renegotiation. 
 						The evaluator shall verify any calls the product specifies align with the options provided 
-						in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and the  <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS),
+						in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and the   <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS),
         version 
         2.0</a>.
 					<p></p>
@@ -2465,7 +2421,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 						or allows the end users to specify cipher suites, which protocols are denied connection requests, key establishment algorithms, 
 						support for mutual authentication, response to an invalid client certificate, and support for session renegotiation. 
 						The evaluator shall verify any calls the product specifies align with the options provided 
-						in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and the  <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS),
+						in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and the   <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS),
         version 
         2.0</a>.
 					<p></p>
@@ -2474,19 +2430,18 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 						connection, the SSH transport accepted algorithms, the SSH public key for public-key based authentication,
 						The diffie-hellman-group used for key exchange, and the parameters of session rekey or termination. 
 						The evaluator shall verify any calls the product specifies align with the options provided 
-						in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and the  <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459">Functional Package for Secure Shell (SSH),
+						in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and the   <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459">Functional Package for Secure Shell (SSH),
         version 
         1.0</a>.
 					</p></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea"><p>
 						The evaluator shall confirm the guidance documentation contains any information necessary for enabling and configuring the trusted 
 						channels that have been selected.</p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">
+                <span class="testlist-"><ul>
+                  
                 
 						The evaluator shall perform the following tests.
 						
-                <span class="testlist-"><ul>
-                  
-						The evaluator shall perform the following tests.
-						
+                
                   <li class="test-"><a id="_t_90" class="defined" href="#_t_90">Test FTP_DIT_EXT.1:1</a>:
       
 								 The evaluator shall exercise the application (attempting to transmit data; for 
@@ -2513,9 +2468,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 							</li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_93" class="defined" href="#_t_93">Test FTP_DIT_EXT.1:4</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                  <li class="test-"><a id="_t_93" class="defined" href="#_t_93">Test FTP_DIT_EXT.1:4</a>:
       
-                    
                     
 							If "<b>not transmit any data</b>" is selected, the evaluator shall ensure that the application's 
 							AndroidManifest.xml file does not contain a uses-permission or uses-permission-sdk-23 tag 
@@ -2527,9 +2481,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_94" class="defined" href="#_t_94">Test FTP_DIT_EXT.1:5</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS</b>:<i>Apple's mobile operating system for iPhones.</i></a>]:
+                  <li class="test-"><a id="_t_94" class="defined" href="#_t_94">Test FTP_DIT_EXT.1:5</a>:
       
-                    
                     
 							If "<b>encrypt all transmitted data</b>" is selected, the evaluator shall ensure that the application's
 							Info.plist file does not contain the NSAllowsArbitraryLoads or 
@@ -2550,7 +2503,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 	<p></p>
 		This section lists the set of <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> from <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> part 3 that are required in evaluations against this
 		<abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Individual Evaluation Activities (EAs) to be performed are specified both
-		in  <a href="#req" class="dynref">Section 5 Security Requirements</a> as well as in this section. These <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> were chosen based on the notion that a hypothetical attacker of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> lacks administrative privilege
+		in   <a href="#req" class="dynref">Section 5 Security Requirements</a> as well as in this section. These <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> were chosen based on the notion that a hypothetical attacker of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> lacks administrative privilege
     	on its platform but otherwise has persistent access to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself and the sophistication to interact with the platform in a way that they can
     	attempt to access stored data without authorization or to run tools that automate more sophisticated malicious activity.
 	<p></p>
@@ -2559,26 +2512,29 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 		After the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> has been approved for evaluation, the  CCTL will obtain the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, supporting
 		environmental IT, and the administrative/user guides for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The CCTL is expected to
 		perform actions mandated by the Common Evaluation Methodology (<abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr>) for the ASE and
-		ALC <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr>. The CCTL also performs the evaluation activities contained within  <a href="#req" class="dynref">Section 5 Security Requirements</a>,
+		ALC <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr>. The CCTL also performs the evaluation activities contained within   <a href="#req" class="dynref">Section 5 Security Requirements</a>,
 		which are intended to be an interpretation of the other <abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr> assurance requirements as they
 		apply to the specific technology instantiated in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The evaluation activities that are
-		captured in  <a href="#req" class="dynref">Section 5 Security Requirements</a> also provide clarification as to what the developer needs
+		captured in   <a href="#req" class="dynref">Section 5 Security Requirements</a> also provide clarification as to what the developer needs
 		to provide to demonstrate the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is compliant with the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. The results of these activities will be documented
 	    and presented (along with the administrative guidance used) for validation.
 	</p>
       <h3 class="indexable" data-level="3" id="ase">5.2.1 Class ASE: Security Target</h3>
-		As per ASE activities defined in  <a href="#bibCEM" class="dynref" data-format="">[CEM]</a>.
+		As per ASE activities defined in   <a href="#bibCEM" class="dynref" data-format="">[CEM]</a>.
     
       <h3 class="indexable" data-level="3" id="adv">5.2.2 Class ADV: Development</h3>
+        
         The information about the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
         is contained in the guidance documentation available to the end user as
         well as the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> portion of the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> developer 
         must concur with the description of the product that is contained in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as it relates 
         to the functional requirements. The evaluation activities contained in 
-         <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> should provide the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> authors with sufficient information to 
+          <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> should provide the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> authors with sufficient information to 
         determine the appropriate content for the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> section. 
         
+        
         <div class="comp" id="ADV_FSP.1"><h4>ADV_FSP.1 Basic Functional Specification (ADV_FSP.1)</h4>
+          
           The functional
 			specification describes the <abbr class="dyn-abbr"><a href="#abbr_TSFI">TSFIs</a></abbr>. It is not necessary
 			to have a formal or complete specification of these interfaces. Additionally, because
@@ -2593,6 +2549,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 			evaluated are characterized through the information needed to perform the assurance 
 			activities listed, rather than as an independent, abstract list. 
 			
+          
           
           
           
@@ -2620,7 +2577,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 					and complete instantiation of the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr>.</div></div><div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#ADV_FSP.1">ADV_FSP.1</a></div>
 					There are no specific evaluation activities associated with these <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr>, except
 					ensuring the information is provided. The functional specification documentation is
-					provided to support the evaluation activities described in  <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a>, and
+					provided to support the evaluation activities described in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a>, and
 					other activities described for AGD, ATE, and AVA <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr>. The requirements on the content
 					of the functional specification information is implicitly assessed by virtue of the
 					other evaluation activities being performed; if the evaluator is unable to perform an
@@ -2629,6 +2586,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 				</div></div></div>
       
       <h3 class="indexable" data-level="3" id="agd">5.2.3 Class AGD: Guidance Documentation</h3>
+        
         
 		The guidance documents will be
         provided with the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. Guidance must include a description of how the IT personnel verifies
@@ -2641,6 +2599,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
         particular security functionality is also provided; requirements on such guidance are 
         contained in the evaluation activities specified with each requirement.
 		
+        
         
         <div class="comp" id="AGD_OPE.1"><h4>AGD_OPE.1 Operational User Guidance (AGD_OPE.1)</h4>
           
@@ -2680,8 +2639,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 					operational environment as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.</div></div><div class="element"><div class="reqid" id="AGD_OPE.1.7C"><a href="#AGD_OPE.1.7C" class="abbr">AGD_OPE.1.7C</a></div><div class="reqdesc">The operational user guidance shall be clear and reasonable.</div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="AGD_OPE.1.1E"><a href="#AGD_OPE.1.1E" class="abbr">AGD_OPE.1.1E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all requirements
 					for content and presentation of evidence.</div></div><div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#AGD_OPE.1">AGD_OPE.1</a></div><p>
 					Some of the contents of the operational guidance will be verified by the
-					evaluation activities in  <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> and evaluation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
-					according to the  <a href="#bibCEM" class="dynref" data-format="">[CEM]</a>. The following additional
+					evaluation activities in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> and evaluation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+					according to the   <a href="#bibCEM" class="dynref" data-format="">[CEM]</a>. The following additional
 					information is also required.
 				<p></p>
 					If cryptographic functions are provided by the 
@@ -2731,6 +2690,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
       
       <h3 class="indexable" data-level="3" id="alc">5.2.4 Class ALC: Life-cycle Support</h3>
         
+        
         At the assurance level provided for <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> conformant to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, life-cycle support is limited
         to end-user-visible aspects of the life-cycle, rather than an examination of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> vendor’s
         development and configuration management process. This is not meant to diminish the
@@ -2738,12 +2698,15 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
         product; rather, it is a reflection on the information to be made available for evaluation at this
         assurance level.
         
+        
         <div class="comp" id="ALC_CMC.1"><h4>ALC_CMC.1 Labeling of the TOE (ALC_CMC.1)</h4>
+          
           
 			This component is targeted at identifying the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> such that it can be distinguished from
 			other products or versions from the same vendor and can be easily specified when being
 			procured by an end user. 
             
+          
           
           
           
@@ -2925,6 +2888,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 					</p></div></div></div>
         <div class="comp" id="ALC_TSU_EXT.1"><h4>ALC_TSU_EXT.1 Timely Security Updates</h4>
           
+          
 			This component requires the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> developer, in conjunction with any other necessary parties,
 			to provide information as to how the end-user devices are updated to address security issues
 			in a timely manner. The documentation describes the process of providing updates to the
@@ -2933,6 +2897,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 			that are performed (e.g., developer testing, carrier testing), including worst case time periods,
 			before an update is made available to the public.
 			
+          
           
           
           
@@ -2982,6 +2947,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
       
       <h3 class="indexable" data-level="3" id="ate">5.2.5 Class ATE: Tests</h3>
         
+        
 		Testing is specified for functional aspects of
         the system as well as aspects that take advantage of design or implementation weaknesses.
         The former is done through the ATE_IND family, while the latter is through the AVA_VAN
@@ -2991,13 +2957,15 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
         following requirements. 
         
         
+        
         <div class="comp" id="ATE_IND.1"><h4>ATE_IND.1 Independent Testing – Conformance (ATE_IND.1)</h4>
+          
            
 			Testing is performed to confirm the
 			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
 			(including configuration and operational) documentation provided. The focus of the testing
-			is to confirm that the requirements specified in  <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
-			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in  <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
 			evaluation activities identify the additional testing activities associated with these
 			components. The evaluator produces a test report documenting the plan for and results of
 			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
@@ -3008,8 +2976,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 			Testing is performed to confirm the
 			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
 			(including configuration and operational) documentation provided. The focus of the testing
-			is to confirm that the requirements specified in  <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
-			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in  <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
 			evaluation activities identify the additional testing activities associated with these
 			components. The evaluator produces a test report documenting the plan for and results of
 			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
@@ -3020,8 +2988,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 			Testing is performed to confirm the
 			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
 			(including configuration and operational) documentation provided. The focus of the testing
-			is to confirm that the requirements specified in  <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
-			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in  <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
 			evaluation activities identify the additional testing activities associated with these
 			components. The evaluator produces a test report documenting the plan for and results of
 			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
@@ -3029,6 +2997,235 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 			<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its associated evaluation evidence requirements, this 
 			component’s evaluation activities are covered by the evaluation activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a>. 
             
+          
+           
+			Testing is performed to confirm the
+			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
+			(including configuration and operational) documentation provided. The focus of the testing
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			evaluation activities identify the additional testing activities associated with these
+			components. The evaluator produces a test report documenting the plan for and results of
+			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+			combinations that are claiming conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Given the scope of the 
+			<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its associated evaluation evidence requirements, this 
+			component’s evaluation activities are covered by the evaluation activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a>. 
+             
+			Testing is performed to confirm the
+			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
+			(including configuration and operational) documentation provided. The focus of the testing
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			evaluation activities identify the additional testing activities associated with these
+			components. The evaluator produces a test report documenting the plan for and results of
+			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+			combinations that are claiming conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Given the scope of the 
+			<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its associated evaluation evidence requirements, this 
+			component’s evaluation activities are covered by the evaluation activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a>. 
+             
+			Testing is performed to confirm the
+			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
+			(including configuration and operational) documentation provided. The focus of the testing
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			evaluation activities identify the additional testing activities associated with these
+			components. The evaluator produces a test report documenting the plan for and results of
+			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+			combinations that are claiming conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Given the scope of the 
+			<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its associated evaluation evidence requirements, this 
+			component’s evaluation activities are covered by the evaluation activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a>. 
+            
+          
+           
+			Testing is performed to confirm the
+			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
+			(including configuration and operational) documentation provided. The focus of the testing
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			evaluation activities identify the additional testing activities associated with these
+			components. The evaluator produces a test report documenting the plan for and results of
+			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+			combinations that are claiming conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Given the scope of the 
+			<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its associated evaluation evidence requirements, this 
+			component’s evaluation activities are covered by the evaluation activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a>. 
+             
+			Testing is performed to confirm the
+			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
+			(including configuration and operational) documentation provided. The focus of the testing
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			evaluation activities identify the additional testing activities associated with these
+			components. The evaluator produces a test report documenting the plan for and results of
+			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+			combinations that are claiming conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Given the scope of the 
+			<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its associated evaluation evidence requirements, this 
+			component’s evaluation activities are covered by the evaluation activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a>. 
+             
+			Testing is performed to confirm the
+			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
+			(including configuration and operational) documentation provided. The focus of the testing
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			evaluation activities identify the additional testing activities associated with these
+			components. The evaluator produces a test report documenting the plan for and results of
+			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+			combinations that are claiming conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Given the scope of the 
+			<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its associated evaluation evidence requirements, this 
+			component’s evaluation activities are covered by the evaluation activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a>. 
+            
+          
+           
+			Testing is performed to confirm the
+			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
+			(including configuration and operational) documentation provided. The focus of the testing
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			evaluation activities identify the additional testing activities associated with these
+			components. The evaluator produces a test report documenting the plan for and results of
+			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+			combinations that are claiming conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Given the scope of the 
+			<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its associated evaluation evidence requirements, this 
+			component’s evaluation activities are covered by the evaluation activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a>. 
+             
+			Testing is performed to confirm the
+			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
+			(including configuration and operational) documentation provided. The focus of the testing
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			evaluation activities identify the additional testing activities associated with these
+			components. The evaluator produces a test report documenting the plan for and results of
+			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+			combinations that are claiming conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Given the scope of the 
+			<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its associated evaluation evidence requirements, this 
+			component’s evaluation activities are covered by the evaluation activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a>. 
+             
+			Testing is performed to confirm the
+			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
+			(including configuration and operational) documentation provided. The focus of the testing
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			evaluation activities identify the additional testing activities associated with these
+			components. The evaluator produces a test report documenting the plan for and results of
+			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+			combinations that are claiming conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Given the scope of the 
+			<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its associated evaluation evidence requirements, this 
+			component’s evaluation activities are covered by the evaluation activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a>. 
+            
+          
+           
+			Testing is performed to confirm the
+			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
+			(including configuration and operational) documentation provided. The focus of the testing
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			evaluation activities identify the additional testing activities associated with these
+			components. The evaluator produces a test report documenting the plan for and results of
+			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+			combinations that are claiming conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Given the scope of the 
+			<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its associated evaluation evidence requirements, this 
+			component’s evaluation activities are covered by the evaluation activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a>. 
+             
+			Testing is performed to confirm the
+			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
+			(including configuration and operational) documentation provided. The focus of the testing
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			evaluation activities identify the additional testing activities associated with these
+			components. The evaluator produces a test report documenting the plan for and results of
+			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+			combinations that are claiming conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Given the scope of the 
+			<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its associated evaluation evidence requirements, this 
+			component’s evaluation activities are covered by the evaluation activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a>. 
+             
+			Testing is performed to confirm the
+			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
+			(including configuration and operational) documentation provided. The focus of the testing
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			evaluation activities identify the additional testing activities associated with these
+			components. The evaluator produces a test report documenting the plan for and results of
+			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+			combinations that are claiming conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Given the scope of the 
+			<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its associated evaluation evidence requirements, this 
+			component’s evaluation activities are covered by the evaluation activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a>. 
+            
+          
+           
+			Testing is performed to confirm the
+			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
+			(including configuration and operational) documentation provided. The focus of the testing
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			evaluation activities identify the additional testing activities associated with these
+			components. The evaluator produces a test report documenting the plan for and results of
+			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+			combinations that are claiming conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Given the scope of the 
+			<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its associated evaluation evidence requirements, this 
+			component’s evaluation activities are covered by the evaluation activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a>. 
+             
+			Testing is performed to confirm the
+			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
+			(including configuration and operational) documentation provided. The focus of the testing
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			evaluation activities identify the additional testing activities associated with these
+			components. The evaluator produces a test report documenting the plan for and results of
+			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+			combinations that are claiming conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Given the scope of the 
+			<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its associated evaluation evidence requirements, this 
+			component’s evaluation activities are covered by the evaluation activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a>. 
+             
+			Testing is performed to confirm the
+			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
+			(including configuration and operational) documentation provided. The focus of the testing
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			evaluation activities identify the additional testing activities associated with these
+			components. The evaluator produces a test report documenting the plan for and results of
+			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+			combinations that are claiming conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Given the scope of the 
+			<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its associated evaluation evidence requirements, this 
+			component’s evaluation activities are covered by the evaluation activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a>. 
+            
+          
+           
+			Testing is performed to confirm the
+			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
+			(including configuration and operational) documentation provided. The focus of the testing
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			evaluation activities identify the additional testing activities associated with these
+			components. The evaluator produces a test report documenting the plan for and results of
+			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+			combinations that are claiming conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Given the scope of the 
+			<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its associated evaluation evidence requirements, this 
+			component’s evaluation activities are covered by the evaluation activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a>. 
+             
+			Testing is performed to confirm the
+			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
+			(including configuration and operational) documentation provided. The focus of the testing
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			evaluation activities identify the additional testing activities associated with these
+			components. The evaluator produces a test report documenting the plan for and results of
+			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+			combinations that are claiming conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Given the scope of the 
+			<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its associated evaluation evidence requirements, this 
+			component’s evaluation activities are covered by the evaluation activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a>. 
+             
+			Testing is performed to confirm the
+			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
+			(including configuration and operational) documentation provided. The focus of the testing
+			is to confirm that the requirements specified in   <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a> are being met,
+			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in   <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>. The
+			evaluation activities identify the additional testing activities associated with these
+			components. The evaluator produces a test report documenting the plan for and results of
+			testing, as well as coverage arguments focused on the platform/<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
+			combinations that are claiming conformance to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Given the scope of the 
+			<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and its associated evaluation evidence requirements, this 
+			component’s evaluation activities are covered by the evaluation activities listed for <a href="#ALC_CMC.1">ALC_CMC.1</a>. 
+            
+          
           
           
           
@@ -3047,7 +3244,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 					aspects of the system, including any application crashes during testing. The evaluator
 					shall determine the root cause of any application crashes and include that information
 					in the report. The test plan covers all of the testing actions contained in
-					the  <a href="#bibCEM" class="dynref" data-format="">[CEM]</a> and the body of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>’s evaluation activities.
+					the   <a href="#bibCEM" class="dynref" data-format="">[CEM]</a> and the body of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>’s evaluation activities.
 				<p></p>
 					While it is not necessary to have one test case per test listed in an evaluation activity, the
 					evaluator must document in the test plan that each applicable testing requirement in
@@ -3083,6 +3280,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
       
       <h3 class="indexable" data-level="3" id="ava">5.2.6 Class AVA: Vulnerability Assessment</h3>
         
+        
 		For the current generation of
         this protection profile, the evaluation lab is expected to survey open sources to discover
         what vulnerabilities have been discovered in these types of products. In most cases, these
@@ -3092,6 +3290,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
         the documentation provided by the vendor. This information will be used in the development
         of penetration testing tools and for the development of future protection profiles.
 		
+        
         
         <div class="comp" id="AVA_VAN.1"><h4>AVA_VAN.1 Vulnerability Survey (AVA_VAN.1)</h4>
           
@@ -3163,7 +3362,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
       Note:
     </span><span class="note"><p>
 					The IANA MIME types are listed at
-					 <a href="http://www.iana.org/assignments/media-types">http://www.iana.org/assignments/media-types</a> 
+					  <a href="http://www.iana.org/assignments/media-types">http://www.iana.org/assignments/media-types</a> 
 					and include many image, audio, video, and content file formats.
 					<p></p>
 					This requirement does not apply if providing parsing services is the purpose of the 
@@ -3174,7 +3373,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
               
               
             <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><div class="ea">The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> lists the IANA MIME media types
-						(as described by  <a href="http://www.iana.org/assignments/media-types">
+						(as described by   <a href="http://www.iana.org/assignments/media-types">
 						http://www.iana.org/assignments/media-types</a>)
 						for all formats the application processes
 						and that it maps those formats to parsing services provided by the platform.</div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea"><p>None.</p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea"><p>None.</p></div></div></div></div></div><div class="comp" id="FPT_IDV_EXT.1"><h4>FPT_IDV_EXT.1 Software Identification and Versions</h4>
@@ -3622,10 +3821,12 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
               
               
             <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><div class="ea"><p>None.</p></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea"><p>The evaluator shall verify the guidance documentation contains any information required for configuring the algorithm or size.</p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">
+                <span class="testlist-"><ul>
+                  
                 
 					The evaluator shall perform the following activities based on the selections in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
 					
-                <span class="testlist-"><ul>
+                
                   <li class="test-"><a id="_t_6" class="defined" href="#_t_6">Test FCS_COP.1/SigGen:1</a>:
       ECDSA FIPS 186-5 Signature Generation Test. For each
 								supported NIST curve (i.e., P-384 and P-521) and SHA function pair, the
@@ -3636,9 +3837,6 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 							</li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  
-						RSA Signature Algorithm Test
-						
                   <li class="test-"><a id="_t_7" class="defined" href="#_t_7">Test FCS_COP.1/SigGen:2</a>:
       Signature Generation Test. The evaluator shall
 								verify the implementation of RSA Signature Generation by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
@@ -3652,9 +3850,6 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 							</li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  
-						ML-DSA Test
-						
                   <li class="test-"><a id="_t_8" class="defined" href="#_t_8">Test FCS_COP.1/SigGen:3</a>:
       The evaluator shall 10x input to the internal Sign function a 32-byte random string, private key, and a randomly generated message.  Check and confirm the value of the returned signature using a known good implementation.
 								Here internal Sign refers to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s implementation of the function ML-DSA.Sign_internal(-,-,-) as described in FIPS.204.
@@ -3683,10 +3878,12 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
               
               
             <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><div class="ea"><p>None.</p></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea"><p>The evaluator shall verify the guidance documentation contains any information required for configuring the algorithm or size.</p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">
+                <span class="testlist-"><ul>
+                  
                 
 					The evaluator shall perform the following activities based on the selections in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
 					
-                <span class="testlist-"><ul>
+                
                   <li class="test-"><a id="_t_9" class="defined" href="#_t_9">Test FCS_COP.1/SigVer:1</a>:
       
 								ECDSA FIPS 186-5 Signature Verification Test. For each supported
@@ -3697,9 +3894,6 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 							</li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  
-						RSA Signature Algorithm Test
-						
                   <li class="test-"><a id="_t_10" class="defined" href="#_t_10">Test FCS_COP.1/SigVer:2</a>:
       Signature Verification Test. The 
 								evaluator shall perform the Signature Verification test to verify the ability of 
@@ -3711,9 +3905,6 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 							</li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  
-						LMS/XMSS Signature Algorithm Test
-						
                   <li class="test-"><a id="_t_11" class="defined" href="#_t_11">Test FCS_COP.1/SigVer:3</a>:
       
 								For each supported LMS/LMSOTS pair, the evaluator generates a private/public key pair.  
@@ -3728,9 +3919,6 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 							</li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  
-						ML-DSA Test
-						
                   <li class="test-"><a id="_t_12" class="defined" href="#_t_12">Test FCS_COP.1/SigVer:4</a>:
       Tbe evaluator shall 10x input to the internal SigVer function, a public key, message and signature.  Verify the signature.  Tests should involve a mix of good and bad signatures generated using different messages, keys, etc.
 								Here internal SigVer refers to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s implementation of the function ML-DSA.Verify_internal(-,-,-) as described in FIPS.204.
@@ -3990,10 +4178,6 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 						response to an invalid certificate.</p></div>
               <div class="eacategory">Tests</div><div class="ea">
                 <span class="testlist-"><ul>
-                  
-						Certificate validity shall be tested in accordance with testing performed for 
-						FIA_X509_EXT.1, and the evaluator shall perform the following test:
-						
                   <li class="test-"><a id="_t_13" class="defined" href="#_t_13">Test FCS_HTTPS_EXT.1.3/Client:1</a>:
       
 							The evaluator shall demonstrate that using a certificate without a valid 
@@ -4030,7 +4214,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
               <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">None.</div>
               <div class="eacategory">Guidance</div><div class="ea">None.</div>
               <div class="eacategory">Tests</div><div class="ea">
-        				Other tests are performed in conjunction with  <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS),
+        				Other tests are performed in conjunction with   <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS),
         version 
         2.0</a></div>
             </div></div></div><div class="comp" id="FCS_HTTPS_EXT.2"><h4>FCS_HTTPS_EXT.2 HTTPS Protocol with Mutual Authentication</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
@@ -4052,10 +4236,6 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
               <div class="eacategory">Guidance</div><div class="ea"><p>The evaluator shall verify the guidance documentation contains any information necessary to configure the response to invalid peer certificates.</p></div>
               <div class="eacategory">Tests</div><div class="ea">
                 <span class="testlist-"><ul>
-                  
-						Certificate validity shall be tested in accordance with testing performed for 
-						FIA_X509_EXT.1, and the evaluator shall perform the following test:
-						
                   <li class="test-"><a id="_t_14" class="defined" href="#_t_14">Test FCS_HTTPS_EXT.2.1:1</a>:
        The evaluator shall demonstrate that using a certificate without a 
 							valid certification path results in the selected action in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>. Using the 
@@ -4211,8 +4391,8 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
       Note:
     </span><span class="note">This requirement is claimed when a DRBG is seeded with entropy from a single noise source that is within the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary. Min-entropy should be expressed as a ratio of entropy bits to sampled bits so that the total amount of data needed to ensure full entropy is known, as well as the conditioning function by which that data is reduced in size to the seed.</span></div></div></div>
         </div><div class="comp" id="FCS_RBG.4"><h4>FCS_RBG.4 Random Bit Generation (Internal Seeding - Multiple Sources)</h4><div class="statustag"></div>
-          <div class="element"><div class="reqid" id="FCS_RBG.4.1"><a href="#FCS_RBG.4.1" class="abbr">FCS_RBG.4.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to seed the RBG using[<b>selection</b>: <span class="selectable-content" id="fcs_rbg.4.1_2">[<b>assignment</b>: 
-     <span class="assignable-content">number</span>]</span>, <span class="selectable-content" id="fcs_rbg.4.1_1"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> software-based noise source(s)</span>, <span class="selectable-content" id="fcs_rbg.4.1_4">[<b>assignment</b>: 
+          <div class="element"><div class="reqid" id="FCS_RBG.4.1"><a href="#FCS_RBG.4.1" class="abbr">FCS_RBG.4.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to seed the RBG using[<b>selection</b>: <span class="selectable-content" id="fcs_rbg.4.1_1">[<b>assignment</b>: 
+     <span class="assignable-content">number</span>]</span>, <span class="selectable-content" id="fcs_rbg.4.1_1"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> software-based noise source(s)</span>, <span class="selectable-content" id="fcs_rbg.4.1_2">[<b>assignment</b>: 
      <span class="assignable-content">number</span>]</span>, <span class="selectable-content" id="fcs_rbg.4.1_3"><abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> hardware-based noise source(s)</span>].<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">
@@ -4292,7 +4472,7 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
             <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><div class="ea"><p>
     				The	evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it details the self-tests that are run by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> along with how they are run. This description should include an outline of what the tests are actually doing. The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> makes an argument that the tests are sufficient to demonstrate that the DRBG is operating correctly.
     				<p></p>
-    					Note that this information may also be placed in the entropy documentation specified by  <a href="#entropyappendix" class="dynref">Appendix D -  Entropy Documentation and Assessment</a>. 
+    					Note that this information may also be placed in the entropy documentation specified by   <a href="#entropyappendix" class="dynref">Appendix D -  Entropy Documentation and Assessment</a>. 
     				</p></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea"><p>
     					If a self-test can be executed at the request of an authorized user, the evaluator shall verify that the operational guidance provides instructions on how to execute that self-test.
     				</p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea"><p>
@@ -4325,24 +4505,24 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 						is distributed and verify that description aligns with the selections in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.</p></div>
               <div class="eacategory">Guidance</div><div class="ea"><p>None.</p></div>
               <div class="eacategory">Tests</div><div class="ea">
+                <span class="testlist-"><ul>
+                  
                 
 						If a container image is claimed, the evaluator shall verify that application updates are distributed as container images.
 						If the format of the platform-supported package manager is claimed,
 						the evaluator shall verify that application updates are distributed in the
 						format supported by the platform. This varies per platform:               
 						
-                <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_80" class="defined" href="#_t_80">Test FPT_TUD_EXT.2.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                
+                  <li class="test-"><a id="_t_80" class="defined" href="#_t_80">Test FPT_TUD_EXT.2.1:1</a>:
       
-                    
                      The evaluator shall ensure that the application is
 							packaged in the Android application package (APK) format. 
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_81" class="defined" href="#_t_81">Test FPT_TUD_EXT.2.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                  <li class="test-"><a id="_t_81" class="defined" href="#_t_81">Test FPT_TUD_EXT.2.1:2</a>:
       
-                    
                      The evaluator shall ensure that the application is
 							packaged in the standard Windows Installer (.MSI) format, the Windows Application 
 							Software (.EXE) format signed using the Microsoft Authenticode process, or the 
@@ -4353,17 +4533,15 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_82" class="defined" href="#_t_82">Test FPT_TUD_EXT.2.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS</b>:<i>Apple's mobile operating system for iPhones.</i></a>]:
+                  <li class="test-"><a id="_t_82" class="defined" href="#_t_82">Test FPT_TUD_EXT.2.1:3</a>:
       
-                    
                      The evaluator shall ensure that the application is
 							packaged in the IPA format. 
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_83" class="defined" href="#_t_83">Test FPT_TUD_EXT.2.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+                  <li class="test-"><a id="_t_83" class="defined" href="#_t_83">Test FPT_TUD_EXT.2.1:4</a>:
       
-                    
                      The evaluator shall ensure that the application is
 							packaged in the format of the package management infrastructure of the chosen
 							distribution. For example, applications running on Red Hat and Red Hat derivatives
@@ -4372,17 +4550,15 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_84" class="defined" href="#_t_84">Test FPT_TUD_EXT.2.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+                  <li class="test-"><a id="_t_84" class="defined" href="#_t_84">Test FPT_TUD_EXT.2.1:5</a>:
       
-                    
                      The evaluator shall ensure that the application is
 							packaged in the PKG format. 
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_85" class="defined" href="#_t_85">Test FPT_TUD_EXT.2.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+                  <li class="test-"><a id="_t_85" class="defined" href="#_t_85">Test FPT_TUD_EXT.2.1:6</a>:
       
-                    
                      The evaluator shall ensure that the application is packaged
 							in the DMG format, the PKG format, or the MPKG format. 
                   </li>
@@ -4394,18 +4570,16 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
 						application is performed.</p></div>
               <div class="eacategory">Tests</div><div class="ea">
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_86" class="defined" href="#_t_86">Test FPT_TUD_EXT.2.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                  <li class="test-"><a id="_t_86" class="defined" href="#_t_86">Test FPT_TUD_EXT.2.2:1</a>:
       
-                    
                     The evaluator shall consider the requirement met because 
 							the platform forces applications to write all data within the application working 
 							directory (sandbox).
                   </li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_87" class="defined" href="#_t_87">Test FPT_TUD_EXT.2.2:2</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS</b>:<i>Apple's mobile operating system for iPhones.</i></a>]:
+                  <li class="test-"><a id="_t_87" class="defined" href="#_t_87">Test FPT_TUD_EXT.2.2:2</a>:
       
-                    
                     The evaluator shall consider the requirement met because 
 							the platform forces applications to write all data within the application working 
 							directory (sandbox).
@@ -4420,8 +4594,6 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
               <div class="eacategory">Guidance</div><div class="ea"><p>None.</p></div>
               <div class="eacategory">Tests</div><div class="ea">
                 <span class="testlist-"><ul>
-                  Conditional: if "the application can verify them using" is selected the evaluator shall perform the following tests:
-						
                   <li class="test-"><a id="_t_88" class="defined" href="#_t_88">Test FPT_TUD_EXT.2.3:1</a>:
       
 								The evaluator shall ensure that the update has a digital
@@ -4562,15 +4734,15 @@ the application and other endpoints.</span></dd><dt class="threat defined" id="T
               requires the application to restrict access to hardware sources and sensitive information repositories.</p><h4>Management: FDP_DEC_EXT.1</h4><p>The following action could be considered for the management functions in FMT: Enabling and disabling the transmission of any information describing the system’s hardware, software, or configuration.</p><h4>Audit: FDP_DEC_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FDP_DEC_EXT.1 Access to Platform Resources</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
       		FCS_TLS_EXT.1 TLS Protocol
       		FIA_X509_EXT.1 X.509 Certificate Validation
-      	</td></tr></table><h4 id="ext-comp-FDP_DEC_EXT.1.1">FDP_DEC_EXT.1.1</h4>The application shall restrict its access to[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_1">no hardware resources</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_2">network connectivity</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_3">camera</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_4">microphone</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_5">location services</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_6">NFC</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_7">USB</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_8">Bluetooth</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_10">[<b>assignment</b>: 
-     <span class="assignable-content">list of additional hardware resources</span>]</span></li></ul>].<h4 id="ext-comp-FDP_DEC_EXT.1.2">FDP_DEC_EXT.1.2</h4>The application shall restrict its access to[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_1">no sensitive information repositories</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_2">address book</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_3">calendar</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_4">call lists</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_5">system logs</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_7">[<b>assignment</b>: 
+      	</td></tr></table><h4 id="ext-comp-FDP_DEC_EXT.1.1">FDP_DEC_EXT.1.1</h4>The application shall restrict its access to[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_1">no hardware resources</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_2">network connectivity</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_3">camera</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_4">microphone</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_5">location services</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_6">NFC</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_7">USB</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_8">Bluetooth</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_1">[<b>assignment</b>: 
+     <span class="assignable-content">list of additional hardware resources</span>]</span></li></ul>].<h4 id="ext-comp-FDP_DEC_EXT.1.2">FDP_DEC_EXT.1.2</h4>The application shall restrict its access to[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_1">no sensitive information repositories</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_2">address book</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_3">calendar</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_4">call lists</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_5">system logs</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_1">[<b>assignment</b>: 
      <span class="assignable-content">list of additional sensitive information repositories</span>]</span></li></ul>].</div></div><h3 id="ext-comp-FDP_NET_EXT" class="indexable" data-level="4">C.2.6.3 FDP_NET_EXT Network Communications</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>This family defines requirements for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s use of network connectivity.</div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FDP_NET_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FDP_NET_EXT.1">FDP_NET_EXT.1</a>,
              Network Communications,
               identifies the purpose for each network interface used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and how that interface is invoked.</p><h4>Management: FDP_NET_EXT.1</h4><p>No specific management functions are identified.</p><h4>Audit: FDP_NET_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FDP_NET_EXT.1 Network Communications</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
         		No dependencies.
         	</td></tr></table><h4 id="ext-comp-FDP_NET_EXT.1.1">FDP_NET_EXT.1.1</h4>The application shall restrict network communication to[<b>selection</b>: <ul><li style=""><span class="selectable-content" id="fdp_net_ext.1.1_1">no network communication</span></li><li style=""><span class="selectable-content" id="fdp_net_ext.1.1_2">user-initiated communication for[<b>assignment</b>: 
      <span class="assignable-content">list of functions for which the user can initiate network communication</span>]</span></li><li style=""><span class="selectable-content" id="fdp_net_ext.1.1_4">respond to[<b>assignment</b>: 
-     <span class="assignable-content">list of remotely initiated communication</span>]</span></li><li style=""><span class="selectable-content" id="fdp_net_ext.1.1_7">[<b>assignment</b>: 
+     <span class="assignable-content">list of remotely initiated communication</span>]</span></li><li style=""><span class="selectable-content" id="fdp_net_ext.1.1_3">[<b>assignment</b>: 
      <span class="assignable-content">list of application-initiated network communication</span>]</span></li></ul>].</div></div></span></span><h1 id="entropyappendix" class="indexable" data-level="A">Appendix D -  Entropy Documentation and Assessment</h1><p>This appendix describes the required supplementary information for the entropy source used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.<p></p>The documentation of the entropy source should be detailed enough that, after reading, the evaluator will thoroughly understand the entropy source and why it can be relied upon to provide sufficient entropy. This documentation should include multiple detailed sections: design description, entropy justification, operating conditions, and health testing. This documentation is not required to be part of the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>.</p><h2 class="indexable" data-level="2" id="entropydesign">D.1 Design Description</h2><p>Documentation shall include the design of the entropy source as a whole, including the interaction of all entropy source components. Any information that can be shared regarding the design should also be included for any third-party entropy sources that are included in the product.<p></p>The documentation shall describe how unprocessed (raw) data was obtained for the analysis. This description shall be sufficiently detailed to explain at what point in the entropy source model the data was collected and what effects, if any, the process of data collection had on the overall entropy generation rate. The documentation should walk through the entropy source design indicating where the entropy comes from, where the entropy output is passed next, any post-processing of the raw outputs (hash, XOR, etc.), if/where it is stored, and finally, how it is output from the entropy source. Any conditions placed on the process (e.g., blocking) should also be described in the entropy source design. Diagrams and examples are encouraged.<p></p>This design must also include a description of the content of the security boundary of the entropy source and a description of how the security boundary ensures that an adversary outside the boundary cannot affect the entropy rate.<p></p>If implemented, the design description shall include a description of how third-party applications can add entropy to the RBG. A description of any RBG state saving between power-off and power-on shall be included.</p><h2 class="indexable" data-level="2" id="entropyjustification">D.2 Entropy Justification</h2><p>There should be a technical argument for where the unpredictability in the source comes from and why there is confidence in the entropy source delivering sufficient entropy for the uses made of the RBG output (by this particular <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>). This argument will include a description of the expected min-entropy rate (i.e. the minimum entropy (in bits) per bit or byte of source data) and explain that sufficient entropy is going into the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> randomizer seeding process. This discussion will be part of a justification for why the entropy source can be relied upon to produce bits with entropy.<p></p>The amount of information necessary to justify the expected min-entropy rate depends on the type of entropy source included in the product.<p></p>For developer provided entropy sources, in order to justify the min-entropy rate, it is expected that a large number of raw source bits will be collected, statistical tests will be performed, and the min-entropy rate determined from the statistical tests. While no particular statistical tests are required at this time, it is expected that some testing is necessary in order to determine the amount of min-entropy in each output.<p></p>For third party provided entropy sources, in which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> vendor has limited access to the design and raw entropy data of the source, the documentation will indicate an estimate of the amount of min-entropy obtained from this third-party source. It is acceptable for the vendor to “assume” an amount of min-entropy, however, this assumption must be clearly stated in the documentation provided. In particular, the min-entropy estimate must be specified and the assumption included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.<p></p>Regardless of type of entropy source, the justification will also include how the DRBG is initialized with the entropy stated in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>, for example by verifying that the min-entropy rate is multiplied by the amount of source data used to seed the DRBG or that the rate of entropy expected based on the amount of source data is explicitly stated and compared to the statistical rate. If the amount of source data used to seed the DRBG is not clear or the calculated rate is not explicitly related to the seed, the documentation will not be considered complete.<p></p>The entropy justification shall not include any data added from any third-party application or from any state saving between restarts.</p><h2 class="indexable" data-level="2" id="entropyoperatingconditions">D.3 Operating Conditions</h2>The entropy rate may be affected by conditions outside the control of the entropy source itself. For example, voltage, frequency, temperature, and elapsed time after power-on are just a few of the factors that may affect the operation of the entropy source. As such, documentation will also include the range of operating conditions under which the entropy source is expected to generate random data. It will clearly describe the measures that have been taken in the system design to ensure the entropy source continues to operate under those conditions. Similarly, documentation shall describe the conditions under which the entropy source is known to malfunction or become inconsistent. Methods used to detect failure or degradation of the source shall be included.<h2 class="indexable" data-level="2" id="entropyhealthtesting">D.4 Health Testing</h2>More specifically, all entropy source health tests and their rationale will be documented. This will include a description of the health tests, the rate and conditions under which each health test is performed (e.g., at startup, continuously, or on-demand), the expected results for each health test, and rationale indicating why each test is believed to be appropriate for detecting one or more failures in the entropy source.<h1 id="equiv" class="indexable" data-level="A">Appendix E -  Application Software Equivalency Guidelines</h1><h2 class="indexable" data-level="2" id="app-intro">E.1 Introduction</h2><p>The purpose of equivalence in <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-based evaluations is to find a balance between evaluation rigor and commercial practicability—to ensure that evaluations meet customer expectations while recognizing that there is little to be gained from requiring that every variation in a product or platform be fully tested. If a product is found to be compliant with a <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> on one platform, then all equivalent products on equivalent platforms are also considered to be compliant with the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>.<p></p>A Vendor can make a claim of equivalence if the Vendor believes that a particular instance of their Product implements <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality in a way equivalent to the implementation of the same functionality on another instance of their Product on which the functionality was tested. The Product instances can differ in version number or feature level (model), or the instances may run on different platforms. Equivalency can be used to reduce the testing required across claimed evaluated configurations. It can also be used during Assurance Maintenance to reduce testing needed to add more evaluated configurations to a certification.<p></p>These equivalency guidelines do not replace Assurance Maintenance requirements or NIAP Policy #5 requirements for CAVP certificates. Nor may equivalency be used to leverage evaluations with expired certifications.<p></p>These Equivalency Guidelines represent a shift from complete testing of all product instances to more of a risk-based approach. Rather than require that every combination of product and platform be tested, these guidelines support an approach that recognizes that products are being used in a variety of environments—and often in cloud environments over where the vendor (and sometimes the customer) have little or no control over the underlying hardware. Developers should be responsible for the security functionality of their applications on the platforms they are developed for—whether that is an operating system, a virtual machine, or a software-based execution environment such as a container. But those platforms may themselves run within other environments—virtual machines or operating systems—that completely abstract away the underlying hardware from the application. The developer should not be held accountable for security functionality that is implemented by platform layers that are abstracted away. The implication is that not all security functionality will necessarily be tested for all platform layers down to the hardware for all evaluated configurations—especially for applications developed for software-based execution environments such as containers. For these cases, the balancing of evaluation rigor and commercial practicability tips in favor of practicability. Note that this does not affect the requirement that at least one product instance be fully tested on at least one platform with cryptography mapped to a CAVP certificate.<p></p>Equivalency has two aspects:</p><ol><li><b><i>Product Equivalence:</i></b>Products may be considered equivalent if there are no differences between Product Models and Product Versions with respect to <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality.</li><li><b><i>Platform Equivalence:</i></b>Platforms may be considered equivalent if there are no significant differences in the services they provide to the Product—or in the way the platforms provide those services—with respect to <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality.</li></ol>The equivalency determination is made in accordance with these guidelines by the Validator and Scheme using information provided by the Evaluator/Vendor.<h2 class="indexable" data-level="2" id="approach">E.2 Approach to Equivalency Analysis</h2><p>There are two scenarios for performing equivalency analysis. One is when a product has been certified and the vendor wants to show that a later product should be considered certified due to equivalence with the earlier product. The other is when multiple product variants are going though evaluation together and the vendor would like to reduce the amount of testing that must be done. The basic rules for determining equivalence are the same in both cases. But there is one additional consideration that applies to equivalence with previously certified products. That is, the product with which equivalence is being claimed must have a valid certification in accordance with scheme rules and the Assurance Maintenance process must be followed. If a product’s certification has expired, then equivalence cannot be claimed with that product.<p></p>When performing equivalency analysis, the Evaluator/Vendor should first use the factors and guidelines for Product Model equivalence to determine the set of Product Models to be evaluated. In general, Product Models that do not differ in <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality are considered equivalent for purposes of evaluation against the AppPP.<p></p>If multiple revision levels of Product Models are to be evaluated—or to determine whether a revision of an evaluated product needs re-evaluation—the Evaluator/Vendor and Validator should use the factors and guidelines for Product Version equivalence to analyze whether Product Versions are equivalent.<p></p>Having determined the set of Product Models and Versions to be evaluated, the next step is to determine the set of Platforms that the Products must be tested on.<p></p>Each non-equivalent Product for which compliance is claimed must be fully tested on each non-equivalent platform for which compliance is claimed. For non-equivalent Products on equivalent platforms, only the differences that affect <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality must be tested for each product.<p></p><b><i>“Differences in <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-Specified Security Functionality” Defined</i></b><p></p>If <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality is implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, then differences in the actual implementation between versions or product models break equivalence for that feature. Likewise, if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements the functionality in one version or model and the functionality is implemented by the platform in another version or model, then equivalence is broken. If the functionality is implemented by the platform in multiple models or versions on equivalent platforms, then the functionality is considered different if the product invokes the platform differently to perform the function.</p><h2 class="indexable" data-level="2" id="modelequiv">E.3 Specific Guidance for Determining Product Model Equivalence</h2><p>Product Model equivalence attempts to determine whether different feature levels of the same product across a product line are equivalent for purposes of <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> testing. For example, if a product has a “basic” edition and an “enterprise” edition, is it necessary to test both models? Or does testing one model provide sufficient assurance that both models are compliant?<p></p>Product models are considered equivalent if there are no differences that affect <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality—as indicated in Table 1.<p></p><table border="1"><tr class="header" bgcolor="#cccccc"><td valign="top">Factor</td><td valign="top">Same/Different</td><td valign="top">Guidance</td></tr><tr><td rowspan="2" valign="top"><abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-Specified Functionality</td><td valign="top">Same</td><td valign="top">If the differences between Models affect only non-PP-specified functionality, then the Models are equivalent.</td></tr><tr><td valign="top">Different</td><td valign="top">If <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality is affected by the differences between Models, then the Models are not equivalent and must be tested separately. It is necessary only to test the functionality affected by the software differences. If only differences are tested, then the differences must be enumerated, and for each difference the Vendor must provide an explanation of why each difference does or does not affect <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified functionality. If the Product Models are separately tested fully, then there is no need to document the differences.</td></tr></table><b>Table 1. Determining Product Model Equivalence</b></p><h2 class="indexable" data-level="2" id="versionequiv">E.4 Specific Guidance for Determining Product Version Equivalence</h2><p>In cases of version equivalence, differences are expressed in terms of changes implemented in revisions of an evaluated Product. In general, versions are equivalent if the changes have no effect on any security-relevant claims about the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or assurance evidence. Non-security-relevant changes to <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> functionality or the addition of non-security-relevant functionality does not affect equivalence.<p></p><table border="1"><tr class="header" bgcolor="#cccccc"><td valign="top">Factor</td><td valign="top">Same/Different</td><td valign="top">Guidance</td></tr><tr valign="top"><td valign="top">Product Models</td><td valign="top">Different</td><td valign="top">Versions of different Product Models are not equivalent unless the Models are equivalent as defined in Section 3.</td></tr><tr><td rowspan="2" valign="top"><abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-Specified Functionality</td><td valign="top">Same</td><td valign="top">If the differences affect only non-PP-specified functionality, then the Versions are equivalent.</td></tr><tr><td valign="top">Different</td><td valign="top">If <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality is affected by the differences, then the Versions are not considered equivalent and must be tested separately. It is necessary only to test the functionality affected by the changes. If only the differences are tested, then for each difference the Vendor must provide an explanation of why the difference does or does not affect <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified functionality. If the Product Versions are separately tested fully, then there is no need to document the differences.</td></tr></table><b>Table 2. Factors for Determining Product Version Equivalence</b></p><h2 class="indexable" data-level="2" id="platformequiv">E.5 Specific Guidance for Determining Platform Equivalence</h2><p>Platform equivalence is used to determine the platforms that equivalent versions of a Product must be tested on. Platform equivalence analysis done for one software application cannot be applied to another software application. Platform equivalence is not general—it is with respect to a particular application.<p></p>Product Equivalency analysis must already have been done and Products have been determined to be equivalent.<p></p>The platform can be hardware or virtual hardware, an operating system or similar entity, or a software execution environment such as a container. For purposes of determining equivalence for software applications, we address each type of platform separately. In general, platform equivalence is based on differences in the interfaces between the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and Platform that are relevant to the implementation of <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality.</p><h3 class="indexable" data-level="3" id="hardware-equiv">E.5.1 Platform Equivalence—Hardware/Virtual Hardware Platforms</h3><p>If an application runs directly on hardware without an operating system—or directly on virtualized hardware without an operating system—then platform equivalence is based on processor architecture and instruction sets. In the case of virtualized hardware, it is the virtualized processor and architecture that are presented to the application that matters—not the physical hardware.<p></p>Platforms with different processor architectures and instruction sets are not equivalent. This is not likely to be an issue for equivalency analysis for applications since there is likely to be a different version of the application for different hardware environments. Equivalency analysis becomes important when comparing processors with the same architecture. Processors with the same architecture that have instruction sets that are subsets or supersets of each other are not disqualified from being equivalent for purposes of an App evaluation. If the application takes the same code paths when executing <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality on different processors of the same family, then the processors can be considered equivalent with respect to that application. For example, if an application follows one code path on platforms that support the AES-NI instruction and another on platforms that do not, then those two platforms are not equivalent with respect to that application functionality. But if the application follows the same code path whether or not the platform supports AES-NI, then the platforms are equivalent with respect to that functionality.<p></p>The platforms are equivalent with respect to the application if the platforms are equivalent with respect to all <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality.<table border="1"><tr class="header" bgcolor="#cccccc"><td valign="top">Factor</td><td valign="top">Same/Different/None</td><td valign="top">Guidance</td></tr><tr valign="top"><td valign="top">Platform Architectures</td><td valign="top">Different</td><td valign="top">Platforms that present different processor architectures and instruction sets to the application are not equivalent.</td></tr><tr><td valign="top"><abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-Specified Functionality</td><td valign="top">Same</td><td valign="top">For platforms with the same processor architecture, the platforms are equivalent with respect to the application if execution of all <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality follows the same code path on both platforms.</td></tr></table><b>Table 3. Factors for Determining Hardware/Virtual Hardware Platform Equivalence</b></p><h3 class="indexable" data-level="3" id="os-equiv">E.5.2 Platform Equivalence—OS Platforms</h3><p>For traditional applications that are built for and run on operating systems, platform equivalence is determined by the interfaces between the application and the operating system that are relevant to <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality. Generally, these are the processor interface, device interfaces, and OS APIs. The following factors applied in order:<table border="1"><tr class="header" bgcolor="#cccccc"><td valign="top">Factor</td><td valign="top">Same/Different/None</td><td valign="top">Guidance</td></tr><tr valign="top"><td valign="top">Platform Architectures</td><td valign="top">Different</td><td valign="top">Platforms that run on different processor architectures and instruction sets are not equivalent.</td></tr><tr valign="top"><td valign="top">Platform Vendors</td><td valign="top">Different</td><td valign="top">Platforms from different vendors are not equivalent.</td></tr><tr valign="top"><td valign="top">Platform Versions</td><td valign="top">Different</td><td valign="top">Platforms from the same vendor with different major version numbers are not equivalent.</td></tr><tr valign="top"><td valign="top">Platform Interfaces</td><td valign="top">Different</td><td valign="top">Platforms from the same vendor and major version are not equivalent if there are differences in device interfaces and OS APIs that are relevant to the way the platform provides <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality to the application.</td></tr><tr valign="top"><td valign="top">Platform Interfaces</td><td valign="top">Same</td><td valign="top">Platforms from the same vendor and major version are equivalent if there are no differences in device interfaces and OS APIs that are relevant to the way the platform provides <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality to the application, or if the Platform does not provide such functionality to the application.</td></tr></table><b>Table 4. Factors for Determining OS/VS Platform Equivalence</b></p><h3 class="indexable" data-level="3" id="software-equiv">E.5.3 Software-based Execution Environment Platform Equivalence</h3><p>If an Application is built for and runs in a non-OS software-based execution environment, such as a Container or Java Runtime, then the below criteria must be used to determine platform equivalence. The key point is that the underlying hardware (virtual or physical) and OS is not relevant to platform equivalence. This allows applications to be tested and run on software-based execution environments on any hardware—as in cloud deployments.<table border="1"><tr class="header" bgcolor="#cccccc"><td valign="top">Factor</td><td valign="top">Same/Different/None</td><td valign="top">Guidance</td></tr><tr valign="top"><td valign="top">Platform Type/Vendor</td><td valign="top">Different</td><td valign="top">Software-based execution environments that are substantially different or come from different vendors are not equivalent. For example, a Java virtual machine is not the same as a container. A Docker container is not the same as a CoreOS container.</td></tr><tr valign="top"><td valign="top">Platform Versions</td><td valign="top">Different</td><td valign="top">Execution environments that are otherwise equivalent are not equivalent if they have different major version numbers.</td></tr><tr valign="top"><td valign="top"><abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-Specified Security Functionality</td><td valign="top">Same</td><td valign="top">All other things being equal, execution environments are equivalent if there is no significant difference in the interfaces through which the environments provide <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality to applications.</td></tr></table><b>Table 5. Factors for Software-based Execution Environment Platform Equivalence</b></p><h2 class="indexable" data-level="2" id="specificity">E.6 Level of Specificity for Tested Configurations and Claimed Equivalent Configurations</h2><p>In order to make equivalency determinations, the vendor and evaluator must agree on the equivalency claims. They must then provide the scheme with sufficient information about the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> instances and platforms that were evaluated, and the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> instances and platforms that are claimed to be equivalent.<p></p>The <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> must describe all configurations evaluated down to processor manufacturer, model number, and microarchitecture version.<p></p>The information regarding claimed equivalent configurations depends on the platform that the application was developed for and runs on.<p></p><b>Bare-Metal Applications</b><p></p>For applications that run without an operating system on bare-metal or virtual bare-metal, the claimed configuration must describe the platform down to the specific processor manufacturer, model number, and microarchitecture version. The Vendor must describe the differences in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with respect to <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality and how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> functions differently to leverage platform differences (e.g., instruction set extensions) in the tested configuration versus the claimed equivalent configuration.<p></p><b>Traditional Applications</b><p></p>For applications that run with an operating system as their immediate platform, the claimed configuration must describe the platform down to the specific operating system version. If the platform is a virtualization system, then the claimed configuration must describe the platform down to the specific virtualization system version. The Vendor must describe the differences in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with respect to <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality and how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> functions differently to leverage platform differences in the tested configuration versus the claimed equivalent configuration. Relevant platform differences could include instruction sets, device interfaces, and OS APIs invoked by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to implement <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality.<p></p><b>Software-Based Execution Environments</b><p></p>For applications that run in a software-based execution environment such as a Java virtual machine or a Container, then the claimed configuration must describe the platform down to the specific version of the software execution environment. The Vendor must describe the differences in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with respect to <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-specified security functionality and how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> functions differently to leverage platform differences in the tested configuration versus the claimed equivalent configuration.</p><h1 id="acronyms" class="indexable" data-level="A">Appendix F -  Acronyms</h1><table><caption><span class="ctr" data-myid="t-acronyms" data-counter-type="ct-Table" id="t-acronyms">Table <span class="counter">4</span></span>: Acronyms
 		</caption><tr class="header"><th>Acronym</th><th>Meaning</th></tr><tr><td><span class="term" id="abbr_Base-PP" data-plural="Base-PPs"><abbr class="dyn-abbr"><a href="#abbr_Base-PP">Base-PP</a></abbr></span></td><td><span id="long_abbr_Base-PP">Base Protection Profile</span></td></tr>
 <tr><td><span class="term" id="abbr_CC"><abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr></span></td><td><span id="long_abbr_CC">Common Criteria</span></td></tr>

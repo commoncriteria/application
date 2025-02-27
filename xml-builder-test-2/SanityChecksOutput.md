@@ -10,8 +10,16 @@
         /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[19]""/f-element[1]""
 * Error: Detected multiple elements with an id of 'fel-https-who-cl'.
 * Error: Detected multiple elements with an id of 'fel-https-who-cl'.
+* Error: Detected multiple elements with an id of 'fcs_rbg.4.1_1'.
+* Error: Detected multiple elements with an id of 'fcs_rbg.4.1_1'.
 * Error: Detected multiple elements with an id of 'fel-sni'.
 * Error: Detected multiple elements with an id of 'fel-sni'.
+* Error: Detected multiple elements with an id of 'fdp_dec_ext.1.1_1'.
+* Error: Detected multiple elements with an id of 'fdp_dec_ext.1.1_1'.
+* Error: Detected multiple elements with an id of 'fdp_dec_ext.1.2_1'.
+* Error: Detected multiple elements with an id of 'fdp_dec_ext.1.2_1'.
+* Error: Detected multiple elements with an id of 'fmt_smf.1.1_2'.
+* Error: Detected multiple elements with an id of 'fmt_smf.1.1_2'.
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"The requi"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"The requi"/sec:TOE_Boundary[1]"The appli"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[1]""/f-element[1]""/note[1]""/h:p[1]"The ST sh"/h:p[1]""
@@ -144,11 +152,11 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]""/f-component[1]""/f-element[1]""/aactivity[1]""/Tests[1]""/h:p[1]"If ""/h:p[2]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[2]""/f-element[1]""/note[1]""/h:p[1]"Configura"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[2]""/f-element[1]""/aactivity[1]""/TSS[1]""/h:p[1]"The evalu"/h:p[1]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[2]""/f-element[1]""/aactivity[1]""/Tests[1]"If ""/testlist[1]""/test[1]""/h:p[1]"The evalu"/h:p[1]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[1]""/f-element[3]""/aactivity[1]""/Tests[1]"The evalu"/testlist[2]""/test[1]""/h:p[1]"If the OS"/h:p[1]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[2]""/f-element[1]""/aactivity[1]""/Tests[1]""/testlist[1]"" is sele"/test[1]""/h:p[1]"The evalu"/h:p[1]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[1]""/f-element[3]""/aactivity[1]""/Tests[1]""/testlist[2]""/test[1]""/h:p[1]"If the OS"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[1]""/f-element[4]""/note[1]""/h:p[1]"The purpo"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[1]""/f-element[4]""/note[1]""/h:p[1]"The purpo"/h:p[2]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[1]""/f-element[5]""/aactivity[1]""/Tests[1]"The evalu"/testlist[3]""/test[1]""/h:p[1]", the eva"/h:p[1]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[1]""/f-element[5]""/aactivity[1]""/Tests[1]""/testlist[3]""/test[1]""/h:p[1]", the eva"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[3]""/f-element[1]""/note[1]""/h:p[1]"The IANA "/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[5]""/f-element[1]""/note[1]""/h:p[1]"The use o"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[7]""/f-element[1]""/aactivity[1]""/TSS[1]""/h:p[1]"The evalu"/h:p[1]""
