@@ -1,25 +1,7 @@
-* Error: f-element FCS_RBG.1.2  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[15]""/f-element[2]""
-* Error: f-element FCS_RBG.2.1  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[16]""/f-element[1]""
-* Error: f-element FCS_RBG.3.1  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[17]""/f-element[1]""
-* Error: f-element FCS_RBG.4.1  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[18]""/f-element[1]""
-* Error: f-element FCS_RBG.5.1  appears not to have an associated evaluation activity.:
-        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[19]""/f-element[1]""
 * Error: Detected multiple elements with an id of 'fel-https-who-cl'.
 * Error: Detected multiple elements with an id of 'fel-https-who-cl'.
-* Error: Detected multiple elements with an id of 'fcs_rbg.4.1_1'.
-* Error: Detected multiple elements with an id of 'fcs_rbg.4.1_1'.
-* Error: Detected multiple elements with an id of 'fel-sni'.
-* Error: Detected multiple elements with an id of 'fel-sni'.
-* Error: Detected multiple elements with an id of 'fdp_dec_ext.1.1_1'.
-* Error: Detected multiple elements with an id of 'fdp_dec_ext.1.1_1'.
-* Error: Detected multiple elements with an id of 'fdp_dec_ext.1.2_1'.
-* Error: Detected multiple elements with an id of 'fdp_dec_ext.1.2_1'.
-* Error: Detected multiple elements with an id of 'fmt_smf.1.1_2'.
-* Error: Detected multiple elements with an id of 'fmt_smf.1.1_2'.
+* Error: Detected multiple elements with an id of ''.
+* Error: Detected multiple elements with an id of ''.
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"The requi"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"The requi"/sec:TOE_Boundary[1]"The appli"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[1]""/f-element[1]""/note[1]""/h:p[1]"The ST sh"/h:p[1]""
@@ -73,7 +55,6 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[3]""/f-element[1]""/aactivity[1]""/Tests[1]""/h:p[1]"Evaluatio"/h:p[22]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[3]""/f-element[1]""/aactivity[1]""/Tests[1]""/h:p[1]"Evaluatio"/h:p[23]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[3]""/f-element[1]""/aactivity[1]""/Tests[1]""/h:p[1]"Evaluatio"/h:p[24]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[5]""/f-element[1]""/note[1]""/h:p[1]"This is d"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[6]""/f-element[1]""/note[1]""/h:p[1]"This is d"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[7]""/f-element[1]""/note[1]""/h:p[1]"This is d"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[7]""/f-element[1]""/note[1]""/h:p[1]"This is d"/h:p[2]""
@@ -152,11 +133,11 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]""/f-component[1]""/f-element[1]""/aactivity[1]""/Tests[1]""/h:p[1]"If ""/h:p[2]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[2]""/f-element[1]""/note[1]""/h:p[1]"Configura"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[2]""/f-element[1]""/aactivity[1]""/TSS[1]""/h:p[1]"The evalu"/h:p[1]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[2]""/f-element[1]""/aactivity[1]""/Tests[1]""/testlist[1]"" is sele"/test[1]""/h:p[1]"The evalu"/h:p[1]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[1]""/f-element[3]""/aactivity[1]""/Tests[1]""/testlist[2]""/test[1]""/h:p[1]"If the OS"/h:p[1]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[2]""/f-element[1]""/aactivity[1]""/Tests[1]"If ""/testlist[1]""/test[1]""/h:p[1]"The evalu"/h:p[1]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[1]""/f-element[3]""/aactivity[1]""/Tests[1]"The evalu"/testlist[2]""/test[1]""/h:p[1]"If the OS"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[1]""/f-element[4]""/note[1]""/h:p[1]"The purpo"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[1]""/f-element[4]""/note[1]""/h:p[1]"The purpo"/h:p[2]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[1]""/f-element[5]""/aactivity[1]""/Tests[1]""/testlist[3]""/test[1]""/h:p[1]", the eva"/h:p[1]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[1]""/f-element[5]""/aactivity[1]""/Tests[1]"The evalu"/testlist[3]""/test[1]""/h:p[1]", the eva"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[3]""/f-element[1]""/note[1]""/h:p[1]"The IANA "/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[5]""/f-element[1]""/note[1]""/h:p[1]"The use o"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[7]""/f-element[1]""/aactivity[1]""/TSS[1]""/h:p[1]"The evalu"/h:p[1]""
@@ -230,36 +211,6 @@
 * Warning: Detected an empty _p_ element./PP[1]""/appendix[2]""/section[6]""/h:p[1]"In order "/h:p[6]""
 * Warning: Detected an empty _p_ element./PP[1]""/appendix[2]""/section[6]""/h:p[1]"In order "/h:p[7]""
 * Warning: Detected an empty _p_ element./PP[1]""/appendix[2]""/section[6]""/h:p[1]"In order "/h:p[8]""
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
  Failed to find a reference to bibCEM.
  Failed to find a reference to bibCEM.
  Failed to find a reference to bibCEM.
@@ -278,8 +229,6 @@ output/pkg-x509.xml:1: parser error : Document is empty
 * Warning: Since FDP_DEC_EXT.1.2 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
                        
 * Warning: Since FDP_NET_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
-                       
-* Warning: Since FMT_CFG_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
                        
 * Warning: Since FMT_MEC_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
                        
@@ -303,21 +252,3 @@ output/pkg-x509.xml:1: parser error : Document is empty
                        
 * Warning: Since FTP_DIT_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
                        
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
