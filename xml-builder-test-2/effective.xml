@@ -1382,20 +1382,23 @@
                 If "TSF interface for seeding" is selected, FCS_RBG.2 must be claimed. 
               </h:p></note>
             <aactivity level="element">
+              
             		Documentation will be produced - and the evaluator shall perform the
             		activities - in accordance with  <xref to="entropyappendix"/> and
             		the
             		 <h:a href="https://old.niap-ccevs.org/Documents_and_Guidance/ccevs/Entropy%20Documentation%20and%20Assessment%20Clarification.pdf">Clarification to the Entropy Documentation and Assessment Annex</h:a>.
-					 <TSS/>
+            	
+              <TSS/>
               <Guidance/>
               <Tests/>
-            	</aactivity>
+            </aactivity>
           </f-element>
           <f-element id="fel-rbg-init-seed-when">
             <title>The TSF shall update the RBG state by<selectables><selectable id="fcs_rbg.1.3_1">reseeding</selectable><selectable id="fcs_rbg.1.3_2">uninstantiating and reinstantiating</selectable> </selectables>using a<selectables><selectable id="fcs_rbg.1.3_3">TSF noise source<assignable>name of noise source</assignable></selectable><selectable id="fcs_rbg.1.3_5">TSF interface for seeding</selectable> </selectables>in the following situations:<selectables linebreak="yes"><selectable id="fcs_rbg.1.3_6">on demand</selectable><selectable id="fcs_rbg.1.3_7">on the condition:<assignable>condition</assignable></selectable><selectable id="fcs_rbg.1.3_9">after<assignable>time</assignable></selectable> </selectables>in accordance with<assignable>list of standards</assignable>.</title>
             <aactivity level="element">
               <TSS>The evaluator shall verify that the TSS identifies how the DRBG state is updated, and the situations under which this may occur.</TSS>
               <Guidance>If the ST claims that the DRBG state can be updated on demand, the evaluator shall verify that the operational guidance has instructions for how to perform this operation.</Guidance>
+              <Tests/>
             </aactivity>
           </f-element>
         </f-component>
@@ -1412,8 +1415,13 @@
 					conditioned into a seed value.
 				</note>
             <aactivity level="component">
+              
 				The evaluator shall examine the entropy documentation required by FCS_RBG.1.2 to verify that it identifies, for each DRBG function implemented by the TOE, the TSF external interface used to seed the TOE's DRBG. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data such that it can be determined that sufficient entropy can be made available for the highest strength keys that the TSF can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the TOE estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the TSF applies to the output data to create a seed of sufficient size with full entropy.
-				</aactivity>
+				
+              <TSS/>
+              <Guidance/>
+              <Tests/>
+            </aactivity>
           </f-element>
         </f-component>
         <!--FCS_RBG.3 Random Bit Generation (Internal Seeding - Single Source)-->
@@ -1422,8 +1430,13 @@
             <title>The TSF shall be able to seed the RBG using a<selectables onlyone="yes"><selectable id="fcs_rbg.3.1_1">TSF software-based noise source</selectable><selectable id="fcs_rbg.3.1_2">TSF hardware-based noise source<assignable>name of noise source</assignable></selectable> </selectables>with a minimum of<assignable>number of bits</assignable>bits of min-entropy.</title>
             <note role="application">This requirement is claimed when a DRBG is seeded with entropy from a single noise source that is within the TOE boundary. Min-entropy should be expressed as a ratio of entropy bits to sampled bits so that the total amount of data needed to ensure full entropy is known, as well as the conditioning function by which that data is reduced in size to the seed.</note>
             <aactivity level="component">
+              
             The evaluator shall examine the entropy documentation required by FCS_RBG.1.2 to verify that it identifies, for each DRBG function implemented by the TOE, the TSF noise source used to seed the TOE's DRBG. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data such that it can be determined that sufficient entropy can be made available for the highest strength keys that the TSF can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the TOE estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the TSF applies to the output data to create a seed of sufficient size with full entropy.
-          </aactivity>
+          
+              <TSS/>
+              <Guidance/>
+              <Tests/>
+            </aactivity>
           </f-element>
         </f-component>
         <!--FCS_RBG.4 Random Bit Generation (Internal Seeding - Multiple Sources)-->
@@ -1435,8 +1448,13 @@
               FCS_RBG.5 defines the mechanism by which these sources are combined to ensure sufficient minimum entropy.
             </note>
             <aactivity level="component">
+              
             The evaluator shall examine the entropy documentation required by FCS_RBG.1.2 to verify that it identifies, for each DRBG function implemented by the TOE, each TSF noise source used to seed the TOE's DRBG. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data from each data source.
-          </aactivity>
+          
+              <TSS/>
+              <Guidance/>
+              <Tests/>
+            </aactivity>
           </f-element>
         </f-component>
         <!--FCS_RBG.5 Random Bit Generation (Combining Noise Sources)-->
@@ -1447,8 +1465,13 @@
               Examples of typical combining operations include, but are not limited to, XORing or hashing.
             </note>
             <aactivity level="component">
+              
             Using the entropy sources specified in FCS_RBG.4, the evaluator shall examine the entropy documentation required by FCS_RBG.1.2 to verify that it describes the method by which the various entropy sources are combined into a single seed. This should include an estimation of the rate at which each noise source outputs data and whether this is dependent on any system-specific factors so that each source's relative contribution to the overall entropy is understood. The evaluator shall verify that the resulting combination of sampled data and the min-entropy rate of the sampled data is described in sufficient detail to determine that sufficient entropy can be made available for the highest strength keys that the TSF can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the TOE estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the TSF applies to the output data to create a seed of sufficient size with full entropy.
-          	</aactivity>
+          	
+              <TSS/>
+              <Guidance/>
+              <Tests/>
+            </aactivity>
           </f-element>
         </f-component>
         <!--FCS_RBG_EXT.1 Random Bit Generation Services-->
@@ -2748,6 +2771,7 @@
 						APIs listed in the TSS are supported.
 					</h:p></TSS>
               <Guidance><h:p>None.</h:p></Guidance>
+              <Tests/>
             </aactivity>
           </f-element>
         </f-component>
@@ -2789,6 +2813,7 @@
               <Guidance>
     				The evaluator shall verify that the guidance documentation describes the error state that results from a DRBG self-test failure and the actions that a user or administrator should take in response to attempt to resolve the error state.
     			</Guidance>
+              <Tests/>
             </aactivity>
           </f-element>
         </f-component>
