@@ -24,7 +24,7 @@
             <br>
              Version: 2.0
             <br>
-            2024-09-30
+            2025-02-11
             <br>
             <b>National Information Assurance Partnership</b>
             <br>
@@ -74,7 +74,7 @@
                 </td>
             </tr>
             <tr>
-                <td>v 2.0</td><td>2024-09-30</td><td>CC2022 conversion
+                <td>v 2.0</td><td>2025-02-11</td><td>CC2022 conversion
                     <br>
                     Updating for TLS <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr>, SSH <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr>, and X509 <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr>
                     <br>
@@ -379,7 +379,6 @@
             <dd>
                 The following <abbr class="dyn-abbr"><a href="#abbr_PP">PPs</a></abbr> and <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>-Modules are allowed to be specified in a <abbr class="dyn-abbr"><a href="#abbr_PP-Configuration">PP-Configuration</a></abbr> with this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>: 
                 <ul>
-                    <li>Protection Profile for Mobile Device Management Version 4.0</li>
                     <li>
                         <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for Email Clients, Version 1.0
                     </li>
@@ -420,15 +419,15 @@
         <dl>
             <dt class="threat defined" id="T.LOCAL_ATTACK">T.LOCAL_ATTACK</dt>
             <dd>
-                <span class="description">An attacker can act through unprivileged software on the same computingplatform on which the application executes. Attackers may provide maliciously formattedinput to the application in the form of files or other localcommunications.</span>
+                <span class="description">An attacker can act through unprivileged software on the same computing platform on which the application executes. Attackers may provide maliciously formatted input to the application in the form of files or other local communications.</span>
             </dd>
             <dt class="threat defined" id="T.NETWORK_ATTACK">T.NETWORK_ATTACK</dt>
             <dd>
-                <span class="description">An attacker is positioned on a communications channel or elsewhere on thenetwork infrastructure. Attackers may engage in communications with the applicationsoftware or alter communications between the application software and other endpoints inorder to compromise it.</span>
+                <span class="description">An attacker is positioned on a communications channel or elsewhere on the network infrastructure. Attackers may engage in communications with the application software or alter communications between the application software and other endpoints in order to compromise it. </span>
             </dd>
             <dt class="threat defined" id="T.NETWORK_EAVESDROP">T.NETWORK_EAVESDROP</dt>
             <dd>
-                <span class="description">An attacker is positioned on a communications channel or elsewhere on thenetwork infrastructure. Attackers may monitor and gain access to data exchanged betweenthe application and other endpoints.</span>
+                <span class="description">An attacker is positioned on a communications channel or elsewhere on the network infrastructure. Attackers may monitor and gain access to data exchanged between the application and other endpoints.</span>
             </dd>
             <dt class="threat defined" id="T.PHYSICAL_ACCESS">T.PHYSICAL_ACCESS</dt>
             <dd>
@@ -1151,7 +1150,7 @@
                     <a href="#FMT_CFG_EXT.1.1" class="abbr">FMT_CFG_EXT.1.1</a>
                 </div>
                 <div class="reqdesc">
-                    The application shall provide only enough functionality to set new credentials when configured with default credentials or no credentials.
+                    The application[<b>selection</b>: <span class="selectable-content" id="fmt_cfg_ext.1.1_1">does not use credentials</span>, <span class="selectable-content" id="fmt_cfg_ext.1.1_2">leverages platform credentials</span>, <span class="selectable-content" id="fmt_cfg_ext.1.1_3">provide only enough functionality to set new credentials when configured with default credentials or no credentials for application provided credentials.</span>]
                     <div class="appnote">
                         <span class="note-header">Application Note: </span><span class="note"> Default credentials are credentials (e.g., passwords, keys) that are automatically (without user interaction) loaded onto the platform during application installation. Credentials that are generated during installation using requirements laid out in <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> or established by leveraging platform accounts are not by definition default credentials. </span>
                     </div>
@@ -1181,12 +1180,12 @@
                     </div>
                     <div class="ea">
                         <p>
-                             The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine if the application requires any type of credentials and if the application installs with default credentials.
+                             The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine if the application requires any type of application provided credentials and if the application installs with default credentials. The evalutor shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> details how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is restricted until new credentials are set.
                         </p>
                     </div>
                     <div class="eacategory">Guidance</div>
                     <div class="ea">
-                        <p>The evaluator shall verify the guidance documentation details regarding any default or null credentials being used and how they would be updated.</p>
+                        <p>The evaluator shall verify the guidance documentation details regarding any default or null application provided credentials being used and how they would be updated.</p>
                     </div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
@@ -1194,13 +1193,13 @@
                             <ul>
                                  If the application uses any default credentials the evaluator shall run the following tests. 
                                 <li class="test-">
-                                    <a id="_t_36" class="defined" href="#_t_36">Test FMT_CFG_EXT.1.1:1</a>: The evaluator shall install and run the application without generating or loading new credentials and verify that only the minimal application functionality required to set new credentials is available. 
+                                    <a id="_t_36" class="defined" href="#_t_36">Test FMT_CFG_EXT.1.1:1</a>: For any application provided credentials the evaluator shall install and run the application without generating or loading new credentials and verify that only the minimal application functionality required to set new credentials is available. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_37" class="defined" href="#_t_37">Test FMT_CFG_EXT.1.1:2</a>: The evaluator shall attempt to clear all credentials and verify that only the minimal application functionality required to set new credentials is available. 
+                                    <a id="_t_37" class="defined" href="#_t_37">Test FMT_CFG_EXT.1.1:2</a>: For any application provided credentials the evaluator shall attempt to clear all credentials and verify that only the minimal application functionality required to set new credentials is available. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_38" class="defined" href="#_t_38">Test FMT_CFG_EXT.1.1:3</a>: The evaluator shall run the application, establish new credentials and verify that the original default credentials no longer provide access to the application. 
+                                    <a id="_t_38" class="defined" href="#_t_38">Test FMT_CFG_EXT.1.1:3</a>: For any application provided credentials the evaluator shall run the application, establish new credentials and verify that the original default credentials no longer provide access to the application. 
                                 </li>
                             </ul>
                         </span> 
@@ -1891,53 +1890,6 @@
                 </div>
             </div>
         </div>
-        <div class="comp" id="FPT_IDV_EXT.1">
-            <h4>FPT_IDV_EXT.1 Software Identification and Versions</h4>
-            <div class="element">
-                <div class="reqid" id="FPT_IDV_EXT.1.1">
-                    <a href="#FPT_IDV_EXT.1.1" class="abbr">FPT_IDV_EXT.1.1</a>
-                </div>
-                <div class="reqdesc">
-                    The application shall be versioned with <i>SWID tags that comply with minimum requirements from ISO/IEC 19770-2:2015</i> .
-                    <div class="appnote">
-                        <span class="note-header">Application Note: </span><span class="note">
-                            <p> The use of a SWID tag to identify application software is a requirement for DOD IT based on DoD Instruction 8500.01 which requires the use of SCAP which includes SWID tags per the NIST standard. </p>
-                            <p></p>
-                             Valid SWID tags must contain a SoftwareIdentity element and an Entity element as defined in the ISO/IEC 19770-2:2015 standard. SWID tags must be stored with a .swidtag file extensions as defined in the ISO/IEC 19770-2:2015. 
-                            <p></p>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="activity_pane hide">
-                <div class="activity_pane_header">
-                    <a href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a>
-                </div>
-                <div class="activity_pane_body">
-                    <div class="component-activity-header">
-                        <a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a>
-                    </div>
-                    <div class="eacategory">
-                        <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
-                    </div>
-                    <div class="ea">
-                        <div class="ea">
-                            <p> None.</p>
-                        </div>
-                    </div>
-                    <div class="eacategory">Guidance</div>
-                    <div class="ea">
-                        <div class="ea">
-                            <p>None.</p>
-                        </div>
-                    </div>
-                    <div class="eacategory">Tests</div>
-                    <div class="ea">
-                        <div class="ea"> The evaluator shall install the application and check for a.swidtag file. The evaluator shall open the file and verify that is contains at least a SoftwareIdentity element and an Entity element. </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="comp" id="FPT_LIB_EXT.1">
             <h4>FPT_LIB_EXT.1 Use of Third Party Libraries</h4>
             <div class="element">
@@ -2006,12 +1958,21 @@
                     <a href="#FPT_TUD_EXT.1.3" class="abbr">FPT_TUD_EXT.1.3</a>
                 </div>
                 <div class="reqdesc">
-                    The application shall[<b>selection</b>: <span class="selectable-content" id="toe-update">perform trusted updates</span>, <span class="selectable-content" id="fpt_tud_ext.1.3_1">not download, modify, replace or update its own binary code</span>].
+                    The application shall[<b>selection</b>: 
+                    <ul>
+                        <li style="">
+                            <span class="selectable-content" id="toe-update">perform trusted updates</span>
+                        </li>
+                        <li style="">
+                            <span class="selectable-content" id="fpt_tud_ext.1.3_1">not download, modify, replace or update its own binary code</span>
+                        </li>
+                    </ul>
+                    ].
                     <div class="appnote">
                         <span class="note-header">Application Note: </span><span class="note">
                             <p>This requirement applies to the code of the application; it does not apply to mobile code technologies that are designed for download and execution by the application. </p>
                             <p></p>
-                            If "perform trusted updates" is selected then FPT_TUD_EXT must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
+                            If "perform trusted updates" is selected then <a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a> must be included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
                             <p></p>
                         </span>
                     </div>
@@ -2168,31 +2129,31 @@
                                         <span class="selectable-content" id="sel_all_https_ma">HTTPS as a server using mutual authentication in accordance with <a href="#FCS_HTTPS_EXT.2">FCS_HTTPS_EXT.2</a></span>
                                     </li>
                                     <li style="">
-                                        <span class="selectable-content" id="sel_all_tlss">TLS as a server as defined in the <a href="https://www.niap-ccevs.org/protectionprofiles/439">Functional Package for TLS</a> and also supports functionality for[<b>selection</b>: <span class="selectable-content" id="ftp_dit_ext.1.1_7">mutual authentication</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_8">none</span>]</span>
+                                        <span class="selectable-content" id="sel_all_tlss">TLS as a server as defined in <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.0</a> and also supports functionality for[<b>selection</b>: <span class="selectable-content" id="ftp_dit_ext.1.1_7">mutual authentication</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_8">none</span>]</span>
                                     </li>
                                     <li style="">
-                                        <span class="selectable-content" id="sel_all_tlsc">TLS as a client as defined in the <a href="https://www.niap-ccevs.org/protectionprofiles/439">Functional Package for TLS</a></span>
+                                        <span class="selectable-content" id="sel_all_tlsc">TLS as a client as defined in <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.0</a></span>
                                     </li>
                                     <li style="">
-                                        <span class="selectable-content" id="sel_all_dtlss">DTLS as a server as defined in the <a href="https://www.niap-ccevs.org/protectionprofiles/439">Functional Package for TLS</a> and also supports functionality for[<b>selection</b>: <span class="selectable-content" id="ftp_dit_ext.1.1_9">mutual authentication</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_10">none</span>]</span>
+                                        <span class="selectable-content" id="sel_all_dtlss">DTLS as a server as defined in <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.0</a> and also supports functionality for[<b>selection</b>: <span class="selectable-content" id="ftp_dit_ext.1.1_9">mutual authentication</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_10">none</span>]</span>
                                     </li>
                                     <li style="">
-                                        <span class="selectable-content" id="sel_all_dtlsc">DTLS as a client as defined in the <a href="https://www.niap-ccevs.org/protectionprofiles/439">Functional Package for TLS</a></span>
+                                        <span class="selectable-content" id="sel_all_dtlsc">DTLS as a client as defined in <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.0</a></span>
                                     </li>
                                     <li style="">
-                                        <span class="selectable-content" id="sel_all_ssh">SSH as defined in the <a href="https://www.niap-ccevs.org/protectionprofiles/459">Functional Package for Secure Shell</a></span>
+                                        <span class="selectable-content" id="sel_all_ssh">SSH as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459">Functional Package for Secure Shell (SSH), version 1.0</a></span>
                                     </li>
                                     <li style="">
-                                        <span class="selectable-content" id="sel_all_ipsec">IPsec as defined in the <a href="https://www.niap-ccevs.org/protectionprofiles/487">PP-Module for VPN Client</a></span>
+                                        <span class="selectable-content" id="sel_all_ipsec">IPsec as defined in the <a href="https://commoncriteria.github.io/vpnclient/master/vpnclient.html">, version 2.6</a></span>
                                     </li>
                                 </ul>
-                                ]for[<b>assignment</b>: <span class="assignable-content">function(s)</span>]using certificates as defined in the <a href="https://www.niap-ccevs.org/protectionprofiles/511">Functional Package for X.509</a></span>
+                                ]for[<b>assignment</b>: <span class="assignable-content">function(s)</span>]using certificates as defined in the <a href="https://commoncriteria.github.io/X509/master/X509.html">, version </a></span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="ftp_dit_ext.1.1_12">invoke platform-provided functionality to encrypt all transmitted sensitive data with[<b>selection</b>: <span class="selectable-content" id="ftp_dit_ext.1.1_13">HTTPS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_14">TLS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_15">DTLS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_16">SSH</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_17">IPsec</span>]for[<b>assignment</b>: <span class="assignable-content">function(s)</span>]using certificates as defined in the <a href="https://www.niap-ccevs.org/protectionprofiles/511">Functional Package for X.509</a></span>
+                            <span class="selectable-content" id="ftp_dit_ext.1.1_12">invoke platform-provided functionality to encrypt all transmitted sensitive data with[<b>selection</b>: <span class="selectable-content" id="ftp_dit_ext.1.1_13">HTTPS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_14">TLS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_15">DTLS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_16">SSH</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_17">IPsec</span>]for[<b>assignment</b>: <span class="assignable-content">function(s)</span>]using certificates as defined in the <a href="https://commoncriteria.github.io/X509/master/X509.html">, version </a></span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="ftp_dit_ext.1.1_19">invoke platform-provided functionality to encrypt all transmitted data with[<b>selection</b>: <span class="selectable-content" id="ftp_dit_ext.1.1_20">HTTPS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_21">TLS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_22">DTLS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_23">SSH</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_24">IPsec</span>]for[<b>assignment</b>: <span class="assignable-content">function(s)</span>]using certificates as defined in the <a href="https://www.niap-ccevs.org/protectionprofiles/511">Functional Package for X.509</a></span>
+                            <span class="selectable-content" id="ftp_dit_ext.1.1_19">invoke platform-provided functionality to encrypt all transmitted data with[<b>selection</b>: <span class="selectable-content" id="ftp_dit_ext.1.1_20">HTTPS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_21">TLS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_22">DTLS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_23">SSH</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_24">IPsec</span>]for[<b>assignment</b>: <span class="assignable-content">function(s)</span>]using certificates as defined in the <a href="https://commoncriteria.github.io/X509/master/X509.html">, version </a></span>
                         </li>
                     </ul>
                     ]between itself and another trusted IT product.
@@ -2204,7 +2165,7 @@
                             <p></p>
                              If <b>not transmit any</b> is NOT selected, it is possible to select more than one of the other options to encrypt data for a specific cryptographic function (e.g., application encrypts management data using SSH AND application invokes platform-provided functionality to encrypt syslog data using TLS OR application encrypts syslog data using TLS. Protocol selections and function assignments should be made to cover all data/sensitive data. 
                             <p></p>
-                             If "<b>encrypt all transmitted</b>" is selected and "<b>TLS</b>" or "<b>DTLS</b>" as a client or server is selected, then corresponding components from the Functional Package for TLS must be selected. 
+                             If "<b>encrypt all transmitted</b>" is selected and "<b>TLS</b>" or "<b>DTLS</b>" as a client or server is selected, then corresponding components from <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.0</a> must be selected. 
                             <p></p>
                              If "<b>encrypt all transmitted</b>" is selected, "<b>HTTPS</b>" is selected, and the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts as a client, then <a href="#FCS_HTTPS_EXT.1/Client">FCS_HTTPS_EXT.1/Client</a> is required. 
                             <p></p>
@@ -2218,13 +2179,13 @@
                             <p></p>
                              If "<b>encrypt all transmitted</b>" is selected the corresponding FCS_COP.1 requirements will be included. 
                             <p></p>
-                             Claims from the <a href="https://www.niap-ccevs.org/protectionprofiles/511">Functional Package for X.509</a> are only required to the extent that they are needed to support the functionality required by the trusted protocols that are claimed. 
+                             Claims from the <a href="https://commoncriteria.github.io/X509/master/X509.html">, version </a> are only required to the extent that they are needed to support the functionality required by the trusted protocols that are claimed. 
                             <p></p>
                              If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements a protocol that requires the validation of a certificate presented by an external entity, FIA_X509_EXT.1 and FIA_X509_EXT.2 will be claimed. FIA_TSM_EXT.1 may also be claimed if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements its own trust store. Note that FIA_X509_EXT.1 and FIA_X509_EXT.2 have selections for invocation of platform-provided functionality, so it is expected that these claims are made and tested even when the trusted protocol is implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> platform. 
                             <p></p>
                              If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements a protocol that requires the presentation of any certificates to an external entity, FIA_XCU_EXT.2 will be claimed. FIA_X509_EXT.3 will also be claimed, along with any applicable dependencies, depending on how the certificates presented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> are obtained. 
                             <p></p>
-                             If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements a protocol that does not require presenting or validating X.509 certificates, no claims from the <a href="https://www.niap-ccevs.org/protectionprofiles/511">Functional Package for X.509</a> are required. 
+                             If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements a protocol that does not require presenting or validating X.509 certificates, no claims from the <a href="https://commoncriteria.github.io/X509/master/X509.html">, version </a> are required. 
                             <p></p>
                         </span>
                     </div>
@@ -2251,15 +2212,15 @@
                             <p></p>
                              For platform-provided functionality, the evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains the calls to the platform that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is leveraging to invoke the functionality. The evaluator shall verify calls are documented by the platform vendor and non-deprecated. 
                             <p></p>
-                             For platform-provided HTTPS, IPsec, TLS, or DTLS as a client the evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> lists any specific calls the product uses that specifies or allows the end users to specify cipher suites, support for mutual authentication, support for session renegotiation, hash algorithms for the signature_algorithms extension in the Client Hello with the supported_signature_algorithms value, and the supported groups in the Supported Groups Extension in Client Hello. The evaluator shall verify any calls the product specifies align with the options provided in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and the TLS Functional Package. 
+                             For platform-provided HTTPS, IPsec, TLS, or DTLS as a client the evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> lists any specific calls the product uses that specifies or allows the end users to specify cipher suites, support for mutual authentication, support for session renegotiation, hash algorithms for the signature_algorithms extension in the Client Hello with the supported_signature_algorithms value, and the supported groups in the Supported Groups Extension in Client Hello. The evaluator shall verify any calls the product specifies align with the options provided in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.0</a>. 
                             <p></p>
-                             For platform-provided HTTPS, IPsec, TLS, or DTLS as a server the evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> lists any specific calls the product uses that specifies or allows the end users to specify cipher suites, which protocols are denied connection requests, key establishment algorithms, support for mutual authentication, response to an invalid client certificate, and support for session renegotiation. The evaluator shall verify any calls the product specifies align with the options provided in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and the TLS Functional Package. 
+                             For platform-provided HTTPS, IPsec, TLS, or DTLS as a server the evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> lists any specific calls the product uses that specifies or allows the end users to specify cipher suites, which protocols are denied connection requests, key establishment algorithms, support for mutual authentication, response to an invalid client certificate, and support for session renegotiation. The evaluator shall verify any calls the product specifies align with the options provided in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.0</a>. 
                             <p></p>
                              For platform-provided HTTPS the evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> lists any specific calls the product uses that specifies or allows the end users to specify the response to an invalid certificate. 
                             <p></p>
-                             For platform-provided HTTPS as a server the evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> lists any specific calls the product uses that specifies or allows the end users to specify cipher suites, which protocols are denied connection requests, key establishment algorithms, support for mutual authentication, response to an invalid client certificate, and support for session renegotiation. The evaluator shall verify any calls the product specifies align with the options provided in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and the TLS Functional Package. 
+                             For platform-provided HTTPS as a server the evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> lists any specific calls the product uses that specifies or allows the end users to specify cipher suites, which protocols are denied connection requests, key establishment algorithms, support for mutual authentication, response to an invalid client certificate, and support for session renegotiation. The evaluator shall verify any calls the product specifies align with the options provided in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.0</a>. 
                             <p></p>
-                             For platform-provided SSH the evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> lists any specific calls the product uses that specifies or allows the end users to specify the applicable RFCs, the authentication methods, the limit for dropping large packets in an SSH transport connection, the SSH transport accepted algorithms, the SSH public key for public-key based authentication, The diffie-hellman-group used for key exchange, and the parameters of session rekey or termination. The evaluator shall verify any calls the product specifies align with the options provided in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and the SSH Functional Package. 
+                             For platform-provided SSH the evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> lists any specific calls the product uses that specifies or allows the end users to specify the applicable RFCs, the authentication methods, the limit for dropping large packets in an SSH transport connection, the SSH transport accepted algorithms, the SSH public key for public-key based authentication, The diffie-hellman-group used for key exchange, and the parameters of session rekey or termination. The evaluator shall verify any calls the product specifies align with the options provided in this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> and the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459">Functional Package for Secure Shell (SSH), version 1.0</a>. 
                             <p></p>
                         </div>
                     </div>
@@ -3535,6 +3496,53 @@
                 </div>
             </div>
         </div>
+        <div class="comp" id="FPT_IDV_EXT.1">
+            <h4>FPT_IDV_EXT.1 Software Identification and Versions</h4>
+            <div class="element">
+                <div class="reqid" id="FPT_IDV_EXT.1.1">
+                    <a href="#FPT_IDV_EXT.1.1" class="abbr">FPT_IDV_EXT.1.1</a>
+                </div>
+                <div class="reqdesc">
+                    The application shall be versioned with <i>SWID tags that comply with minimum requirements from ISO/IEC 19770-2:2015</i> .
+                    <div class="appnote">
+                        <span class="note-header">Application Note: </span><span class="note">
+                            <p> The use of a SWID tag to identify application software is a requirement for DOD IT based on DoD Instruction 8500.01 which requires the use of SCAP which includes SWID tags per the NIST standard. </p>
+                            <p></p>
+                             Valid SWID tags must contain a SoftwareIdentity element and an Entity element as defined in the ISO/IEC 19770-2:2015 standard. SWID tags must be stored with a .swidtag file extensions as defined in the ISO/IEC 19770-2:2015. 
+                            <p></p>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="activity_pane hide">
+                <div class="activity_pane_header">
+                    <a href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a>
+                </div>
+                <div class="activity_pane_body">
+                    <div class="component-activity-header">
+                        <a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a>
+                    </div>
+                    <div class="eacategory">
+                        <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
+                    </div>
+                    <div class="ea">
+                        <div class="ea">
+                            <p> None.</p>
+                        </div>
+                    </div>
+                    <div class="eacategory">Guidance</div>
+                    <div class="ea">
+                        <div class="ea">
+                            <p>None.</p>
+                        </div>
+                    </div>
+                    <div class="eacategory">Tests</div>
+                    <div class="ea">
+                        <div class="ea"> The evaluator shall install the application and check for a.swidtag file. The evaluator shall open the file and verify that is contains at least a SoftwareIdentity element and an Entity element. </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <h2 id="feat-based-reqs" class="indexable" data-level="2">A.3 Implementation-dependent Requirements </h2>
         <p>
             This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> does not define any Implementation-dependent requirements.
@@ -3583,7 +3591,7 @@
                             <span class="selectable-content" id="fcs_ckm.1.1_AK_35"><b>eXtended Merkle Signature Scheme Algorithm</b> using the parameter sets[<b>selection</b>: <span class="selectable-content" id="fcs_ckm.1.1_AK_36">XMSS-SHA2_10_192</span>, <span class="selectable-content" id="fcs_ckm.1.1_AK_37">XMSS-SHA2_16_192</span>, <span class="selectable-content" id="fcs_ckm.1.1_AK_38">XMSS-SHA2_20_192</span>, <span class="selectable-content" id="fcs_ckm.1.1_AK_39">XMSS-SHA2_10_256</span>, <span class="selectable-content" id="fcs_ckm.1.1_AK_40">XMSS-SHA2_16_256</span>, <span class="selectable-content" id="fcs_ckm.1.1_AK_41">XMSS-SHA2_20_256</span>, <span class="selectable-content" id="fcs_ckm.1.1_AK_42">XMSS-SHAKE_10_192</span>, <span class="selectable-content" id="fcs_ckm.1.1_AK_43">XMSS-SHAKE_16_192</span>, <span class="selectable-content" id="fcs_ckm.1.1_AK_44">XMSS-SHAKE_20_192</span>, <span class="selectable-content" id="fcs_ckm.1.1_AK_45">XMSS-SHAKE_10_256</span>, <span class="selectable-content" id="fcs_ckm.1.1_AK_46">XMSS-SHAKE_16_256</span>, <span class="selectable-content" id="fcs_ckm.1.1_AK_47">XMSS-SHAKE_20_256</span>]bits that meets the following: [NIST SP 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"]</span>
                         </li>
                         <li style="">
-                            <span class="selectable-content" id="fcs_ckm.1.1_AK_48"><b>Module-Lattice-Based Key-Encapsulation Mechanism Standard</b>using the parameter set ML-KEM-1024 that meets the following: [FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard]</span>
+                            <span class="selectable-content" id="fcs_ckm.1.1_AK_48"><b>Module-Lattice-Based Key-Encapsulation Mechanism Standard</b> using the parameter set ML-KEM-1024 that meets the following: [FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard]</span>
                         </li>
                         <li style="">
                             <span class="selectable-content" id="fcs_ckm.1.1_AK_49"><b>Module-Lattice-Based Digital Signature Standard</b> using the parameter set ML-DSA-87 that meets the following [FIPS 204, Module-Lattice-Based Digital Signature Standard]</span>
@@ -3733,11 +3741,11 @@
                         <p></p>
                         <b>Key Generation for ML-DSA</b>
                         <p></p>
-                         10x confirm correct key pair is generated from a random seed.
+                         The evaluator shall 10x input to the internal KeyGen function a 32-byte random seed. Verify the returned public-private key pair is correct using a known good implementation. Here internal KeyGen refers to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>&rsquo;s implementation of the function ML-DSA.KeyGen_internal(-) as described in FIPS.204.
                         <p></p>
                         <b>Key Generation for ML-KEM</b>
                         <p></p>
-                         10x confirm correct key pair is generated from a random seed
+                         The evaluator shall 10x input to the internal KeyGen function a pair of 32-byte random string. Verify the returned encapsulation and decapsulation key pair is correct using a known good implementation. Here internal KeyGen refers to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>&rsquo;s implementation of the function ML-KEM.KeyGen_internal(-,-) as described in FIPS.203.
                         <p></p>
                     </div>
                 </div>
@@ -3810,7 +3818,7 @@
                         [<b>selection</b>: 
                         <ul>
                             <li style="">
-                                <span class="selectable-content" id="fcs_ckm.2.1_3"><b>[RSA-based key establishment schemes]</b> that meets the following: <b>[NIST Special Publication 800-56B, &ldquo;Recommendation for Pair-Wise Key Establishment Schemes Using Integer Factorization Cryptography&rdquo;]</b></span>
+                                <span class="selectable-content" id="fcs_ckm.2.1_3"><b>[RSA-based key establishment schemes]</b> that meet the following: <b>[NIST Special Publication 800-56B, &ldquo;Recommendation for Pair-Wise Key Establishment Schemes Using Integer Factorization Cryptography&rdquo;]</b></span>
                             </li>
                             <li style="">
                                 <span class="selectable-content" id="fcs_ckm.2.1_4"><b>[Elliptic curve-based key establishment schemes]</b> that meets the following: <b>[NIST Special Publication 800-56A, &ldquo;Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography&rdquo;]</b></span>
@@ -3819,7 +3827,7 @@
                                 <span class="selectable-content" id="fcs_ckm.2.1_5"><b>[FFC Schemes using &ldquo;safe-prime&rdquo; groups]</b> that meet the following: <b>&lsquo;NIST Special Publication 800-56A Revision 3, &ldquo;Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography&rdquo;</b> and[<b>selection</b>: <span class="selectable-content" id="fcs_ckm.2.1_6">RFC 3526</span>, <span class="selectable-content" id="fcs_ckm.2.1_7">RFC 7919</span>]</span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="fcs_ckm.2.1_8">Module-Lattice-Based Key-Encapsulation Mechanism Standard using the parameter set ML-KEM-1024 that meets the following: [FIPS 203, Module-Latice-Based Key-Encapsulation Mechanism Standard]</span>
+                                <span class="selectable-content" id="fcs_ckm.2.1_8">Module-Lattice-Based Key-Encapsulation Mechanism Standard using the parameter set ML-KEM-1024 that meets the following: [FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard]</span>
                             </li>
                         </ul>
                         ]
@@ -3920,8 +3928,9 @@
                         <p></p>
                         <b>ML-KEM Key Establishment Schemes</b>
                         <p></p>
-                         INSERT - Test to be added later. 
+                         To test encapsulation the evaluator shall 10x input to the internal Encaps function a random 32-byte string and an encapsulation key. Verify the returned cipher text and shared secret is correct using a known good implementation. Here internal refers to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>&rsquo;s implementation of the function ML-KEM.Encaps_internal(-,-) as described in FIPS.203. 
                         <p></p>
+                         To test decapsulation the evaluator shall 10x Input to the internal Decaps function a cipher text and decapsulation key. Verify the returned shared secret is correct using a known good implementation. The tests should include a mix of valid and invalid/garbled cipher texts. Here internal refers to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>&rsquo;s implementation of the function ML-KEM.Decaps_internal(-,-) as described in FIPS.203. 
                     </div>
                 </div>
             </div>
@@ -3966,8 +3975,9 @@
                             <p>
                                  This is dependent on implementing cryptographic functionality, as in <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a>. 
                             </p>
-                            &gt;
-                            <p> The intent of this requirement is to specify the hashing function. The hash selection must support the message digest size selection. </p>
+                            <p></p>
+                             The intent of this requirement is to specify the hashing function. The hash selection must support the message digest size selection. 
+                            <p></p>
                         </span>
                     </div>
                 </div>
@@ -4168,7 +4178,7 @@
                                 <ul>
                                      ML-DSA Test 
                                     <li class="test-">
-                                        <a id="_t_8" class="defined" href="#_t_8">Test FCS_COP.1/SigGen:3</a>: 10x confirm correct signature is generated from a randomly generated message and key pair. 
+                                        <a id="_t_8" class="defined" href="#_t_8">Test FCS_COP.1/SigGen:3</a>: The evaluator shall 10x input to the internal Sign function a 32-byte random string, private key, and a randomly generated message. Check and confirm the value of the returned signature using a known good implementation. Here internal Sign refers to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>&rsquo;s implementation of the function ML-DSA.Sign_internal(-,-,-) as described in FIPS.204. 
                                     </li>
                                 </ul>
                             </span> 
@@ -4269,7 +4279,7 @@
                                 <ul>
                                      ML-DSA Test 
                                     <li class="test-">
-                                        <a id="_t_12" class="defined" href="#_t_12">Test FCS_COP.1/SigVer:4</a>: 10x given a key pair, message and signature, verify the signature Tests should involve a mix of good signatures and bad signatures generated using different messages, keys, etc. 
+                                        <a id="_t_12" class="defined" href="#_t_12">Test FCS_COP.1/SigVer:4</a>: Tbe evaluator shall 10x input to the internal SigVer function, a public key, message and signature. Verify the signature. Tests should involve a mix of good and bad signatures generated using different messages, keys, etc. Here internal SigVer refers to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>&rsquo;s implementation of the function ML-DSA.Verify_internal(-,-,-) as described in FIPS.204. 
                                     </li>
                                 </ul>
                             </span> 
@@ -4306,7 +4316,7 @@
                             <span class="selectable-content" id="sel_aes_ctr">AES-CTR (as defined in NIST SP 800-38A) mode</span>
                         </li>
                     </ul>
-                    ]and cryptographic key size of <i>256-bits</i> .
+                    ]and cryptographic key size of [ <i>256-bits</i> ].
                     <div class="appnote">
                         <span class="note-header">Application Note: </span><span class="note">
                             <p>
@@ -4353,7 +4363,7 @@
                              There are four Known Answer Tests (KATs), described below. In all KATs, the plaintext, ciphertext, and IV values shall be 128-bit blocks. The results from each test may either be obtained by the evaluator directly or by supplying the inputs to the implementer and receiving the results in response. To determine correctness, the evaluator shall compare the resulting values to those obtained by submitting the same inputs to a known good implementation. 
                             <ul>
                                 <li>KAT-1. To test the encrypt functionality of AES-CBC, the evaluator shall supply a set of 5 plaintext values and obtain the ciphertext value that results from AES-CBC encryption of the given plaintext using a key value of all zeros and an IV of all zeros. Five plaintext values shall be encrypted with a 256-bit all- zeros key. To test the decrypt functionality of AES-CBC, the evaluator shall perform the same test as for encrypt, using 10 ciphertext values as input and AES-CBC decryption.</li>
-                                <li>KAT-2. To test the encrypt functionality of AES-CBC, the evaluator shall supply a set of 5 key values and obtain the ciphertext value that results from AES-CBC encryption of an all-zeros plaintext using the given key value and an IV of all zeros. Five of the keys shall be shall be 256-bit keys. To test the decrypt functionality of AES-CBC, the evaluator shall perform the same test as for encrypt, using an all-zero ciphertext value as input and AES-CBC decryption.</li>
+                                <li>KAT-2. To test the encrypt functionality of AES-CBC, the evaluator shall supply a set of 5 key values and obtain the ciphertext value that results from AES-CBC encryption of an all-zeros plaintext using the given key value and an IV of all zeros. The keys shall be 256-bit keys. To test the decrypt functionality of AES-CBC, the evaluator shall perform the same test as for encrypt, using an all-zero ciphertext value as input and AES-CBC decryption.</li>
                                 <li>KAT-3. To test the encrypt functionality of AES-CBC, the evaluator shall supply the set of key values described below and obtain the ciphertext value that results from AES encryption of an all-zeros plaintext using the given key value and an IV of all zeros. The set of keys shall have 256 256-bit keys. Key i in each set shall have the leftmost i bits be ones and the rightmost N-i bits be zeros, for i in [1,N]. To test the decrypt functionality of AES-CBC, the evaluator shall supply the sets of key and ciphertext value pairs described below and obtain the plaintext value that results from AES-CBC decryption of the given ciphertext using the given key and an IV of all zeros. The set of key/ciphertext pairs shall have 256 256-bit key/ciphertext pairs. Key i in each set shall have the leftmost i bits be ones and the rightmost N-i bits be zeros, for i in [1,N]. The ciphertext value in each pair shall be the value that results in an all-zeros plaintext when decrypted with its corresponding key.</li>
                                 <li>KAT-4. To test the encrypt functionality of AES-CBC, the evaluator shall supply the set of 128 plaintext values described below and obtain the ciphertext values that result from AES-CBC encryption of the given plaintext using a 256-bit key value of all zeros with an IV of all zeros. Plaintext value i in each set shall have the leftmost i bits be ones and the rightmost 128-i bits be zeros, for i in [1,128].</li>
                             </ul>
@@ -4642,14 +4652,12 @@
                     <div class="eacategory">
                         <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
                     </div>
-                    <div class="ea">
-                        The evaluator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> describes how the application responds to an invalid certificate when acting as a server and verify the description matches the selection.
-                    </div>
+                    <div class="ea">None.</div>
                     <div class="eacategory">Guidance</div>
-                    <div class="ea">The evaluator shall verify the guidance documentation contains any information necessary to configure the response to an invalid certificates.</div>
+                    <div class="ea">None.</div>
                     <div class="eacategory">Tests</div>
                     <div class="ea">
-                         Other tests are performed in conjunction with the TLS Functional Package, <a href="#FCS_HTTPS_EXT.2">FCS_HTTPS_EXT.2</a> (dependent on selections in <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a>), and FIA_X509_EXT.1. 
+                         Other tests are performed in conjunction with <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.0</a>, <a href="#FCS_HTTPS_EXT.2">FCS_HTTPS_EXT.2</a> (dependent on selections in <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a>), and FIA_X509_EXT.1. 
                     </div>
                 </div>
             </div>
@@ -6035,7 +6043,16 @@
                         <h4 id="ext-comp-FPT_TUD_EXT.1.2">FPT_TUD_EXT.1.2</h4>
                         The application shall[<b>selection</b>: <span class="selectable-content" id="fpt_tud_ext.1.2_1">provide the ability</span>, <span class="selectable-content" id="fpt_tud_ext.1.2_2">leverage the platform</span>]to query the current version of the application software.
                         <h4 id="ext-comp-FPT_TUD_EXT.1.3">FPT_TUD_EXT.1.3</h4>
-                        The application shall[<b>selection</b>: <span class="selectable-content" id="toe-update">perform trusted updates</span>, <span class="selectable-content" id="fpt_tud_ext.1.3_1">not download, modify, replace or update its own binary code</span>].
+                        The application shall[<b>selection</b>: 
+                        <ul>
+                            <li style="">
+                                <span class="selectable-content" id="toe-update">perform trusted updates</span>
+                            </li>
+                            <li style="">
+                                <span class="selectable-content" id="fpt_tud_ext.1.3_1">not download, modify, replace or update its own binary code</span>
+                            </li>
+                        </ul>
+                        ].
                         <h4 id="ext-comp-FPT_TUD_EXT.1.4">FPT_TUD_EXT.1.4</h4>
                         Application updates shall be digitally signed such that the application platform can cryptographically verify them prior to installation.
                         <h4 id="ext-comp-FPT_TUD_EXT.1.5">FPT_TUD_EXT.1.5</h4>
@@ -6105,7 +6122,7 @@
                             </tr>
                         </table>
                         <h4 id="ext-comp-FMT_CFG_EXT.1.1">FMT_CFG_EXT.1.1</h4>
-                        The application shall provide only enough functionality to set new credentials when configured with default credentials or no credentials.
+                        The application[<b>selection</b>: <span class="selectable-content" id="fmt_cfg_ext.1.1_1">does not use credentials</span>, <span class="selectable-content" id="fmt_cfg_ext.1.1_2">leverages platform credentials</span>, <span class="selectable-content" id="fmt_cfg_ext.1.1_3">provide only enough functionality to set new credentials when configured with default credentials or no credentials for application provided credentials.</span>]
                         <h4 id="ext-comp-FMT_CFG_EXT.1.2">FMT_CFG_EXT.1.2</h4>
                         The application shall be configured by default with file permissions which protect the application binaries and data files from modification by normal unprivileged users.
                     </div>
@@ -6196,31 +6213,31 @@
                                             <span class="selectable-content" id="sel_all_https_ma">HTTPS as a server using mutual authentication in accordance with <a href="#FCS_HTTPS_EXT.2">FCS_HTTPS_EXT.2</a></span>
                                         </li>
                                         <li style="">
-                                            <span class="selectable-content" id="sel_all_tlss">TLS as a server as defined in the <a href="https://www.niap-ccevs.org/protectionprofiles/439">Functional Package for TLS</a> and also supports functionality for[<b>selection</b>: <span class="selectable-content" id="ftp_dit_ext.1.1_7">mutual authentication</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_8">none</span>]</span>
+                                            <span class="selectable-content" id="sel_all_tlss">TLS as a server as defined in <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.0</a> and also supports functionality for[<b>selection</b>: <span class="selectable-content" id="ftp_dit_ext.1.1_7">mutual authentication</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_8">none</span>]</span>
                                         </li>
                                         <li style="">
-                                            <span class="selectable-content" id="sel_all_tlsc">TLS as a client as defined in the <a href="https://www.niap-ccevs.org/protectionprofiles/439">Functional Package for TLS</a></span>
+                                            <span class="selectable-content" id="sel_all_tlsc">TLS as a client as defined in <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.0</a></span>
                                         </li>
                                         <li style="">
-                                            <span class="selectable-content" id="sel_all_dtlss">DTLS as a server as defined in the <a href="https://www.niap-ccevs.org/protectionprofiles/439">Functional Package for TLS</a> and also supports functionality for[<b>selection</b>: <span class="selectable-content" id="ftp_dit_ext.1.1_9">mutual authentication</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_10">none</span>]</span>
+                                            <span class="selectable-content" id="sel_all_dtlss">DTLS as a server as defined in <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.0</a> and also supports functionality for[<b>selection</b>: <span class="selectable-content" id="ftp_dit_ext.1.1_9">mutual authentication</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_10">none</span>]</span>
                                         </li>
                                         <li style="">
-                                            <span class="selectable-content" id="sel_all_dtlsc">DTLS as a client as defined in the <a href="https://www.niap-ccevs.org/protectionprofiles/439">Functional Package for TLS</a></span>
+                                            <span class="selectable-content" id="sel_all_dtlsc">DTLS as a client as defined in <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439">Functional Package for Transport Layer Security (TLS), version 2.0</a></span>
                                         </li>
                                         <li style="">
-                                            <span class="selectable-content" id="sel_all_ssh">SSH as defined in the <a href="https://www.niap-ccevs.org/protectionprofiles/459">Functional Package for Secure Shell</a></span>
+                                            <span class="selectable-content" id="sel_all_ssh">SSH as defined in the <a href="https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459">Functional Package for Secure Shell (SSH), version 1.0</a></span>
                                         </li>
                                         <li style="">
-                                            <span class="selectable-content" id="sel_all_ipsec">IPsec as defined in the <a href="https://www.niap-ccevs.org/protectionprofiles/487">PP-Module for VPN Client</a></span>
+                                            <span class="selectable-content" id="sel_all_ipsec">IPsec as defined in the <a href="https://commoncriteria.github.io/vpnclient/master/vpnclient.html">, version 2.6</a></span>
                                         </li>
                                     </ul>
-                                    ]for[<b>assignment</b>: <span class="assignable-content">function(s)</span>]using certificates as defined in the <a href="https://www.niap-ccevs.org/protectionprofiles/511">Functional Package for X.509</a></span>
+                                    ]for[<b>assignment</b>: <span class="assignable-content">function(s)</span>]using certificates as defined in the <a href="https://commoncriteria.github.io/X509/master/X509.html">, version </a></span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="ftp_dit_ext.1.1_12">invoke platform-provided functionality to encrypt all transmitted sensitive data with[<b>selection</b>: <span class="selectable-content" id="ftp_dit_ext.1.1_13">HTTPS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_14">TLS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_15">DTLS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_16">SSH</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_17">IPsec</span>]for[<b>assignment</b>: <span class="assignable-content">function(s)</span>]using certificates as defined in the <a href="https://www.niap-ccevs.org/protectionprofiles/511">Functional Package for X.509</a></span>
+                                <span class="selectable-content" id="ftp_dit_ext.1.1_12">invoke platform-provided functionality to encrypt all transmitted sensitive data with[<b>selection</b>: <span class="selectable-content" id="ftp_dit_ext.1.1_13">HTTPS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_14">TLS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_15">DTLS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_16">SSH</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_17">IPsec</span>]for[<b>assignment</b>: <span class="assignable-content">function(s)</span>]using certificates as defined in the <a href="https://commoncriteria.github.io/X509/master/X509.html">, version </a></span>
                             </li>
                             <li style="">
-                                <span class="selectable-content" id="ftp_dit_ext.1.1_19">invoke platform-provided functionality to encrypt all transmitted data with[<b>selection</b>: <span class="selectable-content" id="ftp_dit_ext.1.1_20">HTTPS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_21">TLS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_22">DTLS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_23">SSH</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_24">IPsec</span>]for[<b>assignment</b>: <span class="assignable-content">function(s)</span>]using certificates as defined in the <a href="https://www.niap-ccevs.org/protectionprofiles/511">Functional Package for X.509</a></span>
+                                <span class="selectable-content" id="ftp_dit_ext.1.1_19">invoke platform-provided functionality to encrypt all transmitted data with[<b>selection</b>: <span class="selectable-content" id="ftp_dit_ext.1.1_20">HTTPS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_21">TLS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_22">DTLS</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_23">SSH</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_24">IPsec</span>]for[<b>assignment</b>: <span class="assignable-content">function(s)</span>]using certificates as defined in the <a href="https://commoncriteria.github.io/X509/master/X509.html">, version </a></span>
                             </li>
                         </ul>
                         ]between itself and another trusted IT product.
