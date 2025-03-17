@@ -1,13 +1,5 @@
 * Error: Detected dangling id-reference to sel_all_https_ma from attribute
         on1/PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[10]""/depends[3]""/on1[1]""
-warning: failed to load external entity "output/pkg-vpnc.xml"
-warning: failed to load external entity "output/pkg-vpnc.xml"
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
-output/pkg-x509.xml:1: parser error : Document is empty
-
-^
 output/pkg-x509.xml:1: parser error : Document is empty
 
 ^
