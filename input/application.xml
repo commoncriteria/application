@@ -3191,7 +3191,37 @@ only AES-based implementations for CTR_DRBG are allowed.
     					If <h:b>protect sensitive data in accordance with FCS_STO_EXT.1</h:b> is selected the evaluator shall confirm the TSS describes
     					which data is protected via this mechanism and the selections within FCS_STO_EXT.1 that are leveraged.
     					If multiple selections are included the evaluator shall ensure the TSS describes which sensitive data is captured by which selection.
+    					</h:p><h:p>
+    					If "<h:b>leverage platform-provided functionality...</h:b>" is selected, the evaluation activities will be performed as 
+    					stated in the following requirements, which vary on a per-platform basis.
+    					</h:p><h:p>
+    					<h:div><depends ref="android"/>
+    						The evaluator shall inspect the TSS and verify that it describes how files containing sensitive data are 
+    						stored with the <h:code>MODE_PRIVATE</h:code> flag set.
+    					</h:div>
+    					<h:div><depends ref="windows"/>
+    						The Windows platform currently does not provide data-at-rest
+    						encryption services which depend upon invocation by application developers. 
+    					</h:div>
+    					<h:div><depends ref="ios"/>
+    						The evaluator shall inspect the TSS and ensure that it describes how the 
+    						application uses the Complete Protection, Protected Unless Open, or Protected Until 
+    						First User Authentication Data Protection Class for each data file stored locally. 
+    					</h:div>
+    					<h:div><depends ref="linux"/>
+    						The Linux platform currently does not provide data-at-rest encryption services which depend
+    						upon invocation by application developers. 
+    					</h:div>
+    					<h:div><depends ref="Solaris"/>
+    						The Solaris platform currently does not provide data-at-rest encryption services which depend
+    						upon invocation by application developers.  
+    					</h:div>
+    					<h:div><depends ref="mac"/>
+    						The macOS platform currently does not provide data-at-rest encryption services which depend
+    						upon invocation by application developers.  
+    					</h:div>
     					</h:p>
+					
     				</TSS>
     				<Guidance><h:p>The evaluator shall confirm the operational guidance contains any instructions necessary for configuring the storage and 
     					protection of any sensitive data.
@@ -3208,34 +3238,7 @@ only AES-based implementations for CTR_DRBG are allowed.
     					then inspect those areas of the filesystem to note where data was stored (if any), and verify 
     					it has been encrypted.
     					</h:p><h:p>
-    					If "<h:b>leverage platform-provided functionality...</h:b>" is selected, the evaluation activities will be performed as 
-    					stated in the following requirements, which vary on a per-platform basis.
-    					</h:p><h:p>
-    					<h:div><depends ref="android"/>
-    						The evaluator shall inspect the TSS and verify that it describes how files containing sensitive data are 
-    						stored with the <h:code>MODE_PRIVATE</h:code> flag set.
-    					</h:div>
-    					<h:div><depends ref="windows"/>
-    						The Windows platform currently does not provide data-at-rest
-    						encryption services which depend upon invocation by application developers. No additional test is required.
-    					</h:div>
-    					<h:div><depends ref="ios"/>
-    						The evaluator shall inspect the TSS and ensure that it describes how the 
-    						application uses the Complete Protection, Protected Unless Open, or Protected Until 
-    						First User Authentication Data Protection Class for each data file stored locally. 
-    					</h:div>
-    					<h:div><depends ref="linux"/>
-    						The Linux platform currently does not provide data-at-rest encryption services which depend
-    						upon invocation by application developers.  No additional test is required.
-    					</h:div>
-    					<h:div><depends ref="Solaris"/>
-    						The Solaris platform currently does not provide data-at-rest encryption services which depend
-    						upon invocation by application developers.  No additional test is required.
-    					</h:div>
-    					<h:div><depends ref="mac"/>
-    						The macOS platform currently does not provide data-at-rest encryption services which depend
-    						upon invocation by application developers.  No additional test is required.
-    					</h:div>
+    					If "<h:b>leverage platform-provided functionality...</h:b>" is selected no additional testing is required.
     					</h:p>
     				</Tests>
     			</aactivity>
