@@ -439,18 +439,20 @@
 			<cc-pp-conf/>
 			<cc-pp-config-with>       
 				<!-- these will need to be replaced with updated versions of the PPs/Mods <Mod-cc-ref>Protection Profile for Mobile Device Management Version 4.0</Mod-cc-ref>  
-				<Mod-cc-ref>PP-Module for File Encryption, Version 1.0</Mod-cc-ref>
-				<Mod-cc-ref>PP-Module for File Encryption Enterprise Management, Version 1.0</Mod-cc-ref>
-				<Mod-cc-ref>PP-Module for VPN Clients, Version 2.2</Mod-cc-ref>
-				<Mod-cc-ref>PP-Module for VPN Clients, Version 2.3</Mod-cc-ref>
-				<Mod-cc-ref>PP-Module for VPN Clients, Version 2.4</Mod-cc-ref>
+				
 				<Mod-cc-ref>PP-Module for Endpoint Detection and Response, Version 1.0</Mod-cc-ref>  
 				<Mod-cc-ref>PP-Module for Host Agent, Version 1.0</Mod-cc-ref>  
-				<Mod-cc-ref>PP-Module for Voice and Video over IP (VVoIP), Version 1.0</Mod-cc-ref> --> 
-				<Mod-cc-ref>PP-Module for Email Clients, Version 1.0</Mod-cc-ref>  
+				 --> 
+				<Mod-cc-ref>PP-Module for Email Clients, Version 1.0</Mod-cc-ref>
+				<Mod-cc-ref>PP-Module for File Encryption, Version 1.1</Mod-cc-ref>
+				<Mod-cc-ref>PP-Module for File Encryption Enterprise Management, Version 1.1</Mod-cc-ref>
+				<Mod-cc-ref>PP-Module for Redaction Tools, Version 1.0</Mod-cc-ref>
 				<Mod-cc-ref>PP-Module for Web Browsers, Version 1.0</Mod-cc-ref>
+				<Mod-cc-ref>PP-Module for Voice and Video over IP (VVoIP), Version 1.0</Mod-cc-ref>
 				<Mod-cc-ref>PP-Module for VPN Client, Version 2.6</Mod-cc-ref>
-				<!-- Update once complete <Mod-cc-ref>PP-Module for Redaction Tools, Version 1.0</Mod-cc-ref> --> 
+				
+				
+				 
 			</cc-pp-config-with>
 			<cc-pkg-claim>
 				<FP-cc-ref conf="conformant">Functional Package for Secure Shell Version 2.0</FP-cc-ref>
@@ -2885,14 +2887,7 @@ only AES-based implementations for CTR_DRBG are allowed.
 								</h:code> or <h:code>/dev/urandom</h:code>.
 							</h:div>
 							<h:div><depends ref="windows"/>
-								The evaluator shall verify that rand_s, RtlGenRandom, BCryptGenRandom, or 
-								CryptGenRandom API is used for classic desktop applications. The evaluator shall 
-								verify the application uses the RNGCryptoServiceProvider class or derives a class 
-								from System.Security.Cryptography.RandomNumberGenerator API for Windows Universal
-								Applications. It is only required that the API is called/invoked, there is no 
-								requirement that the API be used directly. In future versions of this document, 
-								CryptGenRandom may be removed as an option as it is no longer the preferred API per
-								vendor documentation. </h:div>
+								The evaluator shall verify that <h:code>rand_s</h:code>, <h:code>RtlGenRandom</h:code>, <h:code>BCryptGenRandom</h:code>, or <h:code>CryptGenRandom</h:code> API is used for classic desktop applications. The evaluator shall verify the application uses the <h:code>RNGCryptoServiceProvider</h:code> class or derives a class from <h:code>System.Security.Cryptography.RandomNumberGenerator API</h:code> for Windows Universal Applications. It is only required that the API is called/invoked, there is no requirement that the API be used directly. In future versions of this document, <h:code>CryptGenRandom</h:code> may be removed as an option as it is no longer the preferred API per vendor documentation. </h:div>
 							<h:div><depends ref="ios"/> 
 								The evaluator shall verify that the application invokes either
 								<h:code>SecRandomCopyBytes</h:code>, <h:code>CCRandomGenerateBytes</h:code>, or <h:code>CCRandomCopyBytes</h:code>, or uses <h:code>/dev/random</h:code> directly to acquire random.
@@ -4648,8 +4643,8 @@ only AES-based implementations for CTR_DRBG are allowed.
 									<selectables><selectable>mutual authentication</selectable><selectable>none</selectable></selectables></selectable>
 								<selectable id="sel_all_dtlsc">DTLS as a client as defined in <xref to="pkg-tls"/></selectable>
 								<selectable id="sel_all_ssh">SSH as defined in the <xref to="pkg-ssh"/></selectable>
-								<selectable id="sel_all_ipsec">IPsec as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/487">
-									VPN Client PP-Module</h:a></selectable></selectables>
+								<selectable id="sel_all_ipsec">IPsec as defined in the 
+									VPN Client PP-Module, version 2.6</selectable></selectables>
 							for <assignable>function(s)</assignable>
 							using certificates as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/511">
 								Functional Package for X.509</h:a>
@@ -4740,8 +4735,7 @@ only AES-based implementations for CTR_DRBG are allowed.
 					</h:p><h:p>
 					If "<h:b>encrypt all transmitted...</h:b>" is selected and "<h:b>IPsec</h:b>" is selected, then the
 					TSF must claim conformance to a <h:i>PP-Configuration that includes the
-						<h:a href="https://www.niap-ccevs.org/protectionprofiles/487">
-					VPN Client PP-Module</h:a></h:i>
+					VPN Client PP-Module, version 2.6.</h:i>
 					</h:p><h:p>
 					If "<h:b>encrypt all transmitted...</h:b>" is selected, FCS_CKM.2 and all iterations of FCS_COP.1 
 					must be claimed.
