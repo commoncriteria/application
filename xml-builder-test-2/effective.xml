@@ -43,15 +43,15 @@
  <release-notes><h:h3>TDs Applied</h:h3><h:div class="td-">0719</h:div><h:div class="td-">0717</h:div><h:div class="td-">0709</h:div><h:div class="td-">0669</h:div><h:div class="td-">0664</h:div><h:div class="td-">0655</h:div><h:div class="td-">0650</h:div><h:div class="td-">0628</h:div><h:div class="td-">0624</h:div></release-notes><include-pkg id="pkg-ssh">
   <git>
    <url>https://github.com/commoncriteria/ssh</url>
-   <branch>release-1.0</branch>
+   <branch>release-2.0</branch>
   </git>
-  <url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=459&amp;id=459</url>
+  <url>https://www.niap-ccevs.org/protectionprofiles/515</url>
   <depends on-sel="sel_all_ssh"/>
  </include-pkg>
  <include-pkg id="pkg-tls">
   <git>
    <url>https://github.com/commoncriteria/tls</url>
-   <branch>release-2.0</branch>
+   <branch>release-2.1</branch>
   </git>
   <url>https://www.niap-ccevs.org/Profile/Info.cfm?PPID=439&amp;id=439</url>
   <depends on-sel="sel_all_tlsc"/>
@@ -64,12 +64,12 @@
    <url>https://github.com/commoncriteria/x509</url>
    <branch>release-1.0</branch>
   </git>
-  <url>https://commoncriteria.github.io/X509/master/X509.html</url>
+  <url>https://www.niap-ccevs.org/protectionprofiles/511</url>
  </include-pkg>
  <include-pkg id="pkg-vpnc">
   <git>
    <url>https://github.com/commoncriteria/vpnclient</url>
-   <branch>master</branch>
+   <branch>release-2.6</branch>
   </git>
   <url>https://commoncriteria.github.io/vpnclient/master/vpnclient.html</url>
  </include-pkg>
@@ -227,15 +227,13 @@
    <cc-pp-config-with>
     <Mod-cc-ref>PP-Module for Email Clients, Version 1.0</Mod-cc-ref>
     <Mod-cc-ref>PP-Module for Web Browsers, Version 1.0</Mod-cc-ref>
-    <Mod-cc-ref>PP-Module for VPN Client, Version 2.5</Mod-cc-ref>
+    <Mod-cc-ref>PP-Module for VPN Client, Version 2.6</Mod-cc-ref>
    </cc-pp-config-with>
    <cc-pkg-claim>
-    <FP-cc-ref conf="conformant">Functional Package for Secure Shell Version 1.1</FP-cc-ref>
+    <FP-cc-ref conf="conformant">Functional Package for Secure Shell Version 2.0</FP-cc-ref>
     <FP-cc-ref conf="conformant">Functional Package for Transport Layer Security Version 2.1</FP-cc-ref>
     <FP-cc-ref conf="conformant">Functional Package for X.509 Version 1.0</FP-cc-ref>
    </cc-pkg-claim>
-   <cc-eval-methods/>
-   <cc-claims-addnl-info/>
   </CClaimsInfo>
  </sec:Conformance_Claims>
  <!-- 3.0 Security Problem Definition-->
@@ -298,12 +296,8 @@
      <rationale>The PP includes FCS_COP.1/SigVer to define the digital signature algorithms used in support of trusted communications and trusted updates.</rationale>
      <addressed-by>FCS_COP.1/KeyedHash</addressed-by>
      <rationale>The PP includes FCS_COP.1/KeyedHash to define the HMAC algorithms used in support of trusted communications.</rationale>
-     <addressed-by>FCS_HTTPS_EXT.1/Client</addressed-by>
-     <rationale>The PP includes FCS_HTTPS_EXT.1/Client to define the TOE’s support for the HTTPS trusted communications protocol as a client.</rationale>
-     <addressed-by>FCS_HTTPS_EXT.1/Server</addressed-by>
-     <rationale>The PP includes FCS_HTTPS_EXT.1/Server to define the TOE’s support for the HTTPS trusted communications protocol as a server.</rationale>
-     <addressed-by>FCS_HTTPS_EXT.2</addressed-by>
-     <rationale>The PP includes FCS_HTTPS_EXT.2 to define the TOE’s behavior when presented with an invalid certificate as part of an HTTPS connection attempt.</rationale>
+     <addressed-by>FCS_HTTPS_EXT.1</addressed-by>
+     <rationale>The PP includes FCS_HTTPS_EXT.1 to define the TOE’s support for the HTTPS trusted communications protocol.</rationale>
      <addressed-by>FCS_RBG.1</addressed-by>
      <rationale>The PP includes FCS_RBG.1 to define the DRBG algorithms used in support of trusted communications.</rationale>
      <addressed-by>FCS_RBG.2</addressed-by>
@@ -362,12 +356,8 @@
      <rationale>The PP includes FCS_COP.1/SigVer to define the mechanism used to verify TOE updates if the TOE implements this functionality rather than the underlying platform.</rationale>
      <addressed-by>FCS_COP.1/SKC</addressed-by>
      <rationale>The PP includes FCS_COP.1/SKC to define the symmetric encryption algorithms used in support of trusted communications.</rationale>
-     <addressed-by>FCS_HTTPS_EXT.1/Client</addressed-by>
-     <rationale>The PP includes FCS_HTTPS_EXT.1/Client to define the TOE’s support for the HTTPS trusted communications protocol as a client.</rationale>
-     <addressed-by>FCS_HTTPS_EXT.1/Server</addressed-by>
-     <rationale>The PP includes FCS_HTTPS_EXT.1/Server to define the TOE’s support for the HTTPS trusted communications protocol as a server.</rationale>
-     <addressed-by>FCS_HTTPS_EXT.2</addressed-by>
-     <rationale>The PP includes FCS_HTTPS_EXT.2 to define the TOE’s behavior when presented with an invalid certificate as part of an HTTPS connection attempt.</rationale>
+     <addressed-by>FCS_HTTPS_EXT.1</addressed-by>
+     <rationale>The PP includes FCS_HTTPS_EXT.1 to define the TOE’s support for the HTTPS trusted communications protocol.</rationale>
      <addressed-by>FCS_RBG_EXT.1</addressed-by>
      <rationale>The PP includes FCS_RBG_EXT.1 to define whether the random bit generation services used in establishing trusted communications are implemented by the TSF or by the platform.</rationale>
      <addressed-by>FCS_RBG.1</addressed-by>
@@ -533,7 +523,7 @@
      <depends on-sel="sel_invoke_genkey"/>
      <depends on-sel="sel_impl_genkey"/>
      <f-element id="fel-asym-key-gen-impl">
-      <title>The <h:b>application</h:b>  shall  <h:b><selectables linebreak="yes"><selectable id="fcs_ckm.1.1_AK_1">invoke platform-provided functionality</selectable><selectable id="fcs_ckm.1.1_AK_2">implement functionality</selectable> </selectables></h:b>  to generate <h:b>asymmetric</h:b>  cryptographic keys in accordance with a specified cryptographic key generation algorithm<selectables linebreak="yes"><selectable id="fcs_ckm.1.1_AK_3"><h:b>[RSA schemes]</h:b> using cryptographic key sizes of [<h:i>3072-bit or greater</h:i>] that meet the following: [<h:i>FIPS PUB 186-5, "Digital Signature Standard (DSS)," Appendix A.1</h:i>]</selectable><selectable id="fcs_ckm.1.1_AK_4"><h:b>[ECC schemes]</h:b> using [<h:i>“NIST curves” P-384 and<selectables><selectable id="fcs_ckm.1.1_AK_5">P-521</selectable><selectable id="fcs_ckm.1.1_AK_6">no other curves</selectable></selectables></h:i>] that meet the following: [<h:i>FIPS PUB 186-5, “Digital Signature Standard (DSS),” Appendix A.2</h:i>]</selectable><selectable id="fcs_ckm.1.1_AK_7"><h:b>[FFC Schemes]</h:b> using [<h:i>“safe-prime” groups</h:i>]<selectables><selectable id="fcs_ckm.1.1_AK_8">MODP-3072</selectable><selectable id="fcs_ckm.1.1_AK_9">MODP-4096</selectable><selectable id="fcs_ckm.1.1_AK_10">MODP-6144</selectable><selectable id="fcs_ckm.1.1_AK_11">MODP-8192</selectable><selectable id="fcs_ckm.1.1_AK_12">ffdhe-3072</selectable><selectable id="fcs_ckm.1.1_AK_13">ffdhe-4096</selectable><selectable id="fcs_ckm.1.1_AK_14">ffdhe-6144</selectable><selectable id="fcs_ckm.1.1_AK_15">ffdhe-8192</selectable></selectables>that meet the following: [<h:i>NIST Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography” and<selectables><selectable id="fcs_ckm.1.1_AK_16">RFC 3526</selectable><selectable id="fcs_ckm.1.1_AK_17">RFC 7919</selectable></selectables></h:i>]</selectable><selectable id="fcs_ckm.1.1_AK_18"><h:b>Leighton-Micali Signature</h:b> Algorithm using the parameter sets<selectables><selectable id="fcs_ckm.1.1_AK_19">LMS_SHAKE_M24_H5</selectable><selectable id="fcs_ckm.1.1_AK_20">LMS_SHAKE_M24_H10</selectable><selectable id="fcs_ckm.1.1_AK_21">LMS_SHAKE_M24_H15</selectable><selectable id="fcs_ckm.1.1_AK_22">LMS_SHAKE_M24_H25</selectable><selectable id="fcs_ckm.1.1_AK_23">LMS_SHAKE_M32_H5</selectable><selectable id="fcs_ckm.1.1_AK_24">LMS_SHAKE_M32_H10</selectable><selectable id="fcs_ckm.1.1_AK_25">LMS_SHAKE_M32_H15</selectable><selectable id="fcs_ckm.1.1_AK_26">LMS_SHAKE_M32_H25</selectable><selectable id="fcs_ckm.1.1_AK_27">LMS_SHA256_M24_H5</selectable><selectable id="fcs_ckm.1.1_AK_28">LMS_SHA256_M24_H10</selectable><selectable id="fcs_ckm.1.1_AK_29">LMS_SHA256_M24_H15</selectable><selectable id="fcs_ckm.1.1_AK_30">LMS_SHA256_M24_H25</selectable><selectable id="fcs_ckm.1.1_AK_31">LMS_SHA256_M32_H5</selectable><selectable id="fcs_ckm.1.1_AK_32">LMS_SHA256_M32_H10</selectable><selectable id="fcs_ckm.1.1_AK_33">LMS_SHA256_M32_H15</selectable><selectable id="fcs_ckm.1.1_AK_34">LMS_SHA256_M32_H25</selectable></selectables>that meet the following[NIST SP 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"]</selectable><selectable id="fcs_ckm.1.1_AK_35"><h:b>eXtended Merkle Signature Scheme Algorithm</h:b> using the parameter sets<selectables><selectable id="fcs_ckm.1.1_AK_36">XMSS-SHA2_10_192</selectable><selectable id="fcs_ckm.1.1_AK_37">XMSS-SHA2_16_192</selectable><selectable id="fcs_ckm.1.1_AK_38">XMSS-SHA2_20_192</selectable><selectable id="fcs_ckm.1.1_AK_39">XMSS-SHA2_10_256</selectable><selectable id="fcs_ckm.1.1_AK_40">XMSS-SHA2_16_256</selectable><selectable id="fcs_ckm.1.1_AK_41">XMSS-SHA2_20_256</selectable><selectable id="fcs_ckm.1.1_AK_42">XMSS-SHAKE_10_192</selectable><selectable id="fcs_ckm.1.1_AK_43">XMSS-SHAKE_16_192</selectable><selectable id="fcs_ckm.1.1_AK_44">XMSS-SHAKE_20_192</selectable><selectable id="fcs_ckm.1.1_AK_45">XMSS-SHAKE_10_256</selectable><selectable id="fcs_ckm.1.1_AK_46">XMSS-SHAKE_16_256</selectable><selectable id="fcs_ckm.1.1_AK_47">XMSS-SHAKE_20_256</selectable></selectables>bits that meets the following: [NIST SP 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"]</selectable><selectable id="fcs_ckm.1.1_AK_48"><h:b>Module-Lattice-Based Key-Encapsulation Mechanism Standard</h:b> using the parameter set ML-KEM-1024 that meets the following: [FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard]</selectable><selectable id="fcs_ckm.1.1_AK_49"><h:b>Module-Lattice-Based Digital Signature Standard</h:b> using the parameter set ML-DSA-87 that meets the following [FIPS 204, Module-Lattice-Based Digital Signature Standard]</selectable> </selectables>.</title>
+      <title>The <h:b>application</h:b>  shall  <h:b><selectables linebreak="yes"><selectable id="fcs_ckm.1.1_AK_1">invoke platform-provided functionality</selectable><selectable id="fcs_ckm.1.1_AK_2">implement functionality</selectable> </selectables></h:b>  to generate <h:b>asymmetric</h:b>  cryptographic keys in accordance with a specified cryptographic key generation algorithm<selectables linebreak="yes"><selectable id="fcs_ckm.1.1_AK_3"><h:b>[RSA schemes]</h:b> using cryptographic key sizes of [<h:i>3072-bit or greater</h:i>] that meet the following: [<h:i>FIPS PUB 186-5, "Digital Signature Standard (DSS)," Appendix A.1</h:i>]</selectable><selectable id="fcs_ckm.1.1_AK_4"><h:b>[ECC schemes]</h:b> using [<h:i>“NIST curves” P-384 and<selectables><selectable id="fcs_ckm.1.1_AK_5">P-521</selectable><selectable id="fcs_ckm.1.1_AK_6">no other curves</selectable></selectables></h:i>] that meet the following: [<h:i>FIPS PUB 186-5, “Digital Signature Standard (DSS),” Appendix A.2</h:i>]</selectable><selectable id="fcs_ckm.1.1_AK_7"><h:b>[FFC Schemes]</h:b> using [<h:i>“safe-prime” groups</h:i>]<selectables><selectable id="fcs_ckm.1.1_AK_8">MODP-3072</selectable><selectable id="fcs_ckm.1.1_AK_9">MODP-4096</selectable><selectable id="fcs_ckm.1.1_AK_10">MODP-6144</selectable><selectable id="fcs_ckm.1.1_AK_11">MODP-8192</selectable><selectable id="fcs_ckm.1.1_AK_12">ffdhe-3072</selectable><selectable id="fcs_ckm.1.1_AK_13">ffdhe-4096</selectable><selectable id="fcs_ckm.1.1_AK_14">ffdhe-6144</selectable><selectable id="fcs_ckm.1.1_AK_15">ffdhe-8192</selectable></selectables>that meet the following: [<h:i>NIST Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography” and<selectables><selectable id="fcs_ckm.1.1_AK_16">RFC 3526</selectable><selectable id="fcs_ckm.1.1_AK_17">RFC 7919</selectable></selectables></h:i>]</selectable><selectable id="fcs_ckm.1.1_AK_18"><h:b>Leighton-Micali Signature Algorithm</h:b> using the parameter sets<selectables><selectable id="fcs_ckm.1.1_AK_19">LMS_SHAKE_M24_H5</selectable><selectable id="fcs_ckm.1.1_AK_20">LMS_SHAKE_M24_H10</selectable><selectable id="fcs_ckm.1.1_AK_21">LMS_SHAKE_M24_H15</selectable><selectable id="fcs_ckm.1.1_AK_22">LMS_SHAKE_M24_H25</selectable><selectable id="fcs_ckm.1.1_AK_23">LMS_SHAKE_M32_H5</selectable><selectable id="fcs_ckm.1.1_AK_24">LMS_SHAKE_M32_H10</selectable><selectable id="fcs_ckm.1.1_AK_25">LMS_SHAKE_M32_H15</selectable><selectable id="fcs_ckm.1.1_AK_26">LMS_SHAKE_M32_H25</selectable><selectable id="fcs_ckm.1.1_AK_27">LMS_SHA256_M24_H5</selectable><selectable id="fcs_ckm.1.1_AK_28">LMS_SHA256_M24_H10</selectable><selectable id="fcs_ckm.1.1_AK_29">LMS_SHA256_M24_H15</selectable><selectable id="fcs_ckm.1.1_AK_30">LMS_SHA256_M24_H25</selectable><selectable id="fcs_ckm.1.1_AK_31">LMS_SHA256_M32_H5</selectable><selectable id="fcs_ckm.1.1_AK_32">LMS_SHA256_M32_H10</selectable><selectable id="fcs_ckm.1.1_AK_33">LMS_SHA256_M32_H15</selectable><selectable id="fcs_ckm.1.1_AK_34">LMS_SHA256_M32_H25</selectable></selectables>that meet the following [NIST SP 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"]</selectable><selectable id="fcs_ckm.1.1_AK_35"><h:b>eXtended Merkle Signature Scheme Algorithm</h:b> using the parameter sets<selectables><selectable id="fcs_ckm.1.1_AK_36">XMSS-SHA2_10_192</selectable><selectable id="fcs_ckm.1.1_AK_37">XMSS-SHA2_16_192</selectable><selectable id="fcs_ckm.1.1_AK_38">XMSS-SHA2_20_192</selectable><selectable id="fcs_ckm.1.1_AK_39">XMSS-SHA2_10_256</selectable><selectable id="fcs_ckm.1.1_AK_40">XMSS-SHA2_16_256</selectable><selectable id="fcs_ckm.1.1_AK_41">XMSS-SHA2_20_256</selectable><selectable id="fcs_ckm.1.1_AK_42">XMSS-SHAKE_10_192</selectable><selectable id="fcs_ckm.1.1_AK_43">XMSS-SHAKE_16_192</selectable><selectable id="fcs_ckm.1.1_AK_44">XMSS-SHAKE_20_192</selectable><selectable id="fcs_ckm.1.1_AK_45">XMSS-SHAKE_10_256</selectable><selectable id="fcs_ckm.1.1_AK_46">XMSS-SHAKE_16_256</selectable><selectable id="fcs_ckm.1.1_AK_47">XMSS-SHAKE_20_256</selectable></selectables>that meets the following: [NIST SP 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"]</selectable><selectable id="fcs_ckm.1.1_AK_48"><h:b>Module-Lattice-Based Key-Encapsulation Mechanism Standard</h:b> using the parameter set ML-KEM-1024 that meets the following: [FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard]</selectable><selectable id="fcs_ckm.1.1_AK_49"><h:b>Module-Lattice-Based Digital Signature Standard</h:b> using the parameter set ML-DSA-87 that meets the following [FIPS 204, Module-Lattice-Based Digital Signature Standard]</selectable> </selectables>.</title>
       <note role="application">
        <h:p>
         The ST should claim all key generation schemes used for key 
@@ -766,7 +756,7 @@
      <depends on-sel="sel_all_tlsc"/>
      <depends on-sel="sel_all_dtlsc"/>
      <f-element id="fel-key-est">
-      <title><h:p> The application shall<selectables><selectable id="fcs_ckm.2.1_1">invoke platform-provided functionality</selectable><selectable id="fcs_ckm.2.1_2">implement functionality</selectable> </selectables>to perform cryptographic key establishment in accordance with a specified cryptographic key establishment method:</h:p>  <h:p><selectables linebreak="yes"><selectable id="fcs_ckm.2.1_3"><h:b>[RSA-based key establishment schemes]</h:b> that meet the following: <h:b>[NIST Special Publication 800-56B, “Recommendation for Pair-Wise Key Establishment Schemes Using Integer Factorization Cryptography”]</h:b></selectable><selectable id="fcs_ckm.2.1_4"><h:b>[Elliptic curve-based key establishment schemes]</h:b> that meets the following: <h:b>[NIST Special Publication 800-56A, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”]</h:b></selectable><selectable id="fcs_ckm.2.1_5"><h:b>[FFC Schemes using “safe-prime” groups]</h:b> that meet the following: <h:b>‘NIST Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”</h:b> and<selectables><selectable id="fcs_ckm.2.1_6">RFC 3526</selectable><selectable id="fcs_ckm.2.1_7">RFC 7919</selectable></selectables></selectable><selectable id="fcs_ckm.2.1_8">Module-Lattice-Based Key-Encapsulation Mechanism Standard using the parameter set ML-KEM-1024 that meets the following: [FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard]</selectable> </selectables></h:p>  .</title>
+      <title><h:p> The application shall<selectables><selectable id="fcs_ckm.2.1_1">invoke platform-provided functionality</selectable><selectable id="fcs_ckm.2.1_2">implement functionality</selectable> </selectables>to perform cryptographic key establishment in accordance with a specified cryptographic key establishment method:</h:p>  <h:p><selectables linebreak="yes"><selectable id="fcs_ckm.2.1_3"><h:b>[RSA-based key establishment schemes]</h:b> that meet the following: <h:b>[NIST Special Publication 800-56B, “Recommendation for Pair-Wise Key Establishment Schemes Using Integer Factorization Cryptography”]</h:b></selectable><selectable id="fcs_ckm.2.1_4"><h:b>[Elliptic curve-based key establishment schemes]</h:b> that meets the following: <h:b>[NIST Special Publication 800-56A, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”]</h:b></selectable><selectable id="fcs_ckm.2.1_5"><h:b>[FFC Schemes using “safe-prime” groups]</h:b> that meet the following: <h:b>‘NIST Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”</h:b> and<selectables><selectable id="fcs_ckm.2.1_6">RFC 3526</selectable><selectable id="fcs_ckm.2.1_7">RFC 7919</selectable></selectables></selectable><selectable id="fcs_ckm.2.1_8"><h:b>Module-Lattice-Based Key-Encapsulation Mechanism Standard</h:b> using the <h:b>parameter set ML-KEM-1024</h:b> that meets the following: [FIPS 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard]</selectable> </selectables></h:p>  .</title>
       <note role="application">
        <h:p>
         The ST author shall select all key establishment schemes used for the selected cryptographic 
@@ -788,7 +778,7 @@
       <aactivity level="element">
        <TSS>
         <h:p>
-         The evaluator shall ensure that the supported key establishment schemes correspond to the 
+         The evaluator shall ensure that the supported key establishment schemes claimed in the TSS correspond to the 
 						key generation schemes identified in FCS_CKM.1.1/AK. If the ST specifies more than one 
 						scheme, the evaluator shall examine the TSS to verify that it identifies the usage for each 
 						scheme.
@@ -944,7 +934,7 @@
          To test encapsulation the evaluator shall 10x input to the internal Encaps function a random 32-byte string and an encapsulation key.  Verify the returned cipher text and shared secret is correct using a known good implementation.
 						Here internal  refers to the TOE’s implementation of the function ML-KEM.Encaps_internal(-,-) as described in FIPS.203.
         </h:p>
-        To test decapsulation the evaluator shall 10x Input to the internal Decaps function a cipher text and decapsulation key.  Verify the returned shared secret is correct using a known good implementation.  The tests should include a mix of valid and invalid/garbled cipher texts.
+        To test decapsulation the evaluator shall 10x input to the internal Decaps function a cipher text and decapsulation key.  Verify the returned shared secret is correct using a known good implementation.  The tests should include a mix of valid and invalid/garbled cipher texts.
 						Here internal  refers to the TOE’s implementation of the function ML-KEM.Decaps_internal(-,-) as described in FIPS.203.
        </Tests>
       </aactivity>
@@ -961,7 +951,7 @@
       <title>The application shall<selectables linebreak="yes"><selectable id="fcs_ckm_ext.1.1_1" exclusive="yes">generate no asymmetric cryptographic keys</selectable><selectable id="sel_invoke_genkey">invoke platform-provided functionality for asymmetric key generation</selectable><selectable id="sel_impl_genkey">implement asymmetric key generation</selectable> </selectables>.</title>
       <note role="application">
        If "
-       <h:i>implement asymmetric key generation</h:i>
+       <h:b>implement asymmetric key generation</h:b>
        " or 
 					"
        <h:b>invoke platform-provided functionality for asymmetric key generation</h:b>
@@ -970,15 +960,7 @@
       </note>
       <aactivity level="element">
        <TSS>
-        <h:p>
-         The evaluator shall inspect the application and its developer documentation 
-						to determine if the application needs asymmetric key generation services. If not, the 
-						evaluator shall verify the
-         <h:b>generate no asymmetric cryptographic keys</h:b>
-         selection is present 
-						in the ST. Otherwise, the evaluation activities shall be performed as stated in the 
-						selection-based requirements.
-        </h:p>
+        <h:p>The evaluator shall examine the TSS to verify that it describes whether the TSF has functions that require the use of asymmetric key generation services, and whether these services are implemented within the TOE boundary or invoked by the TSF from its operational environment. If the ST claims "generate no asymmetric keys," the evaluator shall ensure that the TOE does not have any functions that would require asymmetric key generation (for example, because it does not use asymmetric keys for any purpose or because the keys that it does use are generated elsewhere and imported into it as part of initial setup).</h:p>
        </TSS>
        <Guidance>
         <h:p>None.</h:p>
@@ -1146,7 +1128,7 @@
      <depends on-sel="toe-lms"/>
      <depends on-sel="toe-xmss"/>
      <f-element id="fel-sign-ver">
-      <title>The <h:b>application</h:b>  shall perform [ <h:i>cryptographic signature services (verification)</h:i>  ] in accordance with a specified cryptographic algorithm<selectables linebreak="yes"><selectable id="fcs_cop.1.1_SigVer_1"><h:b>RSA schemes</h:b> using cryptographic key sizes of [3072-bit or greater] that meet the following: [FIPS PUB 186-5, “Digital Signature Standard (DSS),” Section 5]</selectable><selectable id="fcs_cop.1.1_SigVer_2"><h:b>ECDSA schemes</h:b> using [“NIST curves”<selectables><selectable id="fcs_cop.1.1_SigVer_3">P-384</selectable><selectable id="fcs_cop.1.1_SigVer_4">P-521</selectable></selectables>] that meet the following: [FIPS PUB 186-5, “Digital Signature Standard (DSS),” Section 6]</selectable><selectable id="fcs_cop.1.1_SigVer_5"><h:b>Leighton-Micali Signature</h:b> Algorithm for verification using cryptographic key sizes of<selectables><selectable id="fcs_cop.1.1_SigVer_6">192</selectable><selectable id="fcs_cop.1.1_SigVer_7">256</selectable></selectables>bits that meet the following[NIST SP 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"]</selectable><selectable id="fcs_cop.1.1_SigVer_8"><h:b>eXtended Merkle Signature Scheme Algorithm</h:b> for verification using cryptographic key sizes of<selectables><selectable id="fcs_cop.1.1_SigVer_9">192</selectable><selectable id="fcs_cop.1.1_SigVer_10">256</selectable></selectables>bits that meets the following: [NIST SP 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"]</selectable><selectable id="fcs_cop.1.1_SigVer_11"><h:b>Module-Lattice-Based Digital Signature Standard</h:b> using the parameter set ML-DSA-87 that meets the following [FIPS 204, Module-Lattice-Based Digital Signature Standard]</selectable> </selectables>.</title>
+      <title>The <h:b>application</h:b>  shall perform [ <h:i>cryptographic signature services (verification)</h:i>  ] in accordance with a specified cryptographic algorithm<selectables linebreak="yes"><selectable id="fcs_cop.1.1_SigVer_1"><h:b>RSA schemes</h:b> using cryptographic key sizes of [3072-bit or greater] that meet the following: [FIPS PUB 186-5, “Digital Signature Standard (DSS),” Section 5]</selectable><selectable id="fcs_cop.1.1_SigVer_2"><h:b>ECDSA schemes</h:b> using [“NIST curves”<selectables><selectable id="fcs_cop.1.1_SigVer_3">P-384</selectable><selectable id="fcs_cop.1.1_SigVer_4">P-521</selectable></selectables>] that meet the following: [FIPS PUB 186-5, “Digital Signature Standard (DSS),” Section 6]</selectable><selectable id="fcs_cop.1.1_SigVer_5"><h:b>Leighton-Micali Signature Algorithm</h:b> for verification using cryptographic key sizes of<selectables><selectable id="fcs_cop.1.1_SigVer_6">192</selectable><selectable id="fcs_cop.1.1_SigVer_7">256</selectable></selectables>bits that meet the following [NIST SP 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"]</selectable><selectable id="fcs_cop.1.1_SigVer_8"><h:b>eXtended Merkle Signature Scheme Algorithm</h:b> for verification using cryptographic key sizes of<selectables><selectable id="fcs_cop.1.1_SigVer_9">192</selectable><selectable id="fcs_cop.1.1_SigVer_10">256</selectable></selectables>bits that meets the following: [NIST SP 800-208, "Recommendation for Stateful Hash-Based Signature Schemes"]</selectable><selectable id="fcs_cop.1.1_SigVer_11"><h:b>Module-Lattice-Based Digital Signature Standard</h:b> using the parameter set ML-DSA-87 that meets the following [FIPS 204, Module-Lattice-Based Digital Signature Standard]</selectable> </selectables>.</title>
       <note role="application">
        <h:p>
         This is dependent on implementing cryptographic functionality, as in FTP_DIT_EXT.1.
@@ -1190,7 +1172,7 @@
          LMS/XMSS Signature Algorithm Test
          <test>For each supported LMS/LMSOTS pair, the evaluator generates a private/public key pair.  
 								With the private key, the evaluator generates 4 messages of length 1024 bits.  The messages 
-								and public key are provided to the TOE.  The signatures for each message is generated with 
+								and public key are provided to the TOE.  The signature for each message is generated with 
 								the following error types "none", “modify message”, “modify signature”, “modify header”.  For
 								"none" the message is unmodified and the signature is correct.  For "modify message" the signature 
 								is for a modified message where a single bit is flipped.  For "modify signature", one bit of the 
@@ -1220,16 +1202,18 @@
         <h:p/>
         For the selection, the ST author should choose
 					the mode or modes in which AES operates.
+        <h:p/>
+        It is expected that symmetric keys will be generated or imported by the TSF as a dependency on this function, so FCS_CKM.1/SK must be claimed when this SFR is claimed. FCS_SNI_EXT.1 must also be claimed to define what, if any, salts the cryptographic algorithm implementation uses.
        </h:p>
       </note>
       <aactivity level="component">
        <TSS>
-        <h:p>Conditional: If AES-GCM is selected the evaluator shall verify the tag length is described and that a tag length
+        <h:p>Conditional: If AES-GCM is selected, the evaluator shall verify the tag length is described in the TSS and that a tag length of
 					at least 128 is used unless the following "Appendix C: Requirements and Guidelines for Using Short Tags" is being followed from 
 					NIST SP 800-38D.</h:p>
        </TSS>
        <Guidance>
-        <h:p>The evaluator checks the AGD documents to determine that any configuration that 
+        <h:p>The evaluator checks the guidance documents to determine that any configuration that 
 						is required to be done to configure the functionality for the required modes
 						and key size is present.</h:p>
        </Guidance>
@@ -1526,98 +1510,19 @@
      </f-element>
     </f-component>
     <!--FCS_HTTPS_EXT.1 HTTPS Protocol-->
-    <f-component cc-id="fcs_https_ext.1" id="fcs-https-ext-1" name="HTTPS Protocol" status="invisible">
+    <f-component cc-id="fcs_https_ext.1" id="fcs-https-ext-1" name="HTTPS Protocol" status="sel-based">
+     <depends on-sel="sel_all_https_cl"/>
+     <depends on-sel="sel_all_https_sv"/>
      <comp-lev> defines the capability of the TOE to implement HTTPS.</comp-lev>
      <management>No specific management functions are identified.</management>
      <audit>There are no auditable events foreseen.</audit>
      <dependencies>FCS_TLS_EXT.1 TLS Protocol
-				FIA_X509_EXT.1 X.509 Certificate Validation</dependencies>
-     <f-element id="fel-https-wath">
-      <title>The application shall implement the HTTPS protocol that complies with RFC 2818.</title>
-      <aactivity level="component">
-       <no-tests/>
-      </aactivity>
-     </f-element>
-     <f-element id="fel-https-howl">
-      <title>The application shall implement HTTPS using TLS as defined in the Functional Package for TLS.</title>
-     </f-element>
-     <f-element id="fel-https-who-cl">
-      <title>The application shall<assignable>take some action in result to being presented an invalid peer certificate</assignable>.</title>
-     </f-element>
-    </f-component>
-    <!--FCS_HTTPS_EXT.1/Client HTTPS Protocol-->
-    <f-component cc-id="fcs_https_ext.1" id="fcs-https-ext-1-client" name="HTTPS Protocol" iteration="Client" status="sel-based">
-     <depends on-sel="sel_all_https_cl"/>
-     <f-element id="fel-https-wath-cl">
-      <title>The application shall implement the HTTPS protocol <h:b>as a client</h:b>  that complies with RFC 2818.</title>
-      <aactivity level="element">
-       <TSS>
-        <h:p>The evaluator shall examine the TSS and determine that enough detail is provided to
-						explain how the implementation complies with RFC 2818.</h:p>
-       </TSS>
-       <Guidance>
-        <h:p>The evaluator shall verify the guidance documentation contains any information necessary to configure 
-						HTTPS as a client in alignment with RFC 2818.</h:p>
-       </Guidance>
-       <Tests>The evaluator shall attempt to establish an HTTPS connection with a web server, 
-						observe the traffic with a packet analyzer, and verify that the connection succeeds 
-						and that the traffic is identified as TLS or HTTPS.</Tests>
-      </aactivity>
-     </f-element>
-     <f-element id="fel-https-how-cl">
-      <title>The application shall implement HTTPS using TLS as defined in the Functional Package for TLS.</title>
-      <aactivity level="element">
-       <TSS>
-        <h:p>None.</h:p>
-       </TSS>
-       <Guidance>
-        <h:p>None.</h:p>
-       </Guidance>
-       <Tests>Other tests are performed in conjunction with the TLS package.</Tests>
-      </aactivity>
-     </f-element>
-     <f-element id="fel-https-who-cl">
-      <title>The application shall<selectables onlyone="yes"><selectable id="fcs_https_ext.1.3_Client_1">not establish the application-initiated connection</selectable><selectable id="fcs_https_ext.1.3_Client_2">notify the user and not establish the user-initiated connection</selectable><selectable id="fcs_https_ext.1.3_Client_3">notify the user and request authorization to establish the user-initiated connection</selectable> </selectables>if the peer certificate is deemed invalid.</title>
-      <note role="application">Validity is determined by the certificate path, the expiration date, and the 
-					revocation status in accordance with RFC 5280.</note>
-      <aactivity level="element">
-       <TSS>
-        <h:p>The evaluator shall verify the TSS describes the supported options for responding to invalid certificates 
-						when acting as a client and verify that description matches the selections.</h:p>
-       </TSS>
-       <Guidance>
-        <h:p>The validator shall confirm the guidance documentation contains any information required for configuring the 
-						response to an invalid certificate.</h:p>
-       </Guidance>
-       <Tests>
-        <testlist>
-         Certificate validity shall be tested in accordance with testing performed for 
-						FIA_X509_EXT.1, and the evaluator shall perform the following test:
-         <test>The evaluator shall demonstrate that using a certificate without a valid 
-							certification path results in the selected action in the SFR. If "notify the user" 
-							is selected in the SFR, then the evaluator shall also determine that the user
-							is notified of the certificate validation failure. Using the administrative
-							guidance, the evaluator shall then load a certificate or certificates to the 
-							Trust Anchor Database needed to validate the certificate to be used in the
-							function, and demonstrate that the function succeeds. The evaluator then shall
-							delete one of the certificates, and show that again, using a certificate
-							without a valid certification path results in the selected action in the SFR,
-							and if "notify the user" was selected in the SFR, the user is notified of the 
-							validation failure.</test>
-        </testlist>
-       </Tests>
-      </aactivity>
-     </f-element>
-    </f-component>
-    <!--FCS_HTTPS_EXT.1/Server HTTPS Protocol-->
-    <f-component cc-id="fcs_https_ext.1" id="fcs-https-ext-1-server" name="HTTPS Protocol" iteration="Server" status="sel-based">
-     <depends on-sel="sel_all_https_sv"/>
-     <depends on-sel="sel_all_https_ma"/>
+        		FIA_X509_EXT.1 X.509 Certificate Validation</dependencies>
      <f-element id="fel-https-wath-sv">
       <title>The application shall implement the HTTPS protocol <h:b>as a server</h:b>  that complies with RFC 2818.</title>
       <aactivity level="element">
        <TSS>
-        <h:p>The evaluator shall examine the ST and determine that enough detail is provided to
+        <h:p>The evaluator shall examine the TSS to verify that enough detail is provided to
 						explain how the implementation complies with RFC 2818.</h:p>
        </TSS>
        <Guidance>
@@ -1641,7 +1546,7 @@
       </aactivity>
      </f-element>
      <f-element id="fel-https-bad-cert">
-      <title>The application shall<selectables><selectable id="fcs_https_ext.1.3_Server_1">not establish the connection</selectable><selectable id="fcs_https_ext.1.3_Server_2">establish or not establish the connection based on an administrative or user setting</selectable> </selectables>if the peer certificate is deemed invalid.</title>
+      <title>The application shall<selectables><selectable id="fcs_https_ext.1.3_1">not establish the connection</selectable><selectable id="fcs_https_ext.1.3_2">not establish the connection</selectable><selectable id="fcs_https_ext.1.3_3">establish or not establish the connection based on an administrative or user setting</selectable> </selectables>if the peer certificate is deemed invalid.</title>
       <aactivity level="element">
        <TSS>None.</TSS>
        <Guidance>None.</Guidance>
@@ -1650,42 +1555,6 @@
         <xref to="pkg-tls"/>
         , 
         				FCS_HTTPS_EXT.2 (dependent on selections in FTP_DIT_EXT.1), and FIA_X509_EXT.1.
-       </Tests>
-      </aactivity>
-     </f-element>
-    </f-component>
-    <!--FCS_HTTPS_EXT.2 HTTPS Protocol with Mutual Authentication-->
-    <f-component cc-id="fcs_https_ext.2" id="fcs-https-ext-2" name="HTTPS Protocol with Mutual Authentication" status="sel-based">
-     <depends on-sel="sel_all_https_ma"/>
-     <comp-lev>defines HTTPS capabilities relating specifically to the case where the TOE acts as an HTTPS server 
-			that enforces mutual authentication.</comp-lev>
-     <management>No specific management functions are identified.</management>
-     <audit>There are no auditable events foreseen.</audit>
-     <dependencies>FIA_X509_EXT.1 X.509 Certificate Validation</dependencies>
-     <f-element id="fel-https-wath-m">
-      <title>The application shall<selectables><selectable id="fcs_https_ext.2.1_1">not establish the connection</selectable><selectable id="fcs_https_ext.2.1_2">establish or not establish the connection based on an administrative or user setting</selectable> </selectables>if the peer certificate is deemed invalid.</title>
-      <note role="application">Validity is determined by the certificate path, the expiration date, and the 
-					 revocation status in accordance with RFC 5280.</note>
-      <aactivity level="element">
-       <TSS>
-        <h:p>The evaluator shall verify the ST contains a description of how invalid peer certificates are responded to and that it matches the selections.</h:p>
-       </TSS>
-       <Guidance>
-        <h:p>The evaluator shall verify the guidance documentation contains any information necessary to configure the response to invalid peer certificates.</h:p>
-       </Guidance>
-       <Tests>
-        <testlist>
-         Certificate validity shall be tested in accordance with testing performed for 
-						FIA_X509_EXT.1, and the evaluator shall perform the following test:
-         <test>The evaluator shall demonstrate that using a certificate without a 
-							valid certification path results in the selected action in the SFR. Using the 
-							administrative guidance, the evaluator shall then load a certificate or 
-							certificates to the Trust Anchor Database needed to validate the certificate 
-							to be used in the function, and demonstrate that the function succeeds. The
-							evaluator then shall delete one of the certificates, and show that again,
-							using a certificate without a valid certification path results in the selected 
-							action in the SFR.</test>
-        </testlist>
        </Tests>
       </aactivity>
      </f-element>
@@ -1702,7 +1571,7 @@
       <title>A password/passphrase shall perform<assignable>Password-based Key Derivation Functions</assignable>in accordance with a specified cryptographic algorithm as specified in FCS_COP.1 <h:b>/KeyedHash</h:b>  , with<assignable>positive integer of 1,000 or more</assignable>iterations, and output size of<assignable>positive integer of 256 or more</assignable>bits that meet the following [ <h:i>NIST SP 800-132</h:i>  ].</title>
       <aactivity level="component">
        <TSS>
-        <h:p>Support for PBKDF: The evaluator shall examine the password hierarchy TSS to ensure that 
+        <h:p>Support for PBKDF: The evaluator shall examine the password hierarchy described in the TSS to ensure that 
 							the formation of all password based derived keys is described and that the key sizes match that 
 							described by the ST author. 
 							The evaluator shall check that the TSS describes the method by which the password/passphrase is first encoded and then fed to 
@@ -1823,7 +1692,7 @@
        <h:p>
         For the 
                 selection in this requirement, the ST author selects "TSF noise source" if
-                a single noise source is used as input to the DRBG. The ST author selects "multiple TSF noise sources" if a seed is formed from a combination of two or more noise sources within the TOE boundary. If the TSF implements two or more separate DRBGs that are seeded in separate manners, this SFR should be iterated for each DRBG. It multiple distinct noise sources exist such that each DRBG only uses one of them, then each iteration would select "TSF noise source"; "multiple TSF noise sources" is only selected if a single DRBG uses multiple noise sources for its seed. The ST author selects "TSF interface for seeding" if noise source data is generated outside the TOE boundary.
+                a single noise source is used as input to the DRBG. The ST author selects "multiple TSF noise sources" if a seed is formed from a combination of two or more noise sources within the TOE boundary. If the TSF implements two or more separate DRBGs that are seeded in separate manners, this SFR should be iterated for each DRBG. If multiple distinct noise sources exist such that each DRBG only uses one of them, then each iteration would select "TSF noise source"; "multiple TSF noise sources" is only selected if a single DRBG uses multiple noise sources for its seed. The ST author selects "TSF interface for seeding" if noise source data is generated outside the TOE boundary.
         <h:p/>
         If "TSF noise source" is selected, FCS_RBG.3 must be claimed.
         <h:p/>
@@ -1851,7 +1720,7 @@
     <f-component cc-id="fcs_rbg.2" id="fcs-rbg-2" name="Random Bit Generation (External Seeding)" status="sel-based">
      <depends on-sel="external-seed"/>
      <f-element id="fe1-rbg-seed">
-      <title>The TSF shall be able to accept a minimum input of<assignable>minimum input length greater than zero</assignable>from a TSF interface for the purpose of seeding.</title>
+      <title>The TSF shall be able to accept a minimum input of<assignable>minimum input length, in bits, greater than zero</assignable>from a TSF interface for the purpose of seeding.</title>
       <note role="application">This requirement is claimed when a DRBG is seeded with entropy from one or more noise source that is outside the TOE
 					boundary. Typically the entropy produced by an environmental noise source is conditioned such that the input length has
 					full entropy and is therefore  usable as the seed. However, if this is not the case, it should be noted what the minimum
@@ -1915,15 +1784,15 @@
         The selection "
         <h:b>invoke platform-provided DRBG functionality</h:b>
         "
-						should only be chosen for direct invocations of the platform DRBG, calls to platform protocols
-						that may then call the platform's DRBG are not directly using DRBG functionality  and should
-						select "
+						should only be chosen for direct invocations of the platform DRBG by the TSF.
+        <h:p/>
+        The selection "
         <h:b>use no DRBG functionality</h:b>
-        ."
+        " is chosen when the TSF calls a platform implementation of a function that subsequently calls a platform-provided DRBG itself, because this is not a direct invocation of the platform DRBG by the TSF.
         <h:p/>
         If "
         <h:b>implement DRBG functionality</h:b>
-        " is selected, FCS_RBG.1 must be claimed.
+        " is selected, FCS_RBG.1 must be claimed for the DRBG mechanism, and FPT_TST.1 and FPT_FLS.1 must be claimed for the self-testing and error handling of this mechanism.
         <h:p/>
         In this requirement, cryptographic operations include all cryptographic key generation/derivation/agreement, IVs (for
 						certain modes), as well as protocol-specific random values. Cryptographic operations in this requirement refer to
@@ -2055,7 +1924,7 @@
       <aactivity level="component">
        <TSS>
         <h:p>
-         If salts are used the evaluator shall ensure the TSS describes how salts are generated. The evaluator
+         If salts are used, the evaluator shall ensure the TSS describes how salts are generated. The evaluator
 							shall confirm that the salt is generating using an RBG described in FCS_RBG_EXT.1.
          <h:p/>
          If nonces are used the evaluator shall ensure the TSS describes how nonces are created verify they are a minimum of 64 bits in size.
@@ -2064,8 +1933,7 @@
 							IVs and tweaks are handled based on the AES mode. The evaluator shall confirm that
 							the IVs and tweaks meet the stated requirements for each AES mode.
          <h:p/>
-         If using a GCM IV, the evaluator shall confirm the TSS describes the GCM IV construction and that it matches 
-							one of two allowed construction methods given in Section 8.2 of SP800-38D.
+         If using a GCM IV, the evaluator shall confirm the TSS describes the GCM IV construction and that it matches one of two allowed construction methods given in Section 8.2 of SP800-38D.
         </h:p>
        </TSS>
        <Guidance>
@@ -2075,13 +1943,16 @@
       </aactivity>
      </f-element>
      <f-element id="fcs_sni_ext-1-2">
-      <title>The application shall use<selectables><selectable id="fcs_sni_ext.1.2_1">no nonces</selectable><selectable id="fcs_sni_ext.1.2_2">unique nonces with a minimum size of [64] bits].</selectable> </selectables></title>
+      <title>The application shall use<selectables><selectable id="fcs_sni_ext.1.2_1">no nonces</selectable><selectable id="fcs_sni_ext.1.2_2">unique nonces with a minimum size of [<h:i>64</h:i>] bits.</selectable> </selectables></title>
      </f-element>
      <f-element id="fcs_sni_ext-1-3">
-      <title>The application shall<selectables><selectable id="fcs_sni_ext.1.3_1">use no IVs</selectable><selectable id="fcs_sni_ext.1.3_2">create IVs in the following manner<selectables linebreak="yes"><selectable id="fcs_sni_ext.1.3_3">CBC: IVs shall be non-repeating and unpredictable;</selectable><selectable id="fcs_sni_ext.1.3_4">CCM: Nonce shall be non-repeating;</selectable><selectable id="fcs_sni_ext.1.3_5">CTR: "Initial Counter" shall be non-repeating. No counter value shall be repeated across multiple messages with the same secret key.</selectable><selectable id="fcs_sni_ext.1.3_6">XTS: No IV. Tweak values shall be non-negative integers, assigned consecutively, and starting at an arbitrary non-negative integer;</selectable><selectable id="fcs_sni_ext.1.3_7">GCM: IV shall be non-repeating. The number of invocations of GCM shall not exceed 2^32 for a given secret key]. The IV constructed using one of two allowed construction methods given in Section 8.2 of NIST SP 800-38D.</selectable></selectables></selectable> </selectables></title>
-      <note role="application">This requirement ensures that salts, nonces, and initialization vectors are properly implemented.  If the application is implementing
-					a salt, nonce, or initialization vector they must select the corresponding selection.  If the platform is performing a function that
-					uses a salt, nonce, or initialization vector the selection use no selection shall be made.</note>
+      <title>The application shall<selectables><selectable id="fcs_sni_ext.1.3_1">use no IVs</selectable><selectable id="fcs_sni_ext.1.3_2">create IVs in the following manner<selectables><selectable id="fcs_sni_ext.1.3_3">CBC: IVs shall be non-repeating and unpredictable;</selectable><selectable id="fcs_sni_ext.1.3_4">CCM: Nonce shall be non-repeating;</selectable><selectable id="fcs_sni_ext.1.3_5">CTR: "Initial Counter" shall be non-repeating. No counter value shall be repeated across multiple messages with the same secret key.</selectable><selectable id="fcs_sni_ext.1.3_6">XTS: No IV. Tweak values shall be non-negative integers, assigned consecutively, and starting at an arbitrary non-negative integer;</selectable><selectable id="fcs_sni_ext.1.3_7">GCM: IV shall be non-repeating. The number of invocations of GCM shall not exceed 2^32 for a given secret key. The IV constructed using one of two allowed construction methods given in Section 8.2 of NIST SP 800-38D.</selectable></selectables></selectable> </selectables></title>
+      <note role="application">
+       This requirement ensures that salts, nonces, and initialization vectors are properly implemented.  If the application is implementing
+					a salt, nonce, or initialization vector they must select the corresponding selection. If the platform implements these functions, the corresponding "
+       <h:b>use no...</h:b>
+       " options are selected.
+      </note>
      </f-element>
     </f-component>
     <!--FCS_STO_EXT.1 Storage of Credentials-->
@@ -2091,7 +1962,7 @@
      <audit>There are no auditable events foreseen.</audit>
      <dependencies>No dependencies.</dependencies>
      <f-element id="fel-store-creds">
-      <title>The application shall<selectables linebreak="yes"><selectable id="fcs_sto_ext.1.1_1" exclusive="yes">not store any credentials</selectable><selectable id="fcs_sto_ext.1.1_2">invoke the functionality provided by the platform to securely store<assignable>list of credentials</assignable></selectable><selectable id="sel_plat_sto">securely store<assignable>list of credentials</assignable>with platform provided<selectables><selectable id="fcs_sto_ext.1.1_5"><selectables linebreak="yes"><selectable id="fcs_sto_ext.1.1_6">AES-CBC (as defined in NIST SP 800-38A) mode</selectable><selectable id="fcs_sto_ext.1.1_7">AES-GCM (as defined in NIST SP 800-38D) mode</selectable><selectable id="fcs_sto_ext.1.1_8">AES-XTS (as defined in NIST SP 800-38E) mode</selectable></selectables>and cryptographic key size of 256-bits.</selectable><selectable id="fcs_sto_ext.1.1_9">PBKDF2 function that uses<selectables linebreak="yes"><selectable id="fcs_sto_ext.1.1_10">HMAC-SHA256</selectable><selectable id="fcs_sto_ext.1.1_11">HMAC-SHA384</selectable><selectable id="fcs_sto_ext.1.1_12">HMAC-SHA512</selectable></selectables>with<assignable>positive integer of 1,000 or more</assignable>iterations and output cryptographic key size of<assignable>positive integer of 256 of greater</assignable>bits that meet the following [<h:i>NIST SP 800-132</h:i>].</selectable></selectables></selectable><selectable id="sel_impl_sto">implement functionality to securely store<assignable>list of credentials</assignable>according to<selectables><selectable id="sel-fcs-sto-skc">FCS_COP.1/SKC</selectable><selectable id="sel-fcs-sto-pbkdf">FCS_PBKDF_EXT.1</selectable></selectables></selectable> </selectables>to non-volatile memory.</title>
+      <title>The application shall<selectables linebreak="yes"><selectable id="fcs_sto_ext.1.1_1" exclusive="yes">not store any credentials</selectable><selectable id="fcs_sto_ext.1.1_2">invoke the functionality provided by the platform to securely store<assignable>list of credentials</assignable></selectable><selectable id="sel_plat_sto">securely store<assignable>list of credentials</assignable>with platform provided<selectables><selectable id="fcs_sto_ext.1.1_5"><selectables><selectable id="fcs_sto_ext.1.1_6">AES-CBC (as defined in NIST SP 800-38A) mode</selectable><selectable id="fcs_sto_ext.1.1_7">AES-GCM (as defined in NIST SP 800-38D) mode</selectable><selectable id="fcs_sto_ext.1.1_8">AES-XTS (as defined in NIST SP 800-38E) mode</selectable></selectables>and cryptographic key size of 256-bits.</selectable><selectable id="fcs_sto_ext.1.1_9">PBKDF2 function that uses<selectables><selectable id="fcs_sto_ext.1.1_10">HMAC-SHA256</selectable><selectable id="fcs_sto_ext.1.1_11">HMAC-SHA384</selectable><selectable id="fcs_sto_ext.1.1_12">HMAC-SHA512</selectable></selectables>with<assignable>positive integer of 1,000 or more</assignable>iterations and output cryptographic key size of<assignable>positive integer of 256 of greater</assignable>bits that meet the following [<h:i>NIST SP 800-132</h:i>].</selectable></selectables></selectable><selectable id="sel_impl_sto">implement functionality to securely store<assignable>list of credentials</assignable>according to<selectables><selectable id="sel-fcs-sto-skc">FCS_COP.1/SKC</selectable><selectable id="sel-fcs-sto-pbkdf">FCS_PBKDF_EXT.1</selectable></selectables></selectable> </selectables>to non-volatile memory.</title>
       <note role="application">
        This requirement ensures that persistent credentials (secret keys, PKI private keys, passwords, etc) 
 					are stored securely, and never persisted in cleartext form. 
@@ -2109,7 +1980,7 @@
 					If "
        <h:b>implement functionality to securely store credentials</h:b>
        " is selected, then the following components 
-					must be included in the ST: FCS_COP.1/SKC or FCS_PBKDF_EXT.1.
+					must be included in the ST: (FCS_COP.1/SKC and FCS_SNI_EXT.1) or FCS_PBKDF_EXT.1.
 					If other cryptographic operations are used to implement the secure storage of credentials, the corresponding 
 					requirements must be included in the ST. If the OS is Linux and Java KeyStores are used to store 
 					credentials, "
@@ -2123,6 +1994,10 @@
 						credentials (secret keys, PKI private keys, or passwords) needed to meet the 
 						requirements in the ST. For each of these items, the evaluator shall 
 						confirm that the TSS lists for what purpose it is used, and how it is stored.
+         <h:p/>
+         If
+         <h:b>not store any credentials</h:b>
+         is selected, the evaluator shall verify the TSS describes the behavior of the TOE in sufficient detail to verify that the TSF does not have any behavior that would require any credentials to be stored (e.g., because the TOE does not have any functionality requiring authentication).
          <h:p/>
          If
          <h:b>securely store</h:b>
@@ -2579,16 +2454,14 @@
      <audit>There are no auditable events foreseen.</audit>
      <dependencies>No dependencies.</dependencies>
      <f-element id="fel-default-config">
-      <title>The application<selectables><selectable id="fmt_cfg_ext.1.1_1">does not use credentials</selectable><selectable id="fmt_cfg_ext.1.1_2">leverages platform credentials</selectable><selectable id="fmt_cfg_ext.1.1_3">provide only enough functionality to set new credentials when configured with default credentials or no credentials for application provided credentials.</selectable> </selectables></title>
+      <title>The application shall<selectables><selectable id="fmt_cfg_ext.1.1_1">not use credentials</selectable><selectable id="fmt_cfg_ext.1.1_2">use platform-provided credentials</selectable><selectable id="fmt_cfg_ext.1.1_3">provide only enough functionality to set new credentials when configured with default credentials or no credentials for application provided credentials.</selectable> </selectables></title>
       <note role="application">Default credentials are credentials (e.g., passwords, keys) that are automatically 
       				(without user interaction) loaded onto the platform during application installation.
       				Credentials that are generated during installation using requirements laid out in 
       				FCS_RBG_EXT.1 or established by leveraging platform accounts are not by definition default credentials.</note>
       <aactivity level="element">
        <TSS>
-        <h:p>The evaluator shall check the TSS to determine if the application requires any type
-      					of application provided credentials and if the application installs with default credentials. 
-      					The evalutor shall verify that the TSS details how the TOE is restricted until new credentials are set.</h:p>
+        <h:p>The evaluator shall check that the TSS describes whether the application requires any type of application provided credentials and whether the application is pre-configured with default values for these credentials. If credentials are required, the evaluator shall verify that the TSS details how use of the TOE is restricted until new credentials are set (which includes the replacement of default credentials if any are present).</h:p>
        </TSS>
        <Guidance>
         <h:p>The evaluator shall verify the guidance documentation details regarding any default or null application provided credentials being used
@@ -2712,7 +2585,7 @@
        <TSS>
         <h:p>
          The evaluator shall review the TSS to identify the application's configuration options
-						(e.g. settings) and determine whether these are stored and set using the mechanisms
+						(e.g., settings) and determine whether these are stored and set using the mechanisms
 						supported by the platform or implemented by the application in accordance with the PP-Module for File Encryption. 
 						At a minimum the TSS shall list settings related to any SFRs and any settings that are mandated in the 
 						operational guidance in response to an SFR.
@@ -2763,11 +2636,11 @@
 							(whether application-wide or user-specific) settings.
 							For Classic Desktop applications, the evaluator shall run the application while 
 							monitoring it with the SysInternals tool
-          <h:span class="util">ProcMon</h:span>
+          <h:span class="util">Process Monitor</h:span>
           and 
 							make changes to its configuration. 
 							The evaluator shall verify that
-          <h:span class="util">ProcMon</h:span>
+          <h:span class="util">Process Monitor</h:span>
           logs show corresponding changes to the
 							the Windows Registry or C:\ProgramData\ directory.
          </test>
@@ -2864,15 +2737,24 @@
      <dependencies>No dependencies.</dependencies>
      <f-element id="fel-transmit-pii">
       <title>The application shall<selectables onlyone="yes" linebreak="yes"><selectable id="fpr_ano_ext.1.1_1">not transmit PII over a network</selectable><selectable id="fpr_ano_ext.1.1_2">require user approval before executing<assignable>list of functions that transmit PII over a network</assignable></selectable> </selectables>.</title>
-      <note role="application">This requirement applies only to PII that is specifically requested by the application;
+      <note role="application">
+       <h:p>
+        PII is considered to be sensitive data. if "
+        <h:b>require user approval before executing...</h:b>
+        " is claimed, the ST must not claim "
+        <h:b>not transmit any...</h:b>
+        " in FTP_DIT_EXT.1.
+        <h:p/>
+        This requirement applies only to PII that is specifically requested by the application;
 					it does not apply if the user volunteers PII without prompting from the application 
 					into a general (or inappropriate) data field.
 					A dialog box that declares intent to send PII presented to the user 
-					at the time the application is started is sufficient to meet this requirement.</note>
+					at the time the application is started is sufficient to meet this requirement.
+       </h:p>
+      </note>
       <aactivity level="component">
        <TSS>
-        <h:p>The evaluator shall inspect the TSS documentation to verify it contains a list of functionality in the
-						application where PII can be transmitted.</h:p>
+        <h:p>If "<h:b>not transmit PII over a network</h:b>" is claimed, the evaluator shall verify that the TSS makes this assertion (e.g., because it does not use network connectivity at all or if the functions for which it uses network connectivity do not involve transmission of PII). If "<h:b>require user approval before executing...</h:b> is selected, the evaluator shall inspect the TSS documentation to verify that it identifies the functions where PII may be transmitted over a network.</h:p>
        </TSS>
        <Guidance>
         <h:p>The evaluator shall verify the guidance documentation contains any instructions to configure the
@@ -2881,9 +2763,7 @@
        <Tests>
         If "
         <h:b>require user approval before executing...</h:b>
-        " is selected, the evaluator shall run the application and exercise the functionality responsible
-						for transmitting PII and verify that user approval is required before transmission
-						of the PII.
+        " is selected, the evaluator shall run the application, execute each function that is claimed as being used to transmit PII, and verify that user approval is required before transmission of the PII for each function.
        </Tests>
       </aactivity>
      </f-element>
@@ -3349,7 +3229,7 @@
       </note>
       <aactivity level="component">
        <TSS>
-        The evaluator shall verify that the TSS lists the IANA MIME media types
+        The evaluator shall verify that the TSS lists any IANA MIME media types
 						(as described by
         <h:a href="http://www.iana.org/assignments/media-types">http://www.iana.org/assignments/media-types</h:a>
         )
@@ -3389,7 +3269,7 @@
       <note role="application">
        <h:p>
         The use of a SWID tag to identify application software
-					is a requirement for DOD IT based on DoD Instruction 8500.01 which requires
+					is a requirement for DoD IT based on DoD Instruction 8500.01 which requires
 					the use of SCAP which includes SWID tags per the NIST standard.
         <h:p/>
         Valid SWID tags must contain a SoftwareIdentity element and an Entity element as 
@@ -3404,7 +3284,7 @@
        <Guidance>
         <h:p>None.</h:p>
        </Guidance>
-       <Tests>The evaluator shall install the application and check for a.swidtag file. 
+       <Tests>The evaluator shall install the application and check for a .swidtag file. 
 						The evaluator shall open the file and verify that 
 						is contains at least a SoftwareIdentity element and an Entity element.</Tests>
       </aactivity>
@@ -3478,7 +3358,7 @@
      <audit>There are no auditable events foreseen.</audit>
      <dependencies>FPT_IDV_EXT.1 Software Identification and Versions</dependencies>
      <f-element id="fel-update-check">
-      <title>The application shall<selectables><selectable id="fpt_tud_ext.1.1_1">provide the ability</selectable><selectable id="fpt_tud_ext.1.1_2">leverage the platform</selectable> </selectables>to check for updates and patches to the application software.</title>
+      <title>The application shall<selectables><selectable id="fpt_tud_ext.1.1_1">provide the ability</selectable><selectable id="fpt_tud_ext.1.1_2">use platform-provided services</selectable> </selectables>to check for updates and patches to the application software.</title>
       <note role="application">This requirement is about the ability to "check" for updates.
 					The actual installation of any updates should be done by the platform. This requirement
 					is intended to ensure that the application can check for updates provided by the vendor,
@@ -3488,7 +3368,7 @@
         <h:p>None.</h:p>
        </TSS>
        <Guidance>
-        <h:p>The evaluator shall check to ensure the guidance includes a description of how check for and apply new updates.</h:p>
+        <h:p>The evaluator shall check to ensure the guidance includes a description of how to check for and apply new updates.</h:p>
        </Guidance>
        <Tests>The evaluator shall check for an update using procedures described in either the application documentation 
 						or the platform documentation and verify that the application does not issue an error.
@@ -3496,7 +3376,7 @@
       </aactivity>
      </f-element>
      <f-element id="fel-version-check">
-      <title>The application shall<selectables><selectable id="fpt_tud_ext.1.2_1">provide the ability</selectable><selectable id="fpt_tud_ext.1.2_2">leverage the platform</selectable> </selectables>to query the current version of the application software.</title>
+      <title>The application shall<selectables><selectable id="fpt_tud_ext.1.2_1">provide the ability</selectable><selectable id="fpt_tud_ext.1.2_2">use platform-provided services</selectable> </selectables>to query the current version of the application software.</title>
       <aactivity level="element">
        <TSS>
         <h:p>None.</h:p>
@@ -3592,7 +3472,7 @@
        <Tests>
         If "
         <h:b>with the platform OS </h:b>
-        " is selected, the evaluated shall perform
+        " is selected, the evaluator shall perform
 						a clean installation or factory reset to confirm that TOE software is included
 						as part of the platform OS.
        </Tests>
@@ -3611,7 +3491,7 @@
       <title>The application shall be distributed using<selectables><selectable id="fpt_tud_ext.2.1_1">the format of the platform-supported package manager</selectable><selectable id="fpt_tud_ext.2.1_2">a container image</selectable> </selectables>.</title>
       <aactivity level="element">
        <TSS>
-        <h:p>The evaluator shall verify the TSS contains a description of how the application
+        <h:p>The evaluator shall verify that the TSS describes how the application
 						is distributed and verify that description aligns with the selections in the ST.</h:p>
        </TSS>
        <Guidance>
@@ -3718,7 +3598,11 @@
         The specifics of the verification of installation packages involves 
 						requirements on the platform (and not the application), so these are not fully specified here.
         <h:p/>
-        If Leighton-Micali Signature or eXtended Merkle Signature Scheme is selected, the corresponding 
+        If "
+        <h:b>Leighton-Micali Signature</h:b>
+        " or "
+        <h:b>eXtended Merkle Signature Scheme</h:b>
+        " is selected, the corresponding 
 						selection must be made in FCS_COP.1/SigVer.
        </h:p>
       </note>
@@ -3766,25 +3650,25 @@
      <audit>There are no auditable events foreseen.</audit>
      <dependencies>No dependencies.</dependencies>
      <f-element id="fel-transmit">
-      <title>The application shall<selectables linebreak="yes"><selectable id="ftp_dit_ext.1.1_1">not transmit any<selectables onlyone="yes"><selectable id="ftp_dit_ext.1.1_2">data</selectable><selectable id="ftp_dit_ext.1.1_3">sensitive data</selectable></selectables></selectable><selectable id="ftp_dit_ext.1.1_4">encrypt all transmitted<selectables onlyone="yes"><selectable id="ftp_dit_ext.1.1_5">sensitive data</selectable><selectable id="ftp_dit_ext.1.1_6">data</selectable></selectables>with<selectables><selectable id="sel_all_https_cl">HTTPS as a client in accordance with FCS_HTTPS_EXT.1/Client</selectable><selectable id="sel_all_https_sv">HTTPS as a server in accordance with FCS_HTTPS_EXT.1/Server</selectable><selectable id="sel_all_https_ma">HTTPS as a server using mutual authentication in accordance with FCS_HTTPS_EXT.2</selectable><selectable id="sel_all_tlss">TLS as a server as defined in <xref to="pkg-tls"/> and also supports functionality for<selectables><selectable id="ftp_dit_ext.1.1_7">mutual authentication</selectable><selectable id="ftp_dit_ext.1.1_8">none</selectable></selectables></selectable><selectable id="sel_all_tlsc">TLS as a client as defined in <xref to="pkg-tls"/></selectable><selectable id="sel_all_dtlss">DTLS as a server as defined in <xref to="pkg-tls"/> and also supports functionality for<selectables><selectable id="ftp_dit_ext.1.1_9">mutual authentication</selectable><selectable id="ftp_dit_ext.1.1_10">none</selectable></selectables></selectable><selectable id="sel_all_dtlsc">DTLS as a client as defined in <xref to="pkg-tls"/></selectable><selectable id="sel_all_ssh">SSH as defined in the <xref to="pkg-ssh"/></selectable><selectable id="sel_all_ipsec">IPsec as defined in the <xref to="pkg-vpnc"/></selectable></selectables>for<assignable>function(s)</assignable>using certificates as defined in the <xref to="pkg-x509"/></selectable><selectable id="ftp_dit_ext.1.1_12">invoke platform-provided functionality to encrypt all transmitted sensitive data with<selectables><selectable id="ftp_dit_ext.1.1_13">HTTPS</selectable><selectable id="ftp_dit_ext.1.1_14">TLS</selectable><selectable id="ftp_dit_ext.1.1_15">DTLS</selectable><selectable id="ftp_dit_ext.1.1_16">SSH</selectable><selectable id="ftp_dit_ext.1.1_17">IPsec</selectable></selectables>for<assignable>function(s)</assignable>using certificates as defined in the <xref to="pkg-x509"/></selectable><selectable id="ftp_dit_ext.1.1_19">invoke platform-provided functionality to encrypt all transmitted data with<selectables><selectable id="ftp_dit_ext.1.1_20">HTTPS</selectable><selectable id="ftp_dit_ext.1.1_21">TLS</selectable><selectable id="ftp_dit_ext.1.1_22">DTLS</selectable><selectable id="ftp_dit_ext.1.1_23">SSH</selectable><selectable id="ftp_dit_ext.1.1_24">IPsec</selectable></selectables>for<assignable>function(s)</assignable>using certificates as defined in the <xref to="pkg-x509"/></selectable> </selectables>between itself and another trusted IT product.</title>
+      <title>The application shall<selectables linebreak="yes"><selectable id="ftp_dit_ext.1.1_1">not transmit any<selectables><selectable id="ftp_dit_ext.1.1_2">data</selectable><selectable id="ftp_dit_ext.1.1_3">sensitive data</selectable></selectables></selectable><selectable id="ftp_dit_ext.1.1_4">encrypt all transmitted<selectables><selectable id="ftp_dit_ext.1.1_5">sensitive data</selectable><selectable id="ftp_dit_ext.1.1_6">data</selectable></selectables>with<selectables><selectable id="sel_all_https_cl">HTTPS as a client in accordance with FCS_HTTPS_EXT.1</selectable><selectable id="sel_all_https_sv">HTTPS as a server in accordance with FCS_HTTPS_EXT.1</selectable><selectable id="sel_all_tlss">TLS as a server as defined in <xref to="pkg-tls"/> and also supports functionality for<selectables><selectable id="ftp_dit_ext.1.1_7">mutual authentication</selectable><selectable id="ftp_dit_ext.1.1_8">none</selectable></selectables></selectable><selectable id="sel_all_tlsc">TLS as a client as defined in <xref to="pkg-tls"/></selectable><selectable id="sel_all_dtlss">DTLS as a server as defined in <xref to="pkg-tls"/> and also supports functionality for<selectables><selectable id="ftp_dit_ext.1.1_9">mutual authentication</selectable><selectable id="ftp_dit_ext.1.1_10">none</selectable></selectables></selectable><selectable id="sel_all_dtlsc">DTLS as a client as defined in <xref to="pkg-tls"/></selectable><selectable id="sel_all_ssh">SSH as defined in the <xref to="pkg-ssh"/></selectable><selectable id="sel_all_ipsec">IPsec as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/487"> VPN Client PP-Module</h:a></selectable></selectables>for<assignable>function(s)</assignable>using certificates as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/511"> Functional Package for X.509</h:a></selectable><selectable id="ftp_dit_ext.1.1_12">invoke platform-provided functionality to encrypt all transmitted sensitive data with<selectables><selectable id="ftp_dit_ext.1.1_13">HTTPS</selectable><selectable id="ftp_dit_ext.1.1_14">TLS</selectable><selectable id="ftp_dit_ext.1.1_15">DTLS</selectable><selectable id="ftp_dit_ext.1.1_16">SSH</selectable><selectable id="ftp_dit_ext.1.1_17">IPsec</selectable></selectables>for<assignable>function(s)</assignable>using certificates as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/511"> Functional Package for X.509</h:a></selectable><selectable id="ftp_dit_ext.1.1_19">invoke platform-provided functionality to encrypt all transmitted data with<selectables><selectable id="ftp_dit_ext.1.1_20">HTTPS</selectable><selectable id="ftp_dit_ext.1.1_21">TLS</selectable><selectable id="ftp_dit_ext.1.1_22">DTLS</selectable><selectable id="ftp_dit_ext.1.1_23">SSH</selectable><selectable id="ftp_dit_ext.1.1_24">IPsec</selectable></selectables>for<assignable>function(s)</assignable>using certificates as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/511"> Functional Package for X.509</h:a></selectable> </selectables>between itself and another trusted IT product.</title>
       <note role="application">
        <h:p>
         Encryption is not required for applications transmitting data that is not sensitive.
         <h:p/>
-        If
-        <h:b>not transmit any</h:b>
-        is selected, no other option can be selected.
+        If "
+        <h:b>not transmit any...</h:b>
+        " is selected, no other option can be selected.
         <h:p/>
-        If
-        <h:b>not transmit any</h:b>
-        is NOT selected, it is possible to select more than one of the other options to encrypt data 
+        If "
+        <h:b>not transmit any...</h:b>
+        " is NOT selected, it is possible to select more than one of the other options to encrypt data 
 					for a specific cryptographic function 
 					(e.g., application encrypts management data using SSH AND application invokes platform-provided functionality 
 					to encrypt syslog data using TLS OR application encrypts syslog data using TLS. 
 					Protocol selections and function assignments should be made to cover all data/sensitive data.
         <h:p/>
         If "
-        <h:b>encrypt all transmitted</h:b>
+        <h:b>encrypt all transmitted...</h:b>
         " is selected and "
         <h:b>TLS</h:b>
         " or "
@@ -3795,26 +3679,13 @@
         must be selected.
         <h:p/>
         If "
-        <h:b>encrypt all transmitted</h:b>
-        " is selected, "
+        <h:b>encrypt all transmitted...</h:b>
+        " is selected and "
         <h:b>HTTPS</h:b>
-        " is selected, and the 
-					TOE acts as a client, then FCS_HTTPS_EXT.1/Client is required.
+        " is selected, then FCS_HTTPS_EXT.1 is required.
         <h:p/>
         If "
-        <h:b>encrypt all transmitted</h:b>
-        " is selected, "
-        <h:b>HTTPS</h:b>
-        " is selected, and the 
-					TOE acts as a server, then FCS_HTTPS_EXT.1/Server is required.
-        <h:p/>
-        If the TOE acts as an HTTPS server and if "
-        <h:b>mutual authentication</h:b>
-        " is selected,
-					then FCS_HTTPS_EXT.2 is also required.
-        <h:p/>
-        If "
-        <h:b>encrypt all transmitted</h:b>
+        <h:b>encrypt all transmitted...</h:b>
         " is selected and "
         <h:b>SSH</h:b>
         " is selected, then the 
@@ -3823,7 +3694,7 @@
         .
         <h:p/>
         If "
-        <h:b>encrypt all transmitted</h:b>
+        <h:b>encrypt all transmitted...</h:b>
         " is selected and "
         <h:b>IPsec</h:b>
         " is selected, then the
@@ -3834,20 +3705,24 @@
         </h:i>
         <h:p/>
         If "
-        <h:b>encrypt all transmitted</h:b>
-        " is selected the corresponding FCS_COP.1 
-					requirements will be included.
+        <h:b>encrypt all transmitted...</h:b>
+        " is selected, FCS_CKM.2 and all iterations of FCS_COP.1 
+					must be claimed.
         <h:p/>
         Claims from the
-        <xref to="pkg-x509"/>
+        <h:a href="https://www.niap-ccevs.org/protectionprofiles/511">Functional Package for X.509</h:a>
         are only required to the extent that they are needed to support the functionality required by the trusted protocols that are claimed.
         <h:p/>
         If the TSF implements a protocol that requires the validation of a certificate presented by an external entity, FIA_X509_EXT.1 and FIA_X509_EXT.2 will be claimed. FIA_TSM_EXT.1 may also be claimed if the TSF implements its own trust store. Note that FIA_X509_EXT.1 and FIA_X509_EXT.2 have selections for invocation of platform-provided functionality, so it is expected that these claims are made and tested even when the trusted protocol is implemented by the TOE platform.
         <h:p/>
-        If the TSF implements a protocol that requires the presentation of any certificates to an external entity, FIA_XCU_EXT.2 will be claimed. FIA_X509_EXT.3 will also be claimed, along with any applicable dependencies, depending on how the certificates presented by the TOE are obtained.
+        If the TSF implements a protocol that requires the presentation of any certificates to an external entity, FIA_XCU_EXT.2 from
+        <h:a href="https://www.niap-ccevs.org/protectionprofiles/511">Functional Package for X.509</h:a>
+        will be claimed. FIA_X509_EXT.3 from
+        <h:a href="https://www.niap-ccevs.org/protectionprofiles/511">Functional Package for X.509</h:a>
+        will also be claimed, along with any applicable dependencies, depending on how the certificates presented by the TOE are obtained.
         <h:p/>
         If the TSF implements a protocol that does not require presenting or validating X.509 certificates, no claims from the
-        <xref to="pkg-x509"/>
+        <h:a href="https://www.niap-ccevs.org/protectionprofiles/511">Functional Package for X.509</h:a>
         are required.
        </h:p>
       </note>
