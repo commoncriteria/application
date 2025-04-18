@@ -242,6 +242,10 @@
    <cc-claims-addnl-info/>
   </CClaimsInfo>
  </sec:Conformance_Claims>
+ <section title="Introduction to Distributed TOEs" id="idt">This PP includes support for distributed MDM TOEs. MDMs can sometimes be composed of multiple components operating as a logical whole. Frequently we
+		see this architecture when dealing with products hosted in the cloud and offered as Software as a Service. There are a number of different
+		architectures; but fundamentally, they are variations of the following model where the SFRs of this PP can only be fulfilled if the components 
+		are deployed and operate together. To be considered a distributed TOE, a minimum of two interconnected components are required.</section>
  <!-- 3.0 Security Problem Definition-->
  <sec:Security_Problem_Definition>
   <!-- 3.1 Threats -->
@@ -250,9 +254,9 @@
     <threat name="T.LOCAL_ATTACK">
      <description>An attacker can act through unprivileged software on the same computingplatform on which the application executes. Attackers may provide maliciously formattedinput to the application in the form of files or other localcommunications.</description>
      <!-- New mapping to build updated threat mapping table. -->
-     <addressed-by>FCS_CKM.1/AK</addressed-by>
+     <addressed-by>FCS_CKM.1/AK (selection-based)</addressed-by>
      <rationale>The PP includes FCS_CKM.1/AK to specify that the TSF may rely on platform-provided asymmetric key generation services.</rationale>
-     <addressed-by>FCS_CKM.2</addressed-by>
+     <addressed-by>FCS_CKM.2 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_CKM.2 to specify that the TSF may rely on platform-provided key establishment services.</rationale>
      <addressed-by>FCS_CKM_EXT.1</addressed-by>
      <rationale>The PP includes FCS_CKM_EXT.1 to specify that the TSF may rely on platform-provided key generation services.</rationale>
@@ -270,7 +274,7 @@
      <rationale>The PP includes FMT_MEC_EXT.1 to ensure that the TOE can use platform services to store and set configuration options.</rationale>
      <addressed-by>FPT_AEX_EXT.1</addressed-by>
      <rationale>The PP includes FPT_AEX_EXT.1 to add complexity to the task of compromising systems by ensuring that the TOE implements various platform security features and can operate on a platform that is configured securely.</rationale>
-     <addressed-by>FPT_API_EXT.2</addressed-by>
+     <addressed-by>FPT_API_EXT.2 (objective)</addressed-by>
      <rationale>The PP includes FPT_API_EXT.2 to permit the TOE to use platform-provided libraries for parsing IANA MIME media formats.</rationale>
      <addressed-by>FPT_API_EXT.1</addressed-by>
      <rationale>The PP includes FPT_API_EXT.1 to require the TOE to leverage platform functionality by using only documented and supported APIs.</rationale>
@@ -278,7 +282,7 @@
      <rationale>The PP includes FPT_LIB_EXT.1 to ensure that the TOE does not include any unnecessary or unexpected third-party libraries which could present a privacy threat or vulnerability.</rationale>
      <addressed-by>FPT_TUD_EXT.1</addressed-by>
      <rationale>The PP includes FPT_TUD_EXT.1 to ensure that the TOE can be patched and that any updates to the TOE have appropriate integrity protection.</rationale>
-     <addressed-by>FPT_TUD_EXT.2</addressed-by>
+     <addressed-by>FPT_TUD_EXT.2 (selection-based)</addressed-by>
      <rationale>The PP includes FPT_TUD_EXT.2 to ensure that TOE updates are packaged in a certain format, provide certain integrity protections, and remove residual data.</rationale>
     </threat>
     <threat name="T.NETWORK_ATTACK">
@@ -288,33 +292,33 @@
      <rationale>The PP includes FCS_CKM.1/SK to define the mechanism used to generate symmetric keys when the TOE performs this function.</rationale>
      <addressed-by>FCS_CKM_EXT.1</addressed-by>
      <rationale>The PP includes FCS_CKM_EXT.1 to specify whether the TOE or the platform is responsible for generation of any asymmetric keys that may be used for establishing trusted communications.</rationale>
-     <addressed-by>FCS_CKM.1/AK</addressed-by>
+     <addressed-by>FCS_CKM.1/AK (selection-based)</addressed-by>
      <rationale>The PP includes FCS_CKM.1/AK to define whether the TSF or the platform generates asymmetric keys that are used in support of trusted communications.</rationale>
-     <addressed-by>FCS_CKM.2</addressed-by>
+     <addressed-by>FCS_CKM.2 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_CKM.2 to define whether the TSF or the platform performs key establishment for trusted communications.</rationale>
-     <addressed-by>FCS_COP.1/SKC</addressed-by>
+     <addressed-by>FCS_COP.1/SKC (selection-based)</addressed-by>
      <rationale>The PP includes FCS_COP.1/SKC to define the symmetric encryption algorithms used in support of trusted communications.</rationale>
-     <addressed-by>FCS_COP.1/Hash</addressed-by>
+     <addressed-by>FCS_COP.1/Hash (selection-based)</addressed-by>
      <rationale>The PP includes FCS_COP.1/Hash to define the hash algorithms used in support of trusted communications.</rationale>
-     <addressed-by>FCS_COP.1/SigGen</addressed-by>
+     <addressed-by>FCS_COP.1/SigGen (selection-based)</addressed-by>
      <rationale>The PP includes FCS_COP.1/SigGen to define the digital signature algorithms used in support of trusted communications.</rationale>
-     <addressed-by>FCS_COP.1/SigVer</addressed-by>
+     <addressed-by>FCS_COP.1/SigVer (selection-based)</addressed-by>
      <rationale>The PP includes FCS_COP.1/SigVer to define the digital signature algorithms used in support of trusted communications and trusted updates.</rationale>
-     <addressed-by>FCS_COP.1/KeyedHash</addressed-by>
+     <addressed-by>FCS_COP.1/KeyedHash (selection-based)</addressed-by>
      <rationale>The PP includes FCS_COP.1/KeyedHash to define the HMAC algorithms used in support of trusted communications.</rationale>
-     <addressed-by>FCS_HTTPS_EXT.1</addressed-by>
+     <addressed-by>FCS_HTTPS_EXT.1 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_HTTPS_EXT.1 to define the TOE’s support for the HTTPS trusted communications protocol.</rationale>
-     <addressed-by>FCS_RBG.1</addressed-by>
+     <addressed-by>FCS_RBG.1 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_RBG.1 to define the DRBG algorithms used in support of trusted communications.</rationale>
-     <addressed-by>FCS_RBG.2</addressed-by>
+     <addressed-by>FCS_RBG.2 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_RBG.2 to define how entropy is obtained for secure DRBG seeding.</rationale>
-     <addressed-by>FCS_RBG.3</addressed-by>
+     <addressed-by>FCS_RBG.3 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_RBG.3 to define how entropy is obtained for secure DRBG seeding.</rationale>
-     <addressed-by>FCS_RBG.4</addressed-by>
+     <addressed-by>FCS_RBG.4 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_RBG.4 to define how entropy is obtained for secure DRBG seeding.</rationale>
-     <addressed-by>FCS_RBG.5</addressed-by>
+     <addressed-by>FCS_RBG.5 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_RBG.5 to define how entropy is obtained for secure DRBG seeding.</rationale>
-     <addressed-by>FCS_SNI_EXT.1</addressed-by>
+     <addressed-by>FCS_SNI_EXT.1 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_SNI_EXT.1 to define the proper salt, nonce, and initialization vector usage to ensure proper cryptographic operation.</rationale>
      <addressed-by>FCS_RBG_EXT.1</addressed-by>
      <rationale>The PP includes FCS_RBG_EXT.1 to define whether the random bit generation services used in establishing trusted communications are implemented by the TSF or by the platform.</rationale>
@@ -330,15 +334,15 @@
      <rationale>The PP includes FPR_ANO_EXT.1 to define how the TSF provides control to the user regarding the disclosure of any PII.</rationale>
      <addressed-by>FPT_AEX_EXT.1</addressed-by>
      <rationale>The PP includes FPT_AEX_EXT.1 to add complexity to the task of compromising systems by ensuring that the TOE implements various platform security features and can operate on a platform that is configured securely.</rationale>
-     <addressed-by>FPT_FLS.1</addressed-by>
+     <addressed-by>FPT_FLS.1 (selection-based)</addressed-by>
      <rationale>The PP includes FPT_FLS.1 to ensure that the TSF will not operate when it is in a state where it is unable to generate secure random numbers.</rationale>
      <addressed-by>FPT_IDV_EXT.1</addressed-by>
      <rationale>The PP includes FPT_IDV_EXT.1 to provide a mechanism to identify the TOE version so that it can be determined whether a vulnerability is present on the system based on the installed version.</rationale>
-     <addressed-by>FPT_TST.1</addressed-by>
+     <addressed-by>FPT_TST.1 (selection-based)</addressed-by>
      <rationale>The PP includes FPT_TST.1 to ensure that the TSF can determine whether or not it is capable of generating secure random numbers.</rationale>
      <addressed-by>FPT_TUD_EXT.1</addressed-by>
      <rationale>The PP includes FPT_TUD_EXT.1 to ensure that updates to the TOE have integrity protection and cannot be altered via network attack.</rationale>
-     <addressed-by>FPT_TUD_EXT.2</addressed-by>
+     <addressed-by>FPT_TUD_EXT.2 (selection-based)</addressed-by>
      <rationale>The PP includes FPT_TUD_EXT.2 to define specific integrity protections for certain types of updates.</rationale>
      <addressed-by>FTP_DIT_EXT.1</addressed-by>
      <rationale>The PP includes FTP_DIT_EXT.1 to define the trusted channels used to protect data in transit, the data that is protected, and whether the trusted channels are implemented by the TSF or the platform.</rationale>
@@ -346,35 +350,35 @@
     <threat name="T.NETWORK_EAVESDROP">
      <description>An attacker is positioned on a communications channel or elsewhere on thenetwork infrastructure. Attackers may monitor and gain access to data exchanged betweenthe application and other endpoints.</description>
      <!-- New mapping to build updated threat mapping table. -->
-     <addressed-by>FCS_CKM.1/AK</addressed-by>
+     <addressed-by>FCS_CKM.1/AK (selection-based)</addressed-by>
      <rationale>The PP includes FCS_CKM.1/AK to define whether the TSF or the platform generates asymmetric keys that are used in support of trusted communications.</rationale>
      <addressed-by>FCS_CKM.1/SK</addressed-by>
      <rationale>The PP includes FCS_CKM.1/SK to define the mechanism used to generate symmetric keys when the TOE performs this function.</rationale>
-     <addressed-by>FCS_CKM.2</addressed-by>
+     <addressed-by>FCS_CKM.2 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_CKM.2 to define whether the TSF or the platform performs key establishment for trusted communications.</rationale>
      <addressed-by>FCS_CKM_EXT.1</addressed-by>
      <rationale>The PP includes FCS_CKM_EXT.1 to specify whether the TOE or the platform is responsible for generation of any asymmetric keys that may be used for establishing trusted communications.</rationale>
-     <addressed-by>FCS_COP.1/KeyedHash</addressed-by>
+     <addressed-by>FCS_COP.1/KeyedHash (selection-based)</addressed-by>
      <rationale>The PP includes FCS_COP.1/KeyedHash to define the HMAC algorithms used in support of trusted communications.</rationale>
-     <addressed-by>FCS_COP.1/Hash</addressed-by>
+     <addressed-by>FCS_COP.1/Hash (selection-based)</addressed-by>
      <rationale>The PP includes FCS_COP.1/Hash to define the hash algorithms used in support of trusted communications.</rationale>
      <addressed-by>FCS_COP.1/SigVer</addressed-by>
      <rationale>The PP includes FCS_COP.1/SigVer to define the mechanism used to verify TOE updates if the TOE implements this functionality rather than the underlying platform.</rationale>
-     <addressed-by>FCS_COP.1/SKC</addressed-by>
+     <addressed-by>FCS_COP.1/SKC (selection-based)</addressed-by>
      <rationale>The PP includes FCS_COP.1/SKC to define the symmetric encryption algorithms used in support of trusted communications.</rationale>
-     <addressed-by>FCS_HTTPS_EXT.1</addressed-by>
+     <addressed-by>FCS_HTTPS_EXT.1 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_HTTPS_EXT.1 to define the TOE’s support for the HTTPS trusted communications protocol.</rationale>
      <addressed-by>FCS_RBG_EXT.1</addressed-by>
      <rationale>The PP includes FCS_RBG_EXT.1 to define whether the random bit generation services used in establishing trusted communications are implemented by the TSF or by the platform.</rationale>
-     <addressed-by>FCS_RBG.1</addressed-by>
+     <addressed-by>FCS_RBG.1 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_RBG.1 to define the DRBG algorithms used in support of trusted communications.</rationale>
-     <addressed-by>FCS_RBG.2</addressed-by>
+     <addressed-by>FCS_RBG.2 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_RBG.2 to define how entropy is obtained for secure DRBG seeding.</rationale>
-     <addressed-by>FCS_RBG.3</addressed-by>
+     <addressed-by>FCS_RBG.3 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_RBG.3 to define how entropy is obtained for secure DRBG seeding.</rationale>
-     <addressed-by>FCS_RBG.4</addressed-by>
+     <addressed-by>FCS_RBG.4 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_RBG.4 to define how entropy is obtained for secure DRBG seeding.</rationale>
-     <addressed-by>FCS_RBG.5</addressed-by>
+     <addressed-by>FCS_RBG.5 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_RBG.5 to define how entropy is obtained for secure DRBG seeding.</rationale>
      <addressed-by>FCS_STO_EXT.1</addressed-by>
      <rationale>The PP includes FCS_STO_EXT.1 to specify that the TSF may rely on platform-provided credential storage services.</rationale>
@@ -390,13 +394,13 @@
      <rationale>The PP includes FPR_ANO_EXT.1 to define how the TSF provides control to the user regarding the disclosure of any PII.</rationale>
      <addressed-by>FPT_API_EXT.1</addressed-by>
      <rationale>The PP includes FPT_API_EXT.1 to require the TOE to leverage platform functionality by using only documented and supported APIs.</rationale>
-     <addressed-by>FPT_API_EXT.2</addressed-by>
+     <addressed-by>FPT_API_EXT.2 (objective)</addressed-by>
      <rationale>The PP includes FPT_API_EXT.2 to permit the TOE to use platform-provided libraries for parsing IANA MIME media formats.</rationale>
-     <addressed-by>FPT_FLS.1</addressed-by>
+     <addressed-by>FPT_FLS.1 (selection-based)</addressed-by>
      <rationale>The PP includes FPT_FLS.1 to ensure that the TSF will not operate when it is in a state where it is unable to generate secure random numbers.</rationale>
      <addressed-by>FPT_IDV_EXT.1</addressed-by>
      <rationale>The PP includes FPT_IDV_EXT.1 to provide a mechanism to identify the TOE version so that it can be determined whether a vulnerability is present on the system based on the installed version.</rationale>
-     <addressed-by>FPT_TST.1</addressed-by>
+     <addressed-by>FPT_TST.1 (selection-based)</addressed-by>
      <rationale>The PP includes FPT_TST.1 to ensure that the TSF can determine whether or not it is capable of generating secure random numbers.</rationale>
      <addressed-by>FPT_LIB_EXT.1</addressed-by>
      <rationale>The PP includes FPT_LIB_EXT.1 to ensure that the TOE does not include any unnecessary or unexpected third-party libraries which could present a privacy threat or vulnerability.</rationale>
@@ -408,35 +412,35 @@
      <!-- New mapping to build updated threat mapping table. -->
      <addressed-by>FCS_CKM.1/SK</addressed-by>
      <rationale>The PP includes FCS_CKM.1/SK to define the TOE’s capability to generate symmetric keys. These keys may subsequently be used to encrypt stored credential data based on the claims made in FCS_STO_EXT.1.</rationale>
-     <addressed-by>FCS_COP.1/KeyedHash</addressed-by>
+     <addressed-by>FCS_COP.1/KeyedHash (selection-based)</addressed-by>
      <rationale>The PP includes FCS_COP.1/KeyedHash to define HMAC mechanisms that may be used by the TOE as part of ensuring that data at rest is protected.</rationale>
-     <addressed-by>FCS_COP.1/Hash</addressed-by>
+     <addressed-by>FCS_COP.1/Hash (selection-based)</addressed-by>
      <rationale>The PP includes FCS_COP.1/Hash to define integrity mechanisms that may be used by the TOE as part of ensuring that data at rest is protected.</rationale>
-     <addressed-by>FCS_COP.1/SKC</addressed-by>
+     <addressed-by>FCS_COP.1/SKC (selection-based)</addressed-by>
      <rationale>The PP includes FCS_COP.1/SKC to define the AES cryptographic algorithm that may be used to encrypt stored credential data based on the claims made in FCS_STO_EXT.1.</rationale>
-     <addressed-by>FCS_PBKDF_EXT.1</addressed-by>
+     <addressed-by>FCS_PBKDF_EXT.1 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_PBKDF_EXT.1 to define the password-based key derivation function that may be used to encrypt stored credential data based on the claims made in FCS_STO_EXT.1.</rationale>
      <addressed-by>FCS_RBG_EXT.1</addressed-by>
      <rationale>The PP includes FCS_RBG_EXT.1 to define whether random bit generation services are implemented by the TSF or the platform. Depending on how data at rest is protected, the TOE may rely on the use of a random bit generator to create keys that are subsequently used for data protection.</rationale>
-     <addressed-by>FCS_RBG.1</addressed-by>
+     <addressed-by>FCS_RBG.1 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_RBG.1 to define the DRBG algorithms used in support of trusted communications.</rationale>
-     <addressed-by>FCS_RBG.2</addressed-by>
+     <addressed-by>FCS_RBG.2 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_RBG.2 to define how entropy is obtained for secure DRBG seeding.</rationale>
-     <addressed-by>FCS_RBG.3</addressed-by>
+     <addressed-by>FCS_RBG.3 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_RBG.3 to define how entropy is obtained for secure DRBG seeding.</rationale>
-     <addressed-by>FCS_RBG.4</addressed-by>
+     <addressed-by>FCS_RBG.4 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_RBG.4 to define how entropy is obtained for secure DRBG seeding.</rationale>
-     <addressed-by>FCS_RBG.5</addressed-by>
+     <addressed-by>FCS_RBG.5 (selection-based)</addressed-by>
      <rationale>The PP includes FCS_RBG.5 to define how entropy is obtained for secure DRBG seeding.</rationale>
      <addressed-by>FCS_STO_EXT.1</addressed-by>
      <rationale>The PP includes FCS_STO_EXT.1 to define the mechanism that the TSF uses or relies upon to protect stored credential data.</rationale>
      <addressed-by>FDP_DAR_EXT.1</addressed-by>
      <rationale>The PP includes FDP_DAR_EXT.1 to define the mechanism that the TSF uses or relies upon to protect sensitive data at rest.</rationale>
-     <addressed-by>FPT_FLS.1</addressed-by>
+     <addressed-by>FPT_FLS.1 (selection-based)</addressed-by>
      <rationale>The PP includes FPT_FLS.1 to ensure that the TSF will not operate when it is in a state where it is unable to generate secure random numbers.</rationale>
      <addressed-by>FPT_IDV_EXT.1</addressed-by>
      <rationale>The PP includes FPT_IDV_EXT.1 to provide a mechanism to identify the TOE version so that it can be determined whether a vulnerability is present on the system based on the installed version.</rationale>
-     <addressed-by>FPT_TST.1</addressed-by>
+     <addressed-by>FPT_TST.1 (selection-based)</addressed-by>
      <rationale>The PP includes FPT_TST.1 to ensure that the TSF can determine whether or not it is capable of generating secure random numbers.</rationale>
     </threat>
    </threats>
@@ -885,10 +889,37 @@
          If the TOE acts as a sender, the following evaluation activity shall be performed to ensure the 
 						proper operation of every TOE supported combination of RSA-based key establishment scheme:
          <h:p/>
+         <h:div class="indent">To conduct this test the evaluator shall generate or obtain test vectors from a known 
+							good implementation of the TOE supported schemes. For each combination of 
+							supported key establishment scheme and its options (with or without key confirmation 
+							if supported, for each supported key confirmation MAC function if key confirmation 
+							is supported, and for each supported mask generation function if KTS-OAEP is 
+							supported), the tester shall generate 10 sets of test vectors. Each test vector shall 
+							include the RSA public key, the plaintext keying material, any additional input 
+							parameters if applicable, the MacKey and MacTag if key confirmation is 
+							incorporated, and the outputted ciphertext. For each test vector, the evaluator shall 
+							perform a key establishment encryption operation on the TOE with the same inputs 
+							(in cases where key confirmation is incorporated, the test shall use the MacKey from 
+							the test vector instead of the randomly generated MacKey used in normal operation) 
+							and ensure that the outputted ciphertext is equivalent to the ciphertext in the test vector.</h:div>
          <h:p/>
          If the TOE acts as a receiver, the following evaluation activities shall be performed to ensure 
 						the proper operation of every TOE supported combination of RSA-based key establishment scheme:
          <h:p/>
+         <h:div class="indent">To conduct this test the evaluator shall generate or obtain test vectors from a known 
+							good implementation of the TOE supported schemes. For each combination of 
+							supported key establishment scheme and its options (with or without key 
+							confirmation if supported, for each supported key confirmation MAC function if key 
+							confirmation is supported, and for each supported mask generation function if KTS-OAEP is 
+							supported), the tester shall generate 10 sets of test vectors. Each test vector 
+							shall include the RSA private key, the plaintext keying material (KeyData), any 
+							additional input parameters if applicable, the MacTag in cases where key 
+							confirmation is incorporated, and the outputted ciphertext. For each test vector, the 
+							evaluator shall perform the key establishment decryption operation on the TOE and 
+							ensure that the outputted plaintext keying material (KeyData) is equivalent to the 
+							plaintext keying material in the test vector. In cases where key confirmation is 
+							incorporated, the evaluator shall perform the key confirmation steps and ensure that 
+							the outputted MacTag is equivalent to the MacTag in the test vector.</h:div>
          <h:p/>
          The evaluator shall ensure that the TSS describes how the TOE handles decryption errors. In 
 						accordance with NIST Special Publication 800-56B, the TOE must not reveal the particular 
@@ -1051,6 +1082,7 @@
        </h:p>
       </note>
       <aactivity level="component">
+       The evaluator shall perform the following activities based on the selections in the ST:
        <TSS>
         <h:p>None.</h:p>
        </TSS>
@@ -1084,6 +1116,7 @@
        </h:p>
       </note>
       <aactivity level="component">
+       The evaluator shall perform the following activities based on the selections in the ST.
        <TSS>
         <h:p>None.</h:p>
        </TSS>
@@ -1148,6 +1181,7 @@
        </h:p>
       </note>
       <aactivity level="component">
+       The evaluator shall perform the following activities based on the selections in the ST.
        <TSS>
         <h:p>None.</h:p>
        </TSS>
@@ -1858,6 +1892,66 @@
 							corresponds to the associated API.
          <h:p/>
          The following are the per-platform list of acceptable APIs:
+         <h:div>
+          The evaluator shall verify that the application uses at least one of
+          <h:code>javax.crypto.KeyGenerator</h:code>
+          class or the
+          <h:code>java.security.SecureRandom</h:code>
+          class or
+          <h:code>/dev/random</h:code>
+          or
+          <h:code>/dev/urandom</h:code>
+          .
+         </h:div>
+         <h:div>
+          The evaluator shall verify that
+          <h:code>rand_s</h:code>
+          ,
+          <h:code>RtlGenRandom</h:code>
+          ,
+          <h:code>BCryptGenRandom</h:code>
+          , or
+          <h:code>CryptGenRandom</h:code>
+          API is used for classic desktop applications. The evaluator shall verify the application uses the
+          <h:code>RNGCryptoServiceProvider</h:code>
+          class or derives a class from
+          <h:code>System.Security.Cryptography.RandomNumberGenerator API</h:code>
+          for Windows Universal Applications. It is only required that the API is called/invoked, there is no requirement that the API be used directly. In future versions of this document,
+          <h:code>CryptGenRandom</h:code>
+          may be removed as an option as it is no longer the preferred API per vendor documentation.
+         </h:div>
+         <h:div>
+          The evaluator shall verify that the application invokes either
+          <h:code>SecRandomCopyBytes</h:code>
+          ,
+          <h:code>CCRandomGenerateBytes</h:code>
+          , or
+          <h:code>CCRandomCopyBytes</h:code>
+          , or uses
+          <h:code>/dev/random</h:code>
+          directly to acquire random.
+         </h:div>
+         <h:div>
+          The evaluator shall verify that the application collects random from
+          <h:code>/dev/random</h:code>
+          or
+          <h:code>/dev/urandom</h:code>
+          .
+         </h:div>
+         <h:div>
+          The evaluator shall verify that the application collects random from
+          <h:code>/dev/random</h:code>
+          .
+         </h:div>
+         <h:div>
+          The evaluator shall verify that the application invokes either
+          <h:code>CCRandomGenerateBytes</h:code>
+          or
+          <h:code>CCRandomCopyBytes</h:code>
+          , or collects random from
+          <h:code>/dev/random</h:code>
+          .
+         </h:div>
          <h:p/>
          If invocation of platform-provided functionality is achieved in another way, the evaluator 
 							shall ensure the TSS describes how this is carried out, and how it is equivalent to the 
@@ -2109,6 +2203,23 @@
          " is selected, the evaluation activities will be performed as 
     					stated in the following requirements, which vary on a per-platform basis.
          <h:p/>
+         <h:div>
+          The evaluator shall inspect the TSS and verify that it describes how files containing sensitive data are 
+    						stored with the
+          <h:code>MODE_PRIVATE</h:code>
+          flag set.
+         </h:div>
+         <h:div>The Windows platform currently does not provide data-at-rest
+    						encryption services which depend upon invocation by application developers.</h:div>
+         <h:div>The evaluator shall inspect the TSS and ensure that it describes how the 
+    						application uses the Complete Protection, Protected Unless Open, or Protected Until 
+    						First User Authentication Data Protection Class for each data file stored locally.</h:div>
+         <h:div>The Linux platform currently does not provide data-at-rest encryption services which depend
+    						upon invocation by application developers.</h:div>
+         <h:div>The Solaris platform currently does not provide data-at-rest encryption services which depend
+    						upon invocation by application developers.</h:div>
+         <h:div>The macOS platform currently does not provide data-at-rest encryption services which depend
+    						upon invocation by application developers.</h:div>
         </h:p>
        </TSS>
        <Guidance>
@@ -3084,6 +3195,34 @@
        <Tests>
         The evaluator will inspect every native executable included in the TOE to ensure that stack-based buffer 
     					overflow protection is present.
+        <h:p>
+         <h:i>
+          <h:b>For PE</h:b>
+         </h:i>
+         , the evaluator will disassemble each and ensure the following sequence appears:
+        </h:p>
+        <h:table class="code-table">
+         <h:tr>
+          <h:td>mov rcx, QWORD PTR [rsp+<h:i>(...)</h:i>]</h:td>
+         </h:tr>
+         <h:tr>
+          <h:td>xor rcx, <h:i>(...)</h:i></h:td>
+         </h:tr>
+         <h:tr>
+          <h:td>call <h:i>(...)</h:i></h:td>
+         </h:tr>
+        </h:table>
+        <h:p>
+         <h:i>
+          <h:b>For ELF executables</h:b>
+         </h:i>
+         , the evaluator will ensure that each 
+    						contains references to the symbol
+         <h:b>__stack_chk_fail</h:b>
+         .
+         <h:p/>
+         If these automated tests fail, the evaluator shall perform the above, conditional TSS activity.
+        </h:p>
         <testlist>
          <test>
           <depends ref="windows"/>
@@ -3093,42 +3232,6 @@
     						comply with this element. For other code, 
     						the evaluator shall review the TSS and verify that the /GS flag was used during compilation. The 
     						evaluator shall run a tool like, BinSkim, that can verify the correct usage of /GS.
-         </test>
-        </testlist>
-        <testlist>
-         <test>
-          <h:p>
-           <h:i>
-            <h:b>For PE</h:b>
-           </h:i>
-           , the evaluator will disassemble each and ensure the following sequence appears:
-          </h:p>
-          <h:table class="code-table">
-           <h:tr>
-            <h:td>mov rcx, QWORD PTR [rsp+<h:i>(...)</h:i>]</h:td>
-           </h:tr>
-           <h:tr>
-            <h:td>xor rcx, <h:i>(...)</h:i></h:td>
-           </h:tr>
-           <h:tr>
-            <h:td>call <h:i>(...)</h:i></h:td>
-           </h:tr>
-          </h:table>
-         </test>
-        </testlist>
-        <testlist>
-         <test>
-          <h:p>
-           <h:i>
-            <h:b>For ELF executables</h:b>
-           </h:i>
-           , the evaluator will ensure that each 
-    						contains references to the symbol
-           <h:b>__stack_chk_fail</h:b>
-           .
-           <h:p/>
-           If these automated tests fail, the evaluator shall perform the above, conditional TSS activity.
-          </h:p>
          </test>
         </testlist>
         <h:p>
@@ -4582,6 +4685,8 @@
 					expert skills and an electron microscope, for instance, then a test would not be suitable and 
 					an appropriate justification would be formulated.
        </h:p>
+       <h:div>The evaluator shall also run a virus scanner with the most current virus definitions against the 
+						application files and verify that no files are flagged as malicious.</h:div>
       </aactivity>
      </a-element>
     </a-component>

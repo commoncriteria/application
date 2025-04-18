@@ -636,7 +636,7 @@ function showTarget(id){
 <tr><td>v 1.3</td><td>2019-03-01</td><td>Incorporated available Technical Decisions<br/>Refactored FPT_TUD<br/>Added a selection to FTP_DIT<br/>Moved SWID Tags requirement<br/>Leveraged TLS Package<br/>Added equivalency section<br/></td></tr>
 <tr><td>v 1.4</td><td>2021-10-07</td><td>Incorporated applicable Technical Decisions<br/>Updated to TLS <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr> 1.1<br/>Incorporated SSH <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr> 1.0<br/></td></tr>
 <tr><td>v 2.0</td><td>2025-02-11</td><td>CC2022 conversion<br/>Updating for TLS <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr>, SSH <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr>, and X509 <abbr class="dyn-abbr"><a href="#abbr_FP">FP</a></abbr><br/>TDs and GitHub Issues<br/>CNSA 2.0 updates<br/>ALC FLR Updates<br/></td></tr>
-</table><h2>Contents</h2><div class="toc" id="toc"><a href="#Introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#Overview" style="text-indent:10px">1.1<span>Overview</span></a><a href="#glossary" style="text-indent:10px">1.2<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.2.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.2.2<span>Technical Terms</span></a><a href="#TOEdescription" style="text-indent:10px">1.3<span>Compliant Targets of Evaluation</span></a><a href="#TOE_Boundary" style="text-indent:20px">1.3.1<span>TOE Boundary</span></a><a href="#sec-platforms" style="text-indent:10px">1.4<span>Platforms with Specific EAs</span></a><a href="#Use_Cases" style="text-indent:10px">1.5<span>Use Cases</span></a><a href="#Conformance_Claims" style="text-indent:0px">2<span>Conformance Claims</span></a><a href="#Security_Problem_Definition" style="text-indent:0px">3<span>Security Problem Definition</span></a><a href="#Threats" style="text-indent:10px">3.1<span>Threats</span></a><a href="#Assumptions" style="text-indent:10px">3.2<span>Assumptions</span></a><a href="#Organizational_Security_Policies" style="text-indent:10px">3.3<span>Organizational Security Policies</span></a><a href="#Security_Objectives" style="text-indent:0px">4<span>Security Objectives</span></a><a href="#Security_Objectives_for_the_Operational_Environment" style="text-indent:10px">4.1<span>Security Objectives for the Operational Environment</span></a><a href="#" style="text-indent:10px">4.2<span>Security Objectives Rationale</span></a><a href="#req" style="text-indent:0px">5<span>Security Requirements</span></a><a href="#SFRs" style="text-indent:10px">5.1<span>Security Functional Requirements</span></a><a href="#fcs" style="text-indent:20px">5.1.1<span>Class: Cryptographic Support (FCS)</span></a><a href="#fdp" style="text-indent:20px">5.1.2<span>Class: User Data Protection (FDP)</span></a><a href="#fmt" style="text-indent:20px">5.1.3<span>Class: Security Management (FMT)</span></a><a href="#fpr" style="text-indent:20px">5.1.4<span>Class: Privacy (FPR)</span></a><a href="#fpt" style="text-indent:20px">5.1.5<span>Class: Protection of the TSF (FPT)</span></a><a href="#ftp" style="text-indent:20px">5.1.6<span>Class: Trusted Path/Channel (FTP)</span></a><a href="#obj-req-map" style="text-indent:20px">5.1.7<span>TOE Security Functional Requirements Rationale</span></a><a href="#SARs" style="text-indent:10px">5.2<span>Security Assurance Requirements</span></a><a href="#ase" style="text-indent:20px">5.2.1<span>Class ASE: Security Target</span></a><a href="#adv" style="text-indent:20px">5.2.2<span>Class ADV: Development</span></a><a href="#agd" style="text-indent:20px">5.2.3<span>Class AGD: Guidance Documentation</span></a><a href="#alc" style="text-indent:20px">5.2.4<span>Class ALC: Life-cycle Support</span></a><a href="#ate" style="text-indent:20px">5.2.5<span>Class ATE: Tests</span></a><a href="#ava" style="text-indent:20px">5.2.6<span>Class AVA: Vulnerability Assessment</span></a><a href="#impl-reqs" style="text-indent:0px">Appendix A - <span>Implementation-dependent Requirements</span></a><a href="#ext-comp-defs" style="text-indent:0px">Appendix B - <span>Extended Component Definitions</span></a><a href="#ext-comp-defs-bg" style="text-indent:10px">B.1<span>Extended Components Table</span></a><a href="#ext-comp-defs-bg" style="text-indent:10px">B.2<span>Extended Component Definitions</span></a><a href="#ext-comp-FCS" style="text-indent:20px">B.2.1<span>Class: Cryptographic Support (FCS)</span></a><a href="#ext-comp-FCS_CKM_EXT" style="text-indent:30px">B.2.1.1<span>FCS_CKM_EXT Cryptographic Key Management</span></a><a href="#ext-comp-FCS_HTTPS_EXT" style="text-indent:30px">B.2.1.2<span>FCS_HTTPS_EXT HTTPS Protocol</span></a><a href="#ext-comp-FCS_PBKDF_EXT" style="text-indent:30px">B.2.1.3<span>FCS_PBKDF_EXT Password Conditioning</span></a><a href="#ext-comp-FCS_RBG_EXT" style="text-indent:30px">B.2.1.4<span>FCS_RBG_EXT Random Bit Generation</span></a><a href="#ext-comp-FCS_STO_EXT" style="text-indent:30px">B.2.1.5<span>FCS_STO_EXT Storage of Credentials</span></a><a href="#ext-comp-FPR" style="text-indent:20px">B.2.2<span>Class: Privacy (FPR)</span></a><a href="#ext-comp-FPR_ANO_EXT" style="text-indent:30px">B.2.2.1<span>FPR_ANO_EXT User Consent for Transmission of Personally Identifiable Information</span></a><a href="#ext-comp-FPT" style="text-indent:20px">B.2.3<span>Class: Protection of the TSF (FPT)</span></a><a href="#ext-comp-FPT_AEX_EXT" style="text-indent:30px">B.2.3.1<span>FPT_AEX_EXT Anti-Exploitation Capabilities</span></a><a href="#ext-comp-FPT_API_EXT" style="text-indent:30px">B.2.3.2<span>FPT_API_EXT Use of Supported Services and APIs</span></a><a href="#ext-comp-FPT_IDV_EXT" style="text-indent:30px">B.2.3.3<span>FPT_IDV_EXT Software Identification and Versions</span></a><a href="#ext-comp-FPT_LIB_EXT" style="text-indent:30px">B.2.3.4<span>FPT_LIB_EXT TSF Use of Third Party Libraries</span></a><a href="#ext-comp-FPT_TUD_EXT" style="text-indent:30px">B.2.3.5<span>FPT_TUD_EXT Trusted Updates</span></a><a href="#ext-comp-FMT" style="text-indent:20px">B.2.4<span>Class: Security Management (FMT)</span></a><a href="#ext-comp-FMT_CFG_EXT" style="text-indent:30px">B.2.4.1<span>FMT_CFG_EXT Secure by Default Configuration</span></a><a href="#ext-comp-FMT_MEC_EXT" style="text-indent:30px">B.2.4.2<span>FMT_MEC_EXT Supported Configuration Mechanism</span></a><a href="#ext-comp-FTP" style="text-indent:20px">B.2.5<span>Class: Trusted Path/Channel (FTP)</span></a><a href="#ext-comp-FTP_DIT_EXT" style="text-indent:30px">B.2.5.1<span>FTP_DIT_EXT Protection of Data in Transit</span></a><a href="#ext-comp-FDP" style="text-indent:20px">B.2.6<span>Class: User Data Protection (FDP)</span></a><a href="#ext-comp-FDP_DAR_EXT" style="text-indent:30px">B.2.6.1<span>FDP_DAR_EXT Data-at-Rest Encryption</span></a><a href="#ext-comp-FDP_DEC_EXT" style="text-indent:30px">B.2.6.2<span>FDP_DEC_EXT Access to Platform Resources</span></a><a href="#ext-comp-FDP_NET_EXT" style="text-indent:30px">B.2.6.3<span>FDP_NET_EXT Network Communications</span></a><a href="#entropyappendix" style="text-indent:0px">Appendix C - <span>Entropy Documentation and Assessment</span></a><a href="#entropydesign" style="text-indent:10px">C.1<span>Design Description</span></a><a href="#entropyjustification" style="text-indent:10px">C.2<span>Entropy Justification</span></a><a href="#entropyoperatingconditions" style="text-indent:10px">C.3<span>Operating Conditions</span></a><a href="#entropyhealthtesting" style="text-indent:10px">C.4<span>Health Testing</span></a><a href="#equiv" style="text-indent:0px">Appendix D - <span>Application Software Equivalency Guidelines</span></a><a href="#app-intro" style="text-indent:10px">D.1<span>Introduction</span></a><a href="#approach" style="text-indent:10px">D.2<span>Approach to Equivalency Analysis</span></a><a href="#modelequiv" style="text-indent:10px">D.3<span>Specific Guidance for Determining Product Model Equivalence</span></a><a href="#versionequiv" style="text-indent:10px">D.4<span>Specific Guidance for Determining Product Version Equivalence</span></a><a href="#platformequiv" style="text-indent:10px">D.5<span>Specific Guidance for Determining Platform Equivalence</span></a><a href="#hardware-equiv" style="text-indent:20px">D.5.1<span>Platform Equivalence—Hardware/Virtual Hardware Platforms</span></a><a href="#os-equiv" style="text-indent:20px">D.5.2<span>Platform Equivalence—OS Platforms</span></a><a href="#software-equiv" style="text-indent:20px">D.5.3<span>Software-based Execution Environment Platform Equivalence</span></a><a href="#specificity" style="text-indent:10px">D.6<span>Level of Specificity for Tested Configurations and Claimed Equivalent Configurations</span></a><a href="#acronyms" style="text-indent:0px">Appendix E - <span>Acronyms</span></a><a href="#appendix-bibliography" style="text-indent:0px">Appendix F - <span>Bibliography</span></a></div><h1 class="indexable" data-level="1" id="Introduction">1 Introduction</h1>
+</table><h2>Contents</h2><div class="toc" id="toc"><a href="#Introduction" style="text-indent:0px">1<span>Introduction</span></a><a href="#Overview" style="text-indent:10px">1.1<span>Overview</span></a><a href="#glossary" style="text-indent:10px">1.2<span>Terms</span></a><a href="#cc-terms" style="text-indent:20px">1.2.1<span>Common Criteria Terms</span></a><a href="#tech-terms" style="text-indent:20px">1.2.2<span>Technical Terms</span></a><a href="#TOEdescription" style="text-indent:10px">1.3<span>Compliant Targets of Evaluation</span></a><a href="#TOE_Boundary" style="text-indent:20px">1.3.1<span>TOE Boundary</span></a><a href="#sec-platforms" style="text-indent:10px">1.4<span>Platforms with Specific EAs</span></a><a href="#Use_Cases" style="text-indent:10px">1.5<span>Use Cases</span></a><a href="#Conformance_Claims" style="text-indent:0px">2<span>Conformance Claims</span></a><a href="#idt" style="text-indent:0px">3<span>Introduction to Distributed TOEs</span></a><a href="#Security_Problem_Definition" style="text-indent:0px">4<span>Security Problem Definition</span></a><a href="#Threats" style="text-indent:10px">4.1<span>Threats</span></a><a href="#Assumptions" style="text-indent:10px">4.2<span>Assumptions</span></a><a href="#Organizational_Security_Policies" style="text-indent:10px">4.3<span>Organizational Security Policies</span></a><a href="#Security_Objectives" style="text-indent:0px">5<span>Security Objectives</span></a><a href="#Security_Objectives_for_the_Operational_Environment" style="text-indent:10px">5.1<span>Security Objectives for the Operational Environment</span></a><a href="#" style="text-indent:10px">5.2<span>Security Objectives Rationale</span></a><a href="#req" style="text-indent:0px">6<span>Security Requirements</span></a><a href="#SFRs" style="text-indent:10px">6.1<span>Security Functional Requirements</span></a><a href="#fcs" style="text-indent:20px">6.1.1<span>Class: Cryptographic Support (FCS)</span></a><a href="#fdp" style="text-indent:20px">6.1.2<span>Class: User Data Protection (FDP)</span></a><a href="#fmt" style="text-indent:20px">6.1.3<span>Class: Security Management (FMT)</span></a><a href="#fpr" style="text-indent:20px">6.1.4<span>Class: Privacy (FPR)</span></a><a href="#fpt" style="text-indent:20px">6.1.5<span>Class: Protection of the TSF (FPT)</span></a><a href="#ftp" style="text-indent:20px">6.1.6<span>Class: Trusted Path/Channel (FTP)</span></a><a href="#obj-req-map" style="text-indent:20px">6.1.7<span>TOE Security Functional Requirements Rationale</span></a><a href="#SARs" style="text-indent:10px">6.2<span>Security Assurance Requirements</span></a><a href="#ase" style="text-indent:20px">6.2.1<span>Class ASE: Security Target</span></a><a href="#adv" style="text-indent:20px">6.2.2<span>Class ADV: Development</span></a><a href="#agd" style="text-indent:20px">6.2.3<span>Class AGD: Guidance Documentation</span></a><a href="#alc" style="text-indent:20px">6.2.4<span>Class ALC: Life-cycle Support</span></a><a href="#ate" style="text-indent:20px">6.2.5<span>Class ATE: Tests</span></a><a href="#ava" style="text-indent:20px">6.2.6<span>Class AVA: Vulnerability Assessment</span></a><a href="#impl-reqs" style="text-indent:0px">Appendix A - <span>Implementation-dependent Requirements</span></a><a href="#ext-comp-defs" style="text-indent:0px">Appendix B - <span>Extended Component Definitions</span></a><a href="#ext-comp-defs-bg" style="text-indent:10px">B.1<span>Extended Components Table</span></a><a href="#ext-comp-defs-bg" style="text-indent:10px">B.2<span>Extended Component Definitions</span></a><a href="#ext-comp-FCS" style="text-indent:20px">B.2.1<span>Class: Cryptographic Support (FCS)</span></a><a href="#ext-comp-FCS_CKM_EXT" style="text-indent:30px">B.2.1.1<span>FCS_CKM_EXT Cryptographic Key Management</span></a><a href="#ext-comp-FCS_HTTPS_EXT" style="text-indent:30px">B.2.1.2<span>FCS_HTTPS_EXT HTTPS Protocol</span></a><a href="#ext-comp-FCS_PBKDF_EXT" style="text-indent:30px">B.2.1.3<span>FCS_PBKDF_EXT Password Conditioning</span></a><a href="#ext-comp-FCS_RBG_EXT" style="text-indent:30px">B.2.1.4<span>FCS_RBG_EXT Random Bit Generation</span></a><a href="#ext-comp-FCS_STO_EXT" style="text-indent:30px">B.2.1.5<span>FCS_STO_EXT Storage of Credentials</span></a><a href="#ext-comp-FPR" style="text-indent:20px">B.2.2<span>Class: Privacy (FPR)</span></a><a href="#ext-comp-FPR_ANO_EXT" style="text-indent:30px">B.2.2.1<span>FPR_ANO_EXT User Consent for Transmission of Personally Identifiable Information</span></a><a href="#ext-comp-FPT" style="text-indent:20px">B.2.3<span>Class: Protection of the TSF (FPT)</span></a><a href="#ext-comp-FPT_AEX_EXT" style="text-indent:30px">B.2.3.1<span>FPT_AEX_EXT Anti-Exploitation Capabilities</span></a><a href="#ext-comp-FPT_API_EXT" style="text-indent:30px">B.2.3.2<span>FPT_API_EXT Use of Supported Services and APIs</span></a><a href="#ext-comp-FPT_IDV_EXT" style="text-indent:30px">B.2.3.3<span>FPT_IDV_EXT Software Identification and Versions</span></a><a href="#ext-comp-FPT_LIB_EXT" style="text-indent:30px">B.2.3.4<span>FPT_LIB_EXT TSF Use of Third Party Libraries</span></a><a href="#ext-comp-FPT_TUD_EXT" style="text-indent:30px">B.2.3.5<span>FPT_TUD_EXT Trusted Updates</span></a><a href="#ext-comp-FMT" style="text-indent:20px">B.2.4<span>Class: Security Management (FMT)</span></a><a href="#ext-comp-FMT_CFG_EXT" style="text-indent:30px">B.2.4.1<span>FMT_CFG_EXT Secure by Default Configuration</span></a><a href="#ext-comp-FMT_MEC_EXT" style="text-indent:30px">B.2.4.2<span>FMT_MEC_EXT Supported Configuration Mechanism</span></a><a href="#ext-comp-FTP" style="text-indent:20px">B.2.5<span>Class: Trusted Path/Channel (FTP)</span></a><a href="#ext-comp-FTP_DIT_EXT" style="text-indent:30px">B.2.5.1<span>FTP_DIT_EXT Protection of Data in Transit</span></a><a href="#ext-comp-FDP" style="text-indent:20px">B.2.6<span>Class: User Data Protection (FDP)</span></a><a href="#ext-comp-FDP_DAR_EXT" style="text-indent:30px">B.2.6.1<span>FDP_DAR_EXT Data-at-Rest Encryption</span></a><a href="#ext-comp-FDP_DEC_EXT" style="text-indent:30px">B.2.6.2<span>FDP_DEC_EXT Access to Platform Resources</span></a><a href="#ext-comp-FDP_NET_EXT" style="text-indent:30px">B.2.6.3<span>FDP_NET_EXT Network Communications</span></a><a href="#entropyappendix" style="text-indent:0px">Appendix C - <span>Entropy Documentation and Assessment</span></a><a href="#entropydesign" style="text-indent:10px">C.1<span>Design Description</span></a><a href="#entropyjustification" style="text-indent:10px">C.2<span>Entropy Justification</span></a><a href="#entropyoperatingconditions" style="text-indent:10px">C.3<span>Operating Conditions</span></a><a href="#entropyhealthtesting" style="text-indent:10px">C.4<span>Health Testing</span></a><a href="#equiv" style="text-indent:0px">Appendix D - <span>Application Software Equivalency Guidelines</span></a><a href="#app-intro" style="text-indent:10px">D.1<span>Introduction</span></a><a href="#approach" style="text-indent:10px">D.2<span>Approach to Equivalency Analysis</span></a><a href="#modelequiv" style="text-indent:10px">D.3<span>Specific Guidance for Determining Product Model Equivalence</span></a><a href="#versionequiv" style="text-indent:10px">D.4<span>Specific Guidance for Determining Product Version Equivalence</span></a><a href="#platformequiv" style="text-indent:10px">D.5<span>Specific Guidance for Determining Platform Equivalence</span></a><a href="#hardware-equiv" style="text-indent:20px">D.5.1<span>Platform Equivalence—Hardware/Virtual Hardware Platforms</span></a><a href="#os-equiv" style="text-indent:20px">D.5.2<span>Platform Equivalence—OS Platforms</span></a><a href="#software-equiv" style="text-indent:20px">D.5.3<span>Software-based Execution Environment Platform Equivalence</span></a><a href="#specificity" style="text-indent:10px">D.6<span>Level of Specificity for Tested Configurations and Claimed Equivalent Configurations</span></a><a href="#acronyms" style="text-indent:0px">Appendix E - <span>Acronyms</span></a><a href="#appendix-bibliography" style="text-indent:0px">Appendix F - <span>Bibliography</span></a></div><h1 class="indexable" data-level="1" id="Introduction">1 Introduction</h1>
   <h2 class="indexable" data-level="2" id="Overview">1.1 Overview</h2>
    The scope of this Protection Profile (<abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>) is to
 		describe the security functionality of application software in terms of
@@ -820,13 +820,16 @@ The following sections list Common Criteria and technology terms used in this do
 	</dd><dt>Evaluation Methods</dt><p></p><dd>This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> incorporates evaluation activies 
 				from the following Evaluation Methods documents:
 				<ul></ul></dd><dt>Additional Information</dt><p></p><dd></dd></dl>
- <h1 class="indexable" data-level="1" id="Security_Problem_Definition">3 Security Problem Definition</h1>
+ <h1 class="indexable" data-level="1" id="idt">3 Introduction to Distributed TOEs</h1>This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes support for distributed MDM <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr>. MDMs can sometimes be composed of multiple components operating as a logical whole. Frequently we
+		see this architecture when dealing with products hosted in the cloud and offered as Software as a Service. There are a number of different
+		architectures; but fundamentally, they are variations of the following model where the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> of this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> can only be fulfilled if the components 
+		are deployed and operate together. To be considered a distributed <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, a minimum of two interconnected components are required.<h1 class="indexable" data-level="1" id="Security_Problem_Definition">4 Security Problem Definition</h1>
   
-  <h2 class="indexable" data-level="2" id="Threats">3.1 Threats</h2>
+  <h2 class="indexable" data-level="2" id="Threats">4.1 Threats</h2>
    <dl><dt class="threat defined" id="T.LOCAL_ATTACK">T.LOCAL_ATTACK</dt><dd><span class="description">An attacker can act through unprivileged software on the same computingplatform on which the application executes. Attackers may provide maliciously formattedinput to the application in the form of files or other localcommunications.</span></dd><dt class="threat defined" id="T.NETWORK_ATTACK">T.NETWORK_ATTACK</dt><dd><span class="description">An attacker is positioned on a communications channel or elsewhere on thenetwork infrastructure. Attackers may engage in communications with the applicationsoftware or alter communications between the application software and other endpoints inorder to compromise it.</span></dd><dt class="threat defined" id="T.NETWORK_EAVESDROP">T.NETWORK_EAVESDROP</dt><dd><span class="description">An attacker is positioned on a communications channel or elsewhere on thenetwork infrastructure. Attackers may monitor and gain access to data exchanged betweenthe application and other endpoints.</span></dd><dt class="threat defined" id="T.PHYSICAL_ACCESS">T.PHYSICAL_ACCESS</dt><dd><span class="description">An attacker may try to access sensitive data at rest.</span></dd></dl>
   
   
-  <h2 class="indexable" data-level="2" id="Assumptions">3.2 Assumptions</h2>
+  <h2 class="indexable" data-level="2" id="Assumptions">4.2 Assumptions</h2>
    <dl><dt class="assumption defined" id="A.PLATFORM">A.PLATFORM</dt><dd><span class="description">The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> relies upon a trustworthy computing platform with a reliable time clock for
 					its execution. This includes the underlying platform and whatever runtime environment
 					it provides to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</span></dd><dt class="assumption defined" id="A.PROPER_ADMIN">A.PROPER_ADMIN</dt><dd><span class="description">The administrator of the application software is not careless, willfully
@@ -835,15 +838,15 @@ The following sections list Common Criteria and technology terms used in this do
 					and uses the software in compliance with the applied enterprise security policy.</span></dd></dl>
   
   
-  <h2 class="indexable" data-level="2" id="Organizational_Security_Policies">3.3 Organizational Security Policies</h2>
+  <h2 class="indexable" data-level="2" id="Organizational_Security_Policies">4.3 Organizational Security Policies</h2>
    
       This document does not define any additional OSPs.
     
   
- <h1 class="indexable" data-level="1" id="Security_Objectives">4 Security Objectives</h1>
+ <h1 class="indexable" data-level="1" id="Security_Objectives">5 Security Objectives</h1>
   
   
-  <h2 class="indexable" data-level="2" id="Security_Objectives_for_the_Operational_Environment">4.1 Security Objectives for the Operational Environment</h2>
+  <h2 class="indexable" data-level="2" id="Security_Objectives_for_the_Operational_Environment">5.1 Security Objectives for the Operational Environment</h2>
    <dl><dt class="SOE defined" id="OE.PLATFORM">OE.PLATFORM</dt><dd><span class="description">The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> relies upon a trustworthy computing platform for
 					its execution. This includes the underlying operating system and any discrete execution 
 					environment provided to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</span></dd><dt class="SOE defined" id="OE.PROPER_ADMIN">OE.PROPER_ADMIN</dt><dd><span class="description">The administrator of the application software is not careless, willfully
@@ -853,14 +856,14 @@ The following sections list Common Criteria and technology terms used in this do
 					policy.</span></dd></dl>
   
   
-  <h2 id="" class="indexable,h2" data-level="2">4.2 Security Objectives Rationale</h2>   
+  <h2 id="" class="indexable,h2" data-level="2">5.2 Security Objectives Rationale</h2>   
 		This section describes how the assumptions and organizational 
 		security policies map to operational environment security objectives.
 	<table><caption><span class="ctr" data-myid="t-sec-obj-rat" data-counter-type="ct-Table" id="t-sec-obj-rat">Table <span class="counter">1</span></span>: Security Objectives Rationale</caption><tr class="header"><td>Assumption or OSP</td><td>Security Objectives</td><td>Rationale</td></tr><tr class="major-row"><td rowspan="1"><a href="#A.PLATFORM">A.PLATFORM</a></td><td><a href="#OE.PLATFORM">OE.PLATFORM</a></td><td>The operational environment objective <a href="#OE.PLATFORM">OE.PLATFORM</a> is realized through
 						<a href="#A.PLATFORM">A.PLATFORM</a>.</td></tr><tr class="major-row"><td rowspan="1"><a href="#A.PROPER_ADMIN">A.PROPER_​ADMIN</a></td><td><a href="#OE.PROPER_ADMIN">OE.PROPER_​ADMIN</a></td><td>The operational environment objective <a href="#OE.PROPER_ADMIN">OE.PROPER_ADMIN</a> 
 						is realized through <a href="#A.PROPER_ADMIN">A.PROPER_ADMIN</a>.</td></tr><tr class="major-row"><td rowspan="1"><a href="#A.PROPER_USER">A.PROPER_​USER</a></td><td><a href="#OE.PROPER_USER">OE.PROPER_​USER</a></td><td>The operational environment objective <a href="#OE.PROPER_USER">OE.PROPER_USER</a> 
 						is realized through <a href="#A.PROPER_USER">A.PROPER_USER</a>.</td></tr></table>
- <h1 class="indexable" data-level="1" id="req">5 Security Requirements</h1>
+ <h1 class="indexable" data-level="1" id="req">6 Security Requirements</h1>
       This chapter describes the security requirements which have to be fulfilled by the product under evaluation.
      Those requirements comprise functional components from Part 2 and assurance components from Part 3 of 
        <a href="#bibCC">[CC]</a>.
@@ -886,9 +889,9 @@ The following sections list Common Criteria and technology terms used in this do
      </ul>
    
   
-  <h2 id="SFRs" class="indexable" data-level="2">5.1 Security Functional Requirements</h2>
+  <h2 id="SFRs" class="indexable" data-level="2">6.1 Security Functional Requirements</h2>
    
-   <h3 id="fcs" class="indexable" data-level="3">5.1.1 Class: Cryptographic Support (FCS)</h3>
+   <h3 id="fcs" class="indexable" data-level="3">6.1.1 Class: Cryptographic Support (FCS)</h3>
     
     
     
@@ -1257,10 +1260,37 @@ The following sections list Common Criteria and technology terms used in this do
          If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts as a sender, the following evaluation activity shall be performed to ensure the 
 						proper operation of every <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported combination of RSA-based key establishment scheme:
          <p></p>
+         <div class="indent">To conduct this test the evaluator shall generate or obtain test vectors from a known 
+							good implementation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported schemes. For each combination of 
+							supported key establishment scheme and its options (with or without key confirmation 
+							if supported, for each supported key confirmation MAC function if key confirmation 
+							is supported, and for each supported mask generation function if KTS-OAEP is 
+							supported), the tester shall generate 10 sets of test vectors. Each test vector shall 
+							include the RSA public key, the plaintext keying material, any additional input 
+							parameters if applicable, the MacKey and MacTag if key confirmation is 
+							incorporated, and the outputted ciphertext. For each test vector, the evaluator shall 
+							perform a key establishment encryption operation on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with the same inputs 
+							(in cases where key confirmation is incorporated, the test shall use the MacKey from 
+							the test vector instead of the randomly generated MacKey used in normal operation) 
+							and ensure that the outputted ciphertext is equivalent to the ciphertext in the test vector.</div>
          <p></p>
          If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts as a receiver, the following evaluation activities shall be performed to ensure 
 						the proper operation of every <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported combination of RSA-based key establishment scheme:
          <p></p>
+         <div class="indent">To conduct this test the evaluator shall generate or obtain test vectors from a known 
+							good implementation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported schemes. For each combination of 
+							supported key establishment scheme and its options (with or without key 
+							confirmation if supported, for each supported key confirmation MAC function if key 
+							confirmation is supported, and for each supported mask generation function if KTS-OAEP is 
+							supported), the tester shall generate 10 sets of test vectors. Each test vector 
+							shall include the RSA private key, the plaintext keying material (KeyData), any 
+							additional input parameters if applicable, the MacTag in cases where key 
+							confirmation is incorporated, and the outputted ciphertext. For each test vector, the 
+							evaluator shall perform the key establishment decryption operation on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and 
+							ensure that the outputted plaintext keying material (KeyData) is equivalent to the 
+							plaintext keying material in the test vector. In cases where key confirmation is 
+							incorporated, the evaluator shall perform the key confirmation steps and ensure that 
+							the outputted MacTag is equivalent to the MacTag in the test vector.</div>
          <p></p>
          The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> handles decryption errors. In 
 						accordance with NIST Special Publication 800-56B, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must not reveal the particular 
@@ -1426,6 +1456,7 @@ The following sections list Common Criteria and technology terms used in this do
        </p>
       </span></div></div></div>
     <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a></div>
+       The evaluator shall perform the following activities based on the selections in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>:
        
        
        
@@ -1459,6 +1490,7 @@ The following sections list Common Criteria and technology terms used in this do
        </p>
       </span></div></div></div>
     <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_COP.1/SigGen">FCS_COP.1/SigGen</a></div>
+       The evaluator shall perform the following activities based on the selections in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
        
        
        
@@ -1526,6 +1558,7 @@ The following sections list Common Criteria and technology terms used in this do
        </p>
       </span></div></div></div>
     <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a></div>
+       The evaluator shall perform the following activities based on the selections in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
        
        
        
@@ -2257,6 +2290,66 @@ The following sections list Common Criteria and technology terms used in this do
 							corresponds to the associated API.
          <p></p>
          The following are the per-platform list of acceptable APIs:
+         <div>
+          The evaluator shall verify that the application uses at least one of
+          <code>javax.crypto.KeyGenerator</code>
+          class or the
+          <code>java.security.SecureRandom</code>
+          class or
+          <code>/dev/random</code>
+          or
+          <code>/dev/urandom</code>
+          .
+         </div>
+         <div>
+          The evaluator shall verify that
+          <code>rand_s</code>
+          ,
+          <code>RtlGenRandom</code>
+          ,
+          <code>BCryptGenRandom</code>
+          , or
+          <code>CryptGenRandom</code>
+          API is used for classic desktop applications. The evaluator shall verify the application uses the
+          <code>RNGCryptoServiceProvider</code>
+          class or derives a class from
+          <code>System.Security.Cryptography.RandomNumberGenerator API</code>
+          for Windows Universal Applications. It is only required that the API is called/invoked, there is no requirement that the API be used directly. In future versions of this document,
+          <code>CryptGenRandom</code>
+          may be removed as an option as it is no longer the preferred API per vendor documentation.
+         </div>
+         <div>
+          The evaluator shall verify that the application invokes either
+          <code>SecRandomCopyBytes</code>
+          ,
+          <code>CCRandomGenerateBytes</code>
+          , or
+          <code>CCRandomCopyBytes</code>
+          , or uses
+          <code>/dev/random</code>
+          directly to acquire random.
+         </div>
+         <div>
+          The evaluator shall verify that the application collects random from
+          <code>/dev/random</code>
+          or
+          <code>/dev/urandom</code>
+          .
+         </div>
+         <div>
+          The evaluator shall verify that the application collects random from
+          <code>/dev/random</code>
+          .
+         </div>
+         <div>
+          The evaluator shall verify that the application invokes either
+          <code>CCRandomGenerateBytes</code>
+          or
+          <code>CCRandomCopyBytes</code>
+          , or collects random from
+          <code>/dev/random</code>
+          .
+         </div>
          <p></p>
          If invocation of platform-provided functionality is achieved in another way, the evaluator 
 							shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how this is carried out, and how it is equivalent to the 
@@ -2446,7 +2539,7 @@ The following sections list Common Criteria and technology terms used in this do
        </div></div></div></div></div>
    
    
-   <h3 id="fdp" class="indexable" data-level="3">5.1.2 Class: User Data Protection (FDP)</h3>
+   <h3 id="fdp" class="indexable" data-level="3">6.1.2 Class: User Data Protection (FDP)</h3>
     
     
     
@@ -2507,6 +2600,23 @@ The following sections list Common Criteria and technology terms used in this do
          " is selected, the evaluation activities will be performed as 
     					stated in the following requirements, which vary on a per-platform basis.
          <p></p>
+         <div>
+          The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that it describes how files containing sensitive data are 
+    						stored with the
+          <code>MODE_PRIVATE</code>
+          flag set.
+         </div>
+         <div>The Windows platform currently does not provide data-at-rest
+    						encryption services which depend upon invocation by application developers.</div>
+         <div>The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and ensure that it describes how the 
+    						application uses the Complete Protection, Protected Unless Open, or Protected Until 
+    						First User Authentication Data Protection Class for each data file stored locally.</div>
+         <div>The Linux platform currently does not provide data-at-rest encryption services which depend
+    						upon invocation by application developers.</div>
+         <div>The Solaris platform currently does not provide data-at-rest encryption services which depend
+    						upon invocation by application developers.</div>
+         <div>The macOS platform currently does not provide data-at-rest encryption services which depend
+    						upon invocation by application developers.</div>
         </p>
        </div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea">
         <p>
@@ -2797,7 +2907,7 @@ The following sections list Common Criteria and technology terms used in this do
        </div></div></div></div></div>
    
    
-   <h3 id="fmt" class="indexable" data-level="3">5.1.3 Class: Security Management (FMT)</h3>
+   <h3 id="fmt" class="indexable" data-level="3">6.1.3 Class: Security Management (FMT)</h3>
     
     
     
@@ -3102,7 +3212,7 @@ The following sections list Common Criteria and technology terms used in this do
 						the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> and guidance documentation state the configuration can be managed.</div></div></div></div></div>
    
    
-   <h3 id="fpr" class="indexable" data-level="3">5.1.4 Class: Privacy (FPR)</h3>
+   <h3 id="fpr" class="indexable" data-level="3">6.1.4 Class: Privacy (FPR)</h3>
     
     
     <div class="comp" id="FPR_ANO_EXT.1"><h4>FPR_ANO_EXT.1 User Consent for Transmission of Personally Identifiable Information</h4>
@@ -3140,7 +3250,7 @@ The following sections list Common Criteria and technology terms used in this do
        </div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">If "<b>require user approval before executing...</b>" is selected, the evaluator shall run the application, execute each function that is claimed as being used to transmit PII, and verify that user approval is required before transmission of the PII for each function.</div></div></div></div></div>
    
    
-   <h3 id="fpt" class="indexable" data-level="3">5.1.5 Class: Protection of the TSF (FPT)</h3>
+   <h3 id="fpt" class="indexable" data-level="3">6.1.5 Class: Protection of the TSF (FPT)</h3>
     
     
     
@@ -3497,6 +3607,34 @@ The following sections list Common Criteria and technology terms used in this do
        <div class="eacategory">Tests</div><div class="ea">
         The evaluator will inspect every native executable included in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to ensure that stack-based buffer 
     					overflow protection is present.
+        <p>
+         <i>
+          <b>For PE</b>
+         </i>
+         , the evaluator will disassemble each and ensure the following sequence appears:
+        </p>
+        <table class="code-table">
+         <tr>
+          <td>mov rcx, QWORD PTR [rsp+<i>(...)</i>]</td>
+         </tr>
+         <tr>
+          <td>xor rcx, <i>(...)</i></td>
+         </tr>
+         <tr>
+          <td>call <i>(...)</i></td>
+         </tr>
+        </table>
+        <p>
+         <i>
+          <b>For ELF executables</b>
+         </i>
+         , the evaluator will ensure that each 
+    						contains references to the symbol
+         <b>__stack_chk_fail</b>
+         .
+         <p></p>
+         If these automated tests fail, the evaluator shall perform the above, conditional <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> activity.
+        </p>
         <span class="testlist-"><ul>
          <li class="test-"><a id="_t_73" class="defined" href="#_t_73">Test FPT_AEX_EXT.1.5:1</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
       
@@ -3507,44 +3645,6 @@ The following sections list Common Criteria and technology terms used in this do
     						comply with this element. For other code, 
     						the evaluator shall review the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that the /GS flag was used during compilation. The 
     						evaluator shall run a tool like, BinSkim, that can verify the correct usage of /GS.
-         </li>
-        </ul></span>
-        <span class="testlist-"><ul>
-         <li class="test-"><a id="_t_74" class="defined" href="#_t_74">Test FPT_AEX_EXT.1.5:2</a>:
-      
-          <p>
-           <i>
-            <b>For PE</b>
-           </i>
-           , the evaluator will disassemble each and ensure the following sequence appears:
-          </p>
-          <table class="code-table">
-           <tr>
-            <td>mov rcx, QWORD PTR [rsp+<i>(...)</i>]</td>
-           </tr>
-           <tr>
-            <td>xor rcx, <i>(...)</i></td>
-           </tr>
-           <tr>
-            <td>call <i>(...)</i></td>
-           </tr>
-          </table>
-         </li>
-        </ul></span>
-        <span class="testlist-"><ul>
-         <li class="test-"><a id="_t_75" class="defined" href="#_t_75">Test FPT_AEX_EXT.1.5:3</a>:
-      
-          <p>
-           <i>
-            <b>For ELF executables</b>
-           </i>
-           , the evaluator will ensure that each 
-    						contains references to the symbol
-           <b>__stack_chk_fail</b>
-           .
-           <p></p>
-           If these automated tests fail, the evaluator shall perform the above, conditional <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> activity.
-          </p>
          </li>
         </ul></span>
         <p>
@@ -3796,7 +3896,7 @@ The following sections list Common Criteria and technology terms used in this do
         Conditional: If "not download, modify, replace or update its own binary code" is selected the 
 						evaluator shall verify that the application's executable files are not changed by the application with the following tests:
         <span class="testlist-"><ul>
-         <li class="test-"><a id="_t_76" class="defined" href="#_t_76">Test FPT_TUD_EXT.1.3:1</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
+         <li class="test-"><a id="_t_74" class="defined" href="#_t_74">Test FPT_TUD_EXT.1.3:1</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
       
           
           The evaluator shall consider the requirement met because the platform forces
@@ -3804,7 +3904,7 @@ The following sections list Common Criteria and technology terms used in this do
          </li>
         </ul></span>
         <span class="testlist-"><ul>
-         <li class="test-"><a id="_t_77" class="defined" href="#_t_77">Test FPT_TUD_EXT.1.3:2</a>:
+         <li class="test-"><a id="_t_75" class="defined" href="#_t_75">Test FPT_TUD_EXT.1.3:2</a>:
       The evaluator shall install the application and then locate all of its executable files. 
 								The evaluator shall then, for each file, save off either a hash of the file or a copy of the file 
 								itself. The evaluator shall then run the application and exercise all features of the application as 
@@ -3891,7 +3991,7 @@ The following sections list Common Criteria and technology terms used in this do
 						the evaluator shall verify that application updates are distributed in the
 						format supported by the platform. This varies per platform:
         <span class="testlist-"><ul>
-         <li class="test-"><a id="_t_78" class="defined" href="#_t_78">Test FPT_TUD_EXT.2.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+         <li class="test-"><a id="_t_76" class="defined" href="#_t_76">Test FPT_TUD_EXT.2.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
       
           
           The evaluator shall ensure that the application is
@@ -3899,7 +3999,7 @@ The following sections list Common Criteria and technology terms used in this do
          </li>
         </ul></span>
         <span class="testlist-"><ul>
-         <li class="test-"><a id="_t_79" class="defined" href="#_t_79">Test FPT_TUD_EXT.2.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+         <li class="test-"><a id="_t_77" class="defined" href="#_t_77">Test FPT_TUD_EXT.2.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
       
           
           The evaluator shall ensure that the application is
@@ -3911,7 +4011,7 @@ The following sections list Common Criteria and technology terms used in this do
          </li>
         </ul></span>
         <span class="testlist-"><ul>
-         <li class="test-"><a id="_t_80" class="defined" href="#_t_80">Test FPT_TUD_EXT.2.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
+         <li class="test-"><a id="_t_78" class="defined" href="#_t_78">Test FPT_TUD_EXT.2.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
       
           
           The evaluator shall ensure that the application is
@@ -3919,7 +4019,7 @@ The following sections list Common Criteria and technology terms used in this do
          </li>
         </ul></span>
         <span class="testlist-"><ul>
-         <li class="test-"><a id="_t_81" class="defined" href="#_t_81">Test FPT_TUD_EXT.2.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+         <li class="test-"><a id="_t_79" class="defined" href="#_t_79">Test FPT_TUD_EXT.2.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
       
           
           The evaluator shall ensure that the application is
@@ -3934,7 +4034,7 @@ The following sections list Common Criteria and technology terms used in this do
          </li>
         </ul></span>
         <span class="testlist-"><ul>
-         <li class="test-"><a id="_t_82" class="defined" href="#_t_82">Test FPT_TUD_EXT.2.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+         <li class="test-"><a id="_t_80" class="defined" href="#_t_80">Test FPT_TUD_EXT.2.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
       
           
           The evaluator shall ensure that the application is
@@ -3942,7 +4042,7 @@ The following sections list Common Criteria and technology terms used in this do
          </li>
         </ul></span>
         <span class="testlist-"><ul>
-         <li class="test-"><a id="_t_83" class="defined" href="#_t_83">Test FPT_TUD_EXT.2.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+         <li class="test-"><a id="_t_81" class="defined" href="#_t_81">Test FPT_TUD_EXT.2.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
       
           
           The evaluator shall ensure that the application is packaged
@@ -3960,7 +4060,7 @@ The following sections list Common Criteria and technology terms used in this do
        </div>
        <div class="eacategory">Tests</div><div class="ea">
         <span class="testlist-"><ul>
-         <li class="test-"><a id="_t_84" class="defined" href="#_t_84">Test FPT_TUD_EXT.2.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+         <li class="test-"><a id="_t_82" class="defined" href="#_t_82">Test FPT_TUD_EXT.2.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
       
           
           The evaluator shall consider the requirement met because 
@@ -3969,7 +4069,7 @@ The following sections list Common Criteria and technology terms used in this do
          </li>
         </ul></span>
         <span class="testlist-"><ul>
-         <li class="test-"><a id="_t_85" class="defined" href="#_t_85">Test FPT_TUD_EXT.2.2:2</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
+         <li class="test-"><a id="_t_83" class="defined" href="#_t_83">Test FPT_TUD_EXT.2.2:2</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
       
           
           The evaluator shall consider the requirement met because 
@@ -3994,7 +4094,7 @@ The following sections list Common Criteria and technology terms used in this do
        <div class="eacategory">Tests</div><div class="ea">
         Conditional: if "the application can verify them using" is selected the evaluator shall perform the following tests:
         <span class="testlist-"><ul>
-         <li class="test-"><a id="_t_86" class="defined" href="#_t_86">Test FPT_TUD_EXT.2.3:1</a>:
+         <li class="test-"><a id="_t_84" class="defined" href="#_t_84">Test FPT_TUD_EXT.2.3:1</a>:
       The evaluator shall ensure that the update has a digital
 								signature belonging to the vendor prior to its installation.
 								The evaluator shall modify the downloaded update in such a way
@@ -4002,7 +4102,7 @@ The following sections list Common Criteria and technology terms used in this do
 								will then attempt to install the modified update. The
 								evaluator shall ensure that the
 								modified update fails to install.</li>
-         <li class="test-"><a id="_t_87" class="defined" href="#_t_87">Test FPT_TUD_EXT.2.3:2</a>:
+         <li class="test-"><a id="_t_85" class="defined" href="#_t_85">Test FPT_TUD_EXT.2.3:2</a>:
       The evaluator shall ensure that the update has a digital
 								signature belonging to the vendor. The evaluator shall then
 								attempt to install the update (or permit installation to continue).
@@ -4013,7 +4113,7 @@ The following sections list Common Criteria and technology terms used in this do
       </div></div></div>
    
    
-   <h3 id="ftp" class="indexable" data-level="3">5.1.6 Class: Trusted Path/Channel (FTP)</h3>
+   <h3 id="ftp" class="indexable" data-level="3">6.1.6 Class: Trusted Path/Channel (FTP)</h3>
     
     
     <div class="comp" id="FTP_DIT_EXT.1"><h4>FTP_DIT_EXT.1 Protection of Data in Transit</h4>
@@ -4180,7 +4280,7 @@ The following sections list Common Criteria and technology terms used in this do
        </div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">
         The evaluator shall perform the following tests.
         <span class="testlist-"><ul>
-         <li class="test-"><a id="_t_88" class="defined" href="#_t_88">Test FTP_DIT_EXT.1:1</a>:
+         <li class="test-"><a id="_t_86" class="defined" href="#_t_86">Test FTP_DIT_EXT.1:1</a>:
       If " " is selected, the evaluator shall exercise each of the 
 								<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s identified functions, while observing the network traffic from the device and 
 								verify that no <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> initiated connections were observed during the attempts.
@@ -4188,18 +4288,18 @@ The following sections list Common Criteria and technology terms used in this do
 								If " " is selected, the evaluator shall exercise each of the 
 								<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s identified functions, while observing the network traffic from the device and 
 								verify that no <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> initiated connections were observed during the attempts.</li>
-         <li class="test-"><a id="_t_89" class="defined" href="#_t_89">Test FTP_DIT_EXT.1:2</a>:
+         <li class="test-"><a id="_t_87" class="defined" href="#_t_87">Test FTP_DIT_EXT.1:2</a>:
       The evaluator shall exercise the application (attempting to transmit data; for 
 								 example by connecting to remote systems or websites) while capturing packets from 
 								 the application. The evaluator shall verify from the packet capture that the
 								 traffic is encrypted with HTTPS, TLS, DTLS, SSH, or IPsec in accordance with the
 								 selection in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.</li>
-         <li class="test-"><a id="_t_90" class="defined" href="#_t_90">Test FTP_DIT_EXT.1:3</a>:
+         <li class="test-"><a id="_t_88" class="defined" href="#_t_88">Test FTP_DIT_EXT.1:3</a>:
       The evaluator shall exercise the application (attempting to transmit data; for
 								example by connecting to remote systems or websites) while capturing packets from 
 								the application. The evaluator shall review the packet capture and verify that no 
 								sensitive data is transmitted in the clear.</li>
-         <li class="test-"><a id="_t_91" class="defined" href="#_t_91">Test FTP_DIT_EXT.1:4</a>:
+         <li class="test-"><a id="_t_89" class="defined" href="#_t_89">Test FTP_DIT_EXT.1:4</a>:
       The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine if user credentials are transmitted.
 								If credentials are transmitted the evaluator shall set the credential to a known
 								value. The evaluator shall capture packets from the application while causing
@@ -4208,7 +4308,7 @@ The following sections list Common Criteria and technology terms used in this do
 								credential previously set by the evaluator is not found.</li>
         </ul></span>
         <span class="testlist-"><ul>
-         <li class="test-"><a id="_t_92" class="defined" href="#_t_92">Test FTP_DIT_EXT.1:5</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+         <li class="test-"><a id="_t_90" class="defined" href="#_t_90">Test FTP_DIT_EXT.1:5</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
       
           
           If "
@@ -4221,7 +4321,7 @@ The following sections list Common Criteria and technology terms used in this do
          </li>
         </ul></span>
         <span class="testlist-"><ul>
-         <li class="test-"><a id="_t_93" class="defined" href="#_t_93">Test FTP_DIT_EXT.1:6</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
+         <li class="test-"><a id="_t_91" class="defined" href="#_t_91">Test FTP_DIT_EXT.1:6</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
       
           
           If "
@@ -4234,9 +4334,9 @@ The following sections list Common Criteria and technology terms used in this do
         </ul></span>
        </div></div></div></div></div>
    
-  <h3 id="obj-req-map" class="indexable" data-level="3">5.1.7 TOE Security Functional Requirements Rationale</h3><p>The following rationale provides justification for each <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, 
-    showing that the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> are suitable to address the specified threats:<br/><table><caption><span class="ctr" data-myid="t-obj_map" data-counter-type="ct-Table" id="t-obj_map">Table <span class="counter">2</span></span>: <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> Rationale</caption><tr><th>Threat</th><th>Addressed by</th><th>Rationale</th></tr><tr class="major-row"><td rowspan="15"><a href="#T.LOCAL_ATTACK">T.LOCAL_​ATTACK</a></td><td><a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided asymmetric key generation services.</td></tr>
-<tr><td><a href="#FCS_CKM.2">FCS_CKM.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.2">FCS_CKM.2</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided key establishment services.</td></tr>
+  <h3 id="obj-req-map" class="indexable" data-level="3">6.1.7 TOE Security Functional Requirements Rationale</h3><p>The following rationale provides justification for each <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, 
+    showing that the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> are suitable to address the specified threats:<br/><table><caption><span class="ctr" data-myid="t-obj_map" data-counter-type="ct-Table" id="t-obj_map">Table <span class="counter">2</span></span>: <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> Rationale</caption><tr><th>Threat</th><th>Addressed by</th><th>Rationale</th></tr><tr class="major-row"><td rowspan="15"><a href="#T.LOCAL_ATTACK">T.LOCAL_​ATTACK</a></td><td><a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided asymmetric key generation services.</td></tr>
+<tr><td><a href="#FCS_CKM.2">FCS_CKM.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.2">FCS_CKM.2</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided key establishment services.</td></tr>
 <tr><td><a href="#FCS_CKM_EXT.1">FCS_CKM_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM_EXT.1">FCS_CKM_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided key generation services.</td></tr>
 <tr><td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided random bit generation services.</td></tr>
 <tr><td><a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided credential storage services.</td></tr>
@@ -4245,27 +4345,27 @@ The following sections list Common Criteria and technology terms used in this do
 <tr><td><a href="#FMT_CFG_EXT.1">FMT_CFG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FMT_CFG_EXT.1">FMT_CFG_EXT.1</a> for the TSP to limit unauthorized access to itself by preventing the use of default authentication credentials and by ensuring that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> uses appropriately restrictive platform permissions on its binaries and data</td></tr>
 <tr><td><a href="#FMT_MEC_EXT.1">FMT_MEC_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FMT_MEC_EXT.1">FMT_MEC_EXT.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can use platform services to store and set configuration options.</td></tr>
 <tr><td><a href="#FPT_AEX_EXT.1">FPT_AEX_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_AEX_EXT.1">FPT_AEX_EXT.1</a> to add complexity to the task of compromising systems by ensuring that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements various platform security features and can operate on a platform that is configured securely.</td></tr>
-<tr><td><a href="#FPT_API_EXT.2">FPT_API_EXT.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_API_EXT.2">FPT_API_EXT.2</a> to permit the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use platform-provided libraries for parsing IANA MIME media formats.</td></tr>
+<tr><td><a href="#FPT_API_EXT.2">FPT_API_EXT.2</a> (objective)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_API_EXT.2">FPT_API_EXT.2</a> to permit the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use platform-provided libraries for parsing IANA MIME media formats.</td></tr>
 <tr><td><a href="#FPT_API_EXT.1">FPT_API_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_API_EXT.1">FPT_API_EXT.1</a> to require the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to leverage platform functionality by using only documented and supported APIs.</td></tr>
 <tr><td><a href="#FPT_LIB_EXT.1">FPT_LIB_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_LIB_EXT.1">FPT_LIB_EXT.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not include any unnecessary or unexpected third-party libraries which could present a privacy threat or vulnerability.</td></tr>
 <tr><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> can be patched and that any updates to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> have appropriate integrity protection.</td></tr>
-<tr><td><a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a> to ensure that <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> updates are packaged in a certain format, provide certain integrity protections, and remove residual data.</td></tr>
+<tr><td><a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a> to ensure that <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> updates are packaged in a certain format, provide certain integrity protections, and remove residual data.</td></tr>
 <tr class="major-row"><td rowspan="29"><a href="#T.NETWORK_ATTACK">T.NETWORK_​ATTACK</a></td><td><a href="#FCS_CKM.1/SK">FCS_CKM.1/SK</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/SK">FCS_CKM.1/SK</a> to define the mechanism used to generate symmetric keys when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> performs this function.</td></tr>
 <tr><td><a href="#FCS_CKM_EXT.1">FCS_CKM_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM_EXT.1">FCS_CKM_EXT.1</a> to specify whether the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or the platform is responsible for generation of any asymmetric keys that may be used for establishing trusted communications.</td></tr>
-<tr><td><a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> to define whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform generates asymmetric keys that are used in support of trusted communications.</td></tr>
-<tr><td><a href="#FCS_CKM.2">FCS_CKM.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.2">FCS_CKM.2</a> to define whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform performs key establishment for trusted communications.</td></tr>
-<tr><td><a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> to define the symmetric encryption algorithms used in support of trusted communications.</td></tr>
-<tr><td><a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> to define the hash algorithms used in support of trusted communications.</td></tr>
-<tr><td><a href="#FCS_COP.1/SigGen">FCS_COP.1/SigGen</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/SigGen">FCS_COP.1/SigGen</a> to define the digital signature algorithms used in support of trusted communications.</td></tr>
-<tr><td><a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a> to define the digital signature algorithms used in support of trusted communications and trusted updates.</td></tr>
-<tr><td><a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a> to define the HMAC algorithms used in support of trusted communications.</td></tr>
-<tr><td><a href="#FCS_HTTPS_EXT.1">FCS_HTTPS_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_HTTPS_EXT.1">FCS_HTTPS_EXT.1</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s support for the HTTPS trusted communications protocol.</td></tr>
-<tr><td><a href="#FCS_RBG.1">FCS_RBG.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.1">FCS_RBG.1</a> to define the DRBG algorithms used in support of trusted communications.</td></tr>
-<tr><td><a href="#FCS_RBG.2">FCS_RBG.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.2">FCS_RBG.2</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
-<tr><td><a href="#FCS_RBG.3">FCS_RBG.3</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.3">FCS_RBG.3</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
-<tr><td><a href="#FCS_RBG.4">FCS_RBG.4</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.4">FCS_RBG.4</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
-<tr><td><a href="#FCS_RBG.5">FCS_RBG.5</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.5">FCS_RBG.5</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
-<tr><td><a href="#FCS_SNI_EXT.1">FCS_SNI_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_SNI_EXT.1">FCS_SNI_EXT.1</a> to define the proper salt, nonce, and initialization vector usage to ensure proper cryptographic operation.</td></tr>
+<tr><td><a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> to define whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform generates asymmetric keys that are used in support of trusted communications.</td></tr>
+<tr><td><a href="#FCS_CKM.2">FCS_CKM.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.2">FCS_CKM.2</a> to define whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform performs key establishment for trusted communications.</td></tr>
+<tr><td><a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> to define the symmetric encryption algorithms used in support of trusted communications.</td></tr>
+<tr><td><a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> to define the hash algorithms used in support of trusted communications.</td></tr>
+<tr><td><a href="#FCS_COP.1/SigGen">FCS_COP.1/SigGen</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/SigGen">FCS_COP.1/SigGen</a> to define the digital signature algorithms used in support of trusted communications.</td></tr>
+<tr><td><a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a> to define the digital signature algorithms used in support of trusted communications and trusted updates.</td></tr>
+<tr><td><a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a> to define the HMAC algorithms used in support of trusted communications.</td></tr>
+<tr><td><a href="#FCS_HTTPS_EXT.1">FCS_HTTPS_EXT.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_HTTPS_EXT.1">FCS_HTTPS_EXT.1</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s support for the HTTPS trusted communications protocol.</td></tr>
+<tr><td><a href="#FCS_RBG.1">FCS_RBG.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.1">FCS_RBG.1</a> to define the DRBG algorithms used in support of trusted communications.</td></tr>
+<tr><td><a href="#FCS_RBG.2">FCS_RBG.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.2">FCS_RBG.2</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
+<tr><td><a href="#FCS_RBG.3">FCS_RBG.3</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.3">FCS_RBG.3</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
+<tr><td><a href="#FCS_RBG.4">FCS_RBG.4</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.4">FCS_RBG.4</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
+<tr><td><a href="#FCS_RBG.5">FCS_RBG.5</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.5">FCS_RBG.5</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
+<tr><td><a href="#FCS_SNI_EXT.1">FCS_SNI_EXT.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_SNI_EXT.1">FCS_SNI_EXT.1</a> to define the proper salt, nonce, and initialization vector usage to ensure proper cryptographic operation.</td></tr>
 <tr><td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> to define whether the random bit generation services used in establishing trusted communications are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or by the platform.</td></tr>
 <tr><td><a href="#FDP_DEC_EXT.1">FDP_DEC_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FDP_DEC_EXT.1">FDP_DEC_EXT.1</a> to limit access to platform hardware resources, which limits the methods by which an attacker can attempt to remotely compromise the integrity of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr>
 <tr><td><a href="#FDP_NET_EXT.1">FDP_NET_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FDP_NET_EXT.1">FDP_NET_EXT.1</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s usage of network communications, which may include the transmission or receipt of data over a trusted channel.</td></tr>
@@ -4273,27 +4373,27 @@ The following sections list Common Criteria and technology terms used in this do
 <tr><td><a href="#FMT_SMF.1">FMT_SMF.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FMT_SMF.1">FMT_SMF.1</a> to define the security-relevant management functions that are supported by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, which may include configuration of network behavior.</td></tr>
 <tr><td><a href="#FPR_ANO_EXT.1">FPR_ANO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPR_ANO_EXT.1">FPR_ANO_EXT.1</a> to define how the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> provides control to the user regarding the disclosure of any PII.</td></tr>
 <tr><td><a href="#FPT_AEX_EXT.1">FPT_AEX_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_AEX_EXT.1">FPT_AEX_EXT.1</a> to add complexity to the task of compromising systems by ensuring that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements various platform security features and can operate on a platform that is configured securely.</td></tr>
-<tr><td><a href="#FPT_FLS.1">FPT_FLS.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_FLS.1">FPT_FLS.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> will not operate when it is in a state where it is unable to generate secure random numbers.</td></tr>
+<tr><td><a href="#FPT_FLS.1">FPT_FLS.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_FLS.1">FPT_FLS.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> will not operate when it is in a state where it is unable to generate secure random numbers.</td></tr>
 <tr><td><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a> to provide a mechanism to identify the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> version so that it can be determined whether a vulnerability is present on the system based on the installed version.</td></tr>
-<tr><td><a href="#FPT_TST.1">FPT_TST.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TST.1">FPT_TST.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can determine whether or not it is capable of generating secure random numbers.</td></tr>
+<tr><td><a href="#FPT_TST.1">FPT_TST.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TST.1">FPT_TST.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can determine whether or not it is capable of generating secure random numbers.</td></tr>
 <tr><td><a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TUD_EXT.1">FPT_TUD_EXT.1</a> to ensure that updates to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> have integrity protection and cannot be altered via network attack.</td></tr>
-<tr><td><a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a> to define specific integrity protections for certain types of updates.</td></tr>
+<tr><td><a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TUD_EXT.2">FPT_TUD_EXT.2</a> to define specific integrity protections for certain types of updates.</td></tr>
 <tr><td><a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> to define the trusted channels used to protect data in transit, the data that is protected, and whether the trusted channels are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform.</td></tr>
-<tr class="major-row"><td rowspan="28"><a href="#T.NETWORK_EAVESDROP">T.NETWORK_​EAVESDROP</a></td><td><a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> to define whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform generates asymmetric keys that are used in support of trusted communications.</td></tr>
+<tr class="major-row"><td rowspan="28"><a href="#T.NETWORK_EAVESDROP">T.NETWORK_​EAVESDROP</a></td><td><a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/AK">FCS_CKM.1/AK</a> to define whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform generates asymmetric keys that are used in support of trusted communications.</td></tr>
 <tr><td><a href="#FCS_CKM.1/SK">FCS_CKM.1/SK</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/SK">FCS_CKM.1/SK</a> to define the mechanism used to generate symmetric keys when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> performs this function.</td></tr>
-<tr><td><a href="#FCS_CKM.2">FCS_CKM.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.2">FCS_CKM.2</a> to define whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform performs key establishment for trusted communications.</td></tr>
+<tr><td><a href="#FCS_CKM.2">FCS_CKM.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.2">FCS_CKM.2</a> to define whether the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform performs key establishment for trusted communications.</td></tr>
 <tr><td><a href="#FCS_CKM_EXT.1">FCS_CKM_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM_EXT.1">FCS_CKM_EXT.1</a> to specify whether the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> or the platform is responsible for generation of any asymmetric keys that may be used for establishing trusted communications.</td></tr>
-<tr><td><a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a> to define the HMAC algorithms used in support of trusted communications.</td></tr>
-<tr><td><a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> to define the hash algorithms used in support of trusted communications.</td></tr>
+<tr><td><a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a> to define the HMAC algorithms used in support of trusted communications.</td></tr>
+<tr><td><a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> to define the hash algorithms used in support of trusted communications.</td></tr>
 <tr><td><a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/SigVer">FCS_COP.1/SigVer</a> to define the mechanism used to verify <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> updates if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements this functionality rather than the underlying platform.</td></tr>
-<tr><td><a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> to define the symmetric encryption algorithms used in support of trusted communications.</td></tr>
-<tr><td><a href="#FCS_HTTPS_EXT.1">FCS_HTTPS_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_HTTPS_EXT.1">FCS_HTTPS_EXT.1</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s support for the HTTPS trusted communications protocol.</td></tr>
+<tr><td><a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> to define the symmetric encryption algorithms used in support of trusted communications.</td></tr>
+<tr><td><a href="#FCS_HTTPS_EXT.1">FCS_HTTPS_EXT.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_HTTPS_EXT.1">FCS_HTTPS_EXT.1</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s support for the HTTPS trusted communications protocol.</td></tr>
 <tr><td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> to define whether the random bit generation services used in establishing trusted communications are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or by the platform.</td></tr>
-<tr><td><a href="#FCS_RBG.1">FCS_RBG.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.1">FCS_RBG.1</a> to define the DRBG algorithms used in support of trusted communications.</td></tr>
-<tr><td><a href="#FCS_RBG.2">FCS_RBG.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.2">FCS_RBG.2</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
-<tr><td><a href="#FCS_RBG.3">FCS_RBG.3</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.3">FCS_RBG.3</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
-<tr><td><a href="#FCS_RBG.4">FCS_RBG.4</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.4">FCS_RBG.4</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
-<tr><td><a href="#FCS_RBG.5">FCS_RBG.5</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.5">FCS_RBG.5</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
+<tr><td><a href="#FCS_RBG.1">FCS_RBG.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.1">FCS_RBG.1</a> to define the DRBG algorithms used in support of trusted communications.</td></tr>
+<tr><td><a href="#FCS_RBG.2">FCS_RBG.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.2">FCS_RBG.2</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
+<tr><td><a href="#FCS_RBG.3">FCS_RBG.3</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.3">FCS_RBG.3</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
+<tr><td><a href="#FCS_RBG.4">FCS_RBG.4</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.4">FCS_RBG.4</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
+<tr><td><a href="#FCS_RBG.5">FCS_RBG.5</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.5">FCS_RBG.5</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
 <tr><td><a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided credential storage services.</td></tr>
 <tr><td><a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a> to specify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> may rely on platform-provided data-at-rest protection services.</td></tr>
 <tr><td><a href="#FDP_NET_EXT.1">FDP_NET_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FDP_NET_EXT.1">FDP_NET_EXT.1</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s usage of network communications, which may include the transmission or receipt of data over a trusted channel.</td></tr>
@@ -4301,31 +4401,31 @@ The following sections list Common Criteria and technology terms used in this do
 <tr><td><a href="#FMT_SMF.1">FMT_SMF.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FMT_SMF.1">FMT_SMF.1</a> to define the security-relevant management functions that are supported by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>.</td></tr>
 <tr><td><a href="#FPR_ANO_EXT.1">FPR_ANO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPR_ANO_EXT.1">FPR_ANO_EXT.1</a> to define how the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> provides control to the user regarding the disclosure of any PII.</td></tr>
 <tr><td><a href="#FPT_API_EXT.1">FPT_API_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_API_EXT.1">FPT_API_EXT.1</a> to require the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to leverage platform functionality by using only documented and supported APIs.</td></tr>
-<tr><td><a href="#FPT_API_EXT.2">FPT_API_EXT.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_API_EXT.2">FPT_API_EXT.2</a> to permit the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use platform-provided libraries for parsing IANA MIME media formats.</td></tr>
-<tr><td><a href="#FPT_FLS.1">FPT_FLS.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_FLS.1">FPT_FLS.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> will not operate when it is in a state where it is unable to generate secure random numbers.</td></tr>
+<tr><td><a href="#FPT_API_EXT.2">FPT_API_EXT.2</a> (objective)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_API_EXT.2">FPT_API_EXT.2</a> to permit the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to use platform-provided libraries for parsing IANA MIME media formats.</td></tr>
+<tr><td><a href="#FPT_FLS.1">FPT_FLS.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_FLS.1">FPT_FLS.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> will not operate when it is in a state where it is unable to generate secure random numbers.</td></tr>
 <tr><td><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a> to provide a mechanism to identify the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> version so that it can be determined whether a vulnerability is present on the system based on the installed version.</td></tr>
-<tr><td><a href="#FPT_TST.1">FPT_TST.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TST.1">FPT_TST.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can determine whether or not it is capable of generating secure random numbers.</td></tr>
+<tr><td><a href="#FPT_TST.1">FPT_TST.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TST.1">FPT_TST.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can determine whether or not it is capable of generating secure random numbers.</td></tr>
 <tr><td><a href="#FPT_LIB_EXT.1">FPT_LIB_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_LIB_EXT.1">FPT_LIB_EXT.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not include any unnecessary or unexpected third-party libraries which could present a privacy threat or vulnerability.</td></tr>
 <tr><td><a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> to define the trusted channels used to protect data in transit, the data that is protected, and whether the trusted channels are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform.</td></tr>
 <tr class="major-row"><td rowspan="16"><a href="#T.PHYSICAL_ACCESS">T.PHYSICAL_​ACCESS</a></td><td><a href="#FCS_CKM.1/SK">FCS_CKM.1/SK</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_CKM.1/SK">FCS_CKM.1/SK</a> to define the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s capability to generate symmetric keys. These keys may subsequently be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr>
-<tr><td><a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a> to define HMAC mechanisms that may be used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as part of ensuring that data at rest is protected.</td></tr>
-<tr><td><a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> to define integrity mechanisms that may be used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as part of ensuring that data at rest is protected.</td></tr>
-<tr><td><a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> to define the AES cryptographic algorithm that may be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr>
-<tr><td><a href="#FCS_PBKDF_EXT.1">FCS_PBKDF_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_PBKDF_EXT.1">FCS_PBKDF_EXT.1</a> to define the password-based key derivation function that may be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr>
+<tr><td><a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/KeyedHash">FCS_COP.1/KeyedHash</a> to define HMAC mechanisms that may be used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as part of ensuring that data at rest is protected.</td></tr>
+<tr><td><a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/Hash">FCS_COP.1/Hash</a> to define integrity mechanisms that may be used by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> as part of ensuring that data at rest is protected.</td></tr>
+<tr><td><a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> to define the AES cryptographic algorithm that may be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr>
+<tr><td><a href="#FCS_PBKDF_EXT.1">FCS_PBKDF_EXT.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_PBKDF_EXT.1">FCS_PBKDF_EXT.1</a> to define the password-based key derivation function that may be used to encrypt stored credential data based on the claims made in <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a>.</td></tr>
 <tr><td><a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> to define whether random bit generation services are implemented by the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> or the platform. Depending on how data at rest is protected, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> may rely on the use of a random bit generator to create keys that are subsequently used for data protection.</td></tr>
-<tr><td><a href="#FCS_RBG.1">FCS_RBG.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.1">FCS_RBG.1</a> to define the DRBG algorithms used in support of trusted communications.</td></tr>
-<tr><td><a href="#FCS_RBG.2">FCS_RBG.2</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.2">FCS_RBG.2</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
-<tr><td><a href="#FCS_RBG.3">FCS_RBG.3</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.3">FCS_RBG.3</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
-<tr><td><a href="#FCS_RBG.4">FCS_RBG.4</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.4">FCS_RBG.4</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
-<tr><td><a href="#FCS_RBG.5">FCS_RBG.5</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.5">FCS_RBG.5</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
+<tr><td><a href="#FCS_RBG.1">FCS_RBG.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.1">FCS_RBG.1</a> to define the DRBG algorithms used in support of trusted communications.</td></tr>
+<tr><td><a href="#FCS_RBG.2">FCS_RBG.2</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.2">FCS_RBG.2</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
+<tr><td><a href="#FCS_RBG.3">FCS_RBG.3</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.3">FCS_RBG.3</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
+<tr><td><a href="#FCS_RBG.4">FCS_RBG.4</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.4">FCS_RBG.4</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
+<tr><td><a href="#FCS_RBG.5">FCS_RBG.5</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_RBG.5">FCS_RBG.5</a> to define how entropy is obtained for secure DRBG seeding.</td></tr>
 <tr><td><a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a> to define the mechanism that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses or relies upon to protect stored credential data.</td></tr>
 <tr><td><a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FDP_DAR_EXT.1">FDP_DAR_EXT.1</a> to define the mechanism that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> uses or relies upon to protect sensitive data at rest.</td></tr>
-<tr><td><a href="#FPT_FLS.1">FPT_FLS.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_FLS.1">FPT_FLS.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> will not operate when it is in a state where it is unable to generate secure random numbers.</td></tr>
+<tr><td><a href="#FPT_FLS.1">FPT_FLS.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_FLS.1">FPT_FLS.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> will not operate when it is in a state where it is unable to generate secure random numbers.</td></tr>
 <tr><td><a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_IDV_EXT.1">FPT_IDV_EXT.1</a> to provide a mechanism to identify the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> version so that it can be determined whether a vulnerability is present on the system based on the installed version.</td></tr>
-<tr><td><a href="#FPT_TST.1">FPT_TST.1</a></td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TST.1">FPT_TST.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can determine whether or not it is capable of generating secure random numbers.</td></tr>
+<tr><td><a href="#FPT_TST.1">FPT_TST.1</a> (selection-based)</td><td>The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> includes <a href="#FPT_TST.1">FPT_TST.1</a> to ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can determine whether or not it is capable of generating secure random numbers.</td></tr>
 </table></p>
   
-  <h2 class="indexable" data-level="2" id="SARs">5.2 Security Assurance Requirements</h2>
+  <h2 class="indexable" data-level="2" id="SARs">6.2 Security Assurance Requirements</h2>
    <p>
     The <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> identifies the Security Assurance Requirements (<abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr>) to frame the extent to which 
 		the evaluator assesses the documentation applicable for the evaluation and performs independent testing.
@@ -4333,7 +4433,7 @@ The following sections list Common Criteria and technology terms used in this do
     This section lists the set of <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> from <abbr class="dyn-abbr"><a href="#abbr_CC">CC</a></abbr> part 3 that are required in evaluations against this
 		<abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. Individual Evaluation Activities (EAs) to be performed are specified both
 		in
-    <a href="#req" class="dynref">Section 5 Security Requirements</a>
+    <a href="#req" class="dynref">Section 6 Security Requirements</a>
     as well as in this section. These <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> were chosen based on the notion that a hypothetical attacker of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> lacks administrative privilege
     	on its platform but otherwise has persistent access to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> itself and the sophistication to interact with the platform in a way that they can
     	attempt to access stored data without authorization or to run tools that automate more sophisticated malicious activity.
@@ -4344,28 +4444,28 @@ The following sections list Common Criteria and technology terms used in this do
 		environmental IT, and the administrative/user guides for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The CCTL is expected to
 		perform actions mandated by the Common Evaluation Methodology (<abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr>) for the ASE and
 		ALC <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr>. The CCTL also performs the evaluation activities contained within
-    <a href="#req" class="dynref">Section 5 Security Requirements</a>
+    <a href="#req" class="dynref">Section 6 Security Requirements</a>
     ,
 		which are intended to be an interpretation of the other <abbr class="dyn-abbr"><a href="#abbr_CEM">CEM</a></abbr> assurance requirements as they
 		apply to the specific technology instantiated in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>. The evaluation activities that are
 		captured in
-    <a href="#req" class="dynref">Section 5 Security Requirements</a>
+    <a href="#req" class="dynref">Section 6 Security Requirements</a>
     also provide clarification as to what the developer needs
 		to provide to demonstrate the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is compliant with the <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>. The results of these activities will be documented
 	    and presented (along with the administrative guidance used) for validation.
    </p>
-   <h3 class="indexable" data-level="3" id="ase">5.2.1 Class ASE: Security Target</h3>
+   <h3 class="indexable" data-level="3" id="ase">6.2.1 Class ASE: Security Target</h3>
     As per ASE activities defined in
     <a href="#bibCEM" class="dynref" data-format="">[CEM]</a>
     .
    
-   <h3 class="indexable" data-level="3" id="adv">5.2.2 Class ADV: Development</h3>
+   <h3 class="indexable" data-level="3" id="adv">6.2.2 Class ADV: Development</h3>
     The information about the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
         is contained in the guidance documentation available to the end user as
         well as the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> portion of the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> developer 
         must concur with the description of the product that is contained in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as it relates 
         to the functional requirements. The evaluation activities contained in
-    <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a>
+    <a href="#SFRs" class="dynref">Section 6.1 Security Functional Requirements</a>
     should provide the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> authors with sufficient information to 
         determine the appropriate content for the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> section.
     <div class="comp" id="ADV_FSP.1"><h4>ADV_FSP.1 Basic Functional Specification (ADV_FSP.1)</h4>
@@ -4409,7 +4509,7 @@ The following sections list Common Criteria and technology terms used in this do
        There are no specific evaluation activities associated with these <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr>, except
 					ensuring the information is provided. The functional specification documentation is
 					provided to support the evaluation activities described in
-       <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a>
+       <a href="#SFRs" class="dynref">Section 6.1 Security Functional Requirements</a>
        , and
 					other activities described for AGD, ATE, and AVA <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr>. The requirements on the content
 					of the functional specification information is implicitly assessed by virtue of the
@@ -4418,7 +4518,7 @@ The following sections list Common Criteria and technology terms used in this do
 					functional specification has not been provided.
       </div></div></div>
    
-   <h3 class="indexable" data-level="3" id="agd">5.2.3 Class AGD: Guidance Documentation</h3>
+   <h3 class="indexable" data-level="3" id="agd">6.2.3 Class AGD: Guidance Documentation</h3>
     The guidance documents will be
         provided with the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. Guidance must include a description of how the IT personnel verifies
         that the Operational Environment can fulfill its role for the security functionality. The
@@ -4468,7 +4568,7 @@ The following sections list Common Criteria and technology terms used in this do
        <p>
         Some of the contents of the operational guidance will be verified by the
 					evaluation activities in
-        <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a>
+        <a href="#SFRs" class="dynref">Section 6.1 Security Functional Requirements</a>
         and evaluation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
 					according to the
         <a href="#bibCEM" class="dynref" data-format="">[CEM]</a>
@@ -4523,7 +4623,7 @@ The following sections list Common Criteria and technology terms used in this do
 					shall check to ensure that the guidance provided for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> 
 					adequately addresses all platforms claimed for the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.</div></div></div>
    
-   <h3 class="indexable" data-level="3" id="alc">5.2.4 Class ALC: Life-cycle Support</h3>
+   <h3 class="indexable" data-level="3" id="alc">6.2.4 Class ALC: Life-cycle Support</h3>
     At the assurance level provided for <abbr class="dyn-abbr"><a href="#abbr_TOE">TOEs</a></abbr> conformant to this <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr>, life-cycle support is limited
         to end-user-visible aspects of the life-cycle, rather than an examination of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> vendor’s
         development and configuration management process. This is not meant to diminish the
@@ -4648,7 +4748,7 @@ The following sections list Common Criteria and technology terms used in this do
        </p>
       </div></div></div>
    
-   <h3 class="indexable" data-level="3" id="ate">5.2.5 Class ATE: Tests</h3>
+   <h3 class="indexable" data-level="3" id="ate">6.2.5 Class ATE: Tests</h3>
     Testing is specified for functional aspects of
         the system as well as aspects that take advantage of design or implementation weaknesses.
         The former is done through the ATE_IND family, while the latter is through the AVA_VAN
@@ -4661,10 +4761,10 @@ The following sections list Common Criteria and technology terms used in this do
 			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
 			(including configuration and operational) documentation provided. The focus of the testing
 			is to confirm that the requirements specified in
-     <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a>
+     <a href="#SFRs" class="dynref">Section 6.1 Security Functional Requirements</a>
      are being met,
 			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in
-     <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>
+     <a href="#SARs" class="dynref">Section 6.2 Security Assurance Requirements</a>
      . The
 			evaluation activities identify the additional testing activities associated with these
 			components. The evaluator produces a test report documenting the plan for and results of
@@ -4677,10 +4777,10 @@ The following sections list Common Criteria and technology terms used in this do
 			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
 			(including configuration and operational) documentation provided. The focus of the testing
 			is to confirm that the requirements specified in
-     <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a>
+     <a href="#SFRs" class="dynref">Section 6.1 Security Functional Requirements</a>
      are being met,
 			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in
-     <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>
+     <a href="#SARs" class="dynref">Section 6.2 Security Assurance Requirements</a>
      . The
 			evaluation activities identify the additional testing activities associated with these
 			components. The evaluator produces a test report documenting the plan for and results of
@@ -4693,10 +4793,10 @@ The following sections list Common Criteria and technology terms used in this do
 			functionality described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as well as the administrative
 			(including configuration and operational) documentation provided. The focus of the testing
 			is to confirm that the requirements specified in
-     <a href="#SFRs" class="dynref">Section 5.1 Security Functional Requirements</a>
+     <a href="#SFRs" class="dynref">Section 6.1 Security Functional Requirements</a>
      are being met,
 			although some additional testing is specified for <abbr class="dyn-abbr"><a href="#abbr_SAR">SARs</a></abbr> in
-     <a href="#SARs" class="dynref">Section 5.2 Security Assurance Requirements</a>
+     <a href="#SARs" class="dynref">Section 6.2 Security Assurance Requirements</a>
      . The
 			evaluation activities identify the additional testing activities associated with these
 			components. The evaluator produces a test report documenting the plan for and results of
@@ -4763,7 +4863,7 @@ The following sections list Common Criteria and technology terms used in this do
        </p>
       </div></div></div>
    
-   <h3 class="indexable" data-level="3" id="ava">5.2.6 Class AVA: Vulnerability Assessment</h3>
+   <h3 class="indexable" data-level="3" id="ava">6.2.6 Class AVA: Vulnerability Assessment</h3>
     For the current generation of
         this protection profile, the evaluation lab is expected to survey open sources to discover
         what vulnerabilities have been discovered in these types of products. In most cases, these
@@ -4807,6 +4907,8 @@ The following sections list Common Criteria and technology terms used in this do
 					expert skills and an electron microscope, for instance, then a test would not be suitable and 
 					an appropriate justification would be formulated.
        </p>
+       <div>The evaluator shall also run a virus scanner with the most current virus definitions against the 
+						application files and verify that no files are flagged as malicious.</div>
       </div></div></div>
    
   
