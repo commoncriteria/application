@@ -1337,8 +1337,7 @@
 						plaintext, IV, and key 3-tuples. 100 of these shall use shall use 256-bit keys. The plaintext and IV values
 						shall be 128-bit blocks. For each 3-tuple, 1000 iterations shall be
 						run as follows:
-         <h:pre>
-         # Input: PT, IV, Key
+         <h:pre># Input: PT, IV, Key
 						  for i = 1 to 1000:
 							if i == 1:
 								  CT[1] = AES-CBC-Encrypt(Key, IV, PT)
@@ -1733,6 +1732,7 @@
        </h:p>
       </note>
       <aactivity level="element">
+       <h:p>Documentation will be produced - and the evaluator shall perform the activities - in accordance with Appendix D - Entropy Documentation and Assessment appendix and the <h:a target="_blank" rel="noopener noreferrer nofollow" class="text-blue-600 underline hover:text-blue-800" href="https://www.niap-ccevs.org/static/media/EntropyDocumentation_v2.b9820eaabf6977209f9a.pdf">Clarification to the Entropy Documentation and Assessment Annex</h:a>.</h:p>
        <TSS/>
        <Guidance/>
        <Tests/>
@@ -1758,6 +1758,7 @@
 					entropy rate of the noise source is so that the TSF can collect a sufficiently large sample of noise data to be
 					conditioned into a seed value.</note>
       <aactivity level="component">
+       The evaluator shall examine the entropy documentation required by FCS_RBG.1.2 to verify that it identifies, for each DRBG function implemented by the TOE, the TSF external interface used to seed the TOE's DRBG. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data such that it can be determined that sufficient entropy can be made available for the highest strength keys that the TSF can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the TOE estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the TSF applies to the output data to create a seed of sufficient size with full entropy.
        <TSS/>
        <Guidance/>
        <Tests/>
@@ -1770,6 +1771,7 @@
       <title>The TSF shall be able to seed the RBG using a TSF software-based noise source with a minimum of<assignable>number of bits</assignable>bits of min-entropy.</title>
       <note role="application">This requirement is claimed when a DRBG is seeded with entropy from a single noise source that is within the TOE boundary. Min-entropy should be expressed as a ratio of entropy bits to sampled bits so that the total amount of data needed to ensure full entropy is known, as well as the conditioning function by which that data is reduced in size to the seed.</note>
       <aactivity level="component">
+       The evaluator shall examine the entropy documentation required by FCS_RBG.1.2 to verify that it identifies, for each DRBG function implemented by the TOE, the TSF noise source used to seed the TOE's DRBG. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data such that it can be determined that sufficient entropy can be made available for the highest strength keys that the TSF can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the TOE estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the TSF applies to the output data to create a seed of sufficient size with full entropy.
        <TSS/>
        <Guidance/>
        <Tests/>
@@ -1783,6 +1785,7 @@
       <note role="application">This requirement is claimed when a DRBG is seeded with entropy from multiple noise sources that are within the TOE boundary. 
               FCS_RBG.5 defines the mechanism by which these sources are combined to ensure sufficient minimum entropy.</note>
       <aactivity level="component">
+       The evaluator shall examine the entropy documentation required by FCS_RBG.1.2 to verify that it identifies, for each DRBG function implemented by the TOE, each TSF noise source used to seed the TOE's DRBG. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data from each data source.
        <TSS/>
        <Guidance/>
        <Tests/>
@@ -1795,6 +1798,7 @@
       <title>The TSF shall<assignable>combining operation</assignable><selectables><selectable id="fcs_rbg.5.1_2">output from TSF noise source(s)</selectable><selectable id="fcs_rbg.5.1_3">input from TSF interface(s) for seeding</selectable> </selectables>to create the entropy input into the derivation function as defined in<assignable>list of standards</assignable>, resulting in a minimum of<assignable>number of bits</assignable>bits of min-entropy.</title>
       <note role="application">Examples of typical combining operations include, but are not limited to, XORing or hashing.</note>
       <aactivity level="component">
+       Using the entropy sources specified in FCS_RBG.4, the evaluator shall examine the entropy documentation required by FCS_RBG.1.2 to verify that it describes the method by which the various entropy sources are combined into a single seed. This should include an estimation of the rate at which each noise source outputs data and whether this is dependent on any system-specific factors so that each source's relative contribution to the overall entropy is understood. The evaluator shall verify that the resulting combination of sampled data and the min-entropy rate of the sampled data is described in sufficient detail to determine that sufficient entropy can be made available for the highest strength keys that the TSF can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the TOE estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the TSF applies to the output data to create a seed of sufficient size with full entropy.
        <TSS/>
        <Guidance/>
        <Tests/>
