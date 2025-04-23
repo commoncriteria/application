@@ -1,3 +1,5 @@
+* Error: Detected dangling id-reference to sel_all_https_ma from attribute
+        on-sel/PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[10]""/depends[3]""/on-sel[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"The requi"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]"The requi"/sec:TOE_Boundary[1]"The appli"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[1]""/f-element[1]""/note[1]""/h:p[1]"The ST sh"/h:p[1]""
