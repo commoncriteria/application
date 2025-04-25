@@ -1068,6 +1068,8 @@ The following sections list Common Criteria and technology terms used in this do
       </i></b></div>
           
           
+          
+          
           <div class="element"><div class="reqid" id="FCS_CKM.2.1"><a href="#FCS_CKM.2.1" class="abbr">FCS_CKM.2.1</a></div><div class="reqdesc"><p> The application shall [<b>selection</b>: <span class="selectable-content" id="fcs_ckm.2.1_1">invoke platform-provided functionality</span>, <span class="selectable-content" id="fcs_ckm.2.1_2">implement functionality</span>] to perform cryptographic key establishment in accordance with a specified cryptographic key establishment method:</p>  <p> [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="fcs_ckm.2.1_3"><b>[RSA-based key establishment schemes]</b> that meet the following: <b>[<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56B, “Recommendation for Pair-Wise Key Establishment Schemes Using Integer Factorization Cryptography”]</b></span></li><li style=""><span class="selectable-content" id="fcs_ckm.2.1_4"><b>[Elliptic curve-based key establishment schemes]</b> that meets the following: <b>[<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56A, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”]</b></span></li><li style=""><span class="selectable-content" id="fcs_ckm.2.1_5"><b>[FFC Schemes using “safe-prime” groups]</b> that meet the following: <b>‘<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56A Revision 3, “Recommendation for Pair-Wise Key Establishment Schemes Using Discrete Logarithm Cryptography”</b> and [<b>selection</b>: <span class="selectable-content" id="fcs_ckm.2.1_6"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 3526</span>, <span class="selectable-content" id="fcs_ckm.2.1_7"><abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 7919</span>] </span></li><li style=""><span class="selectable-content" id="fcs_ckm.2.1_8"><b>Module-Lattice-Based Key-Encapsulation Mechanism Standard</b> using the <b>parameter set ML-KEM-1024</b> that meets the following: [<abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 203, Module-Lattice-Based Key-Encapsulation Mechanism Standard]</span></li></ul>] </p>  .<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note"><p>
@@ -1171,10 +1173,39 @@ The following sections list Common Criteria and technology terms used in this do
 						<p></p>
 						If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts as a sender, the following evaluation activity shall be performed to ensure the 
 						proper operation of every <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported combination of RSA-based key establishment scheme:
-						<p></p><p></p>
+						<p></p><div class="indent">
+							To conduct this test the evaluator shall generate or obtain test vectors from a known 
+							good implementation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported schemes. For each combination of 
+							supported key establishment scheme and its options (with or without key confirmation 
+							if supported, for each supported key confirmation MAC function if key confirmation 
+							is supported, and for each supported mask generation function if KTS-OAEP is 
+							supported), the tester shall generate 10 sets of test vectors. Each test vector shall 
+							include the RSA public key, the plaintext keying material, any additional input 
+							parameters if applicable, the MacKey and MacTag if key confirmation is 
+							incorporated, and the outputted ciphertext. For each test vector, the evaluator shall 
+							perform a key establishment encryption operation on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with the same inputs 
+							(in cases where key confirmation is incorporated, the test shall use the MacKey from 
+							the test vector instead of the randomly generated MacKey used in normal operation) 
+							and ensure that the outputted ciphertext is equivalent to the ciphertext in the test vector.
+						</div><p></p>
 						If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts as a receiver, the following evaluation activities shall be performed to ensure 
 						the proper operation of every <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported combination of RSA-based key establishment scheme:
-						<p></p><p></p>
+						<p></p><div class="indent">
+							To conduct this test the evaluator shall generate or obtain test vectors from a known 
+							good implementation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported schemes. For each combination of 
+							supported key establishment scheme and its options (with or without key 
+							confirmation if supported, for each supported key confirmation MAC function if key 
+							confirmation is supported, and for each supported mask generation function if KTS-OAEP is 
+							supported), the tester shall generate 10 sets of test vectors. Each test vector 
+							shall include the RSA private key, the plaintext keying material (KeyData), any 
+							additional input parameters if applicable, the MacTag in cases where key 
+							confirmation is incorporated, and the outputted ciphertext. For each test vector, the 
+							evaluator shall perform the key establishment decryption operation on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and 
+							ensure that the outputted plaintext keying material (KeyData) is equivalent to the 
+							plaintext keying material in the test vector. In cases where key confirmation is 
+							incorporated, the evaluator shall perform the key confirmation steps and ensure that 
+							the outputted MacTag is equivalent to the MacTag in the test vector.
+						</div><p></p>
 						The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> handles decryption errors. In 
 						accordance with <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56B, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must not reveal the particular 
 						error that occurred, either through the contents of any outputted or logged error message or 
@@ -1224,6 +1255,8 @@ The following sections list Common Criteria and technology terms used in this do
       </i></b></div>
           
           
+          
+          
           <div class="element"><div class="reqid" id="FCS_COP.1.1/Hash"><a href="#FCS_COP.1.1/Hash" class="abbr">FCS_COP.1.1/Hash</a></div><div class="reqdesc">The <b>application</b>  shall perform [ <i>cryptographic hashing services</i>  ] in accordance with a specified cryptographic algorithm [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="fcs_cop.1.1_Hash_1"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-256</span></li><li style=""><span class="selectable-content" id="fcs_cop.1.1_Hash_2"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-384</span></li><li style=""><span class="selectable-content" id="fcs_cop.1.1_Hash_3"><abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr>-512</span></li></ul>] and <b>message digest</b>  sizes [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="fcs_cop.1.1_Hash_4">256</span></li><li style=""><span class="selectable-content" id="fcs_cop.1.1_Hash_5">384</span></li><li style=""><span class="selectable-content" id="fcs_cop.1.1_Hash_6">512</span></li></ul>] <b>bits</b>  that meet the following: [ <i><abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> Pub 180-4, "Secure Hash Standard"</i>  ].<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note"><p>
@@ -1263,7 +1296,7 @@ The following sections list Common Criteria and technology terms used in this do
 								length of the messages range sequentially from 0 to m bits. The message text shall
 								be pseudorandomly generated. The evaluators compute the message digest for each of
 								the messages and ensure that the correct result is produced when the messages are
-								provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.  </li>
+								provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. </li>
                   <li class="test-"><a id="_t_2" class="defined" href="#_t_2">Test FCS_COP.1/Hash:2</a>:
       Short Messages Test - Byte-oriented Mode. The evaluators devise an input set
 								consisting of m/8+1 messages, where m is the block length of the hash algorithm.
@@ -1271,21 +1304,21 @@ The following sections list Common Criteria and technology terms used in this do
 								message being an integral number of bytes. The message text shall be
 								pseudorandomly generated. The evaluators compute the message digest for each of
 								the messages and ensure that the correct result is produced when the messages are
-								provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.  </li>
+								provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. </li>
                   <li class="test-"><a id="_t_3" class="defined" href="#_t_3">Test FCS_COP.1/Hash:3</a>:
       Selected Long Messages Test - Bit-oriented Mode. The evaluators devise an input
 								set consisting of m messages, where m is the block length of the hash algorithm.
 								The length of the ith message is 512 + 99*i, where 1 ≤ i ≤ m. The message text
 								shall be pseudorandomly generated. The evaluators compute the message digest for
 								each of the messages and ensure that the correct result is produced when the
-								messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.  </li>
+								messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. </li>
                   <li class="test-"><a id="_t_4" class="defined" href="#_t_4">Test FCS_COP.1/Hash:4</a>:
       Selected Long Messages Test - Byte-oriented Mode. The evaluators devise an
 								input set consisting of m/8 messages, where m is the block length of the hash
 								algorithm. The length of the ith message is 512 + 8*99*i, where 1 ≤ i ≤ m/8. The
 								message text shall be pseudorandomly generated. The evaluators compute the message
 								digest for each of the messages and ensure that the correct result is produced
-								when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.  </li>
+								when the messages are provided to the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. </li>
                   <li class="test-"><a id="_t_5" class="defined" href="#_t_5">Test FCS_COP.1/Hash:5</a>:
       Pseudorandomly Generated Messages Test. This test is for byte-oriented
 								implementations only. The evaluators randomly generate a seed that is n bits long,
@@ -1293,13 +1326,15 @@ The following sections list Common Criteria and technology terms used in this do
 								tested. The evaluators then formulate a set of 100 messages and associated digests
 								by following the algorithm provided in Figure 1 of [SHAVS]. The evaluators then
 								ensure that the correct result is produced when the messages are provided to the
-								<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>.  </li>
+								<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>. </li>
                 </ul></span>
               </div></div></div></div></div>
         
         <div class="comp" id="FCS_COP.1/KeyedHash"><h4>FCS_COP.1/KeyedHash Cryptographic Operation - Keyed-Hash Message Authentication</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
 	  <a href="#FTP_DIT_EXT.1.1">FTP_DIT_EXT.1.1</a>.
       </i></b></div>
+          
+          
           
           
           <div class="element"><div class="reqid" id="FCS_COP.1.1/KeyedHash"><a href="#FCS_COP.1.1/KeyedHash" class="abbr">FCS_COP.1.1/KeyedHash</a></div><div class="reqdesc">The <b>application</b>  shall perform [ <i>keyed-hash message authentication</i>  ] in accordance with a specified cryptographic algorithm [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="fcs_cop.1.1_KeyedHash_1"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA-256</span></li><li style=""><span class="selectable-content" id="fcs_cop.1.1_KeyedHash_2"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA-384</span></li><li style=""><span class="selectable-content" id="fcs_cop.1.1_KeyedHash_3"><abbr class="dyn-abbr"><a href="#abbr_HMAC">HMAC</a></abbr>-SHA-512</span></li></ul>] <b>with</b>  key sizes [<b>assignment</b>: 
@@ -1329,6 +1364,8 @@ The following sections list Common Criteria and technology terms used in this do
         <div class="comp" id="FCS_COP.1/SigGen"><h4>FCS_COP.1/SigGen Cryptographic Operation - Signing Generation</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
 	  <a href="#FTP_DIT_EXT.1.1">FTP_DIT_EXT.1.1</a>.
       </i></b></div>
+          
+          
           
           
           <div class="element"><div class="reqid" id="FCS_COP.1.1/SigGen"><a href="#FCS_COP.1.1/SigGen" class="abbr">FCS_COP.1.1/SigGen</a></div><div class="reqdesc">The <b>application</b>  shall perform [ <i>cryptographic signature services (generation)</i>  ] in accordance with a specified cryptographic algorithm [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="fcs_cop.1.1_SigGen_1"><b>RSA schemes</b> using cryptographic key sizes of [3072-bit or greater] that meet the following: [<abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-5, “Digital Signature Standard (<abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr>),” Section 5]</span></li><li style=""><span class="selectable-content" id="fcs_cop.1.1_SigGen_2"><b><abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr> schemes</b> using [“<abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curves” [<b>selection</b>: <span class="selectable-content" id="fcs_cop.1.1_SigGen_3">P-384</span>, <span class="selectable-content" id="fcs_cop.1.1_SigGen_4">P-521</span>] ] that meet the following: [<abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 186-5, “Digital Signature Standard (<abbr class="dyn-abbr"><a href="#abbr_DSS">DSS</a></abbr>),” Section 6]</span></li><li style=""><span class="selectable-content" id="fcs_cop.1.1_SigGen_5"><b>Module-Lattice-Based Digital Signature Standard</b> using the parameter set ML-DSA-87 that meets the following [<abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 204, Module-Lattice-Based Digital Signature Standard]</span></li></ul>].<div class="appnote"><span class="note-header">Application
@@ -1364,7 +1401,7 @@ The following sections list Common Criteria and technology terms used in this do
 								public key and the resulting signature values R and S. To determine correctness,
 								the evaluator shall use the signature verification function of a known good
 								implementation. 
-							 </li>
+							</li>
                 </ul></span>
                 <span class="testlist-"><ul>
                   <li class="test-"><a id="_t_7" class="defined" href="#_t_7">Test FCS_COP.1/SigGen:2</a>:
@@ -1377,19 +1414,21 @@ The following sections list Common Criteria and technology terms used in this do
 								sign these messages. The evaluator shall verify the correctness of the 
 								<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>’s signature using a known good implementation and the 
 								associated public keys to verify the signatures.
-							 </li>
+							</li>
                 </ul></span>
                 <span class="testlist-"><ul>
                   <li class="test-"><a id="_t_8" class="defined" href="#_t_8">Test FCS_COP.1/SigGen:3</a>:
       The evaluator shall 10x input to the internal Sign function a 32-byte random string, private key, and a randomly generated message.  Check and confirm the value of the returned signature using a known good implementation.
 								Here internal Sign refers to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s implementation of the function ML-DSA.Sign_internal(-,-,-) as described in <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr>.204.
-							 </li>
+							</li>
                 </ul></span>
               </div></div></div></div></div>
         
         <div class="comp" id="FCS_COP.1/SigVer"><h4>FCS_COP.1/SigVer Cryptographic Operation - Signing Verification</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
 	  <a href="#FPT_TUD_EXT.2.3">FPT_TUD_EXT.2.3</a>, <a href="#FTP_DIT_EXT.1.1">FTP_DIT_EXT.1.1</a>.
       </i></b></div>
+          
+          
           
           
           
@@ -1427,7 +1466,7 @@ The following sections list Common Criteria and technology terms used in this do
 								shall generate a set of 10 1024-bit message, public key and signature tuples and
 								modify one of the values (message, public key or signature) in five of the 10
 								tuples. The evaluator shall obtain in response a set of 10 PASS/FAIL values.
-							 </li>
+							</li>
                 </ul></span>
                 <span class="testlist-"><ul>
                   <li class="test-"><a id="_t_10" class="defined" href="#_t_10">Test FCS_COP.1/SigVer:2</a>:
@@ -1438,7 +1477,7 @@ The following sections list Common Criteria and technology terms used in this do
 								during the Signature Verification Test by introducing errors in some of the public 
 								keys, e, messages, <abbr class="dyn-abbr"><a href="#abbr_IR">IR</a></abbr> format, and/or signatures. The <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> attempts 
 								to verify the signatures and returns success or failure.
-							 </li>
+							</li>
                 </ul></span>
                 <span class="testlist-"><ul>
                   <li class="test-"><a id="_t_11" class="defined" href="#_t_11">Test FCS_COP.1/SigVer:3</a>:
@@ -1452,19 +1491,21 @@ The following sections list Common Criteria and technology terms used in this do
 								signature is flipped. For "modify header" the signature uses a different LMS/LMSOTS pair. Each error 
 								type is represented.  For each message, signature pair the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> returns "true" or "false" depending 
 								on whether the signature verifies or not.
-							 </li>
+							</li>
                 </ul></span>
                 <span class="testlist-"><ul>
                   <li class="test-"><a id="_t_12" class="defined" href="#_t_12">Test FCS_COP.1/SigVer:4</a>:
       Tbe evaluator shall 10x input to the internal SigVer function, a public key, message and signature.  Verify the signature.  Tests should involve a mix of good and bad signatures generated using different messages, keys, etc.
 								Here internal SigVer refers to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>’s implementation of the function ML-DSA.Verify_internal(-,-,-) as described in <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr>.204.
-							 </li>
+							</li>
                 </ul></span>
               </div></div></div></div></div>
         
         <div class="comp" id="FCS_COP.1/SKC"><h4>FCS_COP.1/SKC Cryptographic Operation - Encryption/Decryption</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
 	  <a href="#FCS_STO_EXT.1.1">FCS_STO_EXT.1.1</a>, <a href="#FTP_DIT_EXT.1.1">FTP_DIT_EXT.1.1</a>.
       </i></b></div>
+          
+          
           
           
           
@@ -1698,6 +1739,7 @@ The following sections list Common Criteria and technology terms used in this do
           
           
           
+          
           <div class="element"><div class="reqid" id="FCS_HTTPS_EXT.1.1"><a href="#FCS_HTTPS_EXT.1.1" class="abbr">FCS_HTTPS_EXT.1.1</a></div><div class="reqdesc">The application shall implement the <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> protocol <b>as a server</b>  that complies with <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 2818.</div></div>
           <div class="element"><div class="reqid" id="FCS_HTTPS_EXT.1.2"><a href="#FCS_HTTPS_EXT.1.2" class="abbr">FCS_HTTPS_EXT.1.2</a></div><div class="reqdesc">The application shall implement <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> using <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as defined in the Functional Package for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>.</div></div>
           <div class="element"><div class="reqid" id="FCS_HTTPS_EXT.1.3"><a href="#FCS_HTTPS_EXT.1.3" class="abbr">FCS_HTTPS_EXT.1.3</a></div><div class="reqdesc">The application shall [<b>selection</b>: <span class="selectable-content" id="fcs_https_ext.1.3_1">establish the connection</span>, <span class="selectable-content" id="fcs_https_ext.1.3_2">not establish the connection</span>, <span class="selectable-content" id="fcs_https_ext.1.3_3">establish or not establish the connection based on an administrative or user setting</span>] if the peer certificate is deemed invalid when attempting to establish a <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> connection.</div></div>
@@ -1850,6 +1892,12 @@ The following sections list Common Criteria and technology terms used in this do
                       personalization string, no value needs to be supplied. </li><li><b>Additional input:</b> The additional input bit lengths have the same defaults
                       and restrictions as the personalization string lengths.</li></ul></p></div>
             <div class="element-activity-header"><a href="#FCS_RBG.1.2">FCS_RBG.1.2</a></div>
+              
+            		Documentation will be produced - and the evaluator shall perform the
+            		activities - in accordance with Appendix D - Entropy Documentation and Assessment appendix and
+            		the
+            		 Clarification to the Entropy Documentation and Assessment Annex.
+            	
               <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
 			There are no additional <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> evaluation activities for this element.<br/><br/>
               <div class="eacategory">Guidance</div>
@@ -1879,6 +1927,9 @@ The following sections list Common Criteria and technology terms used in this do
 				</span></div></div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_RBG.2">FCS_RBG.2</a></div>
               
+				The evaluator shall examine the entropy documentation required by <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a> to verify that it identifies, for each <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> function implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> external interface used to seed the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data such that it can be determined that sufficient entropy can be made available for the highest strength keys that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> applies to the output data to create a seed of sufficient size with full entropy.
+				
+              
               
               
             <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
@@ -1887,13 +1938,17 @@ The following sections list Common Criteria and technology terms used in this do
 			There are no test activities for this component.<br/></div></div></div></div>
         
         <div class="comp" id="FCS_RBG.3"><h4>FCS_RBG.3 Random Bit Generation (Internal Seeding - Single Source)</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
-	  .
+	  <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a>.
       </i></b></div>
+          
           <div class="element"><div class="reqid" id="FCS_RBG.3.1"><a href="#FCS_RBG.3.1" class="abbr">FCS_RBG.3.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to seed the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> using a <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> software-based noise source with a minimum of [<b>assignment</b>: 
      <span class="assignable-content">number of bits</span>] bits of min-entropy.<div class="appnote"><span class="note-header">Application
       Note:
     </span><span class="note">This requirement is claimed when a <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> is seeded with entropy from a single noise source that is within the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> boundary. Min-entropy should be expressed as a ratio of entropy bits to sampled bits so that the total amount of data needed to ensure full entropy is known, as well as the conditioning function by which that data is reduced in size to the seed.</span></div></div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_RBG.3">FCS_RBG.3</a></div>
+              
+            The evaluator shall examine the entropy documentation required by <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a> to verify that it identifies, for each <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> function implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source used to seed the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data such that it can be determined that sufficient entropy can be made available for the highest strength keys that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> applies to the output data to create a seed of sufficient size with full entropy.
+          
               
               
               
@@ -1903,8 +1958,9 @@ The following sections list Common Criteria and technology terms used in this do
 			There are no test activities for this component.<br/></div></div></div></div>
         
         <div class="comp" id="FCS_RBG.4"><h4>FCS_RBG.4 Random Bit Generation (Internal Seeding - Multiple Sources)</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
-	  .
+	  <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a>.
       </i></b></div>
+          
           <div class="element"><div class="reqid" id="FCS_RBG.4.1"><a href="#FCS_RBG.4.1" class="abbr">FCS_RBG.4.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall be able to seed the <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr> using [<b>assignment</b>: 
      <span class="assignable-content">number</span>] <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> software-based noise source(s).<div class="appnote"><span class="note-header">Application
       Note:
@@ -1914,6 +1970,9 @@ The following sections list Common Criteria and technology terms used in this do
             </span></div></div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_RBG.4">FCS_RBG.4</a></div>
               
+            The evaluator shall examine the entropy documentation required by <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a> to verify that it identifies, for each <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> function implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, each <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source used to seed the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data from each data source.
+          
+              
               
               
             <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea">
@@ -1922,8 +1981,9 @@ The following sections list Common Criteria and technology terms used in this do
 			There are no test activities for this component.<br/></div></div></div></div>
         
         <div class="comp" id="FCS_RBG.5"><h4>FCS_RBG.5 Random Bit Generation (Combining Noise Sources)</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
-	  .
+	  <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a>.
       </i></b></div>
+          
           <div class="element"><div class="reqid" id="FCS_RBG.5.1"><a href="#FCS_RBG.5.1" class="abbr">FCS_RBG.5.1</a></div><div class="reqdesc">The <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> shall [<b>assignment</b>: 
      <span class="assignable-content">combining operation</span>]  [<b>selection</b>: <span class="selectable-content" id="fcs_rbg.5.1_2">output from <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source(s)</span>, <span class="selectable-content" id="fcs_rbg.5.1_3">input from <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> interface(s) for seeding</span>] to create the entropy input into the derivation function as defined in [<b>assignment</b>: 
      <span class="assignable-content">list of standards</span>] , resulting in a minimum of [<b>assignment</b>: 
@@ -1933,6 +1993,9 @@ The following sections list Common Criteria and technology terms used in this do
               Examples of typical combining operations include, but are not limited to, XORing or hashing.
             </span></div></div></div>
         <div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#FCS_RBG.5">FCS_RBG.5</a></div>
+              
+            Using the entropy sources specified in <a href="#FCS_RBG.4">FCS_RBG.4</a>, the evaluator shall examine the entropy documentation required by <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a> to verify that it describes the method by which the various entropy sources are combined into a single seed. This should include an estimation of the rate at which each noise source outputs data and whether this is dependent on any system-specific factors so that each source's relative contribution to the overall entropy is understood. The evaluator shall verify that the resulting combination of sampled data and the min-entropy rate of the sampled data is described in sufficient detail to determine that sufficient entropy can be made available for the highest strength keys that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> applies to the output data to create a seed of sufficient size with full entropy.
+          	
               
               
               
@@ -1983,8 +2046,7 @@ The following sections list Common Criteria and technology terms used in this do
 							It should be noted that there is no expectation that the evaluators attempt to confirm 
 							that the APIs are being used correctly for the functions identified in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>; 
 							the activity is to list the used APIs and then do an existence check via decompilation.
-						</p></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea"><p>The evaluator shall verify the guidance documentation contains any information required for configuring the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>.</p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">
-                <p>
+						</p></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea"><p>The evaluator shall verify the guidance documentation contains any information required for configuring the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>.</p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea"><p>
 							If "<b>invoke platform-provided <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</b>" is selected, the following tests shall be performed:
 						<p></p>
 							The evaluator shall decompile the application binary using a decompiler 
@@ -1995,60 +2057,28 @@ The following sections list Common Criteria and technology terms used in this do
 							decompiled text to its corresponding <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>, with a description of why the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> text does 
 							not directly correspond to the decompiled text and justification that the decompiled text 
 							corresponds to the associated <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>.
-						</p>The following are the per-platform list of acceptable APIs:
-                <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_13" class="defined" href="#_t_13">Test FCS_RBG_EXT.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
-      
-                    
-                     
+						<p></p>
+							The following are the per-platform list of acceptable APIs:
+							<div> 
 								The evaluator shall verify that the application uses at least one of <code>javax.crypto.KeyGenerator</code> 
 								class or the <code>java.security.SecureRandom</code> class or <code>/dev/random
 								</code> or <code>/dev/urandom</code>.
-							
-                  </li>
-                  <li class="test-"><a id="_t_14" class="defined" href="#_t_14">Test FCS_RBG_EXT.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
-      
-                    
-                    
-								The evaluator shall verify that <code>rand_s</code>, <code>RtlGenRandom</code>, <code>BCryptGenRandom</code>, or <code>CryptGenRandom</code> <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> is used for classic desktop applications. The evaluator shall verify the application uses the <code>RNGCryptoServiceProvider</code> class or derives a class from <code>System.Security.Cryptography.RandomNumberGenerator <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr></code> for Windows Universal Applications. It is only required that the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> is called/invoked, there is no requirement that the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> be used directly. In future versions of this document, <code>CryptGenRandom</code> may be removed as an option as it is no longer the preferred <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> per vendor documentation. 
-                  </li>
-                  <li class="test-"><a id="_t_15" class="defined" href="#_t_15">Test FCS_RBG_EXT.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
-      
-                    
-                     
+							</div><div>
+								The evaluator shall verify that <code>rand_s</code>, <code>RtlGenRandom</code>, <code>BCryptGenRandom</code>, or <code>CryptGenRandom</code> <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> is used for classic desktop applications. The evaluator shall verify the application uses the <code>RNGCryptoServiceProvider</code> class or derives a class from <code>System.Security.Cryptography.RandomNumberGenerator <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr></code> for Windows Universal Applications. It is only required that the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> is called/invoked, there is no requirement that the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> be used directly. In future versions of this document, <code>CryptGenRandom</code> may be removed as an option as it is no longer the preferred <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> per vendor documentation. </div><div> 
 								The evaluator shall verify that the application invokes either
 								<code>SecRandomCopyBytes</code>, <code>CCRandomGenerateBytes</code>, or <code>CCRandomCopyBytes</code>, or uses <code>/dev/random</code> directly to acquire random.
-							
-                  </li>
-                  <li class="test-"><a id="_t_16" class="defined" href="#_t_16">Test FCS_RBG_EXT.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
-      
-                    
-                     
+							</div><div> 
 								The evaluator shall verify that the application collects random from <code>/dev/random</code>
 								or <code>/dev/urandom</code>.
-							
-                  </li>
-                  <li class="test-"><a id="_t_17" class="defined" href="#_t_17">Test FCS_RBG_EXT.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
-      
-                    
-                    
+							</div><div>
 								The evaluator shall verify that the application collects random from <code>/dev/random</code>.
-							
-                  </li>
-                  <li class="test-"><a id="_t_18" class="defined" href="#_t_18">Test FCS_RBG_EXT.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
-      
-                    
-                    
+							</div><div>
 								The evaluator shall verify that the application invokes either <code>CCRandomGenerateBytes</code> or <code>CCRandomCopyBytes</code>, or collects random from <code>/dev/random</code>.
-							
-                  </li>
-                </ul></span>
-                <p>
+							</div><p></p>
 							If invocation of platform-provided functionality is achieved in another way, the evaluator 
 							shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how this is carried out, and how it is equivalent to the 
 							methods listed here (e.g. higher-level <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> invokes identical low-level <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>).
-						</p>
-              </div></div></div></div></div>
+						</p></div></div></div></div></div>
         
         <div class="comp" id="FCS_SNI_EXT.1"><h4>FCS_SNI_EXT.1 Cryptographic Operation (Salt, Nonce, and Initialization Vector Generation)</h4><div class="statustag"><b><i>This is a selection-based component. Its inclusion depends upon selection from
 	  <a href="#FCS_COP.1.1/SKC">FCS_COP.1.1/SKC</a>, <a href="#FCS_STO_EXT.1.1">FCS_STO_EXT.1.1</a>.
@@ -2138,14 +2168,14 @@ The following sections list Common Criteria and technology terms used in this do
 						For all credentials for which the application invokes platform-provided
 						functionality, the evaluator shall perform the following actions which vary per platform.
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_19" class="defined" href="#_t_19">Test FCS_STO_EXT.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                  <li class="test-"><a id="_t_13" class="defined" href="#_t_13">Test FCS_STO_EXT.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
       
                     
                     The evaluator shall verify that the application uses
 							the Android <code>KeyStore</code> or the Android <code>KeyChain</code> to store certificates.  
 						
                   </li>
-                  <li class="test-"><a id="_t_20" class="defined" href="#_t_20">Test FCS_STO_EXT.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                  <li class="test-"><a id="_t_14" class="defined" href="#_t_14">Test FCS_STO_EXT.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
       
                     
                     The evaluator shall verify that all certificates are
@@ -2156,7 +2186,7 @@ The following sections list Common Criteria and technology terms used in this do
 							in IsolatedStorage.
 						
                   </li>
-                  <li class="test-"><a id="_t_21" class="defined" href="#_t_21">Test FCS_STO_EXT.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
+                  <li class="test-"><a id="_t_15" class="defined" href="#_t_15">Test FCS_STO_EXT.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
       
                     
                     
@@ -2164,14 +2194,14 @@ The following sections list Common Criteria and technology terms used in this do
 							within a <code>Keychain</code>. 
 						
                   </li>
-                  <li class="test-"><a id="_t_22" class="defined" href="#_t_22">Test FCS_STO_EXT.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+                  <li class="test-"><a id="_t_16" class="defined" href="#_t_16">Test FCS_STO_EXT.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
       
                     
                     
 							The evaluator shall verify that all keys are stored using Linux keyrings.
 						
                   </li>
-                  <li class="test-"><a id="_t_23" class="defined" href="#_t_23">Test FCS_STO_EXT.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+                  <li class="test-"><a id="_t_17" class="defined" href="#_t_17">Test FCS_STO_EXT.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
       
                     
                     
@@ -2179,7 +2209,7 @@ The following sections list Common Criteria and technology terms used in this do
 							<code>Key Management Framework (KMF)</code>.
 						
                   </li>
-                  <li class="test-"><a id="_t_24" class="defined" href="#_t_24">Test FCS_STO_EXT.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+                  <li class="test-"><a id="_t_18" class="defined" href="#_t_18">Test FCS_STO_EXT.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
       
                     
                     The evaluator shall verify that all credentials are 
@@ -2232,75 +2262,40 @@ The following sections list Common Criteria and technology terms used in this do
     					<p></p>
     					If "<b>leverage platform-provided functionality...</b>" is selected, the evaluation activities will be performed as 
     					stated in the following requirements, which vary on a per-platform basis.
-    					</p></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea"><p>The evaluator shall confirm the operational guidance contains any instructions necessary for configuring the storage and 
+    					<p></p><div>
+    						The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that it describes how files containing sensitive data are 
+    						stored with the <code>MODE_PRIVATE</code> flag set.
+    					</div><div>
+    						The Windows platform currently does not provide data-at-rest
+    						encryption services which depend upon invocation by application developers. 
+    					</div><div>
+    						The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and ensure that it describes how the 
+    						application uses the Complete Protection, Protected Unless Open, or Protected Until 
+    						First User Authentication Data Protection Class for each data file stored locally. 
+    					</div><div>
+    						The Linux platform currently does not provide data-at-rest encryption services which depend
+    						upon invocation by application developers. 
+    					</div><div>
+    						The Solaris platform currently does not provide data-at-rest encryption services which depend
+    						upon invocation by application developers.  
+    					</div><div>
+    						The macOS platform currently does not provide data-at-rest encryption services which depend
+    						upon invocation by application developers.  
+    					</div></p></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea"><p>The evaluator shall confirm the operational guidance contains any instructions necessary for configuring the storage and 
     					protection of any sensitive data.
     				<p></p>
     					If <b>leverage platform-provided functionality to encrypt sensitive data</b> is selected the evaluator shall confirm the operational guidance contains the list of supported 
     					operational environments and any steps necessary to ensure the platform captures any sensitive data that is stored.
-    					</p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">
-                <p>
+    					</p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea"><p>
     					If "<b>implement functionality to encrypt sensitive data as defined in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</b>" 
     					or "<b>protect sensitive data in accordance with <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></b>" is selected,
     					the evaluator shall inventory the filesystem locations where the application may write data. 
     					The evaluator shall run the application and attempt to store sensitive data. The evaluator shall 
     					then inspect those areas of the filesystem to note where data was stored (if any), and verify 
     					it has been encrypted.
-    					</p>
-                <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_25" class="defined" href="#_t_25">Test FDP_DAR_EXT.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
-      
-                    
-                    
-    						The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that it describes how files containing sensitive data are 
-    						stored with the <code>MODE_PRIVATE</code> flag set.
-    					
-                  </li>
-                  <li class="test-"><a id="_t_26" class="defined" href="#_t_26">Test FDP_DAR_EXT.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
-      
-                    
-                    
-    						The Windows platform currently does not provide data-at-rest
-    						encryption services which depend upon invocation by application developers. 
-    					
-                  </li>
-                  <li class="test-"><a id="_t_27" class="defined" href="#_t_27">Test FDP_DAR_EXT.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
-      
-                    
-                    
-    						The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and ensure that it describes how the 
-    						application uses the Complete Protection, Protected Unless Open, or Protected Until 
-    						First User Authentication Data Protection Class for each data file stored locally. 
-    					
-                  </li>
-                  <li class="test-"><a id="_t_28" class="defined" href="#_t_28">Test FDP_DAR_EXT.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
-      
-                    
-                    
-    						The Linux platform currently does not provide data-at-rest encryption services which depend
-    						upon invocation by application developers. 
-    					
-                  </li>
-                  <li class="test-"><a id="_t_29" class="defined" href="#_t_29">Test FDP_DAR_EXT.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
-      
-                    
-                    
-    						The Solaris platform currently does not provide data-at-rest encryption services which depend
-    						upon invocation by application developers.  
-    					
-                  </li>
-                  <li class="test-"><a id="_t_30" class="defined" href="#_t_30">Test FDP_DAR_EXT.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
-      
-                    
-                    
-    						The macOS platform currently does not provide data-at-rest encryption services which depend
-    						upon invocation by application developers.  
-    					
-                  </li>
-                </ul></span>
-                <p>
+    					<p></p>
     					If "<b>leverage platform-provided functionality...</b>" is selected no additional testing is required.
-    					</p>
-              </div></div></div></div></div>
+    					</p></div></div></div></div></div>
         
         <div class="comp" id="FDP_DEC_EXT.1"><h4>FDP_DEC_EXT.1 Access to Platform Resources</h4>
           
@@ -2347,7 +2342,7 @@ The following sections list Common Criteria and technology terms used in this do
 						justification as to why access is required.</p></div>
               <div class="eacategory">Tests</div><div class="ea">
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_31" class="defined" href="#_t_31">Test FDP_DEC_EXT.1.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                  <li class="test-"><a id="_t_19" class="defined" href="#_t_19">Test FDP_DEC_EXT.1.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
       
                     
                     
@@ -2355,7 +2350,7 @@ The following sections list Common Criteria and technology terms used in this do
 							for access to a hardware resource is reflected in the selection.
 						
                   </li>
-                  <li class="test-"><a id="_t_32" class="defined" href="#_t_32">Test FDP_DEC_EXT.1.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                  <li class="test-"><a id="_t_20" class="defined" href="#_t_20">Test FDP_DEC_EXT.1.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
       
                     
                     For Windows Universal Applications the evaluator shall check 
@@ -2372,28 +2367,28 @@ The following sections list Common Criteria and technology terms used in this do
 							hardware resources. 
 						
                   </li>
-                  <li class="test-"><a id="_t_33" class="defined" href="#_t_33">Test FDP_DEC_EXT.1.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
+                  <li class="test-"><a id="_t_21" class="defined" href="#_t_21">Test FDP_DEC_EXT.1.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
       
                     
                     The evaluator shall verify that either the
 							application or the documentation provides a list of the
 							hardware resources it accesses. 
                   </li>
-                  <li class="test-"><a id="_t_34" class="defined" href="#_t_34">Test FDP_DEC_EXT.1.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+                  <li class="test-"><a id="_t_22" class="defined" href="#_t_22">Test FDP_DEC_EXT.1.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
       
                     
                      The evaluator shall verify that either the
 							application software or its documentation provides a list of the
 							hardware resources it accesses. 
                   </li>
-                  <li class="test-"><a id="_t_35" class="defined" href="#_t_35">Test FDP_DEC_EXT.1.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+                  <li class="test-"><a id="_t_23" class="defined" href="#_t_23">Test FDP_DEC_EXT.1.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
       
                     
                      The evaluator shall verify that either the
 							application software or its documentation provides a list of the
 							hardware resources it accesses. 
                   </li>
-                  <li class="test-"><a id="_t_36" class="defined" href="#_t_36">Test FDP_DEC_EXT.1.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+                  <li class="test-"><a id="_t_24" class="defined" href="#_t_24">Test FDP_DEC_EXT.1.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
       
                     
                      The evaluator shall verify that either the application
@@ -2412,7 +2407,7 @@ The following sections list Common Criteria and technology terms used in this do
 						justification as to why access is required.</p></div>
               <div class="eacategory">Tests</div><div class="ea">
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_37" class="defined" href="#_t_37">Test FDP_DEC_EXT.1.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                  <li class="test-"><a id="_t_25" class="defined" href="#_t_25">Test FDP_DEC_EXT.1.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
       
                     
                     
@@ -2420,7 +2415,7 @@ The following sections list Common Criteria and technology terms used in this do
 							for access to a sensitive information repository is reflected in the selection.  
 						
                   </li>
-                  <li class="test-"><a id="_t_38" class="defined" href="#_t_38">Test FDP_DEC_EXT.1.2:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                  <li class="test-"><a id="_t_26" class="defined" href="#_t_26">Test FDP_DEC_EXT.1.2:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
       
                     
                     For Windows Universal Applications the evaluator shall check the
@@ -2436,14 +2431,14 @@ The following sections list Common Criteria and technology terms used in this do
 							sensitive information repositories it accesses. 
 						
                   </li>
-                  <li class="test-"><a id="_t_39" class="defined" href="#_t_39">Test FDP_DEC_EXT.1.2:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
+                  <li class="test-"><a id="_t_27" class="defined" href="#_t_27">Test FDP_DEC_EXT.1.2:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
       
                     
                     The evaluator shall verify that either the application
 							software or its documentation provides a list of
 							the sensitive information repositories it accesses.
                   </li>
-                  <li class="test-"><a id="_t_40" class="defined" href="#_t_40">Test FDP_DEC_EXT.1.2:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+                  <li class="test-"><a id="_t_28" class="defined" href="#_t_28">Test FDP_DEC_EXT.1.2:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
       
                     
                      The evaluator shall verify that either the 
@@ -2451,14 +2446,14 @@ The following sections list Common Criteria and technology terms used in this do
 							sensitive information repositories it accesses.
 						
                   </li>
-                  <li class="test-"><a id="_t_41" class="defined" href="#_t_41">Test FDP_DEC_EXT.1.2:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+                  <li class="test-"><a id="_t_29" class="defined" href="#_t_29">Test FDP_DEC_EXT.1.2:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
       
                     
                     The evaluator shall verify that either the
 							application software or its documentation provides a list of
 							sensitive information repositories it accesses. 
                   </li>
-                  <li class="test-"><a id="_t_42" class="defined" href="#_t_42">Test FDP_DEC_EXT.1.2:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+                  <li class="test-"><a id="_t_30" class="defined" href="#_t_30">Test FDP_DEC_EXT.1.2:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
       
                     
                     The evaluator shall verify that either the application
@@ -2495,14 +2490,14 @@ The following sections list Common Criteria and technology terms used in this do
 						communications.</p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">
                 The evaluator shall perform the following tests:
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_43" class="defined" href="#_t_43">Test FDP_NET_EXT.1:1</a>:
+                  <li class="test-"><a id="_t_31" class="defined" href="#_t_31">Test FDP_NET_EXT.1:1</a>:
       
 								The evaluator shall run the application.  While the application is running,
 								the evaluator shall sniff network traffic ignoring all non-application 
 								associated traffic
 								and verify that any network communications witnessed are documented in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> or are user-initiated. 
-							 </li>
-                  <li class="test-"><a id="_t_44" class="defined" href="#_t_44">Test FDP_NET_EXT.1:2</a>:
+							</li>
+                  <li class="test-"><a id="_t_32" class="defined" href="#_t_32">Test FDP_NET_EXT.1:2</a>:
       
 								The evaluator shall run the application.  After the application initializes, the
 								evaluator shall run network port scans to verify that any ports
@@ -2510,10 +2505,10 @@ The following sections list Common Criteria and technology terms used in this do
 								selection and its assignment.  This includes
 								connection-based protocols (e.g. TCP, DCCP) as well as connectionless protocols
 								(e.g. UDP).
-							 </li>
+							</li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_45" class="defined" href="#_t_45">Test FDP_NET_EXT.1:3</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                  <li class="test-"><a id="_t_33" class="defined" href="#_t_33">Test FDP_NET_EXT.1:3</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
       
                     
                     
@@ -2560,23 +2555,23 @@ The following sections list Common Criteria and technology terms used in this do
               <div class="eacategory">Tests</div><div class="ea">
                 If the application uses any default credentials the evaluator shall run the following tests.
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_46" class="defined" href="#_t_46">Test FMT_CFG_EXT.1.1:1</a>:
+                  <li class="test-"><a id="_t_34" class="defined" href="#_t_34">Test FMT_CFG_EXT.1.1:1</a>:
       
       							For any application provided credentials the evaluator shall install and run the application without generating or loading 
       							new credentials and verify that only the minimal
       							application functionality required to set new credentials is available.
-      						 </li>
-                  <li class="test-"><a id="_t_47" class="defined" href="#_t_47">Test FMT_CFG_EXT.1.1:2</a>:
+      						</li>
+                  <li class="test-"><a id="_t_35" class="defined" href="#_t_35">Test FMT_CFG_EXT.1.1:2</a>:
       
       							For any application provided credentials the evaluator shall attempt to clear all credentials and verify that only
       							the minimal application functionality required to set new credentials is available.
-      						 </li>
-                  <li class="test-"><a id="_t_48" class="defined" href="#_t_48">Test FMT_CFG_EXT.1.1:3</a>:
+      						</li>
+                  <li class="test-"><a id="_t_36" class="defined" href="#_t_36">Test FMT_CFG_EXT.1.1:3</a>:
       
       							For any application provided credentials the evaluator shall run the application, establish new credentials and
       							verify that the original default credentials no longer provide access to
       							the application.
-      						 </li>
+      						</li>
                 </ul></span>
               </div>
             <div class="element-activity-header"><a href="#FMT_CFG_EXT.1.2">FMT_CFG_EXT.1.2</a></div>
@@ -2588,7 +2583,7 @@ The following sections list Common Criteria and technology terms used in this do
       					by the application and ensure that their permissions are adequate to protect them.
       					The method of doing so varies per platform.
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_49" class="defined" href="#_t_49">Test FMT_CFG_EXT.1.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                  <li class="test-"><a id="_t_37" class="defined" href="#_t_37">Test FMT_CFG_EXT.1.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
       
                     
                     The evaluator shall run the command <code>find -L . -perm /002</code> 
@@ -2596,7 +2591,7 @@ The following sections list Common Criteria and technology terms used in this do
       						should not print any files (for this test, directories are not considered to be files).
       					
                   </li>
-                  <li class="test-"><a id="_t_50" class="defined" href="#_t_50">Test FMT_CFG_EXT.1.2:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                  <li class="test-"><a id="_t_38" class="defined" href="#_t_38">Test FMT_CFG_EXT.1.2:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
       
                     
                     The evaluator shall run the SysInternals tools
@@ -2608,14 +2603,14 @@ The following sections list Common Criteria and technology terms used in this do
       						sandbox.
       					
                   </li>
-                  <li class="test-"><a id="_t_51" class="defined" href="#_t_51">Test FMT_CFG_EXT.1.2:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
+                  <li class="test-"><a id="_t_39" class="defined" href="#_t_39">Test FMT_CFG_EXT.1.2:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
       
                     
                     The evaluator shall determine whether the application
       						leverages the appropriate Data Protection Class for each data file stored
       						locally.
                   </li>
-                  <li class="test-"><a id="_t_52" class="defined" href="#_t_52">Test FMT_CFG_EXT.1.2:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+                  <li class="test-"><a id="_t_40" class="defined" href="#_t_40">Test FMT_CFG_EXT.1.2:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
       
                     
                      
@@ -2624,7 +2619,7 @@ The following sections list Common Criteria and technology terms used in this do
       						not world-writable. The command should not print any files.
       					
                   </li>
-                  <li class="test-"><a id="_t_53" class="defined" href="#_t_53">Test FMT_CFG_EXT.1.2:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+                  <li class="test-"><a id="_t_41" class="defined" href="#_t_41">Test FMT_CFG_EXT.1.2:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
       
                     
                     
@@ -2633,7 +2628,7 @@ The following sections list Common Criteria and technology terms used in this do
       						world-writable. The command should not print any files.
       					
                   </li>
-                  <li class="test-"><a id="_t_54" class="defined" href="#_t_54">Test FMT_CFG_EXT.1.2:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+                  <li class="test-"><a id="_t_42" class="defined" href="#_t_42">Test FMT_CFG_EXT.1.2:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
       
                     
                     
@@ -2682,7 +2677,7 @@ The following sections list Common Criteria and technology terms used in this do
                 If "<b>invoke the mechanisms recommended by the platform vendor for storing and setting configuration options</b>" is selected,
 						the method of testing varies per platform as follows:
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_55" class="defined" href="#_t_55">Test FMT_MEC_EXT.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                  <li class="test-"><a id="_t_43" class="defined" href="#_t_43">Test FMT_MEC_EXT.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
       
                     
                     <p>
@@ -2698,7 +2693,7 @@ The following sections list Common Criteria and technology terms used in this do
 	                    	configuration to verify that the application used DataStore to store the configuration data.
 	                    	</p>
                   </li>
-                  <li class="test-"><a id="_t_56" class="defined" href="#_t_56">Test FMT_MEC_EXT.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                  <li class="test-"><a id="_t_44" class="defined" href="#_t_44">Test FMT_MEC_EXT.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
       
                     
                     <p>The evaluator shall determine and verify that Windows
@@ -2716,14 +2711,14 @@ The following sections list Common Criteria and technology terms used in this do
 							The evaluator shall verify that <span class="util">Process Monitor</span> logs show corresponding changes to the
 							the Windows Registry or C:\ProgramData\ directory.</p>
                   </li>
-                  <li class="test-"><a id="_t_57" class="defined" href="#_t_57">Test FMT_MEC_EXT.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
+                  <li class="test-"><a id="_t_45" class="defined" href="#_t_45">Test FMT_MEC_EXT.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
       
                     
                     The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_app">app</a></abbr> uses the
 							<code>user defaults system</code> or <code>key-value store</code> for storing all
 							settings.
                   </li>
-                  <li class="test-"><a id="_t_58" class="defined" href="#_t_58">Test FMT_MEC_EXT.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+                  <li class="test-"><a id="_t_46" class="defined" href="#_t_46">Test FMT_MEC_EXT.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
       
                     
                      
@@ -2735,7 +2730,7 @@ The following sections list Common Criteria and technology terms used in this do
 							controlled by <abbr class="dyn-abbr"><a href="#abbr_UI">UI</a></abbr> and not intended to be directly modified by an administrator).
 						
                   </li>
-                  <li class="test-"><a id="_t_59" class="defined" href="#_t_59">Test FMT_MEC_EXT.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+                  <li class="test-"><a id="_t_47" class="defined" href="#_t_47">Test FMT_MEC_EXT.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
       
                     
                     
@@ -2748,7 +2743,7 @@ The following sections list Common Criteria and technology terms used in this do
 							in the user's home directory (for user-specific configuration).
 						
                   </li>
-                  <li class="test-"><a id="_t_60" class="defined" href="#_t_60">Test FMT_MEC_EXT.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+                  <li class="test-"><a id="_t_48" class="defined" href="#_t_48">Test FMT_MEC_EXT.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
       
                     
                     
@@ -2885,7 +2880,7 @@ The following sections list Common Criteria and technology terms used in this do
     					the evaluator must uninstall the application, reboot the device, and reinstall the application 
     					to collect the second instance of mappings.
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_61" class="defined" href="#_t_61">Test FPT_AEX_EXT.1.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                  <li class="test-"><a id="_t_49" class="defined" href="#_t_49">Test FPT_AEX_EXT.1.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
       
                     
                     
@@ -2895,7 +2890,7 @@ The following sections list Common Criteria and technology terms used in this do
     						application at the same location.
     					
                   </li>
-                  <li class="test-"><a id="_t_62" class="defined" href="#_t_62">Test FPT_AEX_EXT.1.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                  <li class="test-"><a id="_t_50" class="defined" href="#_t_50">Test FPT_AEX_EXT.1.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
       
                     
                      
@@ -2908,7 +2903,7 @@ The following sections list Common Criteria and technology terms used in this do
     						<abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> enabled.
     					
                   </li>
-                  <li class="test-"><a id="_t_63" class="defined" href="#_t_63">Test FPT_AEX_EXT.1.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
+                  <li class="test-"><a id="_t_51" class="defined" href="#_t_51">Test FPT_AEX_EXT.1.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
       
                     
                     
@@ -2917,7 +2912,7 @@ The following sections list Common Criteria and technology terms used in this do
     						no arguments are provided that request a mapping at a fixed address.
     					
                   </li>
-                  <li class="test-"><a id="_t_64" class="defined" href="#_t_64">Test FPT_AEX_EXT.1.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+                  <li class="test-"><a id="_t_52" class="defined" href="#_t_52">Test FPT_AEX_EXT.1.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
       
                     
                      
@@ -2927,7 +2922,7 @@ The following sections list Common Criteria and technology terms used in this do
     						to ensure the two different instances share no mapping locations.
     					
                   </li>
-                  <li class="test-"><a id="_t_65" class="defined" href="#_t_65">Test FPT_AEX_EXT.1.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+                  <li class="test-"><a id="_t_53" class="defined" href="#_t_53">Test FPT_AEX_EXT.1.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
       
                     
                     
@@ -2937,7 +2932,7 @@ The following sections list Common Criteria and technology terms used in this do
     						to ensure the two different instances share no mapping locations.
     					
                   </li>
-                  <li class="test-"><a id="_t_66" class="defined" href="#_t_66">Test FPT_AEX_EXT.1.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+                  <li class="test-"><a id="_t_54" class="defined" href="#_t_54">Test FPT_AEX_EXT.1.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
       
                     
                     
@@ -2956,14 +2951,14 @@ The following sections list Common Criteria and technology terms used in this do
                 The evaluator shall verify that no memory mapping requests are made with write and
     					execute permissions. The method of doing so varies per platform.
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_67" class="defined" href="#_t_67">Test FPT_AEX_EXT.1.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                  <li class="test-"><a id="_t_55" class="defined" href="#_t_55">Test FPT_AEX_EXT.1.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
       
                     
                      
     						The evaluator shall perform static analysis on the application to verify that <ul><li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions,
     								and </li><li> mprotect is never invoked.</li></ul>
                   </li>
-                  <li class="test-"><a id="_t_68" class="defined" href="#_t_68">Test FPT_AEX_EXT.1.2:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                  <li class="test-"><a id="_t_56" class="defined" href="#_t_56">Test FPT_AEX_EXT.1.2:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
       
                     
                      
@@ -2973,7 +2968,7 @@ The following sections list Common Criteria and technology terms used in this do
     						compilation to verify that <abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr> protections are enabled for the application. 
     					
                   </li>
-                  <li class="test-"><a id="_t_69" class="defined" href="#_t_69">Test FPT_AEX_EXT.1.2:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
+                  <li class="test-"><a id="_t_57" class="defined" href="#_t_57">Test FPT_AEX_EXT.1.2:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
       
                     
                      
@@ -2981,7 +2976,7 @@ The following sections list Common Criteria and technology terms used in this do
     						application to verify that mprotect is never invoked with the PROT_EXEC permission. 
     					
                   </li>
-                  <li class="test-"><a id="_t_70" class="defined" href="#_t_70">Test FPT_AEX_EXT.1.2:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+                  <li class="test-"><a id="_t_58" class="defined" href="#_t_58">Test FPT_AEX_EXT.1.2:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
       
                     
                      
@@ -2989,7 +2984,7 @@ The following sections list Common Criteria and technology terms used in this do
     						application to verify that both <ul><li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions,
     								and </li><li> mprotect is never invoked with the PROT_EXEC permission.</li></ul>
                   </li>
-                  <li class="test-"><a id="_t_71" class="defined" href="#_t_71">Test FPT_AEX_EXT.1.2:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+                  <li class="test-"><a id="_t_59" class="defined" href="#_t_59">Test FPT_AEX_EXT.1.2:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
       
                     
                      
@@ -2997,7 +2992,7 @@ The following sections list Common Criteria and technology terms used in this do
     						application to verify that both <ul><li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions,
     								and </li><li> mprotect is never invoked with the PROT_EXEC permission.</li></ul>
                   </li>
-                  <li class="test-"><a id="_t_72" class="defined" href="#_t_72">Test FPT_AEX_EXT.1.2:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+                  <li class="test-"><a id="_t_60" class="defined" href="#_t_60">Test FPT_AEX_EXT.1.2:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
       
                     
                      
@@ -3014,7 +3009,7 @@ The following sections list Common Criteria and technology terms used in this do
                 The evaluator shall configure the platform in the necessary manner and 
     					carry out one of the prescribed tests:
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_73" class="defined" href="#_t_73">Test FPT_AEX_EXT.1.3:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                  <li class="test-"><a id="_t_61" class="defined" href="#_t_61">Test FPT_AEX_EXT.1.3:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
       
                     
                     
@@ -3022,7 +3017,7 @@ The following sections list Common Criteria and technology terms used in this do
     						security features, therefore this requirement is met and no evaluation activity is required.
     					
                   </li>
-                  <li class="test-"><a id="_t_74" class="defined" href="#_t_74">Test FPT_AEX_EXT.1.3:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                  <li class="test-"><a id="_t_62" class="defined" href="#_t_62">Test FPT_AEX_EXT.1.3:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
       
                     
                     <p>
@@ -3034,7 +3029,7 @@ The following sections list Common Criteria and technology terms used in this do
     						https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/enable-exploit-protection?view=o365-worldwide.
     						</p>
                   </li>
-                  <li class="test-"><a id="_t_75" class="defined" href="#_t_75">Test FPT_AEX_EXT.1.3:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
+                  <li class="test-"><a id="_t_63" class="defined" href="#_t_63">Test FPT_AEX_EXT.1.3:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
       
                     
                     
@@ -3042,7 +3037,7 @@ The following sections list Common Criteria and technology terms used in this do
     						security features, therefore this requirement is met and no evaluation activity is required.
     					
                   </li>
-                  <li class="test-"><a id="_t_76" class="defined" href="#_t_76">Test FPT_AEX_EXT.1.3:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+                  <li class="test-"><a id="_t_64" class="defined" href="#_t_64">Test FPT_AEX_EXT.1.3:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
       
                     
                      
@@ -3050,7 +3045,7 @@ The following sections list Common Criteria and technology terms used in this do
     						successfully run on a system with either SELinux or AppArmor enabled and in enforce mode.
     					
                   </li>
-                  <li class="test-"><a id="_t_77" class="defined" href="#_t_77">Test FPT_AEX_EXT.1.3:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+                  <li class="test-"><a id="_t_65" class="defined" href="#_t_65">Test FPT_AEX_EXT.1.3:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
       
                     
                     
@@ -3058,7 +3053,7 @@ The following sections list Common Criteria and technology terms used in this do
     						Solaris Trusted Extensions enabled and enforcing.
     					
                   </li>
-                  <li class="test-"><a id="_t_78" class="defined" href="#_t_78">Test FPT_AEX_EXT.1.3:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+                  <li class="test-"><a id="_t_66" class="defined" href="#_t_66">Test FPT_AEX_EXT.1.3:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
       
                     
                      
@@ -3077,7 +3072,7 @@ The following sections list Common Criteria and technology terms used in this do
     					check whether the destination directory contains executable files.
     					This varies per platform:
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_79" class="defined" href="#_t_79">Test FPT_AEX_EXT.1.4:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                  <li class="test-"><a id="_t_67" class="defined" href="#_t_67">Test FPT_AEX_EXT.1.4:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
       
                     
                      
@@ -3085,7 +3080,7 @@ The following sections list Common Criteria and technology terms used in this do
     						The evaluator shall ensure that there are no executable files stored under <span style="path">/data/data/<i>package</i>/</span> where <i>package</i> is the Java package of the application.
     					
                   </li>
-                  <li class="test-"><a id="_t_80" class="defined" href="#_t_80">Test FPT_AEX_EXT.1.4:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                  <li class="test-"><a id="_t_68" class="defined" href="#_t_68">Test FPT_AEX_EXT.1.4:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
       
                     
                     For Windows Universal Applications the evaluator shall consider
@@ -3095,14 +3090,14 @@ The following sections list Common Criteria and technology terms used in this do
     						files are written. The evaluator shall ensure that there are no executable files
     						stored in the same directories to which the application wrote user-modifiable files.
                   </li>
-                  <li class="test-"><a id="_t_81" class="defined" href="#_t_81">Test FPT_AEX_EXT.1.4:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
+                  <li class="test-"><a id="_t_69" class="defined" href="#_t_69">Test FPT_AEX_EXT.1.4:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
       
                     
                     The evaluator shall consider the requirement met because
     						the platform forces applications to write all data within the application working
     						directory (sandbox).
                   </li>
-                  <li class="test-"><a id="_t_82" class="defined" href="#_t_82">Test FPT_AEX_EXT.1.4:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+                  <li class="test-"><a id="_t_70" class="defined" href="#_t_70">Test FPT_AEX_EXT.1.4:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
       
                     
                      
@@ -3112,7 +3107,7 @@ The following sections list Common Criteria and technology terms used in this do
     						same directories to which the application wrote user-modifiable files.
     					
                   </li>
-                  <li class="test-"><a id="_t_83" class="defined" href="#_t_83">Test FPT_AEX_EXT.1.4:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+                  <li class="test-"><a id="_t_71" class="defined" href="#_t_71">Test FPT_AEX_EXT.1.4:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
       
                     
                     
@@ -3122,7 +3117,7 @@ The following sections list Common Criteria and technology terms used in this do
     						same directories to which the application wrote user-modifiable files.
     					
                   </li>
-                  <li class="test-"><a id="_t_84" class="defined" href="#_t_84">Test FPT_AEX_EXT.1.4:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+                  <li class="test-"><a id="_t_72" class="defined" href="#_t_72">Test FPT_AEX_EXT.1.4:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
       
                     
                      The evaluator shall run the program, mimicking normal
@@ -3141,7 +3136,7 @@ The following sections list Common Criteria and technology terms used in this do
                 The evaluator will inspect every native executable included in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to ensure that stack-based buffer 
     					overflow protection is present.
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_85" class="defined" href="#_t_85">Test FPT_AEX_EXT.1.5:1</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                  <li class="test-"><a id="_t_73" class="defined" href="#_t_73">Test FPT_AEX_EXT.1.5:1</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
       
                     
                     Applications that run as Managed Code in the .NET Framework do not require
@@ -3151,10 +3146,10 @@ The following sections list Common Criteria and technology terms used in this do
     						the evaluator shall review the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that the /GS flag was used during compilation. The 
     						evaluator shall run a tool like, BinSkim, that can verify the correct usage of /GS.
                   </li>
-                  <li class="test-"><a id="_t_86" class="defined" href="#_t_86">Test FPT_AEX_EXT.1.5:2</a>:
+                  <li class="test-"><a id="_t_74" class="defined" href="#_t_74">Test FPT_AEX_EXT.1.5:2</a>:
       <p><i><b>For <abbr class="dyn-abbr"><a href="#abbr_PE">PE</a></abbr></b></i>
     						, the evaluator will disassemble each and ensure the following sequence appears:</p><table class="code-table"><tr><td>mov rcx, QWORD PTR [rsp+<i>(...)</i>]</td></tr><tr><td>xor rcx, <i>(...)</i></td></tr><tr><td>call <i>(...)</i></td></tr></table></li>
-                  <li class="test-"><a id="_t_87" class="defined" href="#_t_87">Test FPT_AEX_EXT.1.5:3</a>:
+                  <li class="test-"><a id="_t_75" class="defined" href="#_t_75">Test FPT_AEX_EXT.1.5:3</a>:
       <p><i><b>For <abbr class="dyn-abbr"><a href="#abbr_ELF">ELF</a></abbr> executables</b></i>, the evaluator will ensure that each 
     						contains references to the symbol <b>__stack_chk_fail</b>.<p></p>If these automated tests fail, the evaluator shall perform the above, conditional <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> activity.</p></li>
                 </ul></span>
@@ -3367,16 +3362,16 @@ The following sections list Common Criteria and technology terms used in this do
                 Conditional: If "not download, modify, replace or update its own binary code" is selected the 
 						evaluator shall verify that the application's executable files are not changed by the application with the following tests:<p>For all other platforms, the evaluator shall perform the following test:</p>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_88" class="defined" href="#_t_88">Test FPT_TUD_EXT.1.3:1</a>:
+                  <li class="test-"><a id="_t_76" class="defined" href="#_t_76">Test FPT_TUD_EXT.1.3:1</a>:
       The evaluator shall install the application and then locate all of its executable files. 
 								The evaluator shall then, for each file, save off either a hash of the file or a copy of the file 
 								itself. The evaluator shall then run the application and exercise all features of the application as 
 								described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable file with either the saved 
 								hash or the saved copy of the files. The evaluator shall verify that these are identical.
-							 </li>
+							</li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_89" class="defined" href="#_t_89">Test FPT_TUD_EXT.1.3:2</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
+                  <li class="test-"><a id="_t_77" class="defined" href="#_t_77">Test FPT_TUD_EXT.1.3:2</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
       
                     
                     The evaluator shall consider the requirement met because the platform forces
@@ -3437,13 +3432,13 @@ The following sections list Common Criteria and technology terms used in this do
 						the evaluator shall verify that application updates are distributed in the
 						format supported by the platform. This varies per platform:
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_90" class="defined" href="#_t_90">Test FPT_TUD_EXT.2.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                  <li class="test-"><a id="_t_78" class="defined" href="#_t_78">Test FPT_TUD_EXT.2.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
       
                     
                      The evaluator shall ensure that the application is
 							packaged in the Android application package (<abbr class="dyn-abbr"><a href="#abbr_APK">APK</a></abbr>) format. 
                   </li>
-                  <li class="test-"><a id="_t_91" class="defined" href="#_t_91">Test FPT_TUD_EXT.2.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
+                  <li class="test-"><a id="_t_79" class="defined" href="#_t_79">Test FPT_TUD_EXT.2.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]:
       
                     
                      The evaluator shall ensure that the application is
@@ -3454,13 +3449,13 @@ The following sections list Common Criteria and technology terms used in this do
 							regarding Authenticode signing.  
 						
                   </li>
-                  <li class="test-"><a id="_t_92" class="defined" href="#_t_92">Test FPT_TUD_EXT.2.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
+                  <li class="test-"><a id="_t_80" class="defined" href="#_t_80">Test FPT_TUD_EXT.2.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
       
                     
                      The evaluator shall ensure that the application is
 							packaged in the <abbr class="dyn-abbr"><a href="#abbr_IPA">IPA</a></abbr> format. 
                   </li>
-                  <li class="test-"><a id="_t_93" class="defined" href="#_t_93">Test FPT_TUD_EXT.2.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
+                  <li class="test-"><a id="_t_81" class="defined" href="#_t_81">Test FPT_TUD_EXT.2.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]:
       
                     
                      The evaluator shall ensure that the application is
@@ -3469,13 +3464,13 @@ The following sections list Common Criteria and technology terms used in this do
 							shall be packaged in <code>RPM</code> format. Applications running on Debian and Debian
 							derivatives shall be packaged in <code>DEB</code> format. 
                   </li>
-                  <li class="test-"><a id="_t_94" class="defined" href="#_t_94">Test FPT_TUD_EXT.2.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
+                  <li class="test-"><a id="_t_82" class="defined" href="#_t_82">Test FPT_TUD_EXT.2.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]:
       
                     
                      The evaluator shall ensure that the application is
 							packaged in the <abbr class="dyn-abbr"><a href="#abbr_PKG">PKG</a></abbr> format. 
                   </li>
-                  <li class="test-"><a id="_t_95" class="defined" href="#_t_95">Test FPT_TUD_EXT.2.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
+                  <li class="test-"><a id="_t_83" class="defined" href="#_t_83">Test FPT_TUD_EXT.2.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]:
       
                     
                      The evaluator shall ensure that the application is packaged
@@ -3489,14 +3484,14 @@ The following sections list Common Criteria and technology terms used in this do
 						application is performed.</p></div>
               <div class="eacategory">Tests</div><div class="ea">
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_96" class="defined" href="#_t_96">Test FPT_TUD_EXT.2.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                  <li class="test-"><a id="_t_84" class="defined" href="#_t_84">Test FPT_TUD_EXT.2.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
       
                     
                     The evaluator shall consider the requirement met because 
 							the platform forces applications to write all data within the application working 
 							directory (sandbox).
                   </li>
-                  <li class="test-"><a id="_t_97" class="defined" href="#_t_97">Test FPT_TUD_EXT.2.2:2</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
+                  <li class="test-"><a id="_t_85" class="defined" href="#_t_85">Test FPT_TUD_EXT.2.2:2</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
       
                     
                     The evaluator shall consider the requirement met because 
@@ -3518,7 +3513,7 @@ The following sections list Common Criteria and technology terms used in this do
               <div class="eacategory">Tests</div><div class="ea">
                 Conditional: if "the application can verify them using" is selected the evaluator shall perform the following tests:
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_98" class="defined" href="#_t_98">Test FPT_TUD_EXT.2.3:1</a>:
+                  <li class="test-"><a id="_t_86" class="defined" href="#_t_86">Test FPT_TUD_EXT.2.3:1</a>:
       
 								The evaluator shall ensure that the update has a digital
 								signature belonging to the vendor prior to its installation.
@@ -3527,15 +3522,15 @@ The following sections list Common Criteria and technology terms used in this do
 								will then attempt to install the modified update. The
 								evaluator shall ensure that the
 								modified update fails to install.
-							 </li>
-                  <li class="test-"><a id="_t_99" class="defined" href="#_t_99">Test FPT_TUD_EXT.2.3:2</a>:
+							</li>
+                  <li class="test-"><a id="_t_87" class="defined" href="#_t_87">Test FPT_TUD_EXT.2.3:2</a>:
       
 								The evaluator shall ensure that the update has a digital
 								signature belonging to the vendor. The evaluator shall then
 								attempt to install the update (or permit installation to continue).
 								The evaluator shall ensure that
 								the the update successfully installs.
-							 </li>
+							</li>
                 </ul></span>
               </div>
             </div></div></div>
@@ -3658,32 +3653,28 @@ The following sections list Common Criteria and technology terms used in this do
 						channels that have been selected.</p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">
                 The evaluator shall perform the following tests.
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_100" class="defined" href="#_t_100">Test FTP_DIT_EXT.1:1</a>:
+                  <li class="test-"><a id="_t_88" class="defined" href="#_t_88">Test FTP_DIT_EXT.1:1</a>:
       
-								If " " is selected, the evaluator shall exercise each of the 
+								If "<b>not transmit any data</b>" is selected, the evaluator shall exercise each of the 
 								<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s identified functions, while observing the network traffic from the device and 
 								verify that no <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> initiated connections were observed during the attempts.
-							 not transmit any data
-								If " " is selected, the evaluator shall exercise each of the 
-								<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s identified functions, while observing the network traffic from the device and 
-								verify that no <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> initiated connections were observed during the attempts.
-							 </li>
-                  <li class="test-"><a id="_t_101" class="defined" href="#_t_101">Test FTP_DIT_EXT.1:2</a>:
+							</li>
+                  <li class="test-"><a id="_t_89" class="defined" href="#_t_89">Test FTP_DIT_EXT.1:2</a>:
       
 								 The evaluator shall exercise the application (attempting to transmit data; for 
 								 example by connecting to remote systems or websites) while capturing packets from 
 								 the application. The evaluator shall verify from the packet capture that the
 								 traffic is encrypted with <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>, or IPsec in accordance with the
 								 selection in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>.
-							 </li>
-                  <li class="test-"><a id="_t_102" class="defined" href="#_t_102">Test FTP_DIT_EXT.1:3</a>:
+							</li>
+                  <li class="test-"><a id="_t_90" class="defined" href="#_t_90">Test FTP_DIT_EXT.1:3</a>:
       
 								The evaluator shall exercise the application (attempting to transmit data; for
 								example by connecting to remote systems or websites) while capturing packets from 
 								the application. The evaluator shall review the packet capture and verify that no 
 								sensitive data is transmitted in the clear.
-							 </li>
-                  <li class="test-"><a id="_t_103" class="defined" href="#_t_103">Test FTP_DIT_EXT.1:4</a>:
+							</li>
+                  <li class="test-"><a id="_t_91" class="defined" href="#_t_91">Test FTP_DIT_EXT.1:4</a>:
       
 								The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine if user credentials are transmitted.
 								If credentials are transmitted the evaluator shall set the credential to a known
@@ -3691,10 +3682,10 @@ The following sections list Common Criteria and technology terms used in this do
 								credentials to be transmitted as described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. The evaluator shall perform
 								a string search of the captured network packets and verify that the plaintext
 								credential previously set by the evaluator is not found.
-							 </li>
+							</li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <li class="test-"><a id="_t_104" class="defined" href="#_t_104">Test FTP_DIT_EXT.1:5</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
+                  <li class="test-"><a id="_t_92" class="defined" href="#_t_92">Test FTP_DIT_EXT.1:5</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]:
       
                     
                     
@@ -3705,7 +3696,7 @@ The following sections list Common Criteria and technology terms used in this do
 							communication.
 							
                   </li>
-                  <li class="test-"><a id="_t_105" class="defined" href="#_t_105">Test FTP_DIT_EXT.1:6</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
+                  <li class="test-"><a id="_t_93" class="defined" href="#_t_93">Test FTP_DIT_EXT.1:6</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]:
       
                     
                     
@@ -4267,7 +4258,10 @@ The following sections list Common Criteria and technology terms used in this do
 					vector needed to take advantage of the vulnerability. If exploiting the vulnerability requires
 					expert skills and an electron microscope, for instance, then a test would not be suitable and 
 					an appropriate justification would be formulated.
-				</p></div></div></div>
+				</p><div>	
+						The evaluator shall also run a virus scanner with the most current virus definitions against the 
+						application files and verify that no files are flagged as malicious.
+					</div></div></div></div>
       
     
   <h1 id="impl-reqs" class="indexable" data-level="A">Appendix A -  Implementation-dependent Requirements</h1>
@@ -4292,12 +4286,12 @@ The following sections list Common Criteria and technology terms used in this do
         	</td></tr></table><h4 id="ext-comp-FCS_CKM_EXT.1.1">FCS_CKM_EXT.1.1</h4>The application shall [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="fcs_ckm_ext.1.1_1">generate no asymmetric cryptographic keys</span></li><li style=""><span class="selectable-content" id="sel_invoke_genkey">invoke platform-provided functionality for asymmetric key generation</span></li><li style=""><span class="selectable-content" id="sel_impl_genkey">implement asymmetric key generation</span></li></ul>].</div></div><h3 id="ext-comp-FCS_HTTPS_EXT" class="indexable" data-level="4">B.2.1.2 FCS_HTTPS_EXT HTTPS Protocol</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>This family defines requirements for implementation of the <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> protocol.</div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FCS_HTTPS_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FCS_HTTPS_EXT.1">FCS_HTTPS_EXT.1</a>,
              <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> Protocol,
               defines the capability of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to implement <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>.</p><h4>Management: FCS_HTTPS_EXT.1</h4><p>No specific management functions are identified.</p><h4>Audit: FCS_HTTPS_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FCS_HTTPS_EXT.1 HTTPS Protocol</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
-        		FCS_TLS_EXT.1 <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Protocol
+        		FCS_TLS_EXT.1 <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Protocol<br/>
         		FIA_X509_EXT.1 X.509 Certificate Validation
         	</td></tr></table><h4 id="ext-comp-FCS_HTTPS_EXT.1.1">FCS_HTTPS_EXT.1.1</h4>The application shall implement the <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> protocol <b>as a server</b>  that complies with <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 2818.<h4 id="ext-comp-FCS_HTTPS_EXT.1.2">FCS_HTTPS_EXT.1.2</h4>The application shall implement <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> using <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as defined in the Functional Package for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>.<h4 id="ext-comp-FCS_HTTPS_EXT.1.3">FCS_HTTPS_EXT.1.3</h4>The application shall [<b>selection</b>: <span class="selectable-content" id="fcs_https_ext.1.3_1">establish the connection</span>, <span class="selectable-content" id="fcs_https_ext.1.3_2">not establish the connection</span>, <span class="selectable-content" id="fcs_https_ext.1.3_3">establish or not establish the connection based on an administrative or user setting</span>] if the peer certificate is deemed invalid when attempting to establish a <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> connection.</div></div><h3 id="ext-comp-FCS_PBKDF_EXT" class="indexable" data-level="4">B.2.1.3 FCS_PBKDF_EXT Password Conditioning</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>This family defines requirements for implementation of password-based key derivation functions.</div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FCS_PBKDF_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FCS_PBKDF_EXT.1">FCS_PBKDF_EXT.1</a>,
              Password Conditioning,
               defines the capability of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to implement PBKDF2 for key derivation.</p><h4>Management: FCS_PBKDF_EXT.1</h4><p>No specific management functions are identified.</p><h4>Audit: FCS_PBKDF_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FCS_PBKDF_EXT.1 Password Conditioning</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
-				FCS_COP.1 Cryptographic Operation
+				FCS_COP.1 Cryptographic Operation<br/>
 				<a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> Random Bit Generation Services
 			</td></tr></table><h4 id="ext-comp-FCS_PBKDF_EXT.1.1">FCS_PBKDF_EXT.1.1</h4>The application shall condition passwords/passphrases with [<b>assignment</b>: 
      <span class="assignable-content">Password-based Key Derivation Functions</span>] in accordance with a specified cryptographic algorithm as specified in FCS_COP.1 <b>/KeyedHash</b>  , with [<b>selection</b>: <span class="selectable-content" id="fcs_pbkdf_ext.1.1_3">[<b>assignment</b>: 
@@ -4381,7 +4375,7 @@ The following sections list Common Criteria and technology terms used in this do
     		</td></tr></table><h4 id="ext-comp-FDP_DAR_EXT.1.1">FDP_DAR_EXT.1.1</h4>The application shall [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="fdp_dar_ext.1.1_1">leverage platform-provided functionality to encrypt sensitive data</span></li><li style=""><span class="selectable-content" id="fdp_dar_ext.1.1_2">implement functionality to encrypt sensitive data as defined in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</span></li><li style=""><span class="selectable-content" id="fdp_dar_ext.1.1_3">protect sensitive data in accordance with <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></span></li><li style=""><span class="selectable-content" id="fdp_dar_ext.1.1_4">not store any sensitive data</span></li></ul>] in non-volatile memory.</div></div><h3 id="ext-comp-FDP_DEC_EXT" class="indexable" data-level="4">B.2.6.2 FDP_DEC_EXT Access to Platform Resources</h3><div style="margin-left: 1em;"><h4>Family Behavior</h4><div>This family defines requirements for accessing platform resources.</div><h4>Component Leveling</h4><svg style="max-height: 30px;"><text x="4" fill="black" font-size="15" y="24">FDP_DEC_EXT</text><rect x="2" y="11" width="150" height="16" fill="none" stroke="black"></rect><text x="234" fill="black" font-size="15" y="24">1</text><rect x="232" y="11" width="12" height="16" fill="none" stroke="black"></rect><line x1="152" y1="17" x2="231" y2="17" stroke="black"></line></svg><p><a href="#FDP_DEC_EXT.1">FDP_DEC_EXT.1</a>,
              Access to Platform Resources,
               requires the application to restrict access to hardware sources and sensitive information repositories.</p><h4>Management: FDP_DEC_EXT.1</h4><p>The following action could be considered for the management functions in FMT: Enabling and disabling the transmission of any information describing the system’s hardware, software, or configuration.</p><h4>Audit: FDP_DEC_EXT.1</h4><p>There are no auditable events foreseen.</p><h4>FDP_DEC_EXT.1 Access to Platform Resources</h4><div style="margin-left: 1em;"><table class="ecd_heir_dep" style="width: 100%"><tr><td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td></tr><tr style="background-color: inherit"><td>Dependencies to:</td><td>
-      		FCS_TLS_EXT.1 <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Protocol
+      		FCS_TLS_EXT.1 <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Protocol<br/>
       		FIA_X509_EXT.1 X.509 Certificate Validation
       	</td></tr></table><h4 id="ext-comp-FDP_DEC_EXT.1.1">FDP_DEC_EXT.1.1</h4>The application shall restrict its access to only [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_1">no hardware resources</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_2">network connectivity</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_3">camera</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_4">microphone</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_5">location services</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_6"><abbr class="dyn-abbr"><a href="#abbr_NFC">NFC</a></abbr></span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_7"><abbr class="dyn-abbr"><a href="#abbr_USB">USB</a></abbr></span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_8">Bluetooth</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.1_10">[<b>assignment</b>: 
      <span class="assignable-content">list of additional hardware resources</span>]</span></li></ul>].<h4 id="ext-comp-FDP_DEC_EXT.1.2">FDP_DEC_EXT.1.2</h4>The application shall restrict its access to only [<b>selection</b>: <ul><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_1">no sensitive information repositories</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_2">address book</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_3">calendar</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_4">call lists</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_5">system logs</span></li><li style=""><span class="selectable-content" id="fdp_dec_ext.1.2_7">[<b>assignment</b>: 

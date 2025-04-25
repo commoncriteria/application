@@ -654,31 +654,28 @@
                             <p></p>
                              The evaluator shall decompile the application binary using a decompiler suitable for the application (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>). The evaluator shall search the output of the decompiler to determine that, for each <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> listed in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>, that <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> appears in the output. If the representation of the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> does not correspond directly to the strings in the following list, the evaluator shall provide a mapping from the decompiled text to its corresponding <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>, with a description of why the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> text does not directly correspond to the decompiled text and justification that the decompiled text corresponds to the associated <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>. 
                             <p></p>
-                            The following are the per-platform list of acceptable APIs: <span class="testlist-">
-                                <ul>
-                                    <li class="test-">
-                                        <a id="_t_13" class="defined" href="#_t_13">Test FCS_RBG_EXT.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: The evaluator shall verify that the application uses at least one of <code>javax.crypto.KeyGenerator</code> class or the <code>java.security.SecureRandom</code> class or <code>/dev/random </code> or <code>/dev/urandom</code>. 
-                                    </li>
-                                    <li class="test-">
-                                        <a id="_t_14" class="defined" href="#_t_14">Test FCS_RBG_EXT.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: The evaluator shall verify that <code>rand_s</code>, <code>RtlGenRandom</code>, <code>BCryptGenRandom</code>, or <code>CryptGenRandom</code> <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> is used for classic desktop applications. The evaluator shall verify the application uses the <code>RNGCryptoServiceProvider</code> class or derives a class from <code>System.Security.Cryptography.RandomNumberGenerator <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr></code> for Windows Universal Applications. It is only required that the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> is called/invoked, there is no requirement that the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> be used directly. In future versions of this document, <code>CryptGenRandom</code> may be removed as an option as it is no longer the preferred <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> per vendor documentation. 
-                                    </li>
-                                    <li class="test-">
-                                        <a id="_t_15" class="defined" href="#_t_15">Test FCS_RBG_EXT.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall verify that the application invokes either <code>SecRandomCopyBytes</code>, <code>CCRandomGenerateBytes</code>, or <code>CCRandomCopyBytes</code>, or uses <code>/dev/random</code> directly to acquire random. 
-                                    </li>
-                                    <li class="test-">
-                                        <a id="_t_16" class="defined" href="#_t_16">Test FCS_RBG_EXT.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall verify that the application collects random from <code>/dev/random</code> or <code>/dev/urandom</code>. 
-                                    </li>
-                                    <li class="test-">
-                                        <a id="_t_17" class="defined" href="#_t_17">Test FCS_RBG_EXT.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall verify that the application collects random from <code>/dev/random</code>. 
-                                    </li>
-                                    <li class="test-">
-                                        <a id="_t_18" class="defined" href="#_t_18">Test FCS_RBG_EXT.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall verify that the application invokes either <code>CCRandomGenerateBytes</code> or <code>CCRandomCopyBytes</code>, or collects random from <code>/dev/random</code>. 
-                                    </li>
-                                </ul>
-                            </span> 
-                            <p>
-                                 If invocation of platform-provided functionality is achieved in another way, the evaluator shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how this is carried out, and how it is equivalent to the methods listed here (e.g. higher-level <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> invokes identical low-level <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>). 
-                            </p>
+                             The following are the per-platform list of acceptable APIs: 
+                            <div>
+                                 The evaluator shall verify that the application uses at least one of <code>javax.crypto.KeyGenerator</code> class or the <code>java.security.SecureRandom</code> class or <code>/dev/random </code> or <code>/dev/urandom</code>. 
+                            </div>
+                            <div>
+                                 The evaluator shall verify that <code>rand_s</code>, <code>RtlGenRandom</code>, <code>BCryptGenRandom</code>, or <code>CryptGenRandom</code> <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> is used for classic desktop applications. The evaluator shall verify the application uses the <code>RNGCryptoServiceProvider</code> class or derives a class from <code>System.Security.Cryptography.RandomNumberGenerator <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr></code> for Windows Universal Applications. It is only required that the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> is called/invoked, there is no requirement that the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> be used directly. In future versions of this document, <code>CryptGenRandom</code> may be removed as an option as it is no longer the preferred <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> per vendor documentation. 
+                            </div>
+                            <div>
+                                 The evaluator shall verify that the application invokes either <code>SecRandomCopyBytes</code>, <code>CCRandomGenerateBytes</code>, or <code>CCRandomCopyBytes</code>, or uses <code>/dev/random</code> directly to acquire random. 
+                            </div>
+                            <div>
+                                 The evaluator shall verify that the application collects random from <code>/dev/random</code> or <code>/dev/urandom</code>. 
+                            </div>
+                            <div>
+                                 The evaluator shall verify that the application collects random from <code>/dev/random</code>. 
+                            </div>
+                            <div>
+                                 The evaluator shall verify that the application invokes either <code>CCRandomGenerateBytes</code> or <code>CCRandomCopyBytes</code>, or collects random from <code>/dev/random</code>. 
+                            </div>
+                            <p></p>
+                             If invocation of platform-provided functionality is achieved in another way, the evaluator shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how this is carried out, and how it is equivalent to the methods listed here (e.g. higher-level <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> invokes identical low-level <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>). 
+                            <p></p>
                         </div>
                     </div>
                 </div>
@@ -782,22 +779,22 @@
                              For all credentials for which the application implements functionality, the evaluator shall verify credentials are encrypted according to <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> or conditioned according to <a href="#FCS_PBKDF_EXT.1">FCS_PBKDF_EXT.1</a>. For all credentials for which the application invokes platform-provided functionality, the evaluator shall perform the following actions which vary per platform. <span class="testlist-">
                                 <ul>
                                     <li class="test-">
-                                        <a id="_t_19" class="defined" href="#_t_19">Test FCS_STO_EXT.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: The evaluator shall verify that the application uses the Android <code>KeyStore</code> or the Android <code>KeyChain</code> to store certificates. 
+                                        <a id="_t_13" class="defined" href="#_t_13">Test FCS_STO_EXT.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: The evaluator shall verify that the application uses the Android <code>KeyStore</code> or the Android <code>KeyChain</code> to store certificates. 
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_20" class="defined" href="#_t_20">Test FCS_STO_EXT.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: The evaluator shall verify that all certificates are stored in the Windows Certificate Store. The evaluator shall verify that other credentials, like passwords, are stored in the Windows Credential Manager or stored using the Data Protection <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> (<abbr class="dyn-abbr"><a href="#abbr_DPAPI">DPAPI</a></abbr>). For Windows Universal Applications, the evaluator shall verify that the application is using the ProtectData class and storing credentials in IsolatedStorage. 
+                                        <a id="_t_14" class="defined" href="#_t_14">Test FCS_STO_EXT.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: The evaluator shall verify that all certificates are stored in the Windows Certificate Store. The evaluator shall verify that other credentials, like passwords, are stored in the Windows Credential Manager or stored using the Data Protection <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> (<abbr class="dyn-abbr"><a href="#abbr_DPAPI">DPAPI</a></abbr>). For Windows Universal Applications, the evaluator shall verify that the application is using the ProtectData class and storing credentials in IsolatedStorage. 
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_21" class="defined" href="#_t_21">Test FCS_STO_EXT.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall verify that all credentials are stored within a <code>Keychain</code>. 
+                                        <a id="_t_15" class="defined" href="#_t_15">Test FCS_STO_EXT.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall verify that all credentials are stored within a <code>Keychain</code>. 
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_22" class="defined" href="#_t_22">Test FCS_STO_EXT.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall verify that all keys are stored using Linux keyrings. 
+                                        <a id="_t_16" class="defined" href="#_t_16">Test FCS_STO_EXT.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall verify that all keys are stored using Linux keyrings. 
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_23" class="defined" href="#_t_23">Test FCS_STO_EXT.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall verify that all keys are stored using Solaris <code>Key Management Framework (KMF)</code>. 
+                                        <a id="_t_17" class="defined" href="#_t_17">Test FCS_STO_EXT.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall verify that all keys are stored using Solaris <code>Key Management Framework (KMF)</code>. 
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_24" class="defined" href="#_t_24">Test FCS_STO_EXT.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall verify that all credentials are stored within <code>Keychain</code>. 
+                                        <a id="_t_18" class="defined" href="#_t_18">Test FCS_STO_EXT.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall verify that all credentials are stored within <code>Keychain</code>. 
                                     </li>
                                 </ul>
                             </span> 
@@ -867,6 +864,17 @@
                             <p></p>
                              If "<b>leverage platform-provided functionality...</b>" is selected, the evaluation activities will be performed as stated in the following requirements, which vary on a per-platform basis. 
                             <p></p>
+                            <div>
+                                 The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that it describes how files containing sensitive data are stored with the <code>MODE_PRIVATE</code> flag set. 
+                            </div>
+                            <div> The Windows platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers. </div>
+                            <div>
+                                 The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and ensure that it describes how the application uses the Complete Protection, Protected Unless Open, or Protected Until First User Authentication Data Protection Class for each data file stored locally. 
+                            </div>
+                            <div> The Linux platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers. </div>
+                            <div> The Solaris platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers. </div>
+                            <div> The macOS platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers. </div>
+                            <p></p>
                         </div>
                     </div>
                     <div class="eacategory">Guidance</div>
@@ -884,31 +892,9 @@
                             <p>
                                  If "<b>implement functionality to encrypt sensitive data as defined in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</b>" or "<b>protect sensitive data in accordance with <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></b>" is selected, the evaluator shall inventory the filesystem locations where the application may write data. The evaluator shall run the application and attempt to store sensitive data. The evaluator shall then inspect those areas of the filesystem to note where data was stored (if any), and verify it has been encrypted. 
                             </p>
-                             <span class="testlist-">
-                                <ul>
-                                    <li class="test-">
-                                        <a id="_t_25" class="defined" href="#_t_25">Test FDP_DAR_EXT.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that it describes how files containing sensitive data are stored with the <code>MODE_PRIVATE</code> flag set. 
-                                    </li>
-                                    <li class="test-">
-                                        <a id="_t_26" class="defined" href="#_t_26">Test FDP_DAR_EXT.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: The Windows platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers. 
-                                    </li>
-                                    <li class="test-">
-                                        <a id="_t_27" class="defined" href="#_t_27">Test FDP_DAR_EXT.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and ensure that it describes how the application uses the Complete Protection, Protected Unless Open, or Protected Until First User Authentication Data Protection Class for each data file stored locally. 
-                                    </li>
-                                    <li class="test-">
-                                        <a id="_t_28" class="defined" href="#_t_28">Test FDP_DAR_EXT.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The Linux platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers. 
-                                    </li>
-                                    <li class="test-">
-                                        <a id="_t_29" class="defined" href="#_t_29">Test FDP_DAR_EXT.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The Solaris platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers. 
-                                    </li>
-                                    <li class="test-">
-                                        <a id="_t_30" class="defined" href="#_t_30">Test FDP_DAR_EXT.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The macOS platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers. 
-                                    </li>
-                                </ul>
-                            </span> 
-                            <p>
-                                 If "<b>leverage platform-provided functionality...</b>" is selected no additional testing is required. 
-                            </p>
+                            <p></p>
+                             If "<b>leverage platform-provided functionality...</b>" is selected no additional testing is required. 
+                            <p></p>
                         </div>
                     </div>
                 </div>
@@ -1012,10 +998,10 @@
                          <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_31" class="defined" href="#_t_31">Test FDP_DEC_EXT.1.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: The evaluator shall verify that each <code>uses-permission</code> entry in the AndroidManifest.xml file for access to a hardware resource is reflected in the selection. 
+                                    <a id="_t_19" class="defined" href="#_t_19">Test FDP_DEC_EXT.1.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: The evaluator shall verify that each <code>uses-permission</code> entry in the AndroidManifest.xml file for access to a hardware resource is reflected in the selection. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_32" class="defined" href="#_t_32">Test FDP_DEC_EXT.1.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: For Windows Universal Applications the evaluator shall check the AppxManifest.xml file for a list of required hardware capabilities. The evaluator shall verify that the user is made aware of the required hardware capabilities when the application is first installed. This includes permissions such as ID_CAP_ISV_CAMERA, ID_CAP_LOCATION, ID_CAP_NETWORKING, ID_CAP_MICROPHONE, ID_CAP_PROXIMITY and so on. A complete list of Windows App permissions can be found at: 
+                                    <a id="_t_20" class="defined" href="#_t_20">Test FDP_DEC_EXT.1.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: For Windows Universal Applications the evaluator shall check the AppxManifest.xml file for a list of required hardware capabilities. The evaluator shall verify that the user is made aware of the required hardware capabilities when the application is first installed. This includes permissions such as ID_CAP_ISV_CAMERA, ID_CAP_LOCATION, ID_CAP_NETWORKING, ID_CAP_MICROPHONE, ID_CAP_PROXIMITY and so on. A complete list of Windows App permissions can be found at: 
                                     <ul>
                                         <li>
                                              <a href="http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx"> http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx</a>
@@ -1024,16 +1010,16 @@
                                      For Windows Desktop Applications the evaluator shall identify in either the application software or its documentation the list of the required hardware resources. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_33" class="defined" href="#_t_33">Test FDP_DEC_EXT.1.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall verify that either the application or the documentation provides a list of the hardware resources it accesses. 
+                                    <a id="_t_21" class="defined" href="#_t_21">Test FDP_DEC_EXT.1.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall verify that either the application or the documentation provides a list of the hardware resources it accesses. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_34" class="defined" href="#_t_34">Test FDP_DEC_EXT.1.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall verify that either the application software or its documentation provides a list of the hardware resources it accesses. 
+                                    <a id="_t_22" class="defined" href="#_t_22">Test FDP_DEC_EXT.1.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall verify that either the application software or its documentation provides a list of the hardware resources it accesses. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_35" class="defined" href="#_t_35">Test FDP_DEC_EXT.1.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall verify that either the application software or its documentation provides a list of the hardware resources it accesses. 
+                                    <a id="_t_23" class="defined" href="#_t_23">Test FDP_DEC_EXT.1.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall verify that either the application software or its documentation provides a list of the hardware resources it accesses. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_36" class="defined" href="#_t_36">Test FDP_DEC_EXT.1.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall verify that either the application software or its documentation provides a list of the hardware resources it accesses. 
+                                    <a id="_t_24" class="defined" href="#_t_24">Test FDP_DEC_EXT.1.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall verify that either the application software or its documentation provides a list of the hardware resources it accesses. 
                                 </li>
                             </ul>
                         </span> 
@@ -1056,10 +1042,10 @@
                          <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_37" class="defined" href="#_t_37">Test FDP_DEC_EXT.1.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: The evaluator shall verify that each <code>uses-permission</code> entry in the AndroidManifest.xml file for access to a sensitive information repository is reflected in the selection. 
+                                    <a id="_t_25" class="defined" href="#_t_25">Test FDP_DEC_EXT.1.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: The evaluator shall verify that each <code>uses-permission</code> entry in the AndroidManifest.xml file for access to a sensitive information repository is reflected in the selection. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_38" class="defined" href="#_t_38">Test FDP_DEC_EXT.1.2:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: For Windows Universal Applications the evaluator shall check the AppxManifest.xml file for a list of required capabilities. The evaluator shall identify the required information repositories when the application is first installed. This includes permissions such as ID_CAP_CONTACTS,ID_CAP_APPOINTMENTS,ID_CAP_MEDIALIB and so on. A complete list of Windows App permissions can be found at: 
+                                    <a id="_t_26" class="defined" href="#_t_26">Test FDP_DEC_EXT.1.2:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: For Windows Universal Applications the evaluator shall check the AppxManifest.xml file for a list of required capabilities. The evaluator shall identify the required information repositories when the application is first installed. This includes permissions such as ID_CAP_CONTACTS,ID_CAP_APPOINTMENTS,ID_CAP_MEDIALIB and so on. A complete list of Windows App permissions can be found at: 
                                     <ul>
                                         <li>
                                              <a href="http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx"> http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx</a>
@@ -1068,16 +1054,16 @@
                                      For Windows Desktop Applications the evaluator shall identify in either the application software or its documentation the list of sensitive information repositories it accesses. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_39" class="defined" href="#_t_39">Test FDP_DEC_EXT.1.2:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall verify that either the application software or its documentation provides a list of the sensitive information repositories it accesses. 
+                                    <a id="_t_27" class="defined" href="#_t_27">Test FDP_DEC_EXT.1.2:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall verify that either the application software or its documentation provides a list of the sensitive information repositories it accesses. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_40" class="defined" href="#_t_40">Test FDP_DEC_EXT.1.2:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall verify that either the application software or its documentation provides a list of sensitive information repositories it accesses. 
+                                    <a id="_t_28" class="defined" href="#_t_28">Test FDP_DEC_EXT.1.2:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall verify that either the application software or its documentation provides a list of sensitive information repositories it accesses. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_41" class="defined" href="#_t_41">Test FDP_DEC_EXT.1.2:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall verify that either the application software or its documentation provides a list of sensitive information repositories it accesses. 
+                                    <a id="_t_29" class="defined" href="#_t_29">Test FDP_DEC_EXT.1.2:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall verify that either the application software or its documentation provides a list of sensitive information repositories it accesses. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_42" class="defined" href="#_t_42">Test FDP_DEC_EXT.1.2:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall verify that either the application software or its documentation provides a list of sensitive information repositories it accesses. 
+                                    <a id="_t_30" class="defined" href="#_t_30">Test FDP_DEC_EXT.1.2:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall verify that either the application software or its documentation provides a list of sensitive information repositories it accesses. 
                                 </li>
                             </ul>
                         </span> 
@@ -1141,16 +1127,16 @@
                              The evaluator shall perform the following tests: <span class="testlist-">
                                 <ul>
                                     <li class="test-">
-                                        <a id="_t_43" class="defined" href="#_t_43">Test FDP_NET_EXT.1:1</a>: The evaluator shall run the application. While the application is running, the evaluator shall sniff network traffic ignoring all non-application associated traffic and verify that any network communications witnessed are documented in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> or are user-initiated. 
+                                        <a id="_t_31" class="defined" href="#_t_31">Test FDP_NET_EXT.1:1</a>: The evaluator shall run the application. While the application is running, the evaluator shall sniff network traffic ignoring all non-application associated traffic and verify that any network communications witnessed are documented in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> or are user-initiated. 
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_44" class="defined" href="#_t_44">Test FDP_NET_EXT.1:2</a>: The evaluator shall run the application. After the application initializes, the evaluator shall run network port scans to verify that any ports opened by the application have been captured in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> for the third selection and its assignment. This includes connection-based protocols (e.g. TCP, DCCP) as well as connectionless protocols (e.g. UDP). 
+                                        <a id="_t_32" class="defined" href="#_t_32">Test FDP_NET_EXT.1:2</a>: The evaluator shall run the application. After the application initializes, the evaluator shall run network port scans to verify that any ports opened by the application have been captured in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> for the third selection and its assignment. This includes connection-based protocols (e.g. TCP, DCCP) as well as connectionless protocols (e.g. UDP). 
                                     </li>
                                 </ul>
                             </span> <span class="testlist-">
                                 <ul>
                                     <li class="test-">
-                                        <a id="_t_45" class="defined" href="#_t_45">Test FDP_NET_EXT.1:3</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: If "<b>no network communication</b>" is selected, the evaluator shall ensure that the application's AndroidManifest.xml file does not contain a uses-permission or uses-permission-sdk-23 tag containing android:name="android.permission.INTERNET". In this case, it is not necessary to perform the above Tests 1 and 2, as the platform will not allow the application to perform any network communication. 
+                                        <a id="_t_33" class="defined" href="#_t_33">Test FDP_NET_EXT.1:3</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: If "<b>no network communication</b>" is selected, the evaluator shall ensure that the application's AndroidManifest.xml file does not contain a uses-permission or uses-permission-sdk-23 tag containing android:name="android.permission.INTERNET". In this case, it is not necessary to perform the above Tests 1 and 2, as the platform will not allow the application to perform any network communication. 
                                     </li>
                                 </ul>
                             </span> 
@@ -1209,13 +1195,13 @@
                          If the application uses any default credentials the evaluator shall run the following tests. <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_46" class="defined" href="#_t_46">Test FMT_CFG_EXT.1.1:1</a>: For any application provided credentials the evaluator shall install and run the application without generating or loading new credentials and verify that only the minimal application functionality required to set new credentials is available. 
+                                    <a id="_t_34" class="defined" href="#_t_34">Test FMT_CFG_EXT.1.1:1</a>: For any application provided credentials the evaluator shall install and run the application without generating or loading new credentials and verify that only the minimal application functionality required to set new credentials is available. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_47" class="defined" href="#_t_47">Test FMT_CFG_EXT.1.1:2</a>: For any application provided credentials the evaluator shall attempt to clear all credentials and verify that only the minimal application functionality required to set new credentials is available. 
+                                    <a id="_t_35" class="defined" href="#_t_35">Test FMT_CFG_EXT.1.1:2</a>: For any application provided credentials the evaluator shall attempt to clear all credentials and verify that only the minimal application functionality required to set new credentials is available. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_48" class="defined" href="#_t_48">Test FMT_CFG_EXT.1.1:3</a>: For any application provided credentials the evaluator shall run the application, establish new credentials and verify that the original default credentials no longer provide access to the application. 
+                                    <a id="_t_36" class="defined" href="#_t_36">Test FMT_CFG_EXT.1.1:3</a>: For any application provided credentials the evaluator shall run the application, establish new credentials and verify that the original default credentials no longer provide access to the application. 
                                 </li>
                             </ul>
                         </span> 
@@ -1238,22 +1224,22 @@
                          The evaluator shall install and run the application. The evaluator shall inspect the filesystem of the platform (to the extent possible) for any files created by the application and ensure that their permissions are adequate to protect them. The method of doing so varies per platform. <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_49" class="defined" href="#_t_49">Test FMT_CFG_EXT.1.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: The evaluator shall run the command <code>find -L . -perm /002</code> inside the application's data directories to ensure that all files are not world-writable. The command should not print any files (for this test, directories are not considered to be files). 
+                                    <a id="_t_37" class="defined" href="#_t_37">Test FMT_CFG_EXT.1.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: The evaluator shall run the command <code>find -L . -perm /002</code> inside the application's data directories to ensure that all files are not world-writable. The command should not print any files (for this test, directories are not considered to be files). 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_50" class="defined" href="#_t_50">Test FMT_CFG_EXT.1.2:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: The evaluator shall run the SysInternals tools Process Monitor and Access Check (or tools of equivalent capability, like icacls.exe) for Classic Desktop applications to verify that files written to disk during an application's installation have the correct file permissions, such that a standard user cannot modify the application or its data files. For Windows Universal Applications the evaluator shall consider the requirement met because of the AppContainer sandbox. 
+                                    <a id="_t_38" class="defined" href="#_t_38">Test FMT_CFG_EXT.1.2:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: The evaluator shall run the SysInternals tools Process Monitor and Access Check (or tools of equivalent capability, like icacls.exe) for Classic Desktop applications to verify that files written to disk during an application's installation have the correct file permissions, such that a standard user cannot modify the application or its data files. For Windows Universal Applications the evaluator shall consider the requirement met because of the AppContainer sandbox. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_51" class="defined" href="#_t_51">Test FMT_CFG_EXT.1.2:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall determine whether the application leverages the appropriate Data Protection Class for each data file stored locally. 
+                                    <a id="_t_39" class="defined" href="#_t_39">Test FMT_CFG_EXT.1.2:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall determine whether the application leverages the appropriate Data Protection Class for each data file stored locally. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_52" class="defined" href="#_t_52">Test FMT_CFG_EXT.1.2:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall run the command <code>find -L . -perm /002</code> inside the application's data directories to ensure that all files are not world-writable. The command should not print any files. 
+                                    <a id="_t_40" class="defined" href="#_t_40">Test FMT_CFG_EXT.1.2:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall run the command <code>find -L . -perm /002</code> inside the application's data directories to ensure that all files are not world-writable. The command should not print any files. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_53" class="defined" href="#_t_53">Test FMT_CFG_EXT.1.2:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall run the command <code>find . \( -perm -002 \)</code> inside the application's data directories to ensure that all files are not world-writable. The command should not print any files. 
+                                    <a id="_t_41" class="defined" href="#_t_41">Test FMT_CFG_EXT.1.2:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall run the command <code>find . \( -perm -002 \)</code> inside the application's data directories to ensure that all files are not world-writable. The command should not print any files. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_54" class="defined" href="#_t_54">Test FMT_CFG_EXT.1.2:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall run the command <code>find . -perm +002</code> inside the application's data directories to ensure that all files are not world-writable. The command should not print any files. 
+                                    <a id="_t_42" class="defined" href="#_t_42">Test FMT_CFG_EXT.1.2:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall run the command <code>find . -perm +002</code> inside the application's data directories to ensure that all files are not world-writable. The command should not print any files. 
                                 </li>
                             </ul>
                         </span> 
@@ -1314,7 +1300,7 @@
                              If "<b>invoke the mechanisms recommended by the platform vendor for storing and setting configuration options</b>" is selected, the method of testing varies per platform as follows: <span class="testlist-">
                                 <ul>
                                     <li class="test-">
-                                        <a id="_t_55" class="defined" href="#_t_55">Test FMT_MEC_EXT.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: 
+                                        <a id="_t_43" class="defined" href="#_t_43">Test FMT_MEC_EXT.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: 
                                         <p>
                                              The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that it describes what Android <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> is used (and provides a link to the documentation of the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>) when storing configuration data. The evaluator shall run the application and verify that the behavior of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is consistent with where and how the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> documentation says the configuration data will be stored. 
                                         </p>
@@ -1323,7 +1309,7 @@
                                         <p></p>
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_56" class="defined" href="#_t_56">Test FMT_MEC_EXT.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: 
+                                        <a id="_t_44" class="defined" href="#_t_44">Test FMT_MEC_EXT.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: 
                                         <p>
                                             The evaluator shall determine and verify that Windows Universal Applications use either the Windows.Storage namespace, Windows.<abbr class="dyn-abbr"><a href="#abbr_UI">UI</a></abbr>.ApplicationSettings namespace, or the IsolatedStorageSettings namespace for storing application specific settings. For .NET applications, the evaluator shall determine and verify that the application uses one of the locations listed in <a href="https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/"> https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/</a> or <a href="https://learn.microsoft.com/en-us/previous-versions/dotnet/netframework-4.0/zzdt0e7f(v=vs.100)"> https://learn.microsoft.com/en-us/previous-versions/dotnet/netframework-4.0/zzdt0e7f(v=vs.100)</a> or <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/"> https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/</a> or <a href="https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/iis/web-config"> https://learn.microsoft.com/en-us/aspnet/core/host-and-deploy/iis/web-config</a>for storing application specific (whether application-wide or user-specific) settings.
                                         </p>
@@ -1332,16 +1318,16 @@
                                         <p></p>
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_57" class="defined" href="#_t_57">Test FMT_MEC_EXT.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_app">app</a></abbr> uses the <code>user defaults system</code> or <code>key-value store</code> for storing all settings. 
+                                        <a id="_t_45" class="defined" href="#_t_45">Test FMT_MEC_EXT.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_app">app</a></abbr> uses the <code>user defaults system</code> or <code>key-value store</code> for storing all settings. 
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_58" class="defined" href="#_t_58">Test FMT_MEC_EXT.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall run the application while monitoring it with the utility <span class="util">strace</span>. The evaluator shall make security-related changes to its configuration. The evaluator shall verify that <span class="util">strace</span> logs corresponding changes to configuration files that reside in /etc (for system-specific configuration), in the user's home directory (for user-specific configuration), or /var/lib/ (for configurations controlled by <abbr class="dyn-abbr"><a href="#abbr_UI">UI</a></abbr> and not intended to be directly modified by an administrator). 
+                                        <a id="_t_46" class="defined" href="#_t_46">Test FMT_MEC_EXT.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall run the application while monitoring it with the utility <span class="util">strace</span>. The evaluator shall make security-related changes to its configuration. The evaluator shall verify that <span class="util">strace</span> logs corresponding changes to configuration files that reside in /etc (for system-specific configuration), in the user's home directory (for user-specific configuration), or /var/lib/ (for configurations controlled by <abbr class="dyn-abbr"><a href="#abbr_UI">UI</a></abbr> and not intended to be directly modified by an administrator). 
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_59" class="defined" href="#_t_59">Test FMT_MEC_EXT.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall run the application while monitoring it with the utility <span class="util">dtrace</span>. The evaluator shall make security-related changes to its configuration. The evaluator shall verify that <span class="util">dtrace</span> logs corresponding changes to configuration files that reside in /etc (for system-specific configuration) or in the user's home directory (for user-specific configuration). 
+                                        <a id="_t_47" class="defined" href="#_t_47">Test FMT_MEC_EXT.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall run the application while monitoring it with the utility <span class="util">dtrace</span>. The evaluator shall make security-related changes to its configuration. The evaluator shall verify that <span class="util">dtrace</span> logs corresponding changes to configuration files that reside in /etc (for system-specific configuration) or in the user's home directory (for user-specific configuration). 
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_60" class="defined" href="#_t_60">Test FMT_MEC_EXT.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall verify that the application stores and retrieves settings using the <code>NSUserDefaults</code> class. 
+                                        <a id="_t_48" class="defined" href="#_t_48">Test FMT_MEC_EXT.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall verify that the application stores and retrieves settings using the <code>NSUserDefaults</code> class. 
                                     </li>
                                 </ul>
                             </span> If "<b>implement functionality to encrypt and store configuration options as defined by FDP_PRT_EXT.1 in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</b>" is selected, for all configuration options listed in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> as being stored and protected using encryption, the evaluator shall examine the contents of the configuration option storage (identified in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>) to determine that the options have been encrypted. 
@@ -1584,22 +1570,22 @@
                          The evaluator shall perform either a static or dynamic analysis to determine that no memory mappings are placed at an explicit and consistent address except for any exceptions claimed in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr>. For these exceptions, the evaluator shall verify that this analysis shows explicit mappings that are consistent with what is claimed in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. The method of doing so varies per platform. For those platforms requiring the same application running on two different systems, the evaluator may alternatively use the same device. After collecting the first instance of mappings, the evaluator must uninstall the application, reboot the device, and reinstall the application to collect the second instance of mappings. <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_61" class="defined" href="#_t_61">Test FPT_AEX_EXT.1.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: The evaluator shall run the same application on two different Android systems. Both devices do not need to be evaluated, as the second device is acting only as a tool. Connect via <abbr class="dyn-abbr"><a href="#abbr_ADB">ADB</a></abbr> and inspect /proc/<abbr class="dyn-abbr"><a href="#abbr_PID">PID</a></abbr>/maps. Ensure the two different instances share no memory mappings made by the application at the same location. 
+                                    <a id="_t_49" class="defined" href="#_t_49">Test FPT_AEX_EXT.1.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: The evaluator shall run the same application on two different Android systems. Both devices do not need to be evaluated, as the second device is acting only as a tool. Connect via <abbr class="dyn-abbr"><a href="#abbr_ADB">ADB</a></abbr> and inspect /proc/<abbr class="dyn-abbr"><a href="#abbr_PID">PID</a></abbr>/maps. Ensure the two different instances share no memory mappings made by the application at the same location. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_62" class="defined" href="#_t_62">Test FPT_AEX_EXT.1.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: The evaluator shall run the same application on two different Windows systems and run a tool that will list all memory mapped addresses for the application. The evaluator shall then verify the two different instances share no mapping locations. The Microsoft SysInternals tool, VMMap, could be used to view memory addresses of a running application. The evaluator shall use a tool such as Microsoft's BinScope Binary Analyzer to confirm that the application has <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> enabled. 
+                                    <a id="_t_50" class="defined" href="#_t_50">Test FPT_AEX_EXT.1.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: The evaluator shall run the same application on two different Windows systems and run a tool that will list all memory mapped addresses for the application. The evaluator shall then verify the two different instances share no mapping locations. The Microsoft SysInternals tool, VMMap, could be used to view memory addresses of a running application. The evaluator shall use a tool such as Microsoft's BinScope Binary Analyzer to confirm that the application has <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> enabled. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_63" class="defined" href="#_t_63">Test FPT_AEX_EXT.1.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall perform a static analysis to search for any mmap calls (or <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> calls that call mmap), and ensure that no arguments are provided that request a mapping at a fixed address. 
+                                    <a id="_t_51" class="defined" href="#_t_51">Test FPT_AEX_EXT.1.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall perform a static analysis to search for any mmap calls (or <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> calls that call mmap), and ensure that no arguments are provided that request a mapping at a fixed address. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_64" class="defined" href="#_t_64">Test FPT_AEX_EXT.1.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall run the same application on two different Linux systems. The evaluator shall then compare their memory maps using <code>pmap -x <i><abbr class="dyn-abbr"><a href="#abbr_PID">PID</a></abbr></i></code> to ensure the two different instances share no mapping locations. 
+                                    <a id="_t_52" class="defined" href="#_t_52">Test FPT_AEX_EXT.1.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall run the same application on two different Linux systems. The evaluator shall then compare their memory maps using <code>pmap -x <i><abbr class="dyn-abbr"><a href="#abbr_PID">PID</a></abbr></i></code> to ensure the two different instances share no mapping locations. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_65" class="defined" href="#_t_65">Test FPT_AEX_EXT.1.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall run the same application on two different Solaris systems. The evaluator shall then compare their memory maps using <code>pmap -x <i><abbr class="dyn-abbr"><a href="#abbr_PID">PID</a></abbr></i></code> to ensure the two different instances share no mapping locations. 
+                                    <a id="_t_53" class="defined" href="#_t_53">Test FPT_AEX_EXT.1.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall run the same application on two different Solaris systems. The evaluator shall then compare their memory maps using <code>pmap -x <i><abbr class="dyn-abbr"><a href="#abbr_PID">PID</a></abbr></i></code> to ensure the two different instances share no mapping locations. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_66" class="defined" href="#_t_66">Test FPT_AEX_EXT.1.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall run the same application on two different Mac systems. The evaluator shall then compare their memory maps using <code>vmmap <i><abbr class="dyn-abbr"><a href="#abbr_PID">PID</a></abbr></i></code> to ensure the two different instances share no mapping locations. 
+                                    <a id="_t_54" class="defined" href="#_t_54">Test FPT_AEX_EXT.1.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall run the same application on two different Mac systems. The evaluator shall then compare their memory maps using <code>vmmap <i><abbr class="dyn-abbr"><a href="#abbr_PID">PID</a></abbr></i></code> to ensure the two different instances share no mapping locations. 
                                 </li>
                             </ul>
                         </span> 
@@ -1622,34 +1608,34 @@
                          The evaluator shall verify that no memory mapping requests are made with write and execute permissions. The method of doing so varies per platform. <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_67" class="defined" href="#_t_67">Test FPT_AEX_EXT.1.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: The evaluator shall perform static analysis on the application to verify that 
+                                    <a id="_t_55" class="defined" href="#_t_55">Test FPT_AEX_EXT.1.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: The evaluator shall perform static analysis on the application to verify that 
                                     <ul>
                                         <li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions, and </li>
                                         <li> mprotect is never invoked.</li>
                                     </ul>
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_68" class="defined" href="#_t_68">Test FPT_AEX_EXT.1.2:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: The evaluator shall use a tool such as Microsoft's BinScope Binary Analyzer to confirm that the application passes the NXCheck. The evaluator may also ensure that the <code>/NXCOMPAT</code> flag was used during compilation to verify that <abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr> protections are enabled for the application. 
+                                    <a id="_t_56" class="defined" href="#_t_56">Test FPT_AEX_EXT.1.2:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: The evaluator shall use a tool such as Microsoft's BinScope Binary Analyzer to confirm that the application passes the NXCheck. The evaluator may also ensure that the <code>/NXCOMPAT</code> flag was used during compilation to verify that <abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr> protections are enabled for the application. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_69" class="defined" href="#_t_69">Test FPT_AEX_EXT.1.2:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall perform static analysis on the application to verify that mprotect is never invoked with the PROT_EXEC permission. 
+                                    <a id="_t_57" class="defined" href="#_t_57">Test FPT_AEX_EXT.1.2:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall perform static analysis on the application to verify that mprotect is never invoked with the PROT_EXEC permission. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_70" class="defined" href="#_t_70">Test FPT_AEX_EXT.1.2:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall perform static analysis on the application to verify that both 
+                                    <a id="_t_58" class="defined" href="#_t_58">Test FPT_AEX_EXT.1.2:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall perform static analysis on the application to verify that both 
                                     <ul>
                                         <li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions, and </li>
                                         <li> mprotect is never invoked with the PROT_EXEC permission.</li>
                                     </ul>
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_71" class="defined" href="#_t_71">Test FPT_AEX_EXT.1.2:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall perform static analysis on the application to verify that both 
+                                    <a id="_t_59" class="defined" href="#_t_59">Test FPT_AEX_EXT.1.2:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall perform static analysis on the application to verify that both 
                                     <ul>
                                         <li> mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions, and </li>
                                         <li> mprotect is never invoked with the PROT_EXEC permission.</li>
                                     </ul>
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_72" class="defined" href="#_t_72">Test FPT_AEX_EXT.1.2:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall perform static analysis on the application to verify that mprotect is never invoked with the PROT_EXEC permission. 
+                                    <a id="_t_60" class="defined" href="#_t_60">Test FPT_AEX_EXT.1.2:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall perform static analysis on the application to verify that mprotect is never invoked with the PROT_EXEC permission. 
                                 </li>
                             </ul>
                         </span> 
@@ -1672,25 +1658,25 @@
                          The evaluator shall configure the platform in the necessary manner and carry out one of the prescribed tests: <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_73" class="defined" href="#_t_73">Test FPT_AEX_EXT.1.3:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: Applications running on Android cannot disable Android security features, therefore this requirement is met and no evaluation activity is required. 
+                                    <a id="_t_61" class="defined" href="#_t_61">Test FPT_AEX_EXT.1.3:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: Applications running on Android cannot disable Android security features, therefore this requirement is met and no evaluation activity is required. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_74" class="defined" href="#_t_74">Test FPT_AEX_EXT.1.3:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: 
+                                    <a id="_t_62" class="defined" href="#_t_62">Test FPT_AEX_EXT.1.3:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: 
                                     <p>
                                          If the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> platform supports Windows Defender Exploit Guard, then the evaluator shall ensure that the application can run successfully with Windows Defender Exploit Guard Exploit Protection configured with the following minimum mitigations enabled; Control Flow Guard (CFG), Randomize memory allocations (Bottom-Up <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr>), Export address filtering (EAF), Import address filtering (IAF), and Data Execution Prevention (<abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr>). The following link describes how to enable Exploit Protection, https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/enable-exploit-protection?view=o365-worldwide. 
                                     </p>
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_75" class="defined" href="#_t_75">Test FPT_AEX_EXT.1.3:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: Applications running on iOS cannot disable security features, therefore this requirement is met and no evaluation activity is required. 
+                                    <a id="_t_63" class="defined" href="#_t_63">Test FPT_AEX_EXT.1.3:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: Applications running on iOS cannot disable security features, therefore this requirement is met and no evaluation activity is required. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_76" class="defined" href="#_t_76">Test FPT_AEX_EXT.1.3:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall ensure that the application can successfully run on a system with either SELinux or AppArmor enabled and in enforce mode. 
+                                    <a id="_t_64" class="defined" href="#_t_64">Test FPT_AEX_EXT.1.3:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall ensure that the application can successfully run on a system with either SELinux or AppArmor enabled and in enforce mode. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_77" class="defined" href="#_t_77">Test FPT_AEX_EXT.1.3:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall ensure that the application can run with Solaris Trusted Extensions enabled and enforcing. 
+                                    <a id="_t_65" class="defined" href="#_t_65">Test FPT_AEX_EXT.1.3:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall ensure that the application can run with Solaris Trusted Extensions enabled and enforcing. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_78" class="defined" href="#_t_78">Test FPT_AEX_EXT.1.3:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall ensure that the application can successfully run on macOS without disabling any security features. 
+                                    <a id="_t_66" class="defined" href="#_t_66">Test FPT_AEX_EXT.1.3:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall ensure that the application can successfully run on macOS without disabling any security features. 
                                 </li>
                             </ul>
                         </span> 
@@ -1713,22 +1699,22 @@
                          The evaluator shall run the application and determine where it writes its files. For files where the user does not choose the destination, the evaluator shall check whether the destination directory contains executable files. This varies per platform: <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_79" class="defined" href="#_t_79">Test FPT_AEX_EXT.1.4:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. The evaluator shall ensure that there are no executable files stored under <span style="path">/data/data/<i>package</i>/</span> where <i>package</i> is the Java package of the application. 
+                                    <a id="_t_67" class="defined" href="#_t_67">Test FPT_AEX_EXT.1.4:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. The evaluator shall ensure that there are no executable files stored under <span style="path">/data/data/<i>package</i>/</span> where <i>package</i> is the Java package of the application. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_80" class="defined" href="#_t_80">Test FPT_AEX_EXT.1.4:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: For Windows Universal Applications the evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox). For Windows Desktop Applications the evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. The evaluator shall ensure that there are no executable files stored in the same directories to which the application wrote user-modifiable files. 
+                                    <a id="_t_68" class="defined" href="#_t_68">Test FPT_AEX_EXT.1.4:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: For Windows Universal Applications the evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox). For Windows Desktop Applications the evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. The evaluator shall ensure that there are no executable files stored in the same directories to which the application wrote user-modifiable files. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_81" class="defined" href="#_t_81">Test FPT_AEX_EXT.1.4:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox). 
+                                    <a id="_t_69" class="defined" href="#_t_69">Test FPT_AEX_EXT.1.4:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox). 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_82" class="defined" href="#_t_82">Test FPT_AEX_EXT.1.4:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. The evaluator shall ensure that there are no executable files stored in the same directories to which the application wrote user-modifiable files. 
+                                    <a id="_t_70" class="defined" href="#_t_70">Test FPT_AEX_EXT.1.4:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. The evaluator shall ensure that there are no executable files stored in the same directories to which the application wrote user-modifiable files. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_83" class="defined" href="#_t_83">Test FPT_AEX_EXT.1.4:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. The evaluator shall ensure that there are no executable files stored in the same directories to which the application wrote user-modifiable files. 
+                                    <a id="_t_71" class="defined" href="#_t_71">Test FPT_AEX_EXT.1.4:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. The evaluator shall ensure that there are no executable files stored in the same directories to which the application wrote user-modifiable files. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_84" class="defined" href="#_t_84">Test FPT_AEX_EXT.1.4:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. The evaluator shall ensure that there are no executable files stored in the same directories to which the application wrote user-modifiable files. 
+                                    <a id="_t_72" class="defined" href="#_t_72">Test FPT_AEX_EXT.1.4:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written. The evaluator shall ensure that there are no executable files stored in the same directories to which the application wrote user-modifiable files. 
                                 </li>
                             </ul>
                         </span> 
@@ -1753,10 +1739,10 @@
                          The evaluator will inspect every native executable included in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to ensure that stack-based buffer overflow protection is present. <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_85" class="defined" href="#_t_85">Test FPT_AEX_EXT.1.5:1</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: Applications that run as Managed Code in the .NET Framework do not require these stack protections. Applications developed in Object Pascal using the Delphi IDE compiled with RangeChecking enabled comply with this element. For other code, the evaluator shall review the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that the /GS flag was used during compilation. The evaluator shall run a tool like, BinSkim, that can verify the correct usage of /GS. 
+                                    <a id="_t_73" class="defined" href="#_t_73">Test FPT_AEX_EXT.1.5:1</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: Applications that run as Managed Code in the .NET Framework do not require these stack protections. Applications developed in Object Pascal using the Delphi IDE compiled with RangeChecking enabled comply with this element. For other code, the evaluator shall review the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that the /GS flag was used during compilation. The evaluator shall run a tool like, BinSkim, that can verify the correct usage of /GS. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_86" class="defined" href="#_t_86">Test FPT_AEX_EXT.1.5:2</a>: 
+                                    <a id="_t_74" class="defined" href="#_t_74">Test FPT_AEX_EXT.1.5:2</a>: 
                                     <p>
                                         <i><b>For <abbr class="dyn-abbr"><a href="#abbr_PE">PE</a></abbr></b></i> , the evaluator will disassemble each and ensure the following sequence appears:
                                     </p>
@@ -1773,7 +1759,7 @@
                                     </table>
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_87" class="defined" href="#_t_87">Test FPT_AEX_EXT.1.5:3</a>: 
+                                    <a id="_t_75" class="defined" href="#_t_75">Test FPT_AEX_EXT.1.5:3</a>: 
                                     <p>
                                         <i><b>For <abbr class="dyn-abbr"><a href="#abbr_ELF">ELF</a></abbr> executables</b></i>, the evaluator will ensure that each contains references to the symbol <b>__stack_chk_fail</b>.
                                     </p>
@@ -2002,13 +1988,13 @@
                          <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_88" class="defined" href="#_t_88">Test FPT_TUD_EXT.1.3:1</a>: The evaluator shall install the application and then locate all of its executable files. The evaluator shall then, for each file, save off either a hash of the file or a copy of the file itself. The evaluator shall then run the application and exercise all features of the application as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable file with either the saved hash or the saved copy of the files. The evaluator shall verify that these are identical. 
+                                    <a id="_t_76" class="defined" href="#_t_76">Test FPT_TUD_EXT.1.3:1</a>: The evaluator shall install the application and then locate all of its executable files. The evaluator shall then, for each file, save off either a hash of the file or a copy of the file itself. The evaluator shall then run the application and exercise all features of the application as described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. The evaluator shall then compare each executable file with either the saved hash or the saved copy of the files. The evaluator shall verify that these are identical. 
                                 </li>
                             </ul>
                         </span> <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_89" class="defined" href="#_t_89">Test FPT_TUD_EXT.1.3:2</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox). 
+                                    <a id="_t_77" class="defined" href="#_t_77">Test FPT_TUD_EXT.1.3:2</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox). 
                                 </li>
                             </ul>
                         </span> 
@@ -2178,25 +2164,25 @@
                              The evaluator shall perform the following tests. <span class="testlist-">
                                 <ul>
                                     <li class="test-">
-                                        <a id="_t_100" class="defined" href="#_t_100">Test FTP_DIT_EXT.1:1</a>: If " " is selected, the evaluator shall exercise each of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s identified functions, while observing the network traffic from the device and verify that no <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> initiated connections were observed during the attempts. not transmit any data If " " is selected, the evaluator shall exercise each of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s identified functions, while observing the network traffic from the device and verify that no <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> initiated connections were observed during the attempts. 
+                                        <a id="_t_88" class="defined" href="#_t_88">Test FTP_DIT_EXT.1:1</a>: If "<b>not transmit any data</b>" is selected, the evaluator shall exercise each of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s identified functions, while observing the network traffic from the device and verify that no <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> initiated connections were observed during the attempts. 
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_101" class="defined" href="#_t_101">Test FTP_DIT_EXT.1:2</a>: The evaluator shall exercise the application (attempting to transmit data; for example by connecting to remote systems or websites) while capturing packets from the application. The evaluator shall verify from the packet capture that the traffic is encrypted with <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>, or IPsec in accordance with the selection in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. 
+                                        <a id="_t_89" class="defined" href="#_t_89">Test FTP_DIT_EXT.1:2</a>: The evaluator shall exercise the application (attempting to transmit data; for example by connecting to remote systems or websites) while capturing packets from the application. The evaluator shall verify from the packet capture that the traffic is encrypted with <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>, or IPsec in accordance with the selection in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>. 
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_102" class="defined" href="#_t_102">Test FTP_DIT_EXT.1:3</a>: The evaluator shall exercise the application (attempting to transmit data; for example by connecting to remote systems or websites) while capturing packets from the application. The evaluator shall review the packet capture and verify that no sensitive data is transmitted in the clear. 
+                                        <a id="_t_90" class="defined" href="#_t_90">Test FTP_DIT_EXT.1:3</a>: The evaluator shall exercise the application (attempting to transmit data; for example by connecting to remote systems or websites) while capturing packets from the application. The evaluator shall review the packet capture and verify that no sensitive data is transmitted in the clear. 
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_103" class="defined" href="#_t_103">Test FTP_DIT_EXT.1:4</a>: The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine if user credentials are transmitted. If credentials are transmitted the evaluator shall set the credential to a known value. The evaluator shall capture packets from the application while causing credentials to be transmitted as described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. The evaluator shall perform a string search of the captured network packets and verify that the plaintext credential previously set by the evaluator is not found. 
+                                        <a id="_t_91" class="defined" href="#_t_91">Test FTP_DIT_EXT.1:4</a>: The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine if user credentials are transmitted. If credentials are transmitted the evaluator shall set the credential to a known value. The evaluator shall capture packets from the application while causing credentials to be transmitted as described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>. The evaluator shall perform a string search of the captured network packets and verify that the plaintext credential previously set by the evaluator is not found. 
                                     </li>
                                 </ul>
                             </span> <span class="testlist-">
                                 <ul>
                                     <li class="test-">
-                                        <a id="_t_104" class="defined" href="#_t_104">Test FTP_DIT_EXT.1:5</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: If "<b>not transmit any data</b>" is selected, the evaluator shall ensure that the application's AndroidManifest.xml file does not contain a uses-permission or uses-permission-sdk-23 tag containing android:name="android.permission.INTERNET". In this case, it is not necessary to perform the above Tests 1, 2, 3, or 4 as the platform will not allow the application to perform any network communication. 
+                                        <a id="_t_92" class="defined" href="#_t_92">Test FTP_DIT_EXT.1:5</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: If "<b>not transmit any data</b>" is selected, the evaluator shall ensure that the application's AndroidManifest.xml file does not contain a uses-permission or uses-permission-sdk-23 tag containing android:name="android.permission.INTERNET". In this case, it is not necessary to perform the above Tests 1, 2, 3, or 4 as the platform will not allow the application to perform any network communication. 
                                     </li>
                                     <li class="test-">
-                                        <a id="_t_105" class="defined" href="#_t_105">Test FTP_DIT_EXT.1:6</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: If "<b>encrypt all transmitted data</b>" is selected, the evaluator shall ensure that the application's Info.plist file does not contain the NSAllowsArbitraryLoads or NSExceptionAllowsInsecureHTTPLoads keys, as these keys disable iOS's Application Transport Security feature. 
+                                        <a id="_t_93" class="defined" href="#_t_93">Test FTP_DIT_EXT.1:6</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: If "<b>encrypt all transmitted data</b>" is selected, the evaluator shall ensure that the application's Info.plist file does not contain the NSAllowsArbitraryLoads or NSExceptionAllowsInsecureHTTPLoads keys, as these keys disable iOS's Application Transport Security feature. 
                                     </li>
                                 </ul>
                             </span> 
@@ -3058,6 +3044,7 @@
                     <p></p>
                      For each vulnerability found, the evaluator either provides a rationale with respect to its non-applicability, or the evaluator formulates a test (using the guidelines provided in ATE_IND) to confirm the vulnerability, if suitable. Suitability is determined by assessing the attack vector needed to take advantage of the vulnerability. If exploiting the vulnerability requires expert skills and an electron microscope, for instance, then a test would not be suitable and an appropriate justification would be formulated. 
                     <p></p>
+                    <div> The evaluator shall also run a virus scanner with the most current virus definitions against the application files and verify that no files are flagged as malicious. </div>
                 </div>
             </div>
         </div>
@@ -3850,9 +3837,15 @@
                         <p></p>
                          If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts as a sender, the following evaluation activity shall be performed to ensure the proper operation of every <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported combination of RSA-based key establishment scheme: 
                         <p></p>
+                        <div class="indent">
+                             To conduct this test the evaluator shall generate or obtain test vectors from a known good implementation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported schemes. For each combination of supported key establishment scheme and its options (with or without key confirmation if supported, for each supported key confirmation MAC function if key confirmation is supported, and for each supported mask generation function if KTS-OAEP is supported), the tester shall generate 10 sets of test vectors. Each test vector shall include the RSA public key, the plaintext keying material, any additional input parameters if applicable, the MacKey and MacTag if key confirmation is incorporated, and the outputted ciphertext. For each test vector, the evaluator shall perform a key establishment encryption operation on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> with the same inputs (in cases where key confirmation is incorporated, the test shall use the MacKey from the test vector instead of the randomly generated MacKey used in normal operation) and ensure that the outputted ciphertext is equivalent to the ciphertext in the test vector. 
+                        </div>
                         <p></p>
                          If the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> acts as a receiver, the following evaluation activities shall be performed to ensure the proper operation of every <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported combination of RSA-based key establishment scheme: 
                         <p></p>
+                        <div class="indent">
+                             To conduct this test the evaluator shall generate or obtain test vectors from a known good implementation of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supported schemes. For each combination of supported key establishment scheme and its options (with or without key confirmation if supported, for each supported key confirmation MAC function if key confirmation is supported, and for each supported mask generation function if KTS-OAEP is supported), the tester shall generate 10 sets of test vectors. Each test vector shall include the RSA private key, the plaintext keying material (KeyData), any additional input parameters if applicable, the MacTag in cases where key confirmation is incorporated, and the outputted ciphertext. For each test vector, the evaluator shall perform the key establishment decryption operation on the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> and ensure that the outputted plaintext keying material (KeyData) is equivalent to the plaintext keying material in the test vector. In cases where key confirmation is incorporated, the evaluator shall perform the key confirmation steps and ensure that the outputted MacTag is equivalent to the MacTag in the test vector. 
+                        </div>
                         <p></p>
                          The evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> handles decryption errors. In accordance with <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56B, the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> must not reveal the particular error that occurred, either through the contents of any outputted or logged error message or through timing variations. If KTS-OAEP is supported, the evaluator shall create separate contrived ciphertext values that trigger each of the three decryption error checks described in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56B section 7.2.2.3, ensure that each decryption attempt results in an error, and ensure that any outputted or logged error message is identical for each. If KTS-KEM-KWS is supported, the evaluator shall create separate contrived ciphertext values that trigger each of the three decryption error checks described in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> Special Publication 800-56B section 7.2.3.3, ensure that each decryption attempt results in an error, and ensure that any outputted or logged error message is identical for each. 
                         <p></p>
@@ -4715,6 +4708,7 @@
                     <div class="element-activity-header">
                         <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a>
                     </div>
+                     Documentation will be produced - and the evaluator shall perform the activities - in accordance with Appendix D - Entropy Documentation and Assessment appendix and the Clarification to the Entropy Documentation and Assessment Annex. 
                     <div class="eacategory">
                         <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
                     </div>
@@ -4773,6 +4767,7 @@
                     <div class="component-activity-header">
                         <a href="#FCS_RBG.2">FCS_RBG.2</a>
                     </div>
+                     The evaluator shall examine the entropy documentation required by <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a> to verify that it identifies, for each <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> function implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> external interface used to seed the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data such that it can be determined that sufficient entropy can be made available for the highest strength keys that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> applies to the output data to create a seed of sufficient size with full entropy. 
                     <div class="eacategory">
                         <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
                     </div>
@@ -4795,7 +4790,9 @@
         </div>
         <div class="comp" id="FCS_RBG.3">
             <h4>FCS_RBG.3 Random Bit Generation (Internal Seeding - Single Source)</h4>
-            <div class="statustag"></div>
+            <div class="statustag">
+                <b><i>The inclusion of this selection-based component depends upon selection in <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a>. </i></b>
+            </div>
             <div class="element">
                 <div class="reqid" id="FCS_RBG.3.1">
                     <a href="#FCS_RBG.3.1" class="abbr">FCS_RBG.3.1</a>
@@ -4815,6 +4812,7 @@
                     <div class="component-activity-header">
                         <a href="#FCS_RBG.3">FCS_RBG.3</a>
                     </div>
+                     The evaluator shall examine the entropy documentation required by <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a> to verify that it identifies, for each <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> function implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source used to seed the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data such that it can be determined that sufficient entropy can be made available for the highest strength keys that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> applies to the output data to create a seed of sufficient size with full entropy. 
                     <div class="eacategory">
                         <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
                     </div>
@@ -4837,7 +4835,9 @@
         </div>
         <div class="comp" id="FCS_RBG.4">
             <h4>FCS_RBG.4 Random Bit Generation (Internal Seeding - Multiple Sources)</h4>
-            <div class="statustag"></div>
+            <div class="statustag">
+                <b><i>The inclusion of this selection-based component depends upon selection in <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a>. </i></b>
+            </div>
             <div class="element">
                 <div class="reqid" id="FCS_RBG.4.1">
                     <a href="#FCS_RBG.4.1" class="abbr">FCS_RBG.4.1</a>
@@ -4857,6 +4857,7 @@
                     <div class="component-activity-header">
                         <a href="#FCS_RBG.4">FCS_RBG.4</a>
                     </div>
+                     The evaluator shall examine the entropy documentation required by <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a> to verify that it identifies, for each <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> function implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>, each <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> noise source used to seed the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr>. The evaluator shall verify that this includes the amount of sampled data and the min-entropy rate of the sampled data from each data source. 
                     <div class="eacategory">
                         <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
                     </div>
@@ -4879,7 +4880,9 @@
         </div>
         <div class="comp" id="FCS_RBG.5">
             <h4>FCS_RBG.5 Random Bit Generation (Combining Noise Sources)</h4>
-            <div class="statustag"></div>
+            <div class="statustag">
+                <b><i>The inclusion of this selection-based component depends upon selection in <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a>. </i></b>
+            </div>
             <div class="element">
                 <div class="reqid" id="FCS_RBG.5.1">
                     <a href="#FCS_RBG.5.1" class="abbr">FCS_RBG.5.1</a>
@@ -4899,6 +4902,7 @@
                     <div class="component-activity-header">
                         <a href="#FCS_RBG.5">FCS_RBG.5</a>
                     </div>
+                     Using the entropy sources specified in <a href="#FCS_RBG.4">FCS_RBG.4</a>, the evaluator shall examine the entropy documentation required by <a href="#FCS_RBG.1.2">FCS_RBG.1.2</a> to verify that it describes the method by which the various entropy sources are combined into a single seed. This should include an estimation of the rate at which each noise source outputs data and whether this is dependent on any system-specific factors so that each source's relative contribution to the overall entropy is understood. The evaluator shall verify that the resulting combination of sampled data and the min-entropy rate of the sampled data is described in sufficient detail to determine that sufficient entropy can be made available for the highest strength keys that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> can generate (e.g., 256 bits). If the seed data cannot be assumed to have full entropy (e.g., the min-entropy of the sampled bits is less than 1), the evaluator shall ensure that the entropy documentation describes the method by which the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> estimates the amount of entropy that has been accumulated to ensure that sufficient data is collected and any conditioning that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> applies to the output data to create a seed of sufficient size with full entropy. 
                     <div class="eacategory">
                         <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>
                     </div>
@@ -5217,22 +5221,22 @@
                          If a container image is claimed, the evaluator shall verify that application updates are distributed as container images. If the format of the platform-supported package manager is claimed, the evaluator shall verify that application updates are distributed in the format supported by the platform. This varies per platform: <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_90" class="defined" href="#_t_90">Test FPT_TUD_EXT.2.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: The evaluator shall ensure that the application is packaged in the Android application package (<abbr class="dyn-abbr"><a href="#abbr_APK">APK</a></abbr>) format. 
+                                    <a id="_t_78" class="defined" href="#_t_78">Test FPT_TUD_EXT.2.1:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: The evaluator shall ensure that the application is packaged in the Android application package (<abbr class="dyn-abbr"><a href="#abbr_APK">APK</a></abbr>) format. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_91" class="defined" href="#_t_91">Test FPT_TUD_EXT.2.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: The evaluator shall ensure that the application is packaged in the standard Windows Installer (.<abbr class="dyn-abbr"><a href="#abbr_MSI">MSI</a></abbr>) format, the Windows Application Software (.EXE) format signed using the Microsoft Authenticode process, or the Windows Universal Application package (.<abbr class="dyn-abbr"><a href="#abbr_APPX">APPX</a></abbr>) format. See https://msdn.microsoft.com/en-us/library/ms537364(v=vs.85).aspx for details regarding Authenticode signing. 
+                                    <a id="_t_79" class="defined" href="#_t_79">Test FPT_TUD_EXT.2.1:2</a>[conditional, Platforms:<a href="#windows"><b>Microsoft Windows</b>:<i>Microsoft Windows operating systems.</i></a>]: The evaluator shall ensure that the application is packaged in the standard Windows Installer (.<abbr class="dyn-abbr"><a href="#abbr_MSI">MSI</a></abbr>) format, the Windows Application Software (.EXE) format signed using the Microsoft Authenticode process, or the Windows Universal Application package (.<abbr class="dyn-abbr"><a href="#abbr_APPX">APPX</a></abbr>) format. See https://msdn.microsoft.com/en-us/library/ms537364(v=vs.85).aspx for details regarding Authenticode signing. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_92" class="defined" href="#_t_92">Test FPT_TUD_EXT.2.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall ensure that the application is packaged in the <abbr class="dyn-abbr"><a href="#abbr_IPA">IPA</a></abbr> format. 
+                                    <a id="_t_80" class="defined" href="#_t_80">Test FPT_TUD_EXT.2.1:3</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall ensure that the application is packaged in the <abbr class="dyn-abbr"><a href="#abbr_IPA">IPA</a></abbr> format. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_93" class="defined" href="#_t_93">Test FPT_TUD_EXT.2.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall ensure that the application is packaged in the format of the package management infrastructure of the chosen distribution. For example, applications running on Red Hat and Red Hat derivatives shall be packaged in <code>RPM</code> format. Applications running on Debian and Debian derivatives shall be packaged in <code>DEB</code> format. 
+                                    <a id="_t_81" class="defined" href="#_t_81">Test FPT_TUD_EXT.2.1:4</a>[conditional, Platforms:<a href="#linux"><b>Linux</b>:<i>Linux-based operating systems other than Android.</i></a>]: The evaluator shall ensure that the application is packaged in the format of the package management infrastructure of the chosen distribution. For example, applications running on Red Hat and Red Hat derivatives shall be packaged in <code>RPM</code> format. Applications running on Debian and Debian derivatives shall be packaged in <code>DEB</code> format. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_94" class="defined" href="#_t_94">Test FPT_TUD_EXT.2.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall ensure that the application is packaged in the <abbr class="dyn-abbr"><a href="#abbr_PKG">PKG</a></abbr> format. 
+                                    <a id="_t_82" class="defined" href="#_t_82">Test FPT_TUD_EXT.2.1:5</a>[conditional, Platforms:<a href="#Solaris"><b>Oracle Solaris</b>:<i>Oracle's enterprise operating system.</i></a>]: The evaluator shall ensure that the application is packaged in the <abbr class="dyn-abbr"><a href="#abbr_PKG">PKG</a></abbr> format. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_95" class="defined" href="#_t_95">Test FPT_TUD_EXT.2.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall ensure that the application is packaged in the <abbr class="dyn-abbr"><a href="#abbr_DMG">DMG</a></abbr> format, the <abbr class="dyn-abbr"><a href="#abbr_PKG">PKG</a></abbr> format, or the <abbr class="dyn-abbr"><a href="#abbr_MPKG">MPKG</a></abbr> format. 
+                                    <a id="_t_83" class="defined" href="#_t_83">Test FPT_TUD_EXT.2.1:6</a>[conditional, Platforms:<a href="#mac"><b>Apple macOS</b>:<i>Apple's operating system for MACs.</i></a>]: The evaluator shall ensure that the application is packaged in the <abbr class="dyn-abbr"><a href="#abbr_DMG">DMG</a></abbr> format, the <abbr class="dyn-abbr"><a href="#abbr_PKG">PKG</a></abbr> format, or the <abbr class="dyn-abbr"><a href="#abbr_MPKG">MPKG</a></abbr> format. 
                                 </li>
                             </ul>
                         </span> 
@@ -5255,10 +5259,10 @@
                          <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_96" class="defined" href="#_t_96">Test FPT_TUD_EXT.2.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: The evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox). 
+                                    <a id="_t_84" class="defined" href="#_t_84">Test FPT_TUD_EXT.2.2:1</a>[conditional, Platforms:<a href="#android"><b>Android</b>:<i>Mobile operating systems based on Google Android.</i></a>]: The evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox). 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_97" class="defined" href="#_t_97">Test FPT_TUD_EXT.2.2:2</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox). 
+                                    <a id="_t_85" class="defined" href="#_t_85">Test FPT_TUD_EXT.2.2:2</a>[conditional, Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>:<i>Apple's mobile operating system for iPhones and iPads.</i></a>]: The evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox). 
                                 </li>
                             </ul>
                         </span> 
@@ -5284,10 +5288,10 @@
                          Conditional: if "the application can verify them using" is selected the evaluator shall perform the following tests: <span class="testlist-">
                             <ul>
                                 <li class="test-">
-                                    <a id="_t_98" class="defined" href="#_t_98">Test FPT_TUD_EXT.2.3:1</a>: The evaluator shall ensure that the update has a digital signature belonging to the vendor prior to its installation. The evaluator shall modify the downloaded update in such a way that the digital signature is no longer valid. The evaluator will then attempt to install the modified update. The evaluator shall ensure that the modified update fails to install. 
+                                    <a id="_t_86" class="defined" href="#_t_86">Test FPT_TUD_EXT.2.3:1</a>: The evaluator shall ensure that the update has a digital signature belonging to the vendor prior to its installation. The evaluator shall modify the downloaded update in such a way that the digital signature is no longer valid. The evaluator will then attempt to install the modified update. The evaluator shall ensure that the modified update fails to install. 
                                 </li>
                                 <li class="test-">
-                                    <a id="_t_99" class="defined" href="#_t_99">Test FPT_TUD_EXT.2.3:2</a>: The evaluator shall ensure that the update has a digital signature belonging to the vendor. The evaluator shall then attempt to install the update (or permit installation to continue). The evaluator shall ensure that the the update successfully installs. 
+                                    <a id="_t_87" class="defined" href="#_t_87">Test FPT_TUD_EXT.2.3:2</a>: The evaluator shall ensure that the update has a digital signature belonging to the vendor. The evaluator shall then attempt to install the update (or permit installation to continue). The evaluator shall ensure that the the update successfully installs. 
                                 </li>
                             </ul>
                         </span> 
@@ -5438,7 +5442,9 @@
                                 <td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td>
                             </tr>
                             <tr style="background-color: inherit">
-                                <td>Dependencies to:</td><td> FCS_TLS_EXT.1 <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Protocol FIA_X509_EXT.1 X.509 Certificate Validation </td>
+                                <td>Dependencies to:</td><td> FCS_TLS_EXT.1 <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Protocol
+                                    <br>
+                                     FIA_X509_EXT.1 X.509 Certificate Validation </td>
                             </tr>
                         </table>
                         <h4 id="ext-comp-FCS_HTTPS_EXT.1.1">FCS_HTTPS_EXT.1.1</h4>
@@ -5475,7 +5481,9 @@
                                 <td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td>
                             </tr>
                             <tr style="background-color: inherit">
-                                <td>Dependencies to:</td><td> FCS_COP.1 Cryptographic Operation <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> Random Bit Generation Services </td>
+                                <td>Dependencies to:</td><td> FCS_COP.1 Cryptographic Operation
+                                    <br>
+                                     <a href="#FCS_RBG_EXT.1">FCS_RBG_EXT.1</a> Random Bit Generation Services </td>
                             </tr>
                         </table>
                         <h4 id="ext-comp-FCS_PBKDF_EXT.1.1">FCS_PBKDF_EXT.1.1</h4>
@@ -6157,7 +6165,9 @@
                                 <td style="whitespace: nowrap">Hierarchical to:</td><td style="width: 100%">No other components.</td>
                             </tr>
                             <tr style="background-color: inherit">
-                                <td>Dependencies to:</td><td> FCS_TLS_EXT.1 <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Protocol FIA_X509_EXT.1 X.509 Certificate Validation </td>
+                                <td>Dependencies to:</td><td> FCS_TLS_EXT.1 <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> Protocol
+                                    <br>
+                                     FIA_X509_EXT.1 X.509 Certificate Validation </td>
                             </tr>
                         </table>
                         <h4 id="ext-comp-FDP_DEC_EXT.1.1">FDP_DEC_EXT.1.1</h4>
