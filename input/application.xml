@@ -672,10 +672,39 @@
 						<h:p/>
 						If the TOE acts as a sender, the following evaluation activity shall be performed to ensure the 
 						proper operation of every TOE supported combination of RSA-based key establishment scheme:
-						<h:p/><h:p/>
+						<h:p/><h:div class="indent">
+							To conduct this test the evaluator shall generate or obtain test vectors from a known 
+							good implementation of the TOE supported schemes. For each combination of 
+							supported key establishment scheme and its options (with or without key confirmation 
+							if supported, for each supported key confirmation MAC function if key confirmation 
+							is supported, and for each supported mask generation function if KTS-OAEP is 
+							supported), the tester shall generate 10 sets of test vectors. Each test vector shall 
+							include the RSA public key, the plaintext keying material, any additional input 
+							parameters if applicable, the MacKey and MacTag if key confirmation is 
+							incorporated, and the outputted ciphertext. For each test vector, the evaluator shall 
+							perform a key establishment encryption operation on the TOE with the same inputs 
+							(in cases where key confirmation is incorporated, the test shall use the MacKey from 
+							the test vector instead of the randomly generated MacKey used in normal operation) 
+							and ensure that the outputted ciphertext is equivalent to the ciphertext in the test vector.
+						</h:div><h:p/>
 						If the TOE acts as a receiver, the following evaluation activities shall be performed to ensure 
 						the proper operation of every TOE supported combination of RSA-based key establishment scheme:
-						<h:p/><h:p/>
+						<h:p/><h:div class="indent">
+							To conduct this test the evaluator shall generate or obtain test vectors from a known 
+							good implementation of the TOE supported schemes. For each combination of 
+							supported key establishment scheme and its options (with or without key 
+							confirmation if supported, for each supported key confirmation MAC function if key 
+							confirmation is supported, and for each supported mask generation function if KTS-OAEP is 
+							supported), the tester shall generate 10 sets of test vectors. Each test vector 
+							shall include the RSA private key, the plaintext keying material (KeyData), any 
+							additional input parameters if applicable, the MacTag in cases where key 
+							confirmation is incorporated, and the outputted ciphertext. For each test vector, the 
+							evaluator shall perform the key establishment decryption operation on the TOE and 
+							ensure that the outputted plaintext keying material (KeyData) is equivalent to the 
+							plaintext keying material in the test vector. In cases where key confirmation is 
+							incorporated, the evaluator shall perform the key confirmation steps and ensure that 
+							the outputted MacTag is equivalent to the MacTag in the test vector.
+						</h:div><h:p/>
 						The evaluator shall ensure that the TSS describes how the TOE handles decryption errors. In 
 						accordance with NIST Special Publication 800-56B, the TOE must not reveal the particular 
 						error that occurred, either through the contents of any outputted or logged error message or 
