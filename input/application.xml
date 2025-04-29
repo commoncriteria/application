@@ -1970,10 +1970,9 @@ functionality (such as these)
 					<h:p>The following tests require the developer to provide access to a test application
 						that provides the evaluator with tools that are typically not found in the production
 						application. 
-					</h:p><h:p>
-						ECDSA Algorithm Test
 					</h:p>
 						<testlist>
+							ECDSA Algorithm Test
 							<test>ECDSA FIPS 186-5 Signature Generation Test. For each
 								supported NIST curve (i.e., P-384 and P-521) and SHA function pair, the
 								evaluator shall generate 10 1024-bit long messages and obtain for each message a
@@ -1982,8 +1981,8 @@ functionality (such as these)
 								implementation. 
 							</test>
 						</testlist>
-						RSA Signature Algorithm Test
 						<testlist>
+							RSA Signature Algorithm Test
 							<test>Signature Generation Test. The evaluator shall
 								verify the implementation of RSA Signature Generation by the TOE
 								using the Signature Generation Test. To conduct this test the evaluator must 
@@ -1995,10 +1994,12 @@ functionality (such as these)
 								associated public keys to verify the signatures.
 							</test>
 						</testlist>
-						ML-DSA Test
 						<testlist>
-							<test>The evaluator shall 10x input to the internal Sign function a 32-byte random string, private key, and a randomly generated message.  Check and confirm the value of the returned signature using a known good implementation.
-								Here internal Sign refers to the TOE’s implementation of the function ML-DSA.Sign_internal(-,-,-) as described in FIPS.204.
+							ML-DSA Test
+							<test>The evaluator shall 10x input to the internal Sign function a 32-byte random string, 
+								private key, and a randomly generated message.  Check and confirm the value of the returned signature 
+								using a known good implementation. Here internal Sign refers to the TOE’s implementation of the 
+								function ML-DSA.Sign_internal(-,-,-) as described in NIST FIPS PUB 204.
 							</test>
 						</testlist>
 					</Tests>
@@ -2882,7 +2883,7 @@ only AES-based implementations for CTR_DRBG are allowed.
 							not directly correspond to the decompiled text and justification that the decompiled text 
 							corresponds to the associated API.
 						</h:p><h:p>
-							The following are the per-platform list of acceptable APIs:
+							The following are the per-platform list of acceptable APIs:</h:p>
 							<h:div><depends ref="android"/> 
 								The evaluator shall verify that the application uses at least one of <h:code>javax.crypto.KeyGenerator</h:code> 
 								class or the <h:code>java.security.SecureRandom</h:code> class or <h:code>/dev/random
@@ -2904,7 +2905,7 @@ only AES-based implementations for CTR_DRBG are allowed.
 							<h:div><depends ref="mac"/>
 								The evaluator shall verify that the application invokes either <h:code>CCRandomGenerateBytes</h:code> or <h:code>CCRandomCopyBytes</h:code>, or collects random from <h:code>/dev/random</h:code>.
 							</h:div>
-						</h:p><h:p>
+						<h:p>
 							If invocation of platform-provided functionality is achieved in another way, the evaluator 
 							shall ensure the TSS describes how this is carried out, and how it is equivalent to the 
 							methods listed here (e.g. higher-level API invokes identical low-level API).
@@ -4342,7 +4343,9 @@ only AES-based implementations for CTR_DRBG are allowed.
 	    This family defines requirements for applying updates to the TOE.
 	  </fam-behavior>
 	</ext-comp-def>
-        <f-component cc-id="fpt_tud_ext.1" name="Integrity for Installation and Update">
+	
+	
+    <f-component cc-id="fpt_tud_ext.1" name="Integrity for Installation and Update">
         	
 	  <comp-lev> requires the TSF to specify how updates to it are acquired and verified.</comp-lev>
       <management>No specific management functions are identified.</management>
@@ -4408,23 +4411,26 @@ only AES-based implementations for CTR_DRBG are allowed.
 					<h:p>If "perform trusted updates" is selected then FPT_TUD_EXT.2 must be included in the ST.</h:p>
 				</note>
 				<aactivity level="element">
-					<TSS><h:p>None.</h:p></TSS>
-					<Guidance><h:p>None.</h:p></Guidance>
+					<TSS/>
+					<Guidance/>
 					<Tests>
 						Conditional: If "not download, modify, replace or update its own binary code" is selected the 
 						evaluator shall verify that the application's executable files are not changed by the application with the following tests: 
 						<h:div><depends ref="ios"/>The evaluator shall consider the requirement met because the platform forces
 							applications to write all data within the application working directory (sandbox).
 						</h:div>
-						<h:p>For all other platforms, the evaluator shall perform the following test:</h:p>
-						<testlist>
-							<test>The evaluator shall install the application and then locate all of its executable files. 
-								The evaluator shall then, for each file, save off either a hash of the file or a copy of the file 
-								itself. The evaluator shall then run the application and exercise all features of the application as 
-								described in the ST. The evaluator shall then compare each executable file with either the saved 
-								hash or the saved copy of the files. The evaluator shall verify that these are identical.
-							</test>
-						</testlist>
+						<h:div>
+							<depends ref="windows"/>
+							<depends ref="android"/>
+							<depends ref="linux"/>
+							<depends ref="Solaris"/>
+							<depends ref="mac"/>							
+							The evaluator shall install the application and then locate all of its executable files. 
+							The evaluator shall then, for each file, save off either a hash of the file or a copy of the file 
+							itself. The evaluator shall then run the application and exercise all features of the application as 
+							described in the ST. The evaluator shall then compare each executable file with either the saved 
+							hash or the saved copy of the files. The evaluator shall verify that these are identical.
+						</h:div>
 					</Tests>
 				</aactivity>
 			</f-element>
