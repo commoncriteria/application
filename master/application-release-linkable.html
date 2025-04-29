@@ -1112,7 +1112,7 @@ The following sections list Common Criteria and technology terms used in this do
 							decompiled text to its corresponding <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>, with a description of why the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> text does 
 							not directly correspond to the decompiled text and justification that the decompiled text 
 							corresponds to the associated <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr><a id="period_151" href="#period_151">. </a>						</p><p>
-							The following are the per-platform list of acceptable APIs:
+							The following are the per-platform list of acceptable APIs:</p>
 							<div class="dependent">Platforms:<a href="#android"><b>Android</b>: <i>Mobile operating systems based on Google Android.</i></a><div class="dependent-content"><div> 
 								The evaluator shall verify that the application uses at least one of <code>javax.crypto.KeyGenerator</code> 
 								class or the <code>java.security.SecureRandom</code> class or <code>/dev/random
@@ -1129,7 +1129,7 @@ The following sections list Common Criteria and technology terms used in this do
 								The evaluator shall verify that the application collects random from <code>/dev/random</code><a id="period_159" href="#period_159">. </a>							</div></div></div>
 							<div class="dependent">Platforms:<a href="#mac"><b>Apple macOS</b>: <i>Apple's operating system for MACs.</i></a><div class="dependent-content"><div>
 								The evaluator shall verify that the application invokes either <code>CCRandomGenerateBytes</code> or <code>CCRandomCopyBytes</code>, or collects random from <code>/dev/random</code><a id="period_160" href="#period_160">. </a>							</div></div></div>
-						</p><p>
+						<p>
 							If invocation of platform-provided functionality is achieved in another way, the evaluator 
 							shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how this is carried out, and how it is equivalent to the 
 							methods listed here (e.g<a id="period_161" href="#period_161">. </a>higher-level <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> invokes identical low-level <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>)<a id="period_162" href="#period_162">. </a>						</p>
@@ -2071,7 +2071,9 @@ The following sections list Common Criteria and technology terms used in this do
 	
 	
 	
-        <div class="comp" id="FPT_TUD_EXT.1"><h4>FPT_TUD_EXT.1 Integrity for Installation and Update</h4>
+	
+	
+    <div class="comp" id="FPT_TUD_EXT.1"><h4>FPT_TUD_EXT.1 Integrity for Installation and Update</h4>
         	
 	  
       
@@ -2134,22 +2136,26 @@ The following sections list Common Criteria and technology terms used in this do
 						according to the operational user guidance<a id="period_466" href="#period_466">. </a>The evaluator shall then verify that the 
 						current version matches that of the documented and installed version<a id="period_467" href="#period_467">. </a>					</div>
 				<div class="element-activity-header"><a href="#FPT_TUD_EXT.1.3">FPT_TUD_EXT.1.3</a></div>
-					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><p>None<a id="period_468" href="#period_468">. </a></p></div>
-					<div class="eacategory">Guidance</div><div class="ea"><p>None<a id="period_469" href="#period_469">. </a></p></div>
+					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div>
+			There are no additional <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> evaluation activities for this element<a id="period_468" href="#period_468">. </a><br><br>
+					<div class="eacategory">Guidance</div>
+			There are no additional Guidance evaluation activities for this element<a id="period_469" href="#period_469">. </a><br><br>
 					<div class="eacategory">Tests</div><div class="ea">
 						Conditional: If "not download, modify, replace or update its own binary code" is selected the 
 						evaluator shall verify that the application's executable files are not changed by the application with the following tests: 
 						<div class="dependent">Platforms:<a href="#ios"><b>Apple iOS and iPadOS</b>: <i>Apple's mobile operating system for iPhones and iPads.</i></a><div class="dependent-content"><div>The evaluator shall consider the requirement met because the platform forces
 							applications to write all data within the application working directory (sandbox)<a id="period_470" href="#period_470">. </a>						</div></div></div>
-						<p>For all other platforms, the evaluator shall perform the following test:</p>
-						<span class="testlist-"><ul>
-							<li class="test-"><a id="_t_18" class="defined" href="#_t_18">Test FPT_TUD_EXT.1.3:1</a>:
-      The evaluator shall install the application and then locate all of its executable files<a id="period_471" href="#period_471">. </a>
-								The evaluator shall then, for each file, save off either a hash of the file or a copy of the file 
-								itself<a id="period_472" href="#period_472">. </a>The evaluator shall then run the application and exercise all features of the application as 
-								described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr><a id="period_473" href="#period_473">. </a>The evaluator shall then compare each executable file with either the saved 
-								hash or the saved copy of the files<a id="period_474" href="#period_474">. </a>The evaluator shall verify that these are identical<a id="period_475" href="#period_475">. </a>							</li>
-						</ul></span>
+						<div class="dependent">Platforms:<a href="#windows"><b>Microsoft Windows</b>: <i>Microsoft Windows operating systems.</i></a>,<a href="#android"><b>Android</b>: <i>Mobile operating systems based on Google Android.</i></a>,<a href="#linux"><b>Linux</b>: <i>Linux-based operating systems other than Android.</i></a>,<a href="#Solaris"><b>Oracle Solaris</b>: <i>Oracle's enterprise operating system.</i></a>,<a href="#mac"><b>Apple macOS</b>: <i>Apple's operating system for MACs.</i></a><div class="dependent-content"><div>
+							
+							
+							
+							
+														
+							The evaluator shall install the application and then locate all of its executable files<a id="period_471" href="#period_471">. </a>
+							The evaluator shall then, for each file, save off either a hash of the file or a copy of the file 
+							itself<a id="period_472" href="#period_472">. </a>The evaluator shall then run the application and exercise all features of the application as 
+							described in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr><a id="period_473" href="#period_473">. </a>The evaluator shall then compare each executable file with either the saved 
+							hash or the saved copy of the files<a id="period_474" href="#period_474">. </a>The evaluator shall verify that these are identical<a id="period_475" href="#period_475">. </a>						</div></div></div>
 					</div>
 				<div class="element-activity-header"><a href="#FPT_TUD_EXT.1.4">FPT_TUD_EXT.1.4</a></div>
 					<div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><p>
@@ -2316,26 +2322,26 @@ The following sections list Common Criteria and technology terms used in this do
 						The evaluator shall confirm the guidance documentation contains any information necessary for enabling and configuring the trusted 
 						channels that have been selected<a id="period_523" href="#period_523">. </a></p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">
 						The evaluator shall perform the following tests<a id="period_524" href="#period_524">. </a>						<span class="testlist-"><ul>
-							<li class="test-"><a id="_t_21" class="defined" href="#_t_21">Test FTP_DIT_EXT.1:1</a>:
+							<li class="test-"><a id="_t_20" class="defined" href="#_t_20">Test FTP_DIT_EXT.1:1</a>:
       
 								If "<b>not transmit any data</b>" is selected, the evaluator shall exercise each of the 
 								<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s identified functions, while observing the network traffic from the device and 
 								verify that no <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> initiated connections were observed during the attempts<a id="period_525" href="#period_525">. </a>							</li>
 								
-							<li class="test-"><a id="_t_22" class="defined" href="#_t_22">Test FTP_DIT_EXT.1:2</a>:
+							<li class="test-"><a id="_t_21" class="defined" href="#_t_21">Test FTP_DIT_EXT.1:2</a>:
       
 								 The evaluator shall exercise the application (attempting to transmit data; for 
 								 example by connecting to remote systems or websites) while capturing packets from 
 								 the application<a id="period_526" href="#period_526">. </a>The evaluator shall verify from the packet capture that the
 								 traffic is encrypted with <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_DTLS">DTLS</a></abbr>, <abbr class="dyn-abbr"><a href="#abbr_SSH">SSH</a></abbr>, or IPsec in accordance with the
 								 selection in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr><a id="period_527" href="#period_527">. </a>							</li>
-							<li class="test-"><a id="_t_23" class="defined" href="#_t_23">Test FTP_DIT_EXT.1:3</a>:
+							<li class="test-"><a id="_t_22" class="defined" href="#_t_22">Test FTP_DIT_EXT.1:3</a>:
       
 								The evaluator shall exercise the application (attempting to transmit data; for
 								example by connecting to remote systems or websites) while capturing packets from 
 								the application<a id="period_528" href="#period_528">. </a>The evaluator shall review the packet capture and verify that no 
 								sensitive data is transmitted in the clear<a id="period_529" href="#period_529">. </a>							</li>
-							<li class="test-"><a id="_t_24" class="defined" href="#_t_24">Test FTP_DIT_EXT.1:4</a>:
+							<li class="test-"><a id="_t_23" class="defined" href="#_t_23">Test FTP_DIT_EXT.1:4</a>:
       
 								The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine if user credentials are transmitted<a id="period_530" href="#period_530">. </a>								If credentials are transmitted the evaluator shall set the credential to a known
 								value<a id="period_531" href="#period_531">. </a>The evaluator shall capture packets from the application while causing
@@ -3977,10 +3983,9 @@ The following sections list Common Criteria and technology terms used in this do
 					<p>The following tests require the developer to provide access to a test application
 						that provides the evaluator with tools that are typically not found in the production
 						application<a id="period_1154" href="#period_1154">. </a>
-					</p><p>
-						<abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr> Algorithm Test
 					</p>
 						<span class="testlist-"><ul>
+							<abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr> Algorithm Test
 							<li class="test-"><a id="_t_6" class="defined" href="#_t_6">Test FCS_COP.1/SigGen:1</a>:
       <abbr class="dyn-abbr"><a href="#abbr_ECDSA">ECDSA</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> 186-5 Signature Generation Test<a id="period_1155" href="#period_1155">. </a>For each
 								supported <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> curve (i.e., P-384 and P-521) and <abbr class="dyn-abbr"><a href="#abbr_SHA">SHA</a></abbr> function pair, the
@@ -3990,8 +3995,8 @@ The following sections list Common Criteria and technology terms used in this do
 								implementation<a id="period_1157" href="#period_1157">. </a>
 							</li>
 						</ul></span>
-						RSA Signature Algorithm Test
 						<span class="testlist-"><ul>
+							RSA Signature Algorithm Test
 							<li class="test-"><a id="_t_7" class="defined" href="#_t_7">Test FCS_COP.1/SigGen:2</a>:
       Signature Generation Test<a id="period_1158" href="#period_1158">. </a>The evaluator shall
 								verify the implementation of RSA Signature Generation by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>
@@ -4003,10 +4008,13 @@ The following sections list Common Criteria and technology terms used in this do
 								<abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>&#8217;s signature using a known good implementation and the 
 								associated public keys to verify the signatures<a id="period_1162" href="#period_1162">. </a>							</li>
 						</ul></span>
-						ML-DSA Test
 						<span class="testlist-"><ul>
+							ML-DSA Test
 							<li class="test-"><a id="_t_8" class="defined" href="#_t_8">Test FCS_COP.1/SigGen:3</a>:
-      The evaluator shall 10x input to the internal Sign function a 32-byte random string, private key, and a randomly generated message<a id="period_1163" href="#period_1163">. </a> Check and confirm the value of the returned signature using a known good implementation<a id="period_1164" href="#period_1164">. </a>								Here internal Sign refers to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>&#8217;s implementation of the function ML-DSA.Sign_internal(-,-,-) as described in <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr>.204<a id="period_1165" href="#period_1165">. </a>							</li>
+      The evaluator shall 10x input to the internal Sign function a 32-byte random string, 
+								private key, and a randomly generated message<a id="period_1163" href="#period_1163">. </a> Check and confirm the value of the returned signature 
+								using a known good implementation<a id="period_1164" href="#period_1164">. </a>Here internal Sign refers to the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>&#8217;s implementation of the 
+								function ML-DSA.Sign_internal(-,-,-) as described in <abbr class="dyn-abbr"><a href="#abbr_NIST">NIST</a></abbr> <abbr class="dyn-abbr"><a href="#abbr_FIPS">FIPS</a></abbr> PUB 204<a id="period_1165" href="#period_1165">. </a>							</li>
 						</ul></span>
 					</div></div></div></div></div><div class="comp" id="FCS_COP.1/SigVer"><h4>FCS_COP.1/SigVer Cryptographic Operation - Signing Verification</h4><div class="statustag"><b><i>The inclusion of this selection-based component depends upon selection in
            <a href="#FPT_TUD_EXT.2.3">FPT_TUD_EXT.2.3</a>, <a href="#FTP_DIT_EXT.1.1">FTP_DIT_EXT.1.1</a><a id="period_1166" href="#period_1166">. </a>           </i></b></div>
@@ -4572,7 +4580,7 @@ The following sections list Common Criteria and technology terms used in this do
 					<div class="eacategory">Guidance</div><div class="ea"><p>None<a id="period_1395" href="#period_1395">. </a></p></div>
 					<div class="eacategory">Tests</div><div class="ea">Conditional: if "the application can verify them using" is selected the evaluator shall perform the following tests:
 						<span class="testlist-"><ul>
-							<li class="test-"><a id="_t_19" class="defined" href="#_t_19">Test FPT_TUD_EXT.2.3:1</a>:
+							<li class="test-"><a id="_t_18" class="defined" href="#_t_18">Test FPT_TUD_EXT.2.3:1</a>:
       
 								The evaluator shall ensure that the update has a digital
 								signature belonging to the vendor prior to its installation<a id="period_1396" href="#period_1396">. </a>								The evaluator shall modify the downloaded update in such a way
@@ -4580,7 +4588,7 @@ The following sections list Common Criteria and technology terms used in this do
 								will then attempt to install the modified update<a id="period_1398" href="#period_1398">. </a>The
 								evaluator shall ensure that the
 								modified update fails to install<a id="period_1399" href="#period_1399">. </a>							</li>
-							<li class="test-"><a id="_t_20" class="defined" href="#_t_20">Test FPT_TUD_EXT.2.3:2</a>:
+							<li class="test-"><a id="_t_19" class="defined" href="#_t_19">Test FPT_TUD_EXT.2.3:2</a>:
       
 								The evaluator shall ensure that the update has a digital
 								signature belonging to the vendor<a id="period_1400" href="#period_1400">. </a>The evaluator shall then
