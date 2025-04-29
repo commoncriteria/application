@@ -258,7 +258,7 @@
 		of this document.  
 		 <figure entity="images/toe.png" title="TOE as an Application and Kernel Module Running on an Operating System" id="toe-as-apponos"/> <figure entity="images/toeruntime.png" title="TOE as an Application Running in an Execution Environment Plus Native Code" id="toe-as-apponee"/></sec:TOE_Boundary>
     </section>
-    <section title="Platforms with Specific EAs" id="sec-platforms"><choice prefix="Platforms:"><h:p>This PP includes platform-specific EAs for the below-listed operating system platforms. For "bare-metal" applications, applications that run on other OS platforms, and applications that run in software-based execution environments, contact the Technical Community for guidance.</h:p><selectables linebreak="yes"><selectable id="android"><h:b>Android</h:b>:<h:i>Mobile operating systems based on Google Android</h:i></selectable><selectable id="windows"><h:b>Microsoft Windows</h:b>:<h:i>Microsoft Windows operating systems</h:i></selectable><selectable id="ios"><h:b>Apple iOS and iPadOS</h:b>:<h:i>Apple's mobile operating system for iPhones and iPads</h:i></selectable><selectable id="linux"><h:b>Linux</h:b>:<h:i>Linux-based operating systems other than Android</h:i></selectable><selectable id="Solaris"><h:b>Oracle Solaris</h:b>:<h:i>Oracle's enterprise operating system</h:i></selectable><selectable id="mac"><h:b>Apple macOS</h:b>:<h:i>Apple's operating system for MACs</h:i></selectable></selectables></choice></section>
+    <section title="Platforms with Specific EAs" id="sec-platforms"><choice prefix="Platforms:"><h:p>This PP includes platform-specific EAs for the below-listed operating system platforms. For "bare-metal" applications, applications that run on other OS platforms, and applications that run in software-based execution environments, contact the Technical Community for guidance.</h:p><selectables linebreak="yes"><selectable id="android"><h:b>Android</h:b>:<h:i>Mobile operating systems based on Google Android.</h:i></selectable><selectable id="windows"><h:b>Microsoft Windows</h:b>:<h:i>Microsoft Windows operating systems.</h:i></selectable><selectable id="ios"><h:b>Apple iOS and iPadOS</h:b>:<h:i>Apple's mobile operating system for iPhones and iPads.</h:i></selectable><selectable id="linux"><h:b>Linux</h:b>:<h:i>Linux-based operating systems other than Android.</h:i></selectable><selectable id="Solaris"><h:b>Oracle Solaris</h:b>:<h:i>Oracle's enterprise operating system.</h:i></selectable><selectable id="mac"><h:b>Apple macOS</h:b>:<h:i>Apple's operating system for MACs.</h:i></selectable></selectables></choice></section>
     <sec:Use_Cases>
       
 		Requirements in this Protection Profile are designed to
@@ -846,14 +846,15 @@
               
 					The evaluator shall perform the following activities based on the selections in the ST.
 					
-              <TSS/>
-              <Guidance>The evaluator shall verify the guidance documentation contains any information required for
-						configuring the algorithm or size.</Guidance>
+              <TSS><h:p>None.</h:p></TSS>
+              <Guidance><h:p>The evaluator shall verify the guidance documentation contains any information required for configuring the algorithm or size.</h:p></Guidance>
               <Tests>
                 <h:p>The following tests require the developer to provide access to a test application
 						that provides the evaluator with tools that are typically not found in the production
 						application. 
-					</h:p>
+					<h:p/>
+						ECDSA Algorithm Test
+					</h:p>RSA Signature Algorithm TestML-DSA Test
                 <testlist>
                   <test>ECDSA FIPS 186-5 Signature Generation Test. For each
 								supported NIST curve (i.e., P-384 and P-521) and SHA function pair, the
@@ -876,10 +877,8 @@
 							</test>
                 </testlist>
                 <testlist>
-                  <test>The evaluator shall 10x input to the internal Sign function a 32-byte random string, 
-								private key, and a randomly generated message.  Check and confirm the value of the returned signature 
-								using a known good implementation. Here internal Sign refers to the TOE’s implementation of the 
-								function ML-DSA.Sign_internal(-,-,-) as described in NIST FIPS PUB 204.
+                  <test>The evaluator shall 10x input to the internal Sign function a 32-byte random string, private key, and a randomly generated message.  Check and confirm the value of the returned signature using a known good implementation.
+								Here internal Sign refers to the TOE’s implementation of the function ML-DSA.Sign_internal(-,-,-) as described in FIPS.204.
 							</test>
                 </testlist>
               </Tests>
@@ -1492,8 +1491,7 @@
 							the activity is to list the used APIs and then do an existence check via decompilation.
 						</h:p></TSS>
               <Guidance><h:p>The evaluator shall verify the guidance documentation contains any information required for configuring the DRBG.</h:p></Guidance>
-              <Tests>
-                <h:p>
+              <Tests><h:p>
 							If "<h:b>invoke platform-provided DRBG functionality</h:b>" is selected, the following tests shall be performed:
 						<h:p/>
 							The evaluator shall decompile the application binary using a decompiler 
@@ -1505,54 +1503,12 @@
 							not directly correspond to the decompiled text and justification that the decompiled text 
 							corresponds to the associated API.
 						<h:p/>
-							The following are the per-platform list of acceptable APIs:</h:p>
-                <testlist>
-                  <test>
-                    <depends ref="android"/>
-                     
-								The evaluator shall verify that the application uses at least one of <h:code>javax.crypto.KeyGenerator</h:code> 
-								class or the <h:code>java.security.SecureRandom</h:code> class or <h:code>/dev/random
-								</h:code> or <h:code>/dev/urandom</h:code>.
-							
-                  </test>
-                  <test>
-                    <depends ref="windows"/>
-                    
-								The evaluator shall verify that <h:code>rand_s</h:code>, <h:code>RtlGenRandom</h:code>, <h:code>BCryptGenRandom</h:code>, or <h:code>CryptGenRandom</h:code> API is used for classic desktop applications. The evaluator shall verify the application uses the <h:code>RNGCryptoServiceProvider</h:code> class or derives a class from <h:code>System.Security.Cryptography.RandomNumberGenerator API</h:code> for Windows Universal Applications. It is only required that the API is called/invoked, there is no requirement that the API be used directly. In future versions of this document, <h:code>CryptGenRandom</h:code> may be removed as an option as it is no longer the preferred API per vendor documentation. 
-                  </test>
-                  <test>
-                    <depends ref="ios"/>
-                     
-								The evaluator shall verify that the application invokes either
-								<h:code>SecRandomCopyBytes</h:code>, <h:code>CCRandomGenerateBytes</h:code>, or <h:code>CCRandomCopyBytes</h:code>, or uses <h:code>/dev/random</h:code> directly to acquire random.
-							
-                  </test>
-                  <test>
-                    <depends ref="linux"/>
-                     
-								The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>
-								or <h:code>/dev/urandom</h:code>.
-							
-                  </test>
-                  <test>
-                    <depends ref="Solaris"/>
-                    
-								The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>.
-							
-                  </test>
-                  <test>
-                    <depends ref="mac"/>
-                    
-								The evaluator shall verify that the application invokes either <h:code>CCRandomGenerateBytes</h:code> or <h:code>CCRandomCopyBytes</h:code>, or collects random from <h:code>/dev/random</h:code>.
-							
-                  </test>
-                </testlist>
-                <h:p>
+							The following are the per-platform list of acceptable APIs:
+							<h:p/>
 							If invocation of platform-provided functionality is achieved in another way, the evaluator 
 							shall ensure the TSS describes how this is carried out, and how it is equivalent to the 
 							methods listed here (e.g. higher-level API invokes identical low-level API).
-						</h:p>
-              </Tests>
+						</h:p></Tests>
             </aactivity>
           </f-element>
         </f-component>
@@ -2775,11 +2731,11 @@
 					as updates provided by another source may contain malicious code.
 				</note>
             <aactivity level="element">
-              <TSS>The evaluator shall verify the TSS contains a description of the update mechanism leveraged, how new updates are checked for, how the current version is
-						checked for, and how the updates are signed.</TSS>
-              <Guidance>
+              <TSS><h:p>The evaluator shall verify the TSS contains a description of the update mechanism leveraged, how new updates are checked for, how the current version is
+						checked for, and how the updates are signed.</h:p></TSS>
+              <Guidance><h:p>
 						The evaluator shall check to ensure the guidance includes a description of how to check for and apply new updates.
-					</Guidance>
+					</h:p></Guidance>
               <Tests>The evaluator shall check for an update using procedures described in either the application documentation 
 						or the platform documentation and verify that the application does not issue an error.
 						If it is updated or if it reports that no update is available this requirement is considered to be met.</Tests>
@@ -2788,11 +2744,11 @@
           <f-element id="fel-version-check">
             <title>The application shall <selectables><selectable id="fpt_tud_ext.1.2_1">provide the ability</selectable><selectable id="fpt_tud_ext.1.2_2">use platform-provided services</selectable> </selectables> to query the current version of the application software.</title>
             <aactivity level="element">
-              <TSS/>
-              <Guidance>
+              <TSS><h:p>None.</h:p></TSS>
+              <Guidance><h:p>
 						The evaluator shall verify guidance includes a description of how to query the current 
 						version of the application.
-					</Guidance>
+					</h:p></Guidance>
               <Tests>The evaluator shall query the application for the current version of the software
 						according to the operational user guidance. The evaluator shall then verify that the 
 						current version matches that of the documented and installed version.</Tests>
@@ -2804,30 +2760,24 @@
 					does not apply to mobile code technologies that are designed for download and
 					execution by the application. <h:p/>If "perform trusted updates" is selected then FPT_TUD_EXT.2 must be included in the ST.</h:p></note>
             <aactivity level="element">
-              <TSS/>
-              <Guidance/>
+              <TSS><h:p>None.</h:p></TSS>
+              <Guidance><h:p>None.</h:p></Guidance>
               <Tests>
                 Conditional: If "not download, modify, replace or update its own binary code" is selected the 
-						evaluator shall verify that the application's executable files are not changed by the application with the following tests:
+						evaluator shall verify that the application's executable files are not changed by the application with the following tests:<h:p>For all other platforms, the evaluator shall perform the following test:</h:p>
+                <testlist>
+                  <test>The evaluator shall install the application and then locate all of its executable files. 
+								The evaluator shall then, for each file, save off either a hash of the file or a copy of the file 
+								itself. The evaluator shall then run the application and exercise all features of the application as 
+								described in the ST. The evaluator shall then compare each executable file with either the saved 
+								hash or the saved copy of the files. The evaluator shall verify that these are identical.
+							</test>
+                </testlist>
                 <testlist>
                   <test>
                     <depends ref="ios"/>
                     The evaluator shall consider the requirement met because the platform forces
 							applications to write all data within the application working directory (sandbox).
-						
-                  </test>
-                  <test>
-                    <depends ref="windows"/>
-                    <depends ref="android"/>
-                    <depends ref="linux"/>
-                    <depends ref="Solaris"/>
-                    <depends ref="mac"/>
-                    							
-							The evaluator shall install the application and then locate all of its executable files. 
-							The evaluator shall then, for each file, save off either a hash of the file or a copy of the file 
-							itself. The evaluator shall then run the application and exercise all features of the application as 
-							described in the ST. The evaluator shall then compare each executable file with either the saved 
-							hash or the saved copy of the files. The evaluator shall verify that these are identical.
 						
                   </test>
                 </testlist>
@@ -2841,13 +2791,15 @@
 					application), so these are not fully specified here. 
 				</note>
             <aactivity level="element">
-              <TSS>The evaluator shall verify that the TSS identifies how updates to the application  
+              <TSS><h:p>
+						The evaluator shall verify that the TSS identifies how updates to the application  
 						are signed by an authorized source. The definition of an
 						authorized source must be contained in the TSS.
 						The evaluator shall also ensure that the TSS (or the operational
-						guidance) describes how candidate updates are obtained.</TSS>
-              <Guidance/>
-              <Tests/>
+						guidance) describes how candidate updates are obtained.
+					</h:p></TSS>
+              <Guidance><h:p>None.</h:p></Guidance>
+              <Tests>None.</Tests>
             </aactivity>
           </f-element>
           <f-element id="fel-distro">
