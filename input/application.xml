@@ -415,12 +415,12 @@
 			This PP includes platform-specific EAs for the below-listed operating system platforms. For "bare-metal" applications, applications that run on
 			other OS platforms, and applications that run in software-based execution environments, contact the Technical Community for guidance.</h:p>  
 			<selectables linebreak="yes">
-				<selectable id="android"><h:b><snip>Android</snip></h:b>: <h:i>Mobile operating systems based on Google Android.</h:i></selectable>
-				<selectable id="windows"><h:b><snip>Microsoft Windows</snip></h:b>: <h:i>Microsoft Windows operating systems.</h:i></selectable>
-				<selectable id="ios"><h:b><snip>Apple iOS and iPadOS</snip></h:b>: <h:i>Apple's mobile operating system for iPhones and iPads.</h:i></selectable>
-				<selectable id="linux"><h:b><snip>Linux</snip></h:b>: <h:i>Linux-based operating systems other than Android.</h:i></selectable>
-				<selectable id="Solaris"><h:b><snip>Oracle Solaris</snip></h:b>: <h:i>Oracle's enterprise operating system.</h:i></selectable>
-				<selectable id="mac"><h:b><snip>Apple macOS</snip></h:b>: <h:i>Apple's operating system for MACs.</h:i></selectable></selectables> 
+				<selectable id="android"><h:b><snip>Android</snip></h:b>: <h:i>Mobile operating systems based on Google Android</h:i></selectable>
+				<selectable id="windows"><h:b><snip>Microsoft Windows</snip></h:b>: <h:i>Microsoft Windows operating systems</h:i></selectable>
+				<selectable id="ios"><h:b><snip>Apple iOS and iPadOS</snip></h:b>: <h:i>Apple's mobile operating system for iPhones and iPads</h:i></selectable>
+				<selectable id="linux"><h:b><snip>Linux</snip></h:b>: <h:i>Linux-based operating systems other than Android</h:i></selectable>
+				<selectable id="Solaris"><h:b><snip>Oracle Solaris</snip></h:b>: <h:i>Oracle's enterprise operating system</h:i></selectable>
+				<selectable id="mac"><h:b><snip>Apple macOS</snip></h:b>: <h:i>Apple's operating system for MACs</h:i></selectable></selectables> 
 		</choice>
 	</section>
 	
@@ -1964,15 +1964,16 @@ functionality (such as these)
 				</note>
 				<aactivity>
 					The evaluator shall perform the following activities based on the selections in the ST.
-					<TSS><h:p>None.</h:p></TSS>
-					<Guidance><h:p>The evaluator shall verify the guidance documentation contains any information required for configuring the algorithm or size.</h:p></Guidance>
+					<TSS/>
+					<Guidance>The evaluator shall verify the guidance documentation contains any information required for
+						configuring the algorithm or size.</Guidance>
 					<Tests>
 					<h:p>The following tests require the developer to provide access to a test application
 						that provides the evaluator with tools that are typically not found in the production
 						application. 
 					</h:p>
 						<testlist>
-							ECDSA Algorithm Test
+							<h:b>ECDSA Algorithm Test</h:b>
 							<test>ECDSA FIPS 186-5 Signature Generation Test. For each
 								supported NIST curve (i.e., P-384 and P-521) and SHA function pair, the
 								evaluator shall generate 10 1024-bit long messages and obtain for each message a
@@ -1982,7 +1983,7 @@ functionality (such as these)
 							</test>
 						</testlist>
 						<testlist>
-							RSA Signature Algorithm Test
+							<h:b>RSA Signature Algorithm Test</h:b>
 							<test>Signature Generation Test. The evaluator shall
 								verify the implementation of RSA Signature Generation by the TOE
 								using the Signature Generation Test. To conduct this test the evaluator must 
@@ -1995,7 +1996,7 @@ functionality (such as these)
 							</test>
 						</testlist>
 						<testlist>
-							ML-DSA Test
+							<h:b>ML-DSA Test</h:b>
 							<test>The evaluator shall 10x input to the internal Sign function a 32-byte random string, 
 								private key, and a randomly generated message.  Check and confirm the value of the returned signature 
 								using a known good implementation. Here internal Sign refers to the TOE’s implementation of the 
@@ -4365,11 +4366,11 @@ only AES-based implementations for CTR_DRBG are allowed.
 					as updates provided by another source may contain malicious code.
 				</note>
 				<aactivity level="element">
-					<TSS><h:p>The evaluator shall verify the TSS contains a description of the update mechanism leveraged, how new updates are checked for, how the current version is
-						checked for, and how the updates are signed.</h:p></TSS>
-					<Guidance><h:p>
+					<TSS>The evaluator shall verify the TSS contains a description of the update mechanism leveraged, how new updates are checked for, how the current version is
+						checked for, and how the updates are signed.</TSS>
+					<Guidance>
 						The evaluator shall check to ensure the guidance includes a description of how to check for and apply new updates.
-					</h:p></Guidance>
+					</Guidance>
 					<Tests>
 						The evaluator shall check for an update using procedures described in either the application documentation 
 						or the platform documentation and verify that the application does not issue an error.
@@ -4384,11 +4385,11 @@ only AES-based implementations for CTR_DRBG are allowed.
 					to query the current version of the application software.
 				</title>
 				<aactivity level="element">
-					<TSS><h:p>None.</h:p></TSS>
-					<Guidance><h:p>
+					<TSS/>
+					<Guidance>
 						The evaluator shall verify guidance includes a description of how to query the current 
 						version of the application.
-					</h:p></Guidance>
+					</Guidance>
 					<Tests> 
 						The evaluator shall query the application for the current version of the software
 						according to the operational user guidance. The evaluator shall then verify that the 
@@ -4420,11 +4421,11 @@ only AES-based implementations for CTR_DRBG are allowed.
 							applications to write all data within the application working directory (sandbox).
 						</h:div>
 						<h:div>
-							<depends ref="windows"/>
-							<depends ref="android"/>
-							<depends ref="linux"/>
-							<depends ref="Solaris"/>
-							<depends ref="mac"/>							
+							<depends ref="windows"/><h:br/>
+							<depends ref="android"/><h:br/>
+							<depends ref="linux"/><h:br/>
+							<depends ref="Solaris"/><h:br/>
+							<depends ref="mac"/><h:br/>							
 							The evaluator shall install the application and then locate all of its executable files. 
 							The evaluator shall then, for each file, save off either a hash of the file or a copy of the file 
 							itself. The evaluator shall then run the application and exercise all features of the application as 
@@ -4444,15 +4445,15 @@ only AES-based implementations for CTR_DRBG are allowed.
 					application), so these are not fully specified here. 
 				</note>
 				<aactivity level="element">
-					<TSS><h:p>
+					<TSS>
 						The evaluator shall verify that the TSS identifies how updates to the application  
 						are signed by an authorized source. The definition of an
 						authorized source must be contained in the TSS.
 						The evaluator shall also ensure that the TSS (or the operational
 						guidance) describes how candidate updates are obtained.
-					</h:p></TSS>
-					<Guidance><h:p>None.</h:p></Guidance>
-					<Tests>None.</Tests>
+					</TSS>
+					<Guidance/>
+					<Tests/>
 				</aactivity>
 			</f-element>
 			<f-element id="fel-distro">
