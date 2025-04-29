@@ -1523,8 +1523,7 @@
 							the activity is to list the used APIs and then do an existence check via decompilation.
 						</h:p></TSS>
               <Guidance><h:p>The evaluator shall verify the guidance documentation contains any information required for configuring the DRBG.</h:p></Guidance>
-              <Tests>
-                <h:p>
+              <Tests><h:p>
 							If "<h:b>invoke platform-provided DRBG functionality</h:b>" is selected, the following tests shall be performed:
 						<h:p/>
 							The evaluator shall decompile the application binary using a decompiler 
@@ -1536,54 +1535,12 @@
 							not directly correspond to the decompiled text and justification that the decompiled text 
 							corresponds to the associated API.
 						<h:p/>
-							The following are the per-platform list of acceptable APIs:</h:p>
-                <testlist>
-                  <test>
-                    <depends ref="android"/>
-                     
-								The evaluator shall verify that the application uses at least one of <h:code>javax.crypto.KeyGenerator</h:code> 
-								class or the <h:code>java.security.SecureRandom</h:code> class or <h:code>/dev/random
-								</h:code> or <h:code>/dev/urandom</h:code>.
-							
-                  </test>
-                  <test>
-                    <depends ref="windows"/>
-                    
-								The evaluator shall verify that <h:code>rand_s</h:code>, <h:code>RtlGenRandom</h:code>, <h:code>BCryptGenRandom</h:code>, or <h:code>CryptGenRandom</h:code> API is used for classic desktop applications. The evaluator shall verify the application uses the <h:code>RNGCryptoServiceProvider</h:code> class or derives a class from <h:code>System.Security.Cryptography.RandomNumberGenerator API</h:code> for Windows Universal Applications. It is only required that the API is called/invoked, there is no requirement that the API be used directly. In future versions of this document, <h:code>CryptGenRandom</h:code> may be removed as an option as it is no longer the preferred API per vendor documentation. 
-                  </test>
-                  <test>
-                    <depends ref="ios"/>
-                     
-								The evaluator shall verify that the application invokes either
-								<h:code>SecRandomCopyBytes</h:code>, <h:code>CCRandomGenerateBytes</h:code>, or <h:code>CCRandomCopyBytes</h:code>, or uses <h:code>/dev/random</h:code> directly to acquire random.
-							
-                  </test>
-                  <test>
-                    <depends ref="linux"/>
-                     
-								The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>
-								or <h:code>/dev/urandom</h:code>.
-							
-                  </test>
-                  <test>
-                    <depends ref="Solaris"/>
-                    
-								The evaluator shall verify that the application collects random from <h:code>/dev/random</h:code>.
-							
-                  </test>
-                  <test>
-                    <depends ref="mac"/>
-                    
-								The evaluator shall verify that the application invokes either <h:code>CCRandomGenerateBytes</h:code> or <h:code>CCRandomCopyBytes</h:code>, or collects random from <h:code>/dev/random</h:code>.
-							
-                  </test>
-                </testlist>
-                <h:p>
+							The following are the per-platform list of acceptable APIs:
+							<h:p/>
 							If invocation of platform-provided functionality is achieved in another way, the evaluator 
 							shall ensure the TSS describes how this is carried out, and how it is equivalent to the 
 							methods listed here (e.g. higher-level API invokes identical low-level API).
-						</h:p>
-              </Tests>
+						</h:p></Tests>
             </aactivity>
           </f-element>
         </f-component>
