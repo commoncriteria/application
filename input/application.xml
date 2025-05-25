@@ -361,7 +361,7 @@
 		accountable for security functionality that is implemented by platform layers that are abstracted 
 		away. Some evaluation activities are specific to the particular platform
 		on which the application runs, in order to provide precision and
-		repeatability. The only platforms currently recognized by the AppPP are those specified in SFR Evaluation Activities.
+		repeatability. The only platforms currently recognized by this PP are those specified in SFR Evaluation Activities.
 		To test on a platform for which there are no EAs, a Vendor should contact NIAP with recommended EAs.
 		NIAP will determine if the proposed platform is appropriate for the PP and accept, reject,
 		or develop EAs as necessary in coordination with the technical community.
@@ -384,7 +384,7 @@
 	
 	<!-- 1.4 Use Cases -->
     <sec:Use_Cases>
-		Requirements in this Protection Profile are designed to
+		Requirements in this PP are designed to
 		address the security problem in the following use cases. These use cases are intentionally
 		very broad, as many specific use cases exist for application software. Many applications may
 		be used in combinations of these broad use cases, and evaluation against PP-Modules
@@ -420,7 +420,7 @@
 				<selectable id="ios"><h:b><snip>Apple iOS and iPadOS</snip></h:b>: <h:i>Apple's mobile operating system for iPhones and iPads</h:i></selectable>
 				<selectable id="linux"><h:b><snip>Linux</snip></h:b>: <h:i>Linux-based operating systems other than Android</h:i></selectable>
 				<selectable id="Solaris"><h:b><snip>Oracle Solaris</snip></h:b>: <h:i>Oracle's enterprise operating system</h:i></selectable>
-				<selectable id="mac"><h:b><snip>Apple macOS</snip></h:b>: <h:i>Apple's operating system for MACs</h:i></selectable></selectables> 
+				<selectable id="mac"><h:b><snip>Apple macOS</snip></h:b>: <h:i>Apple's operating system for Mac devices</h:i></selectable></selectables> 
 		</choice>
 	</section>
 	
@@ -936,7 +936,7 @@
 					</Guidance>
 					<Tests>
 						<h:p>
-						If the application selects "<h:b>implement functionality</h:b>," then the following test
+						If the ST selects "<h:b>implement functionality</h:b>," then the following test
 						activities shall be carried out. 
 						</h:p><h:p>
 						Evaluation Activity Note: The following tests may require the developer to provide access 
@@ -2763,7 +2763,7 @@ only AES-based implementations for CTR_DRBG are allowed.
 					from a TSF interface for the purpose of seeding.
 				</title>
 				<note role="application">
-					This requirement is claimed when a DRBG is seeded with entropy from one or more noise source that is outside the TOE
+					This requirement is claimed when a DRBG is seeded with entropy from one or more noise sources that are outside the TOE
 					boundary. Typically the entropy produced by an environmental noise source is conditioned such that the input length has
 					full entropy and is therefore  usable as the seed. However, if this is not the case, it should be noted what the minimum
 					entropy rate of the noise source is so that the TSF can collect a sufficiently large sample of noise data to be
@@ -3032,13 +3032,13 @@ only AES-based implementations for CTR_DRBG are allowed.
 					developers must choose a selection, or multiple selections, based on all credentials that the application
 					stores. If "<h:b>not store any credentials</h:b>" is selected, then the application must not store any credentials.
 					If "<h:b>invoke the functionality provided by the platform to securely store</h:b>" is selected, then the 
-					Application developer must closely review the EA for their platform and provide documentation indicating
+					application developer must closely review the EA for their platform and provide documentation indicating
 					which platform mechanisms are used to store credentials. 
 					If "<h:b>securely store</h:b>" is selected, the application shall leverage platform cryptographic APIs to implement storage of credentials.
 					If "<h:b>implement functionality to securely store credentials</h:b>" is selected, then the following components 
 					must be included in the ST: (FCS_COP.1/SKC and FCS_SNI_EXT.1) or FCS_PBKDF_EXT.1.
 					If the OS is Linux and Java KeyStores are used to store 
-					credentials, "<h:i>implement functionality to securely store credentials</h:i>" must be selected.
+					credentials, "<h:b>implement functionality to securely store credentials</h:b>" must be selected.
 				</note>           
 				<aactivity>
 					<TSS>
@@ -3209,8 +3209,8 @@ only AES-based implementations for CTR_DRBG are allowed.
     				</h:p><h:p>
     				Any file that may potentially contain sensitive data (to include temporary files)
     				shall be protected.  The only exception is if the user intentionally exports the sensitive data
-    				to non-protected files. ST authors should select "<h:i>protect sensitive data in accordance with 
-    					FCS_STO_EXT.1</h:i>" for the sensitive data that is covered by the FCS_STO_EXT.1 SFR.
+    				to non-protected files. ST authors should select "<h:b>protect sensitive data in accordance with 
+    					FCS_STO_EXT.1</h:b>" for the sensitive data that is covered by the FCS_STO_EXT.1 SFR.
     				</h:p>
     			</note>
     			<aactivity>
@@ -3389,7 +3389,7 @@ only AES-based implementations for CTR_DRBG are allowed.
 						<selectable><assignable>list of additional sensitive information repositories</assignable></selectable></selectables>.
 				</title>
 				<note role="application"> 
-					"<h:i>Sensitive information repositories</h:i>" are defined as those collections of sensitive data that 
+					"Sensitive information repositories" are defined as those collections of sensitive data that 
 					could be expected to be shared among some applications, users, or user roles, but to which not all
 					of these would ordinarily require access.  
 				</note>
@@ -3539,8 +3539,8 @@ only AES-based implementations for CTR_DRBG are allowed.
       					<selectable>not use credentials</selectable>
       					<selectable>use platform-provided credentials</selectable>
       					<selectable>provide only enough functionality to set new credentials when 
-      						configured with default credentials or no credentials for application provided credentials.</selectable>
-      				</selectables>
+      						configured with default credentials or no credentials for application provided credentials</selectable>
+      				</selectables>.
       			</title>
       			<note role="application">
       				Default credentials are credentials (e.g., passwords, keys) that are automatically 
@@ -4383,7 +4383,7 @@ only AES-based implementations for CTR_DRBG are allowed.
 	</ext-comp-def>
 	
 	
-    <f-component cc-id="fpt_tud_ext.1" name="Integrity for Installation and Update">
+    <f-component cc-id="fpt_tud_ext.1" name="Support for Trusted Updates">
         	
 	  <comp-lev> requires the TSF to specify how updates to it are acquired and verified.</comp-lev>
       <management>No specific management functions are identified.</management>
@@ -5869,8 +5869,8 @@ only AES-based implementations for CTR_DRBG are allowed.
       cannot be claimed with that product.
     	</h:p><h:p>
       When performing equivalency analysis, the Evaluator/Vendor should first use the factors and guidelines for Product
-      Model equivalence to determine the set of Product Models to be evaluated. In general, Product Models that do not differ 
-      in PP-specified security functionality are considered equivalent for purposes of evaluation against the AppPP.
+      Model equivalence to determine the set of Product Models to be evaluated. In general, Product models that do not differ 
+      in PP-specified security functionality are considered equivalent for purposes of evaluation against the this PP.
     	</h:p><h:p>
       If multiple revision levels of Product Models are to be evaluated—or to determine whether a revision of an evaluated 
       product needs re-evaluation—the Evaluator/Vendor and Validator should use the factors and guidelines for Product 
