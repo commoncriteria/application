@@ -1,3 +1,35 @@
+* Error: f-element FCS_RBG_EXT.1.1  appears not to have an associated evaluation activity.:
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[17]""/f-element[1]""
+* Error: f-element FCS_STO_EXT.1.1  appears not to have an associated evaluation activity.:
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[19]""/f-element[1]""
+* Error: f-element FDP_DEC_EXT.1.1  appears not to have an associated evaluation activity.:
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]""/f-component[2]""/f-element[1]""
+* Error: f-element FDP_DEC_EXT.1.2  appears not to have an associated evaluation activity.:
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]""/f-component[2]""/f-element[2]""
+* Error: f-element FDP_NET_EXT.1.1  appears not to have an associated evaluation activity.:
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]""/f-component[3]""/f-element[1]""
+* Error: f-element FMT_CFG_EXT.1.2  appears not to have an associated evaluation activity.:
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[1]""/f-element[2]""
+* Error: f-element FMT_MEC_EXT.1.1  appears not to have an associated evaluation activity.:
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[3]""/f-component[2]""/f-element[1]""
+* Error: f-element FPT_AEX_EXT.1.1  appears not to have an associated evaluation activity.:
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[1]""/f-element[1]""
+* Error: f-element FPT_AEX_EXT.1.2  appears not to have an associated evaluation activity.:
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[1]""/f-element[2]""
+* Error: f-element FPT_AEX_EXT.1.3  appears not to have an associated evaluation activity.:
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[1]""/f-element[3]""
+* Error: f-element FPT_AEX_EXT.1.4  appears not to have an associated evaluation activity.:
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[1]""/f-element[4]""
+* Error: f-element FPT_AEX_EXT.1.5  appears not to have an associated evaluation activity.:
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[1]""/f-element[5]""
+* Error: f-element FPT_TUD_EXT.1.3  appears not to have an associated evaluation activity.:
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[8]""/f-element[3]""
+* Error: f-element FPT_TUD_EXT.2.1  appears not to have an associated evaluation activity.:
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[9]""/f-element[1]""
+* Error: f-element FPT_TUD_EXT.2.2  appears not to have an associated evaluation activity.:
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[5]""/f-component[9]""/f-element[2]""
+* Error: f-element FTP_DIT_EXT.1.1  appears not to have an associated evaluation activity.:
+        /PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[6]""/f-component[1]""/f-element[1]""
 * Error: Detected dangling id-reference to sel_all_https_ma from attribute
         on-sel/PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[10]""/depends[3]""/on-sel[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/appendix[1]""/h:p[1]"This appe"/h:p[1]""
