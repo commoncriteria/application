@@ -2214,7 +2214,14 @@ functionality (such as these)
 						<selectable id="https_server_auth">server with client authentication</selectable>
 					</selectables> that complies with RFC 2818.
 				</title>
-				<aactivity level="element">
+
+			</f-element>
+			<f-element id="fel-https-how-sv">
+				<title>The application shall implement HTTPS using TLS as defined in the Functional Package for TLS.</title>
+				<note role="application">
+					This SFR is claimed when FTP_DIT_EXT.1 specfiies the TOE's use of HTTPS as a trusted protocol. If the TSF implements HTTPS as a client, or if it implements HTTPS as a server with client authenticaiton, then FCS_HTTPS_EXT.2 must be claimed to specify the TSF's behavior when presented with an invalid peer certificate.
+				</note>
+				<aactivity>
 					<TSS>
 						<h:p>
 							The evaluator shall examine the TSS to verify that it describes the TSF's HTTPS implementation as a client, server, or both, and that if the TSF implements an HTTPS server, whether this supports client authentication. Additionally, the evaluator shall examine the TSS to verify that it includes enough detail is provided to
@@ -2225,28 +2232,17 @@ functionality (such as these)
 					</Guidance>
 					<Tests>
 						<testlist>
-						<test>
-					    Conditional: If the TOE implements HTTPS as a client, for each HTTPS client interface, the evaluator shall attempt to establish an HTTPS connection from the TOE to an external server, observe the traffic with a packet analyzer, and verify that the connection
-						succeeds and that the traffic is identified as TLS or HTTPS.
-						</test>
-						<test>
-							Conditional: If the TOE implements HTTPS as a server, for each HTTPS server interface, the evaluator shall attempt to establish an HTTPS connection to the TOE using a 
-							client, observe the traffic with a packet analyzer, and verify that the connection
-							succeeds and that the traffic is identified as TLS or HTTPS.
-						</test>
+							<test>
+								Conditional: If the TOE implements HTTPS as a client, for each HTTPS client interface, the evaluator shall attempt to establish an HTTPS connection from the TOE to an external server, observe the traffic with a packet analyzer, and verify that the connection
+								succeeds and that the traffic is identified as TLS or HTTPS.
+							</test>
+							<test>
+								Conditional: If the TOE implements HTTPS as a server, for each HTTPS server interface, the evaluator shall attempt to establish an HTTPS connection to the TOE using a 
+								client, observe the traffic with a packet analyzer, and verify that the connection
+								succeeds and that the traffic is identified as TLS or HTTPS.
+							</test>
 						</testlist>
 					</Tests>
-				</aactivity>
-			</f-element>
-			<f-element id="fel-https-how-sv">
-				<title>The application shall implement HTTPS using TLS as defined in the Functional Package for TLS.</title>
-				<note role="application">
-					This SFR is claimed when FTP_DIT_EXT.1 specfiies the TOE's use of HTTPS as a trusted protocol. If the TSF implements HTTPS as a client, or if it implements HTTPS as a server with client authenticaiton, then FCS_HTTPS_EXT.2 must be claimed to specify the TSF's behavior when presented with an invalid peer certificate.
-				</note>
-				<aactivity level="element">
-					<TSS><h:p>None.</h:p></TSS>
-					<Guidance><h:p>None.</h:p></Guidance>
-					<Tests>Other tests are performed in conjunction with the TLS package.</Tests>
 				</aactivity>
 			</f-element>
 		</f-component>
