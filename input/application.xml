@@ -566,10 +566,8 @@
 				<addressed-by>FCS_COP.1/SigVer (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/SigVer to define the digital signature algorithms used in support of trusted communications and trusted updates.</rationale>
 				<addressed-by>FCS_COP.1/KeyedHash (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/KeyedHash to define the HMAC algorithms used in support of trusted communications.</rationale>
 				<addressed-by>FCS_HTTPS_EXT.1 (selection-based)</addressed-by><rationale>The PP includes FCS_HTTPS_EXT.1 to define the TOE’s support for the HTTPS trusted communications protocol.</rationale>
-				<!--
-				<addressed-by>FCS_HTTPS_EXT.1/Server (selection-based)</addressed-by><rationale>The PP includes FCS_HTTPS_EXT.1/Server to define the TOE’s support for the HTTPS trusted communications protocol as a server.</rationale>
-				<addressed-by>FCS_HTTPS_EXT.2 (selection-based)</addressed-by><rationale>The PP includes FCS_HTTPS_EXT.2 to define the TOE’s behavior when presented with an invalid certificate as part of an HTTPS connection attempt.</rationale>
--->
+				<addressed-by>FCS_HTTPS_EXT.2 (selection-based)</addressed-by><rationale>The PP includes FCS_HTTPS_EXT.2 to define the TOE’s handling of X.509 certificates in the context of HTTPS communications.</rationale>
+
 				<addressed-by>FCS_RBG.1 (selection-based)</addressed-by><rationale>The PP includes FCS_RBG.1 to define the DRBG algorithms used in support of trusted communications.</rationale>
 				<addressed-by>FCS_RBG.2 (selection-based)</addressed-by><rationale>The PP includes FCS_RBG.2 to define how entropy is obtained for secure DRBG seeding.</rationale>
 				<addressed-by>FCS_RBG.3 (selection-based)</addressed-by><rationale>The PP includes FCS_RBG.3 to define how entropy is obtained for secure DRBG seeding.</rationale>
@@ -624,11 +622,7 @@
 				<addressed-by>FCS_COP.1/SigVer (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/SigVer to define the mechanism used to verify TOE updates if the TOE implements this functionality rather than the underlying platform.</rationale>
 				<addressed-by>FCS_COP.1/SKC (selection-based)</addressed-by><rationale>The PP includes FCS_COP.1/SKC to define the symmetric encryption algorithms used in support of trusted communications.</rationale>
 				<addressed-by>FCS_HTTPS_EXT.1 (selection-based)</addressed-by><rationale>The PP includes FCS_HTTPS_EXT.1 to define the TOE’s support for the HTTPS trusted communications protocol.</rationale>
-				<!--
-				<addressed-by>FCS_HTTPS_EXT.1/Server (selection-based)</addressed-by><rationale>The PP includes FCS_HTTPS_EXT.1/Server to define the TOE’s support for the HTTPS trusted communications protocol as a server.</rationale>
-				<addressed-by>FCS_HTTPS_EXT.2 (selection-based)</addressed-by><rationale>The PP includes FCS_HTTPS_EXT.2 to define the TOE’s behavior when presented with an invalid certificate as part of an HTTPS connection attempt.</rationale>
-				-->
-				
+				<addressed-by>FCS_HTTPS_EXT.2 (selection-based)</addressed-by><rationale>The PP includes FCS_HTTPS_EXT.2 to define the TOE’s handling of X.509 certificates in the context of HTTPS communications.</rationale>
 				<addressed-by>FCS_RBG.1 (selection-based)</addressed-by><rationale>The PP includes FCS_RBG.1 to define the DRBG algorithms used in support of trusted communications.</rationale>
 				<addressed-by>FCS_RBG.2 (selection-based)</addressed-by><rationale>The PP includes FCS_RBG.2 to define how entropy is obtained for secure DRBG seeding.</rationale>
 				<addressed-by>FCS_RBG.3 (selection-based)</addressed-by><rationale>The PP includes FCS_RBG.3 to define how entropy is obtained for secure DRBG seeding.</rationale>
@@ -835,7 +829,7 @@
 						<h:p>The evaluator shall examine the TSS to verify that it describes whether the TSF has functions that require the use of asymmetric key 
 						generation services, and whether these services are implemented within the TOE boundary or invoked by the TSF from its operational environment. 
 						</h:p>
-						<h:p>Conditional: If the ST claims "generate no asymmetric keys," the evaluator shall ensure that the TOE does not have any functions that would require asymmetric 
+						<h:p>Conditional: If the ST claims "<h:b>generate no asymmetric keys</h:b>," the evaluator shall ensure that the TOE does not have any functions that would require asymmetric 
 						key generation (for example, because it does not use asymmetric keys for any purpose or because the keys that it does use are generated elsewhere 
 						and imported into it as part of initial setup).
 						</h:p>
@@ -2339,12 +2333,16 @@ functionality (such as these)
         	
 			<f-element id="fel-https-wath-sv">
 				<title>
-					The application shall implement the HTTPS protocol <h:b>as a server</h:b> that complies with RFC 2818.
+					The application shall implement the HTTPS protocol as a <selectables>
+						<selectable id="https_client">client</selectable>
+						<selectable id="https_server_noauth">server without client authentication</selectable>
+						<selectable id="https_server_auth">server with client authentication</selectable>
+					</selectables> that complies with RFC 2818.
 				</title>
 				<aactivity level="element">
 					<TSS>
 					<h:p>
-						The evaluator shall examine the TSS to verify that enough detail is provided to
+						The evaluator shall examine the TSS to verify that it describes the TSF's HTTPS implementation as a client, server, or both, and that if the TSF implements an HTTPS server, whether this supports client authentication. Additionally, the evaluator shall examine the TSS to verify that it includes enough detail is provided to
 						explain how the implementation complies with RFC 2818.</h:p>
 					</TSS>
 					<Guidance>
@@ -2383,6 +2381,112 @@ functionality (such as these)
         		</aactivity>
         	</f-element>
         </f-component>
+		
+		
+		<f-component cc-id="fcs_https_ext.1" name="HTTPS Protocol" status="sel-based">
+			<depends on1="sel_all_https_cl"/>
+			<depends on1="sel_all_https_sv"/>
+			<depends on1="sel_all_https_ma"/>
+			
+			
+			<comp-lev> defines the capability of the TOE to implement HTTPS.</comp-lev>
+			<management>No specific management functions are identified.</management>
+			<audit>There are no auditable events foreseen.</audit>
+			<dependencies>
+				FCS_TLS_EXT.1 TLS Protocol
+			</dependencies>
+			
+			<f-element id="fel-https-wath-sv">
+				<title>
+					The application shall implement the HTTPS protocol as a <selectables>
+						<selectable id="https_client">client</selectable>
+						<selectable id="https_server_noauth">server without client authentication</selectable>
+						<selectable id="https_server_auth">server with client authentication</selectable>
+					</selectables> that complies with RFC 2818.
+				</title>
+				<aactivity level="element">
+					<TSS>
+						<h:p>
+							The evaluator shall examine the TSS to verify that it describes the TSF's HTTPS implementation as a client, server, or both, and that if the TSF implements an HTTPS server, whether this supports client authentication. Additionally, the evaluator shall examine the TSS to verify that it includes enough detail is provided to
+							explain how the implementation complies with RFC 2818.</h:p>
+					</TSS>
+					<Guidance>
+						<h:p>The evaluator shall review the operational guidance to ensure that it includes any information necessary for configuring HTTPS in alignment with RFC 2818, or whether this is the default behavior of the TOE.</h:p>
+					</Guidance>
+					<Tests>
+						<testlist>
+						<test>
+					    Conditional: If the TOE implements HTTPS as a client, for each HTTPS client interface, the evaluator shall attempt to establish an HTTPS connection from the TOE to an external server, observe the traffic with a packet analyzer, and verify that the connection
+						succeeds and that the traffic is identified as TLS or HTTPS.
+						</test>
+						<test>
+							Conditional: If the TOE implements HTTPS as a server, for each HTTPS server interface, the evaluator shall attempt to establish an HTTPS connection to the TOE using a 
+							client, observe the traffic with a packet analyzer, and verify that the connection
+							succeeds and that the traffic is identified as TLS or HTTPS.
+						</test>
+						</testlist>
+					</Tests>
+				</aactivity>
+			</f-element>
+			<f-element id="fel-https-how-sv">
+				<title>The application shall implement HTTPS using TLS as defined in the Functional Package for TLS.</title>
+				<note role="application">
+					This SFR is claimed when FTP_DIT_EXT.1 specfiies the TOE's use of HTTPS as a trusted protocol. If the TSF implements HTTPS as a client, or if it implements HTTPS as a server with client authenticaiton, then FCS_HTTPS_EXT.2 must be claimed to specify the TSF's behavior when presented with an invalid peer certificate.
+				</note>
+				<aactivity level="element">
+					<TSS><h:p>None.</h:p></TSS>
+					<Guidance><h:p>None.</h:p></Guidance>
+					<Tests>Other tests are performed in conjunction with the TLS package.</Tests>
+				</aactivity>
+			</f-element>
+		</f-component>
+		
+		
+		<f-component cc-id="fcs_https_ext.2" name="HTTPS Support for Authentication" status="sel-based">
+			<depends on1="https_client"/>
+			<depends on1="https_server_auth"/>
+			<depends on1="sel_all_https_cl"/>
+			<depends on1="sel_all_https_ma"/>
+			
+			
+			
+			<comp-lev> defines the TSF's response when an invalid certificate is presented as part of HTTPS connection establishment.</comp-lev>
+			<management>The following actions could be considered for the management functions in FMT:
+				<h:ul>
+					<h:li>Configuration of HTTPS behavior in response to receipt of invalid certificate.</h:li>
+				</h:ul>
+			</management>
+			<audit>There are no auditable events foreseen.</audit>
+			<dependencies>
+				FCS_HTTPS_EXT.1 HTTPS Protocol<h:br/>
+				FIA_X509_EXT.1 X.509 Certificate Validation
+			</dependencies>
+		
+		<f-element id="fel-https-bad-cert">
+			<title>
+				The application shall <selectables>
+					<selectable>establish the connection</selectable>
+					<selectable>not establish the connection</selectable>
+					<selectable>establish or not establish the connection based on an administrative or user setting</selectable></selectables> 
+				if the peer certificate is deemed invalid when attempting to establish a HTTPS connection.
+			</title>
+			<note role="application">This SFR is claimed when the TOE implements HTTPS as a client, or when the TOE implements HTTPS as a server with support for client authentication.</note>
+			<aactivity level="element">
+				<TSS>None.</TSS>
+				<Guidance>If the TOE's response to being presented with an invalid certificate is configurable, the evaluator shall verify that the operational guidance includes instructions for configuring this behavior and what the configurable options are. If this includes configuration to a permissive setting where an invalid certificate may be accepted without administrator intervention, the evaluator shall verify that the operational guidance includes sufficient warning of the potential security risks of applying this setting.</Guidance>
+				<Tests>
+					<h:p>
+					The evaluator shall attempt to establish an HTTPS connection using the TOE, present an invalid peer certificate, and verify that the TSF behaves in the manner specified in the TSF in response. If this behavior is configurable, the evalua
+					</h:p>
+					<h:p>
+					Other tests are performed in conjunction with <!-- <xref to="pkg-tls"/> --> the Functional Package for Transport Layer Security (TLS), version 2.1 and the <h:a href="https://www.niap-ccevs.org/protectionprofiles/511">
+						Functional Package for X.509</h:a>.
+					</h:p>
+				</Tests>
+			</aactivity>
+		</f-element>
+		</f-component>
+		
 
 	<!-- FCS_HTTPS_EXT.2 HTTPS Protocol with Mutual Authentication -->
 	<!-- Added by TD0601 -->
@@ -4727,8 +4831,9 @@ only AES-based implementations for CTR_DRBG are allowed.
 								<selectable>sensitive data</selectable>
 								<selectable>data</selectable></selectables> with
 							<selectables>
-								<selectable id="sel_all_https_cl">HTTPS as a client in accordance with FCS_HTTPS_EXT.1</selectable>
-								<selectable id="sel_all_https_sv">HTTPS as a server in accordance with FCS_HTTPS_EXT.1</selectable>
+								<selectable id="sel_all_https_cl">HTTPS as a client in accordance with FCS_HTTPS_EXT.1 and FCS_HTTPS_EXT.2</selectable>
+								<selectable id="sel_all_https_sv">HTTPS as a server without support for client authentication in accordance with FCS_HTTPS_EXT.1</selectable>
+								<selectable id="sel_all_https_ma">HTTPS as a server with support for client authentication in accordance with FCS_HTTPS_EXT.1 and FCS_HTTPS_EXT.2</selectable>
 						<!--		<selectable id="sel_all_https_ma">HTTPS as a server using mutual authentication in accordance with FCS_HTTPS_EXT.2</selectable> -->
 								<selectable id="sel_all_tlss">TLS as a server as defined in <!-- <xref to="pkg-tls"/> --> Functional Package for Transport Layer Security (TLS), version 2.1 and also supports functionality for
 									<selectables><selectable>mutual authentication</selectable><selectable>none</selectable></selectables></selectable>
@@ -4809,19 +4914,8 @@ only AES-based implementations for CTR_DRBG are allowed.
 						corresponding components from <!-- <xref to="pkg-tls"/> --> Functional Package for Transport Layer Security (TLS), version 2.1 must be selected.
 					</h:p>
 						<h:p>
-							If "<h:b>encrypt all transmitted...</h:b>" is selected and "<h:b>HTTPS</h:b>" is selected, then FCS_HTTPS_EXT.1 is required.
+							If "<h:b>encrypt all transmitted...</h:b>" is selected and any claim involving HTTPS is selected, then FCS_HTTPS_EXT.1 and potentially FCS_HTTPS_EXT.2 is required, as indicated by the chosen selections.
 						</h:p>
-						<!--
-					If "<h:b>encrypt all transmitted...</h:b>" is selected, "<h:b>HTTPS</h:b>" is selected, and the 
-					TOE acts as a client, then FCS_HTTPS_EXT.1/Client is required.
-					</h:p><h:p>
-					If "<h:b>encrypt all transmitted...</h:b>" is selected, "<h:b>HTTPS</h:b>" is selected, and the 
-					TOE acts as a server, then FCS_HTTPS_EXT.1/Server is required.
-					</h:p><h:p>
-					If the TOE acts as an HTTPS server and if "<h:b>mutual authentication...</h:b>" is selected,
-					then FCS_HTTPS_EXT.2 is also required.
-					</h:p>
-					-->
 					<h:p>
 					If "<h:b>encrypt all transmitted...</h:b>" is selected and "<h:b>SSH</h:b>" is selected, then the 
 						TSF shall be validated against the  <h:a href="https://www.niap-ccevs.org/protectionprofiles/459">
@@ -4836,7 +4930,7 @@ only AES-based implementations for CTR_DRBG are allowed.
 					</h:p>
 					<h:p>
 						Claims from the <h:a href="https://www.niap-ccevs.org/protectionprofiles/511">
-							Functional Package for X.509</h:a> are only required to the extent that they are needed to support the functionality required by the trusted protocols that are claimed.
+							Functional Package for X.509</h:a> are only required to the extent that they are needed to support the functionality required by the trusted protocols that are claimed. For example, if the TOE supports HTTPS as a server but does not support client authentication, then for this interface the TSF would only present certificates in accordance with the requirements of the package and not validate presented certificates.
 					</h:p><h:p>
 						If the TSF implements a protocol that requires the validation of a certificate presented by an external entity, FIA_X509_EXT.1 and FIA_X509_EXT.2 will be claimed. FIA_TSM_EXT.1 may also be claimed if the TSF implements its own trust store. Note that FIA_X509_EXT.1 and FIA_X509_EXT.2 have selections for invocation of platform-provided functionality, so it is expected that these claims are made and tested even when the trusted protocol is implemented by the TOE platform. 
 					</h:p><h:p>
