@@ -1,11 +1,11 @@
-* Error: Detected dangling id-reference to sel_all_https_ma from attribute
-        on-sel/PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[10]""/depends[3]""/on-sel[1]""
  Failed to find a reference to bibCEM.
  Failed to find a reference to bibCEM.
  Failed to find a reference to bibCEM.
 * Warning: Since FCS_CKM_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
                        
-* Warning: Since FCS_HTTPS_EXT.1.3 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+* Warning: Since FCS_HTTPS_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
+                       
+* Warning: Since FCS_HTTPS_EXT.2.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
                        
 * Warning: Since FCS_RBG_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
                        
