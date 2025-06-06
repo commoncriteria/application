@@ -2251,10 +2251,10 @@
                                         <span class="selectable-content" id="sel_all_https_cl"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a client in accordance with <a href="#FCS_HTTPS_EXT.1">FCS_HTTPS_EXT.1</a> and <a href="#FCS_HTTPS_EXT.2">FCS_HTTPS_EXT.2</a></span>
                                     </li>
                                     <li style="">
-                                        <span class="selectable-content" id="sel_all_https_sv"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a server without support for client authentication in accordance with <a href="#FCS_HTTPS_EXT.1">FCS_HTTPS_EXT.1</a></span>
+                                        <span class="selectable-content" id="sel_all_https_sv"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a server in accordance with <a href="#FCS_HTTPS_EXT.1">FCS_HTTPS_EXT.1</a></span>
                                     </li>
                                     <li style="">
-                                        <span class="selectable-content" id="sel_all_https_ma"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a server with support for client authentication in accordance with <a href="#FCS_HTTPS_EXT.1">FCS_HTTPS_EXT.1</a> and <a href="#FCS_HTTPS_EXT.2">FCS_HTTPS_EXT.2</a></span>
+                                        <span class="selectable-content" id="sel_all_https_ma"><abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a server with support for mutual authentication in accordance with <a href="#FCS_HTTPS_EXT.1">FCS_HTTPS_EXT.1</a> and <a href="#FCS_HTTPS_EXT.2">FCS_HTTPS_EXT.2</a></span>
                                     </li>
                                     <li style="">
                                         <span class="selectable-content" id="sel_all_tlss"><abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as a server as defined inFunctional Package for Transport Layer Security (<abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>), version 2.1 and also supports functionality for [<b>selection</b>: <span class="selectable-content" id="ftp_dit_ext.1.1_7">mutual authentication</span>, <span class="selectable-content" id="ftp_dit_ext.1.1_8">none</span>] </span>
@@ -2310,7 +2310,7 @@
                                 If "<b>encrypt all transmitted...</b>" is selected, <a href="#FCS_CKM.2">FCS_CKM.2</a> and all iterations of FCS_COP.1 must be claimed.
                             </p>
                             <p>
-                                Claims from the <a href="https://www.niap-ccevs.org/protectionprofiles/511"> Functional Package for X.509</a> are only required to the extent that they are needed to support the functionality required by the trusted protocols that are claimed. For example, if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a server but does not support client authentication, then for this interface the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> would only present certificates in accordance with the requirements of the package and not validate presented certificates.
+                                Claims from the <a href="https://www.niap-ccevs.org/protectionprofiles/511"> Functional Package for X.509</a> are only required to the extent that they are needed to support the functionality required by the trusted protocols that are claimed. For example, if the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> supports <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a server but does not support mutual authentication, then for this interface the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> would only present certificates in accordance with the requirements of the package and not validate presented certificates.
                             </p>
                             <p>
                                 If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements a protocol that requires the validation of a certificate presented by an external entity, FIA_X509_EXT.1 and FIA_X509_EXT.2 will be claimed. FIA_TSM_EXT.1 may also be claimed if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements its own trust store. Note that FIA_X509_EXT.1 and FIA_X509_EXT.2 have selections for invocation of platform-provided functionality, so it is expected that these claims are made and tested even when the trusted protocol is implemented by the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> platform.
@@ -4749,7 +4749,7 @@
                     <a href="#FCS_HTTPS_EXT.1.1" class="abbr">FCS_HTTPS_EXT.1.1</a>
                 </div>
                 <div class="reqdesc">
-                    The application shall implement the <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> protocol as a [<b>selection</b>: <span class="selectable-content" id="https_client">client</span>, <span class="selectable-content" id="https_server_noauth">server without client authentication</span>, <span class="selectable-content" id="https_server_auth">server with client authentication</span>] that complies with <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 2818.
+                    The application shall implement the <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> protocol as a [<b>selection</b>: <span class="selectable-content" id="https_client">client</span>, <span class="selectable-content" id="https_server_noauth">server</span>, <span class="selectable-content" id="https_server_auth">server with mutual authentication</span>] that complies with <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 2818.
                 </div>
             </div>
             <div class="element">
@@ -4759,7 +4759,7 @@
                 <div class="reqdesc">
                     The application shall implement <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> using <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as defined in the Functional Package for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>.
                     <div class="appnote">
-                        <span class="note-header">Application Note: </span><span class="note">This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is claimed when <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> specfiies the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s use of <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a trusted protocol. If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a client, or if it implements <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a server with client authenticaiton, then <a href="#FCS_HTTPS_EXT.2">FCS_HTTPS_EXT.2</a> must be claimed to specify the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>'s behavior when presented with an invalid peer certificate.</span>
+                        <span class="note-header">Application Note: </span><span class="note">This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is claimed when <a href="#FTP_DIT_EXT.1">FTP_DIT_EXT.1</a> specfiies the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>'s use of <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a trusted protocol. If the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a client, or if it implements <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a server with mutual authenticaiton, then <a href="#FCS_HTTPS_EXT.2">FCS_HTTPS_EXT.2</a> must be claimed to specify the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>'s behavior when presented with an invalid peer certificate.</span>
                     </div>
                 </div>
             </div>
@@ -4777,7 +4777,7 @@
                     <div class="ea">
                         <div class="ea">
                             <p>
-                                The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it describes the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>'s <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> implementation as a client, server, or both, and that if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements an <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> server, whether this supports client authentication. Additionally, the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it includes enough detail is provided to explain how the implementation complies with <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 2818.
+                                The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it describes the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr>'s <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> implementation as a client, server, or both, and that if the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> implements an <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> server, whether this supports mutual authentication. Additionally, the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to verify that it includes enough detail is provided to explain how the implementation complies with <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 2818.
                             </p>
                         </div>
                     </div>
@@ -4819,7 +4819,7 @@
                 <div class="reqdesc">
                     The application shall [<b>selection</b>: <span class="selectable-content" id="fcs_https_ext.2.1_1">establish the connection</span>, <span class="selectable-content" id="fcs_https_ext.2.1_2">not establish the connection</span>, <span class="selectable-content" id="fcs_https_ext.2.1_3">establish or not establish the connection based on an administrative or user setting</span>] if the peer certificate is deemed invalid when attempting to establish a <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> connection.
                     <div class="appnote">
-                        <span class="note-header">Application Note: </span><span class="note">This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is claimed when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a client, or when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a server with support for client authentication.</span>
+                        <span class="note-header">Application Note: </span><span class="note">This <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr> is claimed when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a client, or when the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> implements <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> as a server with support for mutual authentication.</span>
                     </div>
                 </div>
             </div>
@@ -5803,7 +5803,7 @@
                             </tr>
                         </table>
                         <h4 id="ext-comp-FCS_HTTPS_EXT.1.1">FCS_HTTPS_EXT.1.1</h4>
-                        The application shall implement the <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> protocol as a [<b>selection</b>: <span class="selectable-content" id="https_client">client</span>, <span class="selectable-content" id="https_server_noauth">server without client authentication</span>, <span class="selectable-content" id="https_server_auth">server with client authentication</span>] that complies with <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 2818.
+                        The application shall implement the <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> protocol as a [<b>selection</b>: <span class="selectable-content" id="https_client">client</span>, <span class="selectable-content" id="https_server_noauth">server</span>, <span class="selectable-content" id="https_server_auth">server with mutual authentication</span>] that complies with <abbr class="dyn-abbr"><a href="#abbr_RFC">RFC</a></abbr> 2818.
                         <h4 id="ext-comp-FCS_HTTPS_EXT.1.2">FCS_HTTPS_EXT.1.2</h4>
                         The application shall implement <abbr class="dyn-abbr"><a href="#abbr_HTTPS">HTTPS</a></abbr> using <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr> as defined in the Functional Package for <abbr class="dyn-abbr"><a href="#abbr_TLS">TLS</a></abbr>.
                     </div>
