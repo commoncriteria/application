@@ -359,20 +359,6 @@ function showTarget(id){
     }    
    
    
-    table.code-table td {
-       font-family: monospace;
-       font-style: normal;
-       padding:0px;
-       background-color: #DDDDDD;
-    }
-
-    span.code-wildcard::after {
-       content: "(...)";
-    }
-    span.code-wildcard {
-       font-style: italics;
-    }
-  
           .figure{
               font-weight:bold;
           }
@@ -2138,11 +2124,11 @@ The following sections list Common Criteria and technology terms used in this do
     						evaluator shall run a tool like, BinSkim, that can verify the correct usage of /GS.</div></div></div>
     					<div class="subaact"> <p><i><b>For <abbr class="dyn-abbr"><a href="#abbr_PE">PE</a></abbr></b></i>
     						, the evaluator will disassemble each and ensure the following sequence appears:</p>
-    						<table class="code-table">
-    							<tr><td>mov rcx, QWORD PTR [rsp+<i>(...)</i>]</td></tr>
-    							<tr><td>xor rcx, <i>(...)</i></td></tr>
-    							<tr><td>call <i>(...)</i></td></tr>
-    						</table>
+    						<code>
+    							mov rcx, QWORD PTR [rsp+(...)]
+    							xor rcx, (...)
+    							call (...)
+    						</code>
     					</div>
     					<div class="subaact"><p> <i><b>For <abbr class="dyn-abbr"><a href="#abbr_ELF">ELF</a></abbr> executables</b></i>, the evaluator will ensure that each 
     						contains references to the symbol <b>__stack_chk_fail</b>.</p>
