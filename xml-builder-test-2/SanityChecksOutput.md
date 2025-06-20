@@ -1,14 +1,40 @@
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[9]""/f-element[1]""/aactivity[1]""/Tests[1]""/h:p[5]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[9]""/f-element[1]""/aactivity[1]""/Tests[1]""/h:p[11]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[9]""/f-element[1]""/aactivity[1]""/Tests[1]""/h:p[16]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[9]""/f-element[1]""/aactivity[1]""/Tests[1]""/h:p[30]""
-* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[9]""/f-element[1]""/aactivity[1]""/Tests[1]""/h:p[44]""
+* Error: Detected multiple elements with an id of 'fel-https-who-cl'.
+* Error: Detected multiple elements with an id of 'fel-https-who-cl'.
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[2]""/f-component[1]""/f-element[1]""/aactivity[1]""/Tests[1]""/h:p[3]""
+output/pkg-x509.xml:1: parser error : Document is empty
+
+^
+output/pkg-x509.xml:1: parser error : Document is empty
+
+^
+output/pkg-x509.xml:1: parser error : Document is empty
+
+^
+output/pkg-x509.xml:1: parser error : Document is empty
+
+^
+output/pkg-x509.xml:1: parser error : Document is empty
+
+^
+output/pkg-x509.xml:1: parser error : Document is empty
+
+^
+output/pkg-x509.xml:1: parser error : Document is empty
+
+^
+output/pkg-x509.xml:1: parser error : Document is empty
+
+^
+output/pkg-x509.xml:1: parser error : Document is empty
+
+^
+output/pkg-x509.xml:1: parser error : Document is empty
+
+^
  Failed to find a reference to bibCEM.
  Failed to find a reference to bibCEM.
  Failed to find a reference to bibCEM.
 * Warning: Since FCS_CKM_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
-                       
-* Warning: Since FCS_HTTPS_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
                        
 * Warning: Since FCS_HTTPS_EXT.2.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
                        
