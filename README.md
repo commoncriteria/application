@@ -14,7 +14,7 @@ See the [release](#Release-Version) section if you are looking for the officiall
 
 ## Draft Version
 
-* [Protection Profile for Application Software](https://commoncriteria.github.io/pp/application/application-release.html) (html)
+* [Protection Profile for Application Software](https://commoncriteria.github.io/application/xml-builder-test-2/application-release-linkable.html) (html)
 * [Protection Profile for Application Software](https://commoncriteria.github.io/pp/application/application-release.pdf) (pdf)
 
 ## Release Version
