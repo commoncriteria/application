@@ -1,3 +1,9 @@
+* Error: Detected multiple elements with an id of 'fdp_dec_ext.1.1_1'.
+* Error: Detected multiple elements with an id of 'fdp_dec_ext.1.1_1'.
+* Error: Detected multiple elements with an id of 'fdp_dec_ext.1.2_1'.
+* Error: Detected multiple elements with an id of 'fdp_dec_ext.1.2_1'.
+* Error: Detected multiple elements with an id of 'fmt_smf.1.1_2'.
+* Error: Detected multiple elements with an id of 'fmt_smf.1.1_2'.
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]""/h:p[1]"The requi"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:Introduction[1]""/section[1]""/sec:TOE_Boundary[1]""/h:p[1]"The appli"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[1]""/f-element[1]""/note[1]""/h:p[1]"The ST sh"/h:p[1]""
@@ -18,6 +24,11 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[8]""/f-element[1]""/note[1]""/h:p[1]"This is d"/h:p[2]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[9]""/f-element[1]""/note[1]""/h:p[1]"This is d"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[9]""/f-element[1]""/note[1]""/h:p[1]"This is d"/h:p[2]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[9]""/f-element[1]""/aactivity[1]""/Tests[1]""/h:p[5]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[9]""/f-element[1]""/aactivity[1]""/Tests[1]""/h:p[11]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[9]""/f-element[1]""/aactivity[1]""/Tests[1]""/h:p[16]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[9]""/f-element[1]""/aactivity[1]""/Tests[1]""/h:p[30]""
+* Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[9]""/f-element[1]""/aactivity[1]""/Tests[1]""/h:p[44]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[12]""/f-element[2]""/note[1]""/h:p[1]"This shou"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[12]""/f-element[2]""/note[1]""/h:p[1]"This shou"/h:p[2]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/sec:SFRs[1]""/section[1]""/f-component[13]""/f-element[2]""/note[1]""/h:p[1]"For the s"/h:p[1]""
