@@ -1,4 +1,4 @@
-name: QuickBuild v4.5pdf 20250123
+name: QuickBuild v4.6pdf 20250905
 # Run only on demand to do quick build with both pdf and html output
 
 on:
@@ -48,10 +48,12 @@ jobs:
       # PDFify
     - name: PDFify
       run: |
-        sudo apt-get install -y wkhtmltopdf xvfb
+        wget -O - https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6.1-3/wkhtmltox_0.12.6.1-3.jammy_amd64.deb
+        sudo apt install -y ./wkhtmltox_0.12.6.1-3.jammy_amd64.deb && rm wkhtmltox_0.12.6.1-3.jammy_amd64.deb
+        sudo apt install -y xvfb
         cd output
         for aa in *.html; do
-          xvfb-run --auto-servernum --server-args='-screen 0, 1024x768x16' /usr/bin/wkhtmltopdf \
+          xvfb-run --auto-servernum --server-args='-screen 0, 1024x768x16' $(which wkhtmltopdf) \
             --enable-local-file-access --javascript-delay 15000 --footer-right '[page]' \
             file://${PWD}/${aa}?expand=on ${aa}.pdf
         done
