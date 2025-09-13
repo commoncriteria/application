@@ -46,43 +46,39 @@
 * Warning: Detected an empty _p_ element./PP[1]""/appendix[2]""/section[6]""/h:p[1]"In order "/h:p[6]""
 * Warning: Detected an empty _p_ element./PP[1]""/appendix[2]""/section[6]""/h:p[1]"In order "/h:p[7]""
 * Warning: Detected an empty _p_ element./PP[1]""/appendix[2]""/section[6]""/h:p[1]"In order "/h:p[8]""
-warning: failed to load external entity "output/pkg-tls.xml"
-warning: failed to load external entity "output/pkg-tls.xml"
-warning: failed to load external entity "output/pkg-tls.xml"
-warning: failed to load external entity "output/pkg-tls.xml"
-warning: failed to load external entity "output/pkg-tls.xml"
-warning: failed to load external entity "output/pkg-tls.xml"
-warning: failed to load external entity "output/pkg-tls.xml"
-warning: failed to load external entity "output/pkg-tls.xml"
-warning: failed to load external entity "output/pkg-ssh.xml"
-warning: failed to load external entity "output/pkg-ssh.xml"
-warning: failed to load external entity "output/pkg-vpnc.xml"
-warning: failed to load external entity "output/pkg-vpnc.xml"
-warning: failed to load external entity "output/pkg-x509.xml"
-warning: failed to load external entity "output/pkg-x509.xml"
-warning: failed to load external entity "output/pkg-x509.xml"
-warning: failed to load external entity "output/pkg-x509.xml"
-warning: failed to load external entity "output/pkg-x509.xml"
-warning: failed to load external entity "output/pkg-x509.xml"
-warning: failed to load external entity "output/pkg-tls.xml"
-warning: failed to load external entity "output/pkg-tls.xml"
-warning: failed to load external entity "output/pkg-x509.xml"
-warning: failed to load external entity "output/pkg-x509.xml"
-warning: failed to load external entity "output/pkg-x509.xml"
-warning: failed to load external entity "output/pkg-x509.xml"
-warning: failed to load external entity "output/pkg-tls.xml"
-warning: failed to load external entity "output/pkg-tls.xml"
-warning: failed to load external entity "output/pkg-tls.xml"
-warning: failed to load external entity "output/pkg-tls.xml"
-warning: failed to load external entity "output/pkg-tls.xml"
-warning: failed to load external entity "output/pkg-tls.xml"
-warning: failed to load external entity "output/pkg-ssh.xml"
-warning: failed to load external entity "output/pkg-ssh.xml"
+output/pkg-x509.xml:1: parser error : Document is empty
+
+^
+output/pkg-x509.xml:1: parser error : Document is empty
+
+^
+output/pkg-x509.xml:1: parser error : Document is empty
+
+^
+output/pkg-x509.xml:1: parser error : Document is empty
+
+^
+output/pkg-x509.xml:1: parser error : Document is empty
+
+^
+output/pkg-x509.xml:1: parser error : Document is empty
+
+^
+output/pkg-x509.xml:1: parser error : Document is empty
+
+^
+output/pkg-x509.xml:1: parser error : Document is empty
+
+^
+output/pkg-x509.xml:1: parser error : Document is empty
+
+^
+output/pkg-x509.xml:1: parser error : Document is empty
+
+^
  Failed to find a reference to bibCEM.
  Failed to find a reference to bibCEM.
  Failed to find a reference to bibCEM.
-warning: failed to load external entity "output/pkg-tls.xml"
-warning: failed to load external entity "output/pkg-tls.xml"
 * Warning: Since FCS_CKM_EXT.1.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
                        
 * Warning: Since FCS_HTTPS_EXT.2.1 has an 'id' attribute in a descendant node in the title, you probably need to define an alternative 'ext-comp-def-title'.
