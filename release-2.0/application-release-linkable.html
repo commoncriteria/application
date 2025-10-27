@@ -742,9 +742,8 @@ The following sections list Common Criteria and technology terms used in this do
 					and uses the software in compliance with the applied enterprise security policy<a id="period_106" href="#period_106">. </a>				</span></dd></dl>
     
     
-    <h2 class="indexable" data-level="2" id="Organizational_Security_Policies">3.3 Organizational Security Policies</h2>
+    <h2 class="indexable" data-level="2" id="Organizational_Security_Policies">3.3 Organizational Security Policies</h2><p>This <abbr class="dyn-abbr"><a href="#abbr_PP">PP</a></abbr> defines no Organizational Security Policies<a id="period_107" href="#period_107">. </a></p>
       
-      This document does not define any additional OSPs<a id="period_107" href="#period_107">. </a>    
     
   <h1 class="indexable" data-level="1" id="Security_Objectives">4 Security Objectives</h1>
     
@@ -858,42 +857,42 @@ The following sections list Common Criteria and technology terms used in this do
             <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><div class="ea"><p>If "<b>use no <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</b>" is selected, the evaluator shall inspect the application and its developer documentation and verify that the application needs no random bit generation services<a id="period_137" href="#period_137">. </a><p></p>If "<b>implement <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</b>" is selected, the evaluator shall ensure that <a href="#FCS_RBG.1">FCS_RBG.1</a> is claimed<a id="period_138" href="#period_138">. </a><p></p>If "<b>invoke platform-provided <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</b>" is selected, the evaluator performs the following activities<a id="period_139" href="#period_139">. </a>The evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to confirm that it identifies all functions (as described by the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> included in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr>) that obtain random numbers from the platform <abbr class="dyn-abbr"><a href="#abbr_RBG">RBG</a></abbr><a id="period_140" href="#period_140">. </a>The evaluator shall determine that for each of these functions, the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> states which platform interface (<abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>) is used to obtain the random numbers<a id="period_141" href="#period_141">. </a>The evaluator shall confirm that each of these interfaces corresponds to the acceptable interfaces listed for each platform below<a id="period_142" href="#period_142">. </a><p></p>It should be noted that there is no expectation that the evaluators attempt to confirm that the APIs are being used correctly for the functions identified in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>; the activity is to list the used APIs and then do an existence check via decompilation<a id="period_143" href="#period_143">. </a></p></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea"><p>The evaluator shall verify the guidance documentation contains any information required for configuring the <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr><a id="period_144" href="#period_144">. </a></p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">
                  <p>If "<b>invoke platform-provided <abbr class="dyn-abbr"><a href="#abbr_DRBG">DRBG</a></abbr> functionality</b>" is selected, the following tests shall be performed:</p> <p>The evaluator shall decompile the application binary using a decompiler suitable for the application (<abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr>)<a id="period_145" href="#period_145">. </a>The evaluator shall search the output of the decompiler to determine that, for each <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> listed in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr>, that <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> appears in the output<a id="period_146" href="#period_146">. </a>If the representation of the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> does not correspond directly to the strings in the following list, the evaluator shall provide a mapping from the decompiled text to its corresponding <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>, with a description of why the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> text does not directly correspond to the decompiled text and justification that the decompiled text corresponds to the associated <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr><a id="period_147" href="#period_147">. </a></p> <p>The following are the per-platform list of acceptable APIs:</p>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that the application uses at least one of <code>javax.crypto.KeyGenerator</code> class or the <code>java.security.SecureRandom</code> class or <code>/dev/random</code> or <code>/dev/urandom</code><a id="period_148" href="#period_148">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that <code>rand_s</code>, <code>RtlGenRandom</code>, <code>BCryptGenRandom</code>, or <code>CryptGenRandom</code> <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> is used for classic desktop applications<a id="period_149" href="#period_149">. </a>The evaluator shall verify the application uses the <code>RNGCryptoServiceProvider</code> class or derives a class from <code>System.Security.Cryptography.RandomNumberGenerator <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr></code> for Windows Universal Applications<a id="period_150" href="#period_150">. </a>It is only required that the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> is called/invoked, there is no requirement that the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> be used directly<a id="period_151" href="#period_151">. </a>In future versions of this document, <code>CryptGenRandom</code> may be removed as an option as it is no longer the preferred <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> per vendor documentation<a id="period_152" href="#period_152">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that the application invokes either <code>SecRandomCopyBytes</code>, <code>CCRandomGenerateBytes</code>, or <code>CCRandomCopyBytes</code>, or uses <code>/dev/random</code> directly to acquire random<a id="period_153" href="#period_153">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that the application collects random from <code>/dev/random</code> or <code>/dev/urandom</code><a id="period_154" href="#period_154">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that the application collects random from <code>/dev/random</code><a id="period_155" href="#period_155">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that the application invokes either <code>CCRandomGenerateBytes</code> or <code>CCRandomCopyBytes</code>, or collects random from <code>/dev/random</code><a id="period_156" href="#period_156">. </a>                  
@@ -923,42 +922,42 @@ The following sections list Common Criteria and technology terms used in this do
               
             <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><div class="ea"><p>The evaluator shall check the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it lists all persistent credentials (secret keys, <abbr class="dyn-abbr"><a href="#abbr_PKI">PKI</a></abbr> private keys, or passwords) needed to meet the requirements in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr><a id="period_171" href="#period_171">. </a>For each of these items, the evaluator shall confirm that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> lists for what purpose it is used, and how it is stored<a id="period_172" href="#period_172">. </a><p></p>If <b>not store any credentials</b> is selected, the evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes the behavior of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> in sufficient detail to verify that the <abbr class="dyn-abbr"><a href="#abbr_TSF">TSF</a></abbr> does not have any behavior that would require any credentials to be stored (e.g., because the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> does not have any functionality requiring authentication)<a id="period_173" href="#period_173">. </a><p></p>If <b>securely store</b> is selected, the evaluator shall verify the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> contains the platform functions utilized and verify those functions are documented by the platform to be non-deprecated functions meeting the specifications in the requirement<a id="period_174" href="#period_174">. </a><p></p>If <b>invoke the functionality provided by the platform to securely store</b> is selected, the evaluator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the platform storage is invoked for each supported platform<a id="period_175" href="#period_175">. </a>The evaluator shall confirm the invocation of the platform is using non-deprecated functions provided by the platform(s)<a id="period_176" href="#period_176">. </a></p></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea"><p>None<a id="period_177" href="#period_177">. </a></p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">
                 For all credentials for which the application implements functionality, the evaluator shall verify credentials are encrypted according to <a href="#FCS_COP.1/SKC">FCS_COP.1/SKC</a> or conditioned according to <a href="#FCS_PBKDF_EXT.1">FCS_PBKDF_EXT.1</a><a id="period_178" href="#period_178">. </a>For all credentials for which the application invokes platform-provided functionality, the evaluator shall perform the following actions which vary per platform<a id="period_179" href="#period_179">. </a>                <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that the application uses the Android <code>KeyStore</code> or the Android <code>KeyChain</code> to store certificates<a id="period_180" href="#period_180">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that all certificates are stored in the Windows Certificate Store<a id="period_181" href="#period_181">. </a>The evaluator shall verify that other credentials, like passwords, are stored in the Windows Credential Manager or stored using the Data Protection <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> (<abbr class="dyn-abbr"><a href="#abbr_DPAPI">DPAPI</a></abbr>)<a id="period_182" href="#period_182">. </a>For Windows Universal Applications, the evaluator shall verify that the application is using the ProtectData class and storing credentials in IsolatedStorage<a id="period_183" href="#period_183">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that all credentials are stored within a <code>Keychain</code><a id="period_184" href="#period_184">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that all keys are stored using Linux keyrings<a id="period_185" href="#period_185">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that all keys are stored using Solaris <code>Key Management Framework (KMF)</code><a id="period_186" href="#period_186">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that all credentials are stored within <code>Keychain</code><a id="period_187" href="#period_187">. </a>                  
@@ -984,7 +983,7 @@ The following sections list Common Criteria and technology terms used in this do
               
               
               
-            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><div class="ea"><p>If any selection other than <b>not store any sensitive data</b> is selected the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it describes the sensitive data processed by the application<a id="period_193" href="#period_193">. </a>The evaluator shall then ensure that the following activities cover all of the sensitive data identified in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr><a id="period_194" href="#period_194">. </a><p></p>If <b>not store any sensitive data</b> is selected, the evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it describes how sensitive data cannot be written to non-volatile memory<a id="period_195" href="#period_195">. </a>The evaluator shall also ensure that this is consistent with the filesystem test below<a id="period_196" href="#period_196">. </a><p></p>If <b>implement functionality to encrypt sensitive data</b> is selected the evaluator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the application ensures all sensitive data is protected by the file encryption functions<a id="period_197" href="#period_197">. </a><p></p>If <b>protect sensitive data in accordance with <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></b> is selected the evaluator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes which data is protected via this mechanism and the selections within <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a> that are leveraged<a id="period_198" href="#period_198">. </a>If multiple selections are included the evaluator shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes which sensitive data is captured by which selection<a id="period_199" href="#period_199">. </a><p></p>If "<b>leverage platform-provided functionality..<a id="period_200" href="#period_200">. </a></b>" is selected, the evaluation activities will be performed as stated in the following requirements, which vary on a per-platform basis<a id="period_201" href="#period_201">. </a><p></p> <div class="dependent">Platforms:<a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><div>The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that it describes how files containing sensitive data are stored with the <code>MODE_PRIVATE </code> flag set<a id="period_202" href="#period_202">. </a></div></div></div>   <div class="dependent">Platforms:<a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><div>The Windows platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers<a id="period_203" href="#period_203">. </a></div></div></div>   <div class="dependent">Platforms:<a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><div>The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and ensure that it describes how the application uses the Complete Protection, Protected Unless Open, or Protected Until First User Authentication Data Protection Class for each data file stored locally<a id="period_204" href="#period_204">. </a></div></div></div>   <div class="dependent">Platforms:<a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><div>The Linux platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers<a id="period_205" href="#period_205">. </a></div></div></div>   <div class="dependent">Platforms:<a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><div>The Solaris platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers<a id="period_206" href="#period_206">. </a></div></div></div>   <div class="dependent">Platforms:<a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><div>The macOS platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers<a id="period_207" href="#period_207">. </a></div></div></div>  </p></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea"><p>The evaluator shall confirm the operational guidance contains any instructions necessary for configuring the storage and protection of any sensitive data<a id="period_208" href="#period_208">. </a><p></p>If <b>leverage platform-provided functionality to encrypt sensitive data</b> is selected the evaluator shall confirm the operational guidance contains the list of supported operational environments and any steps necessary to ensure the platform captures any sensitive data that is stored<a id="period_209" href="#period_209">. </a></p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea"> <p>If "<b>implement functionality to encrypt sensitive data as defined in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</b>" or "<b>protect sensitive data in accordance with <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></b>" is selected, the evaluator shall inventory the filesystem locations where the application may write data<a id="period_210" href="#period_210">. </a>The evaluator shall run the application and attempt to store sensitive data<a id="period_211" href="#period_211">. </a>The evaluator shall then inspect those areas of the filesystem to note where data was stored (if any), and verify it has been encrypted<a id="period_212" href="#period_212">. </a></p> <p>If "<b>leverage platform-provided functionality..<a id="period_213" href="#period_213">. </a></b>" is selected no additional testing is required<a id="period_214" href="#period_214">. </a></p></div></div></div></div></div>
+            <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><div class="ea"><p>If any selection other than <b>not store any sensitive data</b> is selected the evaluator shall examine the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it describes the sensitive data processed by the application<a id="period_193" href="#period_193">. </a>The evaluator shall then ensure that the following activities cover all of the sensitive data identified in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr><a id="period_194" href="#period_194">. </a><p></p>If <b>not store any sensitive data</b> is selected, the evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to ensure that it describes how sensitive data cannot be written to non-volatile memory<a id="period_195" href="#period_195">. </a>The evaluator shall also ensure that this is consistent with the filesystem test below<a id="period_196" href="#period_196">. </a><p></p>If <b>implement functionality to encrypt sensitive data</b> is selected the evaluator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes how the application ensures all sensitive data is protected by the file encryption functions<a id="period_197" href="#period_197">. </a><p></p>If <b>protect sensitive data in accordance with <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></b> is selected the evaluator shall confirm the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes which data is protected via this mechanism and the selections within <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a> that are leveraged<a id="period_198" href="#period_198">. </a>If multiple selections are included the evaluator shall ensure the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> describes which sensitive data is captured by which selection<a id="period_199" href="#period_199">. </a><p></p>If "<b>leverage platform-provided functionality..<a id="period_200" href="#period_200">. </a></b>" is selected, the evaluation activities will be performed as stated in the following requirements, which vary on a per-platform basis<a id="period_201" href="#period_201">. </a><p></p> <div class="dependent">Platforms: <a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><div>The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that it describes how files containing sensitive data are stored with the <code>MODE_PRIVATE </code> flag set<a id="period_202" href="#period_202">. </a></div></div></div>   <div class="dependent">Platforms: <a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><div>The Windows platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers<a id="period_203" href="#period_203">. </a></div></div></div>   <div class="dependent">Platforms: <a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><div>The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and ensure that it describes how the application uses the Complete Protection, Protected Unless Open, or Protected Until First User Authentication Data Protection Class for each data file stored locally<a id="period_204" href="#period_204">. </a></div></div></div>   <div class="dependent">Platforms: <a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><div>The Linux platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers<a id="period_205" href="#period_205">. </a></div></div></div>   <div class="dependent">Platforms: <a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><div>The Solaris platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers<a id="period_206" href="#period_206">. </a></div></div></div>   <div class="dependent">Platforms: <a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><div>The macOS platform currently does not provide data-at-rest encryption services which depend upon invocation by application developers<a id="period_207" href="#period_207">. </a></div></div></div>  </p></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea"><p>The evaluator shall confirm the operational guidance contains any instructions necessary for configuring the storage and protection of any sensitive data<a id="period_208" href="#period_208">. </a><p></p>If <b>leverage platform-provided functionality to encrypt sensitive data</b> is selected the evaluator shall confirm the operational guidance contains the list of supported operational environments and any steps necessary to ensure the platform captures any sensitive data that is stored<a id="period_209" href="#period_209">. </a></p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea"> <p>If "<b>implement functionality to encrypt sensitive data as defined in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</b>" or "<b>protect sensitive data in accordance with <a href="#FCS_STO_EXT.1">FCS_STO_EXT.1</a></b>" is selected, the evaluator shall inventory the filesystem locations where the application may write data<a id="period_210" href="#period_210">. </a>The evaluator shall run the application and attempt to store sensitive data<a id="period_211" href="#period_211">. </a>The evaluator shall then inspect those areas of the filesystem to note where data was stored (if any), and verify it has been encrypted<a id="period_212" href="#period_212">. </a></p> <p>If "<b>leverage platform-provided functionality..<a id="period_213" href="#period_213">. </a></b>" is selected no additional testing is required<a id="period_214" href="#period_214">. </a></p></div></div></div></div></div>
         
         <div class="comp" id="FDP_DEC_EXT.1"><h4>FDP_DEC_EXT.1 Access to Platform Resources</h4>
           
@@ -1004,14 +1003,14 @@ The following sections list Common Criteria and technology terms used in this do
               <div class="eacategory">Guidance</div><div class="ea"><p>The evaluator shall perform the platform-specific actions below and inspect user documentation to determine the application's access to hardware resources<a id="period_228" href="#period_228">. </a>The evaluator shall ensure that this is consistent with the selections indicated<a id="period_229" href="#period_229">. </a>The evaluator shall review documentation provided by the application developer and for each resource which it accesses, identify the justification as to why access is required<a id="period_230" href="#period_230">. </a></p></div>
               <div class="eacategory">Tests</div><div class="ea">
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that each <code>uses-permission</code> entry in the AndroidManifest.xml file for access to a hardware resource is reflected in the selection<a id="period_231" href="#period_231">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
                     
                     
                     For Windows Universal Applications the evaluator shall check the AppxManifest.xml file for a list of required hardware capabilities<a id="period_232" href="#period_232">. </a>The evaluator shall verify that the user is made aware of the required hardware capabilities when the application is first installed<a id="period_233" href="#period_233">. </a>This includes permissions such as ID_CAP_ISV_CAMERA, ID_CAP_LOCATION, ID_CAP_NETWORKING, ID_CAP_MICROPHONE, ID_CAP_PROXIMITY and so on<a id="period_234" href="#period_234">. </a>A complete list of Windows App permissions can be found at:<ul><li><a href="http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx">
@@ -1019,28 +1018,28 @@ The following sections list Common Criteria and technology terms used in this do
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that either the application or the documentation provides a list of the hardware resources it accesses<a id="period_236" href="#period_236">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that either the application software or its documentation provides a list of the hardware resources it accesses<a id="period_237" href="#period_237">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that either the application software or its documentation provides a list of the hardware resources it accesses<a id="period_238" href="#period_238">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that either the application software or its documentation provides a list of the hardware resources it accesses<a id="period_239" href="#period_239">. </a>                  
@@ -1052,14 +1051,14 @@ The following sections list Common Criteria and technology terms used in this do
               <div class="eacategory">Guidance</div><div class="ea"><p>The evaluator shall perform the platform-specific actions below and inspect user documentation to determine the application's access to sensitive information repositories<a id="period_241" href="#period_241">. </a>The evaluator shall ensure that this is consistent with the selections indicated<a id="period_242" href="#period_242">. </a>The evaluator shall review documentation provided by the application developer and for each sensitive information repository which it accesses, identify the justification as to why access is required<a id="period_243" href="#period_243">. </a></p></div>
               <div class="eacategory">Tests</div><div class="ea">
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that each <code>uses-permission</code> entry in the AndroidManifest.xml file for access to a sensitive information repository is reflected in the selection<a id="period_244" href="#period_244">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
                     
                     
                     For Windows Universal Applications the evaluator shall check the AppxManifest.xml file for a list of required capabilities<a id="period_245" href="#period_245">. </a>The evaluator shall identify the required information repositories when the application is first installed<a id="period_246" href="#period_246">. </a>This includes permissions such as ID_CAP_CONTACTS,ID_CAP_APPOINTMENTS,ID_CAP_MEDIALIB and so on<a id="period_247" href="#period_247">. </a>A complete list of Windows App permissions can be found at:<ul><li><a href="http://msdn.microsoft.com/en-US/library/windows/apps/jj206936.aspx">
@@ -1067,28 +1066,28 @@ The following sections list Common Criteria and technology terms used in this do
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that either the application software or its documentation provides a list of the sensitive information repositories it accesses<a id="period_249" href="#period_249">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that either the application software or its documentation provides a list of sensitive information repositories it accesses<a id="period_250" href="#period_250">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that either the application software or its documentation provides a list of sensitive information repositories it accesses<a id="period_251" href="#period_251">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that either the application software or its documentation provides a list of sensitive information repositories it accesses<a id="period_252" href="#period_252">. </a>                  
@@ -1121,7 +1120,7 @@ The following sections list Common Criteria and technology terms used in this do
       The evaluator shall run the application<a id="period_260" href="#period_260">. </a>After the application initializes, the evaluator shall run network port scans to verify that any ports opened by the application have been captured in the <abbr class="dyn-abbr"><a href="#abbr_ST">ST</a></abbr> for the third selection and its assignment<a id="period_261" href="#period_261">. </a>This includes connection-based protocols (e.g<a id="period_262" href="#period_262">. </a>TCP, DCCP) as well as connectionless protocols (e.g<a id="period_263" href="#period_263">. </a>UDP)<a id="period_264" href="#period_264">. </a></li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
                     
                     
                     If "<b>no network communication</b>" is selected, the evaluator shall ensure that the application's AndroidManifest.xml file does not contain a uses-permission or uses-permission-sdk-23 tag containing android:name="android.permission.INTERNET"<a id="period_265" href="#period_265">. </a>In this case, it is not necessary to perform the above Tests 1 and 2, as the platform will not allow the application to perform any network communication<a id="period_266" href="#period_266">. </a>                  
@@ -1163,42 +1162,42 @@ The following sections list Common Criteria and technology terms used in this do
               <div class="eacategory">Guidance</div><div class="ea"><p>None<a id="period_280" href="#period_280">. </a></p></div>
               <div class="eacategory">Tests</div><div class="ea">
                 The evaluator shall install and run the application<a id="period_281" href="#period_281">. </a>The evaluator shall inspect the filesystem of the platform (to the extent possible) for any files created by the application and ensure that their permissions are adequate to protect them<a id="period_282" href="#period_282">. </a>The method of doing so varies per platform<a id="period_283" href="#period_283">. </a>                <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall run the command <code>find -L <a id="period_284" href="#period_284">. </a>-perm /002</code> inside the application's data directories to ensure that all files are not world-writable<a id="period_285" href="#period_285">. </a>The command should not print any files (for this test, directories are not considered to be files)<a id="period_286" href="#period_286">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall run the SysInternals tools Process Monitor and Access Check (or tools of equivalent capability, like icacls.exe) for Classic Desktop applications to verify that files written to disk during an application's installation have the correct file permissions, such that a standard user cannot modify the application or its data files<a id="period_287" href="#period_287">. </a>For Windows Universal Applications the evaluator shall consider the requirement met because of the AppContainer sandbox<a id="period_288" href="#period_288">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall determine whether the application leverages the appropriate Data Protection Class for each data file stored locally<a id="period_289" href="#period_289">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall run the command <code>find -L <a id="period_290" href="#period_290">. </a>-perm /002</code> inside the application's data directories to ensure that all files are not world-writable<a id="period_291" href="#period_291">. </a>The command should not print any files<a id="period_292" href="#period_292">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall run the command <code>find <a id="period_293" href="#period_293">. </a>\( -perm -002 \)</code> inside the application's data directories to ensure that all files are not world-writable<a id="period_294" href="#period_294">. </a>The command should not print any files<a id="period_295" href="#period_295">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall run the command <code>find <a id="period_296" href="#period_296">. </a>-perm +002</code> inside the application's data directories to ensure that all files are not world-writable<a id="period_297" href="#period_297">. </a>The command should not print any files<a id="period_298" href="#period_298">. </a>                  
@@ -1222,13 +1221,13 @@ The following sections list Common Criteria and technology terms used in this do
             <div class="eacategory"><abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr></div><div class="ea"><div class="ea"><p>The evaluator shall review the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to identify the application's configuration options (e.g., settings) and determine whether these are stored and set using the mechanisms supported by the platform or implemented by the application in accordance with the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption<a id="period_303" href="#period_303">. </a>At a minimum the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> shall list settings related to any <abbr class="dyn-abbr"><a href="#abbr_SFR">SFRs</a></abbr> and any settings that are mandated in the operational guidance in response to an <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr><a id="period_304" href="#period_304">. </a><p></p>Conditional: If "<b>implement functionality to encrypt and store configuration options as defined by FDP_PRT_EXT.1 in the <abbr class="dyn-abbr"><a href="#abbr_PP-Module">PP-Module</a></abbr> for File Encryption</b>" is selected, the evaluator shall ensure that the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> identifies those options, as well as indicates where the encrypted representation of these options is stored<a id="period_305" href="#period_305">. </a></p></div></div><div class="eacategory">Guidance</div><div class="ea"><div class="ea"><p>The evaluator shall verify the guidance documentation contains any information necessary to configure the protection of configuration settings<a id="period_306" href="#period_306">. </a></p></div></div><div class="eacategory">Tests</div><div class="ea"><div class="ea">
                 If " <b>invoke the mechanisms recommended by the platform vendor for storing and setting configuration options</b>" is selected, the method of testing varies per platform as follows:
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
                     
                     <p>The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that it describes what Android <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> is used (and provides a link to the documentation of the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr>) when storing configuration data<a id="period_307" href="#period_307">. </a>The evaluator shall run the application and verify that the behavior of the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is consistent with where and how the <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> documentation says the configuration data will be stored<a id="period_308" href="#period_308">. </a><p></p>For SharedPreferences, the evaluator shall examine the XML file to make sure it reflects the changes made to the configuration to verify that the application used SharedPreferences or PreferenceActivity to store the configuration data<a id="period_309" href="#period_309">. </a>For DataStore, the evaluator shall use a protocol buffer analyzer to examine the file to make sure it reflects the changes made to the configuration to verify that the application used DataStore to store the configuration data<a id="period_310" href="#period_310">. </a></p>
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
                     
                     <p>The evaluator shall determine and verify that Windows Universal Applications use either the Windows.Storage namespace, Windows<a id="period_311" href="#period_311">. </a><abbr class="dyn-abbr"><a href="#abbr_UI">UI</a></abbr>.ApplicationSettings namespace, or the IsolatedStorageSettings namespace for storing application specific settings<a id="period_312" href="#period_312">. </a>For .NET applications, the evaluator shall determine and verify that the application uses one of the locations listed in <a href="https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/">
 							https://docs.microsoft.com/en-us/dotnet/framework/configure-apps/</a> or <a href="https://learn.microsoft.com/en-us/previous-versions/dotnet/netframework-4.0/zzdt0e7f(v=vs.100)">
@@ -1238,28 +1237,28 @@ The following sections list Common Criteria and technology terms used in this do
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that the <abbr class="dyn-abbr"><a href="#abbr_app">app</a></abbr> uses the <code>user defaults system</code> or <code>key-value store</code> for storing all settings<a id="period_316" href="#period_316">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall run the application while monitoring it with the utility <span class="util">strace</span><a id="period_317" href="#period_317">. </a>The evaluator shall make security-related changes to its configuration<a id="period_318" href="#period_318">. </a>The evaluator shall verify that <span class="util">strace</span> logs corresponding changes to configuration files that reside in /etc (for system-specific configuration), in the user's home directory (for user-specific configuration), or /var/lib/ (for configurations controlled by <abbr class="dyn-abbr"><a href="#abbr_UI">UI</a></abbr> and not intended to be directly modified by an administrator)<a id="period_319" href="#period_319">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall run the application while monitoring it with the utility <span class="util">dtrace</span><a id="period_320" href="#period_320">. </a>The evaluator shall make security-related changes to its configuration<a id="period_321" href="#period_321">. </a>The evaluator shall verify that <span class="util">dtrace</span> logs corresponding changes to configuration files that reside in /etc (for system-specific configuration) or in the user's home directory (for user-specific configuration)<a id="period_322" href="#period_322">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall verify that the application stores and retrieves settings using the <code>NSUserDefaults</code> class<a id="period_323" href="#period_323">. </a>                  
@@ -1331,42 +1330,42 @@ The following sections list Common Criteria and technology terms used in this do
               <div class="eacategory">Guidance</div><div class="ea"><p>None<a id="period_362" href="#period_362">. </a></p></div>
               <div class="eacategory">Tests</div><div class="ea">
                 The evaluator shall perform either a static or dynamic analysis to determine that no memory mappings are placed at an explicit and consistent address except for any exceptions claimed in the <abbr class="dyn-abbr"><a href="#abbr_SFR">SFR</a></abbr><a id="period_363" href="#period_363">. </a>For these exceptions, the evaluator shall verify that this analysis shows explicit mappings that are consistent with what is claimed in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr><a id="period_364" href="#period_364">. </a>The method of doing so varies per platform<a id="period_365" href="#period_365">. </a>For those platforms requiring the same application running on two different systems, the evaluator may alternatively use the same device<a id="period_366" href="#period_366">. </a>After collecting the first instance of mappings, the evaluator must uninstall the application, reboot the device, and reinstall the application to collect the second instance of mappings<a id="period_367" href="#period_367">. </a>                <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall run the same application on two different Android systems<a id="period_368" href="#period_368">. </a>Both devices do not need to be evaluated, as the second device is acting only as a tool<a id="period_369" href="#period_369">. </a>Connect via <abbr class="dyn-abbr"><a href="#abbr_ADB">ADB</a></abbr> and inspect /proc/<abbr class="dyn-abbr"><a href="#abbr_PID">PID</a></abbr>/maps<a id="period_370" href="#period_370">. </a>Ensure the two different instances share no memory mappings made by the application at the same location<a id="period_371" href="#period_371">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall run the same application on two different Windows systems and run a tool that will list all memory mapped addresses for the application<a id="period_372" href="#period_372">. </a>The evaluator shall then verify the two different instances share no mapping locations<a id="period_373" href="#period_373">. </a>The Microsoft SysInternals tool, VMMap, could be used to view memory addresses of a running application<a id="period_374" href="#period_374">. </a>The evaluator shall use a tool such as Microsoft's BinScope Binary Analyzer to confirm that the application has <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr> enabled<a id="period_375" href="#period_375">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall perform a static analysis to search for any mmap calls (or <abbr class="dyn-abbr"><a href="#abbr_API">API</a></abbr> calls that call mmap), and ensure that no arguments are provided that request a mapping at a fixed address<a id="period_376" href="#period_376">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall run the same application on two different Linux systems<a id="period_377" href="#period_377">. </a>The evaluator shall then compare their memory maps using <code>pmap -x <i><abbr class="dyn-abbr"><a href="#abbr_PID">PID</a></abbr></i></code> to ensure the two different instances share no mapping locations<a id="period_378" href="#period_378">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall run the same application on two different Solaris systems<a id="period_379" href="#period_379">. </a>The evaluator shall then compare their memory maps using <code>pmap -x <i><abbr class="dyn-abbr"><a href="#abbr_PID">PID</a></abbr></i></code> to ensure the two different instances share no mapping locations<a id="period_380" href="#period_380">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall run the same application on two different Mac systems<a id="period_381" href="#period_381">. </a>The evaluator shall then compare their memory maps using <code>vmmap <i><abbr class="dyn-abbr"><a href="#abbr_PID">PID</a></abbr></i></code> to ensure the two different instances share no mapping locations<a id="period_382" href="#period_382">. </a>                  
@@ -1378,42 +1377,42 @@ The following sections list Common Criteria and technology terms used in this do
               <div class="eacategory">Guidance</div><div class="ea"><p>None<a id="period_384" href="#period_384">. </a></p></div>
               <div class="eacategory">Tests</div><div class="ea">
                 The evaluator shall verify that no memory mapping requests are made with write and execute permissions<a id="period_385" href="#period_385">. </a>The method of doing so varies per platform<a id="period_386" href="#period_386">. </a>                <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall perform static analysis on the application to verify that <ul><li>mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions, and</li><li>mprotect is never invoked<a id="period_387" href="#period_387">. </a></li></ul>
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall use a tool such as Microsoft's BinScope Binary Analyzer to confirm that the application passes the NXCheck<a id="period_388" href="#period_388">. </a>The evaluator may also ensure that the <code>/NXCOMPAT</code> flag was used during compilation to verify that <abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr> protections are enabled for the application<a id="period_389" href="#period_389">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall perform static analysis on the application to verify that mprotect is never invoked with the PROT_EXEC permission<a id="period_390" href="#period_390">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall perform static analysis on the application to verify that both <ul><li>mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions, and</li><li>mprotect is never invoked with the PROT_EXEC permission<a id="period_391" href="#period_391">. </a></li></ul>
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall perform static analysis on the application to verify that both <ul><li>mmap is never invoked with both the PROT_WRITE and PROT_EXEC permissions, and</li><li>mprotect is never invoked with the PROT_EXEC permission<a id="period_392" href="#period_392">. </a></li></ul>
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall perform static analysis on the application to verify that mprotect is never invoked with the PROT_EXEC permission<a id="period_393" href="#period_393">. </a>                  
@@ -1426,41 +1425,41 @@ The following sections list Common Criteria and technology terms used in this do
               <div class="eacategory">Tests</div><div class="ea">
                 The evaluator shall configure the platform in the necessary manner and carry out one of the prescribed tests:
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
                     
                     
                     Applications running on Android cannot disable Android security features, therefore this requirement is met and no evaluation activity is required<a id="period_396" href="#period_396">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
                     
                     <p>If the <abbr class="dyn-abbr"><a href="#abbr_OS">OS</a></abbr> platform supports Windows Defender Exploit Guard, then the evaluator shall ensure that the application can run successfully with Windows Defender Exploit Guard Exploit Protection configured with the following minimum mitigations enabled; Control Flow Guard (CFG), Randomize memory allocations (Bottom-Up <abbr class="dyn-abbr"><a href="#abbr_ASLR">ASLR</a></abbr>), Export address filtering (EAF), Import address filtering (IAF), and Data Execution Prevention (<abbr class="dyn-abbr"><a href="#abbr_DEP">DEP</a></abbr>)<a id="period_397" href="#period_397">. </a>The following link describes how to enable Exploit Protection, https://learn.microsoft.com/en-us/microsoft-365/security/defender-endpoint/enable-exploit-protection?view=o365-worldwide<a id="period_398" href="#period_398">. </a></p>
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
                     
                     
                     Applications running on iOS cannot disable security features, therefore this requirement is met and no evaluation activity is required<a id="period_399" href="#period_399">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall ensure that the application can successfully run on a system with either SELinux or AppArmor enabled and in enforce mode<a id="period_400" href="#period_400">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall ensure that the application can run with Solaris Trusted Extensions enabled and enforcing<a id="period_401" href="#period_401">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall ensure that the application can successfully run on macOS without disabling any security features<a id="period_402" href="#period_402">. </a>                  
@@ -1473,42 +1472,42 @@ The following sections list Common Criteria and technology terms used in this do
               <div class="eacategory">Tests</div><div class="ea">
                 The evaluator shall run the application and determine where it writes its files<a id="period_405" href="#period_405">. </a>For files where the user does not choose the destination, the evaluator shall check whether the destination directory contains executable files<a id="period_406" href="#period_406">. </a>This varies per platform:
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written<a id="period_407" href="#period_407">. </a>The evaluator shall ensure that there are no executable files stored under <span style="path">/data/data/<i>package</i>/</span> where <i>package</i> is the Java package of the application<a id="period_408" href="#period_408">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
                     
                     
                     For Windows Universal Applications the evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox)<a id="period_409" href="#period_409">. </a>For Windows Desktop Applications the evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written<a id="period_410" href="#period_410">. </a>The evaluator shall ensure that there are no executable files stored in the same directories to which the application wrote user-modifiable files<a id="period_411" href="#period_411">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox)<a id="period_412" href="#period_412">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written<a id="period_413" href="#period_413">. </a>The evaluator shall ensure that there are no executable files stored in the same directories to which the application wrote user-modifiable files<a id="period_414" href="#period_414">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written<a id="period_415" href="#period_415">. </a>The evaluator shall ensure that there are no executable files stored in the same directories to which the application wrote user-modifiable files<a id="period_416" href="#period_416">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall run the program, mimicking normal usage, and note where all user-modifiable files are written<a id="period_417" href="#period_417">. </a>The evaluator shall ensure that there are no executable files stored in the same directories to which the application wrote user-modifiable files<a id="period_418" href="#period_418">. </a>                  
@@ -1520,7 +1519,7 @@ The following sections list Common Criteria and technology terms used in this do
               <div class="eacategory">Guidance</div><div class="ea"><p>None<a id="period_420" href="#period_420">. </a></p></div>
               <div class="eacategory">Tests</div><div class="ea">
                 The evaluator will inspect every native executable included in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> to ensure that stack-based buffer overflow protection is present<a id="period_421" href="#period_421">. </a>                <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
                     
                     
                     Applications that run as Managed Code in the .NET Framework do not require these stack protections<a id="period_422" href="#period_422">. </a>Applications developed in Object Pascal using the Delphi IDE compiled with RangeChecking enabled comply with this element<a id="period_423" href="#period_423">. </a>For other code, the evaluator shall review the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> and verify that the /GS flag was used during compilation<a id="period_424" href="#period_424">. </a>The evaluator shall run a tool like, BinSkim, that can verify the correct usage of /GS<a id="period_425" href="#period_425">. </a>                  
@@ -1611,14 +1610,14 @@ The following sections list Common Criteria and technology terms used in this do
               <div class="eacategory">Tests</div><div class="ea">
                 Conditional: If "not download, modify, replace or update its own binary code" is selected the evaluator shall verify that the application's executable files are not changed by the application with the following tests:
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox)<a id="period_466" href="#period_466">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a>,<a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a>,<a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a>,<a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a>,<a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a>, <a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a>, <a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a>, <a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a>, <a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
                     
                     
                     
@@ -1682,14 +1681,14 @@ The following sections list Common Criteria and technology terms used in this do
       The evaluator shall inspect the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr> to determine if user credentials are transmitted<a id="period_527" href="#period_527">. </a>If credentials are transmitted the evaluator shall set the credential to a known value<a id="period_528" href="#period_528">. </a>The evaluator shall capture packets from the application while causing credentials to be transmitted as described in the <abbr class="dyn-abbr"><a href="#abbr_TSS">TSS</a></abbr><a id="period_529" href="#period_529">. </a>The evaluator shall perform a string search of the captured network packets and verify that the plaintext credential previously set by the evaluator is not found<a id="period_530" href="#period_530">. </a></li>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
                     
                     
                     If "<b>not transmit any data</b>" is selected, the evaluator shall ensure that the application's AndroidManifest.xml file does not contain a uses-permission or uses-permission-sdk-23 tag containing android:name="android.permission.INTERNET"<a id="period_531" href="#period_531">. </a>In this case, it is not necessary to perform the above Tests 1, 2, 3, or 4 as the platform will not allow the application to perform any network communication<a id="period_532" href="#period_532">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
                     
                     
                     If "<b>encrypt all transmitted data</b>" is selected, the evaluator shall ensure that the application's Info.plist file does not contain the NSAllowsArbitraryLoads or NSExceptionAllowsInsecureHTTPLoads keys, as these keys disable iOS's Application Transport Security feature<a id="period_533" href="#period_533">. </a>                  
@@ -1903,7 +1902,7 @@ The following sections list Common Criteria and technology terms used in this do
       Note:
     </span><span class="note">Suitability for testing means not being obfuscated or packaged in such a way as to disrupt either static or dynamic analysis by the evaluator<a id="period_778" href="#period_778">. </a></span></div></div></div><h4>Evaluator action elements: </h4><div class="element"><div class="reqid" id="AVA_VAN.1.1E"><a href="#AVA_VAN.1.1E" class="abbr">AVA_VAN.1.1E</a></div><div class="reqdesc">The evaluator shall confirm that the information provided meets all requirements for content and presentation of evidence<a id="period_779" href="#period_779">. </a></div></div><div class="element"><div class="reqid" id="AVA_VAN.1.2E"><a href="#AVA_VAN.1.2E" class="abbr">AVA_VAN.1.2E</a></div><div class="reqdesc">The evaluator shall perform a search of public domain sources to identify potential vulnerabilities in the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr><a id="period_780" href="#period_780">. </a><div class="appnote"><span class="note-header">Application
       Note:
-    </span><span class="note">Public domain sources include the Common Vulnerabilities and Exposures (CVE) dictionary for publicly known vulnerabilities<a id="period_781" href="#period_781">. </a>Public domain sources also include sites which provide free checking of files for viruses<a id="period_782" href="#period_782">. </a></span></div></div></div><div class="element"><div class="reqid" id="AVA_VAN.1.3E"><a href="#AVA_VAN.1.3E" class="abbr">AVA_VAN.1.3E</a></div><div class="reqdesc">The evaluator shall conduct penetration testing, based on the identified potential vulnerabilities, to determine that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is resistant to attacks performed by an attacker possessing Basic attack potential<a id="period_783" href="#period_783">. </a></div></div><div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#AVA_VAN.1">AVA_VAN.1</a></div><p>The evaluator shall generate a report to document their findings with respect to this requirement<a id="period_784" href="#period_784">. </a>This report could physically be part of the overall test report mentioned in ATE_IND, or a separate document<a id="period_785" href="#period_785">. </a>The evaluator performs a search of public information to find vulnerabilities that have been found in similar applications with a particular focus on network protocols the application uses and document formats it parses<a id="period_786" href="#period_786">. </a><p></p>The evaluator documents the sources consulted and the vulnerabilities found in the report<a id="period_787" href="#period_787">. </a><p></p>For each vulnerability found, the evaluator either provides a rationale with respect to its non-applicability, or the evaluator formulates a test (using the guidelines provided in ATE_IND) to confirm the vulnerability, if suitable<a id="period_788" href="#period_788">. </a>Suitability is determined by assessing the attack vector needed to take advantage of the vulnerability<a id="period_789" href="#period_789">. </a>If exploiting the vulnerability requires expert skills and an electron microscope, for instance, then a test would not be suitable and an appropriate justification would be formulated<a id="period_790" href="#period_790">. </a></p> <div class="dependent">Platforms:<a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a>,<a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a>,<a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a>,<a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><div>The evaluator shall also run a virus scanner with the most current virus definitions against the application files and verify that no files are flagged as malicious<a id="period_791" href="#period_791">. </a></div></div></div>  </div></div></div>
+    </span><span class="note">Public domain sources include the Common Vulnerabilities and Exposures (CVE) dictionary for publicly known vulnerabilities<a id="period_781" href="#period_781">. </a>Public domain sources also include sites which provide free checking of files for viruses<a id="period_782" href="#period_782">. </a></span></div></div></div><div class="element"><div class="reqid" id="AVA_VAN.1.3E"><a href="#AVA_VAN.1.3E" class="abbr">AVA_VAN.1.3E</a></div><div class="reqdesc">The evaluator shall conduct penetration testing, based on the identified potential vulnerabilities, to determine that the <abbr class="dyn-abbr"><a href="#abbr_TOE">TOE</a></abbr> is resistant to attacks performed by an attacker possessing Basic attack potential<a id="period_783" href="#period_783">. </a></div></div><div class="activity_pane hide"><div class="activity_pane_header"><a onclick="toggle(this);return false;" href="#"><span class="activity_pane_label"> Evaluation Activities </span><span class="toggler"></span></a></div><div class="activity_pane_body"><div class="component-activity-header"><a href="#AVA_VAN.1">AVA_VAN.1</a></div><p>The evaluator shall generate a report to document their findings with respect to this requirement<a id="period_784" href="#period_784">. </a>This report could physically be part of the overall test report mentioned in ATE_IND, or a separate document<a id="period_785" href="#period_785">. </a>The evaluator performs a search of public information to find vulnerabilities that have been found in similar applications with a particular focus on network protocols the application uses and document formats it parses<a id="period_786" href="#period_786">. </a><p></p>The evaluator documents the sources consulted and the vulnerabilities found in the report<a id="period_787" href="#period_787">. </a><p></p>For each vulnerability found, the evaluator either provides a rationale with respect to its non-applicability, or the evaluator formulates a test (using the guidelines provided in ATE_IND) to confirm the vulnerability, if suitable<a id="period_788" href="#period_788">. </a>Suitability is determined by assessing the attack vector needed to take advantage of the vulnerability<a id="period_789" href="#period_789">. </a>If exploiting the vulnerability requires expert skills and an electron microscope, for instance, then a test would not be suitable and an appropriate justification would be formulated<a id="period_790" href="#period_790">. </a></p> <div class="dependent">Platforms: <a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a>, <a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a>, <a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a>, <a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><div>The evaluator shall also run a virus scanner with the most current virus definitions against the application files and verify that no files are flagged as malicious<a id="period_791" href="#period_791">. </a></div></div></div>  </div></div></div>
       
     
   <h1 id="opt-app" class="indexable" data-level="A">Appendix A -  Optional Requirements</h1>
@@ -2404,42 +2403,42 @@ for i = 1 to 1000:
               <div class="eacategory">Tests</div><div class="ea">
                 If a container image is claimed, the evaluator shall verify that application updates are distributed as container images<a id="period_1383" href="#period_1383">. </a>If the format of the platform-supported package manager is claimed, the evaluator shall verify that application updates are distributed in the format supported by the platform<a id="period_1384" href="#period_1384">. </a>This varies per platform:
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall ensure that the application is packaged in the Android application package (<abbr class="dyn-abbr"><a href="#abbr_APK">APK</a></abbr>) format<a id="period_1385" href="#period_1385">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#windows"><b>Microsoft Windows </b> : <i>Microsoft Windows operating systems </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall ensure that the application is packaged in the standard Windows Installer (<a id="period_1386" href="#period_1386">. </a><abbr class="dyn-abbr"><a href="#abbr_MSI">MSI</a></abbr>) format, the Windows Application Software (.EXE) format signed using the Microsoft Authenticode process, or the Windows Universal Application package (<a id="period_1387" href="#period_1387">. </a><abbr class="dyn-abbr"><a href="#abbr_APPX">APPX</a></abbr>) format<a id="period_1388" href="#period_1388">. </a>See https://msdn.microsoft.com/en-us/library/ms537364(v=vs.85).aspx for details regarding Authenticode signing<a id="period_1389" href="#period_1389">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall ensure that the application is packaged in the <abbr class="dyn-abbr"><a href="#abbr_IPA">IPA</a></abbr> format<a id="period_1390" href="#period_1390">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#linux"><b>Linux </b> : <i>Linux-based operating systems other than Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall ensure that the application is packaged in the format of the package management infrastructure of the chosen distribution<a id="period_1391" href="#period_1391">. </a>For example, applications running on Red Hat and Red Hat derivatives shall be packaged in <code>RPM</code> format<a id="period_1392" href="#period_1392">. </a>Applications running on Debian and Debian derivatives shall be packaged in <code>DEB</code> format<a id="period_1393" href="#period_1393">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#Solaris"><b>Oracle Solaris </b> : <i>Oracle's enterprise operating system </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall ensure that the application is packaged in the <abbr class="dyn-abbr"><a href="#abbr_PKG">PKG</a></abbr> format<a id="period_1394" href="#period_1394">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#mac"><b>Apple macOS </b> : <i>Apple's operating system for Mac devices </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall ensure that the application is packaged in the <abbr class="dyn-abbr"><a href="#abbr_DMG">DMG</a></abbr> format, the <abbr class="dyn-abbr"><a href="#abbr_PKG">PKG</a></abbr> format, or the <abbr class="dyn-abbr"><a href="#abbr_MPKG">MPKG</a></abbr> format<a id="period_1395" href="#period_1395">. </a>                  
@@ -2451,14 +2450,14 @@ for i = 1 to 1000:
               <div class="eacategory">Guidance</div><div class="ea"><p>The evaluator shall verify the guidance documentation details how uninstallation of the application is performed<a id="period_1397" href="#period_1397">. </a></p></div>
               <div class="eacategory">Tests</div><div class="ea">
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#android"><b>Android </b> : <i>Mobile operating systems based on Google Android </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox)<a id="period_1398" href="#period_1398">. </a>                  
                   </test></div></div>
                 </ul></span>
                 <span class="testlist-"><ul>
-                  <div class="dependent">Platforms:<a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
+                  <div class="dependent">Platforms: <a href="#ios"><b>Apple iOS and iPadOS </b> : <i>Apple's mobile operating system for iPhones and iPads </i> </a><div class="dependent-content"><test>
                     
                     
                     The evaluator shall consider the requirement met because the platform forces applications to write all data within the application working directory (sandbox)<a id="period_1399" href="#period_1399">. </a>                  
