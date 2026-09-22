@@ -1,0 +1,2181 @@
+<Module xmlns="https://niap-ccevs.org/cc/v1" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:sec="https://niap-ccevs.org/cc/v1/section" name="Voice/Video over IP (VVoIP)" boilerplate="yes" target-product="VVoIP" target-products="VVoIP Devices">
+  <PPReference>
+    <ReferenceTable>
+      <PPVersion>2.0</PPVersion>
+      <PPAuthor>National Information Assurance Partnership</PPAuthor>
+      <PPPubDate>2026-03-17</PPPubDate>
+      <Keywords>VVoIP</Keywords>
+    </ReferenceTable>
+  </PPReference>
+  <RevisionHistory>
+    <entry>
+      <version>1.0</version>
+      <date>2020-10-28</date>
+      <subject>Initial publication</subject>
+    </entry>
+    <entry>
+      <version>2.0</version>
+      <date>2026-03-17</date>
+      <subject>CC:2022 updates, incorporation of TDs</subject>
+    </entry>
+  </RevisionHistory>
+  <release-notes><h:h3>TDs Applied</h:h3></release-notes><include-pkg id="ssh">
+    <git>
+      <url>https://github.com/commoncriteria/ssh</url>
+      <branch>master</branch>
+    </git>
+    <url>https://www.niap-ccevs.org/protectionprofiles/515</url>
+  </include-pkg>
+  <include-pkg id="tls">
+    <git>
+      <url>https://github.com/commoncriteria/tls</url>
+      <branch>release-2.1</branch>
+    </git>
+    <url>https://www.niap-ccevs.org/protectionprofiles/465</url>
+    <depends on="fcs-eap-ext-1"/>
+  </include-pkg>
+  <include-pkg id="X509">
+    <git>
+      <url>https://github.com/commoncriteria/X509</url>
+      <branch>master</branch>
+    </git>
+    <url>https://www.niap-ccevs.org/protectionprofiles/511</url>
+  </include-pkg>
+  <include-pkg id="pkgVPNC">
+    <git>
+      <url>https://github.com/commoncriteria/vpnclient</url>
+      <branch>release-3.0</branch>
+    </git>
+    <url>https://www.niap-ccevs.org/protectionprofiles/487</url>
+  </include-pkg>
+  <pp-preferences/>
+  <sec:Introduction>
+    <sec:Overview title="Overview">
+      The scope of this PP-Module is to describe the security functionality of a Voice/Video over IP (VVoIP)
+      endpoint in terms of
+      <xref g="CC"/>
+      and to define functional and assurance requirements for such products. This PP-Module is intended for use with the following Base-PPs:
+      f
+      <h:ul>
+        <h:li>Protection Profile for Application Software, Version 2.0</h:li>
+        <h:li>Network Device collaborative Protection Profile, Version 4.0</h:li>
+      </h:ul>
+      <h:p>These Base-PPs are both valid because a VVoIP endpoint is a specific type of network device or software
+        application that carries sensitive data over remote channels and uses protocols to do so that a typical
+        network device or software application does not implement. Therefore, additional security requirements
+        are necessary to ensure that sensitive communications are not subject to unauthorized disclosure to
+        unintended recipients.</h:p>
+      <h:p>Note that the NDcPP defines an optional architecture for a “distributed TOE” that allows for security
+        functionality to be spread across multiple distinct components. However, a TOE that conforms to the
+        NDcPP and this PP-Module will not be a distributed TOE. All security functionality will be contained within
+        a single physical device.</h:p>
+    </sec:Overview>
+    <tech-terms>
+      <suppress>Extended Package</suppress>
+      <term full="Basic telephony functions">The basic functions a VVoIP phone must provide – pick up, dial tone, dial, talk.</term>
+      <term full="Call control">The packets exchanged between devices to establish, maintain, and tear down a
+      telephony call.</term>
+      <term full="Client">A VVoIP endpoint.</term>
+      <term full="Enterprise Session Controller" abbr="ESC">A VVoIP call control server for VVoIP devices.</term>
+      <term full="H.323">A communications protocol defined by ITU-T that is used for creating, modifying, and
+      terminating multimedia sessions with multiple participants.</term>
+      <term full="Peer-to-Peer" abbr="P2P">A VVoIP architecture that forces each peer to be a server and client at the same time.</term>
+      <term full="SDES-SRTP">A method of key negotiation for SRTP.</term>
+      <term full="Session Initiation Protocol" abbr="SIP">A communications protocol defined by IETF that is used for creating, modifying, and
+      terminating multimedia sessions with multiple participants.</term>
+      <term full="Secure Real-Time Transport Protocol" abbr="SRTP">A protocol that is used to provide multimedia (voice/video) streaming services with
+      added security of encryption, message authentication and integrity, and replay
+      protection.</term>
+      <term full="Sensitive Data">Call control/signal data, media data, and audit/management data that must be
+      protected while in transit to prevent unauthorized disclosure.</term>
+      <term full="Software/firmware update delivery channel">A trusted channel between a client and file server (which may be the same server as
+      the call control server) for secure file download of software/firmware updates.</term>
+      <term full="State">
+        A configuration of a VVoIP endpoint based on how the user is currently using or not
+      using the endpoint. Examples include:
+        <h:ul>
+          <h:li>Hook state: whether the endpoint is active (off-hook) or inactive (on-hook)</h:li>
+          <h:li>Mute state: the endpoint is active but is deliberately not transmitting data</h:li>
+          <h:li>Hold state: the endpoint is active but is deliberately not transmitting or
+        receiving data</h:li>
+        </h:ul>
+      </term>
+      <term full="Streaming media">The voice/video exchanged between VVoIP endpoints.</term>
+      <term full="VVoIP Call Control Server">A VVoIP infrastructure device that performs call control functions between a client and
+      other VVoIP endpoints; this may be either a dedicated device such as an ESC or a VVoIP
+      device itself when using P2P.</term>
+      <term full="Dynamic Host Configuration Protocol" abbr="DHCP"/>
+      <term full="Internet Engineering Task Force" abbr="IETF"/>
+      <term full="Internet Protocol" abbr="IP"/>
+      <term full="International Telegraph Union – Telecommunication Standardization Sector" abbr="ITU-T"/>
+      <term full="Network Time Protocol" abbr="NTP"/>
+      <term full="Transmission Control Protocol" abbr="TCP"/>
+      <term full="Trivial File Transfer Protocol" abbr="TFTP"/>
+      <term full="User Datagram Protocol" abbr="UDP"/>
+      <term full="Voice/Video over IP" abbr="VVoIP"/>
+    </tech-terms>
+    <sec:Compliant_Targets_of_Evaluation>
+      <h:p>This PP-Module specifically addresses a dedicated network device or software application that facilitates
+      the exchange of voice or video communication across an Internet Protocol (IP) network. The endpoint is
+      a client (TOE) that communicates with a VVoIP call control server and may serve as its own call control
+      server when using P2P. The VVoIP endpoint shall be able to secure file download from a file server to
+      update VVoIP endpoint software and configuration, to establish secure communication for call control
+      with the call control server, and to secure streaming media to other devices.</h:p>
+      <h:p>The combination of the NDcPP and this PP-Module is a network device that provides VVoIP endpoint
+      functionality in addition to all of the security functionality expected of a network device as mandated by
+      the NDcPP. The combination of the App PP and this PP-Module is a software application running on a
+      general-purpose operating system that includes VVoIP endpoint capabilities in addition to all of the
+      security functionality expected of a software application as mandated by the App PP.</h:p>
+      <h:p>This PP-Module describes the functional requirements and threats specific to the VVoIP endpoint. The
+      most notable additions are requirements for the call control protocol (SIP, H.323) and streaming media
+      protocol (SRTP, RTP). A conformant TOE is expected to be a standalone device or application; distributed
+      TOE’s are not permitted.</h:p>
+      <sec:TOE_Boundary>
+        <h:p>The TOE boundary includes the VVoIP-capable device or application (VVoIP endpoint). A VVoIP-capable
+				device is a dedicated phone whereas a VVoIP endpoint application is just one of many applications that
+				runs on a general-purpose device such as a smartphone, tablet, or PC. Regardless of whether the TOE is a
+				hardware appliance or a client application on an operating system, it will be deployed in the same
+				environment. The figure below shows a typical VVoIP infrastructure from the perspective of the TOE.
+				Many of the environmental components have direct connections between one another, but since these
+				are not visible to the TOE, these connections have not been depicted.</h:p>
+        <figure entity="images/Toe.png" title="Typical VVoIP Deployment" id="toeDeployment"/>
+        <h:p>The TOE uses a VVoIP call control server, either by connecting to an ESC or acting as one itself when using
+				P2P, in order to set up connections with other VVoIP endpoint devices or other telephony equipment such
+				as a conference bridge. The call control server also may have the ability to deliver software/firmware
+				updates to the TOE, but this can alternatively be performed by a file server. The TOE must be able to
+				process Internet Protocol version 4 (IPv4) and/or IPv6 packets.</h:p>
+        <h:p>To be able to initiate communications in a client-server architecture, the TOE needs at minimum an IP
+				address, network mask, gateway address, configuration server address, update server address (or may
+				rely on platform for updates if it is a software application configured to do so), and call control server
+				address. The address may be obtained by Dynamic Host Configuration Protocol (DHCP), manually entered
+				on the VVoIP endpoint, or inherited from the device the TOE resides on (if it is a software application);
+				addresses can belong to the same device if it performs multiple functions (such as an ESC which also
+				performs updates). The TOE should allow basic telephony functions. Once the IP addresses are obtained,
+				the TOE downloads any VVoIP application updates, downloads VVoIP endpoint configuration, and
+				connects to the call control server as a VVoIP client. When a call is finished or the line is otherwise not in
+				use, the TOE will ensure that streaming media communication paths/ports are closed while call control
+				remains open.</h:p>
+        <h:p>To be able to initiate communications in P2P, the TOE needs at minimum an IP address, network mask,
+				gateway address, and update server address (or may rely on platform for updates if it is a software
+				application configured to do so). The address may be obtained by DHCP, manually entered on the VVoIP
+				endpoint, or inherited from the device the TOE resides on (if it is a software application). The TOE should
+				allow basic telephony functions. Once the IP addresses are obtained, the TOE downloads any VVoIP application updates. The endpoint configuration for P2P TOE of telephony functions is local. When the
+				TOE initiates a call, the TOE connects to the other peer’s call control (which is active) and the TOE is a
+				client. When the TOE receives a call, the other peer acts as a client and connects to the TOE’s call control.
+				When a call is finished or the line is otherwise not in use, the TOE will ensure that streaming media
+				communication paths/ports are closed while call control remains open.</h:p>
+        <h:p>The TOE has three paths for three different functions that need to execute: streaming media path that
+				contains voice, video, and session control (endpoint to endpoint); call control path to control the endpoint
+				(endpoint to VVoIP call control server), and configuration/management path to configure and manage the
+				TOE (software/firmware updates, configuration updates, audit).</h:p>
+      </sec:TOE_Boundary>
+    </sec:Compliant_Targets_of_Evaluation>
+    <sec:Use_Cases>
+      <h:p>This PP-Module defines four potential use cases for the VVoIP TOE, defined below. The first two use cases
+			define the physical embodiment of the TOE, while the latter two define its role in a telecommunications
+			deployment.</h:p>
+      <h:p>Regardless of the physical embodiment of the TOE, the expected functional capabilities are similar.
+			However, when the TOE is deployed in a peer-to-peer architecture, it must perform auditing and call
+			control functions that a client-server TOE does not need to perform because the Enterprise Session
+			Controller provides those functions in that architecture. A client-server TOE may also perform its own
+			auditing, but it is not required.</h:p>
+      <usecases>
+        <usecase title="Dedicated Appliance" id="usecase1">
+          <description>The VVoIP endpoint is sold and packaged as a standalone network appliance that does not have
+			a direct interface to the underlying platform operating system. In this use case, conformance to
+			the NDcPP and this PP-Module is sufficient to ensure security. Note that the NDcPP defines
+			optional functionality for “distributed TOEs” – for a TOE to conform to this PP-Module, it must be
+			a single device and not a distributed TOE.</description>
+        </usecase>
+        <usecase title="Software Application" id="usecase2">
+          <description>The VVoIP endpoint is sold and packaged as an application that is installed on a general-purpose
+			computer or mobile device running a modifiable operating system (such as Windows or Linux).
+			This computer may run end user applications above and beyond those used for VVoIP
+			communications since it functions as a user workstation. In this case, the VVoIP endpoint
+			application is expected to conform to both this PP-Module and the App PP.</description>
+        </usecase>
+        <usecase title="Client-Server Architecture" id="usecase3">
+          <description>The VVoIP endpoint, whether hardware or software, is deployed in an environment where it
+			interacts with an Enterprise Session Controller to facilitate call control functions.</description>
+        </usecase>
+        <usecase title="Peer-to-Peer Architecture" id="usecase4">
+          <description>The VVoIP endpoint, whether hardware or software, is deployed in an environment where it
+			interacts directly with other VVoIP endpoints without the use of an Enterprise Session Controller
+			as an intermediary.</description>
+        </usecase>
+      </usecases>
+    </sec:Use_Cases>
+    <section title="Package Usage">
+      This section contains selections and assignments that are required when the listed Functional Packages are claimed by this PP-Module.
+      <h:br/>
+      Package Usage guidance defined in the TOE's relevant Base-PP applies to the usage of the packages for this module, unless explicitly stated otherwise in this section.
+      <package-usage-list>
+        <package-usage ref="X509">
+          <usage id="usage-x509-roles" title="Certificate Verification and Assertion Required in FIA_XCU_EXT.1.1">
+            <description>Because this PP-Module mandates support for mutual authentication for media channels, the ST author shall select the options to both verify and assert certificate identities in FIA_XCU_EXT.1.1.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-x509-revocation-sigalgs" title="Limitations on Signature Algorithms in FIA_X509_EXT.1.1">
+            <description>The TOE must utilize appropriate cryptographic algorithms that conform to CNSA standards. Thus, the TOE shall utilize no other algorithms outside of those specified in RFC 8603 for certificate or CRL signatures. 
+              Additionally, the TOE shall not use ECDSA with SHA-512 signatures for OCSP responses, and shall utilize no other algorithms for OCSP responses.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-x509-extensions" title="Required Extension Processing for FIA_X509_EXT.1.2">
+            <description>The ST author shall select the options to process the basicConstraints and extendedKeyUsage extensions. Other extensions may be selected as appropriate without restriction.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-x509-revocation-methods" title="CRL or OCSP-based Revocation Required for FIA_X509_EXT.1.3 ">
+            <description>The TOE must support revocation that only involves CRL or OCSP. Accordingly, the TOE shall select only from options involving CRL or OCSP in FIA_X509_EXT.1.3 (e.g., the selection to treat all certificates older than a given short timeframe is not an acceptable substitute or alternative for supporting CRL or OCSP).</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-x509-revocation-connections" title="Connections to CRL or OCSP Servers Required for FIA_X509_EXT.1.4">
+            <description>Because the TOE is required to support CRL or OCSP, the TSF shall support an appropriate mechanism for obtaining revocation status information. In the case of CRL, the ST author shall claim that revocation status information is obtained via network connection to a CRL distribution point. In the case of OCSP, the ST author shall claim that revocation status information is obtained via network connection to an OCSP responder, via OCSP stapling, or via OCSP multi-stapling.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-x509-eku-values" title="Restrictions on Acceptable Key Usage Values for FIA_X509_EXT.1.5">
+            <description>The TOE will always support the use of extendedKeyUsage values to verify that X.509 certificates are used in accordance with their intended purpose. Accordingly, the ST author shall claim that the TOE supports the processing of extendedKeyUsage fields in the leaf certificate (as opposed to application of trust store context rules or passing the certification path or other supported context information to an external function) and shall select all values that are relevant to the claimed uses of X.509 in the ST. In particular, since the PP does not define any functions that require the use of S/MIME, the ST author shall not select this as an extendedKeyUsage value to be validated.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-x509-functions" title="Requirements on Functions for FIA_X509_EXT.2.1">
+            <description>The ST author shall additionally ensure that the selections and assignments in this requirement reflect the TOE's usage of X.509 certificate validation for TLS. Other assignments and selections may be made as applicable for other TOE functions.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+        </package-usage>
+        <package-usage ref="tls">
+          <usage id="usage-tls-roles" title="DTLS or TLS Server and Client Functionality Required">
+            <description>The ST author shall select the option to utilize TLS as a client. The ST author shall additionally select the option to utilize DTLS as a client if support for DTLS is claimed in FTP_ITC.1.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+          <usage id="usage-tls-mutual-auth" title="DTLS or TLS Mutual Authentication Required">
+            <description>The ST shall select the option to support mutual authentication in FCS_TLSC_EXT.1 and FCS_TLSS_EXT.1, or FCS_DTLSC_EXT.1 and FCS_DTLSS_EXT.1, according with the protocol support claimed in FTP_ITC.1.</description>
+            <config>
+              <ref-id>dummy-ref-id</ref-id>
+            </config>
+          </usage>
+        </package-usage>
+      </package-usage-list>
+    </section>
+    <section title="Implementation-Based Features" id="sec-features">
+      The following features of the TOE are implementation-based. A TOE is not required to implement these features to conform to this PP-Module, but if the feature is implemented, it is expected that associated implementation-based requirements are claimed as part of the TSF.
+      <implements>
+        <feature id="feat-swapp" title="Software Application with Logging">
+          <description>The TOE is a software application and claims the App-PP as the Base-PP. The TOE additionally implements logging features (i.e. includes one or more of the following SFRs in the ST: 
+		  FAU_GEN.1/CSADMIN, FAU_GEN.1/CSVVOIP, FAU_GEN.1/P2PADMIN, FAU_GEN.1/P2PVVOIP).</description>
+        </feature>
+      </implements>
+    </section>
+  </sec:Introduction>
+  <sec:Conformance_Claims>
+    <CClaimsInfo cc-version="cc-2022r1" cc-approach="direct-rationale">
+      <cc-st-conf>exact</cc-st-conf>
+      <cc-pt2-conf>extended</cc-pt2-conf>
+      <cc-pt3-conf>extended</cc-pt3-conf>
+      <cc-pp-conf/>
+      <cc-pp-config-with>
+        <PP-cc-ref>Network Device collaborative Protection Profile Version 4.0</PP-cc-ref>
+        <PP-cc-ref>Protection Profile for Application Software Version 2.0</PP-cc-ref>
+      </cc-pp-config-with>
+      <cc-pkg-claim>
+        <FP-cc-ref conf="conformant">Functional Package for TLS, version 2.0</FP-cc-ref>
+      </cc-pkg-claim>
+    </CClaimsInfo>
+  </sec:Conformance_Claims>
+  <!-- 3.0 Security Problem Definition-->
+  <sec:Security_Problem_Definition>
+    <h:p>The security problem is described in terms of the threats that the TOE is expected to address, assumptions
+	about its operational environment, and any organizational security policies that the TOE is expected to
+	enforce.</h:p>
+    <!-- 3.1 Threats -->
+    <sec:Threats>
+      The following threats defined in this PP-Module extend the threats defined by the Base-PP.
+      <threats>
+        <threat name="T.MEDIA_DISCLOSURE">
+          <description>An attacker can use the encrypted variable rate vocoder frames to their advantage to decode
+			transmitted data. An attacker can also use improperly protected data to discern sensitive information.</description>
+          <!-- New mapping to build updated threat mapping table. -->
+          <addressed-by>FAU_STG_EXT.1 (modified from NDcPP)</addressed-by>
+          <rationale>Mitigates the threat by ensuring that audit data is securely stored locally and transmitted to an external entity.</rationale>
+          <addressed-by>FAU_STG.1 (optional for software-only TOEs)</addressed-by>
+          <rationale>Mitigates the threat by ensuring that audit data is securely transmitted to an external entity.</rationale>
+          <addressed-by>FAU_STG.5 (optional for software-only TOEs)</addressed-by>
+          <rationale>Mitigates the threat by defining behavior for response to log space overruns.</rationale>
+          <addressed-by>FCO_VOC_EXT.1</addressed-by>
+          <rationale>Mitigates the threat by defining the use of a fixed-rate vocoder to prevent the exposure of encryption vulnerabilities that are present with variable-rate vocoders.</rationale>
+          <addressed-by>FCS_COP.1/SRTP (selection-based)</addressed-by>
+          <rationale>Mitigates the threat by defining the implementation of encryption used for SDES-SRTP, if supported by the TOE.</rationale>
+          <addressed-by>FCS_NTP_EXT.1 (modified from NDcPP)</addressed-by>
+          <rationale>Mitigates the threat by defining how accurate system time is maintained, which is used to support certain cryptographic functions.</rationale>
+          <addressed-by>FCS_SRTP_EXT.1 (selection-based)</addressed-by>
+          <rationale>Mitigates the threat by defining the implementation of the SRTP protocol, if supported by the TOE.</rationale>
+          <addressed-by>FDP_IFC.1/CALLCONTROL (selection-based)</addressed-by>
+          <rationale>Mitigates the threat by defining a policy for protection of call control information in cases where the TOE can act as a VVoIP call control server in a peer-to-peer configuration.</rationale>
+          <addressed-by>FDP_IFF.1/CALLCONTROL (selection-based)</addressed-by>
+          <rationale>Mitigates the threat by defining the implementation of the call control policy in cases where the TOE can act as a VVoIP call control server in a peer-to-peer configuration.</rationale>
+          <addressed-by>FPT_STM_EXT.1/VVoIP (selection-based)</addressed-by>
+          <rationale>Mitigates the threat by defining how the TSF obtains system time in certain cases, which is then used as an input to other functions that support this objective.</rationale>
+          <addressed-by>FPT_TUD_EXT.1 (modified from NDcPP and App PP)</addressed-by>
+          <rationale>Mitigates the threat by ensuring the cryptographic functions or other TSF can be updated to remain secure.</rationale>
+          <addressed-by>FTP_DIT_EXT.1 (modified from App PP)</addressed-by>
+          <rationale>Mitigates the threat by defining the trusted communications channel used for VVoIP.</rationale>
+          <addressed-by>FTP_ITC.1 (modified from NDcPP)</addressed-by>
+          <rationale>Mitigates the threat by defining the trusted communications channel used for VVoIP</rationale>
+          <addressed-by>FTP_ITC.1/CONTROL</addressed-by>
+          <rationale>Mitigates the threat by defining the application-layer channel used for communications with a VVoIP call control server.</rationale>
+          <addressed-by>FTP_ITC.1/MEDIA</addressed-by>
+          <rationale>Mitigates the threat by defining the application-layer channel used for communications of media (voice and video) data.</rationale>
+        </threat>
+        <threat name="T.UNDETECTED_TRANSMISSION">
+          <description>An attacker may cause the TOE to exfiltrate audio or video media over a remote channel while in a
+			state where the user has a reasonable expectation that no media is being transmitted.</description>
+          <!-- New mapping to build updated threat mapping table. -->
+          <addressed-by>FAU_GEN.1/CSADMIN (optional)</addressed-by>
+          <rationale>Mitigates the threat by optionally allowing a client-server TOE to provide an audit trail of administrative actions, which could diagnose misconfiguration of the TOE that could lead to unattended transmissions.</rationale>
+          <addressed-by>FAU_GEN.1/P2PADMIN (selection-based)</addressed-by>
+          <rationale>Mitigates the threat by requiring a peer-to-peer TOE to provide an audit trail of administrative actions, which could diagnose misconfiguration of the TOE that could lead to unattended transmissions.</rationale>
+          <addressed-by>FDP_IFC.1</addressed-by>
+          <rationale>Mitigates the threat by defining the existence of a media transmission policy.</rationale>
+          <addressed-by>FDP_IFF.1</addressed-by>
+          <rationale>Mitigates the threat by defining how the media transmission policy is enforced to determine when transmissions should occur.</rationale>
+          <addressed-by>FMT_SMF.1/VVoIP</addressed-by>
+          <rationale>Mitigates the threat by requiring the TSF to implement certain the management functions specific to VVoIP functionality.</rationale>
+          <addressed-by>FPT_STM_EXT.1/VVoIP (selection-based)</addressed-by>
+          <rationale>Mitigates the threat by requiring the TSF to specify how it obtains system time in certain cases, which is then used as an input to other functions that support this objective.</rationale>
+          <addressed-by>FTA_SSL.3/MEDIA</addressed-by>
+          <rationale>Mitigates the threat by requiring the TSF to terminate idle sessions.</rationale>
+        </threat>
+      </threats>
+    </sec:Threats>
+    <!-- 3.2 Assumptions -->
+    <sec:Assumptions>
+      <h:p>The following assumptions that are defined in this PP-Module extend the assumptions that are defined
+		by the Base-PPs.</h:p>
+      <assumptions>
+        <assumption name="A.UPDATE_SOURCE">
+          <description>
+            It is assumed that TOE software/firmware updates will be made available on either the call control
+			server that the TOE connects to or a separate file server managed by the organization.
+            <h:p/>
+            Note that because this PP-Module specifically disallows distributed TOEs, a conformant TOE will not claim
+			A.COMPONENTS_RUNNING when NDcPP is the Base-PP.
+          </description>
+          <objective-refer ref="OE.UPDATE_SOURCE">
+            <rationale>The objective satisfies the assumption
+			by ensuring that TOE updates are
+			made available in the intended location.</rationale>
+          </objective-refer>
+        </assumption>
+      </assumptions>
+    </sec:Assumptions>
+    <!-- 3.3 Organizational Security Policies -->
+    <sec:Organizational_Security_Policies>
+      <OSPs/>
+    </sec:Organizational_Security_Policies>
+  </sec:Security_Problem_Definition>
+  <!-- 4.0 Security Objectives -->
+  <sec:Security_Objectives>
+    <!-- 4.1 Security Objectives for the TOE -->
+    <!-- 4.2 Security Objctives for the Operational Environment -->
+    <sec:Security_Objectives_for_the_Operational_Environment>
+      <h:p>The following environmental security objectives that are defined in this PP-Module extend the objectives
+		that are defined by the Base-PPs.</h:p>
+      <SOEs>
+        <SOE name="OE.UPDATE_SOURCE">
+          <description>
+            <h:p>The operational environment will have TOE software/firmware made available on either the call
+        		control server that the TOE connects to or a separate file server managed by the organization.</h:p>
+            <h:p>Note that because this PP-Module specifically disallows distributed TOEs, a conformant TOE will not claim
+				OE.COMPONENTS_RUNNING when NDcPP is the Base-PP.</h:p>
+          </description>
+        </SOE>
+      </SOEs>
+    </sec:Security_Objectives_for_the_Operational_Environment>
+    <!-- 4.3 Security Objectives Rationale -->
+    <sec:Security_Objectives_Rationale/>
+  </sec:Security_Objectives>
+  <!-- 5.0 Security Requirements -->
+  <sec:Security_Requirements title="Security Requirements">
+    <!-- 5.1 ND PP Security Functional Requirements Direction -->
+    <base-pp id="ND" name="Network Device" product="Network Device" short="ND" version="4.0" plural="Network Devices">
+      <url>https://www.niap-ccevs.org/protectionprofiles/482</url>
+      <cPP/>
+      <sec-func-req-dir>In a PP-Configuration that includes the NDcPP, the VVoIP client is expected to rely on some of the security
+		functions implemented by the network device as a whole and evaluated against the NDcPP. In this case,
+		the following sections describe any modifications that the ST author must make to the SFRs defined in the
+		NDcPP in addition to what is mandated by section 5.3.</sec-func-req-dir>
+      <!-- 5.1.1 Modified SFRs -->
+      <modified-sfrs>
+        <section title="Security Audit (FAU)" id="nd-mod-fau">
+          <!-- FAU_STG_EXT.1 Protected Audit Event Storage -->
+          <base-sfr-spec cc-id="fau_stg_ext.1" id="nd-mod-fau-stg-ext-1" title="Protected Audit Event Storage">
+            <consistency-rationale>This PP-Module modifies this SFR to prohibit the selection of any
+				“distributed TOE” behavior in FAU_STG_EXT.1.2.</consistency-rationale>
+            <description>
+              <h:p>This SFR is modified to prohibit the selection of distributed TOE options. Any element not specified in this section is unchanged from its definition in the Base-PP.</h:p>
+              <h:p>The text of FAU_STG_EXT.1.2 is replaced with:</h:p>
+              <h:p>
+                <h:b>FAU_STG_EXT.1.2 </h:b>
+                The TSF shall be able to store generated audit data on the TOE
+					itself. In addition,
+                <h:ul>
+                  <h:li>[<h:i>The TOE shall consist of a single standalone component that stores audit
+					data locally</h:i>].</h:li>
+                </h:ul>
+              </h:p>
+              <h:p>
+                <h:b>Application Note: </h:b>
+                This PP-Module modifies the existing FAU_STG_EXT.1 SFR in the NDcPP to prohibit
+				the selection of any “distributed TOE” behavior in FAU_STG_EXT.1.2. The SFR is
+				otherwise unchanged.
+              </h:p>
+            </description>
+            <no-change/>
+          </base-sfr-spec>
+        </section>
+        <section title="Cryptographic Support (FCS)" id="nd-mod-fcs">
+          <!-- FCS_NTP_EXT.1 NTP Protocol -->
+          <base-sfr-spec cc-id="fcs_ntp_ext.1" id="nd-mod-fcs-ntp-ext-1" title="NTP Protocol">
+            <consistency-rationale>This PP-Module does not modify this SFR; it only modifies the circumstances
+				that trigger its inclusion in the TOE’s logical boundary.</consistency-rationale>
+            <description>
+              <h:p>This SFR is selection-based in the NDcPP and remains selection-based in this PP-Module. However, an
+					additional trigger for this SFR’s inclusion is added for the selection of “register the TOE to an ESC…” in
+					FMT_SMF.1/VVoIP if the TOE is a hardware device. This is because any hardware-based VVoIP TOE that can be registered to an ESC is required to use the ESC as an NTP time source.</h:p>
+              <h:p>If the TOE is not registered to an ESC, it is not relevant to this PP-Module whether or not NTP is
+					implemented, and in this case this SFR remains selection-based on FPT_STM_EXT.1.2, which is not
+					modified by this PP-Module (i.e. a peer-to-peer TOE does not register to an ESC but may still receive time
+					data from a separate NTP source).</h:p>
+            </description>
+            <no-change/>
+          </base-sfr-spec>
+        </section>
+        <section title="Protection of the TSF (FPT)" id="nd-mod-fpt">
+          <!-- FPT_TUD_EXT.1 Trusted Update -->
+          <base-sfr-spec cc-id="fpt_tud_ext.1" id="nd-mod-fpt-tud-ext-1" title="Trusted Update">
+            <consistency-rationale>This PP-Module does not modify this SFR; it only specifies that the source of
+				TOE software/firmware updates must be a specific type of server.</consistency-rationale>
+            <description>
+              <h:p>This PP-Module does not modify this SFR as it is defined in the NDcPP. However, note that this PP-Module
+				expects that either the call control server or a separate file server managed by the organization to function
+				as the source of TOE software/firmware updates. The evaluator shall ensure that the test environment is
+				configured appropriately.</h:p>
+              <h:p/>
+              <h:p>
+                <h:b>Evaluation Activities:</h:b>
+              </h:p>
+              <h:p>
+                There is no change to the EAs specified for this SFR in the NDcPP Supporting Document. Note however
+						that the following additional configuration steps are necessary in order for this testing to be performed:
+                <h:ul>
+                  <h:li>The evaluator shall deploy a call control server or dedicated file server in the TOE’s operational environment</h:li>
+                  <h:li>The evaluator shall load valid and invalid candidate updates to the call control server or dedicated file server</h:li>
+                  <h:li>The evaluator shall configure the TOE to use the call control server or dedicated file server as its
+							source for software/firmware updates</h:li>
+                </h:ul>
+              </h:p>
+            </description>
+            <no-change/>
+          </base-sfr-spec>
+        </section>
+        <section title="Trusted Path (FTP)" id="nd-mod-ftp">
+          <!-- FTP_ITC.1 Inter-TSF Trusted Channel -->
+          <base-sfr-spec cc-id="ftp_itc.1" id="nd-mod-ftp-itc-1" title="Inter-TSF Trusted Channel">
+            <consistency-rationale>This PP-Module restricts the Base-PP SFR to a subset of existing permissible
+				functionality and does not introduce any new behavior.</consistency-rationale>
+            <description>
+              <h:p>This SFR is modified to mandate the inclusion of TLS. Any other protocols may additionally be claimed. 
+				Any element that is not included in this section is unchanged from its definition in the Base-PP.</h:p>
+              <h:p>The text of the requirement is replaced with:</h:p>
+              <h:p>
+                <h:b>FTP_ITC.1.1 </h:b>
+                The TSF shall be capable of using
+                <h:b>TLS as defined in the Functional Package for TLS and</h:b>
+                [<h:b>selection: </h:b>
+                <h:i>
+                  IPsec, SSH as defined in the Functional Package for SSH, DTLS
+					as defined in the Functional Package for TLS, HTTPS,
+                  <h:b>no other protocols</h:b>
+                </h:i>]
+					to provide a trusted communication channel between itself and authorized IT entities supporting the following capabilities: audit server,
+                <h:b>streaming media channel, call control channel, software/firmware update delivery channel, </h:b>
+                [<h:b>selection: </h:b>
+                <h:i>
+                  authentication server, 
+					[<h:b>assignment: </h:b>
+                  other capabilities], no other capabilities
+                </h:i>] that is logically distinct from other communication channels and provides assured identification 
+					of its end points and protection of the channel data from disclosure and detection of modification of the channel data.
+              </h:p>
+              <h:p>
+                <h:b>Application Note: </h:b>
+                The NDcPP provides the ability for the ST author to specify the protocols used to
+					establish trusted communications in FTP_ITC.1.1. This PP-Module mandates the inclusion of TLS because it is the underlying protocol used to secure
+					communications with the ESC and other VVoIP endpoints. Additional protocols
+					should be selected if they are used for securing other trusted channels. For
+					example, the TSF may communicate with an ESC using TLS for call control
+					functions but some other protocol for remote transmission of audit data. This PP-Module also specifies 
+					additional uses for the trusted channel beyond what the NDcPP defines. 
+					The remainder of the SFR is unchanged from its definition in the Base-PP.
+              </h:p>
+            </description>
+            <no-change/>
+          </base-sfr-spec>
+        </section>
+      </modified-sfrs>
+      <!-- 5.1.2 Additional SFRs -->
+      <additional-sfrs/>
+      <con-toe>When this PP-Module is used to extend the NDcPP, the TOE type for the overall TOE is still a network
+		device. The TOE boundary is simply extended to include VVoIP endpoint functionality that is provided by
+		the network device.</con-toe>
+      <con-sec-prob>The threats and assumptions defined by this PP-Module (see sections 3.1 and 3.2) supplement those
+		defined in the NDcPP as follows:</con-sec-prob>
+      <con-obj/>
+      <con-op-en>The objectives for the TOE’s operational environment are consistent with the NDcPP based on the following rationale: </con-op-en>
+      <con-mod ref="T.UNDETECTED_TRANSMISSION">The NDcPP defines threats for insecure communications and undetected
+			activity. Unauthorized and undetected use of a communications channel is
+			consistent with these threats.</con-mod>
+      <con-mod ref="T.MEDIA_DISCLOSURE">The NDcPP defines a threat for untrusted communications channels. The
+			threat of media disclosure through vocoder frames is a type of side channel attack that is unique to the functions of a VVoIP endpoint.
+			However, it is consistent with the overall threat of unintended disclosure
+			of sensitive data.</con-mod>
+      <con-mod ref="A.UPDATE_SOURCE">The NDcPP does not have any assumptions for the source of TOE updates,
+			only that the updates have adequate integrity protections. There is no
+			conflict with this Module assuming that TOE updates will be retrieved
+			from a particular location.</con-mod>
+      <con-mod ref="OE.UPDATE_SOURCE">The NDcPP requires the TOE to be able to apply software/firmware updates
+			but does not define any specific way that these updates need to be made
+			available. This PP-Module defines an objective that allows for an assumption
+			that TOE updates will be made available in a specific location.
+			A.UPDATE_SOURCE is consistent with the Base-PP objectives for the same
+			reason.</con-mod>
+      <con-mod ref="fco-voc-ext-1">The use of a fixed-rate vocoder relates to application-layer communications
+			that are not within the scope of the NDcPP.</con-mod>
+      <con-mod ref="fdp-ifc-1">This SFR defines a policy for when data will or will not be transmitted by the
+			TSF. The NDcPP defines requirements for how data is transmitted but a
+			policy governing when an external interface may be invoked is beyond its
+			scope.</con-mod>
+      <con-mod ref="fdp-iff-1">This SFR defines the rules for a policy for when data will or will not be
+			transmitted by the TSF. The NDcPP defines requirements for how data is
+			transmitted but a policy governing when an external interface may be
+			invoked is beyond its scope.</con-mod>
+      <con-mod ref="fmt-smf-1-vvoip">This PP-Module defines a new iteration of FMT_SMF.1 to add additional
+			management functions that relate specifically to VVoIP functionality. The
+			addition of these functions does not prevent any of the original functions
+			from being implemented. This iteration does include two duplicates of
+			management functions specified in the Base-PP; this is consistent because it
+			is possible that auditing is handled differently for the VVoIP functionality as
+			it is for the rest of the TOE’s auditing. These functions are also selectable so
+			it is not required that a conformant TOE implement this.</con-mod>
+      <con-mod ref="fta-ssl-3-media">This SFR defines session termination behavior for the TOE’s media channel.
+			This interface is specific to this PP-Module and is not within the scope of the
+			NDcPP.</con-mod>
+      <con-mod ref="ftp-itc-1-control">This SFR defines the trusted communications protocol used by the TOE’s
+			signaling channel, which is specific to the VVoIP technology and does not
+			conflict with the functionality defined in the NDcPP.</con-mod>
+      <con-mod ref="ftp-itc-1-media">This SFR defines the trusted communications protocol used by the TOE’s
+			media channel, which is specific to the VVoIP technology and does not
+			conflict with the functionality defined in the NDcPP.</con-mod>
+      <con-mod ref="fau-gen-1-csadmin">The NDcPP already defines an audit generation function. This PP-Module
+			adds redundant audit events for administrative actions (with respect to
+			those defined in the NDcPP) to be required for software-only TOEs. A TOE
+			that conforms to the NDcPP satisfies this SFR by default.</con-mod>
+      <con-mod ref="fau-gen-1-csvvoip">The NDcPP already defines an audit generation function. This PP-Module
+			adds an iteration of FAU_GEN.1 for the auditable events that relate
+			specifically to VVoIP endpoint behavior that may apply for client-server
+			TOEs.</con-mod>
+      <con-mod ref="fau-stg-1">This SFR is implementation-dependent and is explicitly not claimed when the
+			NDcPP is the Base-PP. Therefore there is no conflict between this SFR and
+			the NDcPP.</con-mod>
+      <con-mod ref="fau-stg-5">This SFR is implementation-dependent and is explicitly not claimed when the
+			NDcPP is the Base-PP. Therefore there is no conflict between this SFR and
+			the NDcPP.</con-mod>
+      <con-mod ref="fau-gen-1-p2padmin">The NDcPP already defines an audit generation function. This PP-Module
+			adds redundant audit events for administrative actions (with respect to
+			those defined in the NDcPP) to be required for software-only TOEs. A TOE
+			that conforms to the NDcPP satisfies this SFR by default.</con-mod>
+      <con-mod ref="fau-gen-1-p2pvvoip">The NDcPP already defines an audit generation function. This PP-Module
+			adds an iteration of FAU_GEN.1 for the auditable events that relate
+			specifically to VVoIP endpoint behavior that must apply for peer-to-peer
+			TOEs.</con-mod>
+      <con-mod ref="fcs-cop-1-srtp">This SFR defines the AES functionality used to support SRTP. This does not
+			conflict with the NDcPP because the TOE can still use
+			FCS_COP.1/DataEncryption to make claims related to all other uses of AES.</con-mod>
+      <con-mod ref="fcs-srtp-ext-1">This SFR defines support for the SRTP protocol, which is specific to VVoIP
+			technology. The TSF’s implementation of this protocol does not prevent the
+			enforcement of any NDcPP SFRs.</con-mod>
+      <con-mod ref="fdp-ifc-1-callcontrol">This SFR defines VVoIP call control policy. The TSF’s implementation of this
+			protocol does not prevent the enforcement of any NDcPP SFRs.</con-mod>
+      <con-mod ref="fdp-iff-1-callcontrol">This SFR defines VVoIP call control policy. The TSF’s implementation of this
+			protocol does not prevent the enforcement of any NDcPP SFRs.</con-mod>
+      <con-mod ref="fpt-stm-ext-1-vvoip">This SFR defines the TOE’s reliance on ESCs to act as its NTP servers in
+			deployments where the TOE is registered to them. It is duplicative of the
+			FPT_STM_EXT.1 SFR defined in the Base-PP but is refined to identify the use
+			of the ESC as a specific NTP server, which is a restriction not present in the
+			Base-PP.</con-mod>
+    </base-pp>
+    <!-- 5.2 APP PP Security Functional Requirements Direction -->
+    <base-pp id="APP" name="Application Software" product="Application Software" short="APP" version="2.0" plural="Application Software">
+      <git>
+        <url>https://github.com/commoncriteria/application</url>
+        <branch>release-1.4</branch>
+      </git>
+      <url>https://github.com/commoncriteria/application</url>
+      <sec-func-req-dir>In a PP-Configuration that includes the App PP, the VVoIP client is expected to rely on some of the security
+			functions implemented by the software application as a whole and evaluated against the App PP. In this
+			case, the following sections describe any modifications that the ST author must make to the SFRs defined
+			in the App PP in addition to what is mandated by section 5.3.</sec-func-req-dir>
+      <!-- 5.2.1 Modified SFRs -->
+      <modified-sfrs>
+        <section title="Protection of the TSF (FPT)" id="app-mod-fpt">
+          <!-- FPT_TUD_EXT.1 Trusted Update -->
+          <base-sfr-spec cc-id="fpt_tud_ext.1" id="app-mod-fpt-tud-ext-1" title="Trusted Update">
+            <consistency-rationale>This PP-Module does not modify this SFR; it only specifies that the source of
+						TOE software/firmware updates must be a specific type of server.</consistency-rationale>
+            <description>
+              <h:p>This PP-Module does not modify this SFR as it is defined in the App PP. However, note that this PP-Module
+						expects that either the call control server or a separate file server managed by the organization to function
+						as the source of TOE software/firmware updates. A vendor provided source should only be used if a call control server 
+						or separate file server cannot be configured.</h:p>
+              <h:p>
+                <h:b>Evaluation Activities: </h:b>
+              </h:p>
+              <h:p>
+                There is no change to the EAs specified for this SFR in the App PP. Note however that the following
+							additional configuration steps may be necessary when relying on a call control server or dedicated file server in order for this testing to be performed:
+                <h:ul>
+                  <h:li>The evaluator shall deploy a call control server or dedicated file server in the TOE’s operational environment</h:li>
+                  <h:li>The evaluator shall load valid and invalid candidate updates to the call control server or dedicated file server</h:li>
+                  <h:li>The evaluator shall configure the TOE or its operational environment (whichever is selected to implement the security functions)
+							to use the call control server or dedicated file server as its source for software/firmware updates.</h:li>
+                </h:ul>
+              </h:p>
+            </description>
+            <no-change/>
+          </base-sfr-spec>
+        </section>
+        <section title="Trusted Path/Channel (FTP)" id="app-mod-ftp">
+          <!-- FTP_DIT_EXT.1 Protection of Data in Transit -->
+          <base-sfr-spec cc-id="ftp_dit_ext.1" id="app-mod-ftp-dit-ext-1" title="Protection of Data in Transit">
+            <consistency-rationale>This PP-Module modifies the App PP SFR by mandating the use of trusted
+						communications to secure transmitted data, mandating support for TLS, and
+						permitting support for SRTP. The first two modifications are derived from
+						selections that are already present in the App PP version of the SFR. The
+						addition of SRTP does not prevent any of the other protocols from being
+						used if supported.</consistency-rationale>
+            <description>
+              <h:p>This SFR is modified from its definition in the Base-PP to mandate the inclusion of TLS as a method to protect data 
+						and to add support for the use of SRTP to protect data in transit.</h:p>
+              <h:p>The text of the requirement is replaced with:</h:p>
+              <h:p>
+                <h:b>FTP_DIT_EXT.1.1 </h:b>
+                The application shall [<h:b>selection: </h:b>
+                <h:ul>
+                  <h:li><h:i>not transmit any [<h:b>selection, choose one of: </h:b>data, sensitive
+									data</h:i>]</h:li>
+                  <h:li>
+                    <h:i>
+                      encrypt all transmitted [<h:b>selection, choose one of: </h:b>
+                      sensitive data, data] with
+                      <h:b>
+                        TLS as a server as defined in the Functional Package for Transport Layer Security (TLS),
+										version 2.1 and also supports functionality for [<h:b>selection:</h:b>
+                        mutual authentication, none] 
+										and TLS as a client as defined in the Functional Package for Transport Layer Security (TLS), version 2.1
+                      </h:b>
+                      and
+                      <h:b>[selection:</h:b>
+                      <h:ul>
+                        <h:li>HTTPS as a client in accordance with FCS_HTTPS_EXT.1 and FCS_HTTPS_EXT.2</h:li>
+                        <h:li>HTTPS as a server in accordance with FCS_HTTPS_EXT.1</h:li>
+                        <h:li>HTTPS as a server with support for mutual authentication in accordance with FCS_HTTPS_EXT.1
+										and FCS_HTTPS_EXT.2</h:li>
+                        <h:li>
+                          DTLS as a server defined in the Functional Package for Transport Layer Security (TLS),
+										version 2.1 and also supports functionality for [<h:b>selection:</h:b>
+                          mutual authentication,
+											none]
+                        </h:li>
+                        <h:li>DTLS as a client defined in the Functional Package for Transport Layer Security (TLS), version 2.1</h:li>
+                        <h:li>SSH as defined in the Functional Package for Secure Shell (SSH), version 2.0</h:li>
+                        <h:li>IPsec as defined in the VPN Client PP-Module, version 3.0</h:li>
+                        <h:li>
+                          <h:b>Secure Real-Time Transport Protocol (SRTP)</h:b>
+                        </h:li>
+                      </h:ul>] for [<h:b>assignment:</h:b>
+                      function(s)] using certificates as defined in the Functional
+									Package for X.509
+                      <h:li>
+                        invoke platform-provided functionality to encrypt all transmitted sensitive data with
+                        <h:b>TLS and </h:b>
+                        [<h:b>selection: </h:b>
+                        HTTPS, DTLS, SSH, IPsec] for [<h:b>assignment:</h:b>
+                        function(s)]
+								using certificates as defined in the Functional Package for X.509
+                      </h:li>
+                      <h:li>
+                        invoke platform-provided functionality to encrypt all transmitted data with
+                        <h:b>TLS and </h:b>
+                        [<h:b>selection: </h:b>
+                        HTTPS, DTLS, SSH, IPsec] for [<h:b>assignment:</h:b>
+                        function(s)]
+								using certificates as defined in the Functional Package for X.509
+                      </h:li>
+                    </h:i>
+                  </h:li>
+                </h:ul>] between itself and another trusted IT product.
+              </h:p>
+              <h:p>
+                <h:b>Application Note: </h:b>
+                The App PP provides the ability for the ST author to specify the protocols used to
+							establish trusted communications and the behavior that trusted communications
+							are used to protect. This PP-Module mandates the inclusion of TLS because it is
+							the underlying protocol used to secure communications with a VVoIP call control
+							server and other VVoIP endpoints. Additional protocols may be selected if they are
+							used for securing other channels. For example, the TSF may communicate with an ESC using TLS for call control functions but some other protocol for remote
+							transmission of audit data.
+              </h:p>
+              <h:p>Since the App PP does not define separate SFRs for trusted channel (TOE to trusted
+							third party) and trusted path (administrator to TOE), FTP_DIT_EXT.1 is expected
+							to cover both use cases. The proper protocols should be selected accordingly.</h:p>
+              <h:p>Sensitive data includes at minimum call control/signal data, media data, and
+							audit/management data.</h:p>
+              <h:p>If “SRTP” is selected in FTP_DIT_EXT.1.1, the selection-based SFRs
+							FCS_COP.1/SRTP and FCS_SRTP_EXT.1 must be claimed.</h:p>
+            </description>
+            <replace>
+              <xpath-specified xpath="*//cc:f-component[@cc-id='ftp_dit_ext.1']">
+                <f-component cc-id="ftp_dit_ext.1" name="Protection of Data in Transit">
+                  <f-element id="fel-transmit">
+                    <title>
+                      The application shall
+                      <selectables linebreak="yes">
+                        <selectable id="FTP_DIT_EXT.1_1">encrypt all transmitted <selectables><selectable id="FTP_DIT_EXT.1_2" exclusive="yes">sensitive data</selectable><selectable id="FTP_DIT_EXT.1_3" exclusive="yes">data</selectable></selectables> with <h:b>TLS as defined in the <xref to="tls"/> and</h:b><selectables><selectable id="sel_all_https_cl">HTTPS as a client in accordance with FCS_HTTPS_EXT.1/Client</selectable><selectable id="sel_all_https_sv">HTTPS as a server in accordance with FCS_HTTPS_EXT.1/Server</selectable><selectable id="sel_all_https_ma">HTTPS as a server using mutual authentication in accordance with FCS_HTTPS_EXT.2</selectable><selectable id="sel_all_tls">TLS as defined in the <xref to="tls"/></selectable><selectable id="sel_all_dtls">DTLS as defined in the <xref to="tls"/></selectable><selectable id="sel_all_ssh">SSH as defined in the <xref to="ssh"/></selectable><selectable id="FTP_DIT_EXT.1_4">IPsec as defined in the <xref to="pkgVPNC"/></selectable><selectable id="sel_all_srtp"><h:b>Secure Real-Time Transport Protocol (SRTP)</h:b></selectable><selectable id="FTP_DIT_EXT.1_5" exclusive="yes"><h:b>no other protocols</h:b></selectable></selectables></selectable>
+                        <selectable id="FTP_DIT_EXT.1_6">invoke platform-provided functionality to encrypt all transmitted sensitive data with <h:b>TLS and</h:b><selectables><selectable id="FTP_DIT_EXT.1_7">HTTPS</selectable><selectable id="FTP_DIT_EXT.1_8">DTLS</selectable><selectable id="FTP_DIT_EXT.1_9">SSH</selectable><selectable id="FTP_DIT_EXT.1_10" exclusive="yes"><h:b>no other protocols</h:b></selectable></selectables></selectable>
+                        <selectable id="FTP_DIT_EXT.1_11">invoke platform-provided functionality to encrypt all transmitted data with <h:b>TLS and</h:b><selectables><selectable id="FTP_DIT_EXT.1_12">HTTPS</selectable><selectable id="FTP_DIT_EXT.1_13">DTLS</selectable><selectable id="FTP_DIT_EXT.1_14">SSH</selectable><selectable id="FTP_DIT_EXT.1_15"><h:b>no other protocols</h:b></selectable></selectables></selectable>
+                      </selectables>
+                      between itself and another trusted IT product.
+                    </title>
+                    <note role="application">
+                      The App PP provides the ability for the ST author to specify the protocols used to
+										establish trusted communications and the behavior that trusted communications
+										are used to protect. This PP-Module mandates the inclusion of TLS because it is
+										the underlying protocol used to secure communications with a VVoIP call control
+										server and other VVoIP endpoints. Additional protocols may be selected if they are
+										used for securing other channels. For example, the TSF may communicate with an
+										ESC using TLS for call control functions but some other protocol for remote transmission of audit data.
+                      <h:p/>
+                      Since the App PP does not define separate SFRs for trusted channel (TOE to trusted
+										third party) and trusted path (administrator to TOE), FTP_DIT_EXT.1 is expected
+										to cover both use cases. The proper protocols should be selected accordingly.
+                      <h:p/>
+                      Sensitive data includes at minimum call control/signal data, media data, and
+										audit/management data.
+                      <h:p/>
+                      If “SRTP” is selected in FTP_DIT_EXT.1.1, the selection-based SFRs
+										FCS_COP.1/SRTP and FCS_SRTP_EXT.1 must be claimed.
+                    </note>
+                  </f-element>
+                </f-component>
+              </xpath-specified>
+            </replace>
+          </base-sfr-spec>
+        </section>
+      </modified-sfrs>
+      <!-- 5.2.2 Additional SFRs -->
+      <additional-sfrs/>
+      <con-toe>When this PP-Module is used to extend the App PP, the TOE type for the overall TOE is still a software
+			application. The TOE boundary is simply extended to include the VVoIP endpoint functionality that is
+			supported by the application.</con-toe>
+      <con-sec-prob>The threats and assumptions defined by this PP-Module (see sections 3.1 and 3.2) supplement those
+			defined in the App PP as follows:</con-sec-prob>
+      <con-obj/>
+      <con-op-en>The objectives for the TOE’s operational environment are consistent with the App-PP based on the following rationale:</con-op-en>
+      <con-mod ref="T.UNDETECTED_TRANSMISSION">The App PP defines threats for network attack and network eavesdropping.
+			Unauthorized and undetected use of a communications channel is
+			consistent with these threats.</con-mod>
+      <con-mod ref="T.MEDIA_DISCLOSURE">The App PP defines a threat for network eavesdropping. The threat of media
+			disclosure through vocoder frames is a type of side-channel attack that is
+			unique to the functions of a VVoIP endpoint. However, it is consistent with
+			the overall threat of unintended disclosure of sensitive data.</con-mod>
+      <con-mod ref="A.UPDATE_SOURCE">The App PP does not have any assumptions for the source of TOE updates,
+			only that the updates have adequate integrity protections. There is no
+			conflict with this Module assuming that TOE updates will be retrieved from a
+			particular location.</con-mod>
+      <con-mod ref="OE.UPDATE_SOURCE">The App PP requires the TOE to be able to apply software/firmware updates
+			but does not define any specific way that these updates need to be made
+			available. This PP-Module defines an objective that allows for an assumption
+			that TOE updates will be made available in a specific location.
+			A.UPDATE_SOURCE is consistent with the Base-PP objectives for the same
+			reason.</con-mod>
+      <con-mod ref="fco-voc-ext-1">The use of a fixed-rate vocoder relates to application-layer communications
+			that are not within the scope of the App PP.</con-mod>
+      <con-mod ref="fdp-ifc-1">This SFR defines a policy for when data will or will not be transmitted by the
+			TSF. The App PP defines requirements for how data is transmitted but a
+			policy governing when an external interface may be invoked is beyond its
+			scope.</con-mod>
+      <con-mod ref="fdp-iff-1">This SFR defines the rules for a policy for when data will or will not be
+			transmitted by the TSF. The App PP defines requirements for how data is transmitted but a policy governing when an external interface may be
+			invoked is beyond its scope.</con-mod>
+      <con-mod ref="fmt-smf-1-vvoip">This PP-Module defines a new iteration of FMT_SMF.1 to add additional
+			management functions that relate specifically to VVoIP functionality. The
+			addition of these functions does not prevent any of the original functions
+			from being implemented. This iteration does include two duplicates of
+			management functions specified in the Base-PP; this is consistent because it
+			is possible that auditing is handled differently for the VVoIP functionality as
+			it is for the rest of the TOE’s auditing. These functions are also selectable so
+			it is not required that a conformant TOE implement this.</con-mod>
+      <con-mod ref="fta-ssl-3-media">This SFR defines session termination behavior for the TOE’s media channel.
+			This interface is specific to this PP-Module and is not within the scope of the
+			App PP.</con-mod>
+      <con-mod ref="ftp-itc-1-control">This SFR defines the trusted communications protocol used by the TOE’s
+			signaling channel, which is specific to the VVoIP technology and does not
+			conflict with the functionality defined in the App PP.</con-mod>
+      <con-mod ref="ftp-itc-1-media">This SFR defines the trusted communications protocol used by the TOE’s
+			media channel, which is specific to the VVoIP technology and does not
+			conflict with the functionality defined in the App PP.</con-mod>
+      <con-mod ref="fau-gen-1-csadmin">This PP-Module specifies an iteration of FAU_GEN.1 for the auditable events
+			that relate specifically to the administration of the VVoIP endpoint. The App
+			PP does not mandate that the TOE include an audit function but it is not
+			prohibited by the PP.</con-mod>
+      <con-mod ref="fau-gen-1-csvvoip">This PP-Module specifies an iteration of FAU_GEN.1 for the auditable events
+			that relate specifically to VVoIP endpoint behavior. The App PP does not
+			mandate that the TOE include an audit function but it is not prohibited by
+			the PP.</con-mod>
+      <con-mod ref="fau-stg-1">This SFR defines the ability of the TOE to protect, store, and transmit audit
+			data to a remote server using a secure channel. The App PP does not define
+			its own requirements for auditing but it does not prohibit audit functionality,
+			so this PP-Module’s inclusion of an audit function does not conflict with the PP.</con-mod>
+      <con-mod ref="fau-stg-5">This SFR defines the ability of the TOE to handle log space overruns in a defined manner. 
+			The App PP does not define its own requirements for auditing but it does not prohibit audit functionality,
+			so this PP-Module’s inclusion of an audit function does not conflict with the PP.</con-mod>
+      <con-mod ref="fau-gen-1-p2padmin">This PP-Module specifies an iteration of FAU_GEN.1 for the auditable events
+			that relate specifically to the administration of the VVoIP endpoint. The App
+			PP does not mandate that the TOE include an audit function but it is not
+			prohibited by the PP.</con-mod>
+      <con-mod ref="fau-gen-1-p2pvvoip">This PP-Module specifies an iteration of FAU_GEN.1 for the auditable events
+			that relate specifically to VVoIP endpoint behavior. The App PP does not
+			mandate that the TOE include an audit function but it is not prohibited by
+			the PP.</con-mod>
+      <con-mod ref="fcs-cop-1-srtp">This SFR defines the AES functionality used to support SRTP. This does not
+			conflict with the App PP because the TOE can still use
+			FCS_COP.1/DataEncryption to make claims related to all other uses of AES.</con-mod>
+      <con-mod ref="fcs-srtp-ext-1">This SFR defines support for the SRTP protocol, which is specific to VVoIP
+			technology. The TSF’s implementation of this protocol does not prevent the
+			enforcement of any App PP SFRs.</con-mod>
+      <con-mod ref="fdp-ifc-1-callcontrol">This SFR defines VVoIP call control policy. The TSF’s implementation of this
+			protocol does not prevent the enforcement of any App PP SFRs.</con-mod>
+      <con-mod ref="fdp-iff-1-callcontrol">This SFR defines VVoIP call control policy. The TSF’s implementation of this
+			protocol does not prevent the enforcement of any App PP SFRs.</con-mod>
+      <con-mod ref="fpt-stm-ext-1-vvoip">This SFR defines the TOE’s reliance on ESCs to act as its NTP servers in
+			deployments where the TOE is registered to them. The App PP does not
+			define a specific method for how a conformant TOE is expected to receive
+			time data so there is no contradiction here.</con-mod>
+    </base-pp>
+    <!-- 5.3 TOE Security Functional Requirements -->
+    <man-sfrs>
+      <section id="ss-audit-table" title="Auditable Events for Mandatory SFRs">
+        <audit-table id="at-mandatory" table="mandatory"/>
+      </section>
+      <!-- 5.3.1 Communications (FCO) -->
+      <section title="Communications (FCO)" id="m-fco">
+        <ext-comp-def title="Fixed-Rate Vocoder" fam-id="FCO_VOC_EXT">
+          <fam-behavior>Components in this family define the use of vocoders in audio transmission.</fam-behavior>
+        </ext-comp-def>
+        <!-- FCO_VOC_EXT.1 Fixed-Rate Vocoder -->
+        <f-component cc-id="fco_voc_ext.1" id="fco-voc-ext-1" name="Fixed-Rate Vocoder">
+          <consistency-rationale/>
+          <comp-lev>requires the TSF to use a constant bit rate vocoder as opposed to a variable one.</comp-lev>
+          <management>
+            The following actions could be considered for the management functions in FMT:
+            <h:ul>
+              <h:li>Ability to specify the vocoder used</h:li>
+            </h:ul>
+          </management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>No dependencies.</dependencies>
+          <f-element id="fco-voc-ext-1e1">
+            <title>The TSF shall transmit voice media using a constant bit rate voice vocoder.</title>
+            <note role="application">A constant bit rate vocoder provides a constant output length that does not have
+							the vulnerabilities that a variable bit rate vocoder contains when encrypted.</note>
+            <aactivity>
+              <TSS>The evaluator shall verify that the TSS specifies each vocoder used. The evaluator shall then examine the
+								specification for each vocoder in order to verify that no variable rate vocoders are claimed by the TSF.</TSS>
+              <Guidance/>
+              <Tests>
+                The evaluator shall set up a test environment that contains the TOE, a call control server (which may be
+								the TOE itself), a network switch, a packet capture tool, and a second VVoIP endpoint.
+								The evaluator shall then perform the following test:
+                <testlist>
+                  <test><steplist><step>The evaluator shall ensure the TOE and the second VVoIP endpoint are registered to a call
+										control server or are using P2P.</step><step>.The evaluator shall use the TOE to dial the second VVoIP endpoint to establish a call and verify
+										the call is established by holding a voice conversation.</step><step>The evaluator shall review the captured traffic to verify that a fixed rate vocoder is used.</step></steplist> If multiple vocoders are supported, the evaluator shall reconfigure the TOE to use each individual vocoder and repeat steps 1-3 for each vocoder.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory"/>
+        </f-component>
+      </section>
+      <!-- 5.3.2 User Data Protection (FDP) -->
+      <section title="User Data Protection (FDP)" id="m-fdp">
+        <!-- FDP_IFC.1 Subset Information Flow Control -->
+        <f-component cc-id="fdp_ifc.1" id="fdp-ifc-1" name="Subset Information Flow Control">
+          <consistency-rationale/>
+          <f-element id="fdp-ifc-1e1">
+            <title>
+              The TSF shall enforce the [<h:i>media transmission policy</h:i>] on [<h:i>voice/video media
+					transmitted by the TOE</h:i>].
+            </title>
+            <note role="application">There are states when on-hook voice and video must not stream from the TOE.</note>
+            <aactivity>
+              <TSS>The evaluator shall verify that the TSS describes how streaming media is not transmitted when not in a streaming media state.</TSS>
+              <Guidance/>
+              <Tests>Testing of this component is performed through evaluation of FDP_IFF.1.</Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory">
+            <audit-event-descr>Call Detail Record (CDR) of VVoIP peer communications.</audit-event-descr>
+            <audit-event-info>Calling party</audit-event-info>
+            <audit-event-info>Called party</audit-event-info>
+            <audit-event-info>Start time of call</audit-event-info>
+            <audit-event-info>Call duration</audit-event-info>
+          </audit-event>
+        </f-component>
+        <!-- FDP_IFF.1 Simple Security Attributes -->
+        <f-component cc-id="fdp_iff.1" id="fdp-iff-1" name="Simple Security Attributes">
+          <consistency-rationale/>
+          <f-element id="fdp-iff-1e1">
+            <title>
+              The TSF shall enforce the [<h:i>media transmission policy</h:i>] based on the following
+						types of subject and information security attributes: [<h:i>TOE hook state, VVoIP call
+						connection status, and VVoIP call control server status</h:i>].
+            </title>
+          </f-element>
+          <f-element id="fdp-iff-1e2">
+            <title>
+              The TSF shall permit an information flow between a controlled subject and
+						controlled information via a controlled operation if the following rules hold: [<h:i><h:ul>
+                  <h:li>The TOE is  <selectables><selectable id="fdp_iff.1.2_1">registered with a VVoIP call control server</selectable><selectable id="sel-p2p-server-iff">acting as a VVoIP call control server when using P2P</selectable></selectables>,</h:li>
+                  <h:li>A call has been established with a telephony device (VVoIP endpoint),</h:li>
+                  <h:li>The TOE is in the off-hook state,</h:li>
+                  <h:li>The TOE is not in the mute state,</h:li>
+                  <h:li>
+                    <selectables>
+                      <selectable id="fdp_iff.1.2_2">The TOE is not in the hold state</selectable>
+                      <selectable id="fdp_iff.1.2_3" exclusive="yes">no other rules</selectable>
+                    </selectables></h:li>
+                </h:ul>
+              </h:i>].
+            </title>
+            <note role="application">
+              <h:p>If "acting as a VVoIP call control server when using P2P" is selected, the ST must include the selection-based
+					SFRs FAU_GEN.1/P2PADMIN, FAU_GEN.1/P2PVVOIP, FDP_IFC.1/CALLCONTROL, and FDP_IFF.1/CALLCONTROL.</h:p>
+            </note>
+          </f-element>
+          <f-element id="fdp-iff-1e3">
+            <title>The TSF shall enforce <h:s>the</h:s> [<h:i>no additional information flow control policy rules</h:i>].</title>
+          </f-element>
+          <f-element id="fdp-iff-1e4">
+            <title>
+              The TSF shall explicitly authorize an information flow based on the following
+						rules: [<h:i>no additional rules</h:i>].
+            </title>
+          </f-element>
+          <f-element id="fdp-iff-1e5">
+            <title>
+              The TSF shall explicitly deny an information flow based on the following rules:
+						[<h:i>all TCP and UDP ports used by the TOE are closed when not in active use</h:i>].
+            </title>
+            <aactivity>
+              <TSS>The evaluator shall verify that the TSS describes the TOE’s enforcement of the media transmission policy
+						and describes the conditions that are necessary for the TSF to transmit voice/video data to the operational
+						environment.</TSS>
+              <Guidance/>
+              <Tests>
+                The evaluator shall set up a test environment that contains the TOE, a call control server (which may be
+						the TOE itself), a network switch, a traffic capture tool, and a second VVoIP endpoint.
+						The evaluator shall then perform the following tests:
+                <testlist>
+                  <test>(Conditional - physical TOE) <steplist><step>The evaluator shall place the TOE into the on-hook state without registering it to the call control
+									server or using P2P. The evaluator shall use the traffic capture tool to verify that the TOE does
+									not transmit any streaming media traffic.</step><step>The evaluator shall place the TOE into the off-hook state and use the traffic capture tool to
+									verify that the TOE does not transmit any streaming media traffic.</step></steplist></test>
+                  <test>(Conditional - software application TOE) <steplist><step>The evaluator shall execute the VVoIP application without registering it to the call control server
+									or using P2P. The evaluator shall use the traffic capture tool to verify that the TOE does not
+									transmit any streaming media traffic.</step><step>The evaluator shall place the TOE into the off-hook state (e.g., by performing a call without
+									specifying any destination data). The evaluator shall use the traffic capture tool to verify that the
+									TOE does not transmit any streaming media traffic.</step></steplist></test>
+                  <test>
+                    <steplist>
+                      <step>The evaluator shall ensure the TOE is using P2P or register the TOE with the call control server
+									and verify that the TOE is registered by checking the call control server screen with current TOE
+									connections and by viewing the call control path traffic using the traffic capture tool.</step>
+                      <step>The evaluator shall place the TOE into the on-hook state and verify using the traffic capture tool
+									that no streaming media traffic is transmitted by the TOE.</step>
+                      <step>The evaluator shall place the TOE into the off-hook state. The evaluator shall then verify that the
+									TOE continues to not transmit streaming media traffic.</step>
+                    </steplist>
+                  </test>
+                  <test>
+                    <steplist>
+                      <step>The evaluator shall ensure the TOE is using P2P or shall register the TOE with the call control
+									server and verify that it is registered by checking the call control server with current connections
+									and using the traffic capture tool to verify the call control path traffic.</step>
+                      <step>The evaluator shall ensure the TOE is using P2P or shall register the second VVoIP endpoint with
+									the call control server and verify that it has been registered by checking the call control server
+									with current connections and using the traffic capture tool to verify the call control path traffic.</step>
+                      <step>The evaluator shall use the TOE to dial the second VVoIP endpoint and connect a call. The
+									evaluator shall verify that the connection is made by having a voice/video conversation with the
+									endpoint and using the traffic capture tool to verify that a steady stream of traffic is being
+									transmitted between the two endpoints over the media channel.</step>
+                      <step>The evaluator shall use the TOE to put the call on mute and verify that no traffic is transmitted
+									from the TOE over the media channel to the second VVoIP endpoint. If the TOE is registered to a
+									call control server, the evaluator shall also verify that a mute control message is sent to the call
+									control server and it responds.</step>
+                      <step>The evaluator shall use the TOE to take the call off mute and verify that the streaming media
+									traffic between the TOE and the second VVoIP endpoint is resumed.</step>
+                    </steplist>
+                  </test>
+                  <test>
+                    <steplist>
+                      <step>The evaluator shall ensure the TOE is using P2P or register the TOE to the call control server and
+									place it in the on-hook state.</step>
+                      <step>The evaluator shall use a fuzzing tool to attempt to connect to the TOE on the full range of TCP
+									ports used by the TSF. All ports used by the TOE should be closed except for the port that is used
+									to communicate with the ESC.</step>
+                    </steplist>
+                  </test>
+                  <test>
+                    <steplist>
+                      <step>The evaluator shall ensure the TOE and the second VVoIP endpoint are registered to a call
+									control server or are using P2P.</step>
+                      <step>The evaluator shall place the TOE in the on-hook state.</step>
+                      <step>The evaluator shall use a fuzzing tool to attempt to connect to the TOE on the full range of UDP
+									ports used by the TSF. All ports used by the TOE should be closed.</step>
+                      <step>The evaluator shall place a call to the second VVoIP endpoint and verify the call is established.
+									The evaluator shall capture the traffic to determine the port used by the TOE to carry the media
+									traffic.</step>
+                      <step>The evaluator shall hang up the call and verify that the TOE has returned to the on-hook state.</step>
+                      <step>The evaluator shall perform fuzzing activities to verify that the port used to carry media traffic in
+									step 4 has been closed.</step>
+                    </steplist>
+                  </test>
+                  <test>(Conditional - "The TOE is not in the hold state" is selected in FDP_IFF.1.2) <steplist><step>The evaluator shall use the TOE to put the call on hold and verify that no streaming media traffic
+									is transmitted from the TOE over the media channel. If the TOE is registered to a call control
+									server, the evaluator shall also verify that the VVoIP endpoint on-hold call control is sent to the
+									call control server and it responds.</step><step>The evaluator shall use the TOE to take the call off hold and verify that the streaming media
+									traffic between the TOE and the second VVoIP endpoint is resumed.</step></steplist></test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory"/>
+        </f-component>
+      </section>
+      <!-- 5.3.3 Security Management (FMT) -->
+      <section title="Security Management (FMT)" id="m-fmt">
+        <!-- FMT_SMF.1/VVoIP Specification of Management Functions (VVoIP Communications) -->
+        <f-component cc-id="fmt_smf.1" id="fmt-smf-1-vvoip" name="Specification of Management Functions (VVoIP Communications)" iteration="VVoIP">
+          <consistency-rationale/>
+          <f-element id="fmt-smf-1e1-vvoip">
+            <title>
+              The TSF shall be capable of performing the following management functions: [<h:i><h:ul>
+                  <h:li>
+                    Ability to
+                    <selectables>
+                      <selectable id="sel-register">register the TOE to an ESC <selectables><selectable id="fmt_smf.1.1_VVoIP_1">manually</selectable><selectable id="fmt_smf.1.1_VVoIP_2">via DHCP server</selectable></selectables></selectable>
+                      <selectable id="sel-p2p-server-smf">act as a VVoIP call control server when using P2P</selectable>
+                    </selectables>;
+                  </h:li>
+                </h:ul>
+                <selectables linebreak="yes">
+                  <selectable id="fmt_smf.1.1_VVoIP_3">Ability to configure audit behavior (e.g., changes to storage locations for audit; changes to behavior when local audit storage space is full);</selectable>
+                  <selectable id="fmt_smf.1.1_VVoIP_4">Ability to modify the behavior of the transmission of audit data to an external IT entity;</selectable>
+                  <selectable id="fmt_smf.1.1_VVoIP_5">Ability to configure the termination period for idle calls;</selectable>
+                  <selectable id="fmt_smf.1.1_VVoIP_6">Ability to specify the vocoder used;</selectable>
+                  <selectable id="fmt_smf.1.1_VVoIP_7">Ability to disable SRTP NULL algorithm;</selectable>
+                  <selectable id="fmt_smf.1.1_VVoIP_8">Ability to specify the ports to be used for SRTP communications;</selectable>
+                  <selectable id="fmt_smf.1.1_VVoIP_9" exclusive="yes">no other capabilities</selectable>
+                </selectables></h:i>].
+            </title>
+            <note role="application">
+              <h:p>This SFR defines additional management functions for the TOE beyond what is
+					defined in each of the supported Base-PPs as FMT_SMF.1. The TOE may have all
+					management functionality implemented in the same logical interface; it is not
+					necessary for the Base-PP management functions and the PP-Module’s
+					management functions to be implemented separately.</h:p>
+              <h:p>The audit-related sections are duplicates of those in the NDcPP’s definition of
+					FMT_SMF.1. If the VVoIP audit functionality is configurable separately from the
+					auditing for the device as a whole, the relevant selections should be made or
+					omitted in each iteration as needed.</h:p>
+              <h:p>If "register the TOE to an ESC..." is selected, regardless of Base-PP selection, the ST 
+					must include the selection-based SFR FPT_STM_EXT.1/VVoIP.</h:p>
+              <h:p>If the TOE claims conformance to the NDcPP and “register the TOE to an ESC…” is
+					selected, the selection-based NDcPP SFR FCS_NTP_EXT.1 must additionally be claimed since
+					connectivity to an ESC implies that the TSF will use it as an NTP server.
+					In this case, the TOE does not need to implement two distinct time services for different 
+					purposes. The same time service defined by FPT_STM_EXT.1 may be used here as well. Note 
+					however, for this PP-Module, the TOE must use ESCs to which it is registered as its NTP time sources.</h:p>
+              <h:p>If "act as a VVoIP call control server when using P2P" is selected, the ST must include the selection-based
+					SFRs FAU_GEN.1/P2PADMIN, FAU_GEN.1/P2PVVOIP, FDP_IFC.1/CALLCONTROL, and FDP_IFF.1/CALLCONTROL.</h:p>
+            </note>
+            <aactivity>
+              <TSS>The evaluator shall verify that the TSS provides a description of the TOE initial configuration and describes
+					the ability of the TSF to manage the functions that are defined in the SFR, including how each function is
+					managed (e.g., manually configured, applied via downloaded configuration file).</TSS>
+              <Guidance>The evaluator shall verify that the operational guidance provides instructions on configuring any
+					functionality specifically related to VVoIP.</Guidance>
+              <Tests>
+                The evaluator shall perform the following tests, depending on the selections made:
+                <testlist>
+                  <test>(Conditional - "register the TOE to an ESC [manually]" is selected) <steplist><step>On the TOE, input IP address, gateway address, and subnet mask.</step><step>If the operational environment is deployed in a manner such that the configuration server and
+								ESC are two distinct servers, input the addresses for each; otherwise, input the ESC address.</step><step>Save the configuration.</step><step>Verify the TOE registers to the ESC.</step></steplist></test>
+                  <test>(Conditional - "register the TOE to an ESC [via DHCP server]" is selected <steplist><step>On the TOE, input the DHCP server address.</step><step>Verify by traffic capture that the TOE receives all needed IP addresses.</step><step>Verify by examining the IP address on the TOE.</step><step>Verify the TOE registers to the ESC. </step></steplist> Test EAs to verify that the TOE can act as a VVoIP call control server when using P2P (if it is selected) are performed as part of testing for FDP_IFF.1/CALLCONTROL. <h:p/> Test EAs to verify the configuration of audit behavior are performed as part of testing for FAU_STG.1 and FAU_STG.5. <h:p/> Test EAs to verify the modification of transmission of audit data to an external IT entity are performed as part of testing for FAU_STG.1. <h:p/> Test EAs to verify that the idle call termination period can be specified are performed as part of testing for FTA_SSL.3/MEDIA, specifically Test 2 and Test 3. <h:p/> Test EAs to verify that the vocoder can be specified are performed as part of testing for FCO_VOC_EXT.1.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory">
+            <audit-event-descr>
+              <selectables>
+                <selectable>Registration of TOE to ESC.</selectable>
+                <selectable>None</selectable>
+              </selectables>
+            </audit-event-descr>
+            <audit-event-info>
+              <selectables onlyone="yes">
+                <selectable>IP address or identifier for the ESC</selectable>
+                <selectable>No additional information</selectable>
+              </selectables>
+            </audit-event-info>
+          </audit-event>
+        </f-component>
+      </section>
+      <!-- 5.3.4 TOE Access (FTA) -->
+      <section title="TOE Access (FTA)" id="m-fta">
+        <!-- FTA_SSL.3/MEDIA TSF-Initiated Termination (Media Channel) -->
+        <f-component cc-id="fta_ssl.3" id="fta-ssl-3-media" name="TSF-Initiated Termination (Media Channel)" iteration="MEDIA">
+          <consistency-rationale/>
+          <f-element id="fta-ssl-3e1-media">
+            <title>
+              The TSF shall terminate
+              <h:b>voice/video transmission</h:b>
+              after [<h:i>inactivity longer than
+                <selectables>
+                  <selectable id="fta_ssl.3.1_MEDIA_1"><assignable>default number of seconds</assignable> seconds</selectable>
+                  <selectable id="fta_ssl.3.1_MEDIA_3">an administrator-configurable interval</selectable>
+                </selectables></h:i>].
+            </title>
+            <note role="application">This SFR is intended to mitigate the potential unauthorized disclosure of media
+				data in the case where connectivity with the peer is lost. The ST author should
+				choose one or both selections if applicable. Note that if “an administrator-configurable interval” is selected, the ST author must select “configure the
+				termination period for idle calls” in FMT_SMF.1.1/VVoIP.</note>
+            <aactivity>
+              <TSS>The evaluator shall verify that the TSS specifies whether idle calls are terminated by default after a certain
+					amount of time or by an administrator-configurable interval.</TSS>
+              <Guidance>If the idle call timeout period is administrator-configurable, the evaluator shall verify that the operational
+					guidance includes instructions for how to configure this, as well as what the minimum and maximum
+					allowed values are.</Guidance>
+              <Tests>
+                The evaluator shall set up a test environment that contains the TOE, a call control server (which may be
+					the TOE itself), a configuration server (if used to communicate configuration changes to idle timeout
+					period), a network switch, a traffic capture tool, and a second VVoIP endpoint.
+					The evaluator shall then perform the following tests:
+                <testlist>
+                  <test>
+                    <steplist>
+                      <step>Deploy the TOE in a default configuration (i.e. without any administrative override applied to
+									the idle timeout value).</step>
+                      <step>Ensure the TOE is using P2P or register the TOE with the call control server and verify that it is
+									registered by viewing its status on the ESC and capturing the call control path traffic.</step>
+                      <step>Ensure the second VVoIP endpoint is using P2P or register the second VVoIP endpoint with the
+									call control server and verify that it is registered by viewing its status on the call control server
+									and capturing the call control path traffic.</step>
+                      <step>Use the TOE to dial the second VVoIP endpoint and establish a call. Verify the call was
+									established by holding a conversation between the two peers and capturing the streaming
+									media traffic that is transmitted between them.</step>
+                      <step>Power down the second VVoIP endpoint while the call is active. Observe that the TOE stops
+									transmitting media after the default period of time specified in the ST.</step>
+                    </steplist>
+                  </test>
+                  <test>(Conditional - "an administrator-configurable interval is selected in FTA_SSL.3.1/MEDIA) <steplist><step>Deploy the TOE in a default configuration (i.e. without any administrative override applied to
+									the idle timeout value).</step><step>Ensure the TOE is using P2P or register the TOE with the call control server and verify that it is
+									registered by viewing its status on the call control server and capturing the call control path
+									traffic.</step><step>Configure the TOE’s idle timeout period for the shortest period of time that is supported.</step><step>Ensure the second VVoIP endpoint is using P2P or register the second VVoIP endpoint with the
+									call control server and verify that it is registered by viewing its status on the call control server
+									and capturing the call control path traffic.</step><step>Use the TOE to dial the second VVoIP endpoint and establish a call. Verify the call was
+									established by holding a conversation between the two peers and capturing the streaming
+									media traffic that is transmitted between them.</step><step>Power down the second VVoIP endpoint while the call is active. Observe that the TOE stops
+									transmitting media after the period of time configured in Step 3.</step></steplist></test>
+                  <test>(Conditional - "an administrator-configurable interval" is selected in FTA_SSL.3.1/MEDIA) <h:p/> Repeat Test 2 but in Step 3, configure the idle timeout value to be the longest period of time that is supported as opposed to the shortest.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory">
+            <audit-event-descr>Termination of a call due to inactivity.</audit-event-descr>
+            <audit-event-info>Call party dropped time</audit-event-info>
+          </audit-event>
+        </f-component>
+      </section>
+      <!-- 5.3.5 Trusted Path/Channels (FTP) -->
+      <section title="Trusted Path/Channels (FTP)" id="m-ftp">
+        <!-- FTP_ITC.1/CONTROL Inter-TSF Trusted Channel (Signaling Channel) -->
+        <f-component cc-id="ftp_itc.1" id="ftp-itc-1-control" name="Inter-TSF Trusted Channel (Signaling Channel)" iteration="CONTROL">
+          <consistency-rationale/>
+          <f-element id="ftp-itc-1e1-control">
+            <title>
+              The TSF shall
+              <h:b>
+                be capable of using
+                <selectables>
+                  <selectable id="ftp_itc.1.1_CONTROL_1">Session Initiation Protocol (SIP)</selectable>
+                  <selectable id="ftp_itc.1.1_CONTROL_2">H.323</selectable>
+                </selectables>
+                to
+              </h:b>
+              provide a
+              <h:b>trusted </h:b>
+              communication channel between itself and
+              <h:b>a VVoIP
+					call control server</h:b>
+              that is logically distinct from other communication channels
+					and provides assured identification of its end points and protection of the channel
+					data from disclosure and detection of modification of the channel data.
+            </title>
+            <note role="application">Both the SIP and H.323 protocols rely on TLS. This SFR defines the application layer
+						protocol used to secure call control functions.</note>
+          </f-element>
+          <f-element id="ftp-itc-1e2-control">
+            <title>
+              The TSF shall permit [<h:i>the TSF, <h:b>the VVoIP call control server</h:b></h:i>] to initiate communication 
+						via the trusted channel.
+            </title>
+          </f-element>
+          <f-element id="ftp-itc-1e3-control">
+            <title>The TSF shall initiate communication via the trusted channel for [<h:i>establishment of call control</h:i>].</title>
+            <note role="application">The call control channel is secured with TLS as specified in FTP_DIT_EXT.1 from
+					App PP or FTP_ITC.1 from NDcPP.</note>
+            <aactivity>
+              <TSS>The evaluator shall verify that the TSS describes the ability of the TOE to use SIP and/or H.323 with TLS.</TSS>
+              <Guidance/>
+              <Tests>
+                The vendor shall provide to the evaluator application layer configuration settings for all secure
+							communication mechanisms specified by the FTP_ITC.1/CONTROL requirement. This information should be
+							sufficiently detailed to allow the evaluator to determine the application layer timeout settings for each
+							cryptographic protocol. There is no expectation that this information must be recorded in any public-facing document or report.
+                <h:p/>
+                The evaluator shall perform the following tests:
+                <testlist>
+                  <test>The evaluators shall ensure that communications using each protocol with a call control server is tested during the course of the evaluation, setting up the connections as described in the guidance documentation and ensuring that communication is successful.</test>
+                  <test>For each protocol that the TOE can initiate as defined in the requirement, the evaluator shall follow the guidance documentation to ensure that in fact the communication channel can be initiated from the TOE.</test>
+                  <test>The evaluator shall ensure, for each communication channel with an authorized IT entity, the channel data is not sent in plaintext.</test>
+                  <test>
+                    <h:p>Objective: The objective of this test is to ensure that the TOE reacts appropriately to any
+										connection outage or interruption of the route to the external IT entities.</h:p>
+                    <h:p>The evaluator shall, for a connection to a call control server using each claimed protocol, physically
+										interrupt the connection to the call control server for the following durations: i) a duration that exceeds
+										the TOE’s application layer timeout setting, ii) a duration shorter than the application layer timeout but
+										of sufficient length to interrupt the MAC layer.</h:p>
+                    <h:p>The evaluator shall ensure that, when the physical connectivity is restored, communications are
+										appropriately protected and no TSF data is sent in plaintext.</h:p>
+                    <h:p>In the case where the TOE is able to detect when the cable is removed from the device, another physical
+										network device (e.g., a core switch) shall be used to interrupt the connection between the TOE and the
+										call control server. The interruption shall not be performed at the virtual node (e.g., virtual switch) and
+										must be physical in nature.</h:p>
+                    <h:p>Further EAs are associated with the specific protocols.</h:p>
+                  </test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory">
+            <audit-event-descr>Establishment of connection to VVoIP call control server</audit-event-descr>
+            <audit-event-info>Called party</audit-event-info>
+            <audit-event-info>Calling party</audit-event-info>
+            <audit-event-info>Established connection time</audit-event-info>
+          </audit-event>
+          <audit-event table="mandatory">
+            <audit-event-descr>Termination of connection to VVoIP call control server</audit-event-descr>
+            <audit-event-info>Called party</audit-event-info>
+            <audit-event-info>Calling party</audit-event-info>
+            <audit-event-info>Terminated connection time</audit-event-info>
+          </audit-event>
+        </f-component>
+        <!-- FTP_ITC.1/MEDIA Inter-TSF Trusted Channel (Media Channel) -->
+        <f-component cc-id="ftp_itc.1" id="ftp-itc-1-media" name="Inter-TSF Trusted Channel (Media Channel)" iteration="MEDIA">
+          <consistency-rationale/>
+          <f-element id="ftp-itc-1e1-media">
+            <title>
+              The TSF shall
+              <h:b>
+                be capable of using
+                <selectables>
+                  <selectable id="sel_media_srtp">SRTP</selectable>
+                  <selectable id="ftp_itc.1.1_MEDIA_1">H.235/H.323</selectable>
+                </selectables>
+                to
+              </h:b>
+              provide a trusted communication channel between itself and
+              <h:b>another VVoIP
+					endpoint or other telephony device</h:b>
+              that is logically distinct from other communication channels
+					and provides assured identification of its end points and protection of the channel
+					data from disclosure and detection of modification of the channel data.
+            </title>
+            <note role="application">
+              <h:p>This SFR defines the application layer protocol used to secure voice/video
+						transmissions once a call is established between another VVoIP endpoint or other
+						telephony device such as a call conference device.</h:p>
+              <h:p>If “SRTP” is selected, the selection-based SFRs
+							FCS_COP.1/SRTP and FCS_SRTP_EXT.1 must be claimed.</h:p>
+            </note>
+          </f-element>
+          <f-element id="ftp-itc-1e2-media">
+            <title>
+              The TSF shall permit [<h:i>the TSF, <h:b>another VVoIP endpoint or other telephony device</h:b></h:i>] 
+						to initiate communication via the trusted channel.
+            </title>
+          </f-element>
+          <f-element id="ftp-itc-1e3-media">
+            <title>The TSF shall initiate communication via the trusted channel for [<h:i>transmission of voice/video media</h:i>].</title>
+            <note role="application">
+              The corresponding trusted media channel must be chosen to match the trusted
+					control channel: SIP – SRTP, H.323 – H.235/H.323.
+              <h:p/>
+              If “SRTP” is selected in FTP_ITC.1.1/Media, the selection-based SFRs
+					FCS_COP.1/SRTP and FCS_SRTP_EXT.1 must be claimed.
+            </note>
+            <aactivity>
+              <TSS>The evaluator shall verify that the trusted channel will use SRTP or H.323/H.235 in accordance with the selections made in the SFR.</TSS>
+              <Guidance/>
+              <Tests>
+                The vendor shall provide to the evaluator application layer configuration settings for all secure
+							communication mechanisms specified by the FTP_ITC.1/MEDIA requirement. This information should be
+							sufficiently detailed to allow the evaluator to determine the application layer timeout settings for each
+							cryptographic protocol. There is no expectation that this information must be recorded in any public-facing document or report.
+                <h:p/>
+                The evaluator shall perform the following tests:
+                <testlist>
+                  <test>The evaluators shall ensure that communications using each protocol with another VVoIP endpoint is tested during the course of the evaluation, setting up the connections as described in the guidance documentation and ensuring that communication is successful.</test>
+                  <test>For each protocol that the TOE can initiate as defined in the requirement, the evaluator shall follow the guidance documentation to ensure that in fact the communication channel can be initiated from the TOE.</test>
+                  <test>The evaluator shall ensure, for each communication channel with an authorized IT entity, the channel data is not sent in plaintext.</test>
+                  <test>
+                    <h:p>Objective: The objective of this test is to ensure that the TOE reacts appropriately to any
+										connection outage or interruption of the route to the external IT entities.</h:p>
+                    <h:p>The evaluator shall, for a connection to another VVoIP endpoint device using each claimed protocol, physically
+										interrupt the connection to that remote endpoint for the following durations: i) a duration that exceeds
+										the TOE’s application layer timeout setting, ii) a duration shorter than the application layer timeout but
+										of sufficient length to interrupt the MAC layer.</h:p>
+                    <h:p>The evaluator shall ensure that, when the physical connectivity is restored, communications are
+										appropriately protected and no TSF data is sent in plaintext.</h:p>
+                    <h:p>In the case where the TOE is able to detect when the cable is removed from the device, another physical
+										network device (e.g., a core switch) shall be used to interrupt the connection between the TOE and the
+										call control server. The interruption shall not be performed at the virtual node (e.g., virtual switch) and
+										must be physical in nature.</h:p>
+                    <h:p>Further EAs are associated with the specific protocols.</h:p>
+                  </test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory">
+            <audit-event-descr>Establishment of connection to VVoIP peer</audit-event-descr>
+            <audit-event-info>Called party</audit-event-info>
+            <audit-event-info>Calling party</audit-event-info>
+            <audit-event-info>Connection time to VVoIP peer</audit-event-info>
+          </audit-event>
+          <audit-event table="mandatory">
+            <audit-event-descr>Termination of connection to VVoIP peer</audit-event-descr>
+            <audit-event-info>Called party</audit-event-info>
+            <audit-event-info>Calling party</audit-event-info>
+            <audit-event-info>Disconnection time to VVoIP peer</audit-event-info>
+          </audit-event>
+        </f-component>
+      </section>
+    </man-sfrs>
+    <opt-sfrs>
+      <!-- 5.3.6 Security Audit(FAU) -->
+      <section title="Security Audit(FAU)" id="fau-ops">
+        <!-- FAU_GEN.1/CSADMIN Audit Data Generation (Client-Server Admin Events) -->
+        <f-component cc-id="fau_gen.1" id="fau-gen-1-csadmin" name="Audit Data Generation (Client-Server Admin Events)" iteration="CSADMIN">
+          <depends>
+            <optional/>
+          </depends>
+          <consistency-rationale/>
+          <f-element id="fau-gen-1e1-csadmin">
+            <title>
+              The
+              <h:b>
+                <selectables>
+                  <selectable id="fau_gen.1.1_CSADMIN_1">TSF</selectable>
+                  <selectable id="fau_gen.1.1_CSADMIN_2">TOE platform</selectable>
+                </selectables></h:b>
+              shall be able to generate audit data of the following auditable events:
+              <h:ol type="a">
+                <h:li>
+                  <h:s>Start-up and shutdown of the audit functions;</h:s>
+                </h:li>
+                <h:li>
+                  <h:s>All auditable events for the  <selectables choose-one-of="yes"><selectable id="fau_gen.1.1_CSADMIN_3">minimum</selectable><selectable id="fau_gen.1.1_CSADMIN_4">basic</selectable><selectable id="fau_gen.1.1_CSADMIN_5">detailed</selectable><selectable id="fau_gen.1.1_CSADMIN_6">not specified</selectable></selectables>  level of audit;</h:s>
+                </h:li>
+                <h:li>[<h:i>All administrative actions comprising:
+						<h:ol type="i"><h:li>Administrative login and logout (name of user account shall be
+								logged if individual user accounts are required for
+								Administrators).</h:li> <h:li>Changes to TSF data related to configuration changes (in
+								addition to the information that a change occurred it shall be
+								logged what has been changed).</h:li> <h:li>Generating/import of, changing, or deleting of cryptographic
+								keys (in addition to the action itself a unique key name or key
+								reference shall be logged).</h:li> <h:li>Resetting passwords (name of related user account shall be logged).</h:li> <h:li> <selectables><selectable id="fau_gen.1.1_CSADMIN_8"><assignable>list of other uses of privileges</assignable></selectable><selectable id="fau_gen.1.1_CSADMIN_9">no other actions</selectable></selectables></h:li></h:ol></h:i></h:li>].
+              </h:ol>
+            </title>
+            <note role="application">
+              <h:p>This SFR defines the same auditable events as FAU_GEN.1/P2PADMIN in
+					Appendix B below. It is defined as a separate iteration because when the TOE
+					is deployed in a client-server architecture, the Enterprise Session Controller is
+					expected to be responsible for the relevant auditing, so this capability is
+					optional when the TOE is not peer-to-peer.</h:p>
+              <h:p>
+                If the TOE claims this SFR and conforms to the App PP, the implementation-dependent SFRs FAU_STG.1 and FAU_STG.5 must also be claimed. This does not need to
+					be claimed when the TOE conforms to the NDcPP because that PP already
+					defines
+                <no-link>FAU_STG.1</no-link>
+                as a mandatory requirement.
+              </h:p>
+            </note>
+          </f-element>
+          <f-element id="fau-gen-1e2-csadmin">
+            <title>
+              The TSF shall record within the audit data at least the following information:
+              <h:ol type="a">
+                <h:li>Date and time of the auditable event, type of event, subject identity (if applicable), and the outcome (success or failure) of the event;</h:li>
+                <h:li>
+                  For each auditable event type, based on the auditable event definitions of the functional components included 
+								in the PP, PP-Module, functional package or ST, [<h:i>no additional information</h:i>].
+                </h:li>
+              </h:ol>
+            </title>
+            <aactivity>
+              <TSS/>
+              <Guidance>The evaluator shall make a determination of the administrative actions related to TSF data related to
+					configuration changes. The evaluator shall examine the guidance documentation and make a
+					determination of which administrative commands, including subcommands, scripts, and configuration
+					files, are related to the configuration (including enabling or disabling) of the mechanisms implemented in
+					the TOE that are necessary to enforce the requirements specified in the PP-Module. The evaluator
+					shall document the methodology or approach taken to TSF data related to configuration changes. The
+					evaluator may perform this activity as part of the activities associated with ensuring that the
+					corresponding guidance documentation satisfies the requirements related to it.</Guidance>
+              <Tests>
+                For each administrative action identified in FAU_GEN.1.1/CSADMIN, the evaluator shall perform an action
+					either on the TOE or on the operational environment that causes the event to occur. The evaluator shall
+					verify in each case that an auditable event was generated in a format consistent with the guidance
+					documentation and that all audit record details specified in the SFR are present.
+                <h:p/>
+                Note that the testing here can be accomplished in conjunction with the testing of the security mechanisms directly.
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FAU_GEN.1/CSVVOIP Audit Data Generation (Client-Server VVoIP Events) -->
+        <f-component cc-id="fau_gen.1" id="fau-gen-1-csvvoip" name="Audit Data Generation (Client-Server VVoIP Events)" iteration="CSVVOIP">
+          <depends>
+            <optional/>
+          </depends>
+          <consistency-rationale/>
+          <f-element id="fau-gen-1e1-csvvoip">
+            <title>
+              The TSF shall be able to generate audit data of the following auditable events:
+              <h:ol type="a">
+                <h:li>
+                  <h:s>Start-up and shutdown of the audit functions;</h:s>
+                </h:li>
+                <h:li>
+                  <h:s>All auditable events for the  <selectables choose-one-of="yes"><selectable id="fau_gen.1.1_CSVVOIP_1">minimum</selectable><selectable id="fau_gen.1.1_CSVVOIP_2">basic</selectable><selectable id="fau_gen.1.1_CSVVOIP_3">detailed</selectable><selectable id="fau_gen.1.1_CSVVOIP_4">not specified</selectable></selectables>  level of audit;</h:s>
+                </h:li>
+                <h:li>[<h:i>auditable events defined in the Auditable Events for Mandatory SFRs table (<xref to="at-mandatory"/>)</h:i>].</h:li>
+              </h:ol>
+            </title>
+          </f-element>
+          <f-element id="fau-gen-1e2-csvvoip">
+            <title>
+              The TSF shall record within the audit data at least the following information:
+              <h:ol type="a">
+                <h:li>Date and time of the auditable event, type of event, subject identity (if applicable), and the outcome (success or failure) of the event;</h:li>
+                <h:li>
+                  For each auditable event type, based on the auditable event definitions of the functional components included 
+								in the PP, PP-Module, functional package or ST, [<h:i>information specified in column three of the Auditable Events table 
+								in which the event was defined</h:i>].
+                </h:li>
+              </h:ol>
+            </title>
+            <note role="application">
+              <h:p>This SFR defines the same auditable events as FAU_GEN.1/P2P-VVoIP in
+					Appendix B below. It is defined as a separate iteration because when the
+					TOE is deployed in a client-server architecture, the Enterprise Session
+					Controller is expected to be responsible for the relevant auditing, so this
+					capability is optional when the TOE is not peer-to-peer.</h:p>
+              <h:p>If the TOE claims this SFR and conforms to the App PP, the
+					implementation-dependent SFRs FAU_STG.1 and FAU_STG.5 must also be claimed.
+					This does not need to be claimed when the TOE conforms to the NDcPP
+					because that PP already defines FAU_STG.1 as a mandatory
+					requirement.</h:p>
+            </note>
+            <aactivity>
+              <TSS/>
+              <Guidance>The evaluator shall check the guidance documentation and ensure that it provides an example of each
+						auditable event required by the PP-Module (i.e. at least one instance of each auditable event – comprising
+						the mandatory, optional and selection-based SFR sections as applicable – shall be provided from the actual
+						audit record).</Guidance>
+              <Tests>
+                <h:p>For each administrative action identified in the Auditable Events table in the PP-Module, the evaluator
+							shall perform an action on the TOE that causes the event to occur. The evaluator shall verify in each case
+							that an auditable event was generated in a format consistent with the guidance documentation and that
+							all audit record details specified in the SFR are present.</h:p>
+                <h:p>Note that the testing here can be accomplished in conjunction with the testing of the security mechanisms directly.</h:p>
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+      </section>
+    </opt-sfrs>
+    <sel-sfrs>
+      <!-- 5.3.7 Security Audit (FAU) -->
+      <section title="Security Audit (FAU)" id="fau-sel_based">
+        <!-- FAU_GEN.1/P2PADMIN Audit Data Generation (Peer-to-Peer Admin Events) -->
+        <f-component cc-id="fau_gen.1" id="fau-gen-1-p2padmin" name="Audit Data Generation (Peer-to-Peer Admin Events)" iteration="P2PADMIN">
+          <depends on-sel="sel-p2p-server-iff"/>
+          <depends on-sel="sel-p2p-server-smf"/>
+          <consistency-rationale/>
+          <f-element id="fau-gen-1e1-p2padmin">
+            <title>
+              The
+              <h:b>
+                <selectables>
+                  <selectable id="fau_gen.1.1_P2PADMIN_1">TSF</selectable>
+                  <selectable id="fau_gen.1.1_P2PADMIN_2">TOE platform</selectable>
+                </selectables></h:b>
+              shall be able to generate audit data of the following auditable events:
+              <h:ol type="a">
+                <h:li>
+                  <h:s>Start-up and shutdown of the audit functions;</h:s>
+                </h:li>
+                <h:li>
+                  <h:s>All auditable events for the  <selectables choose-one-of="yes"><selectable id="fau_gen.1.1_P2PADMIN_3">minimum</selectable><selectable id="fau_gen.1.1_P2PADMIN_4">basic</selectable><selectable id="fau_gen.1.1_P2PADMIN_5">detailed</selectable><selectable id="fau_gen.1.1_P2PADMIN_6">not specified</selectable></selectables>  level of audit;</h:s>
+                </h:li>
+                <h:li>[<h:i>All administrative actions comprising:
+						<h:ol type="i"><h:li>Administrative login and logout (name of user account shall be
+								logged if individual user accounts are required for
+								Administrators).</h:li> <h:li>Changes to TSF data related to configuration changes (in
+								addition to the information that a change occurred it shall be
+								logged what has been changed).</h:li> <h:li>Generating/import of, changing, or deleting of cryptographic
+								keys (in addition to the action itself a unique key name or key
+								reference shall be logged).</h:li> <h:li>Resetting passwords (name of related user account shall be logged).</h:li> <h:li> <selectables><selectable id="fau_gen.1.1_P2PADMIN_8"><assignable>list of other uses of privileges</assignable></selectable><selectable id="fau_gen.1.1_P2PADMIN_9">no other actions</selectable></selectables></h:li></h:ol></h:i></h:li>].
+              </h:ol>
+            </title>
+          </f-element>
+          <f-element id="fau-gen-1e2-p2padmin">
+            <title>
+              The TSF shall record within the audit data at least the following information:
+              <h:ol type="a">
+                <h:li>Date and time of the auditable event, type of event, subject identity (if applicable), and the outcome (success or failure) of the event;</h:li>
+                <h:li>
+                  For each auditable event type, based on the auditable event definitions of the functional components included 
+								in the PP, PP-Module, functional package or ST, [<h:i>no additional information</h:i>].
+                </h:li>
+              </h:ol>
+            </title>
+            <note role="application">
+              If the TOE is a hardware device and claims this SFR, this is inherently
+					satisfied through FAU_GEN.1 as defined by the NDcPP. Any other relevant
+					auditable events for the functionality described in the NDcPP is defined
+					there (the App PP does not include any auditing requirements).
+              <h:p/>
+              If the TOE claims this SFR and conforms to the App PP, the
+					implementation-dependent SFRs FAU_STG.1 and FAU_STG.5 must also be claimed.
+					This does not need to be claimed when the TOE conforms to the NDcPP
+					because that PP already defines
+              <no-link>FAU_STG.1</no-link>
+              as a mandatory
+					requirement.
+            </note>
+            <aactivity>
+              <TSS/>
+              <Guidance>The evaluator shall make a determination of the administrative actions related to TSF data related to
+					configuration changes. The evaluator shall examine the guidance documentation and make a
+					determination of which administrative commands, including subcommands, scripts, and configuration
+					files, are related to the configuration (including enabling or disabling) of the mechanisms implemented in
+					the TOE that are necessary to enforce the requirements specified in the PP-Module. The evaluator
+					shall document the methodology or approach taken to TSF data related to configuration changes. The
+					evaluator may perform this activity as part of the activities associated with ensuring that the
+					corresponding guidance documentation satisfies the requirements related to it.</Guidance>
+              <Tests>
+                For each administrative action identified in FAU_GEN.1.1/P2PADMIN, the evaluator shall perform an action
+					either on the TOE or on the operational environment that causes the event to occur. The evaluator shall
+					verify in each case that an auditable event was generated in a format consistent with the guidance
+					documentation and that all audit record details specified in the SFR are present.
+                <h:p/>
+                Note that the testing here can be accomplished in conjunction with the testing of the security mechanisms directly.
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FAU_GEN.1/P2PVVOIP Audit Data Generation (Peer-to-Peer VVoIP Events) -->
+        <f-component cc-id="fau_gen.1" id="fau-gen-1-p2pvvoip" name="Audit Data Generation (Peer-to-Peer VVoIP Events)" iteration="P2PVVOIP">
+          <depends on-sel="sel-p2p-server-iff"/>
+          <depends on-sel="sel-p2p-server-smf"/>
+          <consistency-rationale/>
+          <f-element id="fau-gen-1e1-p2pvvoip">
+            <title>
+              The TSF shall be able to generate audit data of the following auditable events:
+              <h:ol type="a">
+                <h:li>
+                  <h:s>Start-up and shutdown of the audit functions;</h:s>
+                </h:li>
+                <h:li>
+                  <h:s>All auditable events for the  <selectables choose-one-of="yes"><selectable id="fau_gen.1.1_P2PVVOIP_1">minimum</selectable><selectable id="fau_gen.1.1_P2PVVOIP_2">basic</selectable><selectable id="fau_gen.1.1_P2PVVOIP_3">detailed</selectable><selectable id="fau_gen.1.1_P2PVVOIP_4">not specified</selectable></selectables>  level of audit;</h:s>
+                </h:li>
+                <h:li>[<h:i>auditable events defined in the Auditable Events for Mandatory SFRs table (<xref to="at-mandatory"/>)</h:i>].</h:li>
+              </h:ol>
+            </title>
+          </f-element>
+          <f-element id="fau-gen-1e2-p2pvvoip">
+            <title>
+              The TSF shall record within the audit data at least the following information:
+              <h:ol type="a">
+                <h:li>Date and time of the auditable event, type of event, subject identity (if applicable), and the outcome (success or failure) of the event;</h:li>
+                <h:li>
+                  For each auditable event type, based on the auditable event definitions of the functional components included 
+								in the PP, PP-Module, functional package or ST, [<h:i>information specified in column three of the Auditable Events table 
+								in which the event was defined</h:i>].
+                </h:li>
+              </h:ol>
+            </title>
+            <note role="application">
+              If the TOE claims this SFR and conforms to the App PP, the
+					implementation-dependent SFRs FAU_STG.1 and FAU_STG.5 must also be claimed.
+					This does not need to be claimed when the TOE conforms to the NDcPP
+					because that PP already defines
+              <no-link>FAU_STG.1</no-link>
+              as a mandatory
+					requirement.
+            </note>
+            <aactivity>
+              <TSS/>
+              <Guidance>The evaluator shall check the guidance documentation and ensure that it provides an example of each
+						auditable event required by the PP-Module (i.e. at least one instance of each auditable event – comprising
+						the mandatory, optional and selection-based SFR sections as applicable – shall be provided from the actual
+						audit record).</Guidance>
+              <Tests>
+                <h:p>For each administrative action identified in the Auditable Events table in the PP-Module, the evaluator
+						shall perform an action on the TOE that causes the event to occur. The evaluator shall verify in each case
+						that an auditable event was generated in a format consistent with the guidance documentation and that
+						all audit record details specified in the SFR are present.</h:p>
+                <h:p>Note that the testing here can be accomplished in conjunction with the testing of the security mechanisms directly.</h:p>
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+      </section>
+      <!-- 5.3.8 Cryptographic Support (FCS) -->
+      <section title="Cryptographic Support (FCS)" id="fcs-sel_based">
+        <ext-comp-def title="Secure Real-Time Transport Protocol" fam-id="FCS_SRTP_EXT">
+          <fam-behavior>Components in this family define the implementation of the Secure Real-Time Transport Protocol (SRTP).</fam-behavior>
+        </ext-comp-def>
+        <!-- FCS_COP.1/SRTP Cryptographic Operation (Encryption/Decryption for SRTP -->
+        <f-component cc-id="fcs_cop.1" id="fcs-cop-1-srtp" name="Cryptographic Operation (Encryption/Decryption for SRTP" iteration="SRTP">
+          <depends on-sel="sel_all_srtp"/>
+          <depends on-sel="sel_media_srtp"/>
+          <consistency-rationale/>
+          <f-element id="fcs-cop-1e1-srtp">
+            <title>
+              The TSF shall perform [<h:i>encryption/decryption to support SDES-SRTP</h:i>] in
+					accordance with a specified cryptographic algorithm [<h:i>AES-GCM</h:i>] and
+					cryptographic key sizes [<h:i>256-bit</h:i>] that meet the following: [<h:i>NIST SP 800-38D</h:i>].
+            </title>
+            <note role="application">The NDcPP and App PP each define their own iteration of FCS_COP.1 for AES
+					encryption and decryption (FCS_COP.1/DataEncryption and FCS_COP.1/SKC,
+					respectively). The encryption and decryption used specifically for SRTP has been
+					broken out into a separate iteration for readability purposes; the same
+					cryptographic library that implements the AES algorithms claimed in the Base-PP
+					requirements can be used here. Note that GCM is a supported AES mode both in
+					this iteration and in the Base-PPs.</note>
+            <aactivity>
+              <TSS>The evaluator shall examine the TSS to determine that it claims the use of GCM. The
+					evaluator shall verify that the TSS notes the GCM key sizes that the TOE supports for each use of GCM. If
+					GCM is supported for other uses, the evaluator shall ensure that the specific key sizes supported for each
+					use of GCM are identified.</TSS>
+              <Guidance/>
+              <Tests>
+                <h:p>If the TOE claims the App PP as its Base-PP, the evaluator shall perform the AES-GCM test activities
+							identified for FCS_COP.1/SKC in the Base-PP.</h:p>
+                <h:p>If the TOE claims the NDcPP as its Base-PP, the evaluator shall perform the AES-GCM test activities
+							identified for FCS_COP.1/DataEncryption in the Base-PP.</h:p>
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FCS_SRTP_EXT.1 Secure Real-Time Transport Protocol -->
+        <f-component cc-id="fcs_srtp_ext.1" id="fcs-srtp-ext-1" name="Secure Real-Time Transport Protocol">
+          <depends on-sel="sel_all_srtp"/>
+          <depends on-sel="sel_media_srtp"/>
+          <consistency-rationale/>
+          <comp-lev>requires the TSF to implement SRTP and defines conditions on its use.</comp-lev>
+          <management>No specific management functions are identified.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FCS_COP.1 Cryptographic Operation</dependencies>
+          <f-element id="fcs-srtp-ext-1e1">
+            <title>The TSF shall implement the Secure Real-Time Transport Protocol (SRTP) that
+						complies with RFC 3711, and use Security Descriptions for Media Streams (SDES)
+						in compliance with RFC 4568 to provide key information for the SRTP connection.</title>
+          </f-element>
+          <f-element id="fcs-srtp-ext-1e2">
+            <title>The TSF shall implement SDES-SRTP supporting the following cipher suites: [<h:i>AEAD_AES_256_GCM, in accordance with RFC 7714</h:i>].</title>
+            <ext-comp-def-title>
+              <title>The TSF shall implement SDES-SRTP supporting the following cipher suites: <assignable>list of permitted SDES-SRTP cipher suites</assignable>.</title>
+            </ext-comp-def-title>
+            <note role="application">This requirement specifies that the SRTP session that will be used to carry the
+					VVoIP traffic will be keyed according to an SDES dialogue using the
+					identified cipher suite.</note>
+          </f-element>
+          <f-element id="fcs-srtp-ext-1e3">
+            <title>The TSF shall ensure the SRTP NULL algorithm can be disabled.</title>
+          </f-element>
+          <f-element id="fcs-srtp-ext-1e4">
+            <title>The TSF shall allow the SRTP ports to be used for SRTP communications to be specified by an Authorized Administrator.</title>
+            <note role="application">This requirement specifies that the SRTP session that will be used to carry the VoIP traffic will be keyed according to an SDES dialog using the identified cipher suite.</note>
+            <aactivity>
+              <TSS>The evaluator shall examine the TSS to verify that it describes how the SRTP session is negotiated for both
+								incoming and outgoing calls. This includes how the keying material is established, as well has how requests
+								to use the NULL algorithm or other unallowed cipher suites are rejected by the TSF.</TSS>
+              <Guidance>The evaluator shall examine the operational guidance to determine that it includes instructions for how
+								to disable the use of the SRTP NULL algorithm and how to specify the ports to be used for SRTP
+								communications.</Guidance>
+              <Tests>
+                <h:p>The evaluator shall follow the procedure for initializing their device so that they are ready to receive and
+									place calls. The evaluator shall then both place and receive a call and
+									determine that the traffic sent and received by the TOE is encrypted using SRTP with the specified cipher suite.
+									The evaluator may choose one of the below two options to ensure that the call is being encrypted and to
+									view the cipher suite being used.</h:p>
+                <h:p>Option 1: The evaluator shall configure the SIP server to report whether SRTP is being used, and if so,
+									print the negotiated SRTP cipher suite. The evaluator shall confirm that SRTP was used for the calls
+									and that the correct cipher suite was negotiated.</h:p>
+                <h:p>Option 2: A packet capture tool should be used with the SIP server's private key loaded in. The
+									evaluator shall decrypt the TLS-SIP traffic, view the SDES negotiation, and ensure that the correct
+									cipher suite was negotiated.</h:p>
+                <h:p>Option 3: The evaluator shall inspect the VVoIP endpoint's audit or system log to ensure that the correct cipher suite was negotiated.</h:p>
+                <h:p>Next, the evaluator shall configure the SIP server to only allow the SRTP NULL cipher suite. The evaluator
+									shall attempt to both place and receive a call and confirm that both attempts failed.</h:p>
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+      </section>
+      <!-- 5.3.9 User Data Protection (FDP) -->
+      <section title="User Data Protection (FDP)" id="fdp-sel_based">
+        <!-- FDP_IFC.1/CALLCONTROL Subset Information Flow Control (for Call Control) -->
+        <f-component cc-id="fdp_ifc.1" id="fdp-ifc-1-callcontrol" name="Subset Information Flow Control (for Call Control)" iteration="CALLCONTROL">
+          <depends on-sel="sel-p2p-server-iff"/>
+          <depends on-sel="sel-p2p-server-smf"/>
+          <consistency-rationale/>
+          <f-element id="fdp-ifc-1e1-callcontrol">
+            <title>The TSF shall enforce the [<h:i>call control policy</h:i>] on [<h:i>call control information transmitted by the TOE</h:i>].</title>
+            <aactivity>
+              <TSS/>
+              <Guidance/>
+              <Tests>Testing of this component is performed through evaluation of FDP_IFF.1/CALLCONTROL.</Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FDP_IFF.1/CALLCONTROL Subset Information Flow Control (for Call Control) -->
+        <f-component cc-id="fdp_iff.1" id="fdp-iff-1-callcontrol" name="Subset Information Flow Control (for Call Control)" iteration="CALLCONTROL">
+          <depends on-sel="sel-p2p-server-iff"/>
+          <depends on-sel="sel-p2p-server-smf"/>
+          <consistency-rationale/>
+          <f-element id="fdp-iff-1e1-callcontrol">
+            <title>
+              The TSF shall enforce the [<h:i>call control policy</h:i>] based on the following types of subject and information security attributes:
+              <assignable>method by which the TSF identifies each endpoint for a call</assignable>
+              <h:b> using the following call control protocols:  <selectables><selectable id="fdp_iff.1.1_CALLCONTROL_2">SIP</selectable><selectable id="fdp_iff.1.1_CALLCONTROL_3">H.323</selectable></selectables></h:b>.
+            </title>
+            <note role="application">The ST author should complete the assignment with an endpoint
+					identifier (i.e. how the TSF identifies the endpoints each endpoint for a
+					call). For example, the endpoint could be identified by an IP address, a
+					phone number, or a username.</note>
+          </f-element>
+          <f-element id="fdp-iff-1e2-callcontrol">
+            <title>
+              The TSF shall permit an information flow between a controlled subject
+				and controlled information via a controlled operation if the following rules hold: 
+				[<h:i>when valid communication with the TOE is attempted, the TSF will establish a connection 
+				between itself and the peer</h:i>].
+            </title>
+            <note role="application">The validity of a call is determined by the protocol and the identifier of the endpoint.</note>
+          </f-element>
+          <f-element id="fdp-iff-1e3-callcontrol">
+            <title>The TSF shall enforce <h:s>the</h:s> [<h:i>no additional information flow control policy rules</h:i>].</title>
+          </f-element>
+          <f-element id="fdp-iff-1e4-callcontrol">
+            <title>The TSF shall explicitly authorize an information flow based on the following rules:  <assignable>rules based on security attributes that explicitly authorize information flows</assignable>.</title>
+          </f-element>
+          <f-element id="fdp-iff-1e5-callcontrol">
+            <title>The TSF shall explicitly deny an information flow based on the following rules:  <assignable>rules based on security attributes that explicitly deny information flows</assignable>.</title>
+            <aactivity>
+              <TSS>The evaluator shall examine the TSS to verify that it describes the call control protocol(s) used by the TOE
+						and any explicit circumstances under which the TSF will and will not transmit call control data as defined
+						in FDP_IFF.1.4/CALLCONTROL and FDP_IFF.1.5/CALLCONTROL. The TSF should only transmit call control data
+						using the protocol(s) and method(s) of endpoint identification as indicated in FDP_IFC.1/CALLCONTROL or if
+						defined any explicit allow/deny rules in FDP_IFF.1.4/CALLCONTROL and FDP_IFF.1.5/CALLCONTROL.</TSS>
+              <Guidance>If any aspects of the TOE’s call control functionality are configurable (such as the specific call control
+						protocol used or the circumstances in which the TSF will or will not transmit call control data), the
+						evaluator shall examine the guidance documentation to verify that instructions for configuring this
+						behavior are provided.</Guidance>
+              <Tests>
+                The evaluator shall perform one or more of the following tests depending on the protocols that the TOE
+						claims to support.
+                <testlist>
+                  <test>(Conditional - if "SIP" is selected in FDP_IFF.1.1/CALLCONTROL) <steplist><step>Ensure the TOE is configured to use P2P and act as a call control server using the SIP protocol. </step><step>Use a traffic capture tool to capture call-signaling packets traversing the TOE. </step><step>Place a call to the TOE from another VVoIP endpoint using the SIP call control protocol to the
+										TOE and observe via packet capture that the TSF established a connection between itself and the peer.</step><step>Repeat step 3 with a call placed from the TOE to the other VVoIP endpoint.</step><step>(Conditional - if the ST claims any additional rules in FDP_IFF.1.4/CALLCONTROL) Implement any rules 
+										assigned in FDP_IFF.1.4 and verify that the specified authorized information flows occur.</step><step>(Conditional - if the ST claims any additional rules in FDP_IFF.1.5/CALLCONTROL) Implement any rules 
+										assigned in FDP_IFF.1.5 and verify that the specified information flows do not occur.</step><step>Repeat steps 1-6 for each method of endpoint identification.</step></steplist></test>
+                  <test>(Conditional - if "H.323" is selected in FDP_IFF.1.1/CALLCONTROL) <steplist><step>Ensure the TOE is configured to use P2P and act as a call control server using the H.323 protocol.</step><step>Use a traffic capture tool to capture call-signaling packets traversing the TOE. </step><step>Place a call to the TOE from another VVoIP endpoint using the H.323 call control protocol to the
+										TOE and observe via packet capture that the TSF established a connection between itself and the peer.</step><step>Repeat step 3 with a call placed from the TOE to the other VVoIP endpoint.</step><step>(Conditional - if the ST claims any additional rules in FDP_IFF.1.4/CALLCONTROL) Implement any rules 
+										assigned in FDP_IFF.1.4/CallControl and verify that the specified authorized information flows occur.</step><step>(Conditional - if the ST claims any additional rules in FDP_IFF.1.5/CALLCONTROL) Implement any rules 
+										assigned in FDP_IFF.1.5 and verify that the specified information flows do not occur.</step><step>Repeat steps 1-6 for each method of endpoint identification.</step></steplist></test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+      </section>
+      <!-- 5.3.10 Protection of the TSF (FPT) -->
+      <section title="Protection of the TSF (FPT)" id="fpt-sel_based">
+        <!-- FPT_STM_EXT.1/VVoIP Reliable Time Stamps (VVoIP Communications) -->
+        <f-component cc-id="fpt_stm_ext.1" id="fpt-stm-ext-1-vvoip" name="Reliable Time Stamps (VVoIP Communications)" iteration="VVoIP">
+          <depends on-sel="sel-register"/>
+          <consistency-rationale/>
+          <f-element id="fpt-stm-ext-1e1-vvoip">
+            <title>The TSF shall be able to provide reliable time stamps for its own use.</title>
+          </f-element>
+          <f-element id="fpt-stm-ext-1e2-vvoip">
+            <title>The TSF shall [<h:i>synchronize time with <h:b> <selectables><selectable id="sel_esc_sync">an ESC</selectable><selectable id="fpt_stm_ext.1.2_VVoIP_1">the TOE platform</selectable></selectables></h:b></h:i>].</title>
+            <note role="application">The selection made for this requirement depends on the TOE type. If the TOE is a hardware device, "an ESC" must be selected. 
+					If the TOE is a software application, "the TOE platform" must be selected. If the TOE is a software VVoIP application, FMT_SMF.1.1/VVoIP is not required as the TOE relies upon the platform for time.</note>
+            <aactivity>
+              <TSS>
+                <h:p>The evaluator shall examine the TSS to ensure that it lists each security function that makes use of time,
+							and that it provides a description of how the time is maintained and considered reliable in the context of
+							each of the time related functions.</h:p>
+                <h:p>If <xref to="sel_esc_sync"/> is selected in FPT_STM_EXT.1.1, the evaluator shall also verify that the TSS describes the ability of the TOE to support NTP synchronization with an ESC.</h:p>
+              </TSS>
+              <Guidance>
+                The evaluator shall review the guidance to confirm that it provides instructions for how to synchronize the time. If
+                <xref to="sel_esc_sync"/>
+                is selected in FPT_STM_EXT.1.1, 
+						this should include instructions on how to enable NTP synchronization with an ESC.
+              </Guidance>
+              <Tests>
+                (Conditional - "an ESC" is selected in FPT_STM_EXT.1.2/VVoIP)
+                <h:p>The evaluator shall use the guidance documentation to configure the NTP client on the TOE and set up a
+								communication path with the ESC. The evaluator will observe that the ESC has set the time to what is
+								expected.</h:p>
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+      </section>
+    </sel-sfrs>
+    <obj-sfrs/>
+    <impl-dep-sfrs>
+      <!-- 5.3.11 Security Audit (FAU) -->
+      <section title="Security Audit (FAU)" id="fau-imp_dep">
+        <!-- FAU_STG.1 Audit data storage location -->
+        <f-component cc-id="fau_stg.1" id="fau-stg-1" name="Audit data storage location">
+          <depends on="feat-swapp"/>
+          <consistency-rationale/>
+          <f-element id="fau_stg-1-1">
+            <title>
+              The TSF shall be able to store generated audit data on the [<h:i><h:b> <selectables><selectable id="fau_stg.1.1_1">TOE itself</selectable><selectable id="fau_stg.1.1_2">TOE platform</selectable></selectables></h:b>, transmit the generated audit data to <h:b> <selectables><selectable id="fau_stg.1.1_3">an Enterprise Session Controller that the TOE is registered to</selectable><selectable id="fau_stg.1.1_4">an external IT entity</selectable></selectables></h:b> using a trusted channel according to <h:b>FTP_DIT_EXT.1.</h:b></h:i>]
+            </title>
+            <note role="application">This SFR is modified from its definition in [CC] Part 2 to define storage for audit data. Specifically, it is required that this data be stored both on the TOE itself 
+		and that it be transmitted securely to an external entity. Note that this SFR is only applicable for software application TOEs that implement logging, because the NDcPP 
+		specifies log data storage requirements itself. This SFR should not be claimed when the NDcPP is the Base-PP.</note>
+            <aactivity>
+              <TSS>
+                <h:p>The evaluator shall examine the TSS to ensure it describes the means by which the audit data are
+				transferred to the external audit server, and how the trusted channel is provided.</h:p>
+                <h:p>The evaluator shall examine the TSS to ensure it describes the amount of audit data that are stored locally and
+				whether that data is stored by the TOE or through the TOE’s invocation of a platform auditing mechanism.</h:p>
+                <h:p>The evaluator shall examine the TSS to ensure that it details whether the transmission of audit information
+				to an external IT entity can be done in real-time or periodically. In case the TOE does not perform
+				transmission in real-time the evaluator needs to verify that the TSS provides details about what event
+				stimulates the transmission to be made as well as the possible acceptable frequency for the transfer of
+				audit data.</h:p>
+              </TSS>
+              <Guidance>
+                <h:p>The evaluator shall examine the guidance documentation to ensure it describes how to establish the
+				trusted channel to the audit server, as well as describe any requirements on the audit server (particular
+				audit server protocol, version of the protocol required, etc.), as well as configuration of the TOE needed
+				to communicate with the audit server.</h:p>
+                <h:p>The evaluator shall also examine the guidance documentation to determine that it describes the
+				relationship between the local audit data and the audit data that are sent to the audit log server. For
+				example, when an audit event is generated, is it simultaneously sent to the external server and the local
+				store, or is the local store used as a buffer and “cleared” periodically by sending the data to the audit
+				server.</h:p>
+              </Guidance>
+              <Tests>
+                <h:p>Testing of the trusted channel mechanism for audit will be performed as specified in the associated EAs
+				for the particular trusted channel mechanism. The evaluator shall perform the following additional tests
+				for this requirement:</h:p>
+                <testlist>
+                  <test>
+                    <h:p>The evaluator shall establish a session between the TOE and the audit server according to the
+						configuration guidance provided. The evaluator shall then examine the traffic that passes between the
+						audit server and the TOE during several activities of the evaluator’s choice designed to generate audit
+						data to be transferred to the audit server. The evaluator shall observe that these data are not able to be
+						viewed in the clear during this transfer, and that they are successfully received by the audit server. The
+						evaluator shall record the particular software (name, version) used on the audit server during testing. The
+						evaluator shall verify that the TOE is capable of transferring audit data to an external audit server
+						automatically without administrator intervention.</h:p>
+                    <h:p>If the ability to modify this behavior is configurable (e.g., if the TOE can be configured to transmit audit
+						data either to an ESC to which it is registered or to an external trusted IT entity that is not an ESC), the
+						evaluator shall repeat this test as necessary to show that changing the available configuration options will
+						result in the TOE performing the expected behavior in each case.</h:p>
+                  </test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FAU_STG.5 Prevention of audit data loss -->
+        <f-component cc-id="fau_stg.5" id="fau-stg-5" name="Prevention of audit data loss">
+          <depends on="feat-swapp"/>
+          <consistency-rationale/>
+          <f-element id="fau_stg-5-1">
+            <title>The TSF shall  <selectables><selectable id="fau_stg.5.1_1">ignore audited events</selectable><selectable id="fau_stg.5.1_2">overwrite the oldest stored audit records</selectable><selectable id="fau_stg.5.1_4"><assignable>other actions to be taken in case of audit storage failure and conditions for the actions</assignable></selectable></selectables>  if the audit data storage is full.</title>
+            <note role="application">Note that this SFR is only applicable for software application TOEs that implement logging, because the NDcPP 
+		specifies log data storage requirements itself. This SFR should not be claimed when the NDcPP is the Base-PP.</note>
+            <aactivity>
+              <TSS>
+                <h:p>The evaluator shall examine the TSS to ensure it describes what happens when the local audit data store is full; and how these records are protected against
+						unauthorized access.</h:p>
+                <h:p>The evaluator shall examine the TSS to ensure that it details the behavior of the TOE when the storage
+							space for audit data is full. When the option ‘overwrite the oldest stored audit records’ is selected this description
+							should include an outline of the rule for overwriting audit data. If ‘other actions...’ are chosen such as
+							sending the new audit data to an external IT entity, then the related behavior of the TOE shall also be
+							detailed in the TSS.</h:p>
+              </TSS>
+              <Guidance>
+                <h:p>The evaluator shall ensure that the guidance documentation describes all possible configuration
+							options for FAU_STG.5 and the resulting behavior of the TOE for each possible configuration. The
+							description of possible configuration options and resulting behavior shall correspond to those described
+							in the TSS.</h:p>
+              </Guidance>
+              <Tests>
+                <testlist>
+                  <test>
+                    <h:p>The evaluator shall perform operations that generate audit data and verify that this data is stored
+								locally. The evaluator shall perform operations that generate audit data until the local storage space is
+								exceeded and verifies that the TOE complies with the behavior defined in FAU_STG.5. Depending
+								on the configuration this means that the evaluator has to check the content of the audit data when the
+								audit data is just filled to the maximum and then verifies that:</h:p>
+                    <h:ul>
+                      <h:li>The audit data remains unchanged with every new auditable event that should be tracked but
+										that the audit data is recorded again after the local storage for audit data is cleared (for the
+										option ‘ignore audited events’ in FAU_STG.5).</h:li>
+                      <h:li>The oldest audit data is overwritten with every new auditable event that should be tracked
+											according to the specified rule (for the option ‘overwrite the oldest stored audit records’ in
+											FAU_STG.5).</h:li>
+                      <h:li>The TOE behaves as specified (for the option ‘other action’ in FAU_STG.5).</h:li>
+                    </h:ul>
+                    <h:p>If the behavior of the TOE when the local audit storage space is full is configurable, the evaluator shall
+									repeat this test for each configuration option and observe that the intended result occurs.</h:p>
+                    <h:p>If the local storage location of the audit data is configurable, the evaluator shall repeat this test as needed
+									to demonstrate that specifying a new location for storage of audit data results in audit data being stored
+									to the desired location.</h:p>
+                  </test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+      </section>
+    </impl-dep-sfrs>
+  </sec:Security_Requirements>
+  <appendix title="Implicitly Satisfied Requirements" id="implicit-reqs">
+    <h:p>
+      This appendix lists requirements that should be considered satisfied by products successfully evaluated
+			against this PP-Module. However, these requirements are not featured explicitly as SFRs and should not
+			be included in the ST. They are not included as standalone SFRs because it would increase the time, cost,
+			and complexity of evaluation. This approach is permitted by [CC] Part 1, 8.2 Dependencies between
+			components.
+      <h:p/>
+      This information benefits systems engineering activities which call for inclusion of particular security
+			controls. Evaluation against the PP-Module provides evidence that these controls are present and have
+			been evaluated.
+    </h:p>
+    <h:table>
+      <h:tr class="header">
+        <h:td>Requirement</h:td>
+        <h:td>Rationale for Satisfaction</h:td>
+      </h:tr>
+      <h:tr>
+        <h:td>FAU_GEN.2 – User identity association</h:td>
+        <h:td>The iterations of FAU_GEN.1.2 explicitly requires that the OS
+					record any user account associated with each event; therefore,
+					it is duplicative to include a separate requirement to associate a
+					user account with each event.
+					If the TOE claims conformance to the NDcPP, the dependency is
+					explicitly met through FAU_GEN.2.</h:td>
+      </h:tr>
+      <h:tr>
+        <h:td>FIA_UID.1 – Timing of Identification</h:td>
+        <h:td>
+          <h:p>
+            For the purpose of logging and processing VVoIP telephony
+					functions, the TOE is identified solely by underlying system or
+					configuration characteristics (e.g., IP address, phone number)
+					independent of the identity of the user interacting with the
+					TOE.
+            <h:p/>
+            When the TOE is a software application, neither this PP-Module
+					nor the Base-PP (App PP) define a separate identification and
+					authentication mechanism for the software application to
+					interact with its management interface. The software
+					application assumes that accessing the OS platform itself is
+					sufficient to grant access to the application. For accountability
+					purposes, the user of the TOE is identified as the user that
+					logged in to the OS platform and subsequently interacted with
+					the TSF.
+          </h:p>
+        </h:td>
+      </h:tr>
+      <h:tr>
+        <h:td>FMT_MSA.1 – Management of Security Attributes</h:td>
+        <h:td>
+          <h:p>
+            This SFR defines the TOE security attributes that can be
+					managed and what management role can administer them.
+					Specifically, this is indirectly dependent on FDP_IFF.1. The PP-Module defines two iterations of FDP_IFF.1. Each of these
+					iterations define explicit rules that determine when the TSF
+					transmits call control and media data.
+            <h:p/>
+            The relevant attributes are either directly under the control of
+					an ordinary user, such that no specific security authorization is
+					needed, or they are entirely under the control of the TSF and
+					cannot be influenced by the user regardless of privilege. An
+					example of the first case in that in FDP_IFF.1.2, whether or not
+					the TOE is in the off-hook state or the mute state is
+					controllable by a user with physical access to the TOE and does 
+					not require the assumption of an administrative role. An
+					example of the second case is in FDP_IFF.1.2/CallControl,
+					where the TSF will determine if the other end of the
+					connection is a valid VVoIP endpoint, which is something the
+					user has no ability to configure or influence.
+          </h:p>
+        </h:td>
+      </h:tr>
+      <h:tr>
+        <h:td>FMT_MSA.3 – Static Attribute Initialization</h:td>
+        <h:td>
+          <h:p>
+            This SFR is a dependency on FDP_IFF.1. The PP-Module defines
+					two iterations of FDP_IFF.1. Each of these iterations define
+					explicit rules that determine when the TSF transmits call
+					control and media data. FMT_MSA.3 has not been specified
+					because the default state of the attributes used to determine if
+					data flow is authorized is not relevant to enforcement of the
+					rules.
+            <h:p/>
+            For example, FDP_IFF.1.2 states that the TSF will not transmit
+					media data within a call if the TOE is in the mute state.
+					Whether the call starts with the mute state active or inactive
+					does not affect the enforcement of the rule, and requiring the
+					ST to state this information does not affect the security of the
+					TSF.
+          </h:p>
+        </h:td>
+      </h:tr>
+      <h:tr>
+        <h:td>FMT_SMR.1 – Security Roles</h:td>
+        <h:td>
+          <h:p>
+            When the TOE is a software application, neither this PP-Module
+					nor the Base-PP (App PP) define security roles that are
+					authorized to perform management functionality on the TSF.
+					For user access, the TOE does not require separate
+					authentication to the TSF because authentication to the OS
+					platform on which the TOE is installed is sufficient user access
+					control; a user logged in to the OS platform is assumed to be a
+					valid user of the TOE.
+            <h:p/>
+            If the TOE is registered to an ESC, the ESC may be able to issue
+					management commands to the TOE. No separate ‘user role’ is
+					needed to define this because the ESC is not a ‘user’ and so
+					FMT_SMR.1.2 is not applicable in this context. The ESC’s
+					authorization to manage the TSF is implicitly granted through
+					the user registering the TOE to the ESC.
+          </h:p>
+        </h:td>
+      </h:tr>
+      <h:tr>
+        <h:td>FPT_STM.1 – Reliable time stamps</h:td>
+        <h:td>
+          <h:p>
+            The iterations of FAU_GEN.1.2 explicitly requires that the
+					software application TSF associate timestamps with audit
+					records; therefore it is duplicative to include a separate
+					timestamp requirement. Additionally, the App PP has an
+					assumption of relying upon a trustworthy computing platform
+					with a reliable time clock for its execution, so the dependency is
+					also met through the assumption.
+            <h:p/>
+            Alternatively, if the TOE is registered to an ESC, the selection-based requirement FPT_STM_EXT.1/VVoIP must be claimed,
+					which is sufficient to address the dependency as the TSF will
+					receive time data from the operational environment that is
+					assumed to be reliable.
+            <h:p/>
+            If the TOE claims conformance to the NDcPP, the dependency is
+					also explicitly met through FPT_STM_EXT.1, regardless of whether the TOE is deployed in a client-server configuration
+					(with registration to an ESC) or peer-to-peer configuration (with
+					no ESC involved).
+          </h:p>
+        </h:td>
+      </h:tr>
+    </h:table>
+  </appendix>
+  <appendix title="Entropy Documentation and Assessment" id="entropyappendix">
+    <h:p>The TOE does not require any additional supplementary information to describe its entropy sources
+			beyond the requirements outlined in the Base-PPs. As with other Base-PP requirements, the only
+			additional requirement is that the entropy documentation also applies to the specific VVoIP capabilities
+			of the TOE that require random data, in addition to any functionality required by the claimed Base-PP.</h:p>
+  </appendix>
+  <bibliography>
+    <entry id="bibAppPP">
+      <tag>AppPP</tag>
+      <description>
+        <h:a href="https://www.niap-ccevs.org/protectionprofiles/516">Protection Profile for Application Software, Version 2.0, June 16, 2025</h:a>
+      </description>
+    </entry>
+    <entry id="bibNDcPP">
+      <tag>NDcPP</tag>
+      <description>
+        <h:a href="https://www.niap-ccevs.org/protectionprofiles/524">collaborative Protection Profile for Network Devices, Version 4.0, December 22, 2025</h:a>
+      </description>
+    </entry>
+  </bibliography>
+</Module>

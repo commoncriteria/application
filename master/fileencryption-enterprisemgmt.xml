@@ -1,0 +1,1719 @@
+<Module xmlns="https://niap-ccevs.org/cc/v1" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:sec="https://niap-ccevs.org/cc/v1/section" name="file encryption enterprise management" target-product="File Encryption Enterprise Management" target-products="File Encryption Enterprise Management">
+  <PPReference>
+    <ReferenceTable>
+      <PPVersion>2.0</PPVersion>
+      <PPAuthor>National Information Assurance Partnership</PPAuthor>
+      <PPPubDate>2025-09-29</PPPubDate>
+      <Keywords>file encryption; encryption</Keywords>
+    </ReferenceTable>
+  </PPReference>
+  <RevisionHistory>
+    <entry>
+      <version>1.0</version>
+      <date>2019-07-30</date>
+      <subject>Initial Release</subject>
+    </entry>
+    <entry>
+      <version>2.0</version>
+      <date>2025-09-29</date>
+      <subject>Update to CC:2022</subject>
+    </entry>
+  </RevisionHistory>
+  <release-notes><h:h3>TDs Applied</h:h3></release-notes><include-pkg id="pkg-ssh">
+    <git>
+      <url>https://github.com/commoncriteria/ssh/</url>
+      <branch>master</branch>
+    </git>
+    <url>https://www.niap-ccevs.org/protectionprofiles/515</url>
+    <depends on="sel_all_ssh"/>
+  </include-pkg>
+  <include-pkg id="pkg-tls">
+    <git>
+      <url>https://github.com/commoncriteria/tls/</url>
+      <branch>master</branch>
+    </git>
+    <url>https://www.niap-ccevs.org/protectionprofiles/465</url>
+    <depends on="sel_all_tlsc"/>
+  </include-pkg>
+  <pp-preferences/>
+  <sec:Introduction>
+    <sec:Overview title="Overview">The scope of the File Encryption Enterprise Management PP-Module is to describe the security functionality of a file encryption 
+	    enterprise management product in terms of [CC] and to define functional and assurance requirements for such products. 
+      This PP-Module is intended for use with the following Base-PP<h:br/><h:br/><h:ul><h:li>Application Software Protection Profile, Version 2.0</h:li></h:ul><h:br/> This Base-PP is valid because a file encryption enterprise management product is
+      a 3rd party application. The use case for a product conforming to the FE module is to protect data at rest on a device
+      that is lost or stolen while powered off without any prior access by an adversary. The use case
+      where an adversary obtains a device that is in a powered state and is able to make modifications
+      to the environment or the TOE itself (e.g., evil maid attacks) is not addressed by that module. The module
+	    does contain protections to mitigate the potential for attack with a powered on device, but they are not sufficient 
+	    to protect data from a skilled adversary with physical access.<h:br/><h:br/>
+      
+      While that use case is still true for the Enterprise Management PP-Module, this PP-module also
+      expands the use case to include protecting the communications between the Enterprise
+      Management Server and the client device through the use of a trusted channel. It also expands
+      the use case to include the optional abilities of the EM to interact with clients (with proper
+      authorization), to direct it to perform sanitation of keys and material on the device, 
+      to manage and store parts of the key chain required for decryption on the client, or to issue a
+      recovery credential to reset the authentication factor if it has been lost.<h:br/><h:br/>
+      
+      The TOE and Its Supporting Environment:<h:br/>
+      
+      The environment in which the EM functions is expected to exist is on a back end server, not
+      on the endpoint system. It is expected to have secure access to a management system
+      (e.g. Active Directory) and access to a means of storing key material when not in use.
+      The EM shall not have the ability to access the secured stored key material without verification
+      of access authority by the LDAP.<h:br/><h:br/>
+      The Operating System environment may make a full range of services available to the
+      Enterprise Management PP-Module, including hardware drivers, cryptographic libraries, and
+      perhaps other services external to the TOE.
+      The EM TOE may include or leverage features and functions within the operational
+      environment.
+    </sec:Overview>
+    <tech-terms>
+      <term full="Authorization factor" abbr="AF">A value that a user knows, has, or is (e.g.
+        password, token, etc.) submitted to the TOE to establish that the user is in the community
+        authorized to access the requested material.</term>
+      <term full="Entropy Source">This cryptographic function provides a seed for a random bit generator by
+        accumulating the outputs from one or more noise sources. The functionality includes a
+        measure of the minimum work required to guess a given output and tests to ensure that
+        the noise sources are operating properly.</term>
+      <term full="File Encryption Key" abbr="FEK">The key that is used by the encryption algorithm to encrypt the selected
+        user data on the host machine.</term>
+      <term full="File/Set of files">The user data that is selected to be encrypted, which can include
+        individual file encryption (with a FEK per file) or a set of files encrypted with a
+        single FEK.</term>
+      <term full="Key Chaining">The method of using multiple layers of encryption keys to protect data. 
+        A top layer key encrypts a lower layer key which encrypts the data; this method can have any number of layers.</term>
+      <term full="Key Encryption Key" abbr="KEK">The key that is used to encrypt another key.</term>
+      <term full="Key Release Key">A key used to release another key from storage, it is not used for the direct derivation or decryption of another key.</term>
+      <term full="Key Sanitization">A method of sanitizing encrypted data by securely overwriting the key, as described in the key destruction requirement, that was encrypting the data.</term>
+      <term full="Keying Escrow">The process of exporting a key to an alternate location.</term>
+      <term full="Keying Material">Key material is commonly known as critical security parameter (CSP) data, and also includes authorization data, nonces, and metadata.</term>
+      <term full="Noise Source">The component of an RBG that contains the non-deterministic,
+              entropy-producing activity.</term>
+      <term full="Non-Volatile Memory">A type of computer memory that will retain information without power.</term>
+      <term full="Powered-Off State">The device has been shut down.</term>
+      <term full="Protected Data">This refers to all files designated by the user for encryption.</term>
+      <term full="Random Bit Generator" abbr="RBG">A cryptographic function composed of an entropy source and DRBG that is
+              invoked for random bits needed to produce keying material.</term>
+      <term full="Recovery Value">A secondary credential that can be used to validate a user in the event the primary one is lost.</term>
+      <term full="Registration">The initial process of associating and endpoint and/or user with the server.</term>
+      <term full="Submask">A submask is a bit string that can be generated and stored in a number of ways</term>
+      <term full="System Identity">A composition of a series of identifiers that may vary, but aim to identity and associate with a specific system</term>
+    </tech-terms>
+    <section title="Compliant Targets of Evaluation" id="TOEdescription">
+           
+   The target of evaluation for this PP-Module is the Enterprise Management (EM) function of a FE solution. The following section provides an overview of the security functionality of this PP-module.
+      
+      <sec:TOE_Boundary><h:p>
+          The application, which consists of the software provided by its vendor,
+          is installed onto the platform(s) it operates on.  It executes on the platform, which
+          may be an operating system, hardware environment, 
+          a software based execution environment, 
+          or some combination of these. Those platforms may themselves run within other
+          environments, such as virtual machines or operating systems, that completely abstract away the underlying hardware
+          from the application. The TOE is not accountable for security functionality that is implemented by 
+          platform layers that are abstracted away.
+          Some evaluation activities are specific to the particular platform
+          on which the application runs, in order to provide precision and
+          repeatability. The only platforms currently recognized by <xref to="bibAppPP"/> and this module are those specified in SFR Evaluation Activities.
+          To test on a platform for which there are no EAs, a Vendor should contact NIAP with recommended EAs.
+          NIAP will determine if the proposed platform is appropriate for the PP and accept, reject,
+          or develop EAs as necessary in coordination with the technical community.
+        </h:p> <h:p>	
+          The TOE includes 
+          any software in the application installation package, even those pieces that may 
+          extend or modify the functionality of the underlying platform, such as kernel drivers.  
+          <h:abbr title="Basic Input/Output             System">BIOS</h:abbr> and other firmware, the operating system kernel,
+          and other systems software (and drivers) provided as part of the
+          platform are outside the scope of this document.  
+          
+        </h:p></sec:TOE_Boundary>
+    </section>
+    <sec:Use_Cases>
+      <usecases>
+        <usecase title="Enterprise Management" id="usecase1">
+          <description>The use case for this PP-Module is protecting the communications between the Enterprise
+              Management Server and the client device through the use of a trusted channel. Including the optional abilities of the EM to interact with clients (with proper
+              authorization), to direct it to perform sanitation of keys and material on the device, 
+              to manage and store parts of the key chain required for decryption on the client, or to issue a
+              recovery credential to reset the authentication factor if it has been lost. </description>
+        </usecase>
+      </usecases>
+    </sec:Use_Cases>
+  </sec:Introduction>
+  <section title="Conformance Claims" id="ccl" boilerplate="no">
+    <CClaimsInfo cc-version="cc-2022r1" cc-approach="direct-rationale">
+      <cc-st-conf>exact</cc-st-conf>
+      <cc-pt2-conf>extended</cc-pt2-conf>
+      <cc-pt3-conf>extended</cc-pt3-conf>
+      <cc-pp-conf/>
+      <cc-pp-config-with>
+        <Mod-cc-ref>PP-Module for VPN Clients, Version 3.0</Mod-cc-ref>
+        <Mod-cc-ref>PP-Module for File Encryption, Version 2.0</Mod-cc-ref>
+      </cc-pp-config-with>
+      <cc-pkg-claim>
+        <FP-cc-ref conf="conformant">Functional Package for SSH Version 2.0</FP-cc-ref>
+        <FP-cc-ref conf="conformant">Functional Package for TLS Version 2.1</FP-cc-ref>
+        <FP-cc-ref conf="conformant">Functional Package for X.509 Version 1.0</FP-cc-ref>
+      </cc-pkg-claim>
+    </CClaimsInfo>
+  </section>
+  <!-- 3.0 Security Problem Definition-->
+  <sec:spd title="Security Problem Definition">
+    
+    The primary asset that is being protected
+    is the sensitive user data stored on a system. The threat model thus focuses on a host machine
+    that has been compromised by an unauthorized user. This section addresses threats to the TOE
+    only. 
+    
+    
+    <!-- 3.1 Threats -->
+    <sec:Threats><threats><threat name="T.KEYING_MATERIAL_COMPROMISE_SERVER"><description>            Possession of any of the keys, authorization factors, submasks, and random numbers            or any other values that contribute to the creation of keys or authorization factors could allow an unauthorized user to defeat            the encryption. This PP-Module considers possession of key material of equal importance to the data itself. Threat agents may            look for key material in unencrypted storage on the Management Server and in external databases in the operating environment (OE), e.g. SQL database. </description><!-- New mapping to build updated threat mapping table. --><addressed-by>FCS_CKM_EXT.1 (from Base-PP)</addressed-by><rationale>Mitigates the threat by ensuring that a key generation mechanism exists for the TOE to use.</rationale><addressed-by>FCS_CKM.1/SK (from Base-PP)</addressed-by><rationale>Mitigates the threat by securely generating symmetric encryption keys.</rationale><addressed-by>FCS_CKM.2 (from Base-PP)</addressed-by><rationale>Mitigates the threat by securely establishing cryptographic keys between entities.</rationale><addressed-by>FCS_CKM.6</addressed-by><rationale>Mitigates the threat by securely destroying keys and key material when no longer needed.</rationale><addressed-by>FCS_COP.1/KT (selection-based)</addressed-by><rationale>Mitigates the threat by securely transmitting keys using a cryptographic algorithm.</rationale><addressed-by>FCS_COP.1/KW (selection-based)</addressed-by><rationale>Mitigates the threat by securely wrapping cryptographic keys using a cryptographic algorithm.</rationale><addressed-by>FCS_KDF_EXT.1 (selection-based)</addressed-by><rationale>Mitigates the threat by securely deriving cryptographic keys.</rationale><addressed-by>FCS_KYC_EXT.1</addressed-by><rationale>Mitigates the threat by securely storing keys &amp; key chain material.</rationale><addressed-by>FCS_SMC_EXT.1 (selection-based)</addressed-by><rationale>Mitigates the threat by securely generating intermediate keys by combining submasks.</rationale><addressed-by>FIA_AUT_EXT.1</addressed-by><rationale>Mitigates the threat by authorizing a user based on a secure credential.</rationale><addressed-by>FMT_MOF.1</addressed-by><rationale>Mitigates the threat by restricting the ability to manage encryption parameters to administrators.</rationale><addressed-by>FMT_SMF.1/FEEM</addressed-by><rationale>Mitigates the threat by restricting the ability to manage the Management Server to administrators.</rationale><addressed-by>FPT_ITT.1</addressed-by><rationale>Mitigates the threat by protecting data transmitted within different parts of the TOE.</rationale><addressed-by>FPT_KYP_EXT.1</addressed-by><rationale>Mitigates the threat by limiting the situations in which plaintext keys may be stored, and storing the keys protected in all other situations.</rationale><addressed-by>FTP_DIT_EXT.1 (modified from Base-PP)</addressed-by><rationale>Mitigates the threat by encrypting data transmitted to an external entity.</rationale></threat><threat name="T.MAN_IN_THE_MIDDLE"><description>            An attacker listening on the             communication between the Management Server and the Client(s) to obtain the user’s credential, keys, or recovery material.          </description><!-- New mapping to build updated threat mapping table. --><addressed-by>FCS_CKM_EXT.1 (from Base-PP)</addressed-by><rationale>Mitigates the threat by ensuring that a key generation mechanism exists for the TOE to use.</rationale><addressed-by>FCS_CKM_EXT.6 (selection-based)</addressed-by><rationale>Mitigates the threat by conditioning passwords or other credentials to an unreadable form.</rationale><addressed-by>FCS_COP.1/SigGen (from Base-PP)</addressed-by><rationale>Mitigates the threat by cryptographically signing communications between servers and clients.</rationale><addressed-by>FCS_COP.1/SKC (from Base-PP)</addressed-by><rationale>Mitigates the threat by utilizing symmetric encryption in communications between servers and clients.</rationale><addressed-by>FCS_RBG_EXT.1 (from Base-PP)</addressed-by><rationale>Mitigates the threat by using a secure RBG to support secure communication.</rationale><addressed-by>FPT_ITT.1</addressed-by><rationale>Mitigates the threat by encrypting data transmitted between different parts of the TOE.</rationale><addressed-by>FTP_DIT_EXT.1 (modified from Base-PP)</addressed-by><rationale>Mitigates the threat by encrypting sensitive or all data transmitted to an external entity.</rationale><addressed-by>FTP_TRP.1 (selection-based)</addressed-by><rationale>Mitigates the threat by protecting communication with an appropriate secure protocol.</rationale></threat><threat name="T.UNAUTHORIZED_ADMINISTRATOR_ACCESS"><description>            An attacker masquerading as an administrator to the Management Server to gain access to TOE management functionality to gain unauthorized access to protected data             or prevent legitimate users from gaining authorized access.          </description><!-- New mapping to build updated threat mapping table. --><addressed-by>FCS_VAL_EXT.1/Admin</addressed-by><rationale>Mitigates the threat by validating the administrator before allowing any administrative actions.</rationale><addressed-by>FCS_VAL_EXT.2/Admin (selection-based)</addressed-by><rationale>Mitigates the threat by preventing excessive unsuccessful validation attempts.</rationale><addressed-by>FIA_UAU.1</addressed-by><rationale>Mitigates the threat by limiting the administrative actions that can be taken before the authentication process must succeed.</rationale><addressed-by>FIA_UID.1</addressed-by><rationale>Mitigates the threat by limiting the administrative actions that can be taken before the identification process must succeed.</rationale></threat><threat name="T.UNAUTHORIZED_DATA_ACCESS_ENDPOINT"><description>             An attacker            accessing the data on the encrypted file(s) by getting access to a protected file(s), attaching it to a host system controlled            by the attacker and using the key material, or optionally a recovery credential to access the data. The PP-Module for File Encryption addresses            the primary threat of unauthorized disclosure of recovery material. </description><!-- New mapping to build updated threat mapping table. --><addressed-by>FPT_KYP_EXT.2</addressed-by><rationale>Mitigates the threat by associating keys to user identities and providing a method for revocation of the association.</rationale></threat><threat name="T.UNAUTHORIZED_DATA_ACCESS_SERVER"><description>            An attacker accessing the Management Server and generating a recovery key chain for an endpoint.             The File Encryption PP-Module addresses the primary threat of unauthorized disclosure of data protected on the endpoint;            this adds the Management Server to the scope of the threat. </description><!-- New mapping to build updated threat mapping table. --><addressed-by>FCS_COP.1/SKC (from Base-PP)</addressed-by><rationale>Mitigates the threat by identifying users with a securely-encrypted value.</rationale><addressed-by>FCS_VAL_EXT.1/User</addressed-by><rationale>Mitigates the threat by validating the user before decryption of any data or key.</rationale><addressed-by>FCS_VAL_EXT.2/User</addressed-by><rationale>Mitigates the threat by preventing excessive unsuccessful validation attempts.</rationale><addressed-by>FIA_CHR_EXT.1 (selection-based)</addressed-by><rationale>Mitigates the threat by providing a limited-time and limited-scope challenge-response recovery credential.</rationale><addressed-by>FIA_REC_EXT.1</addressed-by><rationale>Mitigates the threat by providing a secure recovery mechanism.</rationale><addressed-by>FIA_UAU.1</addressed-by><rationale>Mitigates the threat by limiting the administrative actions that can be taken before the authentication process must succeed.</rationale><addressed-by>FIA_UID.1</addressed-by><rationale>Mitigates the threat by limiting the administrative actions that can be taken before the identification process must succeed.</rationale><addressed-by>FMT_MTD.1</addressed-by><rationale>Mitigates the threat by restricting the times at which certain cryptographic parameters can be modified on the server.</rationale><addressed-by>FMT_SMR.2</addressed-by><rationale>Mitigates the threat by maintaining separate security roles for administrators and users.</rationale></threat><threat name="T.UNTRUSTED_COMMUNICATION_CHANNELS"><description>            An attacker targeting the Management Server            using insecure tunneling protocols or the presence of an unencrypted path to disclose keys, key material, or recovery            material transferred between the endpoint and the Management Server.          </description><!-- New mapping to build updated threat mapping table. --></threat></threats></sec:Threats>
+    <!-- 3.2 Assumptions -->
+    <sec:Assumptions>
+      <assumptions>
+        <assumption name="A.ENVIRONMENTAL_STORAGE">
+          <description>Any key storage mechanism provided by the Operational Environment is able to provide the same level of security as a TOE-internal storage mechanism that is conformant to this PP-Configuration.</description>
+          <objective-refer ref="OE.ENVIRONMENTAL_STORAGE">
+            <rationale>The operational environment objective OE.ENVIRONMENTAL_STORAGE is realized through A.ENVIRONMENTAL_STORAGE.</rationale>
+          </objective-refer>
+        </assumption>
+        <assumption name="A.PHYSICAL_SERVER">
+          <description>The platform on which the Management Server resides is physically protected in its Operational Environment and not subject to physical attacks that compromise the security and/or interfere with the platform’s correct operation.</description>
+          <objective-refer ref="OE.PHYSICAL_SERVER">
+            <rationale>The operational environment objective OE.PHYSICAL_SERVER is realized through A.PHYSICAL_SERVER.</rationale>
+          </objective-refer>
+        </assumption>
+        <assumption name="A.SECURED_CONFIGURATION">
+          <description>The Management Server and the remote endpoints are installed and configured in accordance with their evaluated configuration. </description>
+          <objective-refer ref="OE.SECURED_CONFIGURATION">
+            <rationale>The operational environment objective OE.SECURED_CONFIGURATION is realized through A.SECURED_CONFIGURATION.</rationale>
+          </objective-refer>
+        </assumption>
+        <assumption name="A.SECURED_ENVIRONMENT">
+          <description>Any environmental components required to support the functionality of the Management Server (e.g. underlying operating system, firewall, database) are installed and configured in accordance with its proper configuration.</description>
+          <objective-refer ref="OE.SECURED_ENVIRONMENT">
+            <rationale>The operational environment objective OE.SECURED_ENVIRONMENT is realized through A.SECURED_ENVIRONMENT.</rationale>
+          </objective-refer>
+        </assumption>
+      </assumptions>
+    </sec:Assumptions>
+    <!-- 3.3 Organizational Security Policies -->
+    <sec:Organizational_Security_Policies>
+      <OSPs/>
+    </sec:Organizational_Security_Policies>
+  </sec:spd>
+  <!-- 4.0 Security Objectives -->
+  <sec:Security_Objectives>
+    
+    The Security Problem described in
+      Section 3 will be addressed by a combination of cryptographic capabilities. Compliant TOEs
+      will provide security functionality that addresses threats to the TOE and enforces policies
+      that are imposed by law and regulation. The following subsections provide a description of the
+      security objectives required to meet the threats/policies previously discussed. The
+      description of these security objectives are in addition to that described in the <xref to="bibAppPP"/>.<h:br/><h:br/>
+      Note: in each subsection below particular security objectives are
+      identified (highlighted by O.) and they are matched with the associated security functional
+      requirements (SFRs) that provide the mechanisms to satisfy the objectives.<h:br/><h:br/> The Security
+      Objectives are the requirements for the Target of Evaluation (TOE) and for the Operational
+      Environment derived from the threats in Section 3. 
+      
+    
+    <!-- 4.1 Security Objectives for the TOE -->
+    <!-- 4.2 Security Objctives for the Operational Environment -->
+    <sec:Security_Objectives_for_the_Operational_Environment>
+      <SOEs>
+        <SOE name="OE.ENVIRONMENTAL_STORAGE">
+          <description>If the TOE relies on the Operational Environment for key storage, the storage mechanism will
+		  provide at least the same level of security as a TOE-internal storage mechanism as defined by FPT_KYP_EXT.1.</description>
+          <consistency-rationale>
+            This objective is consistent with the Base-PP because the Base-PP allows for the TOE to use platform-provided key storage.
+          </consistency-rationale>
+        </SOE>
+        <SOE name="OE.PHYSICAL_SERVER">
+          <description>The Operating environment will provide a cryptographic function capability
+            that is commensurate with the requirements and capabilities of the TOE as defined in FCS_KYC_EXT.1.</description>
+          <consistency-rationale>
+           This objective is consistent with the Base-PP because it is an extension of the Base-PP's OE.PLATFORM objective that is specific to this technology type.
+           It is also consistent because the Base-PP permits the TSF to use platform-provided cryptography.
+         </consistency-rationale>
+        </SOE>
+        <SOE name="OE.SECURED_CONFIGURATION">
+          <description>The Management Server and remote endpoints are configured in accordance with its associated operational guidance
+            so that the level of security that is provided by the TOE is consistent with its evaluated configuration.</description>
+          <consistency-rationale>
+            This objective is consistent with the Base-PP because it expects the TOE's operational guidance to be responsibly followed in the same manner as OE.PROPER_ADMIN in the
+            Base-PP.
+          </consistency-rationale>
+        </SOE>
+        <SOE name="OE.SECURED_ENVIRONMENT">
+          <description>The components of the Management Server’s underlying platform are configured in accordance with their associated 
+            operational guidance so that the TOE is deployed in an environment that is consistent with its evaluated configuration. </description>
+          <consistency-rationale>
+            This objective is consistent with the Base-PP because it is an extension of the Base-PP's OE.PLATFORM objective that is specific to this technology type.
+          </consistency-rationale>
+        </SOE>
+      </SOEs>
+    </sec:Security_Objectives_for_the_Operational_Environment>
+    <!-- 4.3 Security Objectives Rationale -->
+    <sec:Security_Objectives_Rationale/>
+  </sec:Security_Objectives>
+  <!-- 5.0 Security Requirements -->
+  <sec:Security_Requirements title="Security Requirements">
+    <!-- 5.1 App PP Security Functional Requirements Direction -->
+    <base-pp id="b-appp" name="Application Software" product="application" short="App" version="2.0">
+      <git>
+        <url>https://github.com/commoncriteria/application</url>
+        <branch>master</branch>
+      </git>
+      <url>https://github.com/commoncriteria/application</url>
+      <sec-func-req-dir>
+        The TOE is expected to rely on some of the security functions implemented by the application
+        as a whole and evaluated against <xref to="bibAppPP"/>.
+        The following section describe any modifications that the ST author must make to the SFRs defined in the Base-PP in addition to what is mandated by section 5.2.       
+      </sec-func-req-dir>
+      <!-- 5.1.1 Modified SFRs -->
+      <modified-sfrs>
+        <section title="Trusted Path/Channel (FTP)" id="mod-ftp">
+          <!-- FTP_DIT_EXT.1 Protection of Data in Transit -->
+          <base-sfr-spec cc-id="ftp_dit_ext.1" id="mod-app-ftp-dit-ext-1" title="Protection of Data in Transit">
+            <consistency-rationale>This SFR is defined in the Base-PP. This PP-Module modifies it by removing the option not to transmit sensitive data because this particular
+              TOE type will always have that capability. It is still consistent with the Base-PP because all selections that the ST author is permitted to make are available options
+              in the Base-PP version of the SFR.</consistency-rationale>
+            <description><h:p>
+              This SFR is modified from its definition in the Base-PP by removing the first selection (where the application does not transmit any data or sensitive data).
+              By definition, a TOE that conforms to this PP-Module must have the ability to transmit sensitive data to another trusted IT product.
+              </h:p> <h:p>
+                The text of the requirement is replaced with:
+              </h:p> <h:p>
+               The application shall [<h:b>selection:</h:b> <h:i><h:li>encrypt all transmitted 
+                [<h:b>selection, choose one of: </h:b>sensitive data, data] with [<h:b>selection:</h:b> <h:ul><h:li>HTTPS as a client in accordance with FCS_HTTPS_EXT.1</h:li></h:ul> <h:ul><h:li>HTTPS as a server in accordance with FCS_HTTPS_EXT.1</h:li></h:ul> <h:ul><h:li>TLS as a server as defined in Functional Package for TLS and also supports functionality for [<h:b>selection:</h:b> mutual authentication, none]</h:li></h:ul> <h:ul><h:li>TLS as a client as defined in Functional Package for TLS</h:li></h:ul> <h:ul><h:li>DTLS as a server as defined in Functional Package for TLS and also supports functionality for [<h:b>selection:</h:b> mutual authentication,none]</h:li></h:ul> <h:ul><h:li>DTLS as a client as defined in Functional Package for TLS</h:li></h:ul> <h:ul><h:li>SSH as defined in the Functional Package for Secure Shell</h:li></h:ul> <h:ul><h:li>IPsec as defined in the VPN Client PP-Module, version 3.0</h:li></h:ul>
+                    ] for [<h:b>assignment:</h:b> function(s)] using certificates as defined in the Functional Package for X.509</h:li> <h:li>invoke platform-provided functionality to encrypt all transmitted sensitive data with [<h:b>selection: </h:b>HTTPS, TLS, DTLS, SSH, IPsec]
+                      for [<h:b>assignment:</h:b> function(s)] using certificates as defined in the Functional Package for X.509</h:li> <h:li>invoke platform-provided functionality to encrypt all transmitted data with [<h:b>selection: </h:b>HTTPS, TLS, DTLS, SSH, IPsec]
+                 for [<h:b>assignment:</h:b> function(s)] using certificates as defined in the Functional Package for X.509</h:li></h:i>
+                     ] between itself and another trusted IT product.
+              </h:p></description>
+            <replace>
+              <xpath-specified xpath="*//cc:f-element[@id='fel-transmit']">
+                <f-element id="fel-transmit">
+                  <title>The application shall <selectables linebreak="yes"><selectable id="FTP_DIT_EXT.1_1">encrypt all transmitted <selectables onlyone="yes"><selectable id="FTP_DIT_EXT.1_2">sensitive data</selectable><selectable id="FTP_DIT_EXT.1_3">data</selectable></selectables> with <selectables><selectable id="sel_all_https_cl">HTTPS as a client in accordance with FCS_HTTPS_EXT.1/Client</selectable><selectable id="sel_all_https_sv">HTTPS as a server in accordance with FCS_HTTPS_EXT.1/Server</selectable><selectable id="sel_all_https_ma">HTTPS as a server using mutual authentication in accordance with FCS_HTTPS_EXT.2</selectable><selectable id="sel_all_tlss">TLS as a server as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/439">Functional Package for TLS</h:a> and also supports functionality for <selectables><selectable id="FTP_DIT_EXT.1_4">mutual authentication</selectable><selectable id="FTP_DIT_EXT.1_5">none</selectable></selectables> </selectable><selectable id="sel_all_tlsc">TLS as a client as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/439">Functional Package for TLS</h:a></selectable><selectable id="sel_all_dtlss">DTLS as a server as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/439">Functional Package for TLS</h:a> and also supports functionality for <selectables><selectable id="FTP_DIT_EXT.1_6">mutual authentication</selectable><selectable id="FTP_DIT_EXT.1_7">none</selectable></selectables> </selectable><selectable id="sel_all_dtlsc">DTLS as a client as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/439">Functional Package for TLS</h:a></selectable><selectable id="sel_all_ssh">SSH as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/459">Functional Package for Secure Shell</h:a></selectable><selectable id="sel_all_ipsec">IPsec as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/487">PP-Module for VPN Client</h:a></selectable></selectables> for <assignable>function(s)</assignable> using certificates as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/511">Functional Package for X.509</h:a></selectable><selectable id="FTP_DIT_EXT.1_9">invoke platform-provided functionality to encrypt all transmitted sensitive data with <selectables><selectable id="FTP_DIT_EXT.1_10">HTTPS</selectable><selectable id="FTP_DIT_EXT.1_11">TLS</selectable><selectable id="FTP_DIT_EXT.1_12">DTLS</selectable><selectable id="FTP_DIT_EXT.1_13">SSH</selectable><selectable id="FTP_DIT_EXT.1_14">IPsec</selectable></selectables> for <assignable>function(s)</assignable> using certificates as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/511">Functional Package for X.509</h:a></selectable><selectable id="FTP_DIT_EXT.1_16">invoke platform-provided functionality to encrypt all transmitted data with <selectables><selectable id="FTP_DIT_EXT.1_17">HTTPS</selectable><selectable id="FTP_DIT_EXT.1_18">TLS</selectable><selectable id="FTP_DIT_EXT.1_19">DTLS</selectable><selectable id="FTP_DIT_EXT.1_20">SSH</selectable><selectable id="FTP_DIT_EXT.1_21">IPsec</selectable></selectables> for <assignable>function(s)</assignable> using certificates as defined in the <h:a href="https://www.niap-ccevs.org/protectionprofiles/511">Functional Package for X.509</h:a></selectable></selectables> between itself and another trusted IT product.</title>
+                  <ext-comp-def-title><title>The application shall <selectables onlyone="yes" linebreak="yes"><selectable>not transmit any <selectables onlyone="yes"><selectable>data </selectable> <selectable>sensitive data </selectable> </selectables> </selectable> <selectable>encrypt all transmitted <selectables onlyone="yes"><selectable>sensitive data </selectable> <selectable>data </selectable> </selectables> with <assignable>trusted protocol </assignable> for <assignable>function(s) </assignable></selectable> <selectable>invoke platform-provided functionality to encrypt all transmitted sensitive data with <assignable>trusted protocol </assignable> for <assignable>function(s) </assignable></selectable> <selectable>invoke platform-provided functionality to encrypt all transmitted data with <assignable>trusted protocol </assignable> for <assignable>function(s) </assignable></selectable> </selectables> between itself and another trusted IT product. </title> </ext-comp-def-title>
+                  <note role="application"><h:p>Encryption is not required for applications transmitting data that is not sensitive.<h:p/>If "<h:b>not transmit any...</h:b>" is selected, no other option can be selected.<h:p/>If "<h:b>not transmit any...</h:b>" is NOT selected, it is possible to select more than one of the other options to encrypt data for a specific cryptographic function (e.g., application encrypts management data using SSH AND application invokes platform-provided functionality to encrypt syslog data using TLS OR application encrypts syslog data using TLS. Protocol selections and function assignments should be made to cover all data/sensitive data.<h:p/>If "<h:b>encrypt all transmitted...</h:b>" is selected and "<h:b>TLS</h:b>" or "<h:b>DTLS</h:b>" as a client or server is selected, then corresponding components fromFunctional Package for Transport Layer Security (TLS), version 2.1 must be selected.<h:p/>If "<h:b>encrypt all transmitted...</h:b>" is selected and any claim involving HTTPS is selected, then FCS_HTTPS_EXT.1 and potentially FCS_HTTPS_EXT.2 is required, as indicated by the chosen selections.<h:p/>If "<h:b>encrypt all transmitted...</h:b>" is selected and "<h:b>SSH</h:b>" is selected, then the TSF shall be validated against the <h:a href="https://www.niap-ccevs.org/protectionprofiles/459">Functional Package for Secure Shell</h:a>.<h:p/>If "<h:b>encrypt all transmitted...</h:b>" is selected and "<h:b>IPsec</h:b>" is selected, then the TSF must claim conformance to a <h:i>PP-Configuration that includes the VPN Client PP-Module, version 3.0.</h:i> <h:p/>If "<h:b>encrypt all transmitted...</h:b>" is selected, FCS_CKM.2 and all iterations of FCS_COP.1 must be claimed.<h:p/>Claims from the <h:a href="https://www.niap-ccevs.org/protectionprofiles/511">
+							Functional Package for X.509</h:a> are only required to the extent that they are needed to support the functionality required by the trusted protocols that are claimed. For example, if the TOE supports HTTPS as a server but does not support mutual authentication, then for this interface the TSF would only present certificates in accordance with the requirements of the package and not validate presented certificates.<h:p/>If the TSF implements a protocol that requires the validation of a certificate presented by an external entity, FIA_X509_EXT.1 and FIA_X509_EXT.2 will be claimed. FIA_TSM_EXT.1 may also be claimed if the TSF implements its own trust store. Note that FIA_X509_EXT.1 and FIA_X509_EXT.2 have selections for invocation of platform-provided functionality, so it is expected that these claims are made and tested even when the trusted protocol is implemented by the TOE platform.<h:p/>If the TSF implements a protocol that requires the presentation of any certificates to an external entity, FIA_XCU_EXT.2 from <h:a href="https://www.niap-ccevs.org/protectionprofiles/511">
+							Functional Package for X.509</h:a> will be claimed. FIA_X509_EXT.3 from <h:a href="https://www.niap-ccevs.org/protectionprofiles/511">
+							Functional Package for X.509</h:a> will also be claimed, along with any applicable dependencies, depending on how the certificates presented by the TOE are obtained.<h:p/>If the TSF implements a protocol that does not require presenting or validating X.509 certificates, no claims from the <h:a href="https://www.niap-ccevs.org/protectionprofiles/511">
+							Functional Package for X.509</h:a> are required.</h:p></note>
+                </f-element>
+              </xpath-specified>
+            </replace>
+          </base-sfr-spec>
+        </section>
+      </modified-sfrs>
+      <!-- 5.1.2 Additional SFRs -->
+      <additional-sfrs/>
+      <con-toe>When this PP-Module is used to extend the App PP, the TOE type for the overall TOE is still a software application. 
+        The TOE boundary is simply extended to include the enterprise management functionality for software file encryption that the application performs.</con-toe>
+      <con-sec-prob/>
+      <con-obj/>
+      <con-op-en/>
+      <con-mod ref="T.KEYING_MATERIAL_COMPROMISE_SERVER">This threat is a specific example of T.PHYSICAL_ACCESS defined in the Base-PP. 
+        Specifically, this PP-Module defines a method of maliciously gaining access to sensitive data at rest that is particular to the technology type of this PP-Module.</con-mod>
+      <con-mod ref="T.MAN_IN_THE_MIDDLE">This threat is a specific example of T.NETWORK_EAVESDROP defined in the Base-PP. Specifically, the attacker performs 
+        network eavesdropping to gain access to key data in transit between TOE components.</con-mod>
+      <con-mod ref="T.UNAUTHORIZED_ADMINISTRATOR_ACCESS">This threat is a variation on T.LOCAL_ATTACK defined in the Base-PP.
+        The Base-PP does not define access-controlled management functions so this PP-Module goes beyond it by specifying misuse of the management interface as a threat to the TSF.</con-mod>
+      <con-mod ref="T.UNTRUSTED_COMMUNICATION_CHANNELS">This threat is a variation on T.NETWORK_ATTACK and T.NETWORK_EAVESDROP defined in the Base-PP. 
+      The threat of untrusted communication channels allows for exploitation of the TSF in different ways, depending on how the lack of trust is manifested.</con-mod>
+      <con-mod ref="T.UNAUTHORIZED_DATA_ACCESS_ENDPOINT">This threat is a variation on T.PHYSICAL_ACCESS defined in the Base-PP.
+        In this case, the "sensitive data at rest" is the data that the TOE is intended to protect.</con-mod>
+      <con-mod ref="T.UNAUTHORIZED_DATA_ACCESS_SERVER">This threat is a variation on T.PHYSICAL_ACCESS defined in the Base-PP.
+        In this case, the "sensitive data at rest" is the data that the TOE is intended to protect.</con-mod>
+    </base-pp>
+    <!-- 5.2 TOE Security Functional Requirements -->
+    <man-sfrs>
+      <!-- 5.2.1 Cryptographic Support (FCS) -->
+      <section title="Cryptographic Support (FCS)" id="fcs-mandatory">
+        <ext-comp-def title="Cryptographic Key Management" fam-id="FCS_CKM_EXT">
+          <fam-behavior>Components in this family define requirements for key management activities that are beyond the scope of what is defined in the FCS_CKM family in CC Part 2.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Key Chaining and Key Storage" fam-id="FCS_KYC_EXT">
+          <fam-behavior>Components in this family define requirements for the secure storage of keys through the use of a logical key chain.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Validation" fam-id="FCS_VAL_EXT">
+          <fam-behavior>Components in this family define requirements for validation of data supplied to the TOE and any consequences resulting from failed validation attempts.</fam-behavior>
+        </ext-comp-def>
+        <!-- FCS_CKM.6 Cryptographic Key Destruction -->
+        <f-component cc-id="fcs_ckm.6" id="fcs-ckm-6" name="Cryptographic Key Destruction">
+          <consistency-rationale>This SFR requires destruction of cryptographic keys when they are no longer needed. 
+          The Base-PP does not mandate key destruction but it also does not prohibit it.</consistency-rationale>
+          <f-element id="fcs-ckm-6e1">
+            <title>The TSF shall destroy [<h:i>all keys and key material</h:i>] when <h:i>no longer needed</h:i>.</title>
+            <note role="application">
+              
+              Keys, including intermediate keys and key material that are no longer
+              needed are destroyed by using an approved method, FCS_CKM.6.2. Examples of keys are
+              intermediate keys, submasks. There may be instances where keys or key material
+              that are contained in persistent storage are no longer needed and require destruction. 
+              Base on their implementation, vendors will explain when certain keys are no longer needed. There
+              are multiple situations in which key material is no longer necessary, for example, a wrapped
+              key may need to be destroyed when a password is changed. However, there are instances
+              when keys are allowed to remain in memory, for example, a device identification key. If a
+              PIN was used for a smart card and managed by the TOE, ensuring that the PIN was properly destroyed must be addressed.
+              
+              
+            </note>
+            <aactivity>
+              <TSS>The evaluator shall verify the TSS provides a high level description of what it means for keys and key material 
+                to be no longer needed and when they should be expected to be destroyed.
+                
+                The evaluator shall verify the TSS provides a high level description of what it means
+                for keys and key material to be no longer needed and when then should be expected to
+                be destroyed. <h:br/><h:br/><h:h4>KMD</h:h4>   
+                The evaluator examines the KMD to ensure it describes how the keys are managed in volatile memory. 
+                This description includes details of how each identified key is introduced into volatile memory (e.g. by derivation 
+                from user input, or by unwrapping a wrapped key stored in non-volatile memory) and how they are overwritten.<h:br/><h:br/>
+                
+                The evaluator shall check to ensure the KMD lists each type of key that is stored in in non-volatile memory, and 
+                identifies how the TOE interacts with the underlying platform to manage keys (e.g., store, retrieve, destroy). 
+                The description includes details on the method of how the TOE interacts with the platform, including an identification 
+                and description of the interfaces it uses to manage keys (e.g., file system APIs, platform key store APIs).<h:br/><h:br/>
+                
+                The evaluator examines the interface description for each different media type to ensure that the 
+                interface supports the selection(s) and description in the KMD.<h:br/><h:br/>
+                
+                If the ST makes use of the open assignment and fills in the type of pattern that is used, the evaluator 
+                examines the KMD to ensure it describes how that pattern is obtained and used. The evaluator shall 
+                verify that the pattern does not contain any CSPs.<h:br/><h:br/>
+                
+                The evaluator shall check that the KMD identifies any configurations or 
+                circumstances that may not strictly conform to the key destruction requirement.<h:br/><h:br/>
+                
+                If the selection "destruction of all KEKs protecting target key, 
+                where none of the KEKs protecting the target key are derived" is included the evaluator shall examine the TOE's 
+                keychain in the KMD and identify each instance when a key is destroyed by this method. In each instance the evaluator 
+                shall verify all keys capable of decrypting the target key are destroyed in accordance with a specified key destruction 
+                method in FCS_CKM.6.2. The evaluator shall verify that all of the keys capable of decrypting the target key are not 
+                able to be derived to reestablish the keychain after their destruction. <h:br/><h:br/>
+                
+                The evaluator shall verify the KMD includes a description of the areas where keys and
+                key material reside and when the keys and key material are no longer needed.<h:br/><h:br/>
+                
+                The evaluator shall verify the KMD includes a key lifecycle, that includes a description
+                where key material reside, how the key material is used, how it is determined that keys
+                and key material are no longer needed, and how the material is destroyed once it is not
+                needed and that the documentation in the KMD follows FCS_CKM.6.2 for the
+                destruction.<h:br/><h:br/></TSS>
+              <Guidance>There are a variety of concerns that may prevent or delay key destruction in some cases.<h:br/><h:br/>
+                
+                The evaluator shall check that the guidance documentation identifies configurations or circumstances that may 
+                not strictly conform to the key destruction requirement, and that this description is consistent with the 
+                relevant parts of the TSS and any other relevant Required Supplementary Information.<h:br/><h:br/>
+                
+                The evaluator shall check that the guidance documentation provides guidance on situations where key 
+                destruction may be delayed at the physical layer and how such situations can be avoided or mitigated if possible.<h:br/><h:br/>
+                
+                Some examples of what is expected to be in the documentation are provided here. <h:br/><h:br/>
+                
+                When the TOE does not have full access to the physical memory, it is possible that the storage may be implementing 
+                wear-leveling and garbage collection. This may create additional copies of the key that are logically inaccessible 
+                but persist physically. In this case, to mitigate this the drive should support the TRIM command and implements 
+                garbage collection to destroy these persistent copies when not actively engaged in other tasks.<h:br/><h:br/>
+                
+                Drive vendors implement garbage collection in a variety of different ways, as such there is a variable amount of time 
+                until data is truly removed from these solutions. There is a risk that data may persist for a longer amount of time 
+                if it is contained in a block with other data not ready for erasure. To reduce this risk, the operating system and 
+                file system of the OE should support TRIM, instructing the non-volatile memory to erase copies via garbage collection 
+                upon their deletion. If a RAID array is being used, only set-ups that support TRIM are utilized. If the drive is 
+                connected via PCI-Express, the operating system supports TRIM over that channel.<h:br/><h:br/>
+                
+                The drive should be healthy and contain minimal corrupted data and should be at end-of-life before a significant 
+                amount of damage to drive health occurs, this minimizes the risk that small amounts of 
+                potentially recoverable data may remain in damaged areas of the drive.<h:br/><h:br/></Guidance>
+              <Tests>
+                These tests are only for key destruction provided by the application, test 2 does not apply to any keys using the selection "new value of a key": <h:br/> <h:br/>
+                <testlist>
+                  <test>Applied to each key held in volatile memory and subject to destruction by overwrite by the TOE (whether or not the value is subsequently encrypted for storage in volatile or non-volatile memory). In the case where the only selection made for the key destruction method was removal of power, then this test is unnecessary. <h:br/><h:br/> The evaluator shall: <h:ol><h:li>Record the value of the key in the TOE subject to clearing.</h:li> <h:li>Cause the cause the TOE or the underlying platform to dump to perform a normal cryptographic processing with the key from Step #1.</h:li> <h:li>Cause the TOE to clear the key.</h:li> <h:li>Cause the TOE to stop the execution but not exit.</h:li> <h:li>Cause the TOE to dump the entire memory of the TOE into a binary file.</h:li> <h:li>Search the content of the binary file created in Step #5 for instances of the known key value from Step #1.</h:li></h:ol>  <h:br/><h:br/> Steps #1-6 ensure that the complete key does not exist anywhere in volatile memory. If a copy is found, then the test fails. <h:br/><h:br/> </test>
+                  <test>[Conditional] If new value of a key is selected this test does not apply. <h:br/><h:br/> Applied to each key held in non-volatile memory and subject to destruction by the TOE. <h:br/><h:br/> The evaluator shall use special tools (as needed), provided by the TOE developer if necessary, to ensure the tests function as intended. <h:ol><h:li>Identify the purpose of the key and what access should fail when it is deleted. (e.g. the file encryption key being deleted would cause data decryption to fail.)</h:li> <h:li>Cause the TOE to clear the key.</h:li> <h:li>Have the TOE attempt the functionality that the cleared key would be necessary for.</h:li> <h:li>The test succeeds if Step #3 fails.</h:li></h:ol> </test>
+                </testlist>
+                <testlist>
+                  Tests 3 and 4 do not apply for the selection instructing the underlying platform to destroy the representation of the key, as the TOE has no visibility into the inner workings and completely relies on the underlying platform. <h:br/><h:br/> 
+                  <test>Applied to each key held in non-volatile memory and subject to destruction by overwrite by the TOE. The evaluator shall use a tool that provides a logical view of the media (e.g., MBR file system): <h:br/><h:br/>  <h:ol><h:li>Record the value of the key in the TOE subject to clearing.</h:li> <h:li>Cause the TOE to perform a normal cryptographic processing with the key from Step #1.</h:li> <h:li>Cause the TOE to clear the key.</h:li> <h:li>Search the logical view that the key was stored in for instances of the known key value from Step #1. If a copy is found, then the test fails.</h:li></h:ol>  <h:br/><h:br/> </test>
+                  <test>Applied to each key held in non-volatile memory and subject to destruction by overwrite by the TOE. The evaluator shall use a tool that provides a logical view of the media: <h:br/><h:br/>  <h:ol><h:li>Record the logical storage location of the key in the TOE subject to clearing.</h:li> <h:li>Cause the TOE to perform a normal cryptographic processing with the key from Step #1.</h:li> <h:li>Cause the TOE to clear the key.</h:li> <h:li>Read the logical storage location in Step #1 of non-volatile memory to ensure the appropriate pattern is utilized.</h:li></h:ol>  <h:br/><h:br/> The test succeeds if correct pattern is used to overwrite the key in the memory location. If the pattern is not found the test fails.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <f-element id="fcs-ckm-6e2">
+            <title>The TSF shall destroy cryptographic keys and keying material specified by FCS_CKM.6.1
+            in accordance with a specified cryptographic key destruction method
+            [<h:i><selectables linebreak="yes"><selectable id="fcs_ckm.6.2_1">For volatile memory, the destruction shall be executed by a <selectables><selectable id="fcs_ckm.6.2_2">single overwrite consisting of <selectables><selectable id="fcs_ckm.6.2_3">a pseudo-random pattern using the TSF's RBG</selectable><selectable id="fcs_ckm.6.2_4">zeroes</selectable><selectable id="fcs_ckm.6.2_5">ones</selectable><selectable id="fcs_ckm.6.2_6">new value of a key</selectable><selectable id="fcs_ckm.6.2_8"><assignable>any value that does not contain any CSP</assignable></selectable></selectables> </selectable><selectable id="fcs_ckm.6.2_9">removal of power to the memory</selectable><selectable id="fcs_ckm.6.2_10">destruction of reference to the key directly followed by a request for garbage collection</selectable></selectables> </selectable><selectable id="fcs_ckm.6.2_11">For non-volatile memory, the destruction shall be executed by <selectables><selectable id="fcs_ckm.6.2_12">destruction of all KEKs protecting the target key, where none of the KEKs protecting the target key are derived</selectable><selectable id="fcs_ckm.6.2_13">the invocation of an interface provided by the underlying platform that <selectables><selectable id="fcs_ckm.6.2_14">logically addresses the storage location of the key and performs a <selectables><selectable id="fcs_ckm.6.2_15">single</selectable><selectable id="fcs_ckm.6.2_17"><assignable>ST author defined multi-pass</assignable></selectable></selectables> overwrite consisting of <selectables><selectable id="fcs_ckm.6.2_18">a pseudo-random pattern using the TSF's RBG</selectable><selectable id="fcs_ckm.6.2_19">zeroes</selectable><selectable id="fcs_ckm.6.2_20">ones</selectable><selectable id="fcs_ckm.6.2_21">new value of a key</selectable><selectable id="fcs_ckm.6.2_23"><assignable>any value that does not contain any CSP</assignable></selectable></selectables> </selectable><selectable id="fcs_ckm.6.2_24">instructs the underlying platform to destroy the abstraction that represents the key</selectable></selectables> </selectable></selectables> </selectable></selectables>]</h:i>
+              that meets the following: [<h:i>no standard</h:i>].
+            </title>
+            <note role="application">              
+              The interface referenced in the requirement could take different forms, the most likely 
+              of which is an application programming interface to an OS kernel. There may be various levels of abstraction visible. 
+              For instance, in a given implementation that overwrites a key stored in non-volatile memory, the application may have 
+              access to the file system details and may be able to logically address specific memory locations. In another 
+              implementation that instructs the underlying platform to destroy the representation of a key stored in non-volatile 
+              memory, the application may simply have a handle to a resource and can only ask the platform to delete the resource, 
+              as may be the case with a platforms secure key store. The latter implementation should only be used for the most 
+              restricted access. The level of detail to which the TOE has access will be reflected in the TSS section of the ST. 
+              Several selections allow assignment of a 'value that does not contain any CSP'. This means that the TOE uses some 
+              other specified data not drawn from a source that may contain key material or reveal information about key material, 
+              and not being any of the particular values listed as other selection options. The point of the phrase 'does not contain 
+              any CSP' is to ensure that the overwritten data is carefully selected, and not taken from a general 'pool' that might 
+              contain current or residual data that itself requires confidentiality protection.<h:br/><h:br/>
+              
+              For the selection "destruction of all KEKs protecting target key, where 
+              none of the KEKs protecting the target key are derived", a key can be considered destroyed by destroying the key that 
+              protects the key. If a key is wrapped or encrypted it is not necessary to "overwrite" that key, overwriting the key 
+              that is used to wrap or encrypt the key used to encrypt/decrypt data, using the appropriate method for the memory 
+              type involved, will suffice. For example, if a product uses a Key Encryption Key (KEK) to encrypt a File Encryption 
+              Key (FEK), destroying the KEK using one of the methods in FCS_CKM.6 is sufficient, since the FEK would no longer 
+              be usable (of course, presumes the FEK is still encrypted and the KEK cannot be recovered or re-derived). </note>
+          </f-element>
+        </f-component>
+        <!-- FCS_KYC_EXT.1 Key Chaining and Key Storage -->
+        <f-component cc-id="fcs_kyc_ext.1" id="fcs-kyc-ext-1" name="Key Chaining and Key Storage">
+          <consistency-rationale>The Base-PP defines how stored keys are protected. This SFR extends that functionality by defining the logical hierarchy of how keys are logically
+	    protected by other keys or other secret data. 
+	  </consistency-rationale>
+          <comp-lev> requires the TSF to specify how it implements key chaining.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT: <h:ul><h:li>Configuration of the cryptographic functionality.</h:li></h:ul></management>
+          <audit>There are no auditable events foreseen.
+	  </audit>
+          <dependencies>FCS_COP.1 Cryptographic Operation<h:br/>
+	    FCS_KDF_EXT.1 Cryptographic Key Derivation Function<h:br/>
+	    FCS_SMC_EXT.1 Submask Combining</dependencies>
+          <f-element id="fcs_kyc_ext-1-1">
+            <title> The TSF shall maintain a key chain of [<h:i>intermediate keys</h:i>] originating from [<h:i>one or more initial
+                   <selectables><selectable id="fcs_kyc_ext.1.1_1">submask(s)</selectable><selectable id="fcs_kyc_ext.1.1_2">recovery value(s)</selectable></selectables>]</h:i> to [<h:i>the final value returned to the endpoint</h:i>]
+                 using the following method(s): 
+                   <selectables linebreak="yes"><selectable id="fcs_kyc_ext.1.1_3">utilization of the platform key storage</selectable><selectable id="fcs_kyc_ext.1.1_4">utilization of platform key storage that performs key wrap with a TSF provided key</selectable><selectable id="USEKEYWRA">implementation of key establishment as specified in FCS_CKM.2 (from the Base-PP)</selectable><selectable id="USEKEYDER">implementation of key derivation as specified in FCS_KDF_EXT.1</selectable><selectable id="USEKEYWRA">implementation of key wrapping as specified in FCS_COP.1/KW</selectable><selectable id="USEKEYENC">implementation of key encryption as specified in FCS_COP.1/KE</selectable><selectable id="USEKEYCOM">implementation of key combining as specified in FCS_SMC_EXT.1</selectable><selectable id="USEKEYTRA">implementation of key transport as specified in FCS_COP.1/KT</selectable></selectables>  
+                  while maintaining an effective strength of commensurate with the strength of the FEK
+		    and 
+               <selectables><selectable id="fcs_kyc_ext.1.1_5">no supplemental key chains</selectable><selectable id="fcs_kyc_ext.1.1_6">other supplemental key chains that protect a key or keys in the primary key chain using the following method(s): <selectables linebreak="yes"><selectable id="fcs_kyc_ext.1.1_7">utilization of the platform key storage</selectable><selectable id="fcs_kyc_ext.1.1_8">utilization of platform key storage that performs key wrap with a TSF provided key</selectable><selectable id="SUPPKEYEST">implementation of key establishment as specified in FCS_CKM.2 (from the Base-PP)</selectable><selectable id="SUPPKEYENC">implementation of key encryption as specified in FCS_COP.1/KE</selectable><selectable id="SUPPKEYTRA">implementation of key transport as specified in FCS_COP.1/KT</selectable><selectable id="SUPPKEYWRA">implementation of key wrapping as specified in FCS_COP.1/KW</selectable><selectable id="SUPPKEYDER">implementation of key derivation as specified in FCS_KDF_EXT.1</selectable><selectable id="SUPPKEYCOM">implementation of key combining as specified in FCS_SMC_EXT.1</selectable></selectables> </selectable></selectables>.
+            </title>
+            <ext-comp-def-title><title> The TSF shall maintain a key chain of: 
+                <selectables linebreak="yes"><selectable>a conditioned password as the <assignable>key type</assignable></selectable><selectable><assignable>key type</assignable> originating from
+                    <assignable>origin of key</assignable> 
+                    to 
+                    <assignable>end point of key chain</assignable>
+                    using the following method(s): <assignable>list of supported key protection methods</assignable>
+                    while maintaining an effective strength of commensurate with the strength of the FEK</selectable></selectables> 
+                and 
+                <selectables><selectable> no supplemental key chains</selectable><selectable> other supplemental key chains that protect a key or keys in the primary key chain using the following method(s):
+                    <assignable>list of supported key protection methods</assignable></selectable></selectables>.
+              </title></ext-comp-def-title>
+            <note role="application">
+              
+              Key Chaining is the method of using multiple layers of
+              encryption keys to ultimately secure the a final key. The number of intermediate keys will
+              vary. The ST Author should clearly indicate which portions of the key chain are created and 
+              maintained by the enterprise server and which are created and maintained by the endpoint.
+		  
+		  This requirement is in addition to the same requirement in the PP-Module for File Encryption, 
+		    it covers a different section of the keychain, if both modules are included both requirements must be included.</note>
+            <aactivity>
+              <TSS>The evaluator shall verify the TSS contains a high-level description of the key sizes
+              that it supports key outputs of no fewer 128 bits for products that support only AES128,
+              and no fewer than 256 bits for products that support AES-256.
+              The evaluator shall verify the TSS contains a description of the controls preventing a key 
+              from being provided to the endpoint before validation has occurred.<h:br/><h:br/>
+              
+              The evaluator shall verify the TSS includes a description of the key
+              chain used to protect encryption keys associated with endpoints. 
+              The description of the key chains shall be reviewed to ensure it maintains
+              a chain of keys using the methods listed in the SFR. <h:br/><h:br/>
+		    
+              The evaluator shall ensure the chain of keys is maintained from
+              the authorization factor or recovery value to the value returned to the endpoint.
+              The evaluator shall examine the TSS to ensure that it describes how the key chain
+              process functions, such that it does not expose any material that might compromise any
+              key in the chain. This description must include a diagram illustrating the key chain implemented and
+              detail where all keys and keying material is stored or what it is derived from. The
+              evaluator shall examine the key chain to ensure that at no point the chain could be
+              broken without a cryptographic exhaust, the initial authorization value, recovery value
+              or a compromise of the TOE server and the effective strength of the keys are maintained
+              throughout the key chain.<h:br/><h:br/><h:h4>KMD</h:h4>None.<h:br/><h:br/></TSS>
+              <Guidance>
+              If there are configurations to enable or disable use of enterprise server, which modify
+              the key chain, they shall be described.
+              If there are configurations on to enable recovery mechanisms, they shall be described.<h:br/><h:br/></Guidance>
+              <Tests>None.</Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FCS_VAL_EXT.1 Validation -->
+        <f-component cc-id="fcs_val_ext.1" id="fcs-val-ext-1" name="Validation" status="invisible">
+          <consistency-rationale>This SFR goes beyond the functionality defined by the Base-PP by defining a method by which the TSF can validate the correctness of data input to it.
+	      </consistency-rationale>
+          <comp-lev> requires the TSF to specify what data is being validated and how the validation is performed.</comp-lev>
+          <management>There are no specific management functions identified.
+	        </management>
+          <audit>The following actions should be auditable if FAU_GEN Security audit data
+	          generation is included in the PP/ST:<h:ul><h:li>Minimal: Change to configuration of validation function behavior.</h:li></h:ul></audit>
+          <dependencies>FCS_COP.1 Cryptographic Operation</dependencies>
+          <f-element id="fcs-val-ext-1e1">
+            <title>The TSF shall perform validation of the  <assignable>subject requiring validation</assignable>  by 
+               <selectables><selectable id="fcs_val_ext.1.1_2">receiving assertion of the subject's validity from <assignable>Operational Environment component responsible for authentication</assignable></selectable><selectable id="fcs_val_ext.1.1_4">validating the <selectables><selectable id="fcs_val_ext.1.1_5">submask</selectable><selectable id="fcs_val_ext.1.1_6">intermediate key</selectable></selectables> using the following methods: <selectables><selectable id="fcs_val_ext.1.1_7">key wrap as specified in FCS_COP.1</selectable><selectable id="fcs_val_ext.1.1_8">hash the <selectables><selectable id="fcs_val_ext.1.1_9">submask</selectable><selectable id="fcs_val_ext.1.1_10">intermediate key</selectable><selectable id="fcs_val_ext.1.1_11">FEK</selectable></selectables> as specified in FCS_COP.1 and compare it to a stored hash</selectable><selectable id="fcs_val_ext.1.1_12">decrypt a known value using the <selectables><selectable id="fcs_val_ext.1.1_13">submask</selectable><selectable id="fcs_val_ext.1.1_14">intermediate key</selectable><selectable id="fcs_val_ext.1.1_15">FEK</selectable></selectables> as specified in FCS_COP.1 and compare it against a stored known value</selectable></selectables> </selectable></selectables>. 
+              
+            </title>
+            <aactivity>
+              <no-tests/>
+            </aactivity>
+          </f-element>
+          <f-element id="fcs-val-ext-1e2">
+            <title>The TSF shall require validation of the  <assignable>subject requiring validation</assignable>  prior to  <assignable>action requiring validation</assignable>.</title>
+            <aactivity>
+              <no-tests/>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FCS_VAL_EXT.1/Admin Validation (Server Administrator) -->
+        <f-component cc-id="fcs_val_ext.1" id="fcs-val-ext-1-admin" name="Validation (Server Administrator)" iteration="Admin">
+          <consistency-rationale>This SFR goes beyond the functionality defined by the Base-PP by defining a method by which the TSF can validate the correctness of data input to it.
+	      </consistency-rationale>
+          <f-element id="fcs-val-ext-admin-1e1">
+            <title>The TSF shall perform validation of the [<h:i>admin</h:i>] by 
+               <selectables><selectable id="fcs_val_ext.1.1_Admin_1">receiving assertion of the subject's validity from <assignable>Operational Environment component responsible for authentication</assignable></selectable><selectable id="fcs_val_ext.1.1_Admin_3">validating the <selectables><selectable id="fcs_val_ext.1.1_Admin_4">submask</selectable><selectable id="fcs_val_ext.1.1_Admin_5">intermediate key</selectable></selectables> using the following methods: <selectables><selectable id="ADMVALKEYWRA">key wrap as specified in FCS_COP.1/KW</selectable><selectable id="fcs_val_ext.1.1_Admin_6">hash the <selectables><selectable id="fcs_val_ext.1.1_Admin_7">submask</selectable><selectable id="fcs_val_ext.1.1_Admin_8">intermediate key</selectable><selectable id="fcs_val_ext.1.1_Admin_9">FEK</selectable></selectables> as specified in FCS_COP.1<h:b>/Hash (from <xref to="bibAppPP"/>)</h:b> and compare it to a stored hash</selectable><selectable id="fcs_val_ext.1.1_Admin_10">decrypt a known value using the <selectables><selectable id="fcs_val_ext.1.1_Admin_11">submask</selectable><selectable id="fcs_val_ext.1.1_Admin_12">intermediate key</selectable><selectable id="fcs_val_ext.1.1_Admin_13">FEK</selectable></selectables> as specified in FCS_COP.1/SKC <h:b>(from <xref to="bibAppPP"/>)</h:b> and compare it against a stored known value</selectable></selectables> </selectable></selectables>. 
+              
+            </title>
+          </f-element>
+          <f-element id="fcs-val-ext-admin-1e2">
+            <title>The TSF shall require validation of the [<h:i>admin</h:i>] prior to [<h:i>permitting the actions described in FMT_MTD.1.1 and FMT_SMF.1.1/FEEM</h:i>].</title>
+            <note role="application">
+                
+                This PP-Module performs validation of any administrator credential on the management server, as described in FIA_AUT_EXT.1.1, 
+            used to log in to the EM in accordance with this SFR.</note>
+            <aactivity>
+              <TSS>Conditional: <h:br/>If 'validating' is selected, the evaluator shall examine the TSS to determine that it states which authorization factors support validation.<h:br/><h:br/>
+                The evaluator shall also examine the TSS to ensure that it includes a high-level description of how how the submasks are validated. If multiple submasks are used within the TOE, 
+                the evaluator shall confirm that the TSS describes how each is validated (e.g., each submask validated before combining, once combined validation takes place). <h:br/><h:br/>
+                
+                Conditional: <h:br/>If 'receiving assertion of the subject's validity' is selected, the evaluator shall examine the TSS to verify that it describes the environments that can be leveraged with the TOE 
+                and how each claims to perform validation. The evaluator shall also ensure that none of the stated platform validation mechanisms weaken the key chain of the product.<h:br/><h:br/><h:h4>KMD</h:h4>None.<h:br/><h:br/></TSS>
+              <Guidance>If the validation functionality is configurable, the evaluator shall examine the operational guidance
+              to ensure it describes how to configure the TOE to ensure the limits regarding validation attempts can be established.<h:br/><h:br/></Guidance>
+              <Tests>There are no test activities for this requirement.</Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FCS_VAL_EXT.1/User Validation (User) -->
+        <f-component cc-id="fcs_val_ext.1" id="fcs-val-ext-1-user" name="Validation (User)" iteration="User">
+          <consistency-rationale>This SFR goes beyond the functionality defined by the Base-PP by defining a method by which the TSF can validate the correctness of data input to it.
+          </consistency-rationale>
+          <f-element id="fcs-val-ext-user-1e1">
+            <title>The TSF shall perform validation of the [<h:i>user</h:i>] by 
+               <selectables><selectable id="fcs_val_ext.1.1_User_1">receiving assertion of the subject's validity from <assignable>Operational Environment component responsible for authentication</assignable></selectable><selectable id="fcs_val_ext.1.1_User_3">validating the <selectables><selectable id="fcs_val_ext.1.1_User_4">submask</selectable><selectable id="fcs_val_ext.1.1_User_5">intermediate key</selectable></selectables> using the following methods: <selectables><selectable id="USRVALKEYWRA">key wrap as specified in FCS_COP.1/KW</selectable><selectable id="fcs_val_ext.1.1_User_6">hash the <selectables><selectable id="fcs_val_ext.1.1_User_7">submask</selectable><selectable id="fcs_val_ext.1.1_User_8">intermediate key</selectable><selectable id="fcs_val_ext.1.1_User_9">FEK</selectable></selectables> as specified in FCS_COP.1/Hash <h:b>(from <xref to="bibAppPP"/>)</h:b> and compare it to a stored hash</selectable><selectable id="fcs_val_ext.1.1_User_10">decrypt a known value using the <selectables><selectable id="fcs_val_ext.1.1_User_11">submask</selectable><selectable id="fcs_val_ext.1.1_User_12">intermediate key</selectable><selectable id="fcs_val_ext.1.1_User_13">FEK</selectable></selectables> as specified in FCS_COP.1/SKC <h:b>(from <xref to="bibAppPP"/>)</h:b> and compare it against a stored known value</selectable></selectables> </selectable></selectables>. 
+              
+            </title>
+          </f-element>
+          <f-element id="fcs-val-ext-user-1e2">
+            <title>The TSF shall require validation of the [<h:i>user</h:i>] prior to [<h:i>transmitting submasks, FEKs, or keys to decrypt FEKs to the endpoint</h:i>].</title>
+            <note role="application">
+              
+              This references the validation of an endpoint user to the server. These activities are performed by the server.</note>
+            <aactivity>
+              <TSS>The evaluator shall examine the TSS to determine which component of the Operational Environment is used to assert the User’s identity. <h:br/><h:br/>
+            The evaluator shall examine the TSS to determine how the TOE responds to an assertion by the Operational Environment. The evaluator shall examine the
+            TSS to verify that it describes how validation is performed. The evaluator shall verify the TSS ensures that the validation process does not expose
+            any material that might compromise key material or expose protected data.<h:br/><h:br/><h:h4>KMD</h:h4>None.<h:br/><h:br/></TSS>
+              <Guidance>The evaluator shall examine the operational guidance to ensure it describes how to configure the TOE and Operational Environment to enable the OE
+  to provide User identity assertions to the TOE. <h:br/><h:br/>
+            
+            (conditional) If the number of User authentication attempts is configurable in the TOE, the examiner shall examine the operational guidance to ensure it describes
+            how to configure the TOE. <h:br/><h:br/></Guidance>
+              <Tests>
+                The evaluator shall perform the following tests: <h:br/>
+                <testlist>
+                  <test>The evaluator shall determine the limit on the average rate of the number of consecutive failed authorization attempts. The evaluator will test the TOE by entering that number of incorrect authorization factors in consecutive attempts to access the protected data. If the limit mechanism includes any “lockout” period, the time period tested should include at least one such period. Then the evaluator will verify that the TOE behaves as described in the TSS.</test>
+                  <test>For each validated authorization factor, ensure that when the user provides an incorrect authorization factor, the TOE prevents FEKs or keys that decrypt FEKs from being forwarded to the endpoint.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FCS_VAL_EXT.2 Validation Remediation -->
+        <f-component cc-id="fcs_val_ext.2" id="fcs-val-ext-2" name="Validation Remediation" status="invisible">
+          <consistency-rationale>This SFR goes beyond the functionality defined by the Base-PP by defining a method by which the TSF can take security-relevant action if some data input to it is invalid.
+        </consistency-rationale>
+          <comp-lev> requires the TSF to specify what the TOE’s response is in the event of a data validation failure.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT: <h:ul><h:li>Configuration of the number of failed validation attempts required to trigger corrective behavior.</h:li> <h:li>Configuration of the corrective behavior to issue in the event of an excessive number of failed validation attempts.</h:li></h:ul></management>
+          <audit>The following actions should be auditable if FAU_GEN Security audit data
+            generation is included in the PP/ST:<h:ul><h:li>Minimal: Triggering of excessive validation failure response behavior.</h:li></h:ul></audit>
+          <dependencies>FCS_VAL_EXT.1 Validation</dependencies>
+          <f-element id="fcs_val_ext-2-1">
+            <title>The TSF shall 
+               <selectables linebreak="yes"><selectable id="fcs_val_ext.2.1_1">institute a delay such that only <assignable>specified number of</assignable> validation attempts can be made within a 24 hour period</selectable><selectable id="fcs_val_ext.2.1_3">block validation after <assignable>specified number of</assignable> consecutive failed validation attempts</selectable><selectable id="fcs_val_ext.2.1_5"> <assignable>remediation action</assignable> upon <assignable>specified number of</assignable> consecutive failed validation attempts</selectable></selectables>.
+            </title>
+          </f-element>
+        </f-component>
+        <!-- FCS_VAL_EXT.2/User Validation Remediation (User) -->
+        <f-component cc-id="fcs_val_ext.2" id="fcs-val-ext-2-user" name="Validation Remediation (User)" iteration="User">
+          <consistency-rationale>This SFR goes beyond the functionality defined by the Base-PP by defining a method by which the TSF can take security-relevant action if some data input to it is invalid.
+          </consistency-rationale>
+          <f-element id="fcs_val_ext-2-1_User">
+            <title>The TSF shall 
+               <selectables linebreak="yes"><selectable id="fcs_val_ext.2.1_User_1">institute a delay such that only <assignable><h:b>ST author specified number or configurable range of</h:b></assignable> validation attempts can be made within a 24 hour period</selectable><selectable id="fcs_val_ext.2.1_User_3">block validation after <assignable><h:b>ST author specified number or configurable range of</h:b></assignable> consecutive failed validation attempts</selectable><selectable id="fcs_val_ext.2.1_User_5">[<h:i>terminate the session</h:i>] upon <assignable><h:b>ST author specified number or configurable range of</h:b></assignable> consecutive failed validation attempts</selectable><selectable id="fcs_val_ext.2.1_User_7">[<h:i><selectables><selectable id="fcs_val_ext.2.1_User_8">direct the endpoint to perform key sanitization</selectable><selectable id="fcs_val_ext.2.1_User_9">perform key sanitization</selectable></selectables> of FEK(s) or an intermediate key</h:i>] upon <assignable><h:b>ST specified number or configurable range of</h:b></assignable> consecutive failed validation attempts</selectable></selectables>.
+            </title>
+            <aactivity>
+              <TSS>This SFR is evaluated through the activities defined for FCS_VAL_EXT.1/User.<h:br/><h:br/><h:h4>KMD</h:h4>None.<h:br/><h:br/></TSS>
+              <Guidance>This SFR is evaluated through the activities defined for FCS_VAL_EXT.1/User.<h:br/><h:br/></Guidance>
+              <Tests>This SFR is evaluated through the activities defined for FCS_VAL_EXT.1/User.</Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+      </section>
+      <!-- 5.2.2 Identification and Authentication (FIA) -->
+      <section title="Identification and Authentication (FIA)" id="fia-mandatory">
+        <ext-comp-def title="Authorization" fam-id="FIA_AUT_EXT">
+          <fam-behavior>Components in this family define requirements for how subject authorization is performed. Where FIA_UAU in CC Part 2 defines circumstances where authentication is required, this family describes the specific computational methods used to determine whether a subject’s presented authentication data is valid.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Recovery Support" fam-id="FIA_REC_EXT">
+          <fam-behavior>Components in this family define the TOE’s support for recovery credentials as an alternate method for user authorization.</fam-behavior>
+        </ext-comp-def>
+        <!-- FIA_AUT_EXT.1 Subject Authorization -->
+        <f-component cc-id="fia_aut_ext.1" id="fia-aut-ext-1" name="Subject Authorization">
+          <consistency-rationale>This SFR defines how administrator requests to access protected data are authorized. It uses FCS_RBG_EXT.1 from the Base-PP in a manner consistent with its 
+            definition, but otherwise does not relate to functionality defined by the Base-PP.
+          </consistency-rationale>
+          <comp-lev> specifies the manner in which the TSF performs user authorization.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT: <h:ul><h:li>Configuration of authentication factors.</h:li></h:ul></management>
+          <audit>The following actions should be auditable if FAU_GEN Security audit data
+            generation is included in the PP/ST:<h:ul><h:li>Minimal: Failure of authorization function.</h:li><h:li>Basic: All use of authorization function.</h:li></h:ul></audit>
+          <dependencies>FCS_CKM_EXT.6 Cryptographic Password/Passphrase Conditioning<h:br/>
+            FCS_RBG_EXT.1 Random Bit Generation</dependencies>
+          <f-element id="fia_aut_ext-1-1">
+            <title>The TSF shall 
+               <selectables><selectable id="fia_aut_ext.1.1_1">receive assertion of the user’s validity from: <assignable>Operational Environment component responsible for user authentication</assignable></selectable><selectable id="APPAUTH">provide authorization</selectable></selectables>  based on 
+               <selectables><selectable id="USEPAS">a password authorization factor conditioned as defined in FCS_CKM_EXT.6</selectable><selectable id="fia_aut_ext.1.1_3">an external smart card factor that is at least the same bit-length as the FEK(s), and is protecting a submask that is <selectables><selectable id="fia_aut_ext.1.1_4">generated by the TOE (using the RBG as specified in FCS_RBG_EXT.1 <h:b>(from <xref to="bibAppPP"/>)</h:b>)</selectable><selectable id="fia_aut_ext.1.1_5">generated by the platform</selectable></selectables> protected using asymmetric keys as defined in FCS_CKM.1.1/AK (from <xref to="bibAppPP"/>) with user presence proved by presentation of the smart card and <selectables><selectable id="fia_aut_ext.1.1_6">no PIN</selectable><selectable id="fia_aut_ext.1.1_7">an OE defined PIN</selectable><selectable id="fia_aut_ext.1.1_8">a configurable PIN</selectable></selectables> </selectable><selectable id="fia_aut_ext.1.1_9">an external USB token factor that is at least the same security strength as the FEK(s), and is providing a submask generated by the <selectables><selectable id="fia_aut_ext.1.1_10">TOE, using the RBG as specified in FCS_RBG_EXT.1 <h:b>(from <xref to="bibAppPP"/>)</h:b></selectable><selectable id="fia_aut_ext.1.1_11">platform</selectable></selectables> </selectable></selectables>.
+            </title>
+            <ext-comp-def-title><title>The TSF shall 
+              <selectables><selectable>receive assertion of the user’s validity from: 
+                  <assignable>Operational Environment component responsible for user authentication</assignable></selectable><selectable id="APPAUTH">provide  authorization</selectable></selectables> based on 
+              <selectables><selectable id="USEPAS"> a password authorization factor conditioned as defined in FCS_CKM_EXT.6</selectable><selectable> an external smart card factor that is at least the same bit-length as the FEK(s), and is protecting a submask that is 
+                  <selectables><selectable>generated by the TOE (using the RBG as specified in FCS_RBG_EXT.1)</selectable><selectable>generated by the platform</selectable></selectables> protected using asymmetric keys as defined in FCS_CKM.1.1/AK (from <xref to="bibAppPP"/>)
+                  with user presence proved by presentation of the smart card and 
+                  <selectables><selectable>no PIN</selectable><selectable>an OE defined PIN</selectable><selectable>a configurable PIN</selectable></selectables></selectable><selectable>an external USB token factor that is at least the same security strength as the FEK(s),
+                  and is providing a submask generated by the 
+                  <selectables><selectable>TOE, using the RBG as specified in FCS_RBG_EXT.1</selectable><selectable>platform</selectable></selectables></selectable></selectables>.
+            </title></ext-comp-def-title>
+            <note role="application">
+              
+              This applies to the authorization of administrators on the enterprise server.<h:br/><h:br/>
+              
+              FCS_RBG_EXT.1 is in the Application Software Protection Profile.<h:br/><h:br/>
+              
+              This requirement specifies what authorization factors the TOE accepts
+              from the user. A password entered by the user is one authorization factor that the TOE must 
+              be able to condition, as specified in FCS_CKM_EXT.6. Another option is a smart card
+              authorization factor, with the differentiating feature being how the value is generated – either
+              by the TOE’s RBG or by the platform. An external USB token may also be used, with the
+              submask value generated either by the TOE’s RBG or by the platform.<h:br/><h:br/>
+		    
+              The TOE may accept any number of authorization factors, and these are categorized as
+              “submasks”. The ST author selects the authorization factors they support, and there may be
+              multiple methods for a selection.<h:br/><h:br/>
+		    
+              Use of multiple authorization factors is preferable; if more than one authorization factor is
+              used, the submasks produced must be combined using FCS_SMC_EXT.1.<h:br/><h:br/></note>
+            <aactivity>
+              The evaluation activities for this component will be driven by the selections
+              made by the ST author. This section describes evaluation activities for all possible
+              selections in an ST; it should be understood that if a capability is not selected in
+              the ST, the noted assurance activity does not need to be performed. <h:br/><h:br/>
+              <TSS>The
+              evaluator shall examine the TSS to ensure that it describes how user authentication is
+              performed. The evaluator shall verify that the authorization methods listed in the TSS
+              are specified and included in the requirements in the ST. <h:br/><h:br/>
+		    
+              Requirement met by the TOE: <h:br/> 
+		    The evaluator shall first examine the TSS to ensure that the authorization
+              factors specified in the ST are described. For password-based factors the
+              examination of the TSS section is performed as part of FCS_CKM_EXT.6
+              Evaluation Activities. Additionally in this case, the evaluator shall verify that
+              the operational guidance discusses the characteristics of external authorization
+              factors (e.g., how the authorization factor must be generated; format(s) or
+              standards that the authorization factor must meet) that are able to be used by
+              the TOE.<h:br/><h:br/>
+		    
+              If other authorization factors are specified, then for each factor, the TSS specifies
+              how the factors are input into the TOE.<h:br/><h:br/>
+		    
+              Requirement met by the OE:<h:br/> The evaluator shall examine the TSS to
+              ensure a description is included for how the TOE is invoking the OE
+              functionality and how it is getting an authorization value that has appropriate
+              entropy. <h:br/><h:br/><h:h4>KMD</h:h4>None.<h:br/><h:br/></TSS>
+              <Guidance>The evaluator shall verify that the AGD guidance includes instructions for all of the
+              authorization factors. The AGD will discuss the characteristics of external
+              authorization factors (e.g., how the authorization factor is generated; format(s) or
+              standards that the authorization factor must meet, configuration of the TPM device
+              used) that are able to be used by the TOE.<h:br/><h:br/></Guidance>
+              <Tests>The evaluator shall ensure that authorization using each selected method is tested during the course of the evaluation, setting up the method as described in the operational guidance and ensuring that authorization is successful and that failure to provide an authorization factor results in denial to access to plaintext data. <h:br/>[conditional]: If there is more than one authorization factor, ensure that failure to supply a required authorization factor does not result in access to the decrypted plaintext data.</Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FIA_REC_EXT.1 Recovery Support -->
+        <f-component cc-id="fia_rec_ext.1" id="fia-rec-ext-1" name="Recovery Support">
+          <consistency-rationale>This SFR defines the TOE's potential support for recovery credentials. This functionality does not relate to any behavior defined in the Base-PP.
+          </consistency-rationale>
+          <comp-lev> requires the TSF to specify the supported recovery method and to include a means to enable/disable any supported recovery method.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT: <h:ul><h:li>Ability to enable/disable the user of recovery credentials.</h:li> <h:li>Ability to change recovery credential values.</h:li></h:ul></management>
+          <audit>The following actions should be auditable if FAU_GEN Security audit data
+	    generation is included in the PP/ST:<h:ul><h:li>Minimal: Configuration of recovery methods.</h:li></h:ul></audit>
+          <dependencies>No dependencies.</dependencies>
+          <f-element id="fia-rec-ext-1e1">
+            <title>The TSF shall 
+               <selectables><selectable id="fia_rec_ext.1.1_1">provide the ability to enable and disable the use of recovery credentials</selectable><selectable id="fia_rec_ext.1.1_2">not support recovery</selectable></selectables>.</title>
+          </f-element>
+          <f-element id="fia-rec-ext-1e2">
+            <title>The TSF shall support the following recovery mechanisms 
+               <selectables><selectable id="CR">Challenge Response Recovery as defined in FIA_CHR_EXT.1</selectable><selectable id="fia_rec_ext.1.2_1">None</selectable></selectables>.</title>
+            <note role="application"> This requirement defines the recovery options supported between the endpoint(s) and the 
+		    enterprise server.  This does not prevent the OE from providing recovery if the OE is managing the authentication 
+		    of the users.
+              
+            </note>
+            <aactivity>
+              <TSS>The evaluator shall examine the TSS to determine that types of supported recovery
+            credential are specified.<h:br/><h:br/><h:h4>KMD</h:h4>None.<h:br/><h:br/></TSS>
+              <Guidance> The evaluator shall confirm that the guidance documentation contains instructions for turning off the ability of the server to return a recovery credential.<h:br/><h:br/></Guidance>
+              <Tests>The evaluator shall disable the ability of a server to return a recovery credential. The evaluator should then attempt to obtain the recovery credential and this should fail.</Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FIA_UAU.1 Timing of Authentication -->
+        <f-component cc-id="fia_uau.1" id="fia-uau-1" name="Timing of Authentication">
+          <consistency-rationale>This SFR requires administrators to be authenticated prior to accessing management functionality.
+            The Base-PP does not mandate identification and authentication measures for a management interface but it also does not prohibit them.
+          </consistency-rationale>
+          <f-element id="fia-uau-ext-1e1">
+            <title>The TSF shall allow 
+               <assignable>list of TSF-mediated actions</assignable> 
+              on behalf of the <h:b>administrator</h:b> to be performed before the administrator is authenticated.
+            </title>
+          </f-element>
+          <f-element id="fia-uau-ext-1e2">
+            <title>The TSF shall require each <h:b>administrator</h:b> to be successfully authenticated before allowing any other TSF-mediated actions on behalf of that <h:b>administrator</h:b>.</title>
+            <note role="application"> This requirement defines the timing of administrator capabilities on the enterprise server.
+            </note>
+            <aactivity>
+              <TSS>The evaluator shall examine the TSS to determine that it describes the list of actions that are performed on behalf
+              of the administrator prior to login of the administrator. The evaluator shall examine the TSS to determine that it describes the list
+              of actions that require administrator authentication.<h:br/><h:br/><h:h4>KMD</h:h4>None.<h:br/><h:br/></TSS>
+              <Guidance>	The evaluator shall examine the guidance documentation to determine that any necessary preparatory steps 
+              (e.g., establishing credential material such as pre- shared keys, tunnels, certificates, etc.) to logging in are described.
+              For each supported login method, the evaluator shall ensure the guidance documentation provides clear instructions for successfully
+              logging on. If configuration is necessary to ensure the services provided before login are limited, the evaluator shall determine
+              that the guidance documentation provides sufficient instruction on limiting the allowed services.<h:br/><h:br/></Guidance>
+              <Tests>
+                The evaluator shall perform the following tests: <h:br/>
+                <testlist>
+                  <test>The evaluator shall verify that the list of actions allowed without administrator login completes successfully without requiring administrator login and make sure this list is consistent with the TSS.</test>
+                  <test>The evaluator shall verify that attempting any other action requires successful entry of an administrator credential.</test>
+                  <test>The evaluator shall use the guidance documentation to configure the appropriate credential supported for the login method. For that credential/login method, the evaluator shall show that providing correct I&amp;A information results in the ability to access the system, while providing incorrect information results in denial of access.</test>
+                  <test>The evaluator shall configure the services allowed (if any) according to the guidance documentation, and then determine the services available to an external remote entity. The evaluator shall determine that the list of services available is limited to those specified in the requirement.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FIA_UID.1 Timing of Identification -->
+        <f-component cc-id="fia_uid.1" id="fia-uid-1" name="Timing of Identification">
+          <consistency-rationale>This SFR requires administrators to be identified prior to accessing management functionality.
+            The Base-PP does not mandate identification and authentication measures for a management interface but it also does not prohibit them.
+          </consistency-rationale>
+          <f-element id="fia-uid-ext-1e1">
+            <title>The TSF shall allow 
+               <assignable>list of TSF-mediated actions</assignable> 
+              on behalf of the administrator to be performed before the <h:b>administrator</h:b> is identified.
+            </title>
+          </f-element>
+          <f-element id="fia-uid-ext-1e2">
+            <title>The TSF shall require each <h:b>administrator</h:b> to be successfully identified before allowing any other TSF-mediated actions on behalf of that <h:b>administrator</h:b>.</title>
+            <note role="application"> This requirement defines the timing of administrator capabilities on the enterprise server.
+            </note>
+            <aactivity>
+              <TSS>The evaluator shall examine the TSS to determine that it describes the list of actions that are performed on behalf of the administrator
+              prior to identification of the administrator.<h:br/><h:br/><h:h4>KMD</h:h4>None.<h:br/><h:br/></TSS>
+              <Guidance> The evaluator shall examine the guidance documentation to determine that any necessary preparatory
+              steps for creating and configuring administrator accounts are described.<h:br/><h:br/></Guidance>
+              <Tests>
+                The evaluator shall perform the following tests:
+                <testlist>
+                  <test>The evaluator shall verify that the list of actions allowed without administrator identification completes successfully without requiring the administrator to be identified and make sure this list is consistent with the TSS.</test>
+                  <test>The evaluator shall verify that attempting any other action requires successful entry of an administrator account name and successful entry of the administrator account credential.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+      </section>
+      <!-- 5.2.3 Security Management (FMT) -->
+      <section title="Security Management (FMT)" id="fmt-mandatory">
+        <!-- FMT_MOF.1 Management of Security Functions Behaviour -->
+        <f-component cc-id="fmt_mof.1" id="fmt-mof-1" name="Management of Security Functions Behaviour">
+          <consistency-rationale>This SFR defines access restrictions for TOE management functions. This is not defined in the Base-PP but there is nothing in the Base-PP that prohibits it.
+          </consistency-rationale>
+          <f-element id="fmt_mof-1-1">
+            <title>The TSF shall restrict the ability to 
+               <selectables><selectable id="fmt_mof.1.1_1">determine the behavior of</selectable><selectable id="fmt_mof.1.1_2">disable</selectable><selectable id="fmt_mof.1.1_3">enable</selectable><selectable id="fmt_mof.1.1_4">modify the behavior of</selectable></selectables> 
+              the functions <h:b><selectables><selectable id="fmt_mof.1.1_5">encryption algorithms used</selectable><selectable id="fmt_mof.1.1_6">key sizes used</selectable></selectables> </h:b> to 
+               <selectables><selectable id="fmt_mof.1.1_7">no users</selectable><selectable id="fmt_mof.1.1_8">[<h:i>administrators</h:i>]</selectable></selectables>.
+            </title>
+            <note role="application"> The intent of this SFR is to define a mechanism to distinguish administrators 
+              (who have the ability to configure the TSF and its data) from users (individuals in the enterprise who have FEs on their systems).<h:br/><h:br/>
+              
+              The TSF does not need to provide roles that are explicitly called ‘administrator’ or ‘user’; the ST must logically define the administrator
+              as a combination of one or more roles that are provided by the TOE. A user as defined by this PP-Module may be either a user that is 
+              specifically assigned an unprivileged role by the TSF or it may be characterized by an individual that lacks an administrator account on the TOE<h:br/><h:br/>
+              
+              The TSF may optionally provide the ability to rely on an external authentication mechanism to identify users in the case of a user requesting distribution
+              of a recovery credential. In this situation, the TOE’s reliance on the Operational Environment is functionally equivalent to the TSF
+              maintaining the user role as defined by FMT_SMR.2.1.<h:br/></note>
+            <aactivity>
+              <TSS>The evaluator shall examine that the TSS details how Administrators are authenticated and identified by all TOE components. 
+                The evaluator shall examine that authentication and identification of Administrators cannot be compromised for any TOE component in this case.<h:br/><h:br/><h:h4>KMD</h:h4>None.<h:br/><h:br/></TSS>
+              <Guidance>
+                The evaluator shall review the guidance documentation to ensure that it contains instructions for administering the TOE both locally and remotely,
+                including any configuration that needs to be performed on the client for remote administration.<h:br/><h:br/></Guidance>
+              <Tests>The evaluator shall perform the following tests: <h:br/>In the course of performing the testing activities for the evaluation, the evaluator shall use all supported interfaces, although it is not necessary to repeat each test involving an administrative action with each interface. The evaluator shall ensure, however, that each supported method of administering the TOE that conforms to the requirements of this PP-Module be tested; for instance, if the TOE can be administered through a local hardware interface, SSH, and TLS/HTTPS, then all three methods of administration must be exercised during the evaluation team’s test activities. <h:br/></Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FMT_MTD.1 Management of TSF Data -->
+        <f-component cc-id="fmt_mtd.1" id="fmt-mtd-1" name="Management of TSF Data">
+          <consistency-rationale>This SFR defines access restrictions for management of TSF data. This is not defined in the Base-PP but there is nothing in the Base-PP that prohibits it.
+          </consistency-rationale>
+          <f-element id="fmt_mtd-1-1">
+            <title>The TSF shall restrict the ability to 
+               <selectables><selectable id="fmt_mtd.1.1_1">change default</selectable><selectable id="fmt_mtd.1.1_2">query</selectable><selectable id="fmt_mtd.1.1_3">modify</selectable><selectable id="fmt_mtd.1.1_4">delete</selectable><selectable id="fmt_mtd.1.1_5">clear</selectable><selectable id="fmt_mtd.1.1_7"><assignable>other operations</assignable></selectable></selectables>  the [<h:i>encryption keys and intermediate values</h:i>] to [<h:i>administrators</h:i>] <h:b>at the following times: 
+                 <selectables><selectable id="fmt_mtd.1.1_8">never</selectable><selectable id="fmt_mtd.1.1_9">during initial provisioning</selectable><selectable id="fmt_mtd.1.1_10">during recovery</selectable></selectables> </h:b>.
+            </title>
+            <note role="application"> These restrictions apply to modifications on the enterprise server.
+            </note>
+            <aactivity>
+              <TSS>The evaluator shall examine the TSS to determine that, for each administrative function identified in the guidance documentation;
+                those that are available to the administrator are identified. For each of these functions, the evaluator shall also confirm that
+                the TSS details when changes may be made to the encryption keys and/or intermediate values.<h:br/><h:br/><h:h4>KMD</h:h4>None.<h:br/><h:br/></TSS>
+              <Guidance>The evaluator shall verify that the guidance document describes what operations on the encryption keys and intermediate
+                values are allowed to the administrator at what times.<h:br/><h:br/></Guidance>
+              <Tests>
+                The evaluator shall perform the following tests: <h:br/>
+                <testlist>
+                  <test>The evaluator shall try to perform at least one of the related actions without prior authentication as administrator (either by authentication as a user with no administrator privileges or without user authentication at all – depending on the configuration of the TOE). This test should fail.</test>
+                  <test>The evaluator shall try to perform at least one of the related actions with prior authentication as administrator. This test should pass.</test>
+                  <test>The evaluator shall try to perform at least one of the actions at the times that are not permitted. This test should fail.</test>
+                  <test>The evaluator shall try to perform at least one of the actions at the times are permitted. This test should pass.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FMT_SMF.1/FEEM Specification of Management Functions (Management Server) -->
+        <f-component cc-id="fmt_smf.1" id="fmt-smf-1-feem" name="Specification of Management Functions (Management Server)" iteration="FEEM">
+          <consistency-rationale>This SFR defines management functions for the TOE for functionality specific to this PP-Module. These functions are defined in addition to what 
+	        the Base-PP defines for its own operation.
+          </consistency-rationale>
+          <f-element id="fmt_smf-1-1_FEEM">
+            <title>The TSF shall be capable of performing the following management functions: <h:b><selectables linebreak="yes"><selectable id="fmt_smf.1.1_FEEM_1">register new user</selectable><selectable id="fmt_smf.1.1_FEEM_2">revoke registration of user</selectable><selectable id="fmt_smf.1.1_FEEM_3">initiate key generation</selectable><selectable id="fmt_smf.1.1_FEEM_4">initiate keying escrow</selectable><selectable id="fmt_smf.1.1_FEEM_5">initiate key zeroization</selectable><selectable id="fmt_smf.1.1_FEEM_6">initiate key recovery</selectable><selectable id="fmt_smf.1.1_FEEM_7">set encryption policy (supported algorithms and key sizes)</selectable><selectable id="fmt_smf.1.1_FEEM_8">change administrator passwords</selectable><selectable id="fmt_smf.1.1_FEEM_9">change user passwords</selectable><selectable id="fmt_smf.1.1_FEEM_10">change recovery credentials</selectable><selectable id="fmt_smf.1.1_FEEM_11">define administrators of the TOE</selectable><selectable id="fmt_smf.1.1_FEEM_12">enable/disable use of recovery credential</selectable><selectable id="fmt_smf.1.1_FEEM_13">configure number of failed authentication attempts before issuing a key destruction of the FEK(s)</selectable><selectable id="fmt_smf.1.1_FEEM_14">configure the number of authentication attempts that can be made within a 24 hour period</selectable><selectable id="fmt_smf.1.1_FEEM_15">configure the number of failed authentication attempts required to begin blocking subsequent attempts</selectable><selectable id="fmt_smf.1.1_FEEM_16">ability to enable or disable one or more of the following functions: <selectables><selectable id="fmt_smf.1.1_FEEM_17">configure cryptographic functionality</selectable><selectable id="fmt_smf.1.1_FEEM_18">change authentication factors</selectable><selectable id="fmt_smf.1.1_FEEM_19">perform a cryptographic erase of the data by the destruction of FEKs or KEKs protecting the FEKs</selectable><selectable id="fmt_smf.1.1_FEEM_20">configure the number of failed validation attempts required to trigger corrective behavior</selectable><selectable id="fmt_smf.1.1_FEEM_21">configure the corrective behavior to issue in the event of an excessive number of failed validation attempts</selectable><selectable id="fmt_smf.1.1_FEEM_23"><assignable>other management functions provided by the TSF</assignable></selectable></selectables> </selectable></selectables> </h:b>.
+            </title>
+            <note role="application"> 
+		    
+		    This SFR refers specifically to the management functions that can be performed by the Management Server. 
+              Functions that are performed by the rest of the TOE are addressed by the FMT_SMF.1/FEEM SFR in the File Encryption PP-Module.
+              The final two assignments provide the ST author the ability to indicate when the PP-Module for File Encryption functionality
+		    (such as configuration of power saving states) can be configured by the Management Server.<h:br/><h:br/>
+              
+              The TSF’s ability to initiate key generation, escrow, zeroization, and/or recovery may be accomplished either by the TOE performing those
+              functions or by the TOE issuing a request to a remote client to perform the functions. The ST author must indicate which case is provided by the TSF.
+              If the TOE performs any of the cryptographic functions that are selected as being initiated in this SFR, the ST author must include the equivalent
+              FCS SFRs from the File Encryption PP-Module as part of the TOE, specifically indicating that these 
+              functions are provided by the Management Server component of the TOE. <h:br/><h:br/>
+              
+              If the TSF supports the use of a recovery credential, the ST author must include the ‘enable/disable use of recovery credential’ selection.
+            </note>
+            <aactivity>
+              <TSS>The evaluator shall examine the TSS to ensure that it describes which of the selections are provided by the TOE.
+              Additionally, the TSS shall describe which of the configurable selections can be disabled on the Enterprise Management Server.
+              The evaluator shall examine the TSS to ensure that it describes whether the TOE provides the ability to initiate key generation, 
+              escrow, zeroization and/or recovery or whether it requests the client to perform those functions.<h:br/><h:br/><h:h4>KMD</h:h4>None.<h:br/><h:br/></TSS>
+              <Guidance>The evaluator shall examine the Guidance Documents to ensure that, if supported, configuration of the following options is described,
+  including any reliance on the Operational Environment if applicable:<h:br/><h:li>Register new user</h:li> <h:li>Revoke registration of an user</h:li> <h:li>Initiate key generation</h:li> <h:li>Initiate keying escrow</h:li> <h:li>Initiate key recovery</h:li> <h:li>Initiate key zeroization</h:li> <h:li>Set encryption policy (supported algorithms and key sizes)</h:li> <h:li>Change Administrator passwords</h:li> <h:li>Change user passwords</h:li> <h:li>Change Recovery Credentials</h:li> <h:li>Define Administrators of the TOE</h:li> <h:li>Enable/Disable the use of recovery credentials (end users)</h:li> <h:li>Configure the number of failed authentication attempts before issuing a key destruction of the FEK(s)</h:li> <h:li>Configure the number of authentication attempts that can be made in a 24 hour period</h:li> <h:li>Configure the number of failed authentication attempts required to begin blocking subsequent attempts</h:li> <h:li>The ability to enable/disable one or more functions defined in the PP-Module for File Encryption</h:li> <h:li>The ability to authorize whether or not users can perform one or more of the functions in the File Encryption PP-Module.</h:li> <h:li>ability to enable or disable one or more of the following functions (configure cryptographic functionality, change authentication factors, perform a cryptograph erase of the data by the destruction of FEKs or KEKs protecting the FEKs,
+configure the number of failed validation attempts required to trigger corrective behavior, configure the corrective behavior to issue in the event of an excessive number of failed validation attempts,
+	[other management functions provided by the TSF]</h:li> <h:li>ability to perform one or more of the following functions  (configure cryptographic functionality, change authentication factors, perform a cryptograph erase of the data by the destruction of FEKs or KEKs protecting the FEKs,
+configure the number of failed validation attempts required to trigger corrective behavior, configure the corrective behavior to issue in the event of an excessive number of failed validation attempts,
+	[other management functions provided by the TSF]</h:li> <h:li>ability to authorize whether or not users can perform one or more of the following functions  (configure cryptographic functionality, change authentication factors, perform a cryptograph erase of the data by the destruction of FEKs or KEKs protecting the FEKs,
+configure the number of failed validation attempts required to trigger corrective behavior, configure the corrective behavior to issue in the event of an excessive number of failed validation attempts,
+	[other management functions provided by the TSF]</h:li><h:br/><h:br/></Guidance>
+              <Tests>
+                The evaluator shall perform the following tests for each claimed management function:
+                <testlist>
+                  <test>The evaluator shall configure the management server and two users according to the guidance documents. The evaluator shall register the users with the management server. The evaluator shall verify that the users are identified by the management server as defined in the guidance documents. This test shall pass.</test>
+                  <test>The evaluator shall disconnect the second user from the network. The evaluator shall revoke the registration of the second user in the management server. The evaluator shall attempt to connect the second user to the network and verify the endpoint fails to connect or is displayed as revoked in the console.</test>
+                  <test>The evaluator shall verify that the TOE performs the actions (e.g. generate key) and sends the result to the user's client. The user's client shall perform the actions necessary to accept the updated configuration (e.g. encrypt the data with the new key, update the encryption algorithm key size or mode and re-encrypt).</test>
+                  <test>For each item that is initiated by the TOE but performed on the endpoint, the evaluator shall verify that the TOE requests the user's client to perform the action (generate a key and encrypt the data, zeroize a key).</test>
+                  <test>For each method of changing a credential, the evaluator shall first provision the initial authorization factor(s) in the Enterprise Server, and then verify all authorization values supported allow the user access to the encrypted data on the user's client. Then the evaluator shall exercise the management functions to change the authorization factor values to a new one on the Enterprise Server. Then he or she will verify that the user's client denies access to the user’s encrypted data when he or she uses the old or original authorization factor values to gain access.</test>
+                  <test>The evaluator shall add two administrators to the administrator group in the Enterprise Server and provision authorization factor(s) for each administrator. The evaluator shall verify that both administrators can log into the Enterprise Server using the provided authorization factors. The evaluator shall then exercise the management functions to change the authorization factor values for the first administrator to a new one on the Enterprise Server. Then he or she will verify that the Enterprise Server denies the first administrator access to the Management Console when the first administrator logs in with the old or original authorization factor to gain access. The evaluator shall also verify that the second administrator is still able to log in to the Enterprise Server with their original authorization factor.</test>
+                  <test>The evaluator shall verify that the an administrator can configure each of the supported authorization factors attempts limits and shall verify that the user is denied access after surpassing that limit.</test>
+                  <test>If the TOE provides the capability to disable management of any capability allowed in the EM PP-Module, the evaluator shall devise a test that ensures that each capability which can be disabled has been or can be disabled following guidance provided by the vendor.</test>
+                  <test>If the TOE provides the capability to manage capabilities in place of the File Encryption Clients, where those administrative capabilities are then disabled in the File Encryption Clients, the evaluator shall devise a test that ensures that each capability which can be disabled in the File Encryption Clients and can be subsequently managed by the EM is tested as follows: Disable the administrative capability in a File Encryption Client and enable it in the EM. Verify that the administration of the capability in the EM is successful.</test>
+                  <test>The evaluator shall verify the encryption policy enforcement by changing the permitted algorithms and verifying the changes take place.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FMT_SMR.2 Restrictions on Security Roles -->
+        <f-component cc-id="fmt_smr.2" id="fmt-smr-2" name="Restrictions on Security Roles">
+          <consistency-rationale>This SFR defines administrative roles, which are used by other SFRs to derive privileges to interact with the TOE's management functionality.
+            This is not defined in the Base-PP but there is nothing in the Base-PP that prohibits it.
+          </consistency-rationale>
+          <f-element id="fmt-smr-2e1">
+            <title>The TSF shall maintain the roles [<h:i>administrator, user</h:i>].
+            </title>
+          </f-element>
+          <f-element id="fmt-smr-2e2">
+            <title>The TSF shall be able to associate users with roles.</title>
+          </f-element>
+          <f-element id="fmt-smr-2e3">
+            <title>The TSF shall ensure that the conditions<h:b><selectables><selectable id="fmt_smr.2.3_1">the administrator role shall be able to administer the Management Server locally</selectable><selectable id="remote">the administrator role shall be able to administer the Management Server remotely as specified in FTP_TRP.1</selectable><selectable id="fmt_smr.2.3_2">the administrator role shall be able to administer the endpoint(s) locally</selectable><selectable id="fmt_smr.2.3_3">the administrator role shall be able to administer the endpoint(s) remotely</selectable></selectables> </h:b>
+              are satisfied.
+            </title>
+            <note role="application"> The intent of this SFR is to define a mechanism to distinguish administrators 
+              (who have the ability to configure the TSF and its data) from users (individuals in the enterprise who have FEs on their systems).<h:br/><h:br/>
+              
+              The TSF does not need to provide roles that are explicitly called ‘administrator’ or ‘user’; the ST must logically define the administrator
+              as a combination of one or more roles that are provided by the TOE. A user as defined by this PP-Module may be either a user that is 
+              specifically assigned an unprivileged role by the TSF or it may be characterized by an individual that lacks an administrator account on the TOE.<h:br/><h:br/>
+              
+              The TSF may optionally provide the ability to rely on an external authentication mechanism to identify users in the case of a user requesting distribution
+              of a recovery credential. In this situation, the TOE’s reliance on the Operational Environment is functionally equivalent to the TSF
+              maintaining the user role as defined by FMT_SMR.2.1.<h:br/></note>
+            <aactivity>
+              <TSS>Refer to the evaluation activities for FMT_MOF.1.<h:br/><h:br/></TSS>
+              <Guidance>
+              Refer to the evaluation activities for FMT_MOF.1.<h:br/><h:br/></Guidance>
+              <Tests>Refer to the evaluation activities for FMT_MOF.1.</Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+      </section>
+      <!-- 5.2.4 Protection of the TSF (FPT) -->
+      <section title="Protection of the TSF (FPT)" id="fpt-mandatory">
+        <ext-comp-def title="Protection of Key and Key Material" fam-id="FPT_KYP_EXT">
+          <fam-behavior>Components in this family define requirements for secure storage of keys.</fam-behavior>
+        </ext-comp-def>
+        <!-- FPT_ITT.1 Basic Internal TSF Data Transfer Protection -->
+        <f-component cc-id="fpt_itt.1" id="fpt-itt-1" name="Basic Internal TSF Data Transfer Protection">
+          <consistency-rationale>This SFR uses a subset of the protocols defined in the Base-PP for secure communications. This PP-Module extends the functionality by explicitly
+            defining a communications channel where both endpoints are TOE components.
+          </consistency-rationale>
+          <f-element id="fpt_itt-1-1">
+            <title>The TSF shall protect TSF data from [<h:i>disclosure, modification</h:i>] when it is transmitted between separate parts
+              of the TOE through the use of <h:b><selectables><selectable id="IPSEC">IPsec as defined in the PP-Module for VPN Client</selectable><selectable id="sel_all_https"><h:abbr title="Hypertext Transfer Protocol Secure">HTTPS</h:abbr> in accordance with FCS_HTTPS_EXT.1 <h:b>(from <xref to="bibAppPP"/>)</h:b></selectable><selectable id="sel_all_tlsc">TLS as defined in the <xref to="pkg-tls"/></selectable><selectable id="sel_all_ssh">SSH as defined in the <xref to="pkg-ssh"/></selectable></selectables> </h:b>.
+            </title>
+            <note role="application">This SFR is intended to define protected communications between the Management Server and the endpoints. <h:br/></note>
+            <aactivity>
+              <TSS>The evaluator shall examine the TSS to determine that, for all communications between components of a distributed TOE,
+              each communications mechanism is identified in terms of the allowed protocols and intra-TOE configurations for that IT entity. The evaluator
+              shall also confirm that all protocols listed in the TSS for these inter-component communications are specified and included in the 
+              requirements in the ST.<h:br/><h:br/><h:h4>KMD</h:h4>None.<h:br/><h:br/></TSS>
+              <Guidance>	The evaluator shall confirm that the guidance documentation contains instructions for establishing the relevant allowed  
+              communication channels and protocols between each pair of authorized TOE components, and that it contains instructions 
+		    to reestablish a connection should a connection be unintentionally broken. <h:br/><h:br/></Guidance>
+              <Tests>
+                The evaluator shall perform the following tests: <h:br/>
+                <testlist>
+                  <test>The evaluator shall ensure that communications using each supported protocol between each pair of authorized TOE components is tested during the course of the evaluation, setting up the connections as described in the guidance documentation and ensuring that communication is successful.</test>
+                  <test>The evaluator shall ensure, for each communication channel with an endpoint or server, the channel data is not sent in plaintext.</test>
+                  <test>The evaluator shall, for each protocol associated with each authorized IT entity tested during Test 1, physically interrupt the connection. The evaluator shall ensure that when physical connectivity is restored, communications are appropriately protected.</test>
+                </testlist>
+                Further evaluation activities are associated with the specific protocols.
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FPT_KYP_EXT.1 Protection of Keys and Key Material  -->
+        <f-component cc-id="fpt_kyp_ext.1" id="fpt-kyp-ext-1" name="Protection of Keys and Key Material ">
+          <consistency-rationale>The Base-PP defines an SFR for secure storage of sensitive data. This SFR expands on that definition by describing the supported logical methods 
+	          for storage of key data.
+	        </consistency-rationale>
+          <comp-lev> requires the TSF to protect stored key data in a specified manner.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT: <h:ul><h:li>Configuration of the cryptographic functionality.</h:li></h:ul></management>
+          <audit>There are no auditable events foreseen.
+	        </audit>
+          <dependencies>FCS_COP.1 Cryptographic Operation<h:br/>
+	          FCS_KDF_EXT.1 Cryptographic Key Derivation Function<h:br/>
+	          FCS_KYC_EXT.1 Key Chaining and Key Storage<h:br/>
+	          FCS_SMC_EXT.1 Submask Combining<h:br/>
+	          FCS_STO_EXT.1 Storage of Credentials</dependencies>
+          <f-element id="fpt_kyp_ext-1-1">
+            <title>The TSF shall store keys in non-volatile memory only when
+                   <selectables><selectable id="fpt_kyp_ext.1.1_1">wrapped, as specified in FCS_COP.1/KW</selectable><selectable id="fpt_kyp_ext.1.1_2">encrypted, as specified in FCS_COP.1/SKC (from <xref to="bibAppPP"/>)</selectable><selectable id="fpt_kyp_ext.1.1_3">the plaintext key is stored in the underlying platform's keystore as specified by FCS_STO_EXT.1 <h:b>(from <xref to="bibAppPP"/>)</h:b></selectable><selectable id="fpt_kyp_ext.1.1_4">the plaintext key is stored in a SQL database in the Operational Environment</selectable><selectable id="fpt_kyp_ext.1.1_5">the plaintext key is not part of the key chain as specified in FCS_KYC_EXT.1.</selectable><selectable id="fpt_kyp_ext.1.1_6">the plaintext key will no longer provide access to the encrypted data after initial provisioning</selectable><selectable id="fpt_kyp_ext.1.1_7">the plaintext key is a key split that is combined as specified in FCS_SMC_EXT.1 and another contribution to the split is <selectables><selectable id="fpt_kyp_ext.1.1_8">wrapped as specified in FCS_COP.1/KW</selectable><selectable id="fpt_kyp_ext.1.1_9">derived and not stored in non-volatile memory</selectable></selectables> </selectable><selectable id="fpt_kyp_ext.1.1_10">the plaintext key is stored on an external storage device for use as an authorization factor.</selectable><selectable id="fpt_kyp_ext.1.1_11">the plaintext key is used to wrap a key as specified in FCS_COP.1/KW that is already wrapped as specified in FCS_COP.1/KW</selectable></selectables>.
+            </title>
+            <ext-comp-def-title><title>The TSF shall store keys in non-volatile memory only when
+                  <selectables><selectable>wrapped, as specified in FCS_COP.1</selectable><selectable>encrypted, as specified in FCS_COP.1</selectable><selectable>the plaintext key is stored in the underlying platform's keystore as specified by FCS_STO_EXT.1</selectable><selectable>the plaintext key is stored in a SQL database in the Operational Environment</selectable><selectable>the plaintext key is not part of the key chain as specified in FCS_KYC_EXT.1.</selectable><selectable>the plaintext key will no longer provide access to the encrypted data after initial provisioning</selectable><selectable>the plaintext key is a key split that is combined as specified in FCS_SMC_EXT.1 and another contribution to the split is
+                      <selectables><selectable>wrapped as specified in FCS_COP.1</selectable><selectable>derived and not stored in non-volatile memory</selectable></selectables></selectable><selectable>the plaintext key is stored on an external storage device for use as an authorization factor.</selectable><selectable>the plaintext key is used to wrap a key as specified in FCS_COP.1
+                      that is already wrapped as specified in FCS_COP.1</selectable></selectables>.
+            </title></ext-comp-def-title>
+            <note role="application"> 
+              
+              This details the key storage requirements for the enterprise server.
+              The plaintext key storage in non-volatile memory is allowed for
+              several reasons. If the keys exist within protected memory that is not user accessible
+              on the TOE or OE, the only methods that allow it to play a security relevant role for
+              protecting the FEK is if it is a key split or providing additional layers of wrapping
+              or encryption on keys that have already been protected. </note>
+            <aactivity>
+              <TSS>The evaluator shall verify the TSS for a high level description of the method(s) used
+                to protect keys stored in non-volatile memory.<h:br/><h:br/><h:h4>KMD</h:h4>The evaluator shall verify
+                the KMD to ensure it describes the storage location of all keys and the protection of
+                all keys stored in non-volatile memory. The description of the key chain shall be
+                reviewed to ensure FCS_COP.1/KW is followed for the storage of wrapped or encrypted
+                keys in non-volatile memory and plaintext keys in non-volatile memory meet one of the
+                criteria for storage. <h:br/><h:br/></TSS>
+              <Guidance> None.<h:br/><h:br/></Guidance>
+              <Tests>None.</Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FPT_KYP_EXT.2 Attribution of Key and Key Material -->
+        <f-component cc-id="fpt_kyp_ext.2" id="fpt-kyp-ext-2" name="Attribution of Key and Key Material">
+          <consistency-rationale>This SFR relates to key attribution such that stored keys can be associated with the users that 'own' them.
+            This does not relate to functionality that is defined in the Base-PP so it does not interfere with the implementation of any Base-PP SFRs.
+          </consistency-rationale>
+          <comp-lev> requires the TSF to protect stored key data in a specified manner.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT: <h:ul><h:li>Registration of users.</h:li> <h:li>Revocation of user registration.</h:li></h:ul></management>
+          <audit>The following actions should be auditable if FAU_GEN Security audit data
+            generation is included in the PP/ST:<h:ul><h:li>Basic: Creation and revocation of user registration.</h:li></h:ul></audit>
+          <dependencies>FPT_ITT.1 Basic Internal TSF Data Transfer Protection</dependencies>
+          <f-element id="fpt-kyp-ext-2e1">
+            <title>The TSF shall maintain an association between stored endpoint keys and user identity, 
+                 <selectables><selectable id="fpt_kyp_ext.2.1_1">remote endpoints</selectable><selectable id="fpt_kyp_ext.2.1_2">recovery credential</selectable><selectable id="fpt_kyp_ext.2.1_3">system identity</selectable><selectable id="fpt_kyp_ext.2.1_4">no other subjects</selectable></selectables>.
+              </title>
+            <note role="application">The intent of this SFR is that at minimum, keys are associated with the users for which it was explicitly created by the TSF.
+                If the TOE has the ability to maintain an association to keys for a user, this SFR is intended to require an association between the key chain and a user through 
+                the user account name(s) that are authorized to use it. <h:br/><h:br/>
+                
+                Likewise, if the TOE supports the use of a recovery credential, this SFR is intended to require an association between user and the recovery credential
+                used to recover that data. </note>
+          </f-element>
+          <f-element id="fpt_kyp-ext-2e2">
+            <title>The TSF shall provide the ability to register users by exchange of  <assignable>mutually identifying information that allows for an association to be made</assignable>.
+               </title>
+            <note role="application">The ST author will complete the assignment with information on the method used by the Management Server portion
+                of the TOE to establish the association with the endpoint portion of the TOE described in FPT_KYP_EXT.2.1.
+              </note>
+          </f-element>
+          <f-element id="fpt_kyp-ext-2e3">
+            <title>The TSF shall provide the ability to revoke the registration of users by  <assignable>method of removing and/or exchanging information that prevents further communications between the TOE and the endpoint</assignable>.</title>
+          </f-element>
+          <f-element id="fpt_kyp-ext-2e4">
+            <title>The TSF shall transmit any secure or private cryptographic information that is transferred between the TOE and a user's endpoint in order
+                to establish or disestablish an association using a communications channel with a security strength at least as great as the strength of the
+                information being transmitted.</title>
+            <note role="application">The channel used to transmit this data is defined in FPT_ITT.1.</note>
+            <aactivity>
+              <TSS>The evaluator shall examine the TSS to verify that it describes the method by which an association is 
+                  maintained and verify it matches the selections.<h:br/><h:br/><h:h4>KMD</h:h4>None.<h:br/><h:br/></TSS>
+              <Guidance> The evaluator shall verify the guidance documentation provides instructions on how to configure the association, 
+  if any configuration is necessary.<h:br/><h:br/></Guidance>
+              <Tests>For each method of association, the evaluator shall change the configuration so that the associate is broken and verify that enterprise functions do not work.</Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+      </section>
+    </man-sfrs>
+    <opt-sfrs/>
+    <sel-sfrs>
+      <!-- 5.2.5 Cryptographic Support (FCS) -->
+      <section title="Cryptographic Support (FCS)" id="fcs-selectionBased">
+        <ext-comp-def title="Cryptographic Key Derivation Function" fam-id="FCS_KDF_EXT">
+          <fam-behavior>Components in this family define requirements for the implementation of cryptographic key derivation functions</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Submask Combining" fam-id="FCS_SMC_EXT">
+          <fam-behavior>Components in this family define requirements for generation of intermediate keys via submask combining.</fam-behavior>
+        </ext-comp-def>
+        <!-- FCS_CKM_EXT.6 Cryptographic Password/Passphrase Conditioning -->
+        <f-component cc-id="fcs_ckm_ext.6" id="fcs-ckm-ext-6" name="Cryptographic Password/Passphrase Conditioning">
+          <depends on-sel="USEPAS"/>
+          <consistency-rationale>This SFR defines a key derivation method based on passphrase conditioning. It uses the FCS_RBG_EXT.1 SFR from the Base-PP in its intended manner 
+          but otherwise does not relate to the Base-PP's functionality.</consistency-rationale>
+          <comp-lev> requires the TSF to implement password/passphrase conditioning using a specified algorithm and with specific constraints on the password/passphrase composition.</comp-lev>
+          <management>There are no specific management functions identified.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FCS_COP.1 Cryptographic Operation<h:br/>
+          FCS_RBG_EXT.1 Random Bit Generation</dependencies>
+          <f-element id="fcs_ckm-ext-6e1">
+            <title>
+            The TSF shall support a password/passphrase of up to 
+             <assignable>maximum password size, positive integer of 64 or more</assignable>  
+            characters used to generate a password authorization factor.
+          </title>
+          </f-element>
+          <f-element id="fcs_ckm-ext-6e2">
+            <title>
+            The TSF shall allow passwords to be composed of any combination of upper case characters,
+            lower case characters, numbers, and the following special characters: “!”, “@”, “#”, “$”, “%”, “^”, “&amp;”, “*”, “(“, and “)”,
+            and
+             <selectables><selectable id="fcs_ckm_ext.6.2_2"><assignable>other supported special characters</assignable></selectable><selectable id="fcs_ckm_ext.6.2_3">no other characters</selectable></selectables>.
+          </title>
+          </f-element>
+          <f-element id="fcs_ckm-ext-6e3">
+            <title>
+            The TSF shall perform Password-based Key Derivation
+              Functions in accordance with a specified cryptographic algorithm HMAC-
+               <selectables><selectable id="fcs_ckm_ext.6.3_1">SHA-384</selectable><selectable id="fcs_ckm_ext.6.3_2">SHA-512</selectable></selectables>, 
+              with  <assignable>positive integer of 4096 or more</assignable>  iterations, and
+            output cryptographic key sizes [<h:i>256</h:i>]
+           bits that meet the following: [<h:i>NIST SP 800-132</h:i>]. 
+          </title>
+            <ext-comp-def-title><title>
+              The TSF shall perform Password-based Key Derivation
+              Functions in accordance with a specified cryptographic algorithm HMAC-<selectables><selectable>SHA-384</selectable><selectable>SHA-512</selectable></selectables>, with 
+              <selectables><selectable><assignable>positive integer of 4096 or more</assignable> iterations</selectable><selectable>value supported by the platform, greater than 1000</selectable></selectables>, and
+              output cryptographic key sizes <assignable>output key size</assignable> 
+              that meet the following: <assignable>applicable standard</assignable>. 
+            </title></ext-comp-def-title>
+          </f-element>
+          <f-element id="fcs_ckm-ext-6e4">
+            <title>
+            The TSF shall not accept passwords less than 
+             <selectables><selectable id="fcs_ckm_ext.6.4_1">a value settable by the administrator</selectable><selectable id="fcs_ckm_ext.6.4_3"><assignable>minimum password length accepted by the TOE, must be &gt;= 1</assignable></selectable></selectables> 
+            and greater than the maximum password length 
+            defined in FCS_CKM_EXT.6.1.</title>
+          </f-element>
+          <f-element id="fcs_ckm-ext-6e5">
+            <title>The TSF shall generate all salts using an RBG that meets FCS_RBG_EXT.1 <h:b>(from
+            <xref to="bibAppPP"/>)</h:b> and with entropy 
+            corresponding to the security strength selected for PBKDF in FCS_CKM_EXT.6.3.</title>
+            <ext-comp-def-title><title>The TSF shall generate all salts using an RBG that meets FCS_RBG_EXT.1 and with entropy 
+            corresponding to the security strength selected for PBKDF in FCS_CKM_EXT.6.3.</title></ext-comp-def-title>
+            <note role="application">
+            This applies to passwords on the enterprise server.<h:br/>
+            
+            The password/passphrase is represented on the host machine as a sequence of characters whose 
+            encoding depends on the TOE and the underlying OS. This sequence must be conditioned into a string of bits that is to be used as a KEK that is the same size as the FEK.<h:br/><h:br/>
+            
+            For FCS_CKM_EXT.6.1, the ST author assigns the maximum size of the password/passphrase it supports; it must support at least 64 characters.<h:br/><h:br/>
+            
+            For FCS_CKM_EXT.6.2, the ST author assigns any other supported characters; if there are no other supported characters, 
+            they should select “no other characters”.<h:br/><h:br/>
+            
+            For FCS_CKM_EXT.6.3, the ST author selects the parameters based on the PBKDF used by the TSF. The key cryptographic
+            key sizes in FCS_CKM_EXT.6.3 are made to correspond to the KEK key sizes selected in FCS_KYC_EXT.1.<h:br/><h:br/>
+            
+            The password/passphrase must be conditioned into a string of bits that forms the submask to be used as input into the
+            KEK. Conditioning is performed using one of the identified hash functions in accordance with the process described in
+            NIST SP 800-132. SP 800-132 requires the use of a pseudo-random function (PRF) consisting of HMAC with an approved hash function.<h:br/><h:br/>
+            
+            Appendix A of SP 800-132 recommends setting the iteration count in order to increase the computation needed to derive
+            a key from a password and, therefore, increase the workload of performing a password recovery attack. However, for this PP-Module,
+            a minimum iteration count of 4096 is required in order to ensure that twelve bits of security is added to the password/passphrase value.
+            A significantly higher value is recommended to ensure optimal security.<h:br/><h:br/>
+            
+            For FCS_CKM_EXT.6.4 If the minimum password length is settable, then ST author chooses “a value settable by the administrator
+            for this component for FMT_SMF.1.1/FEEM. If the minimum length
+            is not settable, the ST author fills in the assignment with the minimum length the password must be (zero-length passwords are not allowed for compliant TOEs).  
+          
+            <h:br/><h:br/>This requirement is selection dependent on FIA_AUT_EXT.1.1.</note>
+            <aactivity>
+              <TSS>There are two aspects of this component that require
+              evaluation: passwords/passphrases of the length specified in the requirement (at least
+              64 characters) are supported, and that the characters that are input are subject to the
+              selected conditioning function. These activities are separately addressed in the text
+              below. 
+              
+              <h:br/><h:br/>Support for minimum length: The evaluator shall check to ensure that the 
+              TSS describes the allowable ranges for password/passphrase lengths, and that at least 64 characters may be specified by the user.
+              
+              
+              <h:br/><h:br/>Support for character set: The evaluator shall check to ensure that the 
+              TSS describes the allowable character set and that it contains the characters listed in the SFR.
+              
+              <h:br/><h:br/>Support for PBKDF: The evaluator shall examine the TSS to ensure
+              that the formation of all KEKs or FEKs (as decided in the FCS_CKM_EXT.3 selection) is
+              described and that the key sizes match that described by the ST author. 
+              
+              
+              <h:br/><h:br/>The
+              evaluator shall check that the TSS describes the method by which the password/passphrase
+              is first encoded and then fed to the SHA algorithm. The settings for the algorithm
+              (padding, blocking, etc.) shall be described, and the evaluator shall verify that these
+              are supported by the selections in this component as well as the selections concerning
+              the hash function itself. The evaluator shall verify that the TSS contains a description
+              of how the output of the hash function is used to form the submask that will be input
+              into the function and is the same length of the KEK selected in FCS_KYC_EXT.1.
+              
+              <h:br/><h:br/>For the NIST SP 800-132-based conditioning of the password/passphrase, the required
+              evaluation activities will be performed when doing the evaluation activities for the
+              appropriate requirements (FCS_COP.1.1/KeyedHash). If any manipulation of the key is performed
+              in forming the submask that will be used to form the FEK or KEK, that process shall be
+              described in the TSS. <h:br/>h:br/&gt;No explicit testing of the formation of the submask from the
+              input password is required. 
+              
+              <h:br/><h:br/>FCS_CKM_EXT.6.2: The ST author shall provide a
+              description in the TSS regarding the salt generation. The evaluator shall confirm that
+              the salt is generated using an RBG described in FCS_RBG_EXT.1 (from the <xref to="bibAppPP"/>). <h:br/><h:br/><h:h4>KMD</h:h4>None.<h:br/><h:br/></TSS>
+              <Guidance>
+              Support for minimum length: The evaluators shall check the Operational Guidance 
+              to determine that there are instructions on how to generate large passwords/passphrases, and
+              instructions on how to configure the password/passphrase length 
+              to provide entropy commensurate with the keys that the authorization factor is protecting.  <h:br/><h:br/></Guidance>
+              <Tests>
+                Support for Password/Passphrase characteristics: In addition to the analysis above, the evaluator shall also perform the following tests on a TOE configured according to the Operational Guidance: <h:br/>
+                <testlist>
+                  <test>Ensure that the TOE supports passwords/passphrases of a minimum length of 64 characters.</test>
+                  <test>Ensure that the TOE does not accept more than the maximum number of characters specified in FCS_CKM_EXT.6.1.</test>
+                  <test>Ensure that the TOE does not accept less than the minimum number of characters specified in FCS_CKM_EXT.6.4. If the minimum length is settable by the administrator, the evaluator determines the minimum length or lengths to test.</test>
+                  <test>Ensure that the TOE supports passwords consisting of all characters listed in FCS_CKM_EXT.6.2.</test>
+                </testlist>
+                 <h:br/>Conditioning: No explicit testing of the formation of the authorization factor from the input password/passphrase is required.
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FCS_COP.1/KT Cryptographic operation (Key Transport) -->
+        <f-component cc-id="fcs_cop.1" id="fcs-cop-1-kt" name="Cryptographic operation (Key Transport)" iteration="KT">
+          <depends on-sel="USEKEYTRA"/>
+          <consistency-rationale>This SFR defines key transport functionality that is outside the scope of the original cryptographic operations defined in the Base-PP.
+          </consistency-rationale>
+          <f-element id="fcs_cop-1-1_KT">
+            <title>
+              The TSF shall perform [<h:i>key transport</h:i>] in accordance with a
+              specified cryptographic algorithm  <selectables linebreak="yes"><selectable id="fcs_cop.1.1_KT_1">CNSA 2.0 Compliant Algorithms: <h:ul><h:li>[<h:i>Hybrid Key-Transport Method</h:i>] that meets the following: [Section 9.3 of NIST SP 800-56B, Revision 2] <h:b>using a key establishment algorithm [ML-KEM] as specified in FCS_CKM.2 (from the Base-PP) and a key wrapping algorithm as specified in FCS_COP.1/KW</h:b></h:li></h:ul></selectable><selectable id="fcs_cop.1.1_KT_2">CNSA 1.0 Compliant Algorithms: <h:ul><h:li>[KTS-OAEP] using cryptographic algorithm [RSA] with cryptographic key sizes <selectables><selectable id="fcs_cop.1.1_KT_3">3072</selectable><selectable id="fcs_cop.1.1_KT_4">4096</selectable></selectables> bits that meet the following: [NIST SP 800-56B, Revision 2]</h:li></h:ul></selectable></selectables>. 
+            </title>
+            <note role="application"><h:p>
+                This requirement is used in the body of the ST if the ST author chooses to
+                use key transport in the key chaining approach that is specified in FCS_KYC_EXT.1.
+              </h:p> <h:p>
+                When describing the hybrid key-transport methods, Section 9.3 of NIST SP 800-56B only mentions using the key establishment schemes contained in SP800-56B to establish a shared symmetric key encryption key (KEK) for the transport; however any approved symmetric key establishment method could easily be substituted. This PP-Module allows the use of ML-KEM key establishment schemes with the hybrid key-transport methods described in SP800-56B to provide a CNSA2-compliant key-transport method.</h:p> <h:p>
+                Future versions of this PP-Module may support the use of a key-encapsulation mechanism (KEM) for key transport as defined in NIST SP 800-227 (in draft as of the publication of this PP-Module), sections 5.1 and 6.2.1.
+              </h:p></note>
+            <aactivity>
+              <TSS/>
+              <Guidance/>
+              <Tests>
+                For each supported key transport schema, the evaluator shall initiate at least 25 sessions that require key transport with an independently developed remote instance of a key transport entity, using known RSA key-pairs. The evaluator shall observe traffic passed from the sender-side and to the receiver-side of the TOE, and shall perform the following tests, specific to which key transport scheme was employed.
+                <testlist>
+                  <test>The evaluator shall inspect each cipher text, C, produced by the RSA-OAEP encryption operation of the TOE and make sure it is the correct length, either 256 or 384 bytes depending on RSA key size. The evaluator shall also feed into the TOE's RSA-OEAP decryption operation some cipher texts that are the wrong length and verify that the erroneous input is detected and that the decryption operation exits with an error code.</test>
+                  <test>The evaluator shall convert each cipher text, C, produced by the RSA-OAEP encryption operation of the TOE to the correct cipher text integer, c, and use the decryption primitive to compute em = RSADP((n,d),c) and convert em to the encoded message EM. The evaluator shall then check that the first byte of EM is 0x00. The evaluator shall also feed into the TOE's RSA-OEAP decryption operation some cipher texts where the first byte of EM was set to a value other than 0x00, and verify that the erroneous input is detected and that the decryption operation exits with an error code.</test>
+                  <test>The evaluator shall decrypt each cipher text, C, produced by the RSA-OAEP encryption operation of the TOE using RSADP, and perform the OAEP decoding operation (described in NIST SP 800-56B section 7.2.2.4) to recover HA' || X. For each HA', the evaluator shall take the corresponding A and the specified hash algorithm and verify that HA' = Hash(A). The evaluator shall also force the TOE to perform some RSA-OAEP decryption where the A value is passed incorrectly, and the evaluator shall verify that an error is detected.</test>
+                  <test>The evaluator shall check the format of the 'X' string recovered in OAEP.Test.3 to ensure that the format is of the form PS || 01 || K, where PS consists of zero or more consecutive 0x00 bytes and K is the transported keying material. The evaluator shall also feed into the TOE's RSA-OEAP decryption operation some cipher texts for which the resulting 'X' strings do not have the correct format (i.e., the leftmost non-zero byte is not 0x01). These incorrectly formatted 'X' variables shall be detected by the RSA-OEAP decrypt function.</test>
+                  <test>The evaluator shall trigger all detectable decryption errors and validate that the returned error codes are the same and that no information is given back to the sender on which type of error occurred. The evaluator shall also validate that no intermediate results from the TOE's receiver-side operations are revealed to the sender.</test>
+                </testlist>
+                 <h:br/>
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FCS_COP.1/KW Cryptographic operation (Key Wrapping) -->
+        <f-component cc-id="fcs_cop.1" id="fcs-cop-1-kw" name="Cryptographic operation (Key Wrapping)" iteration="KW">
+          <depends on-sel="USEKEYWRA"/>
+          <depends on-sel="ADMVALKEYWRA"/>
+          <depends on-sel="USRVALKEYWRA"/>
+          <consistency-rationale>This SFR defines usage of AES functionality not defined by the Base-PP. However, this functionality is only used in certain situations that are 
+	          specific to this PP-Module and do not affect the ability of any Base-PP SFRs to be enforced.
+	        </consistency-rationale>
+          <f-element id="fcs_cop-1-1_KW">
+            <title>
+              The TSF shall <h:s>perform</h:s> [<h:i><selectables><selectable id="fcs_cop.1.1_KW_1">use platform-provided functionality to perform Key Wrapping</selectable><selectable id="fcs_cop.1.1_KW_2">implement functionality to perform Key Wrapping</selectable></selectables>]</h:i>
+                in accordance with a specified cryptographic algorithm [<h:i>
+                  AES</h:i>] in the following mode
+                  <h:i><selectables linebreak="yes"><selectable id="fcs_cop.1.1_KW_3">Key Wrap</selectable><selectable id="fcs_cop.1.1_KW_4">Key Wrap with Padding</selectable><selectable id="fcs_cop.1.1_KW_5">GCM mode</selectable><selectable id="fcs_cop.1.1_KW_6">CCM mode</selectable></selectables></h:i>] and cryptographic key sizes [<h:i>256 bits (AES)</h:i>] that meet the following: 
+                  [<h:i><selectables linebreak="yes"><selectable id="fcs_cop.1.1_KW_7">“NIST SP 800-38C”</selectable><selectable id="fcs_cop.1.1_KW_8">“NIST SP 800-38D”</selectable><selectable id="fcs_cop.1.1_KW_9">“NIST SP 800-38F”</selectable><selectable id="fcs_cop.1.1_KW_10">“NIST SP 800-38A”</selectable></selectables></h:i>].
+            </title>
+            <note role="application">
+              
+              This applies to any key wrapping occurring on the enterprise server.
+              This requirement is used in the body of the ST if the ST author chooses to
+              use key wrapping in the key chaining approach that is specified in FCS_KYC_EXT.1,
+              key wrap in the admin validation approach that is specified in FCS_VAL_EXT.1.1/Admin,
+              or key wrap in the user validation approach that is specified in FCS_VAL_EXT.1.1/User.
+              </note>
+            <aactivity>
+              <TSS>Conditional: If use platform provided functionality was selected, then the evaluator shall examine the TSS to verify that it
+              describes how the FEK encryption/decryption is invoked. <h:br/>
+                
+              Conditional: If implement functionality was selected, the evaluator shall check that the TSS includes
+              a description of encryption function(s) used for key wrapping. The evaluator should check that this description of the
+              selected encryption function includes the key sizes and modes of operations as specified in the selections above.
+              The evaluator shall check that the TSS describes the means by which the TOE satisfies constraints on algorithm parameters
+              included in the selections made for ‘cryptographic algorithm’ and ‘list of standards’. <h:br/><h:br/>
+              
+              The evaluator shall verify the TSS includes a description of the key wrap function(s)
+              and shall verify the key wrap uses an approved key wrap algorithm according to the
+              appropriate specification.<h:br/><h:br/><h:h4>KMD</h:h4>
+                The evaluator shall review the KMD to ensure that all keys are wrapped using the
+                approved method and a description of when the key wrapping occurs.<h:br/><h:br/><h:br/><h:br/></TSS>
+              <Guidance> If multiple encryption modes are supported, the evaluator examines the guidance documentation
+              to determine that the method of choosing a specific mode/key size is described.
+              <h:br/><h:br/></Guidance>
+              <Tests>The assurance activity tests specified for AES in GCM mode in the underlying <xref to="bibAppPP"/> shall be performed in the case that "GCM" is selected in the requirement. <h:br/> <h:br/>The assurance activity tests specified for AES in CBC mode in the underlying <xref to="bibAppPP"/> shall be performed in the case that "CBC" is selected in the requirement. <h:p><h:b>AES Key Wrap (AES-KW) and Key Wrap with Padding (AES-KWP) Test</h:b></h:p> <h:p>
+		The evaluator will test the authenticated encryption functionality of AES-KW for EACH
+		combination of the following input parameter lengths:
+              <h:ul><h:li>128 and 256 bit key encryption keys (KEKs)</h:li> <h:li>Three plaintext lengths. One of the plaintext lengths shall be two semi-blocks (128
+                  bits). One of the plaintext lengths shall be three semi-blocks (192 bits). The third data
+                  unit length shall be the longest supported plaintext length less than or equal to 64
+                  semi-blocks (4096 bits).
+                </h:li></h:ul>
+              using a set of 100 key and plaintext pairs and obtain the ciphertext that results from AES-KW
+              authenticated encryption. To determine correctness, the evaluator will use the AES-KW
+              authenticated-encryption function of a known good implementation.
+	      </h:p> <h:p>
+
+              The evaluator will test the authenticated-decryption functionality of AES-KW using the
+              same test as for authenticated-encryption, replacing plaintext values with ciphertext values
+              and AES-KW authenticated-encryption with AES-KW authenticated-decryption.
+	      </h:p> <h:p>
+              The evaluator will test the authenticated-encryption functionality of AES-KWP using the
+              same test as for AES-KW authenticated-encryption with the following change in the three
+              plaintext lengths:
+              <h:ul><h:li>One plaintext length shall be one octet. One plaintext length shall be 20 octets (160
+                  bits).</h:li> <h:li>
+                  One plaintext length shall be the longest supported plaintext length less than or equal
+                  to 512 octets (4096 bits).
+                </h:li></h:ul>
+              The evaluator will test the authenticated-decryption functionality of AES-KWP using the
+              same test as for AES-KWP authenticated-encryption, replacing plaintext values with
+              ciphertext values and AES-KWP authenticated-encryption with AES-KWP authenticated-decryption.
+              </h:p> <h:br/> <h:br/>AES-CCM Tests <h:br/>It is not recommended that evaluators use values obtained from static sources such as http://csrc.nist.gov/groups/STM/cavp/documents/mac/ccmtestvectors.zip or use values not generated expressly to exercise the AES-CCM implementation. <h:br/> <h:br/>The evaluator shall test the generation-encryption and decryption-verification functionality of AES-CCM for the following input parameter and tag lengths: <h:br/>Keys: All supported and selected key sizes (e.g., 128, 256 bits). <h:br/> <h:br/>Associated Data: Two or three values for associated data length: The minimum (≥ 0 bytes) and maximum (≤ 32 bytes) supported associated data lengths, and 2^16 (65536) bytes, if supported. <h:br/>Payload: Two values for payload length: The minimum (≥ 0 bytes) and maximum (≤ 32 bytes) supported payload lengths. <h:br/> <h:br/>Nonces: All supported nonce lengths (7, 8, 9, 10, 11, 12, 13) in bytes. <h:br/> <h:br/>Tag: All supported tag lengths (4, 6, 8, 10, 12, 14, 16) in bytes. <h:br/> <h:br/>The testing for CCM consists of five tests. To determine correctness in each of the below tests, the evaluator shall compare the ciphertext with the result of encryption of the same inputs with a known good implementation. <h:br/> <h:br/>Variable Associated Data Test <h:br/>For each supported key size and associated data length, and any supported payload length, nonce length, and tag length, the evaluator shall supply one key value, one nonce value, and 10 pairs of associated data and payload values, and obtain the resulting ciphertext. <h:br/> <h:br/>Variable Payload Test <h:br/>For each supported key size and payload length, and any supported associated data length, nonce length, and tag length, the evaluator shall supply one key value, one nonce value, and 10 pairs of associated data and payload values, and obtain the resulting ciphertext. <h:br/> <h:br/>Variable Nonce Test <h:br/>For each supported key size and nonce length, and any supported associated data length, payload length, and tag length, the evaluator shall supply one key value, one nonce value, and 10 pairs of associated data and payload values, and obtain the resulting ciphertext. <h:br/> <h:br/>Variable Tag Test <h:br/>For each supported key size and tag length, and any supported associated data length, payload length, and nonce length, the evaluator shall supply one key value, one nonce value, and 10 pairs of associated data and payload values, and obtain the resulting ciphertext. <h:br/> <h:br/>Decryption-Verification Process Test <h:br/>To test the decryption-verification functionality of AES-CCM, for each combination of supported associated data length, payload length, nonce length, and tag length, the evaluator shall supply a key value and 15 sets of input plus ciphertext, and obtain the decrypted payload. Ten of the 15 input sets supplied should fail verification and five should pass. <h:br/></Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FCS_KDF_EXT.1 Cryptographic Key Derivation Function -->
+        <f-component cc-id="fcs_kdf_ext.1" id="fcs-kdf-ext-1" name="Cryptographic Key Derivation Function">
+          <depends on-sel="USEKEYDER"/>
+          <consistency-rationale>This SFR defines key transport functionality. It uses random bit generation and keyed-hash message authentication functionality from the Base-PP 
+	          as they are intended but is otherwise outside the scope of the original cryptographic operations defined in the Base-PP.
+	        </consistency-rationale>
+          <comp-lev> requires the TSF to specify how it performs key derivation.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT: <h:ul><h:li>Configuration of the cryptographic functionality.</h:li></h:ul></management>
+          <audit>There are no auditable events foreseen.
+	        </audit>
+          <dependencies>FCS_COP.1 Cryptographic Operation <h:br/>
+	          FCS_RBG_EXT.1 Random Bit Generation</dependencies>
+          <f-element id="fcs_kdf_ext-1-1">
+            <title>The TSF shall accept
+                   <selectables><selectable id="fcs_kdf_ext.1.1_1">a submask generated by an RBG as specified in FCS_RBG_EXT.1 <h:b>(from <xref to="bibAppPP"/>)</h:b></selectable><selectable id="fcs_kdf_ext.1.1_2">a conditioned password</selectable><selectable id="fcs_kdf_ext.1.1_3">an imported submask</selectable></selectables>  to derive an intermediate key, as defined in
+                   <selectables><selectable id="fcs_kdf_ext.1.1_4">NIST SP 800-108 <selectables><selectable id="fcs_kdf_ext.1.1_5">KDF in Counter Mode</selectable><selectable id="fcs_kdf_ext.1.1_6">KDF in Feedback Mode</selectable><selectable id="fcs_kdf_ext.1.1_7">KDF in Double-Pipeline Iteration Mode</selectable></selectables> </selectable><selectable id="fcs_kdf_ext.1.1_8">NIST SP 800-132</selectable></selectables>  using the keyed-hash functions specified in FCS_COP.1<h:b>/KeyedHash (from <xref to="bibAppPP"/>)</h:b>, such that the output is at least of
+                  equivalent security strength (in number of bits) to the [FEK(s)]
+              . 
+              
+            </title>
+            <ext-comp-def-title><title>The TSF shall accept
+                    <selectables><selectable>a submask generated by an RBG as specified in FCS_RBG_EXT.1</selectable><selectable>a conditioned password</selectable><selectable>an imported submask</selectable></selectables> to derive an intermediate key, as defined in
+                    <selectables><selectable>NIST SP 800-108 
+                        <selectables><selectable>KDF in Counter Mode</selectable><selectable>KDF in Feedback Mode</selectable><selectable>KDF in Double-Pipeline Iteration Mode</selectable></selectables></selectable><selectable>NIST SP 800-132</selectable></selectables> using the keyed-hash functions specified in FCS_COP.1, such that the output is at least of
+                    equivalent security strength (in number of bits) to the <assignable>key that is being derived</assignable>. 
+                
+              </title></ext-comp-def-title>
+            <note role="application">
+              This requirement is used in the body of the ST if the ST author chooses to use key derivation in the
+              key chaining approach that is specified in FCS_KYC_EXT.1.
+              This applies to any key derivation occurring on the enterprise server.
+              This requirement establishes acceptable methods for generating a new random key or an
+              existing submask to create a new key along the key chain.</note>
+            <aactivity>
+              <TSS>Conditional: If 'not derive keys' was selected, then the evaluator shall only examine the TSS to verify no key derivation is performed. <h:br/><h:br/>
+              
+              The evaluator shall verify the TSS includes a description of the key derivation
+              function and shall verify the key derivation uses an approved derivation mode and
+              key expansion algorithm according to SP 800-108 and SP 800-132. <h:br/><h:br/><h:h4>KMD</h:h4>The evaluator shall examine the vendor’s KMD to ensure that all keys used are derived using an approved method and a description of how and when the keys are derived,
+              including the input values.  The evaluator shall confirm the input values are from the sources listed in the requirement.  
+              The evaluator will confirm the output is of equivalent strength to the FEK(s) it is protecting.<h:br/><h:br/></TSS>
+              <Guidance> None. <h:br/><h:br/></Guidance>
+              <Tests>None.</Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FCS_SMC_EXT.1 Submask Combining -->
+        <f-component cc-id="fcs_smc_ext.1" id="fcs-smc-ext-1" name="Submask Combining">
+          <depends on-sel="USEKEYCOM"/>
+          <consistency-rationale>This SFR relates to submask combining as a method of generating intermediate keys. Key hierarchy functionality is outside the scope of the Base-PP.
+	  </consistency-rationale>
+          <comp-lev> requires the TSF to implement submask combining in a specific manner to support the generation of intermediate keys.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT: <h:ul><h:li>Configuration of the cryptographic functionality.</h:li></h:ul></management>
+          <audit>There are no auditable events foreseen.
+          </audit>
+          <dependencies>FCS_COP.1 Cryptographic Operation</dependencies>
+          <f-element id="fcs_smc_ext-1-1">
+            <title>The TSF shall combine submasks using the following method: [<h:i><selectables><selectable id="fcs_smc_ext.1.1_1">exclusive OR (XOR)</selectable><selectable id="fcs_smc_ext.1.1_2">SHA-384</selectable><selectable id="fcs_smc_ext.1.1_3">SHA-512</selectable><selectable id="fcs_smc_ext.1.1_4">HMAC-SHA-384</selectable><selectable id="fcs_smc_ext.1.1_5">HMAC-SHA-512</selectable></selectables></h:i>] to generate an intermediate key
+              .</title>
+            <ext-comp-def-title><title>The TSF shall combine submasks using the following method: <assignable>submask combination method</assignable> to generate an intermediate key.</title></ext-comp-def-title>
+            <note role="application">
+              This requirement is used in the body of the ST if the ST author chooses to use key combining 
+              in the key chaining approach that is specified in FCS_KYC_EXT.1.
+              This applies to any submask combining occurring on the enterprise server.
+              This requirement specifies the way that a product may combine the
+              various submasks by using either an XOR or an approved SHA-hash. </note>
+            <aactivity>
+              <TSS>If keys are XORed together to form an intermediate key, the TSS section
+              shall identify how this is performed (e.g., if there are ordering requirements, checks
+              performed, etc.). The evaluator shall also confirm that the TSS describes how the length
+              of the output produced is at least the same as that of the FEK. <h:br/><h:br/><h:h4>KMD</h:h4>None.<h:br/><h:br/></TSS>
+              <Guidance>None.<h:br/><h:br/></Guidance>
+              <Tests>None.</Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+        <!-- FCS_VAL_EXT.2/Admin Validation Remediation (Server Administrator) -->
+        <f-component cc-id="fcs_val_ext.2" id="fcs-val-ext-2-admin" name="Validation Remediation (Server Administrator)" iteration="Admin">
+          <depends on-sel="APPAUTH"/>
+          <consistency-rationale>This SFR goes beyond the functionality defined by the Base-PP by defining a method by which the TSF can take security-relevant action if some data input to it is invalid.
+        </consistency-rationale>
+          <f-element id="fcs_val_ext-2-1_Admin">
+            <title>The TSF shall 
+               <selectables linebreak="yes"><selectable id="fcs_val_ext.2.1_Admin_1">institute a delay such that only <assignable>ST author specified number or configurable range of attempts</assignable> validation attempts can be made within a 24 hour period</selectable><selectable id="fcs_val_ext.2.1_Admin_3">block validation after <assignable>ST author specified number or configurable range of attempts</assignable> of consecutive failed validation attempts</selectable></selectables>.
+            </title>
+            <note role="application">
+              
+              This requirement must be claimed by the TOE if the ST author chooses "provide user authorization" in FIA_AUT_EXT.1.1.</note>
+            <aactivity>
+              <TSS>The evaluator shall examine the TSS to determine which remediation options are supported for which authentication options.<h:br/><h:br/><h:h4>KMD</h:h4>None.<h:br/><h:br/></TSS>
+              <Guidance>If the remediation functionality is configurable, the evaluator shall examine the operational guidance
+                to ensure it describes how to configure the TOE to ensure the limits regarding validation attempts can be established.<h:br/><h:br/></Guidance>
+              <Tests>
+                The evaluator shall perform the following tests: <h:br/>
+                <testlist>
+                  <test>The evaluator shall determine the limit on the average rate of the number of consecutive failed authorization attempts. For each authentication factor supported, the evaluator will test the TOE by entering that number of incorrect authorization factors in consecutive attempts to access the protected data. If the limit mechanism includes any "lockout" period, the time period tested should include at least one such period. Then the evaluator will verify that the TOE behaves as described in the TSS.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+      </section>
+      <!-- 5.2.6 Identification and Authentication (FIA) -->
+      <section title="Identification and Authentication (FIA)" id="fia-selectionBased">
+        <ext-comp-def title="Challenge/Response Recovery Credential" fam-id="FIA_CHR_EXT">
+          <fam-behavior>Components in this family define requirements for the use of challenge/response as a recovery method.</fam-behavior>
+        </ext-comp-def>
+        <!-- FIA_CHR_EXT.1 Challenge/Response Recovery Credential -->
+        <f-component cc-id="fia_chr_ext.1" id="fia-chr-ext-1" name="Challenge/Response Recovery Credential">
+          <depends on-sel="CR"/>
+          <consistency-rationale>This SFR defines the TOE's implementation of recovery credentials. This functionality does not relate to any behavior defined in the Base-PP.
+        </consistency-rationale>
+          <comp-lev> requires the TSF to implement a challenge/response method to generate recovery credentials for an authorized user.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT: <h:ul><h:li>Ability to enable/disable the user of recovery credentials.</h:li> <h:li>Ability to change recovery credential values.</h:li></h:ul></management>
+          <audit>The following actions should be auditable if FAU_GEN Security audit data
+          generation is included in the PP/ST:<h:ul><h:li>Minimal: Failure of recovery attempt.</h:li><h:li>Basic: All recovery attempts.</h:li></h:ul></audit>
+          <dependencies>FCS_VAL_EXT.1 Validation<h:br/>
+        FIA_REC_EXT.1 Recovery Support</dependencies>
+          <f-element id="fia-chr-ext-1e1">
+            <title>The TSF shall generate a response only if it is able to access recovery information for 
+             <selectables><selectable id="fia_chr_ext.1.1_1">the user requesting the recovery</selectable><selectable id="fia_chr_ext.1.1_2">the user requesting recovery and the device for which the recovery was requested</selectable></selectables>.
+          </title>
+            <note role="application"> This requires that the TSF has the ability to attribute key chain information to the appropriate user(s).
+          </note>
+          </f-element>
+          <f-element id="fia-chr-ext-1e2">
+            <title>The response shall work only for the user to whom it was generated.
+          </title>
+            <note role="application"> This mechanism is intended to provide a recovery method for a user who has forgotten their
+            authentication factor and is unable to access their encrypted data on a system that is fully functional.
+          </note>
+          </f-element>
+          <f-element id="fia-chr-ext-1e3">
+            <title>The response shall be used only during the same session in which the request was generated.
+          </title>
+            <note role="application"> The intent of this requirement is to limit the attack surface of the recovery credential
+            mechanism by preventing the use of the credential following a reboot of the device.
+          </note>
+          </f-element>
+          <f-element id="fia-chr-ext-1e4">
+            <title>The TSF shall generate an ephemeral response that has at least as many potential values as a corresponding password or PIN.
+          </title>
+          </f-element>
+          <f-element id="fia-chr-ext-1e5">
+            <title>The TSF shall allow a maximum of  <assignable>integer value</assignable>  response entry attempts per boot cycle.
+          </title>
+          </f-element>
+          <f-element id="fia-chr-ext-1e6">
+            <title>The TSF shall perform remediation as defined in FCS_VAL_EXT.2/User for failed challenge recovery attempts.
+          </title>
+            <ext-comp-def-title><title>The TSF shall perform remediation as defined in FCS_VAL_EXT.2 for failed challenge recovery attempts.</title></ext-comp-def-title>
+            <aactivity>
+              <TSS>The evaluator shall examine the TSS to determine that the methods for requesting a Recovery credential are specified. 
+            The TSS shall also describe the methods used to verify user requesting the Recovery credential. 
+            The evaluator shall also verify that the TSS contains the estimation of the strength of the ephemeral response and that it has at least 
+            as many potential values as a corresponding password or PIN.<h:br/><h:br/><h:h4>KMD</h:h4>None.<h:br/><h:br/></TSS>
+              <Guidance> The evaluator shall confirm that the guidance documentation contains instructions for enforcing verification
+            of the user for which the Recovery credential is requested. The guidance shall also describe configuring of the limit for
+            consecutive failed validation attempts if this value is configurable.<h:br/><h:br/></Guidance>
+              <Tests>
+                The evaluator shall ensure that a response is only generated if the user for which recovery is requested are verified as specified in TSS. The evaluator shall also ensure that the response is applicable only on behalf of the requesting user with the constraints specified for consecutive failed authentication attempts. <h:br/> <h:br/>The term “managed” below is used to refer a user or device which is registered on the server, i.e. their identity can be successfully verified by either administrator or TSF. The “unmanaged” presumes that the user/device cannot be successfully verified. <h:br/> <h:br/>The evaluator shall perform the following tests: <h:br/>
+                <testlist>
+                  <test>The evaluator shall configure the Challenge/Response recovery to validate the user. The evaluator shall then issue a challenge on behalf of a managed user and ensure that TSF successfully generates the response.</test>
+                  <test>The evaluator shall configure Challenge/Response recovery to validate the user. The evaluator shall then issue a challenge on behalf of managed User A and attempt to use it as an unmanaged User B to obtain a response. This should fail.</test>
+                  <test>The evaluator shall issue a challenge on behalf of a managed user and ensure that the response received successfully will log the user in on that device.</test>
+                  <test>The evaluator shall attempt to reuse the response of User A with User B on the same system and it should fail.</test>
+                  <test>The evaluator shall issue a challenge on behalf of a managed user from a managed system, reboot the system [system terminates the session] and enter the response. This should fail.</test>
+                  <test>The evaluator shall issue a challenge on behalf of a managed user and attempt to enter an incorrect response on the system the number of times described in the Guidance Documents. The observed behavior shall conform to the assignments/selections in FIA_CHR_EXT.1.5 and FIA_CHR_EXT.1.6.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+      </section>
+      <!-- 5.2.7 Trusted Path/Channels (FTP) -->
+      <section title="Trusted Path/Channels (FTP)" id="ftp-selectionBased">
+        <!-- FTP_TRP.1 Trusted Path -->
+        <f-component cc-id="ftp_trp.1" id="ftp-trp-1" name="Trusted Path">
+          <depends on-sel="remote"/>
+          <consistency-rationale>This SFR uses a subset of the protocols defined in the Base-PP for secure communications. This PP-Module extends the functionality by explicitly
+            defining a communications path between a remote administrator and the TOE.
+          </consistency-rationale>
+          <f-element id="ftp-trp-1e1">
+            <title>The TSF shall <h:b>be capable of using 
+               <selectables><selectable id="IPSEC">IPsec as defined in the PP-Module for VPN Client</selectable><selectable id="sel_all_https"><h:abbr title="Hypertext Transfer Protocol Secure">HTTPS</h:abbr> in accordance with FCS_HTTPS_EXT.1 <h:b>(from <xref to="bibAppPP"/>)</h:b></selectable><selectable id="sel_all_tlsc">TLS as defined in the <xref to="pkg-tls"/></selectable><selectable id="sel_all_ssh">SSH as defined in the <xref to="pkg-ssh"/></selectable></selectables> 
+              to</h:b> provide a communication path between itself and <h:b>authorized remote administrators</h:b> that is logically distinct from other communication paths
+              and provides assured identification of its end points and protection of the communicated data from [<h:i>modification, disclosure</h:i>].
+            </title>
+          </f-element>
+          <f-element id="ftp-trp-1e2">
+            <title>The TSF shall permit <h:b>remote administrators</h:b> to initiate communication via the trusted path.
+            </title>
+          </f-element>
+          <f-element id="ftp-trp-1e3">
+            <title>The TSF shall require the use of the trusted path for [<h:i>initial <h:b>administrator</h:b> authentication, [all remote administration actions]</h:i>].
+            </title>
+            <note role="application">
+              This SFR is intended to define protected communications between the Management Server and remote administrators.<h:br/></note>
+            <aactivity>
+              <TSS>The evaluator shall examine the TSS to determine that the methods of remote TOE administration are indicated,
+                along with how those communications are protected. The evaluator shall also confirm that all protocols listed in the TSS in support
+                of TOE administration are consistent with those specified in the requirement, and are included in the requirements in the ST.<h:br/><h:br/><h:h4>KMD</h:h4>None.<h:br/><h:br/></TSS>
+              <Guidance>	The evaluator shall confirm that the guidance documentation contains instructions for 
+                establishing the remote administrative sessions for each supported method.<h:br/><h:br/></Guidance>
+              <Tests>
+                The evaluator shall perform the following tests:
+                <testlist>
+                  <test>The evaluators shall ensure that communications using each specified (in the guidance documentation) remote administration method are tested during the course of the evaluation, setting up the connections as described in the guidance documentation and ensuring that communication is successful.</test>
+                  <test>For each protocol that the TOE can initiate as defined in the requirement, the evaluator shall follow the guidance documentation to ensure that in fact the communication channel can be initiated from the TOE.</test>
+                  <test>The evaluator shall ensure, for each communication channel with an authorized IT entity, the channel data is not sent in plaintext.</test>
+                  <test>The evaluator shall ensure that, for each protocol associated with each authorized IT entity tested during test 1, the connection is physically interrupted. The evaluator shall ensure that when physical connectivity is restored, communications are appropriately protected.</test>
+                </testlist>
+                Further evaluation activities are associated with the specific protocols.
+              </Tests>
+            </aactivity>
+          </f-element>
+        </f-component>
+      </section>
+    </sel-sfrs>
+    <obj-sfrs/>
+    <impl-dep-sfrs/>
+  </sec:Security_Requirements>
+  <appendix title="Key Management Description" id="KMD"> 
+    This appendix should be combined with the appendix in the PP-Module for File Encryption if it is also being evaluated.
+    
+    The documentation of the product’s encryption key management should be detailed enough
+    that, after reading, the evaluator will thoroughly understand the product’s key management and
+    how it meets the requirements to ensure the keys are adequately protected. This documentation
+    should include an essay and diagram(s). This documentation is not required to be part of the
+    TSS - it can be submitted as a separate document and marked as developer proprietary.
+    <h:br/><h:br/>
+    Essay:
+    <h:br/><h:br/>
+    The essay will provide the following information for all keys in the key chain:
+    <h:br/><h:br/><h:li>The purpose of the key</h:li><h:li>If the key is stored in non-volatile memory</h:li><h:li>How and when the key is protected</h:li><h:li>How and when the key is derived</h:li><h:li>The strength of the key</h:li><h:li>When or if the key would be no longer needed, along with a justification</h:li><h:li>How and when a key may be transmitted</h:li><h:br/><h:br/>
+    The essay will also describe the following topics:
+    <h:br/><h:br/><h:li>A description of all authorization factors that are supported by the product and how
+      each factor is handled, including any conditioning and combining performed.</h:li><h:li>If validation is implemented, the process for validation shall be described, noting what
+      value is used for validation and the process used to perform the validation. It shall
+      describe how this process ensures no keys in the key chain are weakened or exposed
+      by this process.</h:li><h:li>The authorization process that leads to the recovery or access by an end user or administrator. This section
+      shall detail the key chain used by the product. It shall describe which keys are used in
+      the protection of the FEK(s) or KEK(s) and how they meet the encryption or derivation requirements, 
+      including the direct chain from the initial
+      authorization to the FEK(s) or KEK(s). It shall also include any values that add into that key chain
+      or interact with the key chain and the protections that ensure those values do not
+      weaken or expose the overall strength of the key chain.</h:li><h:li>The diagram and essay will clearly illustrate the key hierarchy to ensure that at no
+      point the chain could be broken without a cryptographic exhaust or all of the initial
+      authorization values and the effective strength of the FEK(s) is maintained throughout
+      the key chain.</h:li><h:li>A description of the data encryption engine, its components, and details about its
+      implementation (e.g. initialization of the product, drivers, libraries (if
+      applicable), logical interfaces for encryption/decryption, and how resources to be encrypted are identified.
+      The description should also include the data flow from the device’s host interface to the device’s persistent media storing the data
+      or transmission to and endpoint,
+      information on those conditions in which the data bypasses the data encryption engine. The
+      description should be detailed enough to verify all platforms ensure that when the
+      user enables encryption, the product encrypts all selected resources.</h:li><h:li>The process for destroying keys when they are no longer needed by describing the
+      storage location of all keys and the protection of all keys stored in non-volatile
+      memory.</h:li><h:br/><h:br/>
+    Diagram:
+    
+    <h:br/><h:br/><h:li>The diagram will include all keys from the initial authorization factor(s) to the FEK(s)
+      and any keys or values that contribute into the chain. It must list the cryptographic
+      strength of each key and indicate how each key along the chain is protected with
+      either options from key chaining requirement. The diagram
+      should indicate the input used to derive or decrypt each key in the chain.</h:li><h:li>A functional (block) diagram showing the main components (such as memories and
+      processors) the initial steps needed
+      for the activities the TOE performs to ensure it encrypts the targeted resources
+      when a user or administrator first provisions the product.</h:li></appendix>
+  <bibliography>
+    <entry id="bibAppPP">
+      <tag>AppPP</tag>
+      <description><h:a href="https://www.niap-ccevs.org/protectionprofiles/516">Protection Profile for Application Software, Version 2.0, June 16, 2025</h:a></description>
+    </entry>
+    <entry id="FIPS140-2">
+      <tag>FIPS140-2</tag>
+      <description> Federal Information Processing Standard Publication (FIPS-PUB) 140-2, Security
+          Requirements for Cryptographic Modules, National Institute of Standards and Technology,
+          March 19, 2007 </description>
+    </entry>
+    <entry id="FIPS180-4">
+      <tag>FIPS180-4</tag>
+      <description> Federal Information Processing Standards Publication (FIPS-PUB) 180-4, Secure
+          Hash Standard, March, 2012 </description>
+    </entry>
+    <entry id="FIPS186-5">
+      <tag>FIPS186-5</tag>
+      <description> Federal Information Processing Standard Publication (FIPS-PUB) 186-5, Digital
+          Signature Standard (DSS), National Institute of Standards and Technology, February 2023
+        </description>
+    </entry>
+    <entry id="FIPS197">
+      <tag>FIPS197</tag>
+      <description>Federal Information Processing Standards Publication (FIPS-PUB) 197,
+          Specification for the Advanced Encryption Standard (AES), November 26, 2001 </description>
+    </entry>
+    <entry id="FIPS198-1">
+      <tag>FIPS198-1</tag>
+      <description>Federal Information Processing Standards Publication (FIPS-PUB) 198-1, The
+          Keyed-Hash Message Authentication Code (HMAC), July 2008 </description>
+    </entry>
+    <entry id="SP800-38A">
+      <tag>NIST800-38A</tag>
+      <description>NIST Special Publication 800-38A, Recommendation for Block Cipher Modes of
+          Operation: Methods and Techniques, 2001 Edition </description>
+    </entry>
+    <entry id="SP800-56A">
+      <tag>NIST800-56A</tag>
+      <description>NIST Special Publication 800-56A, Recommendation for Pair-Wise Key
+          Establishment Schemes Using Discrete Logarithm Cryptography (Revised), March 2007
+        </description>
+    </entry>
+    <entry id="SP800-56B">
+      <tag>NIST800-56B</tag>
+      <description>NIST Special Publication 800-56B, Recommendation for Pair-Wise Key
+          Establishment Schemes Using Integer Factorization Cryptography, August 2009 </description>
+    </entry>
+    <entry id="SP800-90">
+      <tag>NIST800-90</tag>
+      <description>NIST Special Publication 800-90, Recommendation for Random Number Generation
+          Using Deterministic Random Bit Generators (Revised), March 2007 </description>
+    </entry>
+    <entry id="SP800-132">
+      <tag>NIST800-132</tag>
+      <description>NIST Special Publication 800-132, Recommendation for Password-Based Key
+          Derivation, December 2010 </description>
+    </entry>
+    <entry id="SP800-38F">
+      <tag>NIST800-38F</tag>
+      <description>NIST Special Publication 800-38F,Recommendation for Block Cipher Modes of
+          Operation: Methods for Key Wrapping, December 2012 </description>
+    </entry>
+  </bibliography>
+</Module>

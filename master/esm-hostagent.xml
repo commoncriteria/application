@@ -1,0 +1,746 @@
+<Module xmlns="https://niap-ccevs.org/cc/v1" xmlns:h="http://www.w3.org/1999/xhtml" xmlns:sec="https://niap-ccevs.org/cc/v1/section" name="Host Agent" boilerplate="yes" target-product="Host Agent" target-products="Host Agents">
+  <PPReference>
+    <ReferenceTable>
+      <PPVersion>2.0</PPVersion>
+      <PPAuthor>National Information Assurance Partnership</PPAuthor>
+      <PPPubDate>2026-01-13</PPPubDate>
+      <Keywords>Host Agent, ESM</Keywords>
+    </ReferenceTable>
+  </PPReference>
+  <RevisionHistory>
+    <entry>
+      <version>1.0</version>
+      <date>2020-10-23</date>
+      <subject>First version released</subject>
+    </entry>
+    <entry>
+      <version>2.0</version>
+      <date>2026-01-13</date>
+      <subject>CC:2022 Conversion</subject>
+    </entry>
+  </RevisionHistory>
+  <release-notes><h:h3>TDs Applied</h:h3></release-notes><pp-preferences/>
+  <sec:Introduction>
+    <section id="ppoverview" title="Overview">
+      The scope of this PP-Module is to describe the security functionality of a Host Agent in terms of [CC] 
+      and to define functional and assurance requirements for such products. This PP-Module is intended for use with the following Base-PPs:
+      <h:ul>
+        <h:li>Protection Profile for Application Software Version 2.0</h:li>
+      </h:ul>
+      This Base-PP is valid because a Host Agent is deployed as a software application on a general-purpose operating system.
+    </section>
+    <tech-terms>
+      <term full="Endpoint">A computing device that runs a general purpose OS, mobile device OS, or network device OS. Endpoints can 
+      include desktops, servers, and mobile devices.</term>
+      <term full="Enrolled State">The state in which an endpoint with a running Host Agent is managed by an ESM.
+      Also, referred to as Onboarding.</term>
+      <term full="Enrollment">The process of transitioning an endpoint from an unenrolled to an enrolled state.</term>
+      <term full="Enterprise Security Management" abbr="ESM">A type of application hosted on a server or cloud service that provides 
+      support for security management, information flows, reporting, policy, and data analytics 
+      in complex enterprise environments.</term>
+      <term full="Endpoint Detection and Response" abbr="EDR">A system that analyzes collected EDR Host Agent data for detecting, 
+      investigating, and remediating unauthorized activities on endpoints.</term>
+      <term full="Host Agent">A logical piece of software that executes on endpoints to collect data about the endpoint and
+      executes commands sent to the endpoint from an ESM server
+      or service. An example command sent to an endpoint could be to enforce a policy from an 
+      ESM, to collect some files, or to run an OS command.</term>
+      <term full="Operating System" abbr="OS">Software that manages physical and logical resources and provides services
+      for applications.</term>
+      <term full="Unenrolled State">The state in which an endpoint, with or without a Host Agent, is not managed by an ESM.
+      Also, referred to as Offboarding.</term>
+      <term full="Application Programming Interface" abbr="API"/>
+      <term full="Evaluation Activity" abbr="EA"/>
+      <term full="Elliptic Curve Digital Signature Algorithm" abbr="ECDSA"/>
+      <term full="Federal Information Processing Standards" abbr="FIPS"/>
+      <term full="Internet Protocol" abbr="IP"/>
+      <term full="International Organization for Standardization" abbr="ISO"/>
+      <term full="Information Technology" abbr="IT"/>
+      <term full="National Information Assurance Partnership" abbr="NIAP"/>
+      <term full="National Institute of Standards and Technology" abbr="NIST"/>
+      <term full="Rivest, Shamir, Adleman (digital signature algorithm)" abbr="RSA"/>
+    </tech-terms>
+    <section title="Compliant Targets of Evaluation" id="TOEdescription">
+      The PP-Module for Host Agent covers the security functionality needed on the endpoint device
+      (desktop, mobile device, etc.) for ESM software products in general. This version of the
+      PP-Module is paired with the PP-Module for EDR.	Future versions of this PP-Module will 
+      include requirements for other classes of ESM software. It is expected that an ESM system 
+      will evaluate against a PP-Configuration that includes both the PP-Module for Host Agent and
+      at least one other ESM PP-Module; currently, this only includes the PP-Module for EDR.
+      <sec:TOE_Boundary>
+        The boundary for the Host Agent includes 
+        all processes, all modules, and libraries bundled with the Host Agent.  The Host 
+        Agent can run as a daemon or service on the platform but is not required to. The Host Agent is
+        not expected to have a local or remote Graphical User Interface (GUI) for administration but having 
+        such an interface is not precluded by this PP-Module. It is expected that Host Agents will be managed by
+        their associated ESM server or the underlying platform. 
+        The TOE boundary includes the communications channel with other Host Agents, an ESM server, or a cloud 
+        service. The platform operating system or execution environment
+        upon which the Host Agent is executing is outside the scope of a Host Agent evaluation. The figures
+        below show some sample Host Agents but are not inclusive of every possible Host Agent design.
+        <h:table>
+          <h:tr>
+            <h:td>
+              <figure entity="images/Host_Agent_sample.png" title="Sample Host Agent TOE" id="toe"/>
+            </h:td>
+            <h:td>
+              <figure entity="images/Host_Agent_sample2.png" title="Sample Host Agent TOE" id="toe2"/>
+            </h:td>
+          </h:tr>
+        </h:table>
+      </sec:TOE_Boundary>
+      <sec:TOE_Platform>The TOE platform consists of a general purpose OS, a mobile device 
+        OS, a network device OS, or an Execution Environment on top of which 
+        the Host Agent software executes.</sec:TOE_Platform>
+    </section>
+    <sec:Use_Cases>
+      Requirements in this  PP-Module are designed to
+      address the security problem for the following use cases. These use cases are intentionally
+      very broad, as many different types of ESM Host Agent products may exist. As this PP-Module is revised to allow for more specific types of ESM Host Agent products, additional use cases
+      may be devised.
+      <usecases>
+        <usecase title="Communication" id="comms">
+          <description>The Host Agent allows for communication interactively or
+            non-interactively with other ESM software over a communications channel.
+            Example communications include but are not limited to; receiving policy, sending data, and running tasks 
+            or commands.</description>
+        </usecase>
+      </usecases>
+    </sec:Use_Cases>
+  </sec:Introduction>
+  <sec:Conformance_Claims boilerplate="no">
+    <CClaimsInfo cc-version="cc-2022r1" cc-approach="direct-rationale">
+      <cc-st-conf>exact</cc-st-conf>
+      <cc-pt2-conf>extended</cc-pt2-conf>
+      <cc-pt3-conf>extended</cc-pt3-conf>
+      <cc-pp-conf/>
+      <cc-pp-config-with>
+        <PP-cc-ref>Protection Profile for Application Software Version 2.0 </PP-cc-ref>
+        <Mod-cc-ref>PP-Module for Endpoint Detection and Response (EDR), Version 2.0 </Mod-cc-ref>
+        <Mod-cc-ref>PP-Module for Enterprise-Management (EM), Version 2.0</Mod-cc-ref>
+      </cc-pp-config-with>
+      <cc-pkg-claim>
+        <FP-cc-ref conf="conformant">Functional Package for SSH, Version 2.0</FP-cc-ref>
+        <FP-cc-ref conf="conformant">Functional Package for TLS, Version 2.1</FP-cc-ref>
+        <FP-cc-ref conf="conformant">Functional Package for X.509, Version 1.0</FP-cc-ref>
+      </cc-pkg-claim>
+    </CClaimsInfo>
+  </sec:Conformance_Claims>
+  <!-- 3.0 Security Problem Definition-->
+  <section title="Security Problem Definition" id="spd">
+    The security problem is described in terms
+    of the threats that the Host Agent is expected to address, assumptions about the
+    Operational Environment, and any organizational security policies that the Host Agent
+    is expected to enforce. These extend any threats, assumptions, and organizational security policies defined by the Base-PP.
+    <!-- 3.1 Threats -->
+    <sec:Threats>
+      Note that this PP-Module does not repeat the threats identified in the
+      <xref to="bibAppPP"/>, though they all apply given the conformance and hence dependence of this PP-Module on the
+      <xref to="bibAppPP"/>.
+      <threats>
+        <threat name="T.DATA_LOSS">
+          <description>A Host Agent can be susceptible to data loss during periods when connectivity to the ESM system is not present. </description>
+          <consistency-rationale>This threat is consistent with the Base-PP because a lack of network availability could be a specific consequence of the T.NETWORK_ATTACK threat.</consistency-rationale>
+          <!-- New mapping to build updated threat mapping table. -->
+          <addressed-by>FDP_NET_EXT.2</addressed-by>
+          <rationale>The PP-Module includes FDP_NET_EXT.2 to define the trust network connection to another host.</rationale>
+          <addressed-by>FHA_CHA_EXT.1 (selection-based)</addressed-by>
+          <rationale>The PP-Module includes FHA_HAD_EXT.1 to define the interface between the Host Agent and the intended destination for the data it transmits.</rationale>
+          <addressed-by>FHA_COL_EXT.1 (selection-based)</addressed-by>
+          <rationale>The PP-Module includes FHA_COL_EXT.1 to define the data that the Host Agent can collect from its Operational Environment.</rationale>
+          <addressed-by>FHA_HAD_EXT.1</addressed-by>
+          <rationale>The PP-Module includes FHA_HAD_EXT.1 to define the interface between the Host Agent and the intended destination
+                for the data it transmits</rationale>
+          <addressed-by>FMT_SMF.1/HA</addressed-by>
+          <rationale>The PP-Module includes FMT_SMF.1/HA to define the management functions that are configurable on the Host Agent.</rationale>
+          <addressed-by>FTP_DIT_EXT.2 (selection-based)</addressed-by>
+          <rationale>The PP-Module includes FTP_DIT_EXT.2 to optionally define the trusted communications channel between multiple Host Agents.</rationale>
+        </threat>
+        <threat name="T.TAMPER">
+          <description>A Host Agent can be susceptible to tampering by unprivileged users who may try to uninstall or disrupt the Host Agent's ability to function properly. </description>
+          <consistency-rationale>This threat is consistent with the Base-PP because tampering with the application is a specific example of the T.LOCAL_ATTACK threat.</consistency-rationale>
+          <!-- New mapping to build updated threat mapping table. -->
+          <addressed-by>FAU_GEN.1/HA</addressed-by>
+          <rationale>The PP-Module includes FAU_GEN.1/HA to ensure that the TOE provides accountability through the generation of audit records for security-relevant events.</rationale>
+          <addressed-by>FAU_STO_EXT.1</addressed-by>
+          <rationale>The PP-Module includes FAU_STO_EXT.1 to ensure that the TOE provides accountability by ensuring that audit records are stored using an appropriate mechanism.</rationale>
+          <addressed-by>FMT_POL_EXT.1 (objective)</addressed-by>
+          <rationale>The PP-Module includes FMT_UNR_EXT.1 to ensure that the Host Agent is protected from unenrollment actions that would result in it being unable to receive or enforce policy and/or commands sent to it.</rationale>
+          <addressed-by>FMT_UNR_EXT.1</addressed-by>
+          <rationale>The PP-Module includes FMT_UNR_EXT.1 to ensure that the Host Agent is protected from unenrollment actions that would result in it being unable to receive or enforce policy and/or commands sent to it.</rationale>
+        </threat>
+      </threats>
+    </sec:Threats>
+    <!-- 3.2 Assumptions -->
+    <sec:Assumptions>
+      This PP-Module defines no additional assumptions beyond those defined in the Base-PP.
+      <assumptions/>
+    </sec:Assumptions>
+    <!-- 3.3 Organizational Security Policies -->
+    <sec:Organizational_Security_Policies>
+      <OSPs/>
+    </sec:Organizational_Security_Policies>
+  </section>
+  <!-- 4.0 Security Objectives -->
+  <sec:Security_Objectives>
+    <!-- 4.1 Security Objectives for the TOE -->
+    <!-- 4.2 Security Objctives for the Operational Environment -->
+    <section title="Security Objectives for the Operational Environment" id="SecurityObjectivesTOEorEnvironment"/>
+    <!-- 4.3 Security Objectives Rationale -->
+  </sec:Security_Objectives>
+  <!-- 5.0 Security Requirements -->
+  <sec:Security_Requirements title="Security Requirements">
+    <!-- 5.1 App PP Security Functional Requirements Direction -->
+    <base-pp id="AppPP" name="Application Software" product="Application" short="App" version="2.0">
+      <git>
+        <url>https://github.com/commoncriteria/application</url>
+        <branch>release-2.0</branch>
+      </git>
+      <url>https://github.com/commoncriteria/application</url>
+      <sec-func-req-dir>In a PP-Configuration that includes App PP, the TOE is expected to rely on some of the security functions implemented by the application 
+        as a whole and evaluated against the Base-PP.
+        The SFRs listed in this section are defined in the Base-PP and relevant to the secure operation of the Host Agent.
+        This section describes any modifications that the ST author must make to the Base-PP SFRs to satisfy the required Host Agent functionality.</sec-func-req-dir>
+      <!-- 5.1.1 Modified SFRs -->
+      <modified-sfrs/>
+      <!-- 5.1.2 Additional SFRs -->
+      <additional-sfrs/>
+      <con-toe>If this PP-Module is used to extend the Application Software PP, the TOE type for the overall TOE is still a
+        software-based application. The TOE boundary is simply extended to include the Host Agent functionality 
+        that is built into the application so that additional security functionality is claimed within the scope of the TOE.</con-toe>
+      <con-sec-prob/>
+      <con-obj/>
+      <con-op-en>This PP-Module does not define any objectives for the TOE's Operational Environment.</con-op-en>
+      <con-mod ref="T.DATA_LOSS">This threat relates to the loss of data that is collected by the ESM Host Agent.
+      This relates to functionality defined by the PP-Module and does not interfere with the functionality described by the Base-PP.</con-mod>
+      <con-mod ref="T.TAMPER">This threat is an extension of the T.LOCAL_ATTACK threat defined by the Base-PP. The threat 
+      of tampering as applied to the PP-Module exists in addition to the local attacks that are possible on the capabilities
+      defined by the Base-PP.</con-mod>
+    </base-pp>
+    <!-- 5.2 TOE Security Functional Requirements -->
+    <man-sfrs>
+      <section id="sec-sel-audit-table" title="Auditable Events for Mandatory SFRs">
+        <audit-table id="at-Man" table="mandatory"/>
+      </section>
+      <!-- 5.2.1 Security Audit (FAU) -->
+      <section title="Security Audit (FAU)" id="fau-mandatory">
+        <ext-comp-def title="Audit Data Storage" fam-id="FAU_STO_EXT">
+          <fam-behavior>Components in this family define requirements for the location and method of audit storage.</fam-behavior>
+        </ext-comp-def>
+        <!-- FAU_GEN.1/HA Audit Data Generation -->
+        <f-component cc-id="fau_gen.1" id="fau-gen-1-ha" name="Audit Data Generation" iteration="HA">
+          <consistency-rationale>The Base-PP does not define an audit mechanism for its own functionality. This function does not interfere with the Base-PP.</consistency-rationale>
+          <f-element id="fau-gen-1-1">
+            <title>
+              The TSF shall be able to generate audit data of the following auditable events:
+              <h:ol type="a">
+                <h:li>
+                  <h:s>Start-up and shutdown of the audit functions;</h:s>
+                </h:li>
+                <h:li>All auditable events for the [<h:i>not specified</h:i>] level of audit;</h:li>
+              </h:ol>
+              [<h:i>
+                <h:ol type="a">
+                  <h:li>Change in enrollment state with an ESM system,</h:li>
+                  <h:li> <selectables><selectable id="fau_gen.1.1_HA_1">Receiving</selectable><selectable id="fau_gen.1.1_HA_2">Generating</selectable></selectables> periodic heartbeat events, </h:li>
+                  <h:li>
+                    <assignable>Other specifically defined auditable events</assignable>
+                  </h:li>
+                </h:ol>
+              </h:i>].
+            </title>
+            <note role="application">The required audit events must be generated by the Host Agent, but can leverage
+              API's available from the platform if needed to generate the audit events.  For the selection one or both options may be selected.
+              The assignment may be empty, a single item, or multiple items. Changes in enrollment include new enrollment and unenrollment.</note>
+          </f-element>
+          <f-element id="fau-gen-1-2">
+            <title>
+              The
+              <h:b>
+                <selectables>
+                  <selectable id="fau_gen.1.2_HA_1">TSF</selectable>
+                  <selectable id="fau_gen.1.2_HA_2">TOE Platform</selectable>
+                </selectables></h:b>
+              shall record within the audit data at least the following information:
+              <h:ol type="a">
+                <h:li>Date and time of the event, type of event, subject identity (if applicable), and the outcome (success or failure) of the event;</h:li>
+                <h:li>For each audit type, based on the auditable event definitions of the functional components included in the PP, PP-Module, functional package, or ST, <assignable>other audit relevant information</assignable>.</h:li>
+              </h:ol>
+            </title>
+            <note role="application">
+              All audits must contain at least the information mentioned in FAU_GEN.1.2/HA,
+              but may contain more information. The term
+              <h:i>subject</h:i>
+              here is understood 
+              to be the user that the process is acting on behalf of or for network communication related events the server name/address. 
+              The subject identity can
+              be blank if not applicable for a given process. The assignment may be empty, a single item, or multiple items.
+            </note>
+            <aactivity>
+              <TSS>
+                The evaluator shall verify the TSS lists all record types that are recorded.
+                <h:br/>
+                <h:br/>
+                The evaluator shall verify that the TSS lists all the auditable event types and all audit information that the TOE records.
+                <h:p/>
+              </TSS>
+              <Guidance>
+                The evaluator shall check the administrative guide and ensure
+                that it lists all of the auditable events.  The evaluator shall
+                check to make sure that every audit event type selected in the ST
+                is included.
+                <h:br/>
+                <h:br/>
+                The evaluator shall check the administrative guide and ensure
+              that it provides a format
+              for audit records. Each audit record format type must be covered,
+              along with a brief description of each field. The evaluator shall
+              ensure that the fields contain the information required.
+                <h:p/>
+              </Guidance>
+              <Tests>
+                <testlist>
+                  <test>The evaluator shall test the Host Agent's ability to correctly generate audit records by having the Host Agent generate audit records for each type of event listed in the ST.</test>
+                  <test>The evaluator shall ensure the audit records generated during testing match the format specified in the administrative guide, and that the fields in each audit record provide the required information.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory"/>
+        </f-component>
+        <!-- FAU_STO_EXT.1 Audit Data Storage -->
+        <f-component cc-id="fau_sto_ext.1" id="fau-sto-ext-1" name="Audit Data Storage">
+          <consistency-rationale>The Base-PP does not define an audit mechanism for its own functionality. This function does not interfere with the Base-PP.</consistency-rationale>
+          <comp-lev> requires either the TOE or its platform to store audit data using the platform's audit mechanism.</comp-lev>
+          <management>No specific management functions are identified.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>No dependencies.</dependencies>
+          <f-element id="fau_sto_ext-1-1">
+            <title>
+              The
+              <selectables>
+                <selectable id="fau_sto_ext.1.1_1">TSF</selectable>
+                <selectable id="fau_sto_ext.1.1_2">TOE Platform</selectable>
+              </selectables>
+              shall store audit events in the platform-provided logging mechanism.
+            </title>
+            <note role="application">
+              The term
+              <h:i>audit events</h:i>
+              here is understood to be only the set of events
+              defined in FAU_GEN.1/HA. If the job of this Host Agent is to generate
+              or collect events for an ESM server it is not expected 
+              that those events will be stored in the platform-provided logging mechanism.
+            </note>
+            <aactivity>
+              <TSS>The evaluator shall verify the TSS contains details of where all audit data is stored.<h:p/></TSS>
+              <Guidance>
+                The evaluator shall check the administrative guide and ensure
+              that the list of auditable events are stored in the platform-provided logging 
+              mechanism.
+                <h:p/>
+              </Guidance>
+              <Tests>The evaluator shall test the Host Agent's ability to correctly generate audit records by having the TOE generate audit records for the events listed in the ST. This should include all instance types of an event specified. When verifying the test results, the evaluator shall ensure the audit records generated during testing are stored in the platform-provided logging mechanism. <h:p/>On Linux based platforms this would be in var/logs. On Windows based platforms this would be the Windows Event Log. <h:p/>No specific locations are defined for other platforms.</Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory"/>
+        </f-component>
+      </section>
+      <!-- 5.2.2 User Data Protection (FDP) -->
+      <section title="User Data Protection (FDP)" id="fdp-mandatory">
+        <ext-comp-def title="Network Communications" fam-id="FDP_NET_EXT">
+          <fam-behavior>Components in this family define requirements for recording the occurrence of security relevant events.</fam-behavior>
+        </ext-comp-def>
+        <!-- FDP_NET_EXT.2 Network Communications -->
+        <f-component cc-id="fdp_net_ext.2" id="fdp-net-ext-2" name="Network Communications">
+          <consistency-rationale>The Base-PP does not define specific network communications for EDR - HA communications. 
+            This function does not interfere with the Base-PP.</consistency-rationale>
+          <comp-lev> requires either the TSF restrict network communications.</comp-lev>
+          <dependencies>No dependencies.</dependencies>
+          <f-element id="fil-age-net">
+            <title>
+              The TSF shall restrict network communications to:
+              <selectables linebreak="yes">
+                <selectable id="AGT_MGMT">An ESM server</selectable>
+                <selectable id="AGT_PEER">Another Host Agent</selectable>
+              </selectables>
+            </title>
+            <note role="application">
+              By selecting another Host Agent 
+            the additional FTP_DIT_EXT.2
+            requirements must be included in the ST for peer-to-peer communication.
+              <h:br/>
+              This restricts the selections in the Base-PP to a specific list of communications that may be user or application initiated.
+            </note>
+            <aactivity>
+              <TSS>The evaluator shall confirm the TSS lists network communication destinations and that it matches the selections made in the SFR.<h:p/></TSS>
+              <Guidance>The evaluator shall confirm that guidance is provided for any configuration needed to limit network communications.<h:p/></Guidance>
+              <Tests>The evaluator shall run the application. While the application is running, the evaluator shall sniff network traffic ignoring all non-application associated traffic and verify that any network communications witnessed are limited to the selection made in the SFR.</Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory"/>
+        </f-component>
+      </section>
+      <!-- 5.2.3 Host Agent (FHA) -->
+      <section title="Host Agent (FHA)" id="fha-mandatory">
+        <!-- FHA_HAD_EXT.1 Host Agent Declaration -->
+        <f-component cc-id="fha_had_ext.1" id="fha-had-ext-1" name="Host Agent Declaration">
+          <consistency-rationale>This SFR defines the type of software the Host Agent is intended to operate 
+              and communicate with. This relates to functionality not present in the Base-PP and does not affect the TOE's ability to satisfy the Base-PP's SFRs.</consistency-rationale>
+          <comp-lev>requires the TOE to be compatible with one or more types of ESM capabilities and to identify how
+              its network communications are restricted in support of that compatibility.</comp-lev>
+          <management>No specific management functions are identified.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>No dependencies.</dependencies>
+          <f-element id="fil-decl">
+            <title>
+              The TSF shall operate with the following ESM software:
+              <selectables linebreak="yes">
+                <selectable id="AGT_EDR">Endpoint Detection and Response (EDR)</selectable>
+                <selectable id="fha_had_ext.1.1_2">
+                  <assignable>Other NIAP-approved ESM servers</assignable>
+                </selectable>
+              </selectables>.
+            </title>
+            <note role="application">
+              Currently, the only NIAP-approved ESM server is EDR; PP-Modules for other ESM servers (Systems Management and Audit Server) will be added in the future. 
+                By including EDR, the additional FHA_CHA_EXT.1 and FHA_COL_EXT.1 requirements must be included in the ST.
+              <h:br/>
+            </note>
+            <aactivity>
+              <TSS>The evaluator shall verify the TSS lists all classes of products the Host Agent is designed to function with.<h:p/></TSS>
+              <Guidance>
+                The evaluator shall check the administrative guide and ensure
+                  that guidance exists for enrollment with all compatible ESM products identified in the ST.
+                <h:p/>
+              </Guidance>
+              <Tests>Conditional: If "EDR" is selected, the evaluator shall install the Host Agent and enroll it with the EDR management system. The evaluator shall verify that enrollment was successful and that the Host Agent is communicating with the EDR.</Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory"/>
+        </f-component>
+      </section>
+      <!-- 5.2.4 Security Management (FMT) -->
+      <section title="Security Management (FMT)" id="fmt-mandatory">
+        <ext-comp-def title="User Unenrollment Prevention" fam-id="FMT_UNR_EXT">
+          <fam-behavior>Components in this family define requirements for ensuring that an unprivileged user cannot remove the TOE from management by another ESM component.</fam-behavior>
+        </ext-comp-def>
+        <!-- FMT_SMF.1/HA Specification of Management Functions (Configuration of Host Agent) -->
+        <f-component cc-id="fmt_smf.1" id="fmt-smf-1-ha" name="Specification of Management Functions (Configuration of Host Agent)" iteration="HA">
+          <consistency-rationale>This SFR defines management functions for the SFRs defined in this PP-Module. It does not affect the management functions defined in the Base-PP.</consistency-rationale>
+          <f-element id="fmt_smf-1-1_HA">
+            <title>
+              The TSF shall be capable of performing the
+              following management functions:
+              <assignable>list of management functions to be provided by the TSF</assignable>.
+            </title>
+            <note role="application">
+              This requirement captures all the configuration functionality
+              the TSF provides the administrator to configure the Host Agent. The configuration of
+              these management functions can be achieved by either local configuration of the Host Agent or by 
+              remote configuration using the ESM server.
+              The frequency for sending data to an ESM can be specified as a time value, but does not have
+              to be. A value like Aggressive, Normal, Low Bandwidth is a measure of control of frequency and meets
+              the requirement.
+              Host Agent data refers to the data collected in the requirements in this PP-Module, such as FHA_COL_EXT.1.1.
+              <h:br/>
+              <h:br/>
+            </note>
+            <aactivity>
+              <TSS>The evaluator shall verify the TSS contains all frequencies for sending Host Agent data to an ESM and all labels that are permitted.<h:p/></TSS>
+              <Guidance>
+                The evaluator shall verify that every management function 
+              mandated by the PP-Module is described in the operational guidance and that the description 
+              contains the information required to perform the management duties associated with the 
+              management function.
+                <h:p/>
+              </Guidance>
+              <Tests>The evaluator shall test the ability to configure the Host Agent and test each function listed in the SFR. The evaluator is expected to test these functions in all the ways in which the ST and guidance documentation state the configuration can be managed.</Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory"/>
+        </f-component>
+        <!-- FMT_UNR_EXT.1 User Unenrollment Prevention -->
+        <f-component cc-id="fmt_unr_ext.1" id="fmt-unr-ext-1" name="User Unenrollment Prevention">
+          <consistency-rationale>This SFR defines protections to prevent users from tampering with the Host Agent. This relates to functionality not present in the Base-PP and does not affect the TOE's ability to satisfy the Base-PP's SFRs.</consistency-rationale>
+          <comp-lev> requires the TSF to prevent its unenrollment by an unauthorized user.</comp-lev>
+          <management>No specific management functions are identified.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>No dependencies.</dependencies>
+          <f-element id="fmt_unr_ext-1-1">
+            <title>
+              The
+              <selectables>
+                <selectable id="fmt_unr_ext.1.1_1">TSF</selectable>
+                <selectable id="fmt_unr_ext.1.1_2">TOE Platform</selectable>
+              </selectables>
+              shall enforce a mechanism to prevent unprivileged users of the platform from
+              unenrolling the Host Agent with the ESM system.
+            </title>
+            <note role="application">Unenrolling is the action of transitioning from the enrolled state to the
+              unenrolled state. Preventing unprivileged users from unenrolling the Host Agent
+              provides assurance that the enterprise can manage connected endpoints.</note>
+            <aactivity>
+              <TSS>
+                The evaluator shall ensure that the TSS describes the mechanism used to
+              prevent users from unenrolling the Host Agent.
+                <h:p/>
+              </TSS>
+              <Guidance>There are no guidance EAs for this component.<h:p/></Guidance>
+              <Tests>The evaluator shall attempt to unenroll the Host Agent from the ESM system as an unprivileged user and verify that the attempt fails.</Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="mandatory"/>
+        </f-component>
+      </section>
+    </man-sfrs>
+    <opt-sfrs/>
+    <sel-sfrs>
+      <section id="sec-sel-audit-table" title="Auditable Events for Selection-based SFRs">
+        <audit-table id="at-sel-based" table="sel-based"/>
+      </section>
+      <!-- 5.2.5 Host Agent (FHA) -->
+      <section title="Host Agent (FHA)" id="fha-selectionBased">
+        <ext-comp-def title="Cache Host Agent Collected Data" fam-id="FHA_CHA_EXT">
+          <fam-behavior>Components in this family define requirements for the location and duration of storage for its collected data.</fam-behavior>
+        </ext-comp-def>
+        <ext-comp-def title="Collected Audit" fam-id="FHA_COL_EXT">
+          <fam-behavior>Components in this family define requirements for the collection of data the TOE collects from its Operational Environment as audit data.</fam-behavior>
+        </ext-comp-def>
+        <!-- FHA_CHA_EXT.1 Cache Host Agent Collected Data -->
+        <f-component cc-id="fha_cha_ext.1" id="fha-cha-ext-1" name="Cache Host Agent Collected Data">
+          <depends on-sel="fil-decl"/>
+          <depends on-sel="AGT_EDR"/>
+          <consistency-rationale>This SFR defines how the Host Agent shall cache data locally. This relates to functionality not present in the Base-PP and does not affect the TOE's ability to satisfy the Base-PP's SFRs.</consistency-rationale>
+          <comp-lev> requires either the TOE or its platform to store audit data using the platform's logging mechanism.</comp-lev>
+          <management>No specific management functions are identified.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>
+            FHA_COL_EXT.1 Collected Audit
+            <h:br/>
+            FHA_HAD_EXT.1 Host Agent Declaration
+          </dependencies>
+          <f-element id="fha-cha-ext-1-1">
+            <title>
+              The TSF shall cache collected data up to
+              <assignable>size of cache storage capacity</assignable>
+              on
+              <selectables>
+                <selectable id="fha_cha_ext.1.1_2">persistent storage</selectable>
+                <selectable id="fha_cha_ext.1.1_3">non-persistent storage</selectable>
+              </selectables>
+              if the trusted channel is not available.
+            </title>
+            <note role="application">The term collected data here is understood to be any type of collected endpoint data by the Host Agent destined for an ESM server. The ST author specifies the size of the cache storage and whether it is implemented in persistent or non-persistent storage.</note>
+          </f-element>
+          <f-element id="fha-cha-ext-1-2">
+            <title>The TSF shall  <selectables><selectable id="fha_cha_ext.1.2_1">overwrite previous data according to the following rule: <assignable>rule for overwriting previously cached data</assignable></selectable><selectable id="fha_cha_ext.1.2_4"><assignable>other actions</assignable></selectable></selectables>  when the local cache is full.</title>
+            <note role="application">This requirement addresses how the Host Agent handles collected data while the trusted path is not available and the local cache is full.</note>
+            <aactivity>
+              <TSS>
+                The evaluator shall verify the TSS details how data is cached, any rules that would affect data caching, 
+                and how cached data will be affected if storage limits are reached.
+                <h:p/>
+              </TSS>
+              <Guidance>The evaluator shall verify that any configuration options related to data caching are listed in the guidance.<h:p/></Guidance>
+              <Tests>The evaluator shall test the Host Agent's ability to cache data by disconnecting the endpoint from the network to simulate a network connectivity failure, these should be actual hours not via changing system time. The evaluator shall exercise behaviors on the endpoint during the outage to generate Host Agent data. Example behaviors could be running programs, performing some authentications, installing/uninstalling software, or sample test cases provided by the vendor to generate Host Agent data. The evaluator will then reconnect the endpoint to the network and verify on the ESM system that the missing data from the outage is available on the ESM management portal.</Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="sel-based"/>
+        </f-component>
+        <!-- FHA_COL_EXT.1 Collected Audit -->
+        <f-component cc-id="fha_col_ext.1" id="fha-col-ext-1" name="Collected Audit">
+          <depends on-sel="fil-decl"/>
+          <depends on-sel="AGT_EDR"/>
+          <consistency-rationale>This SFR defines the type of software the Host Agent is intended to operate with. This relates to functionality not present in the Base-PP and does not affect the TOE's ability to satisfy the Base-PP's SFRs.</consistency-rationale>
+          <comp-lev> requires the TOE to collect a specified set of data from its Operational Environment.</comp-lev>
+          <management>No specific management functions are identified.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FHA_HAD_EXT.1 Host Agent Declaration</dependencies>
+          <f-element id="fha_col_ext-1-1">
+            <title>
+              The TSF shall collect the following minimum set of
+              endpoint event data:
+              <h:ol type="a">
+                <h:li>Operating System (OS) version, architecture, and IP Address,</h:li>
+                <h:li>Privileged and unprivileged endpoint account login activity,</h:li>
+                <h:li>Process creation,</h:li>
+                <h:li>Libraries and modules loaded by processes,</h:li>
+                <h:li>Network connection activity, including destination IP,</h:li>
+                <h:li>Files created on persistent storage,</h:li>
+                <h:li><assignable>other host data</assignable>.</h:li>
+              </h:ol>
+            </title>
+            <note role="application">
+              The intent of this requirement is to specify the minimum
+              set of endpoint data that the Host Agent for an ESM EDR system must be capable of 
+              collecting. This requirement only applies to Host Agents used with the
+              <xref to="bibEDRPP"/>
+              PP-Module per
+              the selection from FHA_HAD_EXT.1. The assignment may be empty, a single item, or multiple items.
+            </note>
+            <aactivity>
+              <TSS>The evaluator shall verify the TSS contains a full list of endpoint data that can be collected.<h:p/></TSS>
+              <Guidance>
+                The evaluator shall check the administrative guide and ensure
+                that it lists all of the collectable types of endpoint event data.  
+                The evaluator shall check to make sure that every endpoint event 
+                type listed in the ST is included in the administrative guidance.
+                <h:p/>
+              </Guidance>
+              <Tests>The evaluator shall run the systems causing multiple events to occur and then review the items collected by the Host Agent to verify that all items in the minimum set are included.</Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="sel-based"/>
+        </f-component>
+      </section>
+      <!-- 5.2.6 Trusted Path/Channels (FTP) -->
+      <section title="Trusted Path/Channels (FTP)" id="ftp-selectionBased">
+        <ext-comp-def title="Protection of Data in Transit" fam-id="FTP_DIT_EXT">
+          <fam-behavior>This family is defined in the. This PP-Module adds a component to the existing family definition.</fam-behavior>
+        </ext-comp-def>
+        <!-- FTP_DIT_EXT.2 Protection of Data in Transit for Peer-to-Peer Host Agents -->
+        <f-component cc-id="ftp_dit_ext.2" id="ftp-dit-ext-2" name="Protection of Data in Transit for Peer-to-Peer Host Agents">
+          <depends on-sel="fil-age-net"/>
+          <depends on-sel="AGT_PEER"/>
+          <consistency-rationale>This SFR defines the communication channel for Host Agents communicating with other Host Agents. This relates to functionality not present in the Base-PP and does not affect the TOE's ability to satisfy the Base-PP's SFRs.</consistency-rationale>
+          <comp-lev> requires the TSF to secure data in transit between itself and another ESM Host Agent using a TSF-provided or platform-provided trusted channel.</comp-lev>
+          <management>No specific management functions are identified.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>
+            FDN_NET_EXT.2 Network Communications
+            <h:br/>
+            <h:br/>
+            FTP_DIT_EXT.1 Protection of Data in Transit
+          </dependencies>
+          <f-element id="ftp_dit_ext-2-1">
+            <title>
+              The TSF shall
+              <selectables>
+                <selectable id="ftp_dit_ext.2.1_1">encrypt</selectable>
+                <selectable id="ftp_dit_ext.2.1_2">invoke platform-provided functionality to encrypt</selectable>
+              </selectables>
+              all transmitted data according to FTP_DIT_EXT.1 between itself and another Host Agent.
+            </title>
+            <note role="application">This requirement is designed to protect the communications with other Host Agents 
+            in a peer-to-peer scenario where Host Agents are sending and receiving data from each other. The selection of whether the TSF of the TOE platform encrypts 
+            these communications should be consistent with any selections made in FTP_DIT_EXT.1</note>
+            <aactivity>
+              <TSS>
+                The evaluator shall verify that the TSS contains a description of all data transmitted to other Host Agents and 
+              that all such data is protected according to FPT_DIT_EXT.1.
+                <h:p/>
+              </TSS>
+              <Guidance>
+                The evaluator shall ensure the guidance contains any configuration details required for ensuring data transmitted
+            to other Host Agents is protected according to FPT_DIT_EXT.1.
+                <h:p/>
+              </Guidance>
+              <Tests>The tests in FTP_DIT_EXT.1.1 shall be repeated for data transmitted between two Host Agents.</Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="sel-based"/>
+        </f-component>
+      </section>
+    </sel-sfrs>
+    <obj-sfrs>
+      <section id="sec-obj-audit-table" title="Auditable Events for Objective SFRs">
+        <audit-table id="at-objective" table="objective"/>
+      </section>
+      <!-- 5.2.7 Security Management (FMT) -->
+      <section title="Security Management (FMT)" id="fmt-objective">
+        <ext-comp-def title="Trusted Policy Update" fam-id="FMT_POL_EXT">
+          <fam-behavior>Components in this family define requirements for the TOE's verification of policies or commands transmitted to it.</fam-behavior>
+        </ext-comp-def>
+        <!-- FMT_POL_EXT.1 Trusted Policy Update -->
+        <f-component cc-id="fmt_pol_ext.1" id="fmt-pol-ext-1" name="Trusted Policy Update">
+          <depends>
+            <objective/>
+          </depends>
+          <consistency-rationale>This SFR defines protections for the integrity of commands sent to the Host Agent. This relates to functionality not present in the Base-PP and does not affect the TOE's ability to satisfy the Base-PP's SFRs.</consistency-rationale>
+          <comp-lev> requires the TSF to reject any unsigned management policies or commands sent to it.</comp-lev>
+          <management>No specific management functions are identified.</management>
+          <audit>There are no auditable events foreseen.</audit>
+          <dependencies>FCS_COP.1 Cryptographic Operation</dependencies>
+          <f-element id="fmt_pol_ext-1-1">
+            <title>
+              The
+              <selectables>
+                <selectable id="fmt_pol_ext.1.1_1">TSF</selectable>
+                <selectable id="fmt_pol_ext.1.1_2">TOE Platform</selectable>
+              </selectables>
+              shall only accept policies or commands that are digitally signed using
+              <selectables>
+                <selectable id="fmt_pol_ext.1.1_3">RSA</selectable>
+                <selectable id="fmt_pol_ext.1.1_4">ECDSA</selectable>
+              </selectables>
+              signatures that meet FIPS PUB 186-5.
+            </title>
+            <note role="application">The intent of this requirement is to cryptographically tie any policy updates or
+            commands sent to the Host Agent as being from the ESM server. This is not to 
+            protect the policies in transit as they are already protected by FTP_ITC.1 in the
+            PP-Module for EDR, FTP_DIT_EXT.2.1, or both. If the TSF implements this function,
+            any signature algorithms used should be consistent with any selections made in 
+            FCS_COP.1/SigGen and FCS_COP.1/SigVer in the Protection Profile for Application Software, Version 2.0.</note>
+            <aactivity>
+              <TSS>
+                The evaluator shall ensure that the TSS describes how the candidate 
+            policies or commands are sent to the Host Agent; the
+            processing associated with verifying the digital signature of the policies or
+            commands; and the actions that take place for successful (signature was
+            verified) and unsuccessful (signature could not be verified) cases. The
+            software components that are performing the processing must also be
+            identified in the TSS and verified by the evaluators (this could be the Host Agent
+            or the underlying platform).
+                <h:p/>
+              </TSS>
+              <Guidance>There are no guidance EAs for this component.<h:p/></Guidance>
+              <Tests>
+                <testlist>
+                  <test>
+                    <h:p>The evaluator shall perform or wait for a policy update or commands 
+                  from an ESM server to be sent to a Host Agent. The evaluator shall verify the
+                  policy or command is signed and is provided to the Host Agent. The evaluator shall
+                  verify the Host Agent accepts the digitally signed policy.</h:p>
+                    <h:p>The execution of this test may require some configuration or a test version of either
+                  the Host Agent of the ESM system in order to view the incoming policy or command
+                  and verify that the content is digitally signed.</h:p>
+                  </test>
+                  <test>The evaluator shall alter a policy update or command and verify the Host Agent rejects the altered policy.</test>
+                </testlist>
+              </Tests>
+            </aactivity>
+          </f-element>
+          <audit-event table="objective"/>
+        </f-component>
+      </section>
+    </obj-sfrs>
+    <impl-dep-sfrs/>
+  </sec:Security_Requirements>
+  <appendix title="Implicitly Satisfied Requirements" id="satisfiedreqs">
+    <h:table>
+      <h:tr class="header">
+        <h:td>Requirement</h:td>
+        <h:td>Rationale for Satisfaction</h:td>
+      </h:tr>
+      <h:tr>
+        <h:td>FPT_STM.1 - Reliable Time Stamps</h:td>
+        <h:td>CC Part 2 specifies FPT_STM.1 as a dependency of FAU_GEN.1 because the audit records require a reliable timestamp to satisfy FAU_GEN.1.2. 
+          This dependency is implicitly addressed through the A.PLATFORM assumption of the Base-PP because a "trustworthy computing platform" is assumed to include a reliable system clock.</h:td>
+      </h:tr>
+    </h:table>
+  </appendix>
+  <bibliography>
+    <entry id="bibAppPP">
+      <tag>AppPP</tag>
+      <description>
+        <h:a href="https://www.niap-ccevs.org/protectionprofiles/516">Protection Profile for Application Software, Version 2.0, June 16, 2025</h:a>
+      </description>
+    </entry>
+    <entry id="bibEDRPP">
+      <tag>EDR</tag>
+      <description>
+        <h:a href="https://www.niap-ccevs.org/pp/"> PP-Module for Endpoint Detection and Response</h:a>, Version 2.0, January 13, 2026
+      </description>
+    </entry>
+  </bibliography>
+</Module>
