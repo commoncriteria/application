@@ -98,6 +98,8 @@
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/section[5]"Testing i"/a-component[1]"Testing i"/a-element[4]""/aactivity[1]""/h:p[1]"The evalu"/h:p[3]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/section[6]"For the c"/a-component[1]""/a-element[5]""/aactivity[1]""/h:p[1]"The evalu"/h:p[1]""
 * Warning: Detected an empty _p_ element./PP[1]""/sec:req[1]""/section[1]""/section[6]"For the c"/a-component[1]""/a-element[5]""/aactivity[1]""/h:p[1]"The evalu"/h:p[2]""
+Unable to make an xref for |include-pkg| /PP[1]""/include-pkg[1]""
+Unable to make an xref for |include-pkg| /PP[1]""/include-pkg[1]""
  Failed to find a reference to bibCEM.
  Failed to find a reference to bibCEM.
  Failed to find a reference to bibCEM.
