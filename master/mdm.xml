@@ -63,63 +63,7 @@
     </entry>
   </RevisionHistory>
   
-  <release-notes><h:h3>TDs Applied</h:h3></release-notes><include-pkg id="ssh">
-    <git>
-      <url>https://github.com/commoncriteria/ssh</url>
-      <branch>release-2.0</branch>
-    </git>
-    <url>https://commoncriteria.github.io/ssh/release-2.0/ssh-release.html</url>
-
-  </include-pkg>
-  
-  <include-pkg id="tls">
-    <git>
-      <url>https://github.com/commoncriteria/tls</url>
-      <branch>release-2.1</branch>
-    </git>
-    <url>https://commoncriteria.github.io/tls/release-2.1/tls-release.html</url>
-
-  </include-pkg>  
-
-  <include-pkg id="X509">
-    <git>
-      <url>https://github.com/commoncriteria/X509</url>
-      <branch>release-1.0</branch>
-    </git>
-    <url>https://www.niap-ccevs.org/protectionprofiles/511</url>
-  </include-pkg>
-  
-  <modules>
-  <module id="mod-vpnclient">
-    <git>
-      <url>https://github.com/commoncriteria/vpnclient</url>
-      <branch>master</branch>
-    </git>
-    <url>https://www.niap-ccevs.org/protectionprofiles/487</url>
-  </module>
-  <module id="mod-bluetooth">
-    <git>
-      <url>https://github.com/commoncriteria/bluetooth</url>
-      <branch>master</branch>
-    </git>
-    <url>https://www.niap-ccevs.org/protectionprofiles/425</url>
-  </module>
-    <module id="mod-mdmagent">
-      <git>
-        <url>https://github.com/commoncriteria/mdmagent</url>
-        <branch>master</branch>
-      </git>
-      <url>https://www.niap-ccevs.org/protectionprofiles/441</url>
-    </module>
-    <module id="mod-wlanclient">
-      <git>
-        <url>https://github.com/commoncriteria/wlanclient</url>
-        <branch>master</branch>
-      </git>
-      <url>https://www.niap-ccevs.org/protectionprofiles/463</url>
-    </module>
-  </modules>
-      <pp-preferences>
+      <release-notes><h:h3>TDs Applied</h:h3></release-notes><pp-preferences>
         <audit-events-in-sfrs/>
     </pp-preferences>
 
@@ -218,7 +162,7 @@
 				The <h:b>MDM server</h:b> is software (an application, service, etc.) on a general-purpose platform, a network device, or cloud architecture executing in a trusted network environment. The MDM server provides administration of MD policies and reporting on the device behavior. The MDM server is responsible for managing device enrollment, configuring and sending policies to the MDM agents, collecting reports on device status, and sending commands to the agents. The MDM server may be standalone or distributed, where a distributed TOE is one that requires multiple distinct components to operate as a logical whole in order to fulfill the requirements of this PP (a more extensive description of distributed MDMs is given in section 3).
         </h:p>
         <h:p> 
-				The <h:b>MDM agent</h:b> establishes a secure connection back to the MDM server controlled by an enterprise administrator and configures the MD per the administrator's policies. The MDM agent is addressed in the <xref to="mod-mdmagent"/>. If the MDM agent is installed on a MD as an application developed by the MDM developer, the PP-Module extends this PP and is included in the TOE. In this case the TOE security functionality specified in this PP must be addressed by the MDM agent in addition to the MDM Server, additionally the TOE can be considered distributed. Otherwise, the MDM agent is provided by the MD vendor and is out of scope of this PP; however, MDMs are required to indicate the device platforms supported by the MDM server and must be tested against the native MDM agent of those platforms.
+				The <h:b>MDM agent</h:b> establishes a secure connection back to the MDM server controlled by an enterprise administrator and configures the MD per the administrator's policies. The MDM agent is addressed in the <xref to="mdm-agent"/>. If the MDM agent is installed on a MD as an application developed by the MDM developer, the PP-Module extends this PP and is included in the TOE. In this case the TOE security functionality specified in this PP must be addressed by the MDM agent in addition to the MDM Server, additionally the TOE can be considered distributed. Otherwise, the MDM agent is provided by the MD vendor and is out of scope of this PP; however, MDMs are required to indicate the device platforms supported by the MDM server and must be tested against the native MDM agent of those platforms.
         </h:p>
         <h:p>
 				The <h:b>Mobile Application Store (MAS)</h:b> hosts applications for the enterprise, authenticates agents, and securely transmits applications to enrolled MDs. The MAS functionality can be included as part of the MDM server Software or can be logically
@@ -582,18 +526,71 @@
 	    <cc-pt3-conf>conformant</cc-pt3-conf>
 	    <cc-pp-conf/>
 	    <cc-pp-config-with>
-	    <!--  <PP-cc-ref>Protection Profile for Mobile Device Fundamentals, Version 4.0</PP-cc-ref> -->
-	      <PP-cc-ref>Protection Profile for Application Software, Version 2.0</PP-cc-ref>
-	      <Mod-cc-ref>PP-Module for MDM Agent, Version 2.0</Mod-cc-ref>
-	      <Mod-cc-ref>PP-Module for VPN Client, Version 3.0</Mod-cc-ref>
+			<PP-cc-ref>
+				<!-- Protection Profile for Application Software Version 2.0 --> 
+				<cc-doc-ref id="application">
+					<git>
+						<url>https://github.com/commoncriteria/application</url>
+						<branch>release-2.0</branch>
+					</git>
+					<url>https://www.niap-ccevs.org/protectionprofiles/516</url>
+				</cc-doc-ref>
+			</PP-cc-ref>
+			<Mod-cc-ref>
+				<!-- PP-Module for Mobile Device Management Agent, version 2.0 -->
+				<cc-doc-ref id="mdm-agent">
+					<git>
+						<url>https://github.com/commoncriteria/mdm-agent</url>
+						<branch>master</branch>
+					</git>
+					<url>https://www.niap-ccevs.org/protectionprofiles/441</url>
+				</cc-doc-ref>
+			</Mod-cc-ref>
+			<Mod-cc-ref>
+				<!-- PP-Module for VPN Client, Version 3.0 -->
+				<cc-doc-ref id="vpnclient">
+					<git>
+						<url>https://github.com/commoncriteria/vpnclient</url>
+						<branch>release-3.0</branch>
+					</git>
+					<url>https://www.niap-ccevs.org/protectionprofiles/522</url>
+				</cc-doc-ref>		
+			</Mod-cc-ref>
 	    </cc-pp-config-with>
 	    <cc-pkg-claim>
-          <FP-cc-ref conf="conformant">Functional Package for Secure Shell Version 2.0</FP-cc-ref>
-          <FP-cc-ref conf="conformant">Functional Package for Transport Layer Security Version 2.1</FP-cc-ref>
-          <FP-cc-ref conf="conformant">Functional Package for X.509 Version 1.0</FP-cc-ref>
+			<FP-cc-ref conf="conformant">
+				<cc-doc-ref id="ssh">
+					<git>
+						<url>https://github.com/commoncriteria/ssh</url>
+						<branch>release-2.0</branch>
+					</git>
+					<url>https://www.niap-ccevs.org/protectionprofiles/515</url>
+					<depends on="s-ftp_ssh" also="s-uau-ssh"/>
+				</cc-doc-ref>
+			</FP-cc-ref>
+			<FP-cc-ref conf="conformant">
+				<cc-doc-ref id="tls">
+					<git>
+						<url>https://github.com/commoncriteria/tls</url>
+						<branch>release-2.1</branch>
+					</git>
+					<url>https://www.niap-ccevs.org/protectionprofiles/465</url>
+					<depends on="fcs-eap-ext-1"/>
+				</cc-doc-ref>
+			</FP-cc-ref>
+			<FP-cc-ref conf="conformant">
+				<cc-doc-ref id="X509">
+					<git>
+						<url>https://github.com/commoncriteria/X509</url>
+						<branch>release-1.0</branch>
+					</git>
+					<url>https://www.niap-ccevs.org/protectionprofiles/511</url>
+				</cc-doc-ref>
+			</FP-cc-ref>
 		</cc-pkg-claim>
 	  </CClaimsInfo>	  
 	</section>
+	
 
 	<!-- Introduction to Distributed TOEs -->
 	<section title="Introduction to Distributed TOEs" id="idt">
@@ -1363,7 +1360,7 @@
 
 			The evaluation activities for testing that include use of an MDM agent will ensure that the server interacts appropriately with the agent (i.e., sends a
 			policy update to the agent), but will not ensure that the MDM agent handles the received data correctly (i.e., appropriately applies the policy to the 
-			device), as that is accounted for in the Evaluation Activities in PP_MDF, PP_GPOS, or <xref to="mod-mdmagent"/>.<h:br/><h:br/> 
+			device), as that is accounted for in the Evaluation Activities in PP_MDF, PP_GPOS, or <xref to="mdm-agent"/>.<h:br/><h:br/> 
 	  
   	  In addition to the above guidance, if the TOE server acts as a primary MDM server and interfaces with one or more subordinate MDM servers, then the ST 
   	  is required to list all of the supported subordinate MDM servers. All evaluation activity testing that includes the use of a subordinate MDM server should
@@ -1752,7 +1749,7 @@
           <f-element id="fau-net-ext-1e1">
             <title>The TSF shall provide authorized administrators with the capability to read the network connectivity status of an enrolled agent.</title>
             <note role="application"> The MDM server establishes the network connectivity status of enrolled agents using periodic reachability event alerts
-		    from the agents according to FAU_ALT_EXT.2.1 in the <xref to="mod-mdmagent"/>. This status may be determined by sending an update request from
+		    from the agents according to FAU_ALT_EXT.2.1 in the <xref to="mdm-agent"/>. This status may be determined by sending an update request from
 		    the MDM server which the agent is required to respond to or by using scheduled periodic notifications of connectivity initiated by the 
 		    MDM agent.<h:br/><h:br/>
 		    If the TOE server acts as a subordinate MDM server then there should be some mechanism for the primary MDM server to initialize and read results of the network 
@@ -6463,7 +6460,7 @@
               Function <xref to="smf16"/> provides the MDM server to display an alert to the user of the MD.<h:br/><h:br/> 
               The audit data read according to Function <xref to="smf19"/> are to be transmitted to an external audit server according to FAU_STG.1. The MDM server is not expected to retain those logs.<h:br/><h:br/> 
               Function <xref to="smf34"/> provides the ability to enable and disable policy for the list of protocols where the device acts as a server, such as a mobile hotspot.<h:br/><h:br/>  
-              Function <xref to="smf56"/> corresponds to FPT_NET_EXT.1.1 in agent. If the MDM agent has not had a successful reachability event with the MDM server in the amount of time specified in the first selection, then the agent must perform the action selected in the second selection. It is feasible, but not required, that if multiple actions are specified in the second selection, each action could be associated with a different condition in the first selection. If function <xref to="smf56"/> is included in the ST, then FPT_NET_EXT.1.1 in <xref to="mod-mdmagent"/> must be claimed for any MDM agent that the TOE manages.
+              Function <xref to="smf56"/> corresponds to FPT_NET_EXT.1.1 in agent. If the MDM agent has not had a successful reachability event with the MDM server in the amount of time specified in the first selection, then the agent must perform the action selected in the second selection. It is feasible, but not required, that if multiple actions are specified in the second selection, each action could be associated with a different condition in the first selection. If function <xref to="smf56"/> is included in the ST, then FPT_NET_EXT.1.1 in <xref to="mdm-agent"/> must be claimed for any MDM agent that the TOE manages.
               </note>
             <aactivity>
               <TSS>The evaluator shall examine the TSS to ensure that it describes each management function claimed. The evaluator shall examine the TSS to
@@ -6757,7 +6754,7 @@
                 <selectable id="ITT1_SSH_INVOKE">SSH</selectable>
               </selectables></h:b></selectable>
               <selectable><h:b>implement functionality using <selectables linebreak="yes">
-                <selectable id="ITT1_IPSEC_IMPLEMENT">IPsec as defined in <xref to="mod-vpnclient"/>,</selectable>
+                <selectable id="ITT1_IPSEC_IMPLEMENT">IPsec as defined in <xref to="vpnclient"/>,</selectable>
                 <selectable id="ITT1_TLS_IMPLEMENT">mutually authenticated TLS as defined in <xref to="tls"/>,</selectable>
                 <selectable id="ITT1_DTLS_IMPLEMENT">mutually authenticated DTLS as defined in <xref to="tls"/>,</selectable>
                 <selectable id="ITT1_HTTPS_IMPLEMENT">HTTPS in accordance with FCS_HTTPS_EXT.1,</selectable>
@@ -6766,7 +6763,7 @@
               separate parts of the TOE.</title>
             <note role="application">This requirement ensures that all communications between MDM server components of a distributed TOE are protected through the use of an encrypted communications channel. If the TOE boundary includes MDM agents, that is covered by FPT_ITT.1/INTRA_XFER_AGENT.<h:br/><h:br/> 
               The trusted channel uses secure protocols that preserve the confidentiality and integrity of MDM communications. For this particular use, any of IPsec, TLS, DTLS, HTTPS, or SSH can be used. If TLS or DTLS is used, mutual authentication must be supported regardless of whether the TOE acts as the client or the server in this connection. Where X.509 validation is needed (e.g., if the TOE acts as a TLS server that supports mutual authentication), <xref to="X509"/> must be claimed. To distinguish X.509 validation for internal communications from validation for external communications (e.g., communication between TOE components versus communication to a remote IT entity in the operational environment), FIA_X509_EXT.1 from <xref to="X509"/> must be iterated for this use as "FIA_X509_EXT.1/Internal" per the guidance in <xref to="package-usage"/>. This channel may also be used as the registration channel for the registration process, as described in section 3.1 and <xref to="fel-cpc-func"/>.<h:br/><h:br/>              
-              If the ST author selects that the TSF implements "IPsec as defined in <xref to="mod-vpnclient"/>," the TSF must claim conformance to a PP-Configuration that includes the VPN Client PP-Module.<h:br/><h:br/>
+              If the ST author selects that the TSF implements "IPsec as defined in <xref to="vpnclient"/>," the TSF must claim conformance to a PP-Configuration that includes the VPN Client PP-Module.<h:br/><h:br/>
               If the ST author selects that the TSF implements "SSH as defined in <xref to="ssh"/>," the TSF must be validated against <xref to="ssh"/>.<h:br/><h:br/>
               If the ST author selects that the TSF implements "mutually authenticated TLS as defined in <xref to="tls"/>" or "mutually authenticated DTLS as defined in <xref to="tls"/>," the TSF must be validated against requirements from <xref to="tls"/>, with the following selections made:
               <h:ul>
@@ -7213,7 +7210,7 @@
                 <selectable id="ITC1_HTTPS_INVOKE">HTTPS</selectable>
               </selectables></h:b></selectable>
               <selectable><h:b>implement functionality using <selectables linebreak="yes">
-                <selectable id="ITC1_IPSEC_IMPLEMENT">IPsec as defined in <xref to="mod-vpnclient"/>,</selectable>
+                <selectable id="ITC1_IPSEC_IMPLEMENT">IPsec as defined in <xref to="vpnclient"/>,</selectable>
                 <selectable id="ITC1_SSH_IMPLEMENT">SSH as defined in <xref to="ssh"/>,</selectable>
                 <selectable id="ITC1_TLS_IMPLEMENT">mutually authenticated TLS as defined in <xref to="tls"/>,</selectable>
                 <selectable id="ITC1_DTLS_IMPLEMENT">mutually authenticated DTLS as defined in <xref to="tls"/>,</selectable>
@@ -7244,7 +7241,7 @@
               that are used to protect those connections).
               </h:p>
               <h:p>       
-              If the ST author selects that the TSF implements "IPsec as defined in <xref to="mod-vpnclient"/>," the TSF must claim conformance to a PP-Configuration that includes the VPN Client PP-Module.
+              If the ST author selects that the TSF implements "IPsec as defined in <xref to="vpnclient"/>," the TSF must claim conformance to a PP-Configuration that includes the VPN Client PP-Module.
               </h:p>
               <h:p>
               If the ST author selects that the TSF implements "SSH as defined in <xref to="ssh"/>," the TSF must be validated against <xref to="ssh"/>.
@@ -7646,7 +7643,7 @@ When creating the distributed TOE from the initial components, any of these comp
                 <selectable id="TRP1_SSH_INVOKE">SSH</selectable>
               </selectables></h:b></selectable>
               <selectable><h:b>implement functionality using <selectables linebreak="yes">
-                <selectable id="TRP1_IPSEC_IMPLEMENT">IPsec as defined in <xref to="mod-vpnclient"/>,</selectable>
+                <selectable id="TRP1_IPSEC_IMPLEMENT">IPsec as defined in <xref to="vpnclient"/>,</selectable>
                 <selectable id="TRP1_TLS_IMPLEMENT">TLS as defined in <xref to="tls"/>,</selectable>
                 <selectable id="TRP1_HTTPS_IMPLEMENT">HTTPS in accordance with FCS_HTTPS_EXT.1,</selectable>
                 <selectable id="TRP1_SSH_IMPLEMENT">SSH as defined in <xref to="ssh"/></selectable>
@@ -7669,7 +7666,7 @@ When creating the distributed TOE from the initial components, any of these comp
             <title>The TSF shall require the use of the trusted path for [<h:i>initial <h:b>administrator</h:b> authentication, [remote administration]</h:i>].</title>
             <note role="application">For this particular use, only IPsec, TLS, DTLS, or HTTPS is permitted. Where X.509 validation is needed (e.g., if the TOE acts as a TLS server supporting mutual authentication), <xref to="X509"/> must be claimed. To distinguish X.509 validation for external communications from validation for internal communications (e.g., communication with a remote administrator versus communication between TOE components), FIA_X509_EXT.1 from <xref to="X509"/> must be included in the ST and iterated as "FIA_X509_EXT.1/External" per the guidance in <xref to="package-usage"/>.
               <h:br/><h:br/>
-              If the ST author selects that the TSF implements "IPsec as defined in <xref to="mod-vpnclient"/>," the TSF must claim conformance to a PP-Configuration that includes the VPN Client PP-Module.<h:br/><h:br/>
+              If the ST author selects that the TSF implements "IPsec as defined in <xref to="vpnclient"/>," the TSF must claim conformance to a PP-Configuration that includes the VPN Client PP-Module.<h:br/><h:br/>
               If the ST author selects that the TSF implements "SSH as defined in <xref to="ssh"/>," the TSF must be validated against <xref to="ssh"/>.<h:br/><h:br/>
               If the ST author selects that the TSF implements "mutually authenticated TLS as defined in <xref to="tls"/>," the TSF must be validated against requirements from <xref to="tls"/>, with the following selections made:
               <h:ul>
