@@ -128,6 +128,8 @@
 * Warning: Detected an empty _p_ element./PP[1]""/appendix[2]""/section[6]""/h:p[1]"In order "/h:p[6]""
 * Warning: Detected an empty _p_ element./PP[1]""/appendix[2]""/section[6]""/h:p[1]"In order "/h:p[7]""
 * Warning: Detected an empty _p_ element./PP[1]""/appendix[2]""/section[6]""/h:p[1]"In order "/h:p[8]""
+Unable to make an xref for |include-pkg| /PP[1]""/include-pkg[1]""
+Unable to make an xref for |include-pkg| /PP[1]""/include-pkg[1]""
  Failed to find a reference to req.
  Failed to find a reference to req.
  Failed to find a reference to req.
